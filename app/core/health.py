@@ -21,7 +21,7 @@ async def check_required_secrets() -> dict[str, Any]:
     """Verify that critical production secrets are present."""
     try:
         required = [
-            ("JWT_SECRET_KEY", settings.JWT_SECRET_KEY),
+            ("JWT_SECRET", settings.JWT_SECRET),
             ("DATABASE_URL", settings.DATABASE_URL),
             ("REDIS_URL", settings.REDIS_URL),
         ]
