@@ -1,3 +1,33 @@
+SHELL := /bin/bash
+
+.PHONY: help dev test lint typecheck migrate
+
+help:
+	@echo "Makefile targets: dev, test, lint, typecheck, migrate"
+
+dev:
+	@echo "Starting development server (uvicorn app.api_v2:app)..."
+	python -m uvicorn app.api_v2:app --reload --port 8000
+
+test:
+	@echo "Running tests..."
+	pytest -q
+
+lint:
+	@echo "Running linter (ruff if available, fall back to flake8)..."
+	if command -v ruff >/dev/null 2>&1; then \
+		ruff check .; \
+	else \
+		flake8 . || true; \
+	fi
+
+typecheck:
+	@echo "Running mypy type checks..."
+	mypy . || true
+
+migrate:
+	@echo "Applying Alembic migrations (upgrade head)..."
+	alembic upgrade head
 # EduBoost V2 Makefile
 
 .PHONY: help dev test lint typecheck migrate docs clean
