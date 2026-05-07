@@ -1,2 +1,0 @@
-# Compatibility alias. Canonical development dependencies live in requirements/dev.txt.
--r requirements/dev.txt
