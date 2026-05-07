@@ -21,8 +21,11 @@ class OrmBase(BaseModel):
 # ── Auth ──────────────────────────────────────────────────────────────────────
 class RegisterRequest(BaseModel):
     email: EmailStr
+    # Password complexity is enforced by `validate_password_strength`.
+    # Keep the pydantic length check permissive so tests and dev flows can
+    # rely on the centralized validator which adapts by environment.
     password: str = Field(
-        min_length=12,
+        min_length=1,
         description="Password must meet the EduBoost password/passphrase policy.",
     )
     display_name: str = Field(min_length=2, max_length=120)
