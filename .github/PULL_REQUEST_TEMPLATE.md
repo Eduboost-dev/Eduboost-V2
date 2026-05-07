@@ -1,3 +1,20 @@
+<!-- Please describe the goal of this PR and the implementation approach. -->
+
+## Summary
+
+- What: (one-line summary)
+- Why: (motivation)
+
+## Checklist
+- [ ] CI: lint, typecheck, unit tests, integration tests passed
+- [ ] Migration: includes DB migration if schema changes
+- [ ] POPIA: assessed privacy impact (if applicable)
+- [ ] Security: dependency scan and secret exposure checks
+- [ ] Docs: relevant docs updated (`docs/`)
+- [ ] Reviewer(s): @NkgoloL
+
+## Release notes
+- Add release notes if this impacts the public API or behavior.
 ## Description
 Please include a summary of the changes and the related issue.
 

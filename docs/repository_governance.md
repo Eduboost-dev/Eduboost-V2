@@ -1,5 +1,36 @@
 # Repository Governance
 
+Purpose: Document canonical repository, branch policy, release authority, and secret rotation responsibilities for EduBoost-V2.
+
+1. Canonical repository
+- Owner: NkgoloL/Eduboost-V2 (canonical upstream owner: `NkgoloL`).
+- Mirrors: None configured by default. Add mirrors and sync policy if needed.
+
+2. Branch policy
+- Canonical protected branches: `main` (protected).
+- PR requirements: CI green, 1+ approver, no force-push, require passing checks (lint, tests, typecheck), signed commits optional.
+
+3. Release authority
+- Who can tag releases: `NkgoloL` (individual or appointed release manager).
+- Release checklist location: `docs/release_checklist.md` (create if missing and require a checklist artifact for tagged releases).
+
+4. Secret management
+- Production secrets owner: `NkgoloL` until a team/rotation policy is defined.
+- Rotation schedule and emergency revoke procedure: Document rotation cadence and emergency revoke steps in a separate `docs/secrets.md`.
+
+5. Security patching
+- Responsibility for dependency updates, CVE triage, and critical patching: `NkgoloL` and any designated maintainers.
+- Enable Dependabot or Renovate for Python, npm, Docker, and GitHub Actions unless org policy overrides.
+
+6. Archive and deprecation policy
+- How and when repositories are archived: Follow org policy; tag releases and move retired code to an `archive/` folder with a NOTICE.
+
+7. Next steps
+- Fill in organizational contacts and consider adding CODEOWNERS, issue templates, and PR templates (some have been added to `.github/`).
+
+Keep this file updated in `docs/` as governance decisions change.
+# Repository Governance
+
 This document defines the management, contribution, and release policies for the EduBoost V2 repository.
 
 ## 1. Canonical Repository
