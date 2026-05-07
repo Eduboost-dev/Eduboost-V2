@@ -10,6 +10,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 
+from app.core.password_policy import validate_password_strength
+
 
 # ── Shared ────────────────────────────────────────────────────────────────────
 class OrmBase(BaseModel):
@@ -20,8 +22,8 @@ class OrmBase(BaseModel):
 class RegisterRequest(BaseModel):
     email: EmailStr
     password: str = Field(
-        min_length=8,
-        description="Password must be at least 8 characters and include at least one uppercase letter, one lowercase letter, and one number.",
+        min_length=12,
+        description="Password must meet the EduBoost password/passphrase policy.",
     )
     display_name: str = Field(min_length=2, max_length=120)
     role: Literal["parent", "teacher"] = "parent"
@@ -29,13 +31,7 @@ class RegisterRequest(BaseModel):
     @field_validator("password")
     @classmethod
     def password_complexity(cls, v: str) -> str:
-        if not any(c.isupper() for c in v):
-            raise ValueError("Password must contain at least one uppercase letter")
-        if not any(c.islower() for c in v):
-            raise ValueError("Password must contain at least one lowercase letter")
-        if not any(c.isdigit() for c in v):
-            raise ValueError("Password must contain at least one number")
-        return v
+        return validate_password_strength(v)
 
 
 class LoginRequest(BaseModel):

@@ -7,14 +7,17 @@ Make the repository easier to operate before touching high-risk auth/POPIA/AI co
 
 | ID | Priority | Status | Task | Current evidence |
 |---|---|---|---|---|
-| TODO-026 | high | Partial | Add issue templates: bug, feature, security redirect, compliance concern, accessibility issue, curriculum issue, incorrect content, production incident. | .github/ISSUE_TEMPLATE/bug_report.yml; .github/ISSUE_TEMPLATE/feature_request.yml |
-| TODO-025 | high | Partial | Add `CODEOWNERS` for backend, frontend, infrastructure, security, compliance, curriculum, and docs. | .github/CODEOWNERS |
-| TODO-027 | high | Partial | Add PR template with checkboxes for tests, docs, migrations, POPIA impact, security impact, accessibility impact, analytics impact, deployment impact, and rollback plan. | .github/PULL_REQUEST_TEMPLATE.md |
-| TODO-029 | high | Partial | Remove duplicate or stale root dependency files, or clearly mark them as compatibility aliases. | requirements.txt; requirements-dev.txt; requirements-docs.txt; requirements-ml.txt |
-| TODO-032 | medium | Partial | Add `docs/adr/` and write ADRs for modular monolith, FastAPI V2, Next.js frontend, PostgreSQL audit ledger, Redis revocation, LLM provider abstraction, POPIA-first design, and CAPS alignment. | docs/adr |
-| TODO-028 | high | Human-decision | Audit dependency files and decide canonical dependency paths for runtime, dev, docs, and ML extras. | wsl_copilot.sh; pytest.ini; Makefile; prometheus.yml; .agent.md; CONTRIBUTING.md; EduBoost_Technical_Status_Report.md; README.md |
-| TODO-024 | high | Blocked | Protect `master`/`main`: require PR review, required checks, no force-push, no branch deletion, and signed commits if feasible. | .github/workflows/ci-cd.yml |
-| TODO-033 | medium | Partial | Add markdown linting and docs link checking to CI. | .github/workflows/ci-cd.yml |
+| TODO-019 | critical | Partial | Add `docs/repository_governance.md` covering canonical repo, mirrors, branch policy, release authority, secret rotation authority, security patch process, and archive policy. | docs/repository_governance.md |
+| TODO-022 | high | Partial | Add issue templates: bug, feature, security redirect, compliance concern, accessibility issue, curriculum issue, incorrect content, production incident. | .github/ISSUE_TEMPLATE/bug_report.yml; .github/ISSUE_TEMPLATE/feature_request.yml |
+| TODO-021 | high | Partial | Add `CODEOWNERS` for backend, frontend, infrastructure, security, compliance, curriculum, and docs. | .github/CODEOWNERS |
+| TODO-023 | high | Partial | Add PR template with checkboxes for tests, docs, migrations, POPIA impact, security impact, accessibility impact, analytics impact, deployment impact, and rollback plan. | .github/PULL_REQUEST_TEMPLATE.md |
+| TODO-025 | high | Partial | Remove duplicate or stale root dependency files, or clearly mark them as compatibility aliases. | requirements.txt; requirements-dev.txt; requirements-docs.txt; requirements-ml.txt |
+| TODO-027 | medium | Partial | Add a `Makefile` or `justfile` with commands: `dev`, `test`, `lint`, `typecheck`, `e2e`, `migrate`, `docs`, `security`, `release-check`, and `smoke`. | Makefile |
+| TODO-028 | medium | Partial | Add `docs/adr/` and write ADRs for modular monolith, FastAPI V2, Next.js frontend, PostgreSQL audit ledger, Redis revocation, LLM provider abstraction, POPIA-first design, and CAPS alignment. | docs/adr |
+| TODO-018 | critical | Human-decision | Decide and document the canonical repository: `NkgoloL/Eduboost-V2`, `w3ll3ml3b3lo-hue/Eduboost-V2`, or another private/public upstream. | .env.example; CHANGELOG.md; CODE_OF_CONDUCT.md; CONTRIBUTING.md; docker-compose.yml; EduBoost_Technical_Status_Report.md; mkdocs.yml; README.md |
+| TODO-024 | high | Human-decision | Audit dependency files and decide canonical dependency paths for runtime, dev, docs, and ML extras. | .env.example; .pre-commit-config.yaml; CHANGELOG.md; CONTRIBUTING.md; EduBoost_Technical_Status_Report.md; LLM_Integration_Roadmap.md; Makefile; mkdocs.yml |
+| TODO-020 | high | Blocked | Protect `master`/`main`: require PR review, required checks, no force-push, no branch deletion, and signed commits if feasible. | .github/workflows/ci-cd.yml |
+| TODO-029 | medium | Partial | Add markdown linting and docs link checking to CI. | .github/workflows/ci-cd.yml |
 
 ## Concrete patch plan
 
