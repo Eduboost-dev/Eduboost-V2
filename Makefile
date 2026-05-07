@@ -61,7 +61,20 @@ migrate:
 docs:
 	mkdocs serve
 
+
+migration-check: schema-integrity
+	@echo "Running migration graph and schema integrity checks"
+	$(PYTHON) scripts/verify_migration_graph.py
+
+schema-integrity:
+	@echo "Validating ORM schema integrity"
+	$(PYTHON) scripts/validate_schema_integrity.py
+
+migration-smoke:
+	@echo "Run migration smoke tests (requires DATABASE_URL pointing to disposable DB)"
+	./scripts/smoke_test_migrations.sh
+
 clean:
-	find . -type d -name "__pycache__" -exec rm -rf {} +
+	find . -type d -name "__pycache__" -prune -exec rm -rf {} +
 	find . -type f -name "*.pyc" -delete
-	rm -rf .pytest_cache .mypy_cache .ruff_cache
+	rm -rf .pytest_cache .mypy_cache .ruff_cache htmlcov .coverage
