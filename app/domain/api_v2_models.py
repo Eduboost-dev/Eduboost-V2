@@ -1,4 +1,4 @@
-"""Shared Pydantic models for the EduBoost V2 API contract.
+"""Shared Pydantic models and helpers for the EduBoost V2 API contract.
 
 This module intentionally contains transport-layer models only. Domain entities,
 database models, and service-internal DTOs should remain outside this file.
@@ -76,6 +76,81 @@ class ApiErrorEnvelope(ApiEnvelope[None]):
 
     data: None = None
     error: ApiError
+
+
+def ok(
+    data: DataT,
+    *,
+    request_id: str | None = None,
+    api_version: str = "v2",
+) -> ApiSuccessEnvelope[DataT]:
+    """Build a canonical successful V2 response envelope."""
+
+    return ApiSuccessEnvelope[DataT](
+        data=data,
+        meta=ApiMeta(api_version=api_version, request_id=request_id),
+    )
+
+
+def fail(
+    *,
+    code: str,
+    message: str,
+    request_id: str | None = None,
+    field_errors: list[FieldError] | None = None,
+    remediation: str | None = None,
+    details: dict[str, Any] | None = None,
+    api_version: str = "v2",
+) -> ApiErrorEnvelope:
+    """Build a canonical failed V2 response envelope."""
+
+    return ApiErrorEnvelope(
+        error=ApiError(
+            code=code,
+            message=message,
+            field_errors=field_errors or [],
+            remediation=remediation,
+            details=details or {},
+        ),
+        meta=ApiMeta(api_version=api_version, request_id=request_id),
+    )
+
+
+def paginated(
+    data: DataT,
+    *,
+    limit: int,
+    request_id: str | None = None,
+    offset: int | None = None,
+    cursor: str | None = None,
+    next_cursor: str | None = None,
+    total: int | None = None,
+    has_more: bool = False,
+    api_version: str = "v2",
+) -> ApiSuccessEnvelope[DataT]:
+    """Build a successful V2 response envelope with pagination metadata."""
+
+    return ApiSuccessEnvelope[DataT](
+        data=data,
+        meta=ApiMeta(
+            api_version=api_version,
+            request_id=request_id,
+            pagination=PaginationMeta(
+                limit=limit,
+                offset=offset,
+                cursor=cursor,
+                next_cursor=next_cursor,
+                total=total,
+                has_more=has_more,
+            ),
+        ),
+    )
+
+
+def envelope_content(envelope: ApiEnvelope[Any]) -> dict[str, Any]:
+    """Return JSON-serializable envelope content for JSONResponse handlers."""
+
+    return envelope.model_dump(mode="json")
 
 
 class HealthResponse(BaseModel):

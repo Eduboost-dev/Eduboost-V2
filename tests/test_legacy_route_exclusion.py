@@ -108,4 +108,8 @@ def test_legacy_compatibility_route_returns_410_gone() -> None:
     response = client.post("/api/v1/lessons/generate", json={})
 
     assert response.status_code == 410
-    assert "moved to /api/v2/lessons/generate" in response.json()["detail"]
+    payload = response.json()
+    assert payload["data"] is None
+    assert payload["error"]["code"] == "http_error"
+    assert "moved to /api/v2/lessons/generate" in payload["error"]["message"]
+    assert payload["meta"]["api_version"] == "v2"
