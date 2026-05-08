@@ -36,11 +36,31 @@ class AuditService:
             payload=payload or {},
         )
 
-    async def get_recent_events(self, limit: int = 50) -> list[AuditLogEntry]:
+    async def get_recent_events(self, limit: int = 50, cursor: str | None = None):
+        """Return recent audit events.
+
+        Backwards compatible: when `cursor` is None, return a simple list of
+        `AuditLogEntry` objects (existing behaviour). When `cursor` is supplied
+        (ISO datetime string), return a dict with `events` and `next_cursor`.
+        """
         if self.repository is not None and hasattr(self.repository, "latest"):
-            rows = await self.repository.latest(limit=limit)
-            return [_entry_from_row(row) for row in rows]
-        return []
+            rows = await self.repository.latest(limit=limit, cursor=cursor)
+            entries = [_entry_from_row(row) for row in rows]
+        else:
+            entries = []
+
+        if not cursor:
+            return entries
+
+        # Determine next_cursor for pagination: use last event's created_at
+        next_cursor = None
+        if entries:
+            # entries are in descending order; the next page should start after
+            # the last entry's timestamp
+            last = entries[-1]
+            next_cursor = last.occurred_at.isoformat()
+
+        return {"events": entries, "next_cursor": next_cursor}
 
 
 def _entry_from_row(row: Any) -> AuditLogEntry:

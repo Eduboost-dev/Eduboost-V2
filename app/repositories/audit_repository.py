@@ -115,10 +115,27 @@ class AuditRepository:
             payload=data,
         )
 
-    async def latest(self, limit: int = 20) -> list[AuditEvent]:
-        result = await self._session.execute(
-            select(AuditEvent).order_by(AuditEvent.created_at.desc()).limit(limit)
-        )
+    async def latest(self, limit: int = 20, cursor: str | None = None) -> list[AuditEvent]:
+        """Return the most recent audit events.
+
+        If `cursor` is provided, it should be an ISO-8601 datetime string and
+        results will be returned strictly older than that timestamp (pagination
+        for descending order). This keeps the API low-cardinality and stable.
+        """
+        stmt = select(AuditEvent)
+        if cursor:
+            from datetime import datetime
+
+            try:
+                # Accept ISO-8601 strings (with timezone if present)
+                cursor_dt = datetime.fromisoformat(cursor)
+                stmt = stmt.where(AuditEvent.created_at < cursor_dt)
+            except Exception:
+                # If the cursor cannot be parsed, ignore it and return the latest
+                pass
+
+        stmt = stmt.order_by(AuditEvent.created_at.desc()).limit(limit)
+        result = await self._session.execute(stmt)
         return list(result.scalars().all())
 
     async def get_by_id(self, audit_id: str | uuid.UUID) -> AuditEvent | None:
