@@ -212,3 +212,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Phase 2 Authorization Closure Report
 
 - [`docs/security/PHASE2_AUTHORIZATION_CLOSURE.md`](security/PHASE2_AUTHORIZATION_CLOSURE.md)
+
+## Phase 2 Authorization Closure Check
+
+- [`docs/security/phase2_authorization_closure_check.md`](security/phase2_authorization_closure_check.md)

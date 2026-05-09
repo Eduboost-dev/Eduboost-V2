@@ -10,6 +10,10 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_phase2_authorization_closure_stamp.py",
+    "tests/unit/test_phase2_authorization_closure_script.py",
+    "docs/security/phase2_authorization_closure_check.md",
+    "scripts/check_phase2_authorization_closure.py",
     "tests/unit/test_generate_phase2_authorization_closure_report.py",
     "tests/unit/test_learner_authz_ci_contract.py",
     "scripts/generate_phase2_authorization_closure_report.py",
@@ -116,6 +120,15 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/security/phase2_authorization_closure_check.md": (
+        "make phase2-authz-closure",
+        "make learner-authz-check",
+    ),
+    "scripts/check_phase2_authorization_closure.py": (
+        "make",
+        "phase2-authz-check",
+        "learner-authz-check",
+    ),
     "scripts/generate_phase2_authorization_closure_report.py": (
         "generate_phase2_authorization_closure_report",
         "collect_rows",

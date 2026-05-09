@@ -23,6 +23,8 @@ python3 scripts/check_phase2_authorization_evidence.py
 
 | Area | Endpoint |
 | --- | --- |
+| Phase 2 closure stamp | `docs/security/PHASE2_AUTHORIZATION_CLOSURE.md` |
+| Phase 2 final closure check | `make phase2-authz-closure` |
 | Phase 2 closure report | `docs/security/PHASE2_AUTHORIZATION_CLOSURE.md` |
 | Learner authorization CI | `.github/workflows/learner-authz-coverage.yml` |
 | Learner authorization coverage guard | `make learner-authz-check` |

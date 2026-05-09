@@ -81,3 +81,6 @@ learner-authz-matrix:
 
 learner-authz-check: learner-authz-matrix
 	$(PYTHON) scripts/check_learner_authz_coverage.py
+
+phase2-authz-closure:
+	$(PYTHON) scripts/check_phase2_authorization_closure.py

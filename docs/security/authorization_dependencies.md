@@ -201,3 +201,7 @@ Review `docs/security/learner_route_authorization_inspection.md` before wiring t
 ## Phase 2 Authorization Closure Report
 
 - [`docs/security/PHASE2_AUTHORIZATION_CLOSURE.md`](PHASE2_AUTHORIZATION_CLOSURE.md)
+
+## Phase 2 Authorization Closure Check
+
+- [`docs/security/phase2_authorization_closure_check.md`](phase2_authorization_closure_check.md)

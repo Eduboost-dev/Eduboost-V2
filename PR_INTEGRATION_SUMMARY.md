@@ -275,3 +275,9 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 - Phase 2 closure report direct-execution fix and test added: `tests/unit/test_generate_phase2_authorization_closure_report.py`
 
 - Phase 2 evidence checker updated for Codes 60-61: learner authorization CI and closure report.
+
+- Final Phase 2 authorization closure check added: `make phase2-authz-closure`, `scripts/check_phase2_authorization_closure.py`
+
+- Phase 2 authorization closure stamp added to `docs/security/PHASE2_AUTHORIZATION_CLOSURE.md`.
+
+- Phase 2 evidence checker updated for Codes 63-64: final closure check and closure stamp.
