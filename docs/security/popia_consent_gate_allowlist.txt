@@ -12,8 +12,6 @@ app/api_v2_routers/learners.py::create_learner
 app/api_v2_routers/learners.py::enqueue_data_purge
 app/api_v2_routers/lessons.py::_events
 app/api_v2_routers/lessons.py::_run
-app/api_v2_routers/lessons.py::generate_lesson
-app/api_v2_routers/lessons.py::generate_lesson_stream
 app/api_v2_routers/lessons.py::get_lesson_service
 app/api_v2_routers/onboarding.py::submit_onboarding
 app/api_v2_routers/parents.py::_log_purge_request

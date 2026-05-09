@@ -244,3 +244,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## POPIA Consent Audit CI
 
 - [`docs/security/popia_consent_audit_ci.md`](security/popia_consent_audit_ci.md)
+
+## POPIA Consent Dependency Adapter
+
+- [`docs/security/consent_dependency_adapter.md`](security/consent_dependency_adapter.md)

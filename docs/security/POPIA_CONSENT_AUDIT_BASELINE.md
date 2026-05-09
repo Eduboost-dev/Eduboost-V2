@@ -37,3 +37,7 @@ pytest -c pytest.ini tests/unit/test_generate_consent_gate_inventory.py tests/un
 ## POPIA Consent Audit CI
 
 - `.github/workflows/popia-consent-audit.yml` runs consent/audit drift checks in CI.
+
+## POPIA Consent Dependency Adapter
+
+- `app/security/dependencies.py` exposes `require_active_consent_for_current_user` for route-level consent gates.
