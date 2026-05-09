@@ -128,3 +128,15 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## POPIA Deletion Status Authorization
 
 - [`docs/security/popia_deletion_status_authorization_wiring.md`](security/popia_deletion_status_authorization_wiring.md)
+
+## Parent Erasure Authorization
+
+- [`docs/security/parent_erasure_authorization_wiring.md`](security/parent_erasure_authorization_wiring.md)
+
+## POPIA Deletion Execute Authorization
+
+- [`docs/security/popia_deletion_execute_authorization_wiring.md`](security/popia_deletion_execute_authorization_wiring.md)
+
+## Parent Export Authorization
+
+- [`docs/security/parent_export_authorization_wiring.md`](security/parent_export_authorization_wiring.md)

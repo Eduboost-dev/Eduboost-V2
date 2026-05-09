@@ -10,6 +10,15 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/integration/test_parent_export_authorization.py",
+    "tests/unit/test_parent_export_authorization_wiring.py",
+    "tests/integration/test_popia_deletion_execute_authorization.py",
+    "tests/unit/test_popia_deletion_execute_authorization_wiring.py",
+    "tests/integration/test_parent_erasure_authorization.py",
+    "tests/unit/test_parent_erasure_authorization_wiring.py",
+    "docs/security/parent_export_authorization_wiring.md",
+    "docs/security/popia_deletion_execute_authorization_wiring.md",
+    "docs/security/parent_erasure_authorization_wiring.md",
     "tests/integration/test_popia_deletion_status_authorization.py",
     "tests/unit/test_popia_deletion_status_authorization_wiring.py",
     "tests/integration/test_popia_restriction_request_authorization.py",
@@ -60,6 +69,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/security/parent_export_authorization_wiring.md": (
+        "GET /api/v2/parents/{guardian_id}/export",
+        "require_learner_read_for_current_user",
+    ),
+    "docs/security/popia_deletion_execute_authorization_wiring.md": (
+        "POST /api/v2/popia/deletion-execute/{learner_id}",
+        "require_learner_write_for_current_user",
+    ),
+    "docs/security/parent_erasure_authorization_wiring.md": (
+        "DELETE /api/v2/parents/learners/{learner_id}",
+        "require_learner_write_for_current_user",
+    ),
     "docs/security/popia_deletion_status_authorization_wiring.md": (
         "GET /api/v2/popia/deletion-status/{learner_id}",
         "require_learner_read_for_current_user",
