@@ -65,6 +65,7 @@ The following categories remain release blockers before real learner data or pub
 
 ## Evidence Documents
 
+- [`docs/security/study_plan_authorization_wiring.md`](security/study_plan_authorization_wiring.md)
 - [`docs/security/learner_mastery_authorization_wiring.md`](security/learner_mastery_authorization_wiring.md)
 - [`docs/security/learner_read_authorization_http_tests.md`](security/learner_read_authorization_http_tests.md)
 - [`docs/security/learner_route_authorization_wiring.md`](security/learner_route_authorization_wiring.md)
@@ -83,3 +84,35 @@ The following categories remain release blockers before real learner data or pub
 ## Audit Tracker
 
 The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
+
+## Lesson Generation Authorization
+
+- [`docs/security/lesson_generation_authorization_wiring.md`](security/lesson_generation_authorization_wiring.md)
+
+## Diagnostic Items Authorization
+
+- [`docs/security/diagnostic_items_authorization_wiring.md`](security/diagnostic_items_authorization_wiring.md)
+
+## Phase 2 Authorization Evidence
+
+- [`docs/security/phase2_authorization_evidence_check.md`](security/phase2_authorization_evidence_check.md)
+
+## Diagnostic Submit Authorization
+
+- [`docs/security/diagnostic_submit_authorization_wiring.md`](security/diagnostic_submit_authorization_wiring.md)
+
+## POPIA Data Export Authorization
+
+- [`docs/security/popia_data_export_authorization_wiring.md`](security/popia_data_export_authorization_wiring.md)
+
+## Parent Progress Authorization
+
+- [`docs/security/parent_progress_authorization_wiring.md`](security/parent_progress_authorization_wiring.md)
+
+## POPIA Deletion Request Authorization
+
+- [`docs/security/popia_deletion_request_authorization_wiring.md`](security/popia_deletion_request_authorization_wiring.md)
+
+## POPIA Deletion Cancel Authorization
+
+- [`docs/security/popia_deletion_cancel_authorization_wiring.md`](security/popia_deletion_cancel_authorization_wiring.md)

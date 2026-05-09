@@ -73,3 +73,35 @@ Review `docs/security/learner_route_authorization_inspection.md` before wiring t
 ## Enforcement Wiring
 
 - [`docs/security/learner_route_authorization_wiring.md`](learner_route_authorization_wiring.md)
+
+## Write-Path Wiring
+
+- [`docs/security/study_plan_authorization_wiring.md`](study_plan_authorization_wiring.md)
+
+## Lesson Generation Authorization
+
+- [`docs/security/lesson_generation_authorization_wiring.md`](lesson_generation_authorization_wiring.md)
+
+## Diagnostic Items Authorization
+
+- [`docs/security/diagnostic_items_authorization_wiring.md`](diagnostic_items_authorization_wiring.md)
+
+## Diagnostic Submit Authorization
+
+- [`docs/security/diagnostic_submit_authorization_wiring.md`](diagnostic_submit_authorization_wiring.md)
+
+## POPIA Data Export Authorization
+
+- [`docs/security/popia_data_export_authorization_wiring.md`](popia_data_export_authorization_wiring.md)
+
+## Parent Progress Authorization
+
+- [`docs/security/parent_progress_authorization_wiring.md`](parent_progress_authorization_wiring.md)
+
+## POPIA Deletion Request Authorization
+
+- [`docs/security/popia_deletion_request_authorization_wiring.md`](popia_deletion_request_authorization_wiring.md)
+
+## POPIA Deletion Cancel Authorization
+
+- [`docs/security/popia_deletion_cancel_authorization_wiring.md`](popia_deletion_cancel_authorization_wiring.md)
