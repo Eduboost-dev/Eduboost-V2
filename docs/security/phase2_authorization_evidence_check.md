@@ -23,6 +23,9 @@ python3 scripts/check_phase2_authorization_evidence.py
 
 | Area | Endpoint |
 | --- | --- |
+| Ether onboarding questions auth boundary | `docs/security/ether_onboarding_questions_auth_boundary.md` |
+| Consent renewal admin boundary | `docs/security/consent_renewal_admin_auth_boundary.md` |
+| Dev-session environment gate | `docs/security/dev_session_environment_gate.md` |
 | Phase 2 closure stamp | `docs/security/PHASE2_AUTHORIZATION_CLOSURE.md` |
 | Phase 2 final closure check | `make phase2-authz-closure` |
 | Phase 2 closure report | `docs/security/PHASE2_AUTHORIZATION_CLOSURE.md` |

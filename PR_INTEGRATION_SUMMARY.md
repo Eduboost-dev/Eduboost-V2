@@ -287,3 +287,9 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 - Consent-renewal admin boundary recognized by learner authorization matrix: `tests/unit/test_consent_renewal_admin_auth_boundary.py`.
 
 - Ether onboarding questions authentication boundary added: `tests/unit/test_ether_onboarding_questions_auth_boundary.py`.
+
+- Phase 2 evidence checker updated for Codes 67-71: operational auth boundary hardening.
+
+- Phase 2 closure report stamped with operational auth boundary hardening evidence.
+
+- Aggregate operational auth boundary evidence added: `tests/unit/test_operational_auth_boundaries.py`.

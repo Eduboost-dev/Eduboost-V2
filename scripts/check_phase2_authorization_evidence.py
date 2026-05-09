@@ -10,6 +10,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "docs/security/ether_onboarding_questions_auth_boundary.md",
+    "docs/security/consent_renewal_admin_auth_boundary.md",
+    "docs/security/dev_session_environment_gate.md",
+    "tests/unit/test_ether_onboarding_questions_auth_boundary.py",
+    "tests/unit/test_consent_renewal_admin_auth_boundary.py",
+    "tests/unit/test_dev_session_environment_gate.py",
     "tests/unit/test_phase2_authorization_closure_stamp.py",
     "tests/unit/test_phase2_authorization_closure_script.py",
     "docs/security/phase2_authorization_closure_check.md",
@@ -120,6 +126,26 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "app/api_v2_routers/ether.py": (
+        "async def get_questions(user: dict = Depends(get_current_user))",
+    ),
+    "scripts/generate_learner_authz_matrix.py": (
+        "require_admin",
+        "get_current_user",
+    ),
+    "docs/security/ether_onboarding_questions_auth_boundary.md": (
+        "GET /api/v2/ether/onboarding/questions",
+        "Depends(get_current_user)",
+    ),
+    "docs/security/consent_renewal_admin_auth_boundary.md": (
+        "POST /api/v2/admin/consent/trigger-renewal-reminders",
+        "Depends(require_admin)",
+    ),
+    "docs/security/dev_session_environment_gate.md": (
+        "POST /api/v2/auth/dev-session",
+        "settings.is_production()",
+        "HTTP_404_NOT_FOUND",
+    ),
     "docs/security/phase2_authorization_closure_check.md": (
         "make phase2-authz-closure",
         "make learner-authz-check",

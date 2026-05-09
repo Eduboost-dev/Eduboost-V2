@@ -228,3 +228,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Ether Onboarding Questions Authentication Boundary
 
 - [`docs/security/ether_onboarding_questions_auth_boundary.md`](security/ether_onboarding_questions_auth_boundary.md)
+
+## Operational Auth Boundaries
+
+- [`docs/security/operational_auth_boundaries.md`](security/operational_auth_boundaries.md)

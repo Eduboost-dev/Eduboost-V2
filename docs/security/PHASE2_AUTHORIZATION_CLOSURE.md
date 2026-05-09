@@ -9,9 +9,9 @@ routes that do not carry a learner object.
 ## Route Matrix Summary
 
 - Routes inspected: 58
-- Covered learner-scoped routes: 38
+- Covered learner-scoped routes: 40
 - Non-learner-scoped routes: 16
-- Missing learner authorization markers: 4
+- Missing learner authorization markers: 2
 
 ## Key Evidence
 
@@ -39,6 +39,4 @@ pytest -c pytest.ini tests/unit/test_phase2_authorization_evidence.py tests/unit
 Status: **not closed** — missing learner authorization markers remain.
 
 - `auth.py` `POST /dev-session` via `create_dev_session`
-- `consent_renewal.py` `POST /trigger-renewal-reminders` via `trigger_renewal_reminders`
-- `ether.py` `GET /onboarding/questions` via `get_questions`
 - `gamification.py` `GET /leaderboard` via `get_leaderboard`

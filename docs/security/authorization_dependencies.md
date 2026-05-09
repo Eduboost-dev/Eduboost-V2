@@ -217,3 +217,7 @@ Review `docs/security/learner_route_authorization_inspection.md` before wiring t
 ## Ether Onboarding Questions Authentication Boundary
 
 - [`docs/security/ether_onboarding_questions_auth_boundary.md`](ether_onboarding_questions_auth_boundary.md)
+
+## Operational Auth Boundaries
+
+- [`docs/security/operational_auth_boundaries.md`](operational_auth_boundaries.md)
