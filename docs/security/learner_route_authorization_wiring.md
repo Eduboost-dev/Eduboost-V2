@@ -56,3 +56,7 @@ using FastAPI dependency overrides and a mocked learner repository/session.
 ## HTTP Contract Tests
 
 - [`docs/security/learner_read_authorization_http_tests.md`](learner_read_authorization_http_tests.md)
+
+## Mastery Route Wiring
+
+- [`docs/security/learner_mastery_authorization_wiring.md`](learner_mastery_authorization_wiring.md)

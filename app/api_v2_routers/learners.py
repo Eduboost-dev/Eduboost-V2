@@ -63,7 +63,7 @@ async def get_mastery(
     learner = await LearnerRepository(db).get_by_id(learner_id)
     if not learner:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
-    assert_can_access_learner(current_user, learner)
+    require_learner_read_for_current_user(current_user, learner)
 
     active_gaps = await KnowledgeGapRepository(db).get_active_gaps(learner_id)
     default_subjects = {"MATH": 0.72, "ENG": 0.7, "LIFE": 0.78, "NS": 0.68, "SS": 0.69}
