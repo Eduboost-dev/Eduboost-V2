@@ -10,6 +10,21 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/integration/test_popia_deletion_cancel_authorization.py",
+    "tests/unit/test_popia_deletion_cancel_authorization_wiring.py",
+    "tests/integration/test_popia_deletion_request_authorization.py",
+    "tests/unit/test_popia_deletion_request_authorization_wiring.py",
+    "tests/integration/test_parent_progress_authorization.py",
+    "tests/unit/test_parent_progress_authorization_wiring.py",
+    "tests/integration/test_popia_data_export_authorization.py",
+    "tests/unit/test_popia_data_export_authorization_wiring.py",
+    "tests/integration/test_diagnostic_submit_authorization.py",
+    "tests/unit/test_diagnostic_submit_authorization_wiring.py",
+    "docs/security/popia_deletion_cancel_authorization_wiring.md",
+    "docs/security/popia_deletion_request_authorization_wiring.md",
+    "docs/security/parent_progress_authorization_wiring.md",
+    "docs/security/popia_data_export_authorization_wiring.md",
+    "docs/security/diagnostic_submit_authorization_wiring.md",
     "app/security/object_authorization.py",
     "app/security/dependencies.py",
     "docs/security/object_authorization.md",
@@ -36,6 +51,33 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/security/popia_deletion_cancel_authorization_wiring.md": (
+        "POST /api/v2/popia/deletion-cancel/{learner_id}",
+        "require_learner_write_for_current_user",
+    ),
+    "docs/security/popia_deletion_request_authorization_wiring.md": (
+        "POST /api/v2/popia/deletion-request/{learner_id}",
+        "require_learner_write_for_current_user",
+    ),
+    "docs/security/parent_progress_authorization_wiring.md": (
+        "GET /api/v2/parents/learners/{learner_id}/progress",
+        "require_learner_read_for_current_user",
+    ),
+    "docs/security/popia_data_export_authorization_wiring.md": (
+        "GET /api/v2/popia/data-export/{learner_id}",
+        "require_learner_read_for_current_user",
+    ),
+    "docs/security/diagnostic_submit_authorization_wiring.md": (
+        "POST /api/v2/diagnostics/submit",
+        "require_learner_write_for_current_user",
+    ),
+    "app/api_v2_routers/parents.py": (
+        "require_learner_read_for_current_user(current_user, learner)",
+    ),
+    "app/api_v2_routers/popia.py": (
+        "require_learner_read_for_current_user(current_user, learner)",
+        "require_learner_write_for_current_user(current_user, learner_id)",
+    ),
     "app/api_v2_routers/learners.py": (
         "require_learner_read_for_current_user(current_user, learner)",
     ),

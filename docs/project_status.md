@@ -108,3 +108,11 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Parent Progress Authorization
 
 - [`docs/security/parent_progress_authorization_wiring.md`](security/parent_progress_authorization_wiring.md)
+
+## POPIA Deletion Request Authorization
+
+- [`docs/security/popia_deletion_request_authorization_wiring.md`](security/popia_deletion_request_authorization_wiring.md)
+
+## POPIA Deletion Cancel Authorization
+
+- [`docs/security/popia_deletion_cancel_authorization_wiring.md`](security/popia_deletion_cancel_authorization_wiring.md)
