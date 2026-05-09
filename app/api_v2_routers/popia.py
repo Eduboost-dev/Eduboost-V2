@@ -103,6 +103,10 @@ async def request_correction(
     db: AsyncSession = Depends(get_db),
 ):
     """Correct inaccurate learner personal information."""
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_write_for_current_user(current_user, learner_id)
     result = await POPIADataRightsService(db).request_correction(
         learner_id,
         current_user,
@@ -121,6 +125,10 @@ async def request_processing_restriction(
     db: AsyncSession = Depends(get_db),
 ):
     """Restrict learner processing by withdrawing active consent."""
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_write_for_current_user(current_user, learner_id)
     result = await POPIADataRightsService(db).restrict_processing(
         learner_id,
         current_user,
@@ -172,7 +180,10 @@ async def get_deletion_status(
     current_user: dict = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    learner = await POPIADataRightsService(db).load_authorized_learner(learner_id, current_user)
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_read_for_current_user(current_user, learner)
     if learner.deletion_requested_at is None:
         return {"learner_id": learner_id, "deletion_pending": False, "is_deleted": False}
     from datetime import UTC, datetime, timedelta

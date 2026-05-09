@@ -10,6 +10,15 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/integration/test_popia_deletion_status_authorization.py",
+    "tests/unit/test_popia_deletion_status_authorization_wiring.py",
+    "tests/integration/test_popia_restriction_request_authorization.py",
+    "tests/unit/test_popia_restriction_request_authorization_wiring.py",
+    "tests/integration/test_popia_correction_request_authorization.py",
+    "tests/unit/test_popia_correction_request_authorization_wiring.py",
+    "docs/security/popia_deletion_status_authorization_wiring.md",
+    "docs/security/popia_restriction_request_authorization_wiring.md",
+    "docs/security/popia_correction_request_authorization_wiring.md",
     "tests/integration/test_popia_deletion_cancel_authorization.py",
     "tests/unit/test_popia_deletion_cancel_authorization_wiring.py",
     "tests/integration/test_popia_deletion_request_authorization.py",
@@ -51,6 +60,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/security/popia_deletion_status_authorization_wiring.md": (
+        "GET /api/v2/popia/deletion-status/{learner_id}",
+        "require_learner_read_for_current_user",
+    ),
+    "docs/security/popia_restriction_request_authorization_wiring.md": (
+        "POST /api/v2/popia/restriction-request/{learner_id}",
+        "require_learner_write_for_current_user",
+    ),
+    "docs/security/popia_correction_request_authorization_wiring.md": (
+        "POST /api/v2/popia/correction-request/{learner_id}",
+        "require_learner_write_for_current_user",
+    ),
     "docs/security/popia_deletion_cancel_authorization_wiring.md": (
         "POST /api/v2/popia/deletion-cancel/{learner_id}",
         "require_learner_write_for_current_user",
