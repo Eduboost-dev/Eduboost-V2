@@ -203,3 +203,9 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 - Phase 2 diagnostic items read authorization wiring and HTTP tests: `tests/unit/test_diagnostic_items_authorization_wiring.py`, `tests/integration/test_diagnostic_items_authorization.py`
 
 - Phase 2 authorization evidence gate: `make phase2-authz-check`, `scripts/check_phase2_authorization_evidence.py`, `tests/unit/test_phase2_authorization_evidence.py`
+
+- Phase 2 diagnostic submit write authorization wiring and HTTP tests: `tests/unit/test_diagnostic_submit_authorization_wiring.py`, `tests/integration/test_diagnostic_submit_authorization.py`
+
+- Phase 2 POPIA data-export read authorization wiring and HTTP tests: `tests/unit/test_popia_data_export_authorization_wiring.py`, `tests/integration/test_popia_data_export_authorization.py`
+
+- Phase 2 parent learner-progress read authorization wiring and HTTP tests: `tests/unit/test_parent_progress_authorization_wiring.py`, `tests/integration/test_parent_progress_authorization.py`

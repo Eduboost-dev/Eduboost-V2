@@ -85,3 +85,15 @@ Review `docs/security/learner_route_authorization_inspection.md` before wiring t
 ## Diagnostic Items Authorization
 
 - [`docs/security/diagnostic_items_authorization_wiring.md`](diagnostic_items_authorization_wiring.md)
+
+## Diagnostic Submit Authorization
+
+- [`docs/security/diagnostic_submit_authorization_wiring.md`](diagnostic_submit_authorization_wiring.md)
+
+## POPIA Data Export Authorization
+
+- [`docs/security/popia_data_export_authorization_wiring.md`](popia_data_export_authorization_wiring.md)
+
+## Parent Progress Authorization
+
+- [`docs/security/parent_progress_authorization_wiring.md`](parent_progress_authorization_wiring.md)

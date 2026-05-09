@@ -96,3 +96,15 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Phase 2 Authorization Evidence
 
 - [`docs/security/phase2_authorization_evidence_check.md`](security/phase2_authorization_evidence_check.md)
+
+## Diagnostic Submit Authorization
+
+- [`docs/security/diagnostic_submit_authorization_wiring.md`](security/diagnostic_submit_authorization_wiring.md)
+
+## POPIA Data Export Authorization
+
+- [`docs/security/popia_data_export_authorization_wiring.md`](security/popia_data_export_authorization_wiring.md)
+
+## Parent Progress Authorization
+
+- [`docs/security/parent_progress_authorization_wiring.md`](security/parent_progress_authorization_wiring.md)
