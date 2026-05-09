@@ -117,3 +117,15 @@ Review `docs/security/learner_route_authorization_inspection.md` before wiring t
 ## POPIA Deletion Status Authorization
 
 - [`docs/security/popia_deletion_status_authorization_wiring.md`](popia_deletion_status_authorization_wiring.md)
+
+## Parent Erasure Authorization
+
+- [`docs/security/parent_erasure_authorization_wiring.md`](parent_erasure_authorization_wiring.md)
+
+## POPIA Deletion Execute Authorization
+
+- [`docs/security/popia_deletion_execute_authorization_wiring.md`](popia_deletion_execute_authorization_wiring.md)
+
+## Parent Export Authorization
+
+- [`docs/security/parent_export_authorization_wiring.md`](parent_export_authorization_wiring.md)

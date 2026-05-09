@@ -144,6 +144,8 @@ async def execute_learner_deletion(
     background_tasks: BackgroundTasks,
     current_user: dict = Depends(require_parent_or_admin),
 ):
+    require_learner_write_for_current_user(current_user, learner_id)
+
     async def _run() -> dict:
         async with AsyncSessionLocal() as db:
             learner = await db.get(LearnerProfile, learner_id)
