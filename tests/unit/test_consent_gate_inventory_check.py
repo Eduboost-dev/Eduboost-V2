@@ -43,3 +43,11 @@ def test_makefile_exposes_popia_consent_gate_check_target() -> None:
     assert "popia-consent-gate-check:" in text
     assert "scripts/generate_consent_gate_inventory.py" in text
     assert "scripts/check_consent_gate_inventory.py" in text
+
+
+@pytest.mark.unit
+def test_lesson_generation_routes_removed_from_consent_allowlist_after_wiring() -> None:
+    allowed = load_allowlist()
+
+    assert "app/api_v2_routers/lessons.py::generate_lesson" not in allowed
+    assert "app/api_v2_routers/lessons.py::generate_lesson_stream" not in allowed

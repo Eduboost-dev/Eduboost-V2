@@ -37,3 +37,13 @@ python3 scripts/check_consent_gate_inventory.py --write-baseline
 pytest -c pytest.ini tests/unit/test_consent_gate_inventory_check.py -q --no-cov
 make popia-consent-gate-check
 ```
+
+
+## Baseline Refresh After Gate Wiring
+
+When a learner-data route receives an explicit consent gate, its old allowlist
+entry becomes stale and must be removed by refreshing the baseline:
+
+```bash
+python3 scripts/check_consent_gate_inventory.py --write-baseline
+```

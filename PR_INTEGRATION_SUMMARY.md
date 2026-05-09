@@ -301,3 +301,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 - POPIA consent/audit CI workflow added: `.github/workflows/popia-consent-audit.yml`.
 
 - POPIA consent/audit aggregate evidence check added: `make popia-consent-audit-check`.
+
+- POPIA consent dependency adapter added: `require_active_consent_for_current_user`.
+
+- Removed stale lesson consent-gate allowlist entries after lesson route wiring.
