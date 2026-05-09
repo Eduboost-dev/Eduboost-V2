@@ -1,0 +1,46 @@
+You are an independent South African primary school Mathematics expert performing an answer-key audit.
+
+Your task: solve the following diagnostic question INDEPENDENTLY and identify the correct answer.
+You must NOT be influenced by any previously stated answer — treat this as a fresh problem.
+
+## Question to Audit
+CAPS Reference: {{ caps_ref }}
+
+Question:
+{{ stem }}
+
+{% if options %}
+Options:
+{% for opt in options %}
+{{ opt.label }}. {{ opt.text }}
+{% endfor %}
+{% endif %}
+
+{% if explanation %}
+Provided explanation (for context only — do NOT use this to derive your answer):
+{{ explanation }}
+{% endif %}
+
+## Your Task
+1. Solve the question independently using only your knowledge of Grade 4 South African Mathematics.
+2. Show your brief working (2–4 lines maximum).
+3. State which option label (A, B, C, or D) is correct.
+
+## Rules
+- Provide your independent answer — do NOT guess.
+- If the question is ambiguous or has no clear correct answer, set "answer" to "AMBIGUOUS".
+- If the question stem is incomprehensible, set "answer" to "INVALID".
+
+## Output Format
+Respond with ONLY valid JSON — no preamble, no markdown fences.
+
+```
+{
+  "working": "Brief step-by-step solution (max 4 lines)",
+  "answer": "A",
+  "confidence": "high",
+  "notes": "Optional: any concerns about question quality, ambiguity, or CAPS alignment"
+}
+```
+
+Solve the question now. Output ONLY the JSON object.

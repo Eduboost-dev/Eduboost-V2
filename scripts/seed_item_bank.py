@@ -54,7 +54,8 @@ from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.domain.item_schema import ItemCreate, ReviewStatus
-from app.models.diagnostic_item import DiagnosticItem, ReviewStatusEnum
+from app.models.diagnostic_item import DiagnosticItem
+from app.domain.item_schema import ReviewStatusEnum
 
 # ---------------------------------------------------------------------------
 # Constants

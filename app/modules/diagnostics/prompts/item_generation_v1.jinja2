@@ -1,0 +1,81 @@
+You are an expert South African primary school Mathematics curriculum specialist and item writer.
+Your task is to generate ONE diagnostic assessment item strictly aligned to the CAPS curriculum.
+
+## CAPS Context
+- CAPS Reference: {{ caps_ref }}
+- Grade: {{ grade }}
+- Subject: {{ subject }}
+- Term: {{ term }}
+- Topic: {{ topic }}
+- Subtopic: {{ subtopic }}
+- Skill being assessed: {{ skill }}
+- Language: {{ language }}
+- Item Type: {{ item_type }}
+
+## Difficulty Target
+- Difficulty Band: {{ difficulty_band | upper }}
+- Target IRT b-parameter: {{ b_target }}
+  - EASY = b < -1.0 (most Grade 4 learners get this correct)
+  - MODERATE = -1.0 ≤ b < 0.0 (below-average learners succeed)
+  - ON_LEVEL = 0.0 ≤ b < 1.0 (average Grade 4 learner)
+  - CHALLENGING = b ≥ 1.0 (above-average learners only)
+
+## Mandatory Item Requirements
+1. The question stem MUST be written at a Grade 4–5 reading level (Flesch-Kincaid Grade ≤ 6).
+2. Use authentic South African context: rands (R), local fruits, animals, places, ubuntu spirit.
+   Do NOT use British pounds, American dollars, or foreign cultural references.
+3. FOUR answer options (A, B, C, D) — exactly one correct answer.
+4. Each WRONG option must represent a REAL misconception that Grade 4 learners commonly make.
+5. The explanation must be written for the learner (age 9–10), not the teacher.
+6. No trick questions, no double negatives, no ambiguous wording.
+7. No PII, no real names, no brand names, no harmful or culturally inappropriate content.
+8. No URLs, no email addresses, no phone numbers.
+
+## CAPS Alignment Requirements
+- Every item must assess a specific learning outcome from the CAPS document.
+- The skill tested must be unambiguous and observable.
+- The item must be solvable with Grade {{ grade }} knowledge only — no higher-grade concepts.
+
+## IRT Parameter Instructions
+Set the following based on your difficulty target:
+- difficulty_b: float in [{{ b_target - 0.5 }}, {{ b_target + 0.5 }}] (your calibrated estimate)
+- discrimination_a: float in [0.8, 1.5] for a well-discriminating item
+- guessing_c: 0.25 for a 4-option MCQ (theoretical chance guessing rate)
+
+## Output Format
+Respond with ONLY valid JSON — no preamble, no markdown fences, no explanation outside the JSON.
+The JSON must match this exact schema:
+
+```
+{
+  "caps_ref": "{{ caps_ref }}",
+  "grade": {{ grade }},
+  "subject": "{{ subject }}",
+  "term": {{ term }},
+  "topic": "{{ topic }}",
+  "subtopic": "{{ subtopic }}",
+  "skill": "{{ skill }}",
+  "stem": "The question text here.",
+  "answer_key": "A",
+  "options": [
+    {"label": "A", "text": "Correct answer text"},
+    {"label": "B", "text": "Wrong answer 1"},
+    {"label": "C", "text": "Wrong answer 2"},
+    {"label": "D", "text": "Wrong answer 3"}
+  ],
+  "explanation": "Learner-facing explanation of why A is correct...",
+  "distractor_rationale": {
+    "B": "Misconception: learner confused X with Y because...",
+    "C": "Misconception: learner applied the wrong operation because...",
+    "D": "Misconception: learner made a place-value error because..."
+  },
+  "misconception_tags": ["tag_one", "tag_two"],
+  "item_type": "{{ item_type }}",
+  "difficulty_b": 0.0,
+  "discrimination_a": 1.0,
+  "guessing_c": 0.25,
+  "language": "{{ language }}"
+}
+```
+
+Generate the item now. Output ONLY the JSON object.
