@@ -209,3 +209,9 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 - Phase 2 POPIA data-export read authorization wiring and HTTP tests: `tests/unit/test_popia_data_export_authorization_wiring.py`, `tests/integration/test_popia_data_export_authorization.py`
 
 - Phase 2 parent learner-progress read authorization wiring and HTTP tests: `tests/unit/test_parent_progress_authorization_wiring.py`, `tests/integration/test_parent_progress_authorization.py`
+
+- Phase 2 POPIA deletion-request write authorization wiring and HTTP tests: `tests/unit/test_popia_deletion_request_authorization_wiring.py`, `tests/integration/test_popia_deletion_request_authorization.py`
+
+- Phase 2 POPIA deletion-cancel write authorization wiring and HTTP tests: `tests/unit/test_popia_deletion_cancel_authorization_wiring.py`, `tests/integration/test_popia_deletion_cancel_authorization.py`
+
+- Phase 2 authorization evidence checker updated for Codes 27-31: diagnostic submit, POPIA export, parent progress, POPIA deletion request, POPIA deletion cancel.
