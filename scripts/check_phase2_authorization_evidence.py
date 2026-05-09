@@ -10,6 +10,13 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_generate_phase2_authorization_closure_report.py",
+    "tests/unit/test_learner_authz_ci_contract.py",
+    "scripts/generate_phase2_authorization_closure_report.py",
+    "docs/security/phase2_authorization_closure_report.md",
+    "docs/security/PHASE2_AUTHORIZATION_CLOSURE.md",
+    "docs/security/learner_authz_ci.md",
+    ".github/workflows/learner-authz-coverage.yml",
     "tests/unit/test_check_learner_authz_coverage.py",
     "tests/unit/test_generate_learner_authz_matrix.py",
     "docs/security/learner_authz_coverage_check.md",
@@ -109,6 +116,23 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "scripts/generate_phase2_authorization_closure_report.py": (
+        "generate_phase2_authorization_closure_report",
+        "collect_rows",
+    ),
+    "docs/security/PHASE2_AUTHORIZATION_CLOSURE.md": (
+        "Phase 2 Authorization Closure Report",
+        "Closure Status",
+    ),
+    ".github/workflows/learner-authz-coverage.yml": (
+        "Learner Authorization Coverage",
+        "make learner-authz-check",
+    ),
+    "docs/security/learner_authz_ci.md": (
+        "make learner-authz-check",
+        "master",
+        "release/**",
+    ),
     "scripts/check_learner_authz_coverage.py": (
         "ALLOWLIST",
         "collect_rows",

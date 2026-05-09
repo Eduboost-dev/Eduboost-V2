@@ -269,3 +269,9 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 - Phase 2 learner authorization coverage guard added: `scripts/check_learner_authz_coverage.py`, `make learner-authz-check`
 
 - Phase 2 evidence checker updated for Codes 57-58: learner authorization matrix and coverage guard.
+
+- Learner authorization coverage CI added: `.github/workflows/learner-authz-coverage.yml`, `tests/unit/test_learner_authz_ci_contract.py`
+
+- Phase 2 closure report direct-execution fix and test added: `tests/unit/test_generate_phase2_authorization_closure_report.py`
+
+- Phase 2 evidence checker updated for Codes 60-61: learner authorization CI and closure report.
