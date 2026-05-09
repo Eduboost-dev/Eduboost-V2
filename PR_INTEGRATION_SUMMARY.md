@@ -215,3 +215,81 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 - Phase 2 POPIA deletion-cancel write authorization wiring and HTTP tests: `tests/unit/test_popia_deletion_cancel_authorization_wiring.py`, `tests/integration/test_popia_deletion_cancel_authorization.py`
 
 - Phase 2 authorization evidence checker updated for Codes 27-31: diagnostic submit, POPIA export, parent progress, POPIA deletion request, POPIA deletion cancel.
+
+- Phase 2 POPIA correction-request write authorization wiring and HTTP tests: `tests/unit/test_popia_correction_request_authorization_wiring.py`, `tests/integration/test_popia_correction_request_authorization.py`
+
+- Phase 2 POPIA restriction-request write authorization wiring and HTTP tests: `tests/unit/test_popia_restriction_request_authorization_wiring.py`, `tests/integration/test_popia_restriction_request_authorization.py`
+
+- Phase 2 POPIA deletion-status read authorization wiring and HTTP tests: `tests/unit/test_popia_deletion_status_authorization_wiring.py`, `tests/integration/test_popia_deletion_status_authorization.py`
+
+- Phase 2 parent learner-erasure write authorization wiring and HTTP tests: `tests/unit/test_parent_erasure_authorization_wiring.py`, `tests/integration/test_parent_erasure_authorization.py`
+
+- Phase 2 POPIA deletion-execute write authorization wiring and HTTP tests: `tests/unit/test_popia_deletion_execute_authorization_wiring.py`, `tests/integration/test_popia_deletion_execute_authorization.py`
+
+- Phase 2 parent access-bundle export authorization wiring and HTTP tests: `tests/unit/test_parent_export_authorization_wiring.py`, `tests/integration/test_parent_export_authorization.py`
+
+- Phase 2 consent-status read authorization wiring and HTTP tests: `tests/unit/test_consent_status_authorization_wiring.py`, `tests/integration/test_consent_status_authorization.py`
+
+- Phase 2 parent trust-dashboard per-learner read authorization wiring: `tests/unit/test_parent_trust_dashboard_authorization_wiring.py`
+
+- Phase 2 parent dashboard per-learner read authorization wiring: `tests/unit/test_parent_dashboard_authorization_wiring.py`
+
+- Phase 2 consent-grant write authorization wiring and HTTP tests: `tests/unit/test_consent_grant_authorization_wiring.py`, `tests/integration/test_consent_grant_authorization.py`
+
+- Phase 2 consent-revoke write authorization wiring and HTTP tests: `tests/unit/test_consent_revoke_authorization_wiring.py`, `tests/integration/test_consent_revoke_authorization.py`
+
+- Phase 2 gamification profile read authorization wiring and HTTP tests: `tests/unit/test_gamification_profile_authorization_wiring.py`, `tests/integration/test_gamification_profile_authorization.py`
+
+- Phase 2 gamification award-xp write authorization wiring and HTTP tests: `tests/unit/test_gamification_award_xp_authorization_wiring.py`, `tests/integration/test_gamification_award_xp_authorization.py`
+
+- Phase 2 lesson stream write authorization wiring and HTTP tests: `tests/unit/test_lesson_stream_authorization_wiring.py`, `tests/integration/test_lesson_stream_authorization.py`
+
+- Phase 2 authorization evidence checker updated for Codes 45-46: gamification award XP and lesson stream generation.
+
+- Phase 2 assessment attempt write authorization wiring and tests: `tests/unit/test_assessment_attempt_authorization_wiring.py`
+
+- Phase 2 onboarding write authorization wiring and tests: `tests/unit/test_onboarding_authorization_wiring.py`
+
+- Phase 2 authorization evidence checker updated for Codes 48-49: assessment attempt and onboarding learner writes.
+
+- Phase 2 assessment list authentication boundary: `tests/unit/test_assessment_list_auth_boundary.py`
+
+- Phase 2 onboarding questions authentication boundary: `tests/unit/test_onboarding_questions_auth_boundary.py`
+
+- Phase 2 authorization evidence checker updated for Codes 51-52: assessment list and onboarding question authentication boundaries.
+
+- Assessment attempt request model centralized in `app/domain/api_v2_models.py` with contract test: `tests/unit/test_assessment_attempt_model_contract.py`
+
+- Phase 2 router import smoke coverage added: `tests/unit/test_phase2_router_import_smoke.py`
+
+- Phase 2 evidence checker updated for Codes 54-55: assessment model contract and router import smoke tests.
+
+- Phase 2 learner authorization coverage matrix added: `scripts/generate_learner_authz_matrix.py`, `docs/security/learner_authz_matrix.md`
+
+- Phase 2 learner authorization coverage guard added: `scripts/check_learner_authz_coverage.py`, `make learner-authz-check`
+
+- Phase 2 evidence checker updated for Codes 57-58: learner authorization matrix and coverage guard.
+
+- Learner authorization coverage CI added: `.github/workflows/learner-authz-coverage.yml`, `tests/unit/test_learner_authz_ci_contract.py`
+
+- Phase 2 closure report direct-execution fix and test added: `tests/unit/test_generate_phase2_authorization_closure_report.py`
+
+- Phase 2 evidence checker updated for Codes 60-61: learner authorization CI and closure report.
+
+- Final Phase 2 authorization closure check added: `make phase2-authz-closure`, `scripts/check_phase2_authorization_closure.py`
+
+- Phase 2 authorization closure stamp added to `docs/security/PHASE2_AUTHORIZATION_CLOSURE.md`.
+
+- Phase 2 evidence checker updated for Codes 63-64: final closure check and closure stamp.
+
+- Dev-session production hiding contract added: `tests/unit/test_dev_session_environment_gate.py`.
+
+- Consent-renewal admin boundary recognized by learner authorization matrix: `tests/unit/test_consent_renewal_admin_auth_boundary.py`.
+
+- Ether onboarding questions authentication boundary added: `tests/unit/test_ether_onboarding_questions_auth_boundary.py`.
+
+- Phase 2 evidence checker updated for Codes 67-71: operational auth boundary hardening.
+
+- Phase 2 closure report stamped with operational auth boundary hardening evidence.
+
+- Aggregate operational auth boundary evidence added: `tests/unit/test_operational_auth_boundaries.py`.
