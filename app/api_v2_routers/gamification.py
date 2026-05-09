@@ -7,6 +7,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.security import get_current_user
+from app.security.dependencies import require_learner_read_for_current_user
+from app.security.dependencies import require_learner_write_for_current_user
 from app.repositories.gamification_repository import GamificationRepository
 from app.repositories.repositories import LearnerRepository, LessonRepository
 from app.services.consent import ConsentService
@@ -29,6 +31,10 @@ async def get_profile(
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(get_current_user),
 ):
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_read_for_current_user(current_user, learner)
     await ConsentService(db).require_active_consent(learner_id, actor_id=current_user.get("sub"))
     try:
         return await GamificationServiceV2(GamificationRepository(db)).get_profile(learner_id)
@@ -46,6 +52,7 @@ async def award_xp(
     learner = await LearnerRepository(db).get_by_id(body.learner_id)
     if learner is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_write_for_current_user(current_user, body.learner_id)
 
     learner_repo = LearnerRepository(db)
     await learner_repo.add_xp(body.learner_id, body.xp_amount)

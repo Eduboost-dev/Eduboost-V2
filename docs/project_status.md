@@ -116,3 +116,119 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## POPIA Deletion Cancel Authorization
 
 - [`docs/security/popia_deletion_cancel_authorization_wiring.md`](security/popia_deletion_cancel_authorization_wiring.md)
+
+## POPIA Correction Request Authorization
+
+- [`docs/security/popia_correction_request_authorization_wiring.md`](security/popia_correction_request_authorization_wiring.md)
+
+## POPIA Restriction Request Authorization
+
+- [`docs/security/popia_restriction_request_authorization_wiring.md`](security/popia_restriction_request_authorization_wiring.md)
+
+## POPIA Deletion Status Authorization
+
+- [`docs/security/popia_deletion_status_authorization_wiring.md`](security/popia_deletion_status_authorization_wiring.md)
+
+## Parent Erasure Authorization
+
+- [`docs/security/parent_erasure_authorization_wiring.md`](security/parent_erasure_authorization_wiring.md)
+
+## POPIA Deletion Execute Authorization
+
+- [`docs/security/popia_deletion_execute_authorization_wiring.md`](security/popia_deletion_execute_authorization_wiring.md)
+
+## Parent Export Authorization
+
+- [`docs/security/parent_export_authorization_wiring.md`](security/parent_export_authorization_wiring.md)
+
+## Consent Status Authorization
+
+- [`docs/security/consent_status_authorization_wiring.md`](security/consent_status_authorization_wiring.md)
+
+## Parent Trust Dashboard Authorization
+
+- [`docs/security/parent_trust_dashboard_authorization_wiring.md`](security/parent_trust_dashboard_authorization_wiring.md)
+
+## Parent Dashboard Authorization
+
+- [`docs/security/parent_dashboard_authorization_wiring.md`](security/parent_dashboard_authorization_wiring.md)
+
+## Consent Grant Authorization
+
+- [`docs/security/consent_grant_authorization_wiring.md`](security/consent_grant_authorization_wiring.md)
+
+## Consent Revoke Authorization
+
+- [`docs/security/consent_revoke_authorization_wiring.md`](security/consent_revoke_authorization_wiring.md)
+
+## Gamification Profile Authorization
+
+- [`docs/security/gamification_profile_authorization_wiring.md`](security/gamification_profile_authorization_wiring.md)
+
+## Gamification Award XP Authorization
+
+- [`docs/security/gamification_award_xp_authorization_wiring.md`](security/gamification_award_xp_authorization_wiring.md)
+
+## Lesson Stream Authorization
+
+- [`docs/security/lesson_stream_authorization_wiring.md`](security/lesson_stream_authorization_wiring.md)
+
+## Assessment Attempt Authorization
+
+- [`docs/security/assessment_attempt_authorization_wiring.md`](security/assessment_attempt_authorization_wiring.md)
+
+## Onboarding Authorization
+
+- [`docs/security/onboarding_authorization_wiring.md`](security/onboarding_authorization_wiring.md)
+
+## Assessment List Authentication Boundary
+
+- [`docs/security/assessment_list_auth_boundary.md`](security/assessment_list_auth_boundary.md)
+
+## Onboarding Questions Authentication Boundary
+
+- [`docs/security/onboarding_questions_auth_boundary.md`](security/onboarding_questions_auth_boundary.md)
+
+## Assessment Attempt Model Contract
+
+- [`docs/security/assessment_attempt_model_contract.md`](security/assessment_attempt_model_contract.md)
+
+## Phase 2 Router Import Smoke
+
+- [`docs/security/phase2_router_import_smoke.md`](security/phase2_router_import_smoke.md)
+
+## Learner Authorization Matrix
+
+- [`docs/security/learner_authz_matrix.md`](security/learner_authz_matrix.md)
+
+## Learner Authorization Coverage Check
+
+- [`docs/security/learner_authz_coverage_check.md`](security/learner_authz_coverage_check.md)
+
+## Learner Authorization Coverage CI
+
+- [`docs/security/learner_authz_ci.md`](security/learner_authz_ci.md)
+
+## Phase 2 Authorization Closure Report
+
+- [`docs/security/PHASE2_AUTHORIZATION_CLOSURE.md`](security/PHASE2_AUTHORIZATION_CLOSURE.md)
+
+## Phase 2 Authorization Closure Check
+
+- [`docs/security/phase2_authorization_closure_check.md`](security/phase2_authorization_closure_check.md)
+
+## Dev Session Environment Gate
+
+- [`docs/security/dev_session_environment_gate.md`](security/dev_session_environment_gate.md)
+
+## Consent Renewal Admin Authorization Boundary
+
+- [`docs/security/consent_renewal_admin_auth_boundary.md`](security/consent_renewal_admin_auth_boundary.md)
+
+## Ether Onboarding Questions Authentication Boundary
+
+- [`docs/security/ether_onboarding_questions_auth_boundary.md`](security/ether_onboarding_questions_auth_boundary.md)
+
+## Operational Auth Boundaries
+
+- [`docs/security/operational_auth_boundaries.md`](security/operational_auth_boundaries.md)

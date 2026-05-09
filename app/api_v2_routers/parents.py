@@ -18,6 +18,7 @@ from app.domain.schemas import (
 from app.models import Guardian, KnowledgeGap, Lesson
 from app.repositories.repositories import LearnerRepository
 from app.security.dependencies import require_learner_read_for_current_user
+from app.security.dependencies import require_learner_write_for_current_user
 from app.services.consent import ConsentService
 from app.services.executive import ExecutiveService
 from app.services.fourth_estate import FourthEstateService
@@ -45,6 +46,7 @@ async def get_parent_dashboard(
 
     for learner in learners:
         try:
+            require_learner_read_for_current_user(current_user, learner)
             await consent_service.require_active_consent(learner.id, actor_id=current_user["sub"])
         except HTTPException:
             continue
@@ -120,6 +122,7 @@ async def get_parent_trust_dashboard(
 
     for learner in learners:
         try:
+            require_learner_read_for_current_user(current_user, learner)
             await consent_service.require_active_consent(learner.id, actor_id=current_user["sub"])
         except HTTPException:
             continue
@@ -198,6 +201,7 @@ async def export_parent_access_bundle(
     consent_service = ConsentService(db)
     exports = []
     for learner in learners:
+        require_learner_read_for_current_user(current_user, learner)
         await consent_service.require_active_consent(learner.id, actor_id=current_user["sub"])
         exports.append(
             {
@@ -275,8 +279,7 @@ async def request_erasure(
     learner = await LearnerRepository(db).get_by_id(learner_id)
     if learner is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
-    if learner.guardian_id != current_user["sub"] and str(current_user.get("role", "")).lower() != "admin":
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorised to erase this learner")
+    require_learner_write_for_current_user(current_user, learner_id)
 
     consent_service = ConsentService(db)
     await consent_service.execute_erasure(current_user["sub"], learner_id)
