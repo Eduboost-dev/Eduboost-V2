@@ -29,3 +29,11 @@ pytest -c pytest.ini tests/unit/test_generate_consent_gate_inventory.py tests/un
 1. Convert consent-gate inventory candidates into explicit route/service gates.
 2. Add request-level audit evidence for consent-protected reads and writes.
 3. Add CI drift protection for consent and audit contracts.
+
+## POPIA Consent Gate Check
+
+- `make popia-consent-gate-check` guards consent-gate inventory drift.
+
+## POPIA Consent Audit CI
+
+- `.github/workflows/popia-consent-audit.yml` runs consent/audit drift checks in CI.
