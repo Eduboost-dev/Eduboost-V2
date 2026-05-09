@@ -16,7 +16,7 @@ _ether = EtherService()
 
 
 @router.get("/questions")
-async def get_onboarding_questions(_: dict = Depends(get_current_user)):
+async def get_onboarding_questions(current_user: dict = Depends(get_current_user)):
     return _ether.get_onboarding_questions()
 
 

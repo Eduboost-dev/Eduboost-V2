@@ -169,3 +169,11 @@ Review `docs/security/learner_route_authorization_inspection.md` before wiring t
 ## Onboarding Authorization
 
 - [`docs/security/onboarding_authorization_wiring.md`](onboarding_authorization_wiring.md)
+
+## Assessment List Authentication Boundary
+
+- [`docs/security/assessment_list_auth_boundary.md`](assessment_list_auth_boundary.md)
+
+## Onboarding Questions Authentication Boundary
+
+- [`docs/security/onboarding_questions_auth_boundary.md`](onboarding_questions_auth_boundary.md)
