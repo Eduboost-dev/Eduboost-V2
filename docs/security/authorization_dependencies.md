@@ -193,3 +193,11 @@ Review `docs/security/learner_route_authorization_inspection.md` before wiring t
 ## Learner Authorization Coverage Check
 
 - [`docs/security/learner_authz_coverage_check.md`](learner_authz_coverage_check.md)
+
+## Learner Authorization Coverage CI
+
+- [`docs/security/learner_authz_ci.md`](learner_authz_ci.md)
+
+## Phase 2 Authorization Closure Report
+
+- [`docs/security/PHASE2_AUTHORIZATION_CLOSURE.md`](PHASE2_AUTHORIZATION_CLOSURE.md)

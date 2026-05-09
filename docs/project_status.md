@@ -204,3 +204,11 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Learner Authorization Coverage Check
 
 - [`docs/security/learner_authz_coverage_check.md`](security/learner_authz_coverage_check.md)
+
+## Learner Authorization Coverage CI
+
+- [`docs/security/learner_authz_ci.md`](security/learner_authz_ci.md)
+
+## Phase 2 Authorization Closure Report
+
+- [`docs/security/PHASE2_AUTHORIZATION_CLOSURE.md`](security/PHASE2_AUTHORIZATION_CLOSURE.md)

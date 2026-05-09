@@ -23,6 +23,8 @@ python3 scripts/check_phase2_authorization_evidence.py
 
 | Area | Endpoint |
 | --- | --- |
+| Phase 2 closure report | `docs/security/PHASE2_AUTHORIZATION_CLOSURE.md` |
+| Learner authorization CI | `.github/workflows/learner-authz-coverage.yml` |
 | Learner authorization coverage guard | `make learner-authz-check` |
 | Learner authorization matrix | `docs/security/learner_authz_matrix.md` |
 | Phase 2 router import smoke | `tests/unit/test_phase2_router_import_smoke.py` |
