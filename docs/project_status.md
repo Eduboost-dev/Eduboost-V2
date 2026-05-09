@@ -236,3 +236,11 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## POPIA Consent and Audit Baseline
 
 - [`docs/security/POPIA_CONSENT_AUDIT_BASELINE.md`](security/POPIA_CONSENT_AUDIT_BASELINE.md)
+
+## POPIA Consent Gate Check
+
+- [`docs/security/popia_consent_gate_check.md`](security/popia_consent_gate_check.md)
+
+## POPIA Consent Audit CI
+
+- [`docs/security/popia_consent_audit_ci.md`](security/popia_consent_audit_ci.md)

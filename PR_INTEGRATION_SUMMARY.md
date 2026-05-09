@@ -295,3 +295,9 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 - Aggregate operational auth boundary evidence added: `tests/unit/test_operational_auth_boundaries.py`.
 
 - POPIA consent/audit baseline added for next security cluster: `docs/security/POPIA_CONSENT_AUDIT_BASELINE.md`.
+
+- POPIA consent-gate inventory drift guard added: `make popia-consent-gate-check`.
+
+- POPIA consent/audit CI workflow added: `.github/workflows/popia-consent-audit.yml`.
+
+- POPIA consent/audit aggregate evidence check added: `make popia-consent-audit-check`.

@@ -87,3 +87,10 @@ phase2-authz-closure:
 
 audit-contract-check:
 	$(PYTHON) scripts/check_audit_event_contracts.py
+
+popia-consent-gate-check:
+	$(PYTHON) scripts/generate_consent_gate_inventory.py
+	$(PYTHON) scripts/check_consent_gate_inventory.py
+
+popia-consent-audit-check:
+	$(PYTHON) scripts/check_popia_consent_audit_evidence.py
