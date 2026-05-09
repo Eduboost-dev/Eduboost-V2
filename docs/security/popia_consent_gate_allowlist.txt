@@ -3,7 +3,6 @@
 # Remove entries as explicit consent gates are added.
 
 app/api_v2_routers/assessments.py::list_assessments
-app/api_v2_routers/assessments.py::submit_attempt
 app/api_v2_routers/auth.py::revoke_all_tokens
 app/api_v2_routers/billing.py::create_checkout
 app/api_v2_routers/ether.py::submit_onboarding
@@ -13,7 +12,6 @@ app/api_v2_routers/learners.py::enqueue_data_purge
 app/api_v2_routers/lessons.py::_events
 app/api_v2_routers/lessons.py::_run
 app/api_v2_routers/lessons.py::get_lesson_service
-app/api_v2_routers/onboarding.py::submit_onboarding
 app/api_v2_routers/parents.py::_log_purge_request
 app/api_v2_routers/popia.py::_run
 app/api_v2_routers/popia.py::cancel_learner_deletion

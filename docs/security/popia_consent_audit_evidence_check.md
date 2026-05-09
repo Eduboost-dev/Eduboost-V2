@@ -32,3 +32,12 @@ The aggregate checker includes:
 - parent route consent-gate wiring
 - POPIA data-export active-consent gate
 - DSR route boundary documentation
+
+
+## Assessment and Onboarding Consent Boundary Evidence
+
+The aggregate checker includes:
+
+- assessment attempt active-consent gate
+- onboarding submit/archetype active-consent gate
+- authenticated catalog boundary documentation for list/questions routes

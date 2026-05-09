@@ -268,3 +268,11 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## POPIA Data-Rights Consent Boundary
 
 - [`docs/security/popia_data_rights_consent_boundary.md`](security/popia_data_rights_consent_boundary.md)
+
+## Assessment Consent Gate
+
+- [`docs/security/assessment_consent_gate.md`](security/assessment_consent_gate.md)
+
+## Onboarding Consent Gate
+
+- [`docs/security/onboarding_consent_gate.md`](security/onboarding_consent_gate.md)

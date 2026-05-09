@@ -9,6 +9,10 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 REQUIRED_FILES = (
+    "tests/unit/test_onboarding_consent_gate_wiring.py",
+    "tests/unit/test_assessment_consent_gate_wiring.py",
+    "docs/security/onboarding_consent_gate.md",
+    "docs/security/assessment_consent_gate.md",
     "tests/unit/test_popia_data_rights_consent_boundary.py",
     "tests/unit/test_parent_routes_consent_gate_wiring.py",
     "docs/security/popia_data_rights_consent_boundary.md",
@@ -31,6 +35,22 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/security/onboarding_consent_gate.md": (
+        "Onboarding Consent Gate",
+        "authenticated catalog boundary",
+    ),
+    "docs/security/assessment_consent_gate.md": (
+        "Assessment Consent Gate",
+        "authenticated catalog boundary",
+    ),
+    "app/api_v2_routers/onboarding.py": (
+        "require_active_consent_for_current_user",
+        "await require_active_consent_for_current_user(db, current_user, body.learner_id)",
+    ),
+    "app/api_v2_routers/assessments.py": (
+        "require_active_consent_for_current_user",
+        "await require_active_consent_for_current_user(db, current_user, request.learner_id)",
+    ),
     "docs/security/popia_data_rights_consent_boundary.md": (
         "Data-Subject Rights Workflows",
         "not blocked by active consent",

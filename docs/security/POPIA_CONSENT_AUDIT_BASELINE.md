@@ -61,3 +61,11 @@ pytest -c pytest.ini tests/unit/test_generate_consent_gate_inventory.py tests/un
 ## POPIA Data-Rights Consent Boundary
 
 - POPIA data export requires active consent; DSR workflows remain object-authorized rights-exercise routes.
+
+## Assessment Consent Gate
+
+- Assessment attempt submission requires active POPIA consent; assessment list remains an authenticated catalog boundary.
+
+## Onboarding Consent Gate
+
+- Onboarding submit/archetype routes require active POPIA consent; questions remains an authenticated catalog boundary.

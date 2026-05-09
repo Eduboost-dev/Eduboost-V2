@@ -317,3 +317,9 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 - POPIA data-rights consent boundary documented and tested.
 
 - Parent and POPIA consent-gate evidence registered in aggregate checker.
+
+- Assessment attempt POPIA consent gate wiring added.
+
+- Onboarding submit/archetype POPIA consent gate wiring added.
+
+- Assessment and onboarding consent-gate evidence registered in aggregate checker.
