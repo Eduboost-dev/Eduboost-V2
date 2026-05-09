@@ -105,3 +105,15 @@ Review `docs/security/learner_route_authorization_inspection.md` before wiring t
 ## POPIA Deletion Cancel Authorization
 
 - [`docs/security/popia_deletion_cancel_authorization_wiring.md`](popia_deletion_cancel_authorization_wiring.md)
+
+## POPIA Correction Request Authorization
+
+- [`docs/security/popia_correction_request_authorization_wiring.md`](popia_correction_request_authorization_wiring.md)
+
+## POPIA Restriction Request Authorization
+
+- [`docs/security/popia_restriction_request_authorization_wiring.md`](popia_restriction_request_authorization_wiring.md)
+
+## POPIA Deletion Status Authorization
+
+- [`docs/security/popia_deletion_status_authorization_wiring.md`](popia_deletion_status_authorization_wiring.md)
