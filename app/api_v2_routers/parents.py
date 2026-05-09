@@ -17,6 +17,7 @@ from app.domain.schemas import (
 )
 from app.models import Guardian, KnowledgeGap, Lesson
 from app.repositories.repositories import LearnerRepository
+from app.security.dependencies import require_learner_read_for_current_user
 from app.services.consent import ConsentService
 from app.services.executive import ExecutiveService
 from app.services.fourth_estate import FourthEstateService
@@ -221,8 +222,7 @@ async def get_learner_progress(
     learner = await LearnerRepository(db).get_by_id(learner_id)
     if learner is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
-    if learner.guardian_id != current_user["sub"] and str(current_user.get("role", "")).lower() != "admin":
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorised to view this learner")
+    require_learner_read_for_current_user(current_user, learner)
 
     await ConsentService(db).require_active_consent(learner_id, actor_id=current_user["sub"])
 
