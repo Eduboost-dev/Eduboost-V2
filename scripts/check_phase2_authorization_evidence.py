@@ -10,6 +10,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_check_learner_authz_coverage.py",
+    "tests/unit/test_generate_learner_authz_matrix.py",
+    "docs/security/learner_authz_coverage_check.md",
+    "docs/security/learner_authz_matrix.md",
+    "scripts/check_learner_authz_coverage.py",
+    "scripts/generate_learner_authz_matrix.py",
     "tests/unit/test_phase2_router_import_smoke.py",
     "tests/unit/test_assessment_attempt_model_contract.py",
     "docs/security/phase2_router_import_smoke.md",
@@ -103,6 +109,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "scripts/check_learner_authz_coverage.py": (
+        "ALLOWLIST",
+        "collect_rows",
+    ),
+    "docs/security/learner_authz_coverage_check.md": (
+        "make learner-authz-check",
+        "authorization",
+    ),
+    "docs/security/learner_authz_matrix.md": (
+        "Learner Authorization Coverage Matrix",
+        "Missing learner authorization markers",
+    ),
     "app/domain/api_v2_models.py": (
         "class AssessmentAttemptRequest",
         "class AssessmentAttemptResponseItem",

@@ -196,3 +196,11 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Phase 2 Router Import Smoke
 
 - [`docs/security/phase2_router_import_smoke.md`](security/phase2_router_import_smoke.md)
+
+## Learner Authorization Matrix
+
+- [`docs/security/learner_authz_matrix.md`](security/learner_authz_matrix.md)
+
+## Learner Authorization Coverage Check
+
+- [`docs/security/learner_authz_coverage_check.md`](security/learner_authz_coverage_check.md)

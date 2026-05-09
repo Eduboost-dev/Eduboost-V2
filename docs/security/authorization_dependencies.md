@@ -185,3 +185,11 @@ Review `docs/security/learner_route_authorization_inspection.md` before wiring t
 ## Phase 2 Router Import Smoke
 
 - [`docs/security/phase2_router_import_smoke.md`](phase2_router_import_smoke.md)
+
+## Learner Authorization Matrix
+
+- [`docs/security/learner_authz_matrix.md`](learner_authz_matrix.md)
+
+## Learner Authorization Coverage Check
+
+- [`docs/security/learner_authz_coverage_check.md`](learner_authz_coverage_check.md)

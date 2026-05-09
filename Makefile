@@ -75,3 +75,9 @@ clean:
 
 phase2-authz-check:
 	$(PYTHON) scripts/check_phase2_authorization_evidence.py
+
+learner-authz-matrix:
+	$(PYTHON) scripts/generate_learner_authz_matrix.py
+
+learner-authz-check: learner-authz-matrix
+	$(PYTHON) scripts/check_learner_authz_coverage.py

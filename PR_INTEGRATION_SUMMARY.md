@@ -263,3 +263,9 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 - Phase 2 router import smoke coverage added: `tests/unit/test_phase2_router_import_smoke.py`
 
 - Phase 2 evidence checker updated for Codes 54-55: assessment model contract and router import smoke tests.
+
+- Phase 2 learner authorization coverage matrix added: `scripts/generate_learner_authz_matrix.py`, `docs/security/learner_authz_matrix.md`
+
+- Phase 2 learner authorization coverage guard added: `scripts/check_learner_authz_coverage.py`, `make learner-authz-check`
+
+- Phase 2 evidence checker updated for Codes 57-58: learner authorization matrix and coverage guard.
