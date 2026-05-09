@@ -23,6 +23,8 @@ python3 scripts/check_phase2_authorization_evidence.py
 
 | Area | Endpoint |
 | --- | --- |
+| Onboarding questions auth boundary | `GET /api/v2/onboarding/questions` |
+| Assessment list auth boundary | `GET /api/v2/assessments` |
 | Onboarding write | `POST /api/v2/onboarding/submit`, `POST /api/v2/onboarding/archetype` |
 | Assessment attempt write | `POST /api/v2/assessments/{assessment_id}/attempt` |
 | Lesson stream write | `POST /api/v2/lessons/generate/stream` |

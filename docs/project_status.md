@@ -180,3 +180,11 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Onboarding Authorization
 
 - [`docs/security/onboarding_authorization_wiring.md`](security/onboarding_authorization_wiring.md)
+
+## Assessment List Authentication Boundary
+
+- [`docs/security/assessment_list_auth_boundary.md`](security/assessment_list_auth_boundary.md)
+
+## Onboarding Questions Authentication Boundary
+
+- [`docs/security/onboarding_questions_auth_boundary.md`](security/onboarding_questions_auth_boundary.md)

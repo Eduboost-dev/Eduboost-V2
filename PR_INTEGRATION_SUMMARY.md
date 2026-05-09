@@ -251,3 +251,9 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 - Phase 2 onboarding write authorization wiring and tests: `tests/unit/test_onboarding_authorization_wiring.py`
 
 - Phase 2 authorization evidence checker updated for Codes 48-49: assessment attempt and onboarding learner writes.
+
+- Phase 2 assessment list authentication boundary: `tests/unit/test_assessment_list_auth_boundary.py`
+
+- Phase 2 onboarding questions authentication boundary: `tests/unit/test_onboarding_questions_auth_boundary.py`
+
+- Phase 2 authorization evidence checker updated for Codes 51-52: assessment list and onboarding question authentication boundaries.

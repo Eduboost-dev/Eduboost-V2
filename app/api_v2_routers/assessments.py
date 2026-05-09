@@ -27,7 +27,7 @@ router = APIRouter(prefix="/api/v2/assessments", tags=["V2 Assessments"])
 
 
 @router.get("")
-async def list_assessments(limit: int = 50, offset: int = 0):
+async def list_assessments(limit: int = 50, offset: int = 0, _: dict = Depends(get_current_user)):
     return await AssessmentServiceV2().list_assessments(limit=limit, offset=offset)
 
 
