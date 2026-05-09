@@ -135,20 +135,6 @@ class ItemValidator:
 
     def __init__(self, topic_map: Optional[dict] = None) -> None:
         self._topic_map = topic_map or {}
-        # Flatten CAPS refs for O(1) lookup
-        self._valid_caps_refs = set()
-        if "topics" in self._topic_map:
-            # Handle both list and dict formats for robustness
-            topics = self._topic_map["topics"]
-            if isinstance(topics, list):
-                for t in topics:
-                    if "caps_ref" in t:
-                        self._valid_caps_refs.add(t["caps_ref"])
-                    for st in t.get("subtopics", []):
-                        if "caps_ref" in st:
-                            self._valid_caps_refs.add(st["caps_ref"])
-            elif isinstance(topics, dict):
-                self._valid_caps_refs.update(topics.keys())
 
     # ─── Main entry point ────────────────────────────────────────────────────
 
@@ -197,11 +183,11 @@ class ItemValidator:
         caps_ref = item.get("caps_ref", "")
         if not caps_ref:
             raise ValidationError("caps_ref", "caps_ref field is missing or empty.")
-        if self._topic_map and caps_ref not in self._valid_caps_refs:
+        if self._topic_map and caps_ref not in self._topic_map.get("topics", {}):
             raise ValidationError(
                 "caps_ref",
                 f"CAPS ref '{caps_ref}' is not in the topic map. "
-                f"Known refs: {sorted(list(self._valid_caps_refs))}",
+                f"Known refs: {list(self._topic_map.get('topics', {}).keys())}",
             )
 
     def _rule_answer_key_matches_option(self, item: dict) -> None:

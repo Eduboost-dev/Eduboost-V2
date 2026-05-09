@@ -194,7 +194,7 @@ class TestStemReadability:
         errors = validator.validate_all(item)
         assert any(e.rule == "stem_readability" for e in errors)
 
-    def test_fk_grade_calculation(self):
+    def test_fk_grade_calculation():
         # Simple sentence — should be low grade level
         simple = "The cat sat on the mat."
         fk = flesch_kincaid_grade(simple)
