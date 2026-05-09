@@ -59,3 +59,13 @@ pytest -c pytest.ini tests/unit/test_security_dependencies.py -q --no-cov
 
 The next Phase 2 slice should wire this dependency into one learner-scoped
 read route and add positive/negative HTTP contract tests.
+
+## Learner Route Inspection
+
+Run:
+
+```bash
+python3 scripts/inspect_learner_routes.py
+```
+
+Review `docs/security/learner_route_authorization_inspection.md` before wiring the first route.
