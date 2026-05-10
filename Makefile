@@ -371,3 +371,15 @@ final-release-verification-check:
 
 final-release-verification:
 	$(PYTHON) scripts/check_final_release_verification_bundle.py --execute
+
+release-state-snapshot:
+	$(PYTHON) scripts/generate_release_state_snapshot.py
+
+release-state-snapshot-check:
+	$(PYTHON) scripts/check_release_state_snapshot.py
+
+beta-evidence-consistency-check:
+	$(PYTHON) scripts/check_beta_evidence_consistency.py
+
+final-pr-merge-readiness-check:
+	$(PYTHON) scripts/check_final_pr_merge_readiness.py

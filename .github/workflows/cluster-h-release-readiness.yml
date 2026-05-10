@@ -45,11 +45,19 @@ jobs:
           make beta-pr-body
           make beta-pr-body-check
           make final-release-verification-check
+          make release-state-snapshot
+          make release-state-snapshot-check
+          make beta-evidence-consistency-check
+          make final-pr-merge-readiness-check
           make cluster-h-release-readiness-check
       - name: Run Cluster H release readiness tests
         run: |
           pytest -c pytest.ini \
             tests/unit/test_beta_release_readiness_contract.py \
+            tests/unit/test_cluster_h_state_consistency_merge_wiring.py \
+            tests/unit/test_final_pr_merge_readiness.py \
+            tests/unit/test_beta_evidence_consistency.py \
+            tests/unit/test_release_state_snapshot.py \
             tests/unit/test_cluster_h_execution_pr_verification_wiring.py \
             tests/unit/test_final_release_verification_bundle.py \
             tests/unit/test_beta_pr_body.py \

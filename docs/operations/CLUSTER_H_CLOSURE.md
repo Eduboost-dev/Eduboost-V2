@@ -64,3 +64,14 @@ Cluster H is first-pass closed when `make cluster-h-closure-check` passes.
 - `docs/operations/beta_release_execution_plan.md`
 - `docs/operations/beta_release_pr_body.md`
 - `docs/operations/final_release_verification_bundle.md`
+
+## Release State Consistency Merge Readiness Evidence
+
+- `docs/operations/release_state_snapshot.md`
+- `docs/operations/beta_evidence_consistency_guard.md`
+- `docs/operations/final_pr_merge_readiness_contract.md`
+
+## Self Reference and Consistency Boundary
+
+- docs/operations/CLUSTER_H_CLOSURE.md
+- controlled staging/beta validation only
