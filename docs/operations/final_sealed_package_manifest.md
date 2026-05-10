@@ -51,3 +51,9 @@ This final sealed package manifest records sealed package composition only. It d
 ```bash
 make final-sealed-package-manifest-check
 ```
+
+## Archive Accession Custody Retrieval Evidence
+
+- `docs/operations/final_archive_accession_record.md`
+- `docs/operations/post_closeout_custody_register.md`
+- `docs/operations/terminal_evidence_retrieval_guide.md`

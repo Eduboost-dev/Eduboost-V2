@@ -554,3 +554,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster H Sealed Package Audit Review Terminal Handoff
 
 - Cluster H final sealed package manifest, audit review closeout certificate, and terminal handoff closure note added.
+
+## Cluster H Archive Accession Custody Retrieval
+
+- Cluster H final archive accession record, post-closeout custody register, and terminal evidence retrieval guide added.

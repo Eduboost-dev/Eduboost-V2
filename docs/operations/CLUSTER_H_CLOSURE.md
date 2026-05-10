@@ -201,3 +201,9 @@ Cluster H is first-pass closed when `make cluster-h-closure-check` passes.
 - `docs/operations/final_sealed_package_manifest.md`
 - `docs/operations/audit_review_closeout_certificate.md`
 - `docs/operations/terminal_handoff_closure_note.md`
+
+## Archive Accession Custody Retrieval Evidence
+
+- `docs/operations/final_archive_accession_record.md`
+- `docs/operations/post_closeout_custody_register.md`
+- `docs/operations/terminal_evidence_retrieval_guide.md`

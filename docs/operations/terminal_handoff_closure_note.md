@@ -51,3 +51,9 @@ This terminal handoff closure note records terminal handoff closure only. It doe
 ```bash
 make terminal-handoff-closure-note-check
 ```
+
+## Archive Accession Custody Retrieval Evidence
+
+- `docs/operations/final_archive_accession_record.md`
+- `docs/operations/post_closeout_custody_register.md`
+- `docs/operations/terminal_evidence_retrieval_guide.md`

@@ -572,3 +572,12 @@ audit-review-closeout-certificate-check:
 
 terminal-handoff-closure-note-check:
 	$(PYTHON) scripts/check_terminal_handoff_closure_note.py
+
+final-archive-accession-record-check:
+	$(PYTHON) scripts/check_final_archive_accession_record.py
+
+post-closeout-custody-register-check:
+	$(PYTHON) scripts/check_post_closeout_custody_register.py
+
+terminal-evidence-retrieval-guide-check:
+	$(PYTHON) scripts/check_terminal_evidence_retrieval_guide.py

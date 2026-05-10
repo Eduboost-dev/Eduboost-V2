@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_archive_accession_custody_retrieval_wiring.py",
+    "tests/unit/test_terminal_evidence_retrieval_guide.py",
+    "tests/unit/test_post_closeout_custody_register.py",
+    "tests/unit/test_final_archive_accession_record.py",
+    "scripts/check_terminal_evidence_retrieval_guide.py",
+    "scripts/check_post_closeout_custody_register.py",
+    "scripts/check_final_archive_accession_record.py",
+    "docs/operations/terminal_evidence_retrieval_guide.md",
+    "docs/operations/post_closeout_custody_register.md",
+    "docs/operations/final_archive_accession_record.md",
     "tests/unit/test_cluster_h_sealed_package_audit_review_terminal_handoff_wiring.py",
     "tests/unit/test_terminal_handoff_closure_note.py",
     "tests/unit/test_audit_review_closeout_certificate.py",
@@ -298,6 +308,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/terminal_evidence_retrieval_guide.md": (
+        "Terminal Evidence Retrieval Guide",
+        "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
+    ),
+    "docs/operations/post_closeout_custody_register.md": (
+        "Post-Closeout Custody Register",
+        "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
+    ),
+    "docs/operations/final_archive_accession_record.md": (
+        "Final Archive Accession Record",
+        "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
+    ),
     "docs/operations/terminal_handoff_closure_note.md": (
         "Terminal Handoff Closure Note",
         "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
@@ -729,6 +751,9 @@ CONTENT_REQUIREMENTS = {
         "final-sealed-package-manifest-check:",
         "audit-review-closeout-certificate-check:",
         "terminal-handoff-closure-note-check:",
+        "final-archive-accession-record-check:",
+        "post-closeout-custody-register-check:",
+        "terminal-evidence-retrieval-guide-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",

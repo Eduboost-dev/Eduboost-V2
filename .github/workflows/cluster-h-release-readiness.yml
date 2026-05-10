@@ -112,11 +112,18 @@ jobs:
           make final-sealed-package-manifest-check
           make audit-review-closeout-certificate-check
           make terminal-handoff-closure-note-check
+          make final-archive-accession-record-check
+          make post-closeout-custody-register-check
+          make terminal-evidence-retrieval-guide-check
           make cluster-h-release-readiness-check
       - name: Run Cluster H release readiness tests
         run: |
           pytest -c pytest.ini \
             tests/unit/test_beta_release_readiness_contract.py \
+            tests/unit/test_cluster_h_archive_accession_custody_retrieval_wiring.py \
+            tests/unit/test_terminal_evidence_retrieval_guide.py \
+            tests/unit/test_post_closeout_custody_register.py \
+            tests/unit/test_final_archive_accession_record.py \
             tests/unit/test_cluster_h_sealed_package_audit_review_terminal_handoff_wiring.py \
             tests/unit/test_terminal_handoff_closure_note.py \
             tests/unit/test_audit_review_closeout_certificate.py \
