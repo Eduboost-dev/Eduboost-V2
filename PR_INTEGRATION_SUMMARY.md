@@ -391,3 +391,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster E Release Evidence Wiring
 
 - Cluster E evidence index and release-gate wiring added.
+
+## Cluster F AI Safety
+
+- Cluster F AI/CAPS/safety evidence baseline added.

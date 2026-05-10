@@ -170,3 +170,12 @@ database-resilience-env-matrix-check:
 
 production-restore-approval-check:
 	$(PYTHON) scripts/check_production_restore_approval.py
+
+caps-alignment-contract-check:
+	$(PYTHON) scripts/check_caps_alignment_contract.py
+
+ai-safety-boundary-check:
+	$(PYTHON) scripts/check_ai_safety_boundary_contract.py
+
+cluster-f-ai-safety-check:
+	$(PYTHON) scripts/check_cluster_f_ai_safety_evidence.py
