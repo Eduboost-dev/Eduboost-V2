@@ -17,6 +17,7 @@ make lesson-generation-safety-check
 make remediation-safety-contract-check
 make llm-provider-fallback-contract-check
 make ai-output-schema-contract-check
+make ai-output-fixture-validation-check
 make cluster-f-ai-safety-check
 make cluster-f-closure-check
 ```
@@ -32,6 +33,7 @@ make cluster-f-closure-check
 - `docs/ai/remediation_safety_contract.md`
 - `docs/ai/llm_provider_fallback_contract.md`
 - `docs/ai/ai_output_schema_contract.md`
+- `docs/ai/ai_output_fixtures.md`
 - `.github/workflows/cluster-f-ai-safety.yml`
 
 ## Closure Stamp

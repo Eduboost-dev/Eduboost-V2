@@ -411,3 +411,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster F Release Evidence Wiring
 
 - Cluster F evidence index, closure report, and release-gate wiring added.
+
+## Cluster F Fixture Validation
+
+- Cluster F fixture-based AI output validation added.

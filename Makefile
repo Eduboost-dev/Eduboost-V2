@@ -200,3 +200,6 @@ remediation-safety-contract-check:
 
 cluster-f-closure-check:
 	$(PYTHON) scripts/check_cluster_f_closure.py
+
+ai-output-fixture-validation-check:
+	$(PYTHON) scripts/validate_ai_output_fixtures.py
