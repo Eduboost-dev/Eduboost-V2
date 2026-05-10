@@ -18,7 +18,6 @@ from app.repositories.repositories import (
     KnowledgeGapRepository,
     LearnerRepository,
 )
-from app.services.consent import ConsentService
 from app.services.diagnostic import DiagnosticEngine
 from app.services.caps_validator import CAPSAlignmentValidator
 
@@ -34,7 +33,6 @@ async def get_diagnostic_items(
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(get_current_user),
 ):
-    await ConsentService(db).require_active_consent(learner_id, actor_id=current_user.get("sub"))
     learner = await LearnerRepository(db).get_by_id(learner_id)
     if not learner:
         raise HTTPException(status_code=404, detail="Learner not found")
@@ -72,7 +70,6 @@ async def submit_diagnostic(
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(get_current_user),
 ):
-    await ConsentService(db).require_active_consent(body.learner_id, actor_id=current_user.get("sub"))
     learner = await LearnerRepository(db).get_by_id(body.learner_id)
     if not learner:
         raise HTTPException(status_code=404, detail="Learner not found")
