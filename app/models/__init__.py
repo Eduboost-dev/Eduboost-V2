@@ -123,8 +123,7 @@ class Guardian(Base):
             "subscription_tier",
             "stripe_subscription_id",
             postgresql_where=sa.text(
-                "is_active IS TRUE AND stripe_subscription_id IS NOT NULL "
-                "AND lower(subscription_tier::text) = 'premium'"
+                "is_active IS TRUE AND stripe_subscription_id IS NOT NULL"
             ),
         ),
     )
@@ -215,7 +214,7 @@ class ParentalConsent(Base):
         Index(
             "ix_active_parental_consents",
             "learner_id",
-            postgresql_where=sa.text("revoked_at IS NULL AND expires_at > CURRENT_TIMESTAMP"),
+            postgresql_where=sa.text("revoked_at IS NULL"),
         ),
         Index("ix_parental_consents_status", "status"),
         Index("ix_parental_consents_guardian_learner_status", "guardian_id", "learner_id", "status"),
@@ -224,8 +223,7 @@ class ParentalConsent(Base):
             "learner_id",
             "guardian_id",
             postgresql_where=sa.text(
-                "revoked_at IS NULL AND expires_at > CURRENT_TIMESTAMP "
-                "AND status::text IN ('GRANTED', 'RENEWAL_REQUIRED', 'granted', 'renewal_required')"
+                "revoked_at IS NULL"
             ),
         ),
     )

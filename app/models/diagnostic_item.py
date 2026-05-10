@@ -153,7 +153,7 @@ class DiagnosticItem(Base):
     caps_ref: Mapped[str] = mapped_column(String(40), nullable=False, index=True)
     grade: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     subject: Mapped[SubjectCodeEnum] = mapped_column(
-        Enum(SubjectCodeEnum, name="subjectcode", create_type=False),
+        Enum(SubjectCodeEnum, name="subjectcode", create_type=False, values_callable=lambda x: [e.value for e in x]),
         nullable=False,
     )
     term: Mapped[int] = mapped_column(SmallInteger, nullable=False)
@@ -173,12 +173,12 @@ class DiagnosticItem(Base):
 
     # --- Item characteristics --------------------------------------------
     item_type: Mapped[ItemTypeEnum] = mapped_column(
-        Enum(ItemTypeEnum, name="itemtype", create_type=False),
+        Enum(ItemTypeEnum, name="itemtype", create_type=False, values_callable=lambda x: [e.value for e in x]),
         nullable=False,
         server_default="mcq",
     )
     language: Mapped[LanguageEnum] = mapped_column(
-        Enum(LanguageEnum, name="language", create_type=False),
+        Enum(LanguageEnum, name="language", create_type=False, values_callable=lambda x: [e.value for e in x]),
         nullable=False,
         server_default="en",
     )
@@ -194,14 +194,14 @@ class DiagnosticItem(Base):
         Numeric(precision=6, scale=4), nullable=False, server_default="0.25"
     )
     difficulty_band: Mapped[DifficultyBandEnum] = mapped_column(
-        Enum(DifficultyBandEnum, name="difficultyband", create_type=False),
+        Enum(DifficultyBandEnum, name="difficultyband", create_type=False, values_callable=lambda x: [e.value for e in x]),
         nullable=False,
         server_default="on_level",
     )
 
     # --- Review workflow -------------------------------------------------
     review_status: Mapped[ReviewStatusEnum] = mapped_column(
-        Enum(ReviewStatusEnum, name="reviewstatus", create_type=False),
+        Enum(ReviewStatusEnum, name="reviewstatus", create_type=False, values_callable=lambda x: [e.value for e in x]),
         nullable=False,
         server_default="draft",
         index=True,
@@ -221,7 +221,7 @@ class DiagnosticItem(Base):
 
     # --- Provenance ------------------------------------------------------
     source: Mapped[ItemSourceEnum] = mapped_column(
-        Enum(ItemSourceEnum, name="itemsource", create_type=False),
+        Enum(ItemSourceEnum, name="itemsource", create_type=False, values_callable=lambda x: [e.value for e in x]),
         nullable=False,
         server_default="llm_generated",
     )

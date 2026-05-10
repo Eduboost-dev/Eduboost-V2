@@ -36,27 +36,27 @@ depends_on = None
 _ITEM_TYPE_ENUM = postgresql.ENUM(
     "mcq", "short_answer", "true_false", "fill_blank",
     name="itemtype",
-    create_type=False,
+    create_type=True,
 )
 _SUBJECT_CODE_ENUM = postgresql.ENUM(
     "Mathematics", "English", "isiZulu", "Afrikaans", "Life Skills", "Natural Sciences",
     name="subjectcode",
-    create_type=False,
+    create_type=True,
 )
 _LANGUAGE_ENUM = postgresql.ENUM(
     "en", "zu", "af", "xh",
     name="language",
-    create_type=False,
+    create_type=True,
 )
 _REVIEW_STATUS_ENUM = postgresql.ENUM(
     "draft", "ai_generated", "human_reviewed", "approved", "retired",
     name="reviewstatus",
-    create_type=False,
+    create_type=True,
 )
 _ITEM_SOURCE_ENUM = postgresql.ENUM(
     "llm_generated", "human_authored", "imported",
     name="itemsource",
-    create_type=False,
+    create_type=True,
 )
 _DIFFICULTY_BAND_ENUM = postgresql.ENUM(
     "easy", "moderate", "on_level", "challenging",
@@ -69,15 +69,26 @@ def upgrade() -> None:
     # ------------------------------------------------------------------
     # 1. Create enum types (CREATE TYPE … IF NOT EXISTS via checkfirst)
     # ------------------------------------------------------------------
-    for enum in (
-        _ITEM_TYPE_ENUM,
-        _SUBJECT_CODE_ENUM,
-        _LANGUAGE_ENUM,
-        _REVIEW_STATUS_ENUM,
-        _ITEM_SOURCE_ENUM,
-        _DIFFICULTY_BAND_ENUM,
-    ):
-        enum.create(op.get_bind(), checkfirst=True)
+    # Helper to create enums only if they don't exist
+    def create_enum_if_not_exists(name, labels):
+        print(f"DEBUG: Creating enum {name}")
+        labels_str = ", ".join([f"'{l}'" for l in labels])
+        op.execute(f"""
+            DO $$
+            BEGIN
+                IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = '{name}') THEN
+                    CREATE TYPE {name} AS ENUM ({labels_str});
+                END IF;
+            END
+            $$;
+        """)
+
+    create_enum_if_not_exists("itemtype", ["mcq", "short_answer", "true_false", "fill_blank"])
+    create_enum_if_not_exists("subjectcode", ["Mathematics", "English", "isiZulu", "Afrikaans", "Life Skills", "Natural Sciences"])
+    create_enum_if_not_exists("language", ["en", "zu", "af", "xh"])
+    create_enum_if_not_exists("reviewstatus", ["draft", "ai_generated", "human_reviewed", "approved", "retired"])
+    create_enum_if_not_exists("itemsource", ["llm_generated", "human_authored", "imported"])
+    create_enum_if_not_exists("difficultyband", ["easy", "moderate", "on_level", "challenging"])
 
     # ------------------------------------------------------------------
     # 2. diagnostic_items — the canonical item bank table
