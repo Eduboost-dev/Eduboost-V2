@@ -155,3 +155,9 @@ database-backup-manifest:
 
 database-restore-evidence:
 	$(PYTHON) scripts/generate_database_restore_evidence.py
+
+database-backup-integrity-check:
+	$(PYTHON) scripts/check_database_backup_integrity.py
+
+database-restore-integrity-check:
+	$(PYTHON) scripts/check_database_restore_integrity.py

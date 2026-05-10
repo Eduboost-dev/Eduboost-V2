@@ -8,6 +8,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_database_restore_integrity.py",
+    "tests/unit/test_database_backup_integrity.py",
+    "docs/operations/database_restore_integrity_check.md",
+    "docs/operations/database_backup_integrity_check.md",
+    "scripts/check_database_restore_integrity.py",
+    "scripts/check_database_backup_integrity.py",
     "tests/unit/test_generate_database_restore_evidence.py",
     "tests/unit/test_generate_database_backup_manifest.py",
     "docs/operations/database_restore_evidence.md",
@@ -29,6 +35,14 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/database_restore_integrity_check.md": (
+        "Database Restore Integrity Check",
+        "make database-restore-integrity-check",
+    ),
+    "docs/operations/database_backup_integrity_check.md": (
+        "Database Backup Integrity Check",
+        "make database-backup-integrity-check",
+    ),
     "scripts/generate_database_restore_evidence.py": (
         "RestoreEvidenceInput",
         "Consent count status",
@@ -72,6 +86,8 @@ CONTENT_REQUIREMENTS = {
         "database-restore-dry-run:",
         "database-backup-manifest:",
         "database-restore-evidence:",
+        "database-backup-integrity-check:",
+        "database-restore-integrity-check:",
     ),
     "docs/operations/database_backup_contract.md": (
         "Database Backup Contract",
