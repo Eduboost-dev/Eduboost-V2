@@ -383,3 +383,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster E Closure
 
 - Cluster E closure command and report added.
+
+## Cluster E Restore Readiness
+
+- Cluster E restore-readiness guards added for env matrix and production approval.

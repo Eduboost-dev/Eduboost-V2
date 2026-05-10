@@ -8,6 +8,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_production_restore_approval.py",
+    "tests/unit/test_database_resilience_env_matrix.py",
+    "docs/operations/production_restore_approval.md",
+    "docs/operations/database_resilience_env_matrix.md",
+    "scripts/check_production_restore_approval.py",
+    "scripts/check_database_resilience_env_matrix.py",
     "tests/unit/test_cluster_e_closure_report.py",
     "tests/unit/test_cluster_e_closure_check.py",
     "docs/operations/CLUSTER_E_CLOSURE.md",
@@ -40,6 +46,14 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/production_restore_approval.md": (
+        "Production Restore Approval Guard",
+        "production restore requires `--allow-production-target`",
+    ),
+    "docs/operations/database_resilience_env_matrix.md": (
+        "Database Resilience Environment Matrix",
+        "production restore requires explicit approval",
+    ),
     "docs/operations/CLUSTER_E_CLOSURE.md": (
         "Cluster E Data Resilience Closure",
         "make cluster-e-closure-check",
@@ -103,6 +117,8 @@ CONTENT_REQUIREMENTS = {
         "database-backup-integrity-check:",
         "database-restore-integrity-check:",
         "cluster-e-closure-check:",
+        "database-resilience-env-matrix-check:",
+        "production-restore-approval-check:",
     ),
     "docs/operations/database_backup_contract.md": (
         "Database Backup Contract",

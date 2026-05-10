@@ -16,6 +16,8 @@ make database-backup-manifest
 make database-restore-evidence
 make database-backup-integrity-check
 make database-restore-integrity-check
+make database-resilience-env-matrix-check
+make production-restore-approval-check
 make cluster-e-data-resilience-check
 make cluster-e-closure-check
 ```
@@ -28,6 +30,8 @@ make cluster-e-closure-check
 - `docs/operations/database_restore_command.md`
 - `docs/operations/database_backup_manifest.md`
 - `docs/operations/database_restore_evidence.md`
+- `docs/operations/database_resilience_env_matrix.md`
+- `docs/operations/production_restore_approval.md`
 - `docs/operations/database_backup_integrity_check.md`
 - `docs/operations/database_restore_integrity_check.md`
 - `.github/workflows/cluster-e-data-resilience.yml`

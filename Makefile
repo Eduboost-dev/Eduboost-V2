@@ -164,3 +164,9 @@ database-restore-integrity-check:
 
 cluster-e-closure-check:
 	$(PYTHON) scripts/check_cluster_e_closure.py
+
+database-resilience-env-matrix-check:
+	$(PYTHON) scripts/check_database_resilience_env_matrix.py
+
+production-restore-approval-check:
+	$(PYTHON) scripts/check_production_restore_approval.py

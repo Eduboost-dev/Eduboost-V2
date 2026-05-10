@@ -11,6 +11,8 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 COMMANDS = (
+    ("production restore approval", ["make", "production-restore-approval-check"]),
+    ("database resilience env matrix", ["make", "database-resilience-env-matrix-check"]),
     ("database backup contract", ["make", "database-backup-contract-check"]),
     ("database restore drill docs", ["make", "database-restore-drill-docs-check"]),
     ("database backup dry-run", ["make", "database-backup-dry-run"]),

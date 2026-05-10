@@ -352,3 +352,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster E Closure
 
 - Cluster E closure command and report added.
+
+## Cluster E Restore Readiness
+
+- Cluster E restore-readiness guards added for env matrix and production approval.
