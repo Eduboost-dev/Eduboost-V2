@@ -473,3 +473,12 @@ release-owner-post-closeout-decision-record-check:
 
 final-evidence-noop-execution-assertion-check:
 	$(PYTHON) scripts/check_final_evidence_noop_execution_assertion.py
+
+final-release-evidence-ledger-check:
+	$(PYTHON) scripts/check_final_release_evidence_ledger.py
+
+frozen-scope-variance-register-check:
+	$(PYTHON) scripts/check_frozen_scope_variance_register.py
+
+post-closeout-maintenance-boundary-check:
+	$(PYTHON) scripts/check_post_closeout_maintenance_boundary.py
