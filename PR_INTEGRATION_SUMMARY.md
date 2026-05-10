@@ -423,3 +423,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster F Secret Fixture Coverage
 
 - Cluster F prompt secret-leak and fixture coverage guards added.
+
+## Cluster G Frontend Journey
+
+- Cluster G frontend vertical journey evidence baseline added.

@@ -392,3 +392,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster F Secret Fixture Coverage
 
 - Cluster F prompt secret-leak and fixture coverage guards added.
+
+## Cluster G Frontend Journey
+
+- Cluster G frontend vertical journey evidence baseline added.

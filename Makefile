@@ -218,3 +218,15 @@ ai-prompt-secret-leakage-check:
 
 ai-fixture-coverage-check:
 	$(PYTHON) scripts/check_ai_fixture_coverage_matrix.py
+
+frontend-route-inventory:
+	$(PYTHON) scripts/generate_frontend_route_inventory.py
+
+frontend-route-inventory-check:
+	$(PYTHON) scripts/check_frontend_route_inventory.py
+
+learner-vertical-journey-contract-check:
+	$(PYTHON) scripts/check_learner_vertical_journey_contract.py
+
+cluster-g-frontend-check:
+	$(PYTHON) scripts/check_cluster_g_frontend_evidence.py

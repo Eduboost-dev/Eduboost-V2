@@ -1,0 +1,31 @@
+name: Cluster G Frontend Journey Evidence
+
+on:
+  pull_request:
+    branches: [master, "release/**"]
+  push:
+    branches: [master, "release/**"]
+
+jobs:
+  cluster-g-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run Cluster G frontend evidence checks
+        run: |
+          make frontend-route-inventory
+          make frontend-route-inventory-check
+          make learner-vertical-journey-contract-check
+          make cluster-g-frontend-check
+          pytest -c pytest.ini \
+            tests/unit/test_frontend_route_inventory.py \
+            tests/unit/test_learner_vertical_journey_contract.py \
+            tests/unit/test_cluster_g_frontend_evidence.py \
+            -q --no-cov
