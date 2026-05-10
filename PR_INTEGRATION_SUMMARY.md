@@ -451,3 +451,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster G Mocked Playwright Evidence
 
 - Cluster G mocked Playwright API route evidence added.
+
+## Cluster G E2E Runtime Evidence
+
+- Cluster G frontend E2E environment and runtime command evidence added.

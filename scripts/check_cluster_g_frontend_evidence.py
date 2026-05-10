@@ -9,6 +9,13 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_g_e2e_runtime_evidence.py",
+    "tests/unit/test_frontend_e2e_runtime_commands.py",
+    "tests/unit/test_frontend_e2e_environment_contract.py",
+    "docs/frontend/frontend_e2e_runtime_commands.md",
+    "docs/frontend/frontend_e2e_environment_contract.md",
+    "scripts/check_frontend_e2e_runtime_commands.py",
+    "scripts/check_frontend_e2e_environment_contract.py",
     "tests/unit/test_cluster_g_mocked_playwright_evidence.py",
     "tests/unit/test_frontend_playwright_mocked_specs.py",
     "tests/unit/test_frontend_playwright_mock_helpers.py",
@@ -77,6 +84,14 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/frontend/frontend_e2e_runtime_commands.md": (
+        "Frontend E2E Runtime Commands",
+        "must not require production credentials",
+    ),
+    "docs/frontend/frontend_e2e_environment_contract.md": (
+        "Frontend E2E Environment Contract",
+        "mocked API mode must not call production backend services",
+    ),
     "docs/frontend/playwright_mocked_journey_specs.md": (
         "Playwright Mocked Journey Specs",
         "must not require live learner data",
@@ -145,6 +160,10 @@ CONTENT_REQUIREMENTS = {
         "frontend-mock-api-fixture-check:",
         "frontend-playwright-mock-helper-check:",
         "frontend-playwright-mocked-specs-check:",
+        "frontend-e2e-env-contract-check:",
+        "frontend-e2e-runtime-command-check:",
+        "frontend-e2e-smoke:",
+        "frontend-e2e-mocked:",
     ),
     "docs/frontend/frontend_route_inventory.md": (
         "Frontend Route Inventory",

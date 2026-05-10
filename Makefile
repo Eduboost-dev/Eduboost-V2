@@ -275,3 +275,15 @@ frontend-playwright-mock-helper-check:
 
 frontend-playwright-mocked-specs-check:
 	$(PYTHON) scripts/check_frontend_playwright_mocked_specs.py
+
+frontend-e2e-env-contract-check:
+	$(PYTHON) scripts/check_frontend_e2e_environment_contract.py
+
+frontend-e2e-mocked:
+	PLAYWRIGHT_MOCK_API=1 npx playwright test tests/e2e/learner-mocked-api-journey.spec.ts tests/e2e/parent-mocked-api-journey.spec.ts
+
+frontend-e2e-smoke:
+	npx playwright test tests/e2e/learner-vertical-journey.spec.ts tests/e2e/parent-vertical-journey.spec.ts
+
+frontend-e2e-runtime-command-check:
+	$(PYTHON) scripts/check_frontend_e2e_runtime_commands.py
