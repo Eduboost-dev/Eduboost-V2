@@ -491,3 +491,12 @@ release-handoff-freeze-assertion-check:
 
 post-closeout-evidence-access-policy-check:
 	$(PYTHON) scripts/check_post_closeout_evidence_access_policy.py
+
+archival-lock-assertion-check:
+	$(PYTHON) scripts/check_archival_lock_assertion.py
+
+pr-ready-final-closure-certificate-check:
+	$(PYTHON) scripts/check_pr_ready_final_closure_certificate.py
+
+final-release-evidence-toc-check:
+	$(PYTHON) scripts/check_final_release_evidence_toc.py

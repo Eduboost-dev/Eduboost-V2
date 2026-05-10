@@ -59,3 +59,9 @@ make final-release-evidence-ledger-check
 - `docs/operations/final_acceptance_packet_index.md`
 - `docs/operations/release_handoff_freeze_assertion.md`
 - `docs/operations/post_closeout_evidence_access_policy.md`
+
+## Archival Lock PR-Ready TOC Evidence
+
+- `docs/operations/archival_lock_assertion.md`
+- `docs/operations/pr_ready_final_closure_certificate.md`
+- `docs/operations/final_release_evidence_toc.md`

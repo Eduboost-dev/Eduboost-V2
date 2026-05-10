@@ -51,3 +51,9 @@ This final acceptance packet index records final packet composition only. It doe
 ```bash
 make final-acceptance-packet-index-check
 ```
+
+## Archival Lock PR-Ready TOC Evidence
+
+- `docs/operations/archival_lock_assertion.md`
+- `docs/operations/pr_ready_final_closure_certificate.md`
+- `docs/operations/final_release_evidence_toc.md`

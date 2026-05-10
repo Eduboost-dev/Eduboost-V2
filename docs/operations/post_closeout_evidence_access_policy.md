@@ -44,3 +44,9 @@ This evidence access policy governs post-closeout evidence handling only. It doe
 ```bash
 make post-closeout-evidence-access-policy-check
 ```
+
+## Archival Lock PR-Ready TOC Evidence
+
+- `docs/operations/archival_lock_assertion.md`
+- `docs/operations/pr_ready_final_closure_certificate.md`
+- `docs/operations/final_release_evidence_toc.md`

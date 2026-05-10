@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_archival_lock_pr_ready_toc_wiring.py",
+    "tests/unit/test_final_release_evidence_toc.py",
+    "tests/unit/test_pr_ready_final_closure_certificate.py",
+    "tests/unit/test_archival_lock_assertion.py",
+    "scripts/check_final_release_evidence_toc.py",
+    "scripts/check_pr_ready_final_closure_certificate.py",
+    "scripts/check_archival_lock_assertion.py",
+    "docs/operations/final_release_evidence_toc.md",
+    "docs/operations/pr_ready_final_closure_certificate.md",
+    "docs/operations/archival_lock_assertion.md",
     "tests/unit/test_cluster_h_acceptance_packet_handoff_freeze_access_policy_wiring.py",
     "tests/unit/test_post_closeout_evidence_access_policy.py",
     "tests/unit/test_release_handoff_freeze_assertion.py",
@@ -208,6 +218,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/final_release_evidence_toc.md": (
+        "Final Release Evidence Table of Contents",
+        "does not approve production launch, execute deployment, create release tags, or replace manual approval",
+    ),
+    "docs/operations/pr_ready_final_closure_certificate.md": (
+        "PR-Ready Final Closure Certificate",
+        "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
+    ),
+    "docs/operations/archival_lock_assertion.md": (
+        "Archival Lock Assertion",
+        "does not approve production launch, execute deployment, create release tags, or replace manual approval",
+    ),
     "docs/operations/post_closeout_evidence_access_policy.md": (
         "Post-Closeout Evidence Access Policy",
         "does not approve production launch, execute deployment, create release tags, or bypass manual approval",
@@ -504,6 +526,9 @@ CONTENT_REQUIREMENTS = {
         "final-acceptance-packet-index-check:",
         "release-handoff-freeze-assertion-check:",
         "post-closeout-evidence-access-policy-check:",
+        "archival-lock-assertion-check:",
+        "pr-ready-final-closure-certificate-check:",
+        "final-release-evidence-toc-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",
