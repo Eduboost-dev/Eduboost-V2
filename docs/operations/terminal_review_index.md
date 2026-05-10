@@ -48,3 +48,9 @@ This terminal review index records reviewer navigation only. It does not approve
 ```bash
 make terminal-review-index-check
 ```
+
+## Reviewer Closeout Audit Handoff Terminal PR Index Evidence
+
+- `docs/operations/sealed_reviewer_closeout_packet.md`
+- `docs/operations/final_audit_handoff_register.md`
+- `docs/operations/terminal_pr_evidence_index.md`

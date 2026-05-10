@@ -554,3 +554,12 @@ terminal-review-index-check:
 
 sealed-evidence-access-handoff-check:
 	$(PYTHON) scripts/check_sealed_evidence_access_handoff.py
+
+sealed-reviewer-closeout-packet-check:
+	$(PYTHON) scripts/check_sealed_reviewer_closeout_packet.py
+
+final-audit-handoff-register-check:
+	$(PYTHON) scripts/check_final_audit_handoff_register.py
+
+terminal-pr-evidence-index-check:
+	$(PYTHON) scripts/check_terminal_pr_evidence_index.py

@@ -106,11 +106,18 @@ jobs:
           make final-release-operator-brief-check
           make terminal-review-index-check
           make sealed-evidence-access-handoff-check
+          make sealed-reviewer-closeout-packet-check
+          make final-audit-handoff-register-check
+          make terminal-pr-evidence-index-check
           make cluster-h-release-readiness-check
       - name: Run Cluster H release readiness tests
         run: |
           pytest -c pytest.ini \
             tests/unit/test_beta_release_readiness_contract.py \
+            tests/unit/test_cluster_h_reviewer_closeout_audit_handoff_terminal_pr_index_wiring.py \
+            tests/unit/test_terminal_pr_evidence_index.py \
+            tests/unit/test_final_audit_handoff_register.py \
+            tests/unit/test_sealed_reviewer_closeout_packet.py \
             tests/unit/test_cluster_h_operator_brief_terminal_review_sealed_access_wiring.py \
             tests/unit/test_sealed_evidence_access_handoff.py \
             tests/unit/test_terminal_review_index.py \

@@ -51,3 +51,9 @@ This final release operator brief records operator-facing evidence interpretatio
 ```bash
 make final-release-operator-brief-check
 ```
+
+## Reviewer Closeout Audit Handoff Terminal PR Index Evidence
+
+- `docs/operations/sealed_reviewer_closeout_packet.md`
+- `docs/operations/final_audit_handoff_register.md`
+- `docs/operations/terminal_pr_evidence_index.md`

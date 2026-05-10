@@ -50,3 +50,9 @@ This sealed evidence access handoff records access handoff evidence only. It doe
 ```bash
 make sealed-evidence-access-handoff-check
 ```
+
+## Reviewer Closeout Audit Handoff Terminal PR Index Evidence
+
+- `docs/operations/sealed_reviewer_closeout_packet.md`
+- `docs/operations/final_audit_handoff_register.md`
+- `docs/operations/terminal_pr_evidence_index.md`

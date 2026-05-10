@@ -546,3 +546,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster H Operator Brief Terminal Review Sealed Access
 
 - Cluster H final release operator brief, terminal review index, and sealed evidence access handoff added.
+
+## Cluster H Reviewer Closeout Audit Handoff Terminal PR Index
+
+- Cluster H sealed reviewer closeout packet, final audit handoff register, and terminal PR evidence index added.

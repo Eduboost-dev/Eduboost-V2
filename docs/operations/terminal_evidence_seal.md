@@ -66,3 +66,9 @@ make terminal-evidence-seal-check
 - `docs/operations/final_release_operator_brief.md`
 - `docs/operations/terminal_review_index.md`
 - `docs/operations/sealed_evidence_access_handoff.md`
+
+## Reviewer Closeout Audit Handoff Terminal PR Index Evidence
+
+- `docs/operations/sealed_reviewer_closeout_packet.md`
+- `docs/operations/final_audit_handoff_register.md`
+- `docs/operations/terminal_pr_evidence_index.md`
