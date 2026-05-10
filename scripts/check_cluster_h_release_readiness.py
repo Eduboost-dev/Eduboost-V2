@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_merge_signoff_post_closeout_noop_wiring.py",
+    "tests/unit/test_final_evidence_noop_execution_assertion.py",
+    "tests/unit/test_release_owner_post_closeout_decision_record.py",
+    "tests/unit/test_final_merge_signoff_lock.py",
+    "scripts/check_final_evidence_noop_execution_assertion.py",
+    "scripts/check_release_owner_post_closeout_decision_record.py",
+    "scripts/check_final_merge_signoff_lock.py",
+    "docs/operations/final_evidence_noop_execution_assertion.md",
+    "docs/operations/release_owner_post_closeout_decision_record.md",
+    "docs/operations/final_merge_signoff_lock.md",
     "tests/unit/test_cluster_h_execution_guardrail_closeout_checksum_wiring.py",
     "tests/unit/test_cluster_h_release_evidence_checksum_index.py",
     "tests/unit/test_final_project_closeout_attestation.py",
@@ -178,6 +188,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/final_evidence_noop_execution_assertion.md": (
+        "Final Evidence No-Op Execution Assertion",
+        "does not approve production launch, execute deployment, create release tags, or replace manual approval",
+    ),
+    "docs/operations/release_owner_post_closeout_decision_record.md": (
+        "Release Owner Post-Closeout Decision Record",
+        "does not approve production launch, execute deployment, create release tags, or override manual approval",
+    ),
+    "docs/operations/final_merge_signoff_lock.md": (
+        "Final Merge Signoff Lock",
+        "does not approve production launch, execute deployment, create release tags, or replace manual approval",
+    ),
     "docs/operations/cluster_h_release_evidence_checksum_index.md": (
         "Cluster H Release Evidence Checksum Index",
         "does not compute hashes automatically, approve production launch, execute deployment, or create release tags",
@@ -429,6 +451,9 @@ CONTENT_REQUIREMENTS = {
         "release-owner-execution-guardrail-check:",
         "final-project-closeout-attestation-check:",
         "cluster-h-release-evidence-checksum-index-check:",
+        "final-merge-signoff-lock-check:",
+        "release-owner-post-closeout-decision-record-check:",
+        "final-evidence-noop-execution-assertion-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",

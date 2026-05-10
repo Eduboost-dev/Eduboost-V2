@@ -76,11 +76,18 @@ jobs:
           make release-owner-execution-guardrail-check
           make final-project-closeout-attestation-check
           make cluster-h-release-evidence-checksum-index-check
+          make final-merge-signoff-lock-check
+          make release-owner-post-closeout-decision-record-check
+          make final-evidence-noop-execution-assertion-check
           make cluster-h-release-readiness-check
       - name: Run Cluster H release readiness tests
         run: |
           pytest -c pytest.ini \
             tests/unit/test_beta_release_readiness_contract.py \
+            tests/unit/test_cluster_h_merge_signoff_post_closeout_noop_wiring.py \
+            tests/unit/test_final_evidence_noop_execution_assertion.py \
+            tests/unit/test_release_owner_post_closeout_decision_record.py \
+            tests/unit/test_final_merge_signoff_lock.py \
             tests/unit/test_cluster_h_execution_guardrail_closeout_checksum_wiring.py \
             tests/unit/test_cluster_h_release_evidence_checksum_index.py \
             tests/unit/test_final_project_closeout_attestation.py \

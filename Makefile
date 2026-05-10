@@ -464,3 +464,12 @@ final-project-closeout-attestation-check:
 
 cluster-h-release-evidence-checksum-index-check:
 	$(PYTHON) scripts/check_cluster_h_release_evidence_checksum_index.py
+
+final-merge-signoff-lock-check:
+	$(PYTHON) scripts/check_final_merge_signoff_lock.py
+
+release-owner-post-closeout-decision-record-check:
+	$(PYTHON) scripts/check_release_owner_post_closeout_decision_record.py
+
+final-evidence-noop-execution-assertion-check:
+	$(PYTHON) scripts/check_final_evidence_noop_execution_assertion.py

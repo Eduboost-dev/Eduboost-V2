@@ -527,3 +527,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster H Execution Guardrail Closeout Checksum
 
 - Cluster H release-owner execution guardrail, final project closeout attestation, and evidence checksum index added.
+
+## Cluster H Merge Signoff Post-Closeout No-Op
+
+- Cluster H final merge signoff, release-owner post-closeout decision, and no-op execution assertion evidence added.

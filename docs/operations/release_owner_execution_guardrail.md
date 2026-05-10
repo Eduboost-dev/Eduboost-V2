@@ -44,3 +44,9 @@ This release owner execution guardrail records pre-execution evidence discipline
 ```bash
 make release-owner-execution-guardrail-check
 ```
+
+## Merge Signoff Post-Closeout No-Op Evidence
+
+- `docs/operations/final_merge_signoff_lock.md`
+- `docs/operations/release_owner_post_closeout_decision_record.md`
+- `docs/operations/final_evidence_noop_execution_assertion.md`

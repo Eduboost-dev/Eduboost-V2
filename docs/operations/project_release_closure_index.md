@@ -108,3 +108,9 @@ make project-release-closure-index-check
 - `docs/operations/release_owner_execution_guardrail.md`
 - `docs/operations/final_project_closeout_attestation.md`
 - `docs/operations/cluster_h_release_evidence_checksum_index.md`
+
+## Merge Signoff Post-Closeout No-Op Evidence
+
+- `docs/operations/final_merge_signoff_lock.md`
+- `docs/operations/release_owner_post_closeout_decision_record.md`
+- `docs/operations/final_evidence_noop_execution_assertion.md`

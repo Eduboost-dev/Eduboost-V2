@@ -49,3 +49,9 @@ This closeout attestation records final project evidence completeness. It does n
 ```bash
 make final-project-closeout-attestation-check
 ```
+
+## Merge Signoff Post-Closeout No-Op Evidence
+
+- `docs/operations/final_merge_signoff_lock.md`
+- `docs/operations/release_owner_post_closeout_decision_record.md`
+- `docs/operations/final_evidence_noop_execution_assertion.md`
