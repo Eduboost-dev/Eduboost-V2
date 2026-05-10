@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_reviewer_disposition_terminal_seal_pr_handoff_wiring.py",
+    "tests/unit/test_final_pr_handoff_summary.py",
+    "tests/unit/test_terminal_evidence_seal.py",
+    "tests/unit/test_final_reviewer_disposition_record.py",
+    "scripts/check_final_pr_handoff_summary.py",
+    "scripts/check_terminal_evidence_seal.py",
+    "scripts/check_final_reviewer_disposition_record.py",
+    "docs/operations/final_pr_handoff_summary.md",
+    "docs/operations/terminal_evidence_seal.md",
+    "docs/operations/final_reviewer_disposition_record.md",
     "tests/unit/test_cluster_h_closure_manifest_branch_handoff_reviewer_decision_wiring.py",
     "tests/unit/test_reviewer_decision_capture_template.py",
     "tests/unit/test_branch_handoff_proof_record.py",
@@ -258,6 +268,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/final_pr_handoff_summary.md": (
+        "Final PR Handoff Summary",
+        "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
+    ),
+    "docs/operations/terminal_evidence_seal.md": (
+        "Terminal Evidence Seal",
+        "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
+    ),
+    "docs/operations/final_reviewer_disposition_record.md": (
+        "Final Reviewer Disposition Record",
+        "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
+    ),
     "docs/operations/reviewer_decision_capture_template.md": (
         "Reviewer Decision Capture Template",
         "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
@@ -629,6 +651,9 @@ CONTENT_REQUIREMENTS = {
         "final-closure-manifest-check:",
         "branch-handoff-proof-record-check:",
         "reviewer-decision-capture-template-check:",
+        "final-reviewer-disposition-record-check:",
+        "terminal-evidence-seal-check:",
+        "final-pr-handoff-summary-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",

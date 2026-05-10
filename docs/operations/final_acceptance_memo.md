@@ -57,3 +57,9 @@ make final-acceptance-memo-check
 - `docs/operations/final_closure_manifest.md`
 - `docs/operations/branch_handoff_proof_record.md`
 - `docs/operations/reviewer_decision_capture_template.md`
+
+## Reviewer Disposition Terminal Seal PR Handoff Evidence
+
+- `docs/operations/final_reviewer_disposition_record.md`
+- `docs/operations/terminal_evidence_seal.md`
+- `docs/operations/final_pr_handoff_summary.md`

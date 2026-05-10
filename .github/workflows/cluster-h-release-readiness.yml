@@ -100,11 +100,18 @@ jobs:
           make final-closure-manifest-check
           make branch-handoff-proof-record-check
           make reviewer-decision-capture-template-check
+          make final-reviewer-disposition-record-check
+          make terminal-evidence-seal-check
+          make final-pr-handoff-summary-check
           make cluster-h-release-readiness-check
       - name: Run Cluster H release readiness tests
         run: |
           pytest -c pytest.ini \
             tests/unit/test_beta_release_readiness_contract.py \
+            tests/unit/test_cluster_h_reviewer_disposition_terminal_seal_pr_handoff_wiring.py \
+            tests/unit/test_final_pr_handoff_summary.py \
+            tests/unit/test_terminal_evidence_seal.py \
+            tests/unit/test_final_reviewer_disposition_record.py \
             tests/unit/test_cluster_h_closure_manifest_branch_handoff_reviewer_decision_wiring.py \
             tests/unit/test_reviewer_decision_capture_template.py \
             tests/unit/test_branch_handoff_proof_record.py \

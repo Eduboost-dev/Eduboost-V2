@@ -536,3 +536,12 @@ branch-handoff-proof-record-check:
 
 reviewer-decision-capture-template-check:
 	$(PYTHON) scripts/check_reviewer_decision_capture_template.py
+
+final-reviewer-disposition-record-check:
+	$(PYTHON) scripts/check_final_reviewer_disposition_record.py
+
+terminal-evidence-seal-check:
+	$(PYTHON) scripts/check_terminal_evidence_seal.py
+
+final-pr-handoff-summary-check:
+	$(PYTHON) scripts/check_final_pr_handoff_summary.py

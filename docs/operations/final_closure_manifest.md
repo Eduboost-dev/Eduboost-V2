@@ -51,3 +51,9 @@ This final closure manifest records final evidence manifest state only. It does 
 ```bash
 make final-closure-manifest-check
 ```
+
+## Reviewer Disposition Terminal Seal PR Handoff Evidence
+
+- `docs/operations/final_reviewer_disposition_record.md`
+- `docs/operations/terminal_evidence_seal.md`
+- `docs/operations/final_pr_handoff_summary.md`
