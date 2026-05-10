@@ -1,8 +1,8 @@
 # Release Evidence Manifest
 
-Generated: `2026-05-10T10:52:00Z`
+Generated: `2026-05-10T11:04:50Z`
 Branch: `codex/cluster-c-popia-consent-audi`
-Commit: `8716232d48c47307c1d561ab5a33c0adcd6322d0`
+Commit: `5653d1ae6ce318d5d8c61476bcac7d256baec5ea`
 
 ## Required Evidence Commands
 

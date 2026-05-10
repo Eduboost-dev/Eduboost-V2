@@ -131,3 +131,6 @@ cluster-d-closure-check:
 
 staging-release-gate-check:
 	$(PYTHON) scripts/check_staging_release_gate.py
+
+release-evidence-artifacts-check:
+	$(PYTHON) scripts/check_release_evidence_artifacts.py

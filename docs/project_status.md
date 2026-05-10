@@ -328,3 +328,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster D Release Evidence
 
 - Release evidence manifest and staging release gate added to Cluster D.
+
+## Project Evidence Index
+
+- Project evidence index and Cluster D closure report added.

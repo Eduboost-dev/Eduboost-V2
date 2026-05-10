@@ -359,3 +359,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster D Release Evidence
 
 - Release evidence manifest and staging release gate added to Cluster D closure.
+
+## Project Evidence Index
+
+- Project evidence index and Cluster D closure report added.
