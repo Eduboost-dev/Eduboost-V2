@@ -8,6 +8,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_ai_output_schema_contract.py",
+    "tests/unit/test_llm_provider_fallback_contract.py",
+    "docs/ai/ai_output_schema_contract.md",
+    "docs/ai/llm_provider_fallback_contract.md",
+    "scripts/check_ai_output_schema_contract.py",
+    "scripts/check_llm_provider_fallback_contract.py",
     "tests/unit/test_diagnostic_generation_safety_contract.py",
     "tests/unit/test_ai_prompt_input_contract.py",
     "docs/ai/diagnostic_generation_safety_contract.md",
@@ -23,6 +29,14 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/ai/ai_output_schema_contract.md": (
+        "AI Output Schema Contract",
+        "safe educational redirection",
+    ),
+    "docs/ai/llm_provider_fallback_contract.md": (
+        "LLM Provider Fallback Contract",
+        "fallback must fail closed when no safe provider is available",
+    ),
     "docs/ai/diagnostic_generation_safety_contract.md": (
         "Diagnostic Generation Safety Contract",
         "every item must map to the diagnostic objective",
@@ -36,6 +50,8 @@ CONTENT_REQUIREMENTS = {
         "ai-safety-boundary-check:",
         "ai-prompt-input-contract-check:",
         "diagnostic-generation-safety-check:",
+        "llm-provider-fallback-contract-check:",
+        "ai-output-schema-contract-check:",
     ),
     "docs/ai/caps_alignment_contract.md": (
         "CAPS Alignment Contract",

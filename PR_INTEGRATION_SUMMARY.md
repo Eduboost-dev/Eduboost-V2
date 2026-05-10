@@ -399,3 +399,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster F Prompt Diagnostic Safety
 
 - Cluster F prompt input and diagnostic generation safety contracts added.
+
+## Cluster F Provider Output Safety
+
+- Cluster F LLM fallback and AI output schema contracts added.

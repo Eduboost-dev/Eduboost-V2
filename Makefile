@@ -185,3 +185,9 @@ ai-prompt-input-contract-check:
 
 diagnostic-generation-safety-check:
 	$(PYTHON) scripts/check_diagnostic_generation_safety_contract.py
+
+llm-provider-fallback-contract-check:
+	$(PYTHON) scripts/check_llm_provider_fallback_contract.py
+
+ai-output-schema-contract-check:
+	$(PYTHON) scripts/check_ai_output_schema_contract.py
