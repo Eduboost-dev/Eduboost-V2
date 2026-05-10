@@ -415,3 +415,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster F Fixture Validation
 
 - Cluster F fixture-based AI output validation added.
+
+## Cluster F Prompt Refusal Evidence
+
+- Cluster F prompt surface inventory and refusal regression fixtures added.

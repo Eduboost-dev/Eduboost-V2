@@ -18,6 +18,8 @@ make remediation-safety-contract-check
 make llm-provider-fallback-contract-check
 make ai-output-schema-contract-check
 make ai-output-fixture-validation-check
+make ai-prompt-surface-inventory-check
+make ai-refusal-fixture-check
 make cluster-f-ai-safety-check
 make cluster-f-closure-check
 ```
@@ -28,12 +30,14 @@ make cluster-f-closure-check
 - `docs/ai/caps_alignment_contract.md`
 - `docs/ai/ai_safety_boundary_contract.md`
 - `docs/ai/ai_prompt_input_contract.md`
+- `docs/ai/ai_prompt_surface_inventory.md`
 - `docs/ai/diagnostic_generation_safety_contract.md`
 - `docs/ai/lesson_generation_safety_contract.md`
 - `docs/ai/remediation_safety_contract.md`
 - `docs/ai/llm_provider_fallback_contract.md`
 - `docs/ai/ai_output_schema_contract.md`
 - `docs/ai/ai_output_fixtures.md`
+- `docs/ai/ai_refusal_regression_fixtures.md`
 - `.github/workflows/cluster-f-ai-safety.yml`
 
 ## Closure Stamp

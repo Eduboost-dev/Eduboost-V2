@@ -203,3 +203,12 @@ cluster-f-closure-check:
 
 ai-output-fixture-validation-check:
 	$(PYTHON) scripts/validate_ai_output_fixtures.py
+
+ai-prompt-surface-inventory:
+	$(PYTHON) scripts/generate_ai_prompt_surface_inventory.py
+
+ai-prompt-surface-inventory-check:
+	$(PYTHON) scripts/check_ai_prompt_surface_inventory.py
+
+ai-refusal-fixture-check:
+	$(PYTHON) scripts/check_ai_refusal_fixtures.py
