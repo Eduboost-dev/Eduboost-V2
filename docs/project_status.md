@@ -408,3 +408,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster G Playwright Evidence
 
 - Cluster G Playwright scaffold and journey smoke specs added.
+
+## Cluster G Accessibility Evidence
+
+- Cluster G frontend accessibility contract and static scan added.
