@@ -49,11 +49,18 @@ jobs:
           make release-state-snapshot-check
           make beta-evidence-consistency-check
           make final-pr-merge-readiness-check
+          make post-merge-release-handoff-check
+          make release-owner-accountability-check
+          make beta-release-decision-log-check
           make cluster-h-release-readiness-check
       - name: Run Cluster H release readiness tests
         run: |
           pytest -c pytest.ini \
             tests/unit/test_beta_release_readiness_contract.py \
+            tests/unit/test_cluster_h_post_merge_governance_wiring.py \
+            tests/unit/test_beta_release_decision_log.py \
+            tests/unit/test_release_owner_accountability.py \
+            tests/unit/test_post_merge_release_handoff.py \
             tests/unit/test_cluster_h_state_consistency_merge_wiring.py \
             tests/unit/test_final_pr_merge_readiness.py \
             tests/unit/test_beta_evidence_consistency.py \

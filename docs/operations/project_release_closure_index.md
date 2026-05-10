@@ -78,3 +78,9 @@ make project-release-closure-index-check
 - `docs/operations/release_state_snapshot.md`
 - `docs/operations/beta_evidence_consistency_guard.md`
 - `docs/operations/final_pr_merge_readiness_contract.md`
+
+## Post-Merge Governance Handoff Evidence
+
+- `docs/operations/post_merge_release_handoff_checklist.md`
+- `docs/operations/release_owner_accountability_matrix.md`
+- `docs/operations/beta_release_decision_log.md`

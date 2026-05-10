@@ -36,3 +36,9 @@ Merging the release-readiness PR confirms evidence readiness. It does not itself
 ```bash
 make final-pr-merge-readiness-check
 ```
+
+## Post-Merge Governance Handoff Evidence
+
+- `docs/operations/post_merge_release_handoff_checklist.md`
+- `docs/operations/release_owner_accountability_matrix.md`
+- `docs/operations/beta_release_decision_log.md`

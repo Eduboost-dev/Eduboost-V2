@@ -383,3 +383,12 @@ beta-evidence-consistency-check:
 
 final-pr-merge-readiness-check:
 	$(PYTHON) scripts/check_final_pr_merge_readiness.py
+
+post-merge-release-handoff-check:
+	$(PYTHON) scripts/check_post_merge_release_handoff.py
+
+release-owner-accountability-check:
+	$(PYTHON) scripts/check_release_owner_accountability.py
+
+beta-release-decision-log-check:
+	$(PYTHON) scripts/check_beta_release_decision_log.py

@@ -470,3 +470,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster H Release State Consistency Merge Readiness
 
 - Cluster H release state snapshot, evidence consistency, and final PR merge readiness added.
+
+## Cluster H Post-Merge Governance Handoff
+
+- Cluster H post-merge governance, owner accountability, and release decision log added.

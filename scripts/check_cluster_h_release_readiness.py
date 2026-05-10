@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_post_merge_governance_wiring.py",
+    "tests/unit/test_beta_release_decision_log.py",
+    "tests/unit/test_release_owner_accountability.py",
+    "tests/unit/test_post_merge_release_handoff.py",
+    "scripts/check_beta_release_decision_log.py",
+    "scripts/check_release_owner_accountability.py",
+    "scripts/check_post_merge_release_handoff.py",
+    "docs/operations/beta_release_decision_log.md",
+    "docs/operations/release_owner_accountability_matrix.md",
+    "docs/operations/post_merge_release_handoff_checklist.md",
     "tests/unit/test_cluster_h_state_consistency_merge_wiring.py",
     "tests/unit/test_final_pr_merge_readiness.py",
     "tests/unit/test_beta_evidence_consistency.py",
@@ -88,6 +98,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/beta_release_decision_log.md": (
+        "Beta Release Decision Log",
+        "decision log does not replace platform workflow logs",
+    ),
+    "docs/operations/release_owner_accountability_matrix.md": (
+        "Release Owner Accountability Matrix",
+        "does not grant approval, execute deployment, or create release tags",
+    ),
+    "docs/operations/post_merge_release_handoff_checklist.md": (
+        "Post-Merge Release Handoff Checklist",
+        "Post-merge handoff does not execute deployment, tagging, approval, or production launch",
+    ),
     "docs/operations/final_pr_merge_readiness_contract.md": (
         "Final PR Merge Readiness Contract",
         "remote branch accepts non-force push",
@@ -204,6 +226,9 @@ CONTENT_REQUIREMENTS = {
         "release-state-snapshot-check:",
         "beta-evidence-consistency-check:",
         "final-pr-merge-readiness-check:",
+        "post-merge-release-handoff-check:",
+        "release-owner-accountability-check:",
+        "beta-release-decision-log-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",
