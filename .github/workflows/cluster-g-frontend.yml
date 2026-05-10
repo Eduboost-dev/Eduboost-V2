@@ -22,12 +22,18 @@ jobs:
         run: |
           make frontend-route-inventory
           make frontend-route-inventory-check
+          make frontend-journey-fixture-check
+          make frontend-api-client-inventory-check
+          make frontend-api-client-inventory
           make learner-vertical-journey-contract-check
           make frontend-auth-consent-denial-check
           make parent-vertical-journey-contract-check
           make cluster-g-frontend-check
           pytest -c pytest.ini \
             tests/unit/test_frontend_route_inventory.py \
+            tests/unit/test_cluster_g_api_fixture_evidence.py \
+            tests/unit/test_frontend_journey_fixtures.py \
+            tests/unit/test_frontend_api_client_inventory.py \
             tests/unit/test_cluster_g_parent_denial_evidence.py \
             tests/unit/test_frontend_auth_consent_denial_contract.py \
             tests/unit/test_parent_vertical_journey_contract.py \
