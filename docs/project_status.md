@@ -360,3 +360,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster E Release Evidence Wiring
 
 - Cluster E evidence index and release-gate wiring added.
+
+## Cluster F AI Safety
+
+- Cluster F AI/CAPS/safety evidence baseline added.
