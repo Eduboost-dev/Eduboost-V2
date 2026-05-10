@@ -161,3 +161,42 @@ database-backup-integrity-check:
 
 database-restore-integrity-check:
 	$(PYTHON) scripts/check_database_restore_integrity.py
+
+cluster-e-closure-check:
+	$(PYTHON) scripts/check_cluster_e_closure.py
+
+database-resilience-env-matrix-check:
+	$(PYTHON) scripts/check_database_resilience_env_matrix.py
+
+production-restore-approval-check:
+	$(PYTHON) scripts/check_production_restore_approval.py
+
+caps-alignment-contract-check:
+	$(PYTHON) scripts/check_caps_alignment_contract.py
+
+ai-safety-boundary-check:
+	$(PYTHON) scripts/check_ai_safety_boundary_contract.py
+
+cluster-f-ai-safety-check:
+	$(PYTHON) scripts/check_cluster_f_ai_safety_evidence.py
+
+ai-prompt-input-contract-check:
+	$(PYTHON) scripts/check_ai_prompt_input_contract.py
+
+diagnostic-generation-safety-check:
+	$(PYTHON) scripts/check_diagnostic_generation_safety_contract.py
+
+llm-provider-fallback-contract-check:
+	$(PYTHON) scripts/check_llm_provider_fallback_contract.py
+
+ai-output-schema-contract-check:
+	$(PYTHON) scripts/check_ai_output_schema_contract.py
+
+lesson-generation-safety-check:
+	$(PYTHON) scripts/check_lesson_generation_safety_contract.py
+
+remediation-safety-contract-check:
+	$(PYTHON) scripts/check_remediation_safety_contract.py
+
+cluster-f-closure-check:
+	$(PYTHON) scripts/check_cluster_f_closure.py

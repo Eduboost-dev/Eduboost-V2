@@ -19,6 +19,7 @@ EVIDENCE_COMMANDS = (
     ("Phase 2 authorization", "make phase2-authz-closure"),
     ("POPIA consent/audit", "make popia-consent-closure-check"),
     ("Cluster D environment/deployment", "make cluster-d-closure-check"),
+    ("Cluster E data resilience", "make cluster-e-closure-check"),
 )
 
 
