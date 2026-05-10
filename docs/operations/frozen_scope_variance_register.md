@@ -47,3 +47,9 @@ This frozen scope variance register records post-closeout evidence variance only
 ```bash
 make frozen-scope-variance-register-check
 ```
+
+## Acceptance Packet Handoff Freeze Access Policy Evidence
+
+- `docs/operations/final_acceptance_packet_index.md`
+- `docs/operations/release_handoff_freeze_assertion.md`
+- `docs/operations/post_closeout_evidence_access_policy.md`

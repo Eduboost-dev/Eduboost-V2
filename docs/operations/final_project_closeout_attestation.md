@@ -61,3 +61,9 @@ make final-project-closeout-attestation-check
 - `docs/operations/final_release_evidence_ledger.md`
 - `docs/operations/frozen_scope_variance_register.md`
 - `docs/operations/post_closeout_maintenance_boundary.md`
+
+## Acceptance Packet Handoff Freeze Access Policy Evidence
+
+- `docs/operations/final_acceptance_packet_index.md`
+- `docs/operations/release_handoff_freeze_assertion.md`
+- `docs/operations/post_closeout_evidence_access_policy.md`

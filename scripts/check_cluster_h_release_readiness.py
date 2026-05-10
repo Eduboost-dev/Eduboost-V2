@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_acceptance_packet_handoff_freeze_access_policy_wiring.py",
+    "tests/unit/test_post_closeout_evidence_access_policy.py",
+    "tests/unit/test_release_handoff_freeze_assertion.py",
+    "tests/unit/test_final_acceptance_packet_index.py",
+    "scripts/check_post_closeout_evidence_access_policy.py",
+    "scripts/check_release_handoff_freeze_assertion.py",
+    "scripts/check_final_acceptance_packet_index.py",
+    "docs/operations/post_closeout_evidence_access_policy.md",
+    "docs/operations/release_handoff_freeze_assertion.md",
+    "docs/operations/final_acceptance_packet_index.md",
     "tests/unit/test_cluster_h_ledger_variance_maintenance_wiring.py",
     "tests/unit/test_post_closeout_maintenance_boundary.py",
     "tests/unit/test_frozen_scope_variance_register.py",
@@ -198,6 +208,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/post_closeout_evidence_access_policy.md": (
+        "Post-Closeout Evidence Access Policy",
+        "does not approve production launch, execute deployment, create release tags, or bypass manual approval",
+    ),
+    "docs/operations/release_handoff_freeze_assertion.md": (
+        "Release Handoff Freeze Assertion",
+        "does not approve production launch, execute deployment, create release tags, or replace manual approval",
+    ),
+    "docs/operations/final_acceptance_packet_index.md": (
+        "Final Acceptance Packet Index",
+        "does not approve production launch, execute deployment, create release tags, or replace manual approval",
+    ),
     "docs/operations/post_closeout_maintenance_boundary.md": (
         "Post-Closeout Maintenance Boundary",
         "does not approve production launch, execute deployment, create release tags, or alter release outcome",
@@ -479,6 +501,9 @@ CONTENT_REQUIREMENTS = {
         "final-release-evidence-ledger-check:",
         "frozen-scope-variance-register-check:",
         "post-closeout-maintenance-boundary-check:",
+        "final-acceptance-packet-index-check:",
+        "release-handoff-freeze-assertion-check:",
+        "post-closeout-evidence-access-policy-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",

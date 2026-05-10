@@ -482,3 +482,12 @@ frozen-scope-variance-register-check:
 
 post-closeout-maintenance-boundary-check:
 	$(PYTHON) scripts/check_post_closeout_maintenance_boundary.py
+
+final-acceptance-packet-index-check:
+	$(PYTHON) scripts/check_final_acceptance_packet_index.py
+
+release-handoff-freeze-assertion-check:
+	$(PYTHON) scripts/check_release_handoff_freeze_assertion.py
+
+post-closeout-evidence-access-policy-check:
+	$(PYTHON) scripts/check_post_closeout_evidence_access_policy.py

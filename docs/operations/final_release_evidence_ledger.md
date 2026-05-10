@@ -53,3 +53,9 @@ This final release evidence ledger records evidence traceability only. It does n
 ```bash
 make final-release-evidence-ledger-check
 ```
+
+## Acceptance Packet Handoff Freeze Access Policy Evidence
+
+- `docs/operations/final_acceptance_packet_index.md`
+- `docs/operations/release_handoff_freeze_assertion.md`
+- `docs/operations/post_closeout_evidence_access_policy.md`

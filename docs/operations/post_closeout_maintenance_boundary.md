@@ -43,3 +43,9 @@ This maintenance boundary governs post-closeout evidence edits only. It does not
 ```bash
 make post-closeout-maintenance-boundary-check
 ```
+
+## Acceptance Packet Handoff Freeze Access Policy Evidence
+
+- `docs/operations/final_acceptance_packet_index.md`
+- `docs/operations/release_handoff_freeze_assertion.md`
+- `docs/operations/post_closeout_evidence_access_policy.md`
