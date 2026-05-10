@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.check_cluster_h_closure import COMMANDS, GENERATORS, run_checks
+from scripts.check_cluster_h_closure import REQUIRED_FILES, run_checks
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -23,15 +23,10 @@ def test_cluster_h_closure_report_exists_and_documents_boundary() -> None:
 
 
 @pytest.mark.unit
-def test_cluster_h_closure_command_list_is_complete() -> None:
-    flattened = "\n".join(" ".join(command) for _, command in (*GENERATORS, *COMMANDS))
-
-    assert "generate_staging_smoke_evidence_manifest.py" in flattened
-    assert "generate_beta_signoff_manifest.py" in flattened
-    assert "generate_beta_release_evidence_bundle.py" in flattened
-    assert "generate_release_candidate_tag_manifest.py" in flattened
-    assert "release-approval-workflow-contract-check" in flattened
-    assert "cluster-h-release-readiness-check" in flattened
+def test_cluster_h_closure_required_files_are_registered() -> None:
+    assert "docs/operations/CLUSTER_H_CLOSURE.md" in REQUIRED_FILES
+    assert "docs/operations/beta_release_evidence_bundle.md" in REQUIRED_FILES
+    assert ".github/workflows/beta-release-approval.yml" in REQUIRED_FILES
 
 
 @pytest.mark.unit
@@ -49,6 +44,7 @@ def test_cluster_h_closure_cli_passes() -> None:
         check=False,
         capture_output=True,
         text=True,
+        timeout=15,
     )
 
     assert result.returncode == 0, result.stdout + result.stderr
