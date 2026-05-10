@@ -28,6 +28,9 @@ jobs:
           make frontend-accessibility-contract-check
           make frontend-playwright-scaffold-check
           make frontend-api-client-inventory-check
+          make frontend-mock-api-fixture-check
+          make frontend-runtime-inventory-check
+          make frontend-runtime-inventory
           make frontend-api-client-inventory
           make learner-vertical-journey-contract-check
           make frontend-auth-consent-denial-check
@@ -35,6 +38,9 @@ jobs:
           make cluster-g-frontend-check
           pytest -c pytest.ini \
             tests/unit/test_frontend_route_inventory.py \
+            tests/unit/test_cluster_g_runtime_mock_evidence.py \
+            tests/unit/test_frontend_mock_api_fixtures.py \
+            tests/unit/test_frontend_runtime_inventory.py \
             tests/unit/test_cluster_g_accessibility_evidence.py \
             tests/unit/test_frontend_accessibility_static.py \
             tests/unit/test_frontend_accessibility_contract.py \

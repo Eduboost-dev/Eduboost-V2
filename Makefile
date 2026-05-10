@@ -260,3 +260,12 @@ frontend-accessibility-contract-check:
 
 frontend-accessibility-static-check:
 	$(PYTHON) scripts/check_frontend_accessibility_static.py
+
+frontend-runtime-inventory:
+	$(PYTHON) scripts/generate_frontend_runtime_inventory.py
+
+frontend-runtime-inventory-check:
+	$(PYTHON) scripts/check_frontend_runtime_inventory.py
+
+frontend-mock-api-fixture-check:
+	$(PYTHON) scripts/check_frontend_mock_api_fixtures.py

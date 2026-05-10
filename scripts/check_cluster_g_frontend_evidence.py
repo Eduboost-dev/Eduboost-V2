@@ -9,6 +9,20 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_g_runtime_mock_evidence.py",
+    "tests/unit/test_frontend_mock_api_fixtures.py",
+    "tests/unit/test_frontend_runtime_inventory.py",
+    "tests/fixtures/frontend/api/authorization_denied_error.json",
+    "tests/fixtures/frontend/api/consent_denied_error.json",
+    "tests/fixtures/frontend/api/parent_dashboard_success.json",
+    "tests/fixtures/frontend/api/lesson_generation_success.json",
+    "tests/fixtures/frontend/api/diagnostic_submit_success.json",
+    "tests/fixtures/frontend/api/learner_dashboard_success.json",
+    "docs/frontend/playwright_mock_api_fixtures.md",
+    "docs/frontend/frontend_runtime_inventory.md",
+    "scripts/check_frontend_mock_api_fixtures.py",
+    "scripts/check_frontend_runtime_inventory.py",
+    "scripts/generate_frontend_runtime_inventory.py",
     "tests/unit/test_cluster_g_accessibility_evidence.py",
     "tests/unit/test_frontend_accessibility_static.py",
     "tests/unit/test_frontend_accessibility_contract.py",
@@ -53,6 +67,14 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/frontend/playwright_mock_api_fixtures.md": (
+        "Playwright Mock API Fixtures",
+        "error.safe_next_action",
+    ),
+    "docs/frontend/frontend_runtime_inventory.md": (
+        "Frontend Runtime Inventory",
+        "run Playwright E2E",
+    ),
     "docs/frontend/frontend_accessibility_static_scan.md": (
         "Frontend Accessibility Static Scan",
         "source-level guard",
@@ -100,6 +122,9 @@ CONTENT_REQUIREMENTS = {
         "frontend-e2e:",
         "frontend-accessibility-contract-check:",
         "frontend-accessibility-static-check:",
+        "frontend-runtime-inventory:",
+        "frontend-runtime-inventory-check:",
+        "frontend-mock-api-fixture-check:",
     ),
     "docs/frontend/frontend_route_inventory.md": (
         "Frontend Route Inventory",

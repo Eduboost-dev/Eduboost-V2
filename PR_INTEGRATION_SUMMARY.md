@@ -443,3 +443,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster G Accessibility Evidence
 
 - Cluster G frontend accessibility contract and static scan added.
+
+## Cluster G Runtime Mock Evidence
+
+- Cluster G frontend runtime inventory and mock API fixtures added.
