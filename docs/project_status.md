@@ -376,3 +376,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster F Closure
 
 - Cluster F lesson/remediation safety and closure aggregate check added.
+
+## Cluster F Release Evidence Wiring
+
+- Cluster F evidence index, closure report, and release-gate wiring added.
