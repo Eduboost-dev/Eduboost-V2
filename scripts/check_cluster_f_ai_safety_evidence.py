@@ -8,6 +8,14 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_f_closure_check.py",
+    "tests/unit/test_remediation_safety_contract.py",
+    "tests/unit/test_lesson_generation_safety_contract.py",
+    "docs/ai/remediation_safety_contract.md",
+    "docs/ai/lesson_generation_safety_contract.md",
+    "scripts/check_cluster_f_closure.py",
+    "scripts/check_remediation_safety_contract.py",
+    "scripts/check_lesson_generation_safety_contract.py",
     "tests/unit/test_ai_output_schema_contract.py",
     "tests/unit/test_llm_provider_fallback_contract.py",
     "docs/ai/ai_output_schema_contract.md",
@@ -29,6 +37,14 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/ai/remediation_safety_contract.md": (
+        "Remediation Safety Contract",
+        "remediation must avoid punitive or shaming language",
+    ),
+    "docs/ai/lesson_generation_safety_contract.md": (
+        "Lesson Generation Safety Contract",
+        "every lesson must map to a lesson objective",
+    ),
     "docs/ai/ai_output_schema_contract.md": (
         "AI Output Schema Contract",
         "safe educational redirection",
@@ -52,6 +68,9 @@ CONTENT_REQUIREMENTS = {
         "diagnostic-generation-safety-check:",
         "llm-provider-fallback-contract-check:",
         "ai-output-schema-contract-check:",
+        "lesson-generation-safety-check:",
+        "remediation-safety-contract-check:",
+        "cluster-f-closure-check:",
     ),
     "docs/ai/caps_alignment_contract.md": (
         "CAPS Alignment Contract",

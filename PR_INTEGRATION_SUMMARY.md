@@ -403,3 +403,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster F Provider Output Safety
 
 - Cluster F LLM fallback and AI output schema contracts added.
+
+## Cluster F Closure
+
+- Cluster F lesson/remediation safety and closure aggregate check added.

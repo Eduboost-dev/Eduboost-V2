@@ -26,9 +26,15 @@ jobs:
           make ai-output-schema-contract-check
           make llm-provider-fallback-contract-check
           make ai-prompt-input-contract-check
+          make lesson-generation-safety-check
+          make remediation-safety-contract-check
+          make cluster-f-closure-check
           make cluster-f-ai-safety-check
           pytest -c pytest.ini \
             tests/unit/test_caps_alignment_contract.py \
+            tests/unit/test_cluster_f_closure_check.py \
+            tests/unit/test_remediation_safety_contract.py \
+            tests/unit/test_lesson_generation_safety_contract.py \
             tests/unit/test_ai_output_schema_contract.py \
             tests/unit/test_llm_provider_fallback_contract.py \
             tests/unit/test_diagnostic_generation_safety_contract.py \

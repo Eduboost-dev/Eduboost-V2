@@ -191,3 +191,12 @@ llm-provider-fallback-contract-check:
 
 ai-output-schema-contract-check:
 	$(PYTHON) scripts/check_ai_output_schema_contract.py
+
+lesson-generation-safety-check:
+	$(PYTHON) scripts/check_lesson_generation_safety_contract.py
+
+remediation-safety-contract-check:
+	$(PYTHON) scripts/check_remediation_safety_contract.py
+
+cluster-f-closure-check:
+	$(PYTHON) scripts/check_cluster_f_closure.py

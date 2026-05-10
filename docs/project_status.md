@@ -372,3 +372,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster F Provider Output Safety
 
 - Cluster F LLM fallback and AI output schema contracts added.
+
+## Cluster F Closure
+
+- Cluster F lesson/remediation safety and closure aggregate check added.
