@@ -358,3 +358,31 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster E Backup Restore Integrity
 
 - Cluster E backup/restore integrity checks added.
+
+## Cluster E Closure
+
+- Cluster E closure command and report added.
+
+## Cluster E Restore Readiness
+
+- Cluster E restore-readiness guards added for env matrix and production approval.
+
+## Cluster E Release Evidence Wiring
+
+- Cluster E evidence index and release-gate wiring added.
+
+## Cluster F AI Safety
+
+- Cluster F AI/CAPS/safety evidence baseline added.
+
+## Cluster F Prompt Diagnostic Safety
+
+- Cluster F prompt input and diagnostic generation safety contracts added.
+
+## Cluster F Provider Output Safety
+
+- Cluster F LLM fallback and AI output schema contracts added.
+
+## Cluster F Closure
+
+- Cluster F lesson/remediation safety and closure aggregate check added.
