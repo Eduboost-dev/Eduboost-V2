@@ -1,6 +1,6 @@
 # Project Status
 
-This page summarizes the verified repository state as of **2026-05-08**.
+This page summarizes the verified repository state as of **2026-05-10**.
 
 ## Current Verified Baseline
 
@@ -22,8 +22,10 @@ The current PR-002R work establishes the backend runtime and API contract baseli
 - The OpenAPI drift workflow targets `master` and `release/**`, not `main`.
 - The CAPS Grade 4 Mathematics item-bank implementation is integrated and has
   a coverage matrix at [`docs/caps/grade4_maths_coverage_matrix.md`](caps/grade4_maths_coverage_matrix.md).
-  The current committed seed is a starter bank and still needs expansion before
-  the production coverage gate can be claimed as met.
+  The current committed seed has 14 approved starter items and still needs 106
+  additional approved items before the 120-item production coverage gate can be
+  claimed as met. The production completion plan is
+  [`docs/caps/grade4_maths_120_item_production_plan.md`](caps/grade4_maths_120_item_production_plan.md).
 
 ## Claim Discipline
 
@@ -63,6 +65,8 @@ The following categories remain release blockers before real learner data or pub
 - Backup/restore drill evidence.
 - AI prompt PII safety, lesson validators, and CAPS validation.
 - Diagnostic item-bank and IRT validation.
+- Grade 4 Mathematics item-bank content expansion from 14 approved starter
+  items to the 120 approved items required for launch.
 - Frontend API-envelope adoption and learner/guardian journeys.
 - Staging acceptance evidence.
 - Incident response and release evidence bundle.

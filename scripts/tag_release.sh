@@ -72,7 +72,7 @@ fi
 
 # 3. Run CI coverage assertion
 info "Running CI coverage assertion (P5-03)..."
-if ! python -m pytest tests/ci/test_item_bank_coverage.py -q --tb=short; then
+if ! ITEM_BANK_MIN_APPROVED=40 python -m pytest tests/ci/test_item_bank_coverage.py -q --tb=short; then
   error "Coverage assertion FAILED — ≥40 approved items per CAPS ref required before tagging."
 fi
 success "Coverage assertion passed."
@@ -80,14 +80,15 @@ success "Coverage assertion passed."
 # 4. Run seed JSON validation (P5-04)
 info "Running seed JSON validation (P5-04)..."
 if ! python scripts/validate_item_bank.py \
-       --path data/caps/grade4_maths_item_bank.json; then
+       --path data/caps/grade4_maths_item_bank.json \
+       --fail-on-any-error; then
   error "validate_item_bank.py FAILED — fix all validation errors before tagging."
 fi
 success "Seed validation passed."
 
 # 5. Run Phase 5 CI jobs (P5-03, P5-04, P5-06) — skip E2E (requires live server)
 info "Running Phase 5 CI test suite (non-E2E)..."
-if ! python -m pytest tests/ci/ -q --tb=short \
+if ! ITEM_BANK_MIN_APPROVED=40 ITEM_BANK_MIN_APPROVED_TOTAL=120 python -m pytest tests/ci/ -q --tb=short \
        --ignore=tests/ci/test_item_bank_ci_jobs.py -m "not performance"; then
   error "Phase 5 CI tests FAILED."
 fi
@@ -107,7 +108,7 @@ for ref in "4.M.1.1" "4.M.1.2" "4.M.1.3"; do
 import asyncio, asyncpg, os
 async def run():
     pool = await asyncpg.create_pool(os.environ.get('DATABASE_URL','postgresql://eduboost:eduboost@localhost:5432/eduboost'))
-    r = await pool.fetchrow(\"SELECT COUNT(*) AS c FROM diagnostic_items WHERE caps_ref='\$1' AND review_status='approved'\", '${ref}')
+    r = await pool.fetchrow(\"SELECT COUNT(*) AS c FROM diagnostic_items WHERE caps_ref=\$1 AND review_status='approved'\", '${ref}')
     await pool.close()
     print(r['c'])
 asyncio.run(run())
@@ -130,7 +131,7 @@ Branch: \`${current_branch}\`
 | \`validate_item_bank.py\` — 0 failures | ✅ |
 | ≥ 40 approved items per CAPS ref | ✅ |
 | IRT engine: no hardcoded arrays | ✅ |
-| Playwright E2E: full learner flow | ✅ |
+| Playwright E2E: full learner flow | Not run by this script; attach CI/staging evidence separately |
 | Item selection p99 < 50ms | ✅ |
 | Coverage matrix committed | ✅ |
 | Prometheus coverage_ratio ≥ 1.0 | ✅ |
@@ -143,7 +144,8 @@ $(echo -e "${APPROVED_COUNTS}")
 
 ## Definition of Done
 
-All 12 Definition of Done criteria from the roadmap §7 are satisfied.
+The strict item-bank content gates passed for this tag. Attach the latest
+Playwright/staging evidence before promoting beyond release-candidate status.
 See \`CHANGELOG.md\` for the full list.
 
 ## Artefacts
@@ -205,7 +207,7 @@ if [[ "${DRY_RUN}" == "false" ]]; then
     "${EVIDENCE_FILE}" \
     || true
 
-  git commit -m "chore(release): ${TAG} — CAPS item bank MVP complete
+  git commit -m "chore(release): ${TAG} - CAPS item bank MVP complete
 
 - 120 approved Grade 4 Mathematics items across 3 CAPS refs
 - All Phase 5 Definition of Done gates satisfied
@@ -217,12 +219,13 @@ Evidence bundle: reports/release_evidence/release_${VERSION}_evidence.md"
   info "Creating annotated tag ${TAG}..."
   git tag -a "${TAG}" -m "Release ${TAG}: CAPS Item Bank MVP
 
-Grade 4 Mathematics item bank production-ready:
+Grade 4 Mathematics item bank release candidate:
 - 4.M.1.1 Whole Numbers: ≥40 approved items
 - 4.M.1.2 Common Fractions: ≥40 approved items
 - 4.M.1.3 2D Shapes: ≥40 approved items
 
-All Phase 5 tests pass. Full E2E learner journey unblocked.
+Strict item-bank content gates passed. Attach Playwright and staging evidence
+before production promotion.
 See CHANGELOG.md for complete list of changes."
 
   echo ""

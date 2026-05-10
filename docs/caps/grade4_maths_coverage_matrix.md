@@ -16,7 +16,10 @@
 | **Launch Scope** | Term 1 (Topics 1–3) |
 | **Target Items per Topic** | ≥ 40 approved |
 | **Total Target** | ≥ 120 approved |
-| **Definition of Done** | All 3 CAPS refs ≥ 40 approved · `validate_item_bank.py` 0 failures · CI green |
+| **Current Approved Items** | 14 approved starter items |
+| **Outstanding to Production Target** | 106 approved items |
+| **Current Status** | Implementation integrated; content bank not production-complete |
+| **Definition of Done** | All 3 CAPS refs ≥ 40 approved · `validate_item_bank.py` 0 failures · CI green with production thresholds |
 
 ---
 
@@ -29,9 +32,9 @@ distribution.
 
 | CAPS Ref | Topic | Term | Approved | Draft | AI-Gen | Retired | Status | IRT Calibrated |
 |----------|-------|------|----------|-------|--------|---------|--------|----------------|
-| **4.M.1.1** | Whole Numbers | 1 | <!-- 4.M.1.1_APPROVED --> | <!-- 4.M.1.1_DRAFT --> | <!-- 4.M.1.1_AI_GEN --> | <!-- 4.M.1.1_RETIRED --> | <!-- 4.M.1.1_STATUS --> | <!-- 4.M.1.1_IRT --> |
-| **4.M.1.2** | Common Fractions | 1 | <!-- 4.M.1.2_APPROVED --> | <!-- 4.M.1.2_DRAFT --> | <!-- 4.M.1.2_AI_GEN --> | <!-- 4.M.1.2_RETIRED --> | <!-- 4.M.1.2_STATUS --> | <!-- 4.M.1.2_IRT --> |
-| **4.M.1.3** | 2D Shapes | 1 | <!-- 4.M.1.3_APPROVED --> | <!-- 4.M.1.3_DRAFT --> | <!-- 4.M.1.3_AI_GEN --> | <!-- 4.M.1.3_RETIRED --> | <!-- 4.M.1.3_STATUS --> | <!-- 4.M.1.3_IRT --> |
+| **4.M.1.1** | Whole Numbers | 1 | 4 | 0 | 0 | 0 | Starter bank only | Pre-calibration |
+| **4.M.1.2** | Common Fractions | 1 | 5 | 0 | 0 | 0 | Starter bank only | Pre-calibration |
+| **4.M.1.3** | 2D Shapes | 1 | 5 | 0 | 0 | 0 | Starter bank only | Pre-calibration |
 
 > **Populate this table** by running `python scripts/generate_coverage_matrix.py --output docs/caps/grade4_maths_coverage_matrix.md`
 > The script queries the database and replaces all `<!-- ... -->` placeholders with live counts.
@@ -56,28 +59,28 @@ levels to produce reliable ability (θ) estimates (standard error < 0.4).
 
 | Band | Target | Actual | Gap |
 |------|--------|--------|-----|
-| Easy | 10 | <!-- 4M11_EASY --> | <!-- 4M11_EASY_GAP --> |
-| Moderate | 12 | <!-- 4M11_MOD --> | <!-- 4M11_MOD_GAP --> |
-| On-level | 12 | <!-- 4M11_ONL --> | <!-- 4M11_ONL_GAP --> |
-| Challenging | 6 | <!-- 4M11_CHAL --> | <!-- 4M11_CHAL_GAP --> |
+| Easy | 10 | 3 | 7 |
+| Moderate | 12 | 1 | 11 |
+| On-level | 12 | 0 | 12 |
+| Challenging | 6 | 0 | 6 |
 
 ### 4.M.1.2 — Common Fractions
 
 | Band | Target | Actual | Gap |
 |------|--------|--------|-----|
-| Easy | 10 | <!-- 4M12_EASY --> | <!-- 4M12_EASY_GAP --> |
-| Moderate | 12 | <!-- 4M12_MOD --> | <!-- 4M12_MOD_GAP --> |
-| On-level | 12 | <!-- 4M12_ONL --> | <!-- 4M12_ONL_GAP --> |
-| Challenging | 6 | <!-- 4M12_CHAL --> | <!-- 4M12_CHAL_GAP --> |
+| Easy | 10 | 0 | 10 |
+| Moderate | 12 | 3 | 9 |
+| On-level | 12 | 2 | 10 |
+| Challenging | 6 | 0 | 6 |
 
 ### 4.M.1.3 — 2D Shapes
 
 | Band | Target | Actual | Gap |
 |------|--------|--------|-----|
-| Easy | 10 | <!-- 4M13_EASY --> | <!-- 4M13_EASY_GAP --> |
-| Moderate | 12 | <!-- 4M13_MOD --> | <!-- 4M13_MOD_GAP --> |
-| On-level | 12 | <!-- 4M13_ONL --> | <!-- 4M13_ONL_GAP --> |
-| Challenging | 6 | <!-- 4M13_CHAL --> | <!-- 4M13_CHAL_GAP --> |
+| Easy | 10 | 1 | 9 |
+| Moderate | 12 | 2 | 10 |
+| On-level | 12 | 2 | 10 |
+| Challenging | 6 | 0 | 6 |
 
 ---
 
@@ -157,7 +160,9 @@ remediation.
 
 ## Definition of Done — Checklist
 
-Use this checklist to confirm the item bank is production-ready for launch:
+Use this checklist to confirm the item bank is production-ready for launch.
+As of this update, the implementation is integrated but the item content target
+is not yet met.
 
 - [ ] `validate_item_bank.py` reports **0 failures** across all 120 approved items (CI P5-04)
 - [ ] ≥ 40 approved items for **4.M.1.1** (CI P5-03)
@@ -175,6 +180,9 @@ Use this checklist to confirm the item bank is production-ready for launch:
 - [ ] `CHANGELOG.md` updated with item bank milestone (P5-11)
 - [ ] `TODO.md` §7.2 tasks marked done (P5-11)
 - [ ] Release candidate tagged in Git (P5-12)
+
+See [Grade 4 Mathematics 120-Item Production Plan](grade4_maths_120_item_production_plan.md)
+for the batch plan to close the remaining 106 approved items.
 
 ---
 
