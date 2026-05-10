@@ -534,3 +534,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster H Acceptance Memo Record Closure Continuity
 
 - Cluster H final acceptance memo, release record closure ledger, and post-merge evidence continuity note added.
+
+## Cluster H Closure Manifest Branch Handoff Reviewer Decision
+
+- Cluster H final closure manifest, branch handoff proof record, and reviewer decision capture template added.

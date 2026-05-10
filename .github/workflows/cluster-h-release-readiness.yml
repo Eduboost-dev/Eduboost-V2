@@ -97,11 +97,18 @@ jobs:
           make final-acceptance-memo-check
           make release-record-closure-ledger-check
           make post-merge-evidence-continuity-note-check
+          make final-closure-manifest-check
+          make branch-handoff-proof-record-check
+          make reviewer-decision-capture-template-check
           make cluster-h-release-readiness-check
       - name: Run Cluster H release readiness tests
         run: |
           pytest -c pytest.ini \
             tests/unit/test_beta_release_readiness_contract.py \
+            tests/unit/test_cluster_h_closure_manifest_branch_handoff_reviewer_decision_wiring.py \
+            tests/unit/test_reviewer_decision_capture_template.py \
+            tests/unit/test_branch_handoff_proof_record.py \
+            tests/unit/test_final_closure_manifest.py \
             tests/unit/test_cluster_h_acceptance_memo_record_closure_continuity_wiring.py \
             tests/unit/test_post_merge_evidence_continuity_note.py \
             tests/unit/test_release_record_closure_ledger.py \

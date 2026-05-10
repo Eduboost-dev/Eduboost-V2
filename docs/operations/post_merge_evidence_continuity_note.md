@@ -45,3 +45,9 @@ This post-merge evidence continuity note records traceability only. It does not 
 ```bash
 make post-merge-evidence-continuity-note-check
 ```
+
+## Closure Manifest Branch Handoff Reviewer Decision Evidence
+
+- `docs/operations/final_closure_manifest.md`
+- `docs/operations/branch_handoff_proof_record.md`
+- `docs/operations/reviewer_decision_capture_template.md`

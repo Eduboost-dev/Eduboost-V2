@@ -51,3 +51,9 @@ This final acceptance memo records reviewer-facing acceptance evidence only. It 
 ```bash
 make final-acceptance-memo-check
 ```
+
+## Closure Manifest Branch Handoff Reviewer Decision Evidence
+
+- `docs/operations/final_closure_manifest.md`
+- `docs/operations/branch_handoff_proof_record.md`
+- `docs/operations/reviewer_decision_capture_template.md`

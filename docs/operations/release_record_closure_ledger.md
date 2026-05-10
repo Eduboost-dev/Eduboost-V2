@@ -51,3 +51,9 @@ This release record closure ledger records evidence-record closure only. It does
 ```bash
 make release-record-closure-ledger-check
 ```
+
+## Closure Manifest Branch Handoff Reviewer Decision Evidence
+
+- `docs/operations/final_closure_manifest.md`
+- `docs/operations/branch_handoff_proof_record.md`
+- `docs/operations/reviewer_decision_capture_template.md`

@@ -527,3 +527,12 @@ release-record-closure-ledger-check:
 
 post-merge-evidence-continuity-note-check:
 	$(PYTHON) scripts/check_post_merge_evidence_continuity_note.py
+
+final-closure-manifest-check:
+	$(PYTHON) scripts/check_final_closure_manifest.py
+
+branch-handoff-proof-record-check:
+	$(PYTHON) scripts/check_branch_handoff_proof_record.py
+
+reviewer-decision-capture-template-check:
+	$(PYTHON) scripts/check_reviewer_decision_capture_template.py

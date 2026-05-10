@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_closure_manifest_branch_handoff_reviewer_decision_wiring.py",
+    "tests/unit/test_reviewer_decision_capture_template.py",
+    "tests/unit/test_branch_handoff_proof_record.py",
+    "tests/unit/test_final_closure_manifest.py",
+    "scripts/check_reviewer_decision_capture_template.py",
+    "scripts/check_branch_handoff_proof_record.py",
+    "scripts/check_final_closure_manifest.py",
+    "docs/operations/reviewer_decision_capture_template.md",
+    "docs/operations/branch_handoff_proof_record.md",
+    "docs/operations/final_closure_manifest.md",
     "tests/unit/test_cluster_h_acceptance_memo_record_closure_continuity_wiring.py",
     "tests/unit/test_post_merge_evidence_continuity_note.py",
     "tests/unit/test_release_record_closure_ledger.py",
@@ -248,6 +258,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/reviewer_decision_capture_template.md": (
+        "Reviewer Decision Capture Template",
+        "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
+    ),
+    "docs/operations/branch_handoff_proof_record.md": (
+        "Branch Handoff Proof Record",
+        "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
+    ),
+    "docs/operations/final_closure_manifest.md": (
+        "Final Closure Manifest",
+        "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
+    ),
     "docs/operations/post_merge_evidence_continuity_note.md": (
         "Post-Merge Evidence Continuity Note",
         "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
@@ -604,6 +626,9 @@ CONTENT_REQUIREMENTS = {
         "final-acceptance-memo-check:",
         "release-record-closure-ledger-check:",
         "post-merge-evidence-continuity-note-check:",
+        "final-closure-manifest-check:",
+        "branch-handoff-proof-record-check:",
+        "reviewer-decision-capture-template-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",
