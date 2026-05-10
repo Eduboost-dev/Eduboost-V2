@@ -94,11 +94,18 @@ jobs:
           make final-release-readiness-rollup-check
           make evidence-freeze-confirmation-record-check
           make pr-merge-evidence-summary-check
+          make final-acceptance-memo-check
+          make release-record-closure-ledger-check
+          make post-merge-evidence-continuity-note-check
           make cluster-h-release-readiness-check
       - name: Run Cluster H release readiness tests
         run: |
           pytest -c pytest.ini \
             tests/unit/test_beta_release_readiness_contract.py \
+            tests/unit/test_cluster_h_acceptance_memo_record_closure_continuity_wiring.py \
+            tests/unit/test_post_merge_evidence_continuity_note.py \
+            tests/unit/test_release_record_closure_ledger.py \
+            tests/unit/test_final_acceptance_memo.py \
             tests/unit/test_cluster_h_readiness_rollup_freeze_merge_summary_wiring.py \
             tests/unit/test_pr_merge_evidence_summary.py \
             tests/unit/test_evidence_freeze_confirmation_record.py \

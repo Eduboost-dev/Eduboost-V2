@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_acceptance_memo_record_closure_continuity_wiring.py",
+    "tests/unit/test_post_merge_evidence_continuity_note.py",
+    "tests/unit/test_release_record_closure_ledger.py",
+    "tests/unit/test_final_acceptance_memo.py",
+    "scripts/check_post_merge_evidence_continuity_note.py",
+    "scripts/check_release_record_closure_ledger.py",
+    "scripts/check_final_acceptance_memo.py",
+    "docs/operations/post_merge_evidence_continuity_note.md",
+    "docs/operations/release_record_closure_ledger.md",
+    "docs/operations/final_acceptance_memo.md",
     "tests/unit/test_cluster_h_readiness_rollup_freeze_merge_summary_wiring.py",
     "tests/unit/test_pr_merge_evidence_summary.py",
     "tests/unit/test_evidence_freeze_confirmation_record.py",
@@ -238,6 +248,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/post_merge_evidence_continuity_note.md": (
+        "Post-Merge Evidence Continuity Note",
+        "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
+    ),
+    "docs/operations/release_record_closure_ledger.md": (
+        "Release Record Closure Ledger",
+        "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
+    ),
+    "docs/operations/final_acceptance_memo.md": (
+        "Final Acceptance Memo",
+        "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
+    ),
     "docs/operations/pr_merge_evidence_summary.md": (
         "PR Merge Evidence Summary",
         "does not approve production launch, execute deployment, create release tags, or merge the pull request automatically",
@@ -579,6 +601,9 @@ CONTENT_REQUIREMENTS = {
         "final-release-readiness-rollup-check:",
         "evidence-freeze-confirmation-record-check:",
         "pr-merge-evidence-summary-check:",
+        "final-acceptance-memo-check:",
+        "release-record-closure-ledger-check:",
+        "post-merge-evidence-continuity-note-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",

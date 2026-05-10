@@ -50,3 +50,9 @@ This final release readiness rollup records summary evidence only. It does not a
 ```bash
 make final-release-readiness-rollup-check
 ```
+
+## Acceptance Memo Record Closure Continuity Evidence
+
+- `docs/operations/final_acceptance_memo.md`
+- `docs/operations/release_record_closure_ledger.md`
+- `docs/operations/post_merge_evidence_continuity_note.md`

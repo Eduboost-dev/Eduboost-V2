@@ -518,3 +518,12 @@ evidence-freeze-confirmation-record-check:
 
 pr-merge-evidence-summary-check:
 	$(PYTHON) scripts/check_pr_merge_evidence_summary.py
+
+final-acceptance-memo-check:
+	$(PYTHON) scripts/check_final_acceptance_memo.py
+
+release-record-closure-ledger-check:
+	$(PYTHON) scripts/check_release_record_closure_ledger.py
+
+post-merge-evidence-continuity-note-check:
+	$(PYTHON) scripts/check_post_merge_evidence_continuity_note.py

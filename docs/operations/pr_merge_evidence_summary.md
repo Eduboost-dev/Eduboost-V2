@@ -51,3 +51,9 @@ This PR merge evidence summary records reviewer-facing evidence only. It does no
 ```bash
 make pr-merge-evidence-summary-check
 ```
+
+## Acceptance Memo Record Closure Continuity Evidence
+
+- `docs/operations/final_acceptance_memo.md`
+- `docs/operations/release_record_closure_ledger.md`
+- `docs/operations/post_merge_evidence_continuity_note.md`
