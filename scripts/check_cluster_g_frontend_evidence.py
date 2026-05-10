@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_g_api_fixture_evidence.py",
+    "tests/unit/test_frontend_journey_fixtures.py",
+    "tests/unit/test_frontend_api_client_inventory.py",
+    "tests/fixtures/frontend/parent_journey_fixture.json",
+    "tests/fixtures/frontend/learner_journey_fixture.json",
+    "docs/frontend/playwright_journey_fixture_contract.md",
+    "docs/frontend/frontend_api_client_inventory.md",
+    "scripts/check_frontend_journey_fixtures.py",
+    "scripts/check_frontend_api_client_inventory.py",
+    "scripts/generate_frontend_api_client_inventory.py",
     "tests/unit/test_cluster_g_parent_denial_evidence.py",
     "tests/unit/test_frontend_auth_consent_denial_contract.py",
     "tests/unit/test_parent_vertical_journey_contract.py",
@@ -26,6 +36,14 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/frontend/playwright_journey_fixture_contract.md": (
+        "Playwright Journey Fixture Contract",
+        "consent and authorization denial states",
+    ),
+    "docs/frontend/frontend_api_client_inventory.md": (
+        "Frontend API Client Inventory",
+        "error envelope parsing",
+    ),
     "docs/frontend/frontend_auth_consent_denial_contract.md": (
         "Frontend Auth Consent Denial Contract",
         "denial states must show safe next action",
@@ -40,6 +58,9 @@ CONTENT_REQUIREMENTS = {
         "learner-vertical-journey-contract-check:",
         "parent-vertical-journey-contract-check:",
         "frontend-auth-consent-denial-check:",
+        "frontend-api-client-inventory:",
+        "frontend-api-client-inventory-check:",
+        "frontend-journey-fixture-check:",
     ),
     "docs/frontend/frontend_route_inventory.md": (
         "Frontend Route Inventory",

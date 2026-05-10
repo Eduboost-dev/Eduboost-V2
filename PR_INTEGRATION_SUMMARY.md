@@ -431,3 +431,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster G Parent Denial UX
 
 - Cluster G parent journey and auth/consent denial UX contracts added.
+
+## Cluster G API Fixture Evidence
+
+- Cluster G frontend API inventory and journey fixtures added.

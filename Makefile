@@ -236,3 +236,12 @@ parent-vertical-journey-contract-check:
 
 frontend-auth-consent-denial-check:
 	$(PYTHON) scripts/check_frontend_auth_consent_denial_contract.py
+
+frontend-api-client-inventory:
+	$(PYTHON) scripts/generate_frontend_api_client_inventory.py
+
+frontend-api-client-inventory-check:
+	$(PYTHON) scripts/check_frontend_api_client_inventory.py
+
+frontend-journey-fixture-check:
+	$(PYTHON) scripts/check_frontend_journey_fixtures.py
