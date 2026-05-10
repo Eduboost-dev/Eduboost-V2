@@ -58,3 +58,9 @@ make release-audit-trail-index-check
 - `docs/operations/release_audit_trail_index.md`
 - `docs/operations/beta_release_closure_attestation.md`
 - `docs/operations/final_cluster_h_closeout_rollup.md`
+
+## Freeze Change-Control Operator Packet Evidence
+
+- `docs/operations/beta_release_freeze_window_contract.md`
+- `docs/operations/release_change_control_exception_log.md`
+- `docs/operations/final_beta_operator_packet_index.md`

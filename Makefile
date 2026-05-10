@@ -401,3 +401,12 @@ beta-release-closure-attestation-check:
 
 cluster-h-final-closeout-rollup-check:
 	$(PYTHON) scripts/check_cluster_h_final_closeout_rollup.py
+
+beta-release-freeze-window-check:
+	$(PYTHON) scripts/check_beta_release_freeze_window.py
+
+release-change-control-exception-log-check:
+	$(PYTHON) scripts/check_release_change_control_exception_log.py
+
+final-beta-operator-packet-check:
+	$(PYTHON) scripts/check_final_beta_operator_packet.py

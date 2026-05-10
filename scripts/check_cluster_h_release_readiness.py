@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_freeze_change_operator_packet_wiring.py",
+    "tests/unit/test_final_beta_operator_packet.py",
+    "tests/unit/test_release_change_control_exception_log.py",
+    "tests/unit/test_beta_release_freeze_window.py",
+    "scripts/check_final_beta_operator_packet.py",
+    "scripts/check_release_change_control_exception_log.py",
+    "scripts/check_beta_release_freeze_window.py",
+    "docs/operations/final_beta_operator_packet_index.md",
+    "docs/operations/release_change_control_exception_log.md",
+    "docs/operations/beta_release_freeze_window_contract.md",
     "tests/unit/test_cluster_h_audit_attestation_rollup_wiring.py",
     "tests/unit/test_cluster_h_final_closeout_rollup.py",
     "tests/unit/test_beta_release_closure_attestation.py",
@@ -108,6 +118,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/final_beta_operator_packet_index.md": (
+        "Final Beta Operator Packet Index",
+        "must not execute deployment, create a release tag, or run post-deploy actions",
+    ),
+    "docs/operations/release_change_control_exception_log.md": (
+        "Release Change-Control Exception Log",
+        "does not approve prohibited changes, execute deployment, create release tags, or bypass required reruns",
+    ),
+    "docs/operations/beta_release_freeze_window_contract.md": (
+        "Beta Release Freeze Window Contract",
+        "does not approve release, execute deployment, create release tags, or override manual approval",
+    ),
     "docs/operations/final_cluster_h_closeout_rollup.md": (
         "Final Cluster H Closeout Rollup",
         "does not perform deployment, manual approval, tag creation, production migration, or post-deploy browser execution",
@@ -254,6 +276,9 @@ CONTENT_REQUIREMENTS = {
         "release-audit-trail-index-check:",
         "beta-release-closure-attestation-check:",
         "cluster-h-final-closeout-rollup-check:",
+        "beta-release-freeze-window-check:",
+        "release-change-control-exception-log-check:",
+        "final-beta-operator-packet-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",

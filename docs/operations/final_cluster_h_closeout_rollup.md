@@ -35,3 +35,9 @@ This rollup is a static closeout verifier. It does not perform deployment, manua
 ```bash
 make cluster-h-final-closeout-rollup-check
 ```
+
+## Freeze Change-Control Operator Packet Evidence
+
+- `docs/operations/beta_release_freeze_window_contract.md`
+- `docs/operations/release_change_control_exception_log.md`
+- `docs/operations/final_beta_operator_packet_index.md`

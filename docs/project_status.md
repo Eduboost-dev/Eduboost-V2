@@ -478,3 +478,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster H Audit Attestation Rollup
 
 - Cluster H release audit trail, closure attestation, and final closeout rollup added.
+
+## Cluster H Freeze Change-Control Operator Packet
+
+- Cluster H release freeze, change-control exception, and final beta operator packet evidence added.
