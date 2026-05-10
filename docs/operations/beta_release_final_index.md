@@ -64,3 +64,9 @@ This final index catalogs evidence. It does not approve production launch, execu
 ```bash
 make beta-release-final-index-check
 ```
+
+## Post-Terminal Handoff Archive Audit Evidence
+
+- `docs/operations/final_release_handoff_package.md`
+- `docs/operations/evidence_archive_completeness_guard.md`
+- `docs/operations/post_terminal_audit_readiness_assertion.md`

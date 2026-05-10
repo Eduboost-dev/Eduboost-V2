@@ -70,11 +70,18 @@ jobs:
           make beta-governance-seal-check
           make beta-release-final-index-check
           make cluster-h-terminal-closure-assertion-check
+          make final-release-handoff-package-check
+          make evidence-archive-completeness-guard-check
+          make post-terminal-audit-readiness-check
           make cluster-h-release-readiness-check
       - name: Run Cluster H release readiness tests
         run: |
           pytest -c pytest.ini \
             tests/unit/test_beta_release_readiness_contract.py \
+            tests/unit/test_cluster_h_post_terminal_handoff_archive_audit_wiring.py \
+            tests/unit/test_post_terminal_audit_readiness.py \
+            tests/unit/test_evidence_archive_completeness_guard.py \
+            tests/unit/test_final_release_handoff_package.py \
             tests/unit/test_cluster_h_governance_seal_terminal_closure_wiring.py \
             tests/unit/test_cluster_h_terminal_closure_assertion.py \
             tests/unit/test_beta_release_final_index.py \

@@ -498,3 +498,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster H Governance Seal Terminal Closure
 
 - Cluster H beta governance seal, final index, and terminal closure assertion evidence added.
+
+## Cluster H Post-Terminal Handoff Archive Audit
+
+- Cluster H post-terminal handoff, archive completeness, and audit readiness evidence added.

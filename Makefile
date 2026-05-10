@@ -446,3 +446,12 @@ beta-release-final-index-check:
 
 cluster-h-terminal-closure-assertion-check:
 	$(PYTHON) scripts/check_cluster_h_terminal_closure_assertion.py
+
+final-release-handoff-package-check:
+	$(PYTHON) scripts/check_final_release_handoff_package.py
+
+evidence-archive-completeness-guard-check:
+	$(PYTHON) scripts/check_evidence_archive_completeness_guard.py
+
+post-terminal-audit-readiness-check:
+	$(PYTHON) scripts/check_post_terminal_audit_readiness.py

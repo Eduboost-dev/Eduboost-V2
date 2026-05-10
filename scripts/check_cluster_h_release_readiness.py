@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_post_terminal_handoff_archive_audit_wiring.py",
+    "tests/unit/test_post_terminal_audit_readiness.py",
+    "tests/unit/test_evidence_archive_completeness_guard.py",
+    "tests/unit/test_final_release_handoff_package.py",
+    "scripts/check_post_terminal_audit_readiness.py",
+    "scripts/check_evidence_archive_completeness_guard.py",
+    "scripts/check_final_release_handoff_package.py",
+    "docs/operations/post_terminal_audit_readiness_assertion.md",
+    "docs/operations/evidence_archive_completeness_guard.md",
+    "docs/operations/final_release_handoff_package.md",
     "tests/unit/test_cluster_h_governance_seal_terminal_closure_wiring.py",
     "tests/unit/test_cluster_h_terminal_closure_assertion.py",
     "tests/unit/test_beta_release_final_index.py",
@@ -158,6 +168,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/post_terminal_audit_readiness_assertion.md": (
+        "Post-Terminal Audit Readiness Assertion",
+        "does not approve production launch, execute deployment, create release tags, or replace manual approvals",
+    ),
+    "docs/operations/evidence_archive_completeness_guard.md": (
+        "Evidence Archive Completeness Guard",
+        "does not approve production launch, execute deployment, create release tags, or replace source control history",
+    ),
+    "docs/operations/final_release_handoff_package.md": (
+        "Final Release Handoff Package",
+        "does not approve production launch, execute deployment, create release tags, or close unresolved follow-up work",
+    ),
     "docs/operations/cluster_h_terminal_closure_assertion.md": (
         "Cluster H Terminal Closure Assertion",
         "does not approve production launch, execute deployment, create release tags, or override manual approval",
@@ -379,6 +401,9 @@ CONTENT_REQUIREMENTS = {
         "beta-governance-seal-check:",
         "beta-release-final-index-check:",
         "cluster-h-terminal-closure-assertion-check:",
+        "final-release-handoff-package-check:",
+        "evidence-archive-completeness-guard-check:",
+        "post-terminal-audit-readiness-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",
