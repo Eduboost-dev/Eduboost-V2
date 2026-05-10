@@ -410,3 +410,12 @@ release-change-control-exception-log-check:
 
 final-beta-operator-packet-check:
 	$(PYTHON) scripts/check_final_beta_operator_packet.py
+
+beta-release-communications-plan-check:
+	$(PYTHON) scripts/check_beta_release_communications_plan.py
+
+beta-monitoring-incident-trigger-check:
+	$(PYTHON) scripts/check_beta_monitoring_incident_trigger.py
+
+beta-participant-support-handoff-check:
+	$(PYTHON) scripts/check_beta_participant_support_handoff.py

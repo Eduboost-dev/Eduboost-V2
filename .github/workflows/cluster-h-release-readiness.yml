@@ -58,11 +58,18 @@ jobs:
           make beta-release-freeze-window-check
           make release-change-control-exception-log-check
           make final-beta-operator-packet-check
+          make beta-release-communications-plan-check
+          make beta-monitoring-incident-trigger-check
+          make beta-participant-support-handoff-check
           make cluster-h-release-readiness-check
       - name: Run Cluster H release readiness tests
         run: |
           pytest -c pytest.ini \
             tests/unit/test_beta_release_readiness_contract.py \
+            tests/unit/test_cluster_h_communications_monitoring_support_wiring.py \
+            tests/unit/test_beta_participant_support_handoff.py \
+            tests/unit/test_beta_monitoring_incident_trigger.py \
+            tests/unit/test_beta_release_communications_plan.py \
             tests/unit/test_cluster_h_freeze_change_operator_packet_wiring.py \
             tests/unit/test_final_beta_operator_packet.py \
             tests/unit/test_release_change_control_exception_log.py \

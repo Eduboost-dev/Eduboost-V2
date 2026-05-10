@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_communications_monitoring_support_wiring.py",
+    "tests/unit/test_beta_participant_support_handoff.py",
+    "tests/unit/test_beta_monitoring_incident_trigger.py",
+    "tests/unit/test_beta_release_communications_plan.py",
+    "scripts/check_beta_participant_support_handoff.py",
+    "scripts/check_beta_monitoring_incident_trigger.py",
+    "scripts/check_beta_release_communications_plan.py",
+    "docs/operations/beta_participant_support_handoff_checklist.md",
+    "docs/operations/beta_monitoring_incident_trigger_matrix.md",
+    "docs/operations/beta_release_communications_plan.md",
     "tests/unit/test_cluster_h_freeze_change_operator_packet_wiring.py",
     "tests/unit/test_final_beta_operator_packet.py",
     "tests/unit/test_release_change_control_exception_log.py",
@@ -118,6 +128,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/beta_participant_support_handoff_checklist.md": (
+        "Beta Participant Support Handoff Checklist",
+        "does not invite beta participants, approve release, execute deployment, or collect participant data",
+    ),
+    "docs/operations/beta_monitoring_incident_trigger_matrix.md": (
+        "Beta Monitoring and Incident Trigger Matrix",
+        "does not execute rollback, create incident tickets automatically, or replace owner judgment",
+    ),
+    "docs/operations/beta_release_communications_plan.md": (
+        "Beta Release Communications Plan",
+        "does not approve release, execute deployment, create release tags, or replace the beta release decision log",
+    ),
     "docs/operations/final_beta_operator_packet_index.md": (
         "Final Beta Operator Packet Index",
         "must not execute deployment, create a release tag, or run post-deploy actions",
@@ -279,6 +301,9 @@ CONTENT_REQUIREMENTS = {
         "beta-release-freeze-window-check:",
         "release-change-control-exception-log-check:",
         "final-beta-operator-packet-check:",
+        "beta-release-communications-plan-check:",
+        "beta-monitoring-incident-trigger-check:",
+        "beta-participant-support-handoff-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",

@@ -503,3 +503,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster H Freeze Change-Control Operator Packet
 
 - Cluster H release freeze, change-control exception, and final beta operator packet evidence added.
+
+## Cluster H Communications Monitoring Support
+
+- Cluster H beta communications, monitoring trigger, and participant support handoff evidence added.
