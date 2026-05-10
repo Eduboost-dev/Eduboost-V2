@@ -387,3 +387,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster E Restore Readiness
 
 - Cluster E restore-readiness guards added for env matrix and production approval.
+
+## Cluster E Release Evidence Wiring
+
+- Cluster E evidence index and release-gate wiring added.

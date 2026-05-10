@@ -8,6 +8,9 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_e_release_gate_wiring.py",
+    "tests/unit/test_data_resilience_evidence_index.py",
+    "docs/operations/data_resilience_evidence_index.md",
     "tests/unit/test_production_restore_approval.py",
     "tests/unit/test_database_resilience_env_matrix.py",
     "docs/operations/production_restore_approval.md",
@@ -46,6 +49,25 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/project_evidence_index.md": (
+        "docs/operations/data_resilience_evidence_index.md",
+        "make cluster-e-closure-check",
+    ),
+    "docs/operations/staging_release_gate.md": (
+        "make cluster-e-closure-check",
+        "docs/operations/CLUSTER_E_CLOSURE.md",
+    ),
+    "docs/operations/release_evidence_manifest.md": (
+        "Cluster E data resilience",
+        "make cluster-e-closure-check",
+    ),
+    "docs/operations/data_resilience_evidence_index.md": (
+        "Data Resilience Evidence Index",
+        "Cluster E Closure",
+        "Backup Evidence",
+        "Restore Evidence",
+        "make cluster-e-closure-check",
+    ),
     "docs/operations/production_restore_approval.md": (
         "Production Restore Approval Guard",
         "production restore requires `--allow-production-target`",

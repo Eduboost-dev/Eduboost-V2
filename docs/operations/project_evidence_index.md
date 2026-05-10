@@ -29,6 +29,7 @@
 ## Data Resilience Contract
 
 - `docs/operations/CLUSTER_E_CLOSURE.md`
+- `docs/operations/data_resilience_evidence_index.md`
 - `docs/operations/database_backup_manifest.md`
 - `docs/operations/database_restore_evidence.md`
 - `.github/workflows/cluster-e-data-resilience.yml`
