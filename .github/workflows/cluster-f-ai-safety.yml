@@ -26,6 +26,8 @@ jobs:
           make ai-output-schema-contract-check
           make ai-output-fixture-validation-check
           make ai-refusal-fixture-check
+          make ai-fixture-coverage-check
+          make ai-prompt-secret-leakage-check
           make ai-prompt-surface-inventory-check
           make ai-prompt-surface-inventory
           make llm-provider-fallback-contract-check
@@ -36,6 +38,9 @@ jobs:
           make cluster-f-ai-safety-check
           pytest -c pytest.ini \
             tests/unit/test_caps_alignment_contract.py \
+            tests/unit/test_cluster_f_secret_fixture_coverage_evidence.py \
+            tests/unit/test_ai_fixture_coverage_matrix.py \
+            tests/unit/test_ai_prompt_secret_leakage.py \
             tests/unit/test_cluster_f_prompt_refusal_evidence.py \
             tests/unit/test_ai_refusal_fixtures.py \
             tests/unit/test_ai_prompt_surface_inventory.py \

@@ -8,6 +8,13 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_f_secret_fixture_coverage_evidence.py",
+    "tests/unit/test_ai_fixture_coverage_matrix.py",
+    "tests/unit/test_ai_prompt_secret_leakage.py",
+    "docs/ai/ai_fixture_coverage_matrix.md",
+    "docs/ai/ai_prompt_secret_leakage_guard.md",
+    "scripts/check_ai_fixture_coverage_matrix.py",
+    "scripts/check_ai_prompt_secret_leakage.py",
     "tests/unit/test_cluster_f_prompt_refusal_evidence.py",
     "tests/unit/test_ai_refusal_fixtures.py",
     "tests/unit/test_ai_prompt_surface_inventory.py",
@@ -61,6 +68,14 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/ai/ai_fixture_coverage_matrix.md": (
+        "AI Fixture Coverage Matrix",
+        "refusal does not disclose hidden prompts",
+    ),
+    "docs/ai/ai_prompt_secret_leakage_guard.md": (
+        "AI Prompt Secret Leakage Guard",
+        "ANTHROPIC_API_KEY",
+    ),
     "docs/ai/ai_refusal_regression_fixtures.md": (
         "AI Refusal Regression Fixtures",
         "hidden prompt disclosure",
@@ -139,6 +154,8 @@ CONTENT_REQUIREMENTS = {
         "ai-prompt-surface-inventory:",
         "ai-prompt-surface-inventory-check:",
         "ai-refusal-fixture-check:",
+        "ai-prompt-secret-leakage-check:",
+        "ai-fixture-coverage-check:",
     ),
     "docs/ai/caps_alignment_contract.md": (
         "CAPS Alignment Contract",

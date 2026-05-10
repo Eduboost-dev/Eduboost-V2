@@ -388,3 +388,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster F Prompt Refusal Evidence
 
 - Cluster F prompt surface inventory and refusal regression fixtures added.
+
+## Cluster F Secret Fixture Coverage
+
+- Cluster F prompt secret-leak and fixture coverage guards added.
