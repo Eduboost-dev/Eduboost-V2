@@ -347,3 +347,12 @@ beta-release-final-checklist-check:
 
 project-release-closure-index-check:
 	$(PYTHON) scripts/check_project_release_closure_index.py
+
+generated-artifact-hygiene-check:
+	$(PYTHON) scripts/check_generated_artifact_hygiene.py
+
+branch-sync-rebase-checklist-check:
+	$(PYTHON) scripts/check_branch_sync_rebase_checklist.py
+
+pr-closeout-evidence-checklist-check:
+	$(PYTHON) scripts/check_pr_closeout_evidence_checklist.py

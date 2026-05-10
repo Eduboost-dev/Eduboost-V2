@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_release_hygiene_closeout.py",
+    "tests/unit/test_pr_closeout_evidence_checklist.py",
+    "tests/unit/test_branch_sync_rebase_checklist.py",
+    "tests/unit/test_generated_artifact_hygiene.py",
+    "scripts/check_pr_closeout_evidence_checklist.py",
+    "scripts/check_branch_sync_rebase_checklist.py",
+    "scripts/check_generated_artifact_hygiene.py",
+    "docs/operations/pr_closeout_evidence_checklist.md",
+    "docs/operations/branch_sync_rebase_checklist.md",
+    "docs/operations/generated_artifact_hygiene_contract.md",
     "tests/unit/test_cluster_h_final_project_closure_wiring.py",
     "tests/unit/test_project_release_closure_index.py",
     "tests/unit/test_beta_release_final_checklist.py",
@@ -56,6 +66,22 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    ".gitignore": (
+        "coverage.xml",
+        ".pytest_cache/",
+    ),
+    "docs/operations/pr_closeout_evidence_checklist.md": (
+        "PR Closeout Evidence Checklist",
+        "Cluster H closure check is green",
+    ),
+    "docs/operations/branch_sync_rebase_checklist.md": (
+        "Branch Sync and Rebase Checklist",
+        "repeat fetch/rebase rather than defaulting to force-push",
+    ),
+    "docs/operations/generated_artifact_hygiene_contract.md": (
+        "Generated Artifact Hygiene Contract",
+        "coverage.xml conflicts must be resolved by removal, not manual merge",
+    ),
     "docs/operations/project_release_closure_index.md": (
         "Project Release Closure Index",
         "Staging and Beta Release Closure",
@@ -120,6 +146,9 @@ CONTENT_REQUIREMENTS = {
         "release-artifact-retention-contract-check:",
         "beta-release-final-checklist-check:",
         "project-release-closure-index-check:",
+        "generated-artifact-hygiene-check:",
+        "branch-sync-rebase-checklist-check:",
+        "pr-closeout-evidence-checklist-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",
