@@ -380,3 +380,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster F Release Evidence Wiring
 
 - Cluster F evidence index, closure report, and release-gate wiring added.
+
+## Cluster F Fixture Validation
+
+- Cluster F fixture-based AI output validation added.

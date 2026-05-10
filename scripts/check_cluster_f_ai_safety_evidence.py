@@ -8,6 +8,14 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_f_fixture_validation_evidence.py",
+    "tests/unit/test_validate_ai_output_fixtures.py",
+    "tests/unit/test_ai_output_fixtures.py",
+    "tests/fixtures/ai/refusal_output.json",
+    "tests/fixtures/ai/safe_diagnostic_output.json",
+    "tests/fixtures/ai/safe_lesson_output.json",
+    "docs/ai/ai_output_fixtures.md",
+    "scripts/validate_ai_output_fixtures.py",
     "tests/unit/test_cluster_f_release_gate_wiring.py",
     "tests/unit/test_cluster_f_closure_report.py",
     "docs/ai/CLUSTER_F_CLOSURE.md",
@@ -42,6 +50,14 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "scripts/validate_ai_output_fixtures.py": (
+        "validate_fixture",
+        "refusal suppresses unsafe detail and hidden prompts",
+    ),
+    "docs/ai/ai_output_fixtures.md": (
+        "AI Output Fixtures",
+        "safe educational redirection",
+    ),
     "docs/operations/project_evidence_index.md": (
         "AI/CAPS Safety Contract",
         "docs/ai/ai_safety_evidence_index.md",
@@ -100,6 +116,7 @@ CONTENT_REQUIREMENTS = {
         "lesson-generation-safety-check:",
         "remediation-safety-contract-check:",
         "cluster-f-closure-check:",
+        "ai-output-fixture-validation-check:",
     ),
     "docs/ai/caps_alignment_contract.md": (
         "CAPS Alignment Contract",

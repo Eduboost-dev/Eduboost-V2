@@ -19,6 +19,7 @@ COMMANDS = (
     ("remediation safety", ["make", "remediation-safety-contract-check"]),
     ("llm provider fallback", ["make", "llm-provider-fallback-contract-check"]),
     ("ai output schema", ["make", "ai-output-schema-contract-check"]),
+    ("ai output fixture validation", ["make", "ai-output-fixture-validation-check"]),
     ("cluster f evidence", ["make", "cluster-f-ai-safety-check"]),
     (
         "cluster f unit tests",
@@ -36,6 +37,8 @@ COMMANDS = (
             "tests/unit/test_remediation_safety_contract.py",
             "tests/unit/test_llm_provider_fallback_contract.py",
             "tests/unit/test_ai_output_schema_contract.py",
+            "tests/unit/test_validate_ai_output_fixtures.py",
+            "tests/unit/test_ai_output_fixtures.py",
             "tests/unit/test_cluster_f_ai_safety_evidence.py",
             "tests/unit/test_cluster_f_prompt_diagnostic_evidence.py",
             "tests/unit/test_cluster_f_provider_output_evidence.py",
