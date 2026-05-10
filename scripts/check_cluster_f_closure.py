@@ -21,6 +21,8 @@ COMMANDS = (
     ("ai output schema", ["make", "ai-output-schema-contract-check"]),
     ("ai output fixture validation", ["make", "ai-output-fixture-validation-check"]),
     ("ai refusal fixtures", ["make", "ai-refusal-fixture-check"]),
+    ("ai fixture coverage", ["make", "ai-fixture-coverage-check"]),
+    ("ai prompt secret leakage", ["make", "ai-prompt-secret-leakage-check"]),
     ("ai prompt surface inventory", ["make", "ai-prompt-surface-inventory-check"]),
     ("cluster f evidence", ["make", "cluster-f-ai-safety-check"]),
     (
@@ -41,6 +43,8 @@ COMMANDS = (
             "tests/unit/test_ai_output_schema_contract.py",
             "tests/unit/test_validate_ai_output_fixtures.py",
             "tests/unit/test_ai_refusal_fixtures.py",
+            "tests/unit/test_ai_fixture_coverage_matrix.py",
+            "tests/unit/test_ai_prompt_secret_leakage.py",
             "tests/unit/test_ai_prompt_surface_inventory.py",
             "tests/unit/test_ai_output_fixtures.py",
             "tests/unit/test_cluster_f_ai_safety_evidence.py",

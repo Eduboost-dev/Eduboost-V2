@@ -419,3 +419,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster F Prompt Refusal Evidence
 
 - Cluster F prompt surface inventory and refusal regression fixtures added.
+
+## Cluster F Secret Fixture Coverage
+
+- Cluster F prompt secret-leak and fixture coverage guards added.

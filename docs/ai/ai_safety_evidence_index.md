@@ -10,6 +10,7 @@
 - `docs/ai/caps_alignment_contract.md`
 - `docs/ai/ai_prompt_input_contract.md`
 - `docs/ai/ai_prompt_surface_inventory.md`
+- `docs/ai/ai_prompt_secret_leakage_guard.md`
 
 ## Safety Boundaries
 
@@ -24,6 +25,7 @@
 - `docs/ai/ai_output_schema_contract.md`
 - `docs/ai/ai_output_fixtures.md`
 - `docs/ai/ai_refusal_regression_fixtures.md`
+- `docs/ai/ai_fixture_coverage_matrix.md`
 
 ## Required Commands
 
@@ -39,6 +41,8 @@ make ai-output-schema-contract-check
 make ai-output-fixture-validation-check
 make ai-prompt-surface-inventory-check
 make ai-refusal-fixture-check
+make ai-prompt-secret-leakage-check
+make ai-fixture-coverage-check
 make cluster-f-ai-safety-check
 make cluster-f-closure-check
 ```

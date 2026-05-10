@@ -212,3 +212,9 @@ ai-prompt-surface-inventory-check:
 
 ai-refusal-fixture-check:
 	$(PYTHON) scripts/check_ai_refusal_fixtures.py
+
+ai-prompt-secret-leakage-check:
+	$(PYTHON) scripts/check_ai_prompt_secret_leakage.py
+
+ai-fixture-coverage-check:
+	$(PYTHON) scripts/check_ai_fixture_coverage_matrix.py
