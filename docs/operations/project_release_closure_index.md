@@ -60,3 +60,9 @@ make cluster-g-closure-check
 make cluster-h-closure-check
 make project-release-closure-index-check
 ```
+
+## Release Hygiene and PR Closeout Evidence
+
+- `docs/operations/generated_artifact_hygiene_contract.md`
+- `docs/operations/branch_sync_rebase_checklist.md`
+- `docs/operations/pr_closeout_evidence_checklist.md`
