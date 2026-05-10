@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 PYTHON ?= python3
 
-.PHONY: help dev test lint typecheck migrate docs clean migration-check schema-integrity migration-smoke openapi openapi-check validate-items coverage-gate coverage-matrix seed-items generate-items e2e-diagnostic perf-test tag-rc phase5-gates help-item-bank
+.PHONY: help dev test lint typecheck migrate docs clean migration-check schema-integrity migration-smoke openapi openapi-check route-inventory route-inventory-check runtime-check pr002r-check phase2-authz-check
 
 help:
 	@echo "Available commands:"
@@ -13,6 +13,10 @@ help:
 	@echo "  docs            - Build and serve documentation"
 	@echo "  openapi         - Generate docs/openapi.json"
 	@echo "  openapi-check   - Verify docs/openapi.json is current"
+	@echo "  route-inventory - Generate docs/route_inventory.md"
+	@echo "  route-inventory-check - Verify docs/route_inventory.md is current"
+	@echo "  runtime-check   - Verify FastAPI runtime entrypoints"
+	@echo "  pr002r-check   - Verify PR-002R evidence bundle"
 	@echo "  clean           - Remove temporary files"
 
 dev:
@@ -40,6 +44,18 @@ openapi:
 openapi-check:
 	$(PYTHON) scripts/generate_openapi.py --check
 
+route-inventory:
+	$(PYTHON) scripts/generate_route_inventory.py
+
+route-inventory-check:
+	$(PYTHON) scripts/generate_route_inventory.py --check
+
+runtime-check:
+	$(PYTHON) scripts/check_runtime_entrypoints.py
+
+pr002r-check:
+	$(PYTHON) scripts/check_pr002r_evidence.py
+
 migration-check: schema-integrity
 	@echo "Running migration graph and schema integrity checks"
 	$(PYTHON) scripts/verify_migration_graph.py
@@ -57,40 +73,91 @@ clean:
 	find . -type f -name "*.pyc" -delete
 	rm -rf .pytest_cache .mypy_cache .ruff_cache htmlcov .coverage
 
-validate-items:
-	$(PYTHON) scripts/validate_item_bank.py --path data/caps/grade4_maths_item_bank.json --fail-on-any-error
+phase2-authz-check:
+	$(PYTHON) scripts/check_phase2_authorization_evidence.py
 
-coverage-gate:
-	$(PYTHON) -m pytest tests/ci/test_item_bank_coverage.py -v --tb=short
+learner-authz-matrix:
+	$(PYTHON) scripts/generate_learner_authz_matrix.py
 
-coverage-matrix:
-	$(PYTHON) scripts/generate_coverage_matrix.py --output docs/caps/grade4_maths_coverage_matrix.md --db-url "$(DATABASE_URL)"
+learner-authz-check: learner-authz-matrix
+	$(PYTHON) scripts/check_learner_authz_coverage.py
 
-seed-items:
-	$(PYTHON) scripts/seed_item_bank.py --path data/caps/grade4_maths_item_bank.json --db-url "$(DATABASE_URL)"
+phase2-authz-closure:
+	$(PYTHON) scripts/check_phase2_authorization_closure.py
 
-generate-items:
-	$(PYTHON) scripts/generate_items.py --caps-ref "$(CAPS_REF)" --n-items "$(N)" --difficulty-band "$(BAND)"
+audit-contract-check:
+	$(PYTHON) scripts/check_audit_event_contracts.py
 
-e2e-diagnostic:
-	npx playwright test tests/e2e/test_diagnostic_flow.spec.ts --reporter=list
+popia-consent-gate-check:
+	$(PYTHON) scripts/generate_consent_gate_inventory.py
+	$(PYTHON) scripts/check_consent_gate_inventory.py
 
-perf-test:
-	$(PYTHON) -m pytest tests/ci/test_item_bank_ci_jobs.py -v --tb=short -m performance -k "p99"
+popia-consent-audit-check:
+	$(PYTHON) scripts/check_popia_consent_audit_evidence.py
 
-tag-rc:
-	bash scripts/tag_release.sh $(if $(VERSION),--version $(VERSION),) $(if $(DRY_RUN),--dry-run,)
+popia-consent-boundary-check:
+	$(PYTHON) scripts/generate_popia_consent_boundary_matrix.py
+	$(PYTHON) scripts/check_popia_consent_boundary_matrix.py
 
-phase5-gates: validate-items coverage-gate e2e-diagnostic perf-test coverage-matrix
-	@echo "All Phase 5 gates passed. Ready to run: make tag-rc"
+popia-consent-order-check:
+	$(PYTHON) scripts/check_active_consent_route_order.py
 
-help-item-bank:
-	@echo "Item Bank targets:"
-	@echo "  make validate-items"
-	@echo "  make coverage-gate"
-	@echo "  make coverage-matrix"
-	@echo "  make seed-items"
-	@echo "  make generate-items CAPS_REF=4.M.1.1 N=60 BAND=moderate"
-	@echo "  make e2e-diagnostic"
-	@echo "  make perf-test"
-	@echo "  make tag-rc VERSION=0.7.0-rc1"
+popia-consent-rejection-audit-check:
+	$(PYTHON) scripts/check_consent_rejection_audit.py
+
+popia-consent-source-check:
+	$(PYTHON) scripts/check_active_consent_route_sources.py
+
+popia-consent-closure-check:
+	$(PYTHON) scripts/check_popia_consent_closure.py
+
+environment-security-check:
+	$(PYTHON) scripts/check_environment_security_contract.py
+
+deployment-readiness-docs-check:
+	$(PYTHON) scripts/check_deployment_readiness_docs.py
+
+cluster-d-ci-check:
+	$(PYTHON) scripts/check_cluster_d_ci_evidence.py
+
+production-secret-placeholder-check:
+	$(PYTHON) scripts/check_production_secret_placeholders.py
+
+dev-only-endpoint-check:
+	$(PYTHON) scripts/check_dev_only_endpoint_exposure.py
+
+cluster-d-closure-check:
+	$(PYTHON) scripts/check_cluster_d_closure.py
+
+staging-release-gate-check:
+	$(PYTHON) scripts/check_staging_release_gate.py
+
+release-evidence-artifacts-check:
+	$(PYTHON) scripts/check_release_evidence_artifacts.py
+
+database-backup-contract-check:
+	$(PYTHON) scripts/check_database_backup_contract.py
+
+database-restore-drill-docs-check:
+	$(PYTHON) scripts/check_database_restore_drill_docs.py
+
+cluster-e-data-resilience-check:
+	$(PYTHON) scripts/check_cluster_e_data_resilience_evidence.py
+
+database-backup-dry-run:
+	$(PYTHON) scripts/run_database_backup.py --dry-run
+
+database-restore-dry-run:
+	$(PYTHON) scripts/run_database_restore.py --dry-run --target-environment staging
+
+database-backup-manifest:
+	$(PYTHON) scripts/generate_database_backup_manifest.py --encrypted
+
+database-restore-evidence:
+	$(PYTHON) scripts/generate_database_restore_evidence.py
+
+database-backup-integrity-check:
+	$(PYTHON) scripts/check_database_backup_integrity.py
+
+database-restore-integrity-check:
+	$(PYTHON) scripts/check_database_restore_integrity.py

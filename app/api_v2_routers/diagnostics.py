@@ -12,6 +12,8 @@ from app.core.database import get_db
 from app.core.rate_limiter import check_ai_quota
 from app.core.security import get_current_user
 from app.domain.schemas import DiagnosticResult, DiagnosticSubmit
+from app.security.dependencies import require_learner_read_for_current_user, require_active_consent_for_current_user
+from app.security.dependencies import require_learner_write_for_current_user
 from app.repositories.repositories import (
     DiagnosticRepository,
     GuardianRepository,
@@ -19,7 +21,6 @@ from app.repositories.repositories import (
     KnowledgeGapRepository,
     LearnerRepository,
 )
-from app.services.consent import ConsentService
 from app.services.diagnostic import DiagnosticEngine
 from app.services.caps_validator import CAPSAlignmentValidator
 from app.core.metrics import ITEM_BANK_COVERAGE_RATIO
@@ -51,11 +52,11 @@ async def get_diagnostic_items(
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(get_current_user),
 ):
-    await ConsentService(db).require_active_consent(learner_id, actor_id=current_user.get("sub"))
     learner = await LearnerRepository(db).get_by_id(learner_id)
     if not learner:
         raise HTTPException(status_code=404, detail="Learner not found")
-    assert_can_access_learner(current_user, learner)
+    require_learner_read_for_current_user(current_user, learner)
+    await require_active_consent_for_current_user(db, current_user, str(learner_id))
     request.state.analytics = {
         "event": "diagnostic_started",
         "pseudonym_id": learner.pseudonym_id,
@@ -88,11 +89,11 @@ async def submit_diagnostic(
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(get_current_user),
 ):
-    await ConsentService(db).require_active_consent(body.learner_id, actor_id=current_user.get("sub"))
     learner = await LearnerRepository(db).get_by_id(body.learner_id)
     if not learner:
         raise HTTPException(status_code=404, detail="Learner not found")
-    assert_can_access_learner(current_user, learner)
+    require_learner_write_for_current_user(current_user, body.learner_id)
+    await require_active_consent_for_current_user(db, current_user, str(body.learner_id))
     guardian = await GuardianRepository(db).get_by_id(learner.guardian_id)
     tier = guardian.subscription_tier if guardian else "free"
     await check_ai_quota(learner.guardian_id, tier)

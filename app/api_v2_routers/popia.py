@@ -13,6 +13,8 @@ from app.core.security import get_current_user, require_parent_or_admin
 from app.domain.api_v2_models import JobAcceptedResponse, RLHFExportRequest
 from app.models import LearnerProfile
 from app.repositories.repositories import LearnerRepository
+from app.security.dependencies import require_active_consent_for_current_user, require_learner_read_for_current_user
+from app.security.dependencies import require_learner_write_for_current_user
 from app.services.fourth_estate import FourthEstateService
 from app.services.popia_service import POPIA_ERASURE_GRACE_DAYS, POPIADataRightsService
 from app.services.rlhf_service import RLHFService
@@ -41,6 +43,11 @@ async def export_learner_data(
     db: AsyncSession = Depends(get_db),
 ):
     """POPIA right-to-access export for an authorised learner."""
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_read_for_current_user(current_user, learner)
+    await require_active_consent_for_current_user(db, current_user, learner_id)
     return await POPIADataRightsService(db).build_learner_export(
         learner_id,
         current_user,
@@ -56,6 +63,10 @@ async def request_learner_deletion(
     db: AsyncSession = Depends(get_db),
 ):
     """Request POPIA erasure with audit-retention exceptions preserved."""
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_write_for_current_user(current_user, learner_id)
     result = await POPIADataRightsService(db).request_erasure(
         learner_id,
         current_user,
@@ -76,6 +87,10 @@ async def cancel_learner_deletion(
     db: AsyncSession = Depends(get_db),
 ):
     """Cancel a pending POPIA erasure request."""
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_write_for_current_user(current_user, learner_id)
     result = await POPIADataRightsService(db).cancel_erasure(learner_id, current_user)
     await db.commit()
     return {"detail": "Erasure request cancelled. Learner profile restored.", **result}
@@ -89,6 +104,10 @@ async def request_correction(
     db: AsyncSession = Depends(get_db),
 ):
     """Correct inaccurate learner personal information."""
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_write_for_current_user(current_user, learner_id)
     result = await POPIADataRightsService(db).request_correction(
         learner_id,
         current_user,
@@ -107,6 +126,10 @@ async def request_processing_restriction(
     db: AsyncSession = Depends(get_db),
 ):
     """Restrict learner processing by withdrawing active consent."""
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_write_for_current_user(current_user, learner_id)
     result = await POPIADataRightsService(db).restrict_processing(
         learner_id,
         current_user,
@@ -122,6 +145,8 @@ async def execute_learner_deletion(
     background_tasks: BackgroundTasks,
     current_user: dict = Depends(require_parent_or_admin),
 ):
+    require_learner_write_for_current_user(current_user, learner_id)
+
     async def _run() -> dict:
         async with AsyncSessionLocal() as db:
             learner = await db.get(LearnerProfile, learner_id)
@@ -158,7 +183,10 @@ async def get_deletion_status(
     current_user: dict = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    learner = await POPIADataRightsService(db).load_authorized_learner(learner_id, current_user)
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_read_for_current_user(current_user, learner)
     if learner.deletion_requested_at is None:
         return {"learner_id": learner_id, "deletion_pending": False, "is_deleted": False}
     from datetime import UTC, datetime, timedelta
