@@ -9,6 +9,13 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_g_accessibility_evidence.py",
+    "tests/unit/test_frontend_accessibility_static.py",
+    "tests/unit/test_frontend_accessibility_contract.py",
+    "docs/frontend/frontend_accessibility_static_scan.md",
+    "docs/frontend/frontend_accessibility_contract.md",
+    "scripts/check_frontend_accessibility_static.py",
+    "scripts/check_frontend_accessibility_contract.py",
     "tests/unit/test_cluster_g_playwright_evidence.py",
     "tests/unit/test_frontend_playwright_specs.py",
     "tests/unit/test_frontend_playwright_scaffold.py",
@@ -46,6 +53,15 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/frontend/frontend_accessibility_static_scan.md": (
+        "Frontend Accessibility Static Scan",
+        "source-level guard",
+    ),
+    "docs/frontend/frontend_accessibility_contract.md": (
+        "Frontend Accessibility Contract",
+        "keyboard navigation reaches primary learner and parent actions",
+        "learner-facing copy remains age-appropriate",
+    ),
     "docs/frontend/playwright_vertical_journey_specs.md": (
         "Playwright Vertical Journey Specs",
         "frontend shell is not blank",
@@ -82,6 +98,8 @@ CONTENT_REQUIREMENTS = {
         "frontend-playwright-scaffold-check:",
         "frontend-playwright-specs-check:",
         "frontend-e2e:",
+        "frontend-accessibility-contract-check:",
+        "frontend-accessibility-static-check:",
     ),
     "docs/frontend/frontend_route_inventory.md": (
         "Frontend Route Inventory",

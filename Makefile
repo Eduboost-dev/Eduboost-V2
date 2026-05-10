@@ -254,3 +254,9 @@ frontend-e2e:
 
 frontend-playwright-specs-check:
 	$(PYTHON) scripts/check_frontend_playwright_specs.py
+
+frontend-accessibility-contract-check:
+	$(PYTHON) scripts/check_frontend_accessibility_contract.py
+
+frontend-accessibility-static-check:
+	$(PYTHON) scripts/check_frontend_accessibility_static.py

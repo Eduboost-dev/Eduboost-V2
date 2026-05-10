@@ -439,3 +439,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster G Playwright Evidence
 
 - Cluster G Playwright scaffold and journey smoke specs added.
+
+## Cluster G Accessibility Evidence
+
+- Cluster G frontend accessibility contract and static scan added.
