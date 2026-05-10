@@ -8,6 +8,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_staging_release_gate.py",
+    "tests/unit/test_generate_release_evidence_manifest.py",
+    "docs/operations/staging_release_gate.md",
+    "docs/operations/release_evidence_manifest.md",
+    "scripts/check_staging_release_gate.py",
+    "scripts/generate_release_evidence_manifest.py",
     "docs/operations/cluster_d_closure_check.md",
     "tests/unit/test_cluster_d_closure_check.py",
     "scripts/check_cluster_d_closure.py",
@@ -28,6 +34,14 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/staging_release_gate.md": (
+        "Staging Release Gate",
+        "Production promotion is blocked",
+    ),
+    "docs/operations/release_evidence_manifest.md": (
+        "Release Evidence Manifest",
+        "make cluster-d-closure-check",
+    ),
     "docs/operations/cluster_d_closure_check.md": (
         "Cluster D Closure Check",
         "make cluster-d-closure-check",
@@ -50,6 +64,7 @@ CONTENT_REQUIREMENTS = {
         "production-secret-placeholder-check:",
         "dev-only-endpoint-check:",
         "cluster-d-closure-check:",
+        "staging-release-gate-check:",
     ),
     "app/core/config.py": (
         "def is_production(self) -> bool:",
