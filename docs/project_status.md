@@ -510,3 +510,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster H Merge Signoff Post-Closeout No-Op
 
 - Cluster H final merge signoff, release-owner post-closeout decision, and no-op execution assertion evidence added.
+
+## Cluster H Ledger Variance Maintenance
+
+- Cluster H final release evidence ledger, frozen scope variance register, and post-closeout maintenance boundary added.

@@ -135,3 +135,9 @@ Cluster H is first-pass closed when `make cluster-h-closure-check` passes.
 - `docs/operations/final_merge_signoff_lock.md`
 - `docs/operations/release_owner_post_closeout_decision_record.md`
 - `docs/operations/final_evidence_noop_execution_assertion.md`
+
+## Ledger Variance Maintenance Evidence
+
+- `docs/operations/final_release_evidence_ledger.md`
+- `docs/operations/frozen_scope_variance_register.md`
+- `docs/operations/post_closeout_maintenance_boundary.md`

@@ -79,11 +79,18 @@ jobs:
           make final-merge-signoff-lock-check
           make release-owner-post-closeout-decision-record-check
           make final-evidence-noop-execution-assertion-check
+          make final-release-evidence-ledger-check
+          make frozen-scope-variance-register-check
+          make post-closeout-maintenance-boundary-check
           make cluster-h-release-readiness-check
       - name: Run Cluster H release readiness tests
         run: |
           pytest -c pytest.ini \
             tests/unit/test_beta_release_readiness_contract.py \
+            tests/unit/test_cluster_h_ledger_variance_maintenance_wiring.py \
+            tests/unit/test_post_closeout_maintenance_boundary.py \
+            tests/unit/test_frozen_scope_variance_register.py \
+            tests/unit/test_final_release_evidence_ledger.py \
             tests/unit/test_cluster_h_merge_signoff_post_closeout_noop_wiring.py \
             tests/unit/test_final_evidence_noop_execution_assertion.py \
             tests/unit/test_release_owner_post_closeout_decision_record.py \

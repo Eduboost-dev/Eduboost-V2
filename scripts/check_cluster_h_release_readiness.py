@@ -9,6 +9,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_ledger_variance_maintenance_wiring.py",
+    "tests/unit/test_post_closeout_maintenance_boundary.py",
+    "tests/unit/test_frozen_scope_variance_register.py",
+    "tests/unit/test_final_release_evidence_ledger.py",
+    "scripts/check_post_closeout_maintenance_boundary.py",
+    "scripts/check_frozen_scope_variance_register.py",
+    "scripts/check_final_release_evidence_ledger.py",
+    "docs/operations/post_closeout_maintenance_boundary.md",
+    "docs/operations/frozen_scope_variance_register.md",
+    "docs/operations/final_release_evidence_ledger.md",
     "tests/unit/test_cluster_h_merge_signoff_post_closeout_noop_wiring.py",
     "tests/unit/test_final_evidence_noop_execution_assertion.py",
     "tests/unit/test_release_owner_post_closeout_decision_record.py",
@@ -188,6 +198,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/post_closeout_maintenance_boundary.md": (
+        "Post-Closeout Maintenance Boundary",
+        "does not approve production launch, execute deployment, create release tags, or alter release outcome",
+    ),
+    "docs/operations/frozen_scope_variance_register.md": (
+        "Frozen Scope Variance Register",
+        "does not approve production launch, execute deployment, create release tags, or reopen closed release scope automatically",
+    ),
+    "docs/operations/final_release_evidence_ledger.md": (
+        "Final Release Evidence Ledger",
+        "does not approve production launch, execute deployment, create release tags, or replace manual approval",
+    ),
     "docs/operations/final_evidence_noop_execution_assertion.md": (
         "Final Evidence No-Op Execution Assertion",
         "does not approve production launch, execute deployment, create release tags, or replace manual approval",
@@ -454,6 +476,9 @@ CONTENT_REQUIREMENTS = {
         "final-merge-signoff-lock-check:",
         "release-owner-post-closeout-decision-record-check:",
         "final-evidence-noop-execution-assertion-check:",
+        "final-release-evidence-ledger-check:",
+        "frozen-scope-variance-register-check:",
+        "post-closeout-maintenance-boundary-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",

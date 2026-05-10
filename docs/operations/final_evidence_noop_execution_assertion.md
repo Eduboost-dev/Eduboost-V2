@@ -45,3 +45,9 @@ This no-op execution assertion records operational non-execution boundaries. It 
 ```bash
 make final-evidence-noop-execution-assertion-check
 ```
+
+## Ledger Variance Maintenance Evidence
+
+- `docs/operations/final_release_evidence_ledger.md`
+- `docs/operations/frozen_scope_variance_register.md`
+- `docs/operations/post_closeout_maintenance_boundary.md`
