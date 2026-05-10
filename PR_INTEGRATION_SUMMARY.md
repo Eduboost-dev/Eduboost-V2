@@ -355,3 +355,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster D Closure
 
 - Cluster D closure command and production Key Vault behavior evidence added.
+
+## Cluster D Release Evidence
+
+- Release evidence manifest and staging release gate added to Cluster D closure.

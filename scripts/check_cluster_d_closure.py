@@ -11,6 +11,8 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 COMMANDS = (
+    ("staging release gate", ["make", "staging-release-gate-check"]),
+    ("generate release evidence manifest", [sys.executable, "scripts/generate_release_evidence_manifest.py"]),
     ("environment security contract", ["make", "environment-security-check"]),
     ("production secret placeholder guard", ["make", "production-secret-placeholder-check"]),
     ("dev-only endpoint guard", ["make", "dev-only-endpoint-check"]),

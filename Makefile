@@ -128,3 +128,6 @@ dev-only-endpoint-check:
 
 cluster-d-closure-check:
 	$(PYTHON) scripts/check_cluster_d_closure.py
+
+staging-release-gate-check:
+	$(PYTHON) scripts/check_staging_release_gate.py
