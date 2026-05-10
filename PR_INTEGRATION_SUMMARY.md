@@ -407,3 +407,7 @@ PR-002R does not complete security, POPIA workflows, audit-chain integrity, back
 ## Cluster F Closure
 
 - Cluster F lesson/remediation safety and closure aggregate check added.
+
+## Cluster F Release Evidence Wiring
+
+- Cluster F evidence index, closure report, and release-gate wiring added.

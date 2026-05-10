@@ -8,6 +8,11 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_f_release_gate_wiring.py",
+    "tests/unit/test_cluster_f_closure_report.py",
+    "docs/ai/CLUSTER_F_CLOSURE.md",
+    "tests/unit/test_ai_safety_evidence_index.py",
+    "docs/ai/ai_safety_evidence_index.md",
     "tests/unit/test_cluster_f_closure_check.py",
     "tests/unit/test_remediation_safety_contract.py",
     "tests/unit/test_lesson_generation_safety_contract.py",
@@ -37,6 +42,30 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/project_evidence_index.md": (
+        "AI/CAPS Safety Contract",
+        "docs/ai/ai_safety_evidence_index.md",
+        "make cluster-f-closure-check",
+    ),
+    "docs/operations/staging_release_gate.md": (
+        "make cluster-f-closure-check",
+        "docs/ai/CLUSTER_F_CLOSURE.md",
+    ),
+    "docs/operations/release_evidence_manifest.md": (
+        "Cluster F AI safety",
+        "make cluster-f-closure-check",
+    ),
+    "docs/ai/CLUSTER_F_CLOSURE.md": (
+        "Cluster F AI/CAPS/Diagnostics Safety Closure",
+        "make cluster-f-closure-check",
+        "evidence scaffold",
+    ),
+    "docs/ai/ai_safety_evidence_index.md": (
+        "AI Safety Evidence Index",
+        "Cluster F Closure",
+        "Curriculum Alignment",
+        "make cluster-f-closure-check",
+    ),
     "docs/ai/remediation_safety_contract.md": (
         "Remediation Safety Contract",
         "remediation must avoid punitive or shaming language",
