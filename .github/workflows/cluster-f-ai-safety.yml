@@ -25,6 +25,9 @@ jobs:
           make diagnostic-generation-safety-check
           make ai-output-schema-contract-check
           make ai-output-fixture-validation-check
+          make ai-refusal-fixture-check
+          make ai-prompt-surface-inventory-check
+          make ai-prompt-surface-inventory
           make llm-provider-fallback-contract-check
           make ai-prompt-input-contract-check
           make lesson-generation-safety-check
@@ -33,6 +36,9 @@ jobs:
           make cluster-f-ai-safety-check
           pytest -c pytest.ini \
             tests/unit/test_caps_alignment_contract.py \
+            tests/unit/test_cluster_f_prompt_refusal_evidence.py \
+            tests/unit/test_ai_refusal_fixtures.py \
+            tests/unit/test_ai_prompt_surface_inventory.py \
             tests/unit/test_cluster_f_fixture_validation_evidence.py \
             tests/unit/test_validate_ai_output_fixtures.py \
             tests/unit/test_ai_output_fixtures.py \

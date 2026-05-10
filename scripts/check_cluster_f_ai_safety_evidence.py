@@ -8,6 +8,17 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_f_prompt_refusal_evidence.py",
+    "tests/unit/test_ai_refusal_fixtures.py",
+    "tests/unit/test_ai_prompt_surface_inventory.py",
+    "tests/fixtures/ai/refusals/hidden_prompt_refusal.json",
+    "tests/fixtures/ai/refusals/privacy_leakage_refusal.json",
+    "tests/fixtures/ai/refusals/unsafe_instruction_refusal.json",
+    "docs/ai/ai_refusal_regression_fixtures.md",
+    "docs/ai/ai_prompt_surface_inventory.md",
+    "scripts/check_ai_refusal_fixtures.py",
+    "scripts/check_ai_prompt_surface_inventory.py",
+    "scripts/generate_ai_prompt_surface_inventory.py",
     "tests/unit/test_cluster_f_fixture_validation_evidence.py",
     "tests/unit/test_validate_ai_output_fixtures.py",
     "tests/unit/test_ai_output_fixtures.py",
@@ -50,6 +61,14 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/ai/ai_refusal_regression_fixtures.md": (
+        "AI Refusal Regression Fixtures",
+        "hidden prompt disclosure",
+    ),
+    "docs/ai/ai_prompt_surface_inventory.md": (
+        "AI Prompt Surface Inventory",
+        "no cross-learner data leakage",
+    ),
     "scripts/validate_ai_output_fixtures.py": (
         "validate_fixture",
         "refusal suppresses unsafe detail and hidden prompts",
@@ -117,6 +136,9 @@ CONTENT_REQUIREMENTS = {
         "remediation-safety-contract-check:",
         "cluster-f-closure-check:",
         "ai-output-fixture-validation-check:",
+        "ai-prompt-surface-inventory:",
+        "ai-prompt-surface-inventory-check:",
+        "ai-refusal-fixture-check:",
     ),
     "docs/ai/caps_alignment_contract.md": (
         "CAPS Alignment Contract",

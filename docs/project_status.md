@@ -384,3 +384,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster F Fixture Validation
 
 - Cluster F fixture-based AI output validation added.
+
+## Cluster F Prompt Refusal Evidence
+
+- Cluster F prompt surface inventory and refusal regression fixtures added.
