@@ -9,6 +9,17 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_cluster_h_state_consistency_merge_wiring.py",
+    "tests/unit/test_final_pr_merge_readiness.py",
+    "tests/unit/test_beta_evidence_consistency.py",
+    "tests/unit/test_release_state_snapshot.py",
+    "scripts/check_final_pr_merge_readiness.py",
+    "scripts/check_beta_evidence_consistency.py",
+    "scripts/check_release_state_snapshot.py",
+    "scripts/generate_release_state_snapshot.py",
+    "docs/operations/final_pr_merge_readiness_contract.md",
+    "docs/operations/beta_evidence_consistency_guard.md",
+    "docs/operations/release_state_snapshot.md",
     "tests/unit/test_cluster_h_execution_pr_verification_wiring.py",
     "tests/unit/test_final_release_verification_bundle.py",
     "tests/unit/test_beta_pr_body.py",
@@ -77,6 +88,18 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/operations/final_pr_merge_readiness_contract.md": (
+        "Final PR Merge Readiness Contract",
+        "remote branch accepts non-force push",
+    ),
+    "docs/operations/beta_evidence_consistency_guard.md": (
+        "Beta Evidence Consistency Guard",
+        "Required Shared Boundary",
+    ),
+    "docs/operations/release_state_snapshot.md": (
+        "Release State Snapshot",
+        "does not replace CI logs, platform approvals, or release tag history",
+    ),
     "docs/operations/final_release_verification_bundle.md": (
         "Final Release Verification Bundle",
         "operator-controlled actions",
@@ -177,6 +200,10 @@ CONTENT_REQUIREMENTS = {
         "beta-pr-body-check:",
         "final-release-verification-check:",
         "final-release-verification:",
+        "release-state-snapshot:",
+        "release-state-snapshot-check:",
+        "beta-evidence-consistency-check:",
+        "final-pr-merge-readiness-check:",
     ),
     "docs/operations/beta_release_readiness_contract.md": (
         "Beta Release Readiness Contract",

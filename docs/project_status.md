@@ -466,3 +466,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster H Execution PR Verification
 
 - Cluster H beta release execution plan, PR body, and final verification bundle added.
+
+## Cluster H Release State Consistency Merge Readiness
+
+- Cluster H release state snapshot, evidence consistency, and final PR merge readiness added.

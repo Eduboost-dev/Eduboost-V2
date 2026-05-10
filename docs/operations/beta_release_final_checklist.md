@@ -60,3 +60,8 @@ make beta-release-final-checklist-check
 - `docs/operations/beta_release_execution_plan.md`
 - `docs/operations/beta_release_pr_body.md`
 - `docs/operations/final_release_verification_bundle.md`
+
+## Consistency Boundary Phrases
+
+- does not authorize unrestricted production launch
+- controlled staging/beta validation only

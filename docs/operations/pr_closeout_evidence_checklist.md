@@ -49,3 +49,13 @@ make pr-closeout-evidence-checklist-check
 - `docs/operations/beta_release_execution_plan.md`
 - `docs/operations/beta_release_pr_body.md`
 - `docs/operations/final_release_verification_bundle.md`
+
+## Release State Consistency Merge Readiness Evidence
+
+- `docs/operations/release_state_snapshot.md`
+- `docs/operations/beta_evidence_consistency_guard.md`
+- `docs/operations/final_pr_merge_readiness_contract.md`
+
+## Final Verification Command
+
+- make final-release-verification

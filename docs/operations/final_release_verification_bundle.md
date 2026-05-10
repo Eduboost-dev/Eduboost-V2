@@ -29,3 +29,9 @@ operator-controlled actions.
 ```bash
 make final-release-verification
 ```
+
+## Release State Consistency Merge Readiness Evidence
+
+- `docs/operations/release_state_snapshot.md`
+- `docs/operations/beta_evidence_consistency_guard.md`
+- `docs/operations/final_pr_merge_readiness_contract.md`

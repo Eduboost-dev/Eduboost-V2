@@ -43,3 +43,7 @@ Rollback evidence:
 - move mocked browser checks into automatic CI when runtime server command is canonical
 - complete manual sign-off fields before release tag creation
 - attach or link platform workflow logs for approval and post-deploy smoke runs
+
+## Consistency References
+
+- docs/operations/final_release_verification_bundle.md
