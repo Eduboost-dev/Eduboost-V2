@@ -8,6 +8,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    "tests/unit/test_diagnostic_generation_safety_contract.py",
+    "tests/unit/test_ai_prompt_input_contract.py",
+    "docs/ai/diagnostic_generation_safety_contract.md",
+    "docs/ai/ai_prompt_input_contract.md",
+    "scripts/check_diagnostic_generation_safety_contract.py",
+    "scripts/check_ai_prompt_input_contract.py",
     "scripts/check_caps_alignment_contract.py",
     "scripts/check_ai_safety_boundary_contract.py",
     "docs/ai/caps_alignment_contract.md",
@@ -17,9 +23,19 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
+    "docs/ai/diagnostic_generation_safety_contract.md": (
+        "Diagnostic Generation Safety Contract",
+        "every item must map to the diagnostic objective",
+    ),
+    "docs/ai/ai_prompt_input_contract.md": (
+        "AI Prompt Input Contract",
+        "prompts must avoid cross-learner data leakage",
+    ),
     "Makefile": (
         "caps-alignment-contract-check:",
         "ai-safety-boundary-check:",
+        "ai-prompt-input-contract-check:",
+        "diagnostic-generation-safety-check:",
     ),
     "docs/ai/caps_alignment_contract.md": (
         "CAPS Alignment Contract",
