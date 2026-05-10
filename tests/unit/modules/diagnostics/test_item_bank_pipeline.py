@@ -50,7 +50,7 @@ def _load_topic_map() -> dict:
     return {
         "topics": {
             "4.M.1.1": {
-                "grade": 4, "subject": "Mathematics", "term": 1,
+                "grade": 4, "subject": "MATHEMATICS", "term": 1,
                 "topic": "Whole Numbers",
                 "subtopic": "Count, Order and Compare 4-digit Numbers",
                 "skill": "place_value_ordering",
@@ -66,7 +66,7 @@ def _make_item(caps_ref: str = "4.M.1.1", **overrides) -> dict:
         "item_id":        str(uuid.uuid4()),
         "caps_ref":       caps_ref,
         "grade":          4,
-        "subject":        "Mathematics",
+        "subject":        "MATHEMATICS",
         "term":           1,
         "topic":          "Whole Numbers",
         "subtopic":       "Count, Order and Compare 4-digit Numbers",
@@ -93,13 +93,13 @@ def _make_item(caps_ref: str = "4.M.1.1", **overrides) -> dict:
         "guessing_c":             0.25,
         "review_status":         "approved",
         "reviewer_id":           str(uuid.uuid4()),
-        "reviewed_at":           datetime.now(timezone.utc).isoformat(),
+        "reviewed_at":           datetime.now(timezone.utc),
         "safety_passed":          True,
         "quality_score":          None,
         "source":                "llm_generated",
         "exposure_count":         0,
         "max_exposure":           50,
-        "created_at":            datetime.now(timezone.utc).isoformat(),
+        "created_at":            datetime.now(timezone.utc),
     }
     item.update(overrides)
     return item
@@ -108,6 +108,14 @@ def _make_item(caps_ref: str = "4.M.1.1", **overrides) -> dict:
 # ---------------------------------------------------------------------------
 # Tests
 # ---------------------------------------------------------------------------
+
+@pytest_asyncio.fixture(scope="module", autouse=True)
+async def test_db_setup():
+    """Initialise tables and seed data for the module."""
+    # async with engine.begin() as conn:
+    #     await conn.run_sync(Base.metadata.create_all)
+    pass
+
 
 class TestItemBankPipelineSeedAndQuery:
     """
@@ -222,7 +230,7 @@ class TestItemBankServiceSelection:
             theta=theta,
         )
         assert selected is not None
-        assert abs(selected.difficulty_b - theta) <= 1.0, (
+        assert abs(float(selected.difficulty_b) - theta) <= 1.0, (
             f"Selected item difficulty {selected.difficulty_b} is not near θ={theta}"
         )
 

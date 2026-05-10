@@ -72,7 +72,7 @@ class ItemBankService:
             return None
 
         # Pick item whose b-param minimises |b - θ|
-        best = min(candidates, key=lambda item: abs((item.difficulty_b or 0.0) - theta))
+        best = min(candidates, key=lambda item: abs(float(item.difficulty_b or 0.0) - theta))
         return best
 
     async def record_item_served(

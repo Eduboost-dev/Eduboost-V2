@@ -115,9 +115,9 @@ def test_fisher_information_increases_with_discrimination():
 
 def test_select_max_info_picks_mathematically_best_item():
     theta = 0.0
-    best  = _make_item(difficulty_b=0.0, a=2.0)    # high discrimination, perfectly matched
-    okay  = _make_item(difficulty_b=0.0, a=1.0)
-    poor  = _make_item(difficulty_b=2.5, a=1.0)    # mismatched b-param
+    best  = _make_item(difficulty_b=0.0, discrimination_a=2.0)    # high discrimination, perfectly matched
+    okay  = _make_item(difficulty_b=0.0, discrimination_a=1.0)
+    poor  = _make_item(difficulty_b=2.5, discrimination_a=1.0)    # mismatched b-param
 
     selected = select_maximum_information_item([poor, okay, best], theta)
     assert selected.item_id == best.item_id

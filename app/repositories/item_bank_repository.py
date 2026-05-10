@@ -153,7 +153,6 @@ class ItemBankRepository:
     ) -> ItemExposure:
         """Persist an exposure event and atomically increment the item's counter."""
         exposure = ItemExposure(
-            exposure_id=uuid.uuid4(),
             item_id=item_id,
             learner_id=learner_id,
             session_id=session_id,
@@ -198,13 +197,71 @@ class ItemBankRepository:
         await self.db.flush()
         return item
 
+    # ------------------------------------------------------------------
+    # Enum normalization maps — convert any casing variant a caller might
+    # pass to the exact string stored in the PostgreSQL enum type.
+    # ------------------------------------------------------------------
+    _SUBJECT_MAP: dict[str, str] = {
+        # uppercase key → DB value
+        "MATHEMATICS": "Mathematics",
+        "ENGLISH": "English",
+        "ISIZULU": "isiZulu",
+        "AFRIKAANS": "Afrikaans",
+        "LIFE_SKILLS": "Life Skills",
+        "NATURAL_SCIENCES": "Natural Sciences",
+        # already-correct pass-throughs
+        "Mathematics": "Mathematics",
+        "English": "English",
+        "isiZulu": "isiZulu",
+        "Afrikaans": "Afrikaans",
+        "Life Skills": "Life Skills",
+        "Natural Sciences": "Natural Sciences",
+    }
+    _ITEM_TYPE_MAP: dict[str, str] = {
+        "MCQ": "mcq", "SHORT_ANSWER": "short_answer",
+        "TRUE_FALSE": "true_false", "FILL_BLANK": "fill_blank",
+        "mcq": "mcq", "short_answer": "short_answer",
+        "true_false": "true_false", "fill_blank": "fill_blank",
+    }
+    _REVIEW_STATUS_MAP: dict[str, str] = {
+        "DRAFT": "draft", "AI_GENERATED": "ai_generated",
+        "HUMAN_REVIEWED": "human_reviewed", "APPROVED": "approved",
+        "RETIRED": "retired",
+        "draft": "draft", "ai_generated": "ai_generated",
+        "human_reviewed": "human_reviewed", "approved": "approved",
+        "retired": "retired",
+    }
+    _SOURCE_MAP: dict[str, str] = {
+        "LLM_GENERATED": "llm_generated", "HUMAN_AUTHORED": "human_authored",
+        "IMPORTED": "imported",
+        "llm_generated": "llm_generated", "human_authored": "human_authored",
+        "imported": "imported",
+    }
+    _LANGUAGE_MAP: dict[str, str] = {
+        "EN": "en", "ZU": "zu", "AF": "af", "XH": "xh",
+        "en": "en", "zu": "zu", "af": "af", "xh": "xh",
+    }
+
+    def _normalise(self, data: dict) -> dict:
+        """Return a shallow copy of *data* with enum fields normalised to DB values."""
+        d = dict(data)
+        if "subject" in d and isinstance(d["subject"], str):
+            d["subject"] = self._SUBJECT_MAP.get(d["subject"], d["subject"])
+        if "item_type" in d and isinstance(d["item_type"], str):
+            d["item_type"] = self._ITEM_TYPE_MAP.get(d["item_type"], d["item_type"].lower())
+        if "review_status" in d and isinstance(d["review_status"], str):
+            d["review_status"] = self._REVIEW_STATUS_MAP.get(d["review_status"], d["review_status"].lower())
+        if "source" in d and isinstance(d["source"], str):
+            d["source"] = self._SOURCE_MAP.get(d["source"], d["source"].lower())
+        if "language" in d and isinstance(d["language"], str):
+            d["language"] = self._LANGUAGE_MAP.get(d["language"], d["language"].lower())
+        return d
+
     async def upsert(self, data: dict) -> DiagnosticItem:
-        """
-        Idempotent upsert from a dictionary. 
-        Used by seeder and generator pipelines.
-        """
+        data = self._normalise(data)
+        import sys; print(f"[UPSERT] subject={data.get('subject')!r} item_type={data.get('item_type')!r} review_status={data.get('review_status')!r}", file=sys.stderr, flush=True)
         item_id = uuid.UUID(data["item_id"]) if isinstance(data["item_id"], str) else data["item_id"]
-        
+
         existing = await self.get_item(item_id)
         if existing:
             # Update fields
@@ -215,13 +272,10 @@ class ItemBankRepository:
                     # Handle Enum conversion
                     if key == "review_status" and isinstance(value, str):
                         value = ReviewStatusEnum(value)
-                    elif key == "item_type" and isinstance(value, str):
-                        value = DiagnosticItem.__table__.columns["item_type"].type.python_type(value)
-                    # Add more conversions as needed or use a more robust mapper
                     setattr(existing, key, value)
             await self.db.flush()
             return existing
-        
+
         # Create new
         new_item = DiagnosticItem(**data)
         # Ensure UUIDs are objects
@@ -229,7 +283,7 @@ class ItemBankRepository:
             new_item.item_id = uuid.UUID(new_item.item_id)
         if data.get("reviewer_id") and isinstance(data["reviewer_id"], str):
             new_item.reviewer_id = uuid.UUID(data["reviewer_id"])
-            
+
         self.db.add(new_item)
         await self.db.flush()
         return new_item
