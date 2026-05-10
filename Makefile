@@ -179,3 +179,9 @@ ai-safety-boundary-check:
 
 cluster-f-ai-safety-check:
 	$(PYTHON) scripts/check_cluster_f_ai_safety_evidence.py
+
+ai-prompt-input-contract-check:
+	$(PYTHON) scripts/check_ai_prompt_input_contract.py
+
+diagnostic-generation-safety-check:
+	$(PYTHON) scripts/check_diagnostic_generation_safety_contract.py

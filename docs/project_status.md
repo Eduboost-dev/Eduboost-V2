@@ -364,3 +364,7 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster F AI Safety
 
 - Cluster F AI/CAPS/safety evidence baseline added.
+
+## Cluster F Prompt Diagnostic Safety
+
+- Cluster F prompt input and diagnostic generation safety contracts added.

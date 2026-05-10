@@ -22,8 +22,12 @@ jobs:
         run: |
           make caps-alignment-contract-check
           make ai-safety-boundary-check
+          make diagnostic-generation-safety-check
+          make ai-prompt-input-contract-check
           make cluster-f-ai-safety-check
           pytest -c pytest.ini \
             tests/unit/test_caps_alignment_contract.py \
+            tests/unit/test_diagnostic_generation_safety_contract.py \
+            tests/unit/test_ai_prompt_input_contract.py \
             tests/unit/test_ai_safety_boundary_contract.py \
             -q --no-cov
