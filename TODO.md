@@ -12,6 +12,7 @@ Merge pull request #52 from NkgoloL/chore/slow-query-logging
 **Primary runtime:** `app.api_v2:app`  
 **Frontend:** `app/frontend`  
 **Production-readiness rule:** no item is considered complete unless there is implementation evidence and verification evidence.
+**Execution roadmap:** `docs/production_readiness_roadmap.md`
 
 ---
 
@@ -59,6 +60,13 @@ Do not describe a feature, release gate, or workflow as "ready", "tested",
 "complete", or "production-grade" unless both categories are listed with
 evidence. If only code exists, mark the item `[verify]`.
 
+## High-level rollup rule
+
+High-level backlog items that summarize a larger section must stay `[verify]`
+while any granular verification backlog beneath them remains open. Use `[x]`
+only for items that include both implementation evidence and a green command,
+CI job, staging run, or release-evidence artifact proving the exact claim.
+
 ## Documentation drift correction plan
 
 - [x] `P0` Split status documentation into "Implemented in code" and
@@ -100,15 +108,15 @@ evidence. If only code exists, mark the item `[verify]`.
 
 ## 0.1 Canonical repo, fork, and branch policy
 
-- [ ] `P0` Confirm canonical source repo in `docs/repository_governance.md`.
-- [ ] `P0` Confirm active branch is `master`.
-- [ ] `P0` Confirm latest valid repo state is identified by the commit message containing `Merge pull request #52`.
-- [ ] `P0` Document relationship between `NkgoloL/Eduboost-V2` and `userxrebornbackup-ux/Eduboost-V2`.
-- [ ] `P0` Document which repo produces official releases.
-- [ ] `P0` Document which repo is allowed to receive production hotfixes.
-- [ ] `P0` Document whether the backup fork is temporary, permanent mirror, or recovery source.
-- [ ] `P0` Stop using raw commit count as the canonical freshness signal.
-- [ ] `P0` Use head SHA + merge marker + release tag + CI evidence as freshness criteria.
+- [verify] `P0` Confirm canonical source repo in `docs/repository_governance.md`. Evidence: `docs/repository_governance.md`, `scripts/verify_repo_state.py`.
+- [verify] `P0` Confirm active branch is `master`. Evidence: `docs/repository_governance.md`, `scripts/verify_repo_state.py`; verification gap: branch protection must be confirmed in GitHub settings.
+- [verify] `P0` Confirm latest valid repo state is identified by the commit message containing `Merge pull request #52`. Evidence: `scripts/verify_repo_state.py`.
+- [verify] `P0` Document relationship between `NkgoloL/Eduboost-V2` and `userxrebornbackup-ux/Eduboost-V2`. Evidence: `docs/repository_governance.md`.
+- [verify] `P0` Document which repo produces official releases. Evidence: `docs/repository_governance.md`.
+- [verify] `P0` Document which repo is allowed to receive production hotfixes. Evidence: `docs/repository_governance.md`.
+- [verify] `P0` Document whether the backup fork is temporary, permanent mirror, or recovery source. Evidence: `docs/repository_governance.md`; verification gap: owner approval record still required.
+- [verify] `P0` Stop using raw commit count as the canonical freshness signal. Evidence: `scripts/verify_repo_state.py`.
+- [verify] `P0` Use head SHA + merge marker + release tag + CI evidence as freshness criteria. Evidence: `scripts/verify_repo_state.py`, `.github/workflows/repo-state.yml`; verification gap: release tag evidence still required at release time.
 - [ ] `P1` Add mirror-sync policy.
 - [ ] `P1` Add fork divergence-detection policy.
 - [ ] `P1` Add fork recovery procedure.
@@ -121,15 +129,15 @@ evidence. If only code exists, mark the item `[verify]`.
 
 ## 0.2 Repo-state verification automation
 
-- [ ] `P0` Add `scripts/verify_repo_state.py`.
-- [ ] `P0` Script must verify current git branch is `master`.
-- [ ] `P0` Script must verify remote URL matches accepted canonical or recovery repo.
-- [ ] `P0` Script must verify latest commit message contains the accepted freshness marker.
-- [ ] `P0` Script must print current head SHA.
-- [ ] `P0` Script must fail if working tree is dirty unless `--allow-dirty` is passed.
-- [ ] `P0` Script must fail if run from the wrong repo.
-- [ ] `P1` Add `make verify-repo-state`.
-- [ ] `P1` Add CI step for repo-state verification.
+- [verify] `P0` Add `scripts/verify_repo_state.py`. Evidence: `scripts/verify_repo_state.py`, `tests/unit/test_verify_repo_state.py`.
+- [verify] `P0` Script must verify current git branch is `master`. Evidence: `scripts/verify_repo_state.py`; verification gap: release branch check runs strictly only on release branches.
+- [verify] `P0` Script must verify remote URL matches accepted canonical or recovery repo. Evidence: `scripts/verify_repo_state.py`, `tests/unit/test_verify_repo_state.py`.
+- [verify] `P0` Script must verify latest commit message contains the accepted freshness marker. Evidence: `scripts/verify_repo_state.py`, `tests/unit/test_verify_repo_state.py`.
+- [verify] `P0` Script must print current head SHA. Evidence: `scripts/verify_repo_state.py`.
+- [verify] `P0` Script must fail if working tree is dirty unless `--allow-dirty` is passed. Evidence: `scripts/verify_repo_state.py`, `tests/unit/test_verify_repo_state.py`.
+- [verify] `P0` Script must fail if run from the wrong repo. Evidence: `scripts/verify_repo_state.py`.
+- [verify] `P1` Add `make verify-repo-state`. Evidence: `Makefile`.
+- [verify] `P1` Add CI step for repo-state verification. Evidence: `.github/workflows/repo-state.yml`.
 - [ ] `P1` Add repo-state verification output to release evidence bundle.
 - [ ] `P2` Add JSON output mode to `scripts/verify_repo_state.py`.
 
@@ -922,13 +930,13 @@ evidence. If only code exists, mark the item `[verify]`.
 ## 7.1 IRT engine validation
 
 - [ ] `[critical]` Define diagnostic item schema: item ID, subject, grade, topic, skill, difficulty, discrimination, correct answer, distractors, explanation, and CAPS reference.
-- [x] `[critical]` Validate IRT parameters for difficulty bounds, discrimination bounds, probability output, overflow, and invalid input.
-- [x] `[critical]` Add tests for probability of correctness, Fisher information, ability update, edge responses, empty responses, all-correct, and all-incorrect.
-- [x] `[high]` Add item calibration workflow.
-- [x] `[high]` Add item exposure limits so learners do not repeatedly see the same questions.
-- [x] `[high]` Add diagnostic session recovery after disconnect.
-- [x] `[medium]` Add confidence intervals for ability estimates.
-- [x] `[medium]` Add item bias review across language, region, and socioeconomic context.
+- [verify] `[critical]` Validate IRT parameters for difficulty bounds, discrimination bounds, probability output, overflow, and invalid input. Evidence: `app/modules/diagnostics/irt_engine.py`, `app/modules/diagnostics/irt_params.py`, `tests/unit/modules/diagnostics/test_irt_engine_hardening.py`, `tests/unit/test_irt_properties.py`. Verification gap: granular IRT validation backlog below still has open item-level checks.
+- [verify] `[critical]` Add tests for probability of correctness, Fisher information, ability update, edge responses, empty responses, all-correct, and all-incorrect. Evidence: `tests/unit/modules/diagnostics/test_irt_engine_hardening.py`, `tests/legacy/unit/modules/diagnostics/test_irt_engine.py`, `tests/unit/test_irt_gap_probe.py`. Verification gap: granular test bullets below are not all individually reconciled to passing test evidence.
+- [verify] `[high]` Add item calibration workflow. Evidence: `app/modules/diagnostics/calibration_service.py`, `tests/unit/modules/practice/test_practice_and_calibration.py`. Verification gap: granular item-bank backlog still lists calibration workflow verification as open.
+- [verify] `[high]` Add item exposure limits so learners do not repeatedly see the same questions. Evidence: `app/models/item_exposure.py`, `app/modules/diagnostics/item_selection_service.py`, `tests/unit/modules/diagnostics/test_item_bank_service.py`. Verification gap: granular item-bank backlog still lists exposure limits and item reuse policy as open.
+- [verify] `[high]` Add diagnostic session recovery after disconnect. Evidence: `app/modules/diagnostics/session_recovery_service.py`, `app/repositories/diagnostic_session_repository.py`, `tests/unit/modules/diagnostics/test_session_lifecycle.py`. Verification gap: granular diagnostic-session backlog still lists pause/resume and recovery checks as open.
+- [verify] `[medium]` Add confidence intervals for ability estimates. Evidence: `app/modules/diagnostics/irt_engine.py`, `tests/unit/modules/diagnostics/test_irt_engine_hardening.py`. Verification gap: granular diagnostic-session backlog still lists confidence interval checks as open.
+- [verify] `[medium]` Add item bias review across language, region, and socioeconomic context. Evidence: `app/modules/diagnostics/bias_review_router.py`, `app/modules/diagnostics/item_validator.py`, `tests/unit/modules/diagnostics/test_item_validator.py`. Verification gap: no green end-to-end bias review evidence is recorded here yet.
 
 Granular verification backlog:
 
@@ -968,8 +976,8 @@ Granular verification backlog:
 - [ ] `[critical]` Add item review status: draft, AI-generated, human-reviewed, approved, retired.
 - [ ] `[high]` Add distractor quality review and explanation quality review.
 - [ ] `[medium]` Tag items by misconception.
-- [x] `[medium]` Add adaptive practice generator based on diagnostic gaps.
-- [x] `[medium]` Add spaced repetition and retrieval practice.
+- [verify] `[medium]` Add adaptive practice generator based on diagnostic gaps. Evidence: `app/modules/practice/practice_generator.py`, `tests/unit/modules/practice/test_practice_and_calibration.py`. Verification gap: item-bank and gap-identification granular backlog remains open.
+- [verify] `[medium]` Add spaced repetition and retrieval practice. Evidence: `app/modules/practice/spaced_repetition_scheduler.py`, `tests/unit/modules/practice/test_practice_and_calibration.py`. Verification gap: no recorded green release/runtime evidence for the practice workflow is attached here yet.
 
 Granular item-bank backlog:
 
@@ -990,10 +998,10 @@ Granular item-bank backlog:
 
 ## 7.3 Diagnostic session lifecycle
 
-- [x] `[critical]` Define mastery model combining diagnostic estimate, practice performance, recency, consistency, and confidence.
-- [x] `[high]` Add progress timelines per learner.
-- [x] `[high]` Add subject-level and topic-level mastery.
-- [x] `[medium]` Add learning velocity, risk-of-falling-behind signal, and next-best-activity recommendation.
+- [verify] `[critical]` Define mastery model combining diagnostic estimate, practice performance, recency, consistency, and confidence. Evidence: `app/modules/progress/mastery_model.py`, `tests/unit/modules/progress/test_mastery_model.py`. Verification gap: diagnostic-session lifecycle backlog below still has open runtime path checks.
+- [verify] `[high]` Add progress timelines per learner. Evidence: `app/modules/progress/progress_timeline_service.py`, `tests/integration/test_parent_progress_authorization.py`, `tests/unit/test_parent_progress_authorization_wiring.py`. Verification gap: learner-facing timeline behavior is not tied to green runtime/CI evidence here yet.
+- [verify] `[high]` Add subject-level and topic-level mastery. Evidence: `app/repositories/mastery_repository.py`, `app/modules/progress/mastery_model.py`, `tests/integration/test_learner_mastery_authorization.py`, `tests/unit/test_learner_mastery_authorization_wiring.py`. Verification gap: granular diagnostic result retrieval and authorization checks remain open below.
+- [verify] `[medium]` Add learning velocity, risk-of-falling-behind signal, and next-best-activity recommendation. Evidence: `app/modules/progress/learning_velocity_service.py`, `tests/unit/modules/progress/test_mastery_model.py`. Verification gap: no green release/runtime evidence for the recommendation path is attached here yet.
 - [ ] `[research]` Evaluate Bayesian Knowledge Tracing or Deep Knowledge Tracing once enough usage data exists.
 
 Granular diagnostic-session backlog:
