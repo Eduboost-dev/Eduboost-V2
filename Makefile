@@ -54,6 +54,9 @@ route-inventory-check:
 runtime-check:
 	$(PYTHON) scripts/check_runtime_entrypoints.py
 
+api-envelope-error-contract-check:
+	$(PYTHON) scripts/check_api_envelope_error_contract.py
+
 pr002r-check:
 	$(PYTHON) scripts/check_pr002r_evidence.py
 

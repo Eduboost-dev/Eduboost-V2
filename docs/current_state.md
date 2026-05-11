@@ -39,6 +39,11 @@ The current verified truth is narrower: only the checks listed under
   exist.
 - Governance and evidence checks exist for release-readiness contracts, POPIA
   consent boundaries, route inventories, and PR-002R evidence.
+- API envelope and error-contract evidence exists through
+  `docs/api_envelope_contract.md`, `docs/error_contract.md`, and
+  `make api-envelope-error-contract-check`; success-envelope rollout across all
+  routers remains incomplete until router-specific tests prove each response
+  shape.
 - Grade 4 Mathematics item-bank implementation exists with 14 approved starter
   items plus generated candidate content that still requires approval before
   production coverage can be claimed.
