@@ -20,6 +20,7 @@ from app.models import UserRole
 
 Role = UserRole
 TokenPayload = dict[str, Any]
+REFRESH_TOKEN_EXPIRE_DAYS = 7
 
 # ── Password hashing ──────────────────────────────────────────────────────────
 
@@ -56,7 +57,7 @@ def create_access_token(subject: str, role: UserRole, extra: dict[str, Any] | No
 
 
 def create_refresh_token(subject: str, role: UserRole, family_id: str | None = None) -> str:
-    expire = datetime.now(UTC) + timedelta(days=settings.JWT_REFRESH_TOKEN_EXPIRE_DAYS)
+    expire = datetime.now(UTC) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
     payload = {
         "sub": subject,
         "role": role,

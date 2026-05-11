@@ -73,6 +73,8 @@ def collect_rows() -> list[ConsentGateRow]:
         for file_path in sorted(search_dir.rglob("*.py")):
             if file_path.name.startswith("__"):
                 continue
+            if file_path.name.startswith("test_") or file_path.name.endswith("_test.py"):
+                continue
 
             try:
                 source = file_path.read_text(encoding="utf-8")
@@ -80,8 +82,16 @@ def collect_rows() -> list[ConsentGateRow]:
             except SyntaxError:
                 continue
 
+            parents = {
+                child: parent
+                for parent in ast.walk(tree)
+                for child in ast.iter_child_nodes(parent)
+            }
+
             for node in ast.walk(tree):
                 if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                    continue
+                if isinstance(parents.get(node), (ast.FunctionDef, ast.AsyncFunctionDef)):
                     continue
 
                 fn_source = _function_source(source, node)

@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 import statistics
 import time
 import uuid
@@ -160,6 +161,10 @@ def _make_valid_lesson(caps_ref: str = "4.M.1.1") -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 @pytest.mark.asyncio
+@pytest.mark.skipif(
+    os.environ.get("EDUBOOST_RUN_LIVE_PERF") != "1",
+    reason="Set EDUBOOST_RUN_LIVE_PERF=1 and run the API stack for live lesson-generation latency.",
+)
 async def test_lesson_generation_p99_under_5s() -> None:
     """
     L5-07: Fire 10 concurrent lesson generation requests and assert that the

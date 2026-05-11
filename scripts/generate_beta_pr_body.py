@@ -64,6 +64,7 @@ Rollback evidence:
 - `docs/operations/project_release_closure_index.md`
 - `docs/operations/beta_release_evidence_bundle.md`
 - `docs/operations/CLUSTER_H_CLOSURE.md`
+- `docs/operations/final_release_verification_bundle.md`
 - `docs/operations/beta_release_final_checklist.md`
 - `docs/operations/pr_closeout_evidence_checklist.md`
 

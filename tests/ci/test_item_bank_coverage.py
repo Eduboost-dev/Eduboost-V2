@@ -15,6 +15,11 @@ from typing import Any
 
 import asyncpg  # type: ignore
 
+pytestmark = pytest.mark.skipif(
+    os.environ.get("EDUBOOST_RUN_ITEM_BANK_CI") != "1",
+    reason="Set EDUBOOST_RUN_ITEM_BANK_CI=1 with a seeded item-bank database for CI coverage checks.",
+)
+
 # ─── constants ───────────────────────────────────────────────────────────────
 
 LAUNCH_CAPS_REFS = [

@@ -257,10 +257,19 @@ async def start_diagnostic_session(
 
 
 @router.get("/sessions/{session_id}/recover")
-async def recover_diagnostic_session(session_id: UUID):
+async def recover_diagnostic_session(
+    session_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
+):
     snap = await DiagnosticSessionService(recovery_service=SessionRecoveryService()).recover_session(session_id)
     if snap is None:
         raise HTTPException(status_code=404, detail="No recoverable diagnostic session")
+    learner = await LearnerRepository(db).get_by_id(snap.learner_id)
+    if learner is None:
+        raise HTTPException(status_code=404, detail="Learner not found")
+    require_learner_read_for_current_user(current_user, learner)
+    await require_active_consent_for_current_user(db, current_user, snap.learner_id)
     return snap.__dict__
 
 
@@ -271,9 +280,18 @@ async def diagnostic_next_item(
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(get_current_user),
 ):
+    session_service = DiagnosticSessionService(recovery_service=SessionRecoveryService())
+    snap = await session_service.recover_session(session_id)
+    if snap is None:
+        raise HTTPException(status_code=404, detail="No recoverable diagnostic session")
+    learner = await LearnerRepository(db).get_by_id(snap.learner_id)
+    if learner is None:
+        raise HTTPException(status_code=404, detail="Learner not found")
+    require_learner_read_for_current_user(current_user, learner)
+    await require_active_consent_for_current_user(db, current_user, snap.learner_id)
     repo = ItemBankRepository(db)
     items = list(await repo.list_by_caps_ref(caps_ref, limit=200))
-    item = await DiagnosticSessionService(recovery_service=SessionRecoveryService()).get_next_item(session_id, items)
+    item = await session_service.get_next_item(session_id, items)
     if item is None:
         return {"completed": True}
     return {
@@ -292,12 +310,18 @@ async def diagnostic_respond(
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(get_current_user),
 ):
-    item = await ItemBankRepository(db).get_item(body.item_id)
-    if item is None:
-        raise HTTPException(status_code=404, detail="Diagnostic item not found")
-    result = await DiagnosticSessionService(
+    session_service = DiagnosticSessionService(
         session_repository=DiagnosticSessionRepository(db),
         mastery_repository=MasteryRepository(db),
         recovery_service=SessionRecoveryService(),
-    ).submit_response(session_id, item, correct=body.correct, response=body.response)
+    )
+    snap = await session_service.recover_session(session_id)
+    if snap is None:
+        raise HTTPException(status_code=404, detail="No recoverable diagnostic session")
+    require_learner_write_for_current_user(current_user, snap.learner_id)
+    await require_active_consent_for_current_user(db, current_user, snap.learner_id)
+    item = await ItemBankRepository(db).get_item(body.item_id)
+    if item is None:
+        raise HTTPException(status_code=404, detail="Diagnostic item not found")
+    result = await session_service.submit_response(session_id, item, correct=body.correct, response=body.response)
     return result.__dict__

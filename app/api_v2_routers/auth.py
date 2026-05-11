@@ -18,6 +18,7 @@ from app.core.refresh_tokens import (
     store_refresh_token,
 )
 from app.core.security import (
+    REFRESH_TOKEN_EXPIRE_DAYS,
     create_access_token,
     create_refresh_token,
     decode_token,
@@ -209,7 +210,7 @@ def _set_refresh_cookie(response: Response, token: str) -> None:
         httponly=True,
         secure=True,
         samesite="strict",
-        max_age=settings.JWT_REFRESH_TOKEN_EXPIRE_DAYS * 24 * 3600,
+        max_age=REFRESH_TOKEN_EXPIRE_DAYS * 24 * 3600,
         path="/api/v2/auth",
     )
 

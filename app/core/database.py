@@ -7,7 +7,7 @@ from collections.abc import AsyncGenerator
 from sqlalchemy.pool import NullPool
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy import event
+from sqlalchemy import event, text
 import time
 
 from app.core.config import settings
@@ -64,16 +64,45 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
 
 async def create_all_tables() -> None:
     """Create all tables (dev/test only — use Alembic in production)."""
-    # async with engine.begin() as conn:
-    #     await conn.run_sync(Base.metadata.create_all)
-    pass
+    import app.models  # noqa: F401
+    import app.models.diagnostic_item  # noqa: F401
+    import app.models.item_exposure  # noqa: F401
+
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+        if settings.DATABASE_URL.startswith("postgresql"):
+            await conn.execute(text("DROP RULE IF EXISTS audit_events_no_update ON audit_events"))
+            await conn.execute(text("DROP RULE IF EXISTS audit_events_no_delete ON audit_events"))
+            await conn.execute(
+                text(
+                    """
+                    CREATE RULE audit_events_no_update AS
+                    ON UPDATE TO audit_events
+                    DO INSTEAD NOTHING
+                    """
+                )
+            )
+            await conn.execute(
+                text(
+                    """
+                    CREATE RULE audit_events_no_delete AS
+                    ON DELETE TO audit_events
+                    DO INSTEAD NOTHING
+                    """
+                )
+            )
 
 
 async def drop_all_tables() -> None:
     """Drop all tables (test teardown only)."""
-    # async with engine.begin() as conn:
-    #     await conn.run_sync(Base.metadata.drop_all)
-    pass
+    if settings.APP_ENV != "test":
+        return
+    import app.models  # noqa: F401
+    import app.models.diagnostic_item  # noqa: F401
+    import app.models.item_exposure  # noqa: F401
+
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
 
 
 async def init_test_schema() -> None:

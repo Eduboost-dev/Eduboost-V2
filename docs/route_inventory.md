@@ -6,7 +6,7 @@
 
 - Canonical runtime: `app.api_v2:app`
 - Application title: `EduBoost SA V2`
-- Application version: `2.0.0`
+- Application version: `1.0.0-rc1`
 - Total route entries: `145`
 
 ## Contract Checks
@@ -61,7 +61,7 @@
 
 ## Legacy Exclusion
 
-The canonical runtime must not expose V1 or legacy-prefixed routes.
+V1 and legacy-prefixed routes must not be part of the canonical runtime.
 
 Forbidden prefixes:
 
@@ -70,7 +70,11 @@ Forbidden prefixes:
 - `/api/legacy`
 - `/legacy`
 
-The archived compatibility shim `app.legacy.api.main:app` resolves to the canonical V2 app and must not mount V1 routes as an import side effect.
+The archived compatibility shim `app.legacy.api.main:app` may attach hidden 410 Gone routes, but those routes must remain outside the canonical `app.api_v2:app` import and OpenAPI schema.
+
+Archived compatibility routes:
+
+- `/api/v1/lessons/generate` returns HTTP 410 Gone only when `app.legacy.api.main:app` is explicitly imported.
 
 ## Canonical Route Table
 

@@ -5,9 +5,9 @@
 This PR closes the EduBoost V2 staging/beta release evidence layer.
 
 - release_candidate: `unset`
-- branch: `codex/cluster-c-popia-consent-audi`
-- commit: `c26c56285b71d0f2e28a78b4d3c075c14d758f07`
-- generated_at_utc: `2026-05-10T20:01:35.252536+00:00`
+- branch: `codex/docs-technical-state-reconciliation`
+- commit: `53d49ee180f3ed99cd75ce137dc2e8be5a4b6c74`
+- generated_at_utc: `2026-05-11T20:23:31.657939+00:00`
 
 ## Verification
 
@@ -34,6 +34,7 @@ Rollback evidence:
 - `docs/operations/project_release_closure_index.md`
 - `docs/operations/beta_release_evidence_bundle.md`
 - `docs/operations/CLUSTER_H_CLOSURE.md`
+- `docs/operations/final_release_verification_bundle.md`
 - `docs/operations/beta_release_final_checklist.md`
 - `docs/operations/pr_closeout_evidence_checklist.md`
 
@@ -43,7 +44,3 @@ Rollback evidence:
 - move mocked browser checks into automatic CI when runtime server command is canonical
 - complete manual sign-off fields before release tag creation
 - attach or link platform workflow logs for approval and post-deploy smoke runs
-
-## Consistency References
-
-- docs/operations/final_release_verification_bundle.md

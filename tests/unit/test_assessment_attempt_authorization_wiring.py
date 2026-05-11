@@ -42,6 +42,11 @@ class FakeAssessmentService:
 async def test_assessment_attempt_allows_authorized_guardian(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(assessments_router, "AssessmentServiceV2", FakeAssessmentService)
 
+    async def allow_consent(*args, **kwargs):
+        return None
+
+    monkeypatch.setattr(assessments_router, "require_active_consent_for_current_user", allow_consent)
+
     request = SimpleNamespace(
         learner_id="learner-1",
         responses=[FakeResponse()],

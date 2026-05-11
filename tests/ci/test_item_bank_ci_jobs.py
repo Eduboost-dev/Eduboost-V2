@@ -27,6 +27,11 @@ import asyncpg  # type: ignore
 import httpx
 import pytest
 
+pytestmark = pytest.mark.skipif(
+    os.environ.get("EDUBOOST_RUN_ITEM_BANK_CI") != "1",
+    reason="Set EDUBOOST_RUN_ITEM_BANK_CI=1 with seeded DB and running API for item-bank CI jobs.",
+)
+
 # ─── constants ───────────────────────────────────────────────────────────────
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
