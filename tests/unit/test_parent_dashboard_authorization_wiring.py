@@ -25,5 +25,5 @@ def test_parent_dashboard_checks_each_learner_with_phase2_read_policy() -> None:
 
     assert "require_learner_read_for_current_user(current_user, learner)" in block
     assert block.index("require_learner_read_for_current_user") < block.index(
-        "await consent_service.require_active_consent"
+        "await require_active_consent_for_current_user(db, current_user, learner.id)"
     )

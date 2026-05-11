@@ -27,6 +27,7 @@ import pytest
 import pytest_asyncio
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.database import create_all_tables
 from app.repositories.item_bank_repository import ItemBankRepository
 from app.modules.diagnostics.item_bank_service import ItemBankService
 from app.modules.diagnostics.item_validator import ItemValidator, ValidationError
@@ -112,9 +113,7 @@ def _make_item(caps_ref: str = "4.M.1.1", **overrides) -> dict:
 @pytest_asyncio.fixture(scope="module", autouse=True)
 async def test_db_setup():
     """Initialise tables and seed data for the module."""
-    # async with engine.begin() as conn:
-    #     await conn.run_sync(Base.metadata.create_all)
-    pass
+    await create_all_tables()
 
 
 class TestItemBankPipelineSeedAndQuery:

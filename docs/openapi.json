@@ -1572,7 +1572,7 @@
   "info": {
     "description": "AI-powered adaptive learning platform — Grade R to 7. CAPS-aligned. POPIA-compliant.",
     "title": "EduBoost SA V2",
-    "version": "2.0.0"
+    "version": "1.0.0-rc1"
   },
   "openapi": "3.1.0",
   "paths": {
@@ -2616,6 +2616,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "summary": "Recover Diagnostic Session",
         "tags": [
           "diagnostics"
@@ -5687,6 +5692,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "summary": "Recover Diagnostic Session",
         "tags": [
           "diagnostics"

@@ -22,5 +22,5 @@ def test_gamification_profile_uses_phase2_read_authorization() -> None:
     assert "learner = await LearnerRepository(db).get_by_id(learner_id)" in block
     assert "require_learner_read_for_current_user(current_user, learner)" in block
     assert block.index("require_learner_read_for_current_user") < block.index(
-        "await ConsentService(db).require_active_consent"
+        "await require_active_consent_for_current_user(db, current_user, learner_id)"
     )

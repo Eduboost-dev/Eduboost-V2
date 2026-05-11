@@ -50,6 +50,11 @@ async def test_onboarding_submit_allows_authorized_guardian(monkeypatch: pytest.
     monkeypatch.setattr(onboarding_router, "LearnerRepository", FakeLearnerRepository)
     monkeypatch.setattr(onboarding_router, "_ether", FakeEther())
 
+    async def allow_consent(*args, **kwargs):
+        return None
+
+    monkeypatch.setattr(onboarding_router, "require_active_consent_for_current_user", allow_consent)
+
     body = SimpleNamespace(
         learner_id="learner-1",
         answers=[SimpleNamespace(question_id="q1", answer="a1")],

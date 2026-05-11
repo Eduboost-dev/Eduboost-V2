@@ -12,9 +12,8 @@ from typing import Any
 
 from fastapi import HTTPException, status
 
-from app.core.config import settings
 from app.core.redis import cache_delete, cache_delete_pattern, cache_get, cache_set, get_redis
-from app.core.security import decode_token
+from app.core.security import REFRESH_TOKEN_EXPIRE_DAYS, decode_token
 
 _REFRESH_PREFIX = "refresh"
 _REFRESH_FAMILY_PREFIX = "refresh_family"
@@ -46,7 +45,7 @@ def _ttl_from_payload(payload: dict[str, Any]) -> int:
     exp = payload.get("exp")
     if isinstance(exp, (int, float)):
         return max(int(exp - datetime.now(UTC).timestamp()), 1)
-    return settings.JWT_REFRESH_TOKEN_EXPIRE_DAYS * 24 * 3600
+    return REFRESH_TOKEN_EXPIRE_DAYS * 24 * 3600
 
 
 def _require_refresh_payload(token: str) -> dict[str, Any]:
@@ -113,7 +112,7 @@ async def revoke_refresh_token_jti(jti: str | None, subject: str | None = None, 
 async def revoke_refresh_family(family_id: str | None) -> None:
     if not family_id:
         return
-    ttl = settings.JWT_REFRESH_TOKEN_EXPIRE_DAYS * 24 * 3600
+    ttl = REFRESH_TOKEN_EXPIRE_DAYS * 24 * 3600
     await cache_set(_family_revoked_key(family_id), "1", ttl=ttl)
     await cache_delete_pattern(f"{_REFRESH_FAMILY_PREFIX}:{family_id}:*")
 

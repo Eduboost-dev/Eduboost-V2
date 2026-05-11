@@ -19,7 +19,7 @@ def _git_value(args: list[str]) -> str:
         return "unknown"
 
 
-def render_manifest() -> str:
+def generate_release_candidate_tag_manifest() -> str:
     generated_at = datetime.now(timezone.utc).isoformat()
     branch = _git_value(["rev-parse", "--abbrev-ref", "HEAD"])
     commit = _git_value(["rev-parse", "HEAD"])
@@ -73,7 +73,7 @@ make release-candidate-tag-manifest
 
 def main() -> int:
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(render_manifest(), encoding="utf-8")
+    OUTPUT.write_text(generate_release_candidate_tag_manifest(), encoding="utf-8")
     print(f"Wrote {OUTPUT.relative_to(REPO_ROOT)}")
     return 0
 

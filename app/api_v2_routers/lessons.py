@@ -33,6 +33,7 @@ async def generate_lesson(
     body: LessonRequest,
     background_tasks: BackgroundTasks,
     current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
     service: LessonService = Depends(get_lesson_service),
 ):
     require_learner_write_for_current_user(current_user, str(body.learner_id))
@@ -55,6 +56,7 @@ async def generate_lesson(
 async def generate_lesson_stream(
     body: LessonRequest,
     current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
     service: LessonService = Depends(get_lesson_service),
 ):
     require_learner_write_for_current_user(current_user, str(body.learner_id))

@@ -8,9 +8,9 @@ routes that do not carry a learner object.
 
 ## Route Matrix Summary
 
-- Routes inspected: 58
-- Covered learner-scoped routes: 40
-- Non-learner-scoped routes: 16
+- Routes inspected: 67
+- Covered learner-scoped routes: 46
+- Non-learner-scoped routes: 19
 - Missing learner authorization markers: 2
 
 ## Key Evidence
@@ -34,9 +34,28 @@ make learner-authz-check
 pytest -c pytest.ini tests/unit/test_phase2_authorization_evidence.py tests/unit/test_check_learner_authz_coverage.py tests/unit/test_phase2_router_import_smoke.py -q --no-cov
 ```
 
+## Operational Auth Boundary Hardening
+
+Operational routes that do not carry a learner object are documented
+separately from learner-object authorization. These files define the
+non-production, admin-only, or authenticated-user boundary for each
+exception class:
+
+- `docs/security/dev_session_environment_gate.md` — present
+- `docs/security/consent_renewal_admin_auth_boundary.md` — present
+- `docs/security/ether_onboarding_questions_auth_boundary.md` — present
+
+Operational boundary hardening stamp: operational exceptions are explicit
+and remain covered by Phase 2 evidence checks.
+
 ## Closure Status
 
 Status: **not closed** — missing learner authorization markers remain.
 
 - `auth.py` `POST /dev-session` via `create_dev_session`
 - `gamification.py` `GET /leaderboard` via `get_leaderboard`
+
+## Closure Stamp
+
+Phase 2 closure evidence is anchored by `make phase2-authz-closure`,
+`make learner-authz-check`, and `make phase2-authz-check`.

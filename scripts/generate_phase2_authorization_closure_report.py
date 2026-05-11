@@ -27,6 +27,12 @@ KEY_EVIDENCE = [
     "docs/security/phase2_authorization_evidence_check.md",
 ]
 
+OPERATIONAL_BOUNDARY_EVIDENCE = [
+    "docs/security/dev_session_environment_gate.md",
+    "docs/security/consent_renewal_admin_auth_boundary.md",
+    "docs/security/ether_onboarding_questions_auth_boundary.md",
+]
+
 
 def _status_counts() -> dict[str, int]:
     counts: dict[str, int] = {}
@@ -79,6 +85,26 @@ def render() -> str:
             "pytest -c pytest.ini tests/unit/test_phase2_authorization_evidence.py tests/unit/test_check_learner_authz_coverage.py tests/unit/test_phase2_router_import_smoke.py -q --no-cov",
             "```",
             "",
+            "## Operational Auth Boundary Hardening",
+            "",
+            "Operational routes that do not carry a learner object are documented",
+            "separately from learner-object authorization. These files define the",
+            "non-production, admin-only, or authenticated-user boundary for each",
+            "exception class:",
+            "",
+        ]
+    )
+
+    for rel_path in OPERATIONAL_BOUNDARY_EVIDENCE:
+        status = "present" if (REPO_ROOT / rel_path).exists() else "missing"
+        lines.append(f"- `{rel_path}` — {status}")
+
+    lines.extend(
+        [
+            "",
+            "Operational boundary hardening stamp: operational exceptions are explicit",
+            "and remain covered by Phase 2 evidence checks.",
+            "",
             "## Closure Status",
             "",
         ]
@@ -91,6 +117,16 @@ def render() -> str:
             lines.append(f"- `{row.router}` `{row.method} {row.path}` via `{row.function}`")
     else:
         lines.append("Status: **closure-ready** — no unallowlisted learner-scoped route is missing an authorization marker.")
+
+    lines.extend(
+        [
+            "",
+            "## Closure Stamp",
+            "",
+            "Phase 2 closure evidence is anchored by `make phase2-authz-closure`,",
+            "`make learner-authz-check`, and `make phase2-authz-check`.",
+        ]
+    )
 
     lines.append("")
     return "\n".join(lines)

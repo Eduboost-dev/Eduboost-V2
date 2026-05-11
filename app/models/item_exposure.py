@@ -11,6 +11,7 @@ from sqlalchemy import (
     Integer,
     String,
     ForeignKey,
+    Index,
     func,
 )
 from sqlalchemy.dialects.postgresql import UUID
@@ -39,6 +40,9 @@ class ItemExposure(Base):
             "answered_at IS NULL OR answered_at >= served_at",
             name="ck_item_exposures_answered_after_served",
         ),
+        Index("ix_item_exposures_learner_item", "learner_id", "item_id"),
+        Index("ix_item_exposures_learner_served_at", "learner_id", "served_at"),
+        Index("ix_item_exposures_session_id", "session_id"),
     )
 
     # --- Identity --------------------------------------------------------
@@ -53,15 +57,11 @@ class ItemExposure(Base):
     )
     learner_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
-        ForeignKey("learner_profiles.id"),
         nullable=False,
-        index=True,
     )
     session_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True),
-        ForeignKey("diagnostic_sessions.id"),
         nullable=True,
-        index=True,
     )
 
     # --- Event data ------------------------------------------------------
