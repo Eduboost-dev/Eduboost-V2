@@ -69,6 +69,18 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## Documentation drift correction plan
 
+## Batch evidence update: PR11 AI safety
+
+- [verify] `P0` Add an aggregate AI-safety release evidence gate for LLM
+  gateway, PII sweep, prompt-input contracts, output schema validation,
+  provider fallback, remediation safety, and refusal fixtures. Evidence:
+  `docs/ai/ai_safety_release_evidence.md`,
+  `scripts/check_ai_safety_release_evidence.py`,
+  `tests/unit/test_ai_safety_release_evidence.py`, and
+  `make ai-safety-release-check` passed on 2026-05-11. Verification gap:
+  live-provider staging checks, educator review, and full CAPS approval remain
+  separate release gates.
+
 - [x] `P0` Split status documentation into "Implemented in code" and
   "Verified by green runtime/CI evidence" categories. Evidence:
   `TODO.md`, `docs/current_state.md`.
