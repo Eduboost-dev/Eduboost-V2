@@ -69,6 +69,17 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## Documentation drift correction plan
 
+## Batch evidence update: PR8 POPIA legal
+
+- [verify] `P0` Add an aggregate POPIA/legal evidence gate for POPIA
+  compliance docs, data-rights docs, retention policy, subprocessor register,
+  legal-document index, consent/audit baseline, and POPIA negative-path tests.
+  Evidence: `docs/legal/popia_legal_evidence.md`,
+  `scripts/check_popia_legal_evidence.py`,
+  `tests/unit/test_popia_legal_evidence.py`, and `make popia-legal-check`
+  passed on 2026-05-11. Verification gap: external legal review, signed policy
+  approval, and staging evidence remain required before public-beta claims.
+
 - [x] `P0` Split status documentation into "Implemented in code" and
   "Verified by green runtime/CI evidence" categories. Evidence:
   `TODO.md`, `docs/current_state.md`.
