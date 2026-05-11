@@ -69,6 +69,17 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## Documentation drift correction plan
 
+## Batch evidence update: PR15 CI/CD staging
+
+- [verify] `P0` Add an aggregate CI/CD and staging evidence gate for workflows,
+  Dockerfiles, Compose, Kubernetes manifests, environment docs, secret docs,
+  deployment readiness, staging release gate, and staging smoke script wiring.
+  Evidence: `docs/operations/cicd_staging_evidence.md`,
+  `scripts/check_cicd_staging_evidence.py`,
+  `tests/unit/test_cicd_staging_evidence.py`, and `make cicd-staging-check`
+  passed on 2026-05-11. Verification gap: branch protection, actual staging
+  deployment, image digest, and live staging smoke output remain open.
+
 - [x] `P0` Split status documentation into "Implemented in code" and
   "Verified by green runtime/CI evidence" categories. Evidence:
   `TODO.md`, `docs/current_state.md`.
