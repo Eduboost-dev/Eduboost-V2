@@ -69,6 +69,17 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## Documentation drift correction plan
 
+## Batch evidence update: PR13 frontend journeys
+
+- [verify] `P0` Add an aggregate frontend journey evidence gate for API client,
+  auth/consent denial UX, learner journey, parent/guardian journey, and fixture
+  coverage. Evidence: `docs/frontend/frontend_journey_evidence.md`,
+  `scripts/check_frontend_journey_evidence.py`,
+  `tests/unit/test_frontend_journey_evidence.py`, and
+  `make frontend-journey-check` passed on 2026-05-11. Verification gap:
+  browser E2E against staging and mobile/accessibility sweeps remain separate
+  gates.
+
 - [x] `P0` Split status documentation into "Implemented in code" and
   "Verified by green runtime/CI evidence" categories. Evidence:
   `TODO.md`, `docs/current_state.md`.
