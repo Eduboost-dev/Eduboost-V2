@@ -69,6 +69,18 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## Documentation drift correction plan
 
+## Batch evidence update: PR10 backup Redis DR
+
+- [verify] `P0` Add an aggregate backup/Redis/DR evidence gate for disaster
+  recovery docs, Redis token-revocation recoverability, backup/restore runbooks,
+  backup and restore commands, and integrity checks. Evidence:
+  `docs/operations/backup_redis_dr_evidence.md`,
+  `scripts/check_backup_redis_dr_evidence.py`,
+  `tests/unit/test_backup_redis_dr_evidence.py`, and
+  `make backup-redis-dr-check` passed on 2026-05-11. Verification gap:
+  scheduled staging restore, Redis outage exercise, and signed RPO/RTO
+  acceptance remain open.
+
 - [x] `P0` Split status documentation into "Implemented in code" and
   "Verified by green runtime/CI evidence" categories. Evidence:
   `TODO.md`, `docs/current_state.md`.
