@@ -108,15 +108,15 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## 0.1 Canonical repo, fork, and branch policy
 
-- [ ] `P0` Confirm canonical source repo in `docs/repository_governance.md`.
-- [ ] `P0` Confirm active branch is `master`.
-- [ ] `P0` Confirm latest valid repo state is identified by the commit message containing `Merge pull request #52`.
-- [ ] `P0` Document relationship between `NkgoloL/Eduboost-V2` and `userxrebornbackup-ux/Eduboost-V2`.
-- [ ] `P0` Document which repo produces official releases.
-- [ ] `P0` Document which repo is allowed to receive production hotfixes.
-- [ ] `P0` Document whether the backup fork is temporary, permanent mirror, or recovery source.
-- [ ] `P0` Stop using raw commit count as the canonical freshness signal.
-- [ ] `P0` Use head SHA + merge marker + release tag + CI evidence as freshness criteria.
+- [verify] `P0` Confirm canonical source repo in `docs/repository_governance.md`. Evidence: `docs/repository_governance.md`, `scripts/verify_repo_state.py`.
+- [verify] `P0` Confirm active branch is `master`. Evidence: `docs/repository_governance.md`, `scripts/verify_repo_state.py`; verification gap: branch protection must be confirmed in GitHub settings.
+- [verify] `P0` Confirm latest valid repo state is identified by the commit message containing `Merge pull request #52`. Evidence: `scripts/verify_repo_state.py`.
+- [verify] `P0` Document relationship between `NkgoloL/Eduboost-V2` and `userxrebornbackup-ux/Eduboost-V2`. Evidence: `docs/repository_governance.md`.
+- [verify] `P0` Document which repo produces official releases. Evidence: `docs/repository_governance.md`.
+- [verify] `P0` Document which repo is allowed to receive production hotfixes. Evidence: `docs/repository_governance.md`.
+- [verify] `P0` Document whether the backup fork is temporary, permanent mirror, or recovery source. Evidence: `docs/repository_governance.md`; verification gap: owner approval record still required.
+- [verify] `P0` Stop using raw commit count as the canonical freshness signal. Evidence: `scripts/verify_repo_state.py`.
+- [verify] `P0` Use head SHA + merge marker + release tag + CI evidence as freshness criteria. Evidence: `scripts/verify_repo_state.py`, `.github/workflows/repo-state.yml`; verification gap: release tag evidence still required at release time.
 - [ ] `P1` Add mirror-sync policy.
 - [ ] `P1` Add fork divergence-detection policy.
 - [ ] `P1` Add fork recovery procedure.
@@ -129,15 +129,15 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## 0.2 Repo-state verification automation
 
-- [ ] `P0` Add `scripts/verify_repo_state.py`.
-- [ ] `P0` Script must verify current git branch is `master`.
-- [ ] `P0` Script must verify remote URL matches accepted canonical or recovery repo.
-- [ ] `P0` Script must verify latest commit message contains the accepted freshness marker.
-- [ ] `P0` Script must print current head SHA.
-- [ ] `P0` Script must fail if working tree is dirty unless `--allow-dirty` is passed.
-- [ ] `P0` Script must fail if run from the wrong repo.
-- [ ] `P1` Add `make verify-repo-state`.
-- [ ] `P1` Add CI step for repo-state verification.
+- [verify] `P0` Add `scripts/verify_repo_state.py`. Evidence: `scripts/verify_repo_state.py`, `tests/unit/test_verify_repo_state.py`.
+- [verify] `P0` Script must verify current git branch is `master`. Evidence: `scripts/verify_repo_state.py`; verification gap: release branch check runs strictly only on release branches.
+- [verify] `P0` Script must verify remote URL matches accepted canonical or recovery repo. Evidence: `scripts/verify_repo_state.py`, `tests/unit/test_verify_repo_state.py`.
+- [verify] `P0` Script must verify latest commit message contains the accepted freshness marker. Evidence: `scripts/verify_repo_state.py`, `tests/unit/test_verify_repo_state.py`.
+- [verify] `P0` Script must print current head SHA. Evidence: `scripts/verify_repo_state.py`.
+- [verify] `P0` Script must fail if working tree is dirty unless `--allow-dirty` is passed. Evidence: `scripts/verify_repo_state.py`, `tests/unit/test_verify_repo_state.py`.
+- [verify] `P0` Script must fail if run from the wrong repo. Evidence: `scripts/verify_repo_state.py`.
+- [verify] `P1` Add `make verify-repo-state`. Evidence: `Makefile`.
+- [verify] `P1` Add CI step for repo-state verification. Evidence: `.github/workflows/repo-state.yml`.
 - [ ] `P1` Add repo-state verification output to release evidence bundle.
 - [ ] `P2` Add JSON output mode to `scripts/verify_repo_state.py`.
 
@@ -181,20 +181,20 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## 1.2 Canonical runtime
 
-- [ ] `P0` Confirm production runtime is `app.api_v2:app`.
-- [ ] `P0` Update all docs to reference `app.api_v2:app`.
+- [verify] `P0` Confirm production runtime is `app.api_v2:app`. Evidence: `scripts/check_runtime_entrypoints.py`, `tests/test_entrypoints.py`.
+- [verify] `P0` Update all docs to reference `app.api_v2:app`. Evidence: `docs/current_state.md`, `docs/pr/PR-002R_BACKEND_RUNTIME_API_CONTRACT.md`, `docs/route_inventory.md`.
 - [ ] `P0` Update Dockerfile command to reference `app.api_v2:app`.
 - [ ] `P0` Update docker-compose command to reference `app.api_v2:app` if command is explicit.
 - [ ] `P0` Update CI smoke test to import `app.api_v2`.
 - [ ] `P0` Update release checklist to require `app.api_v2:app`.
-- [ ] `P0` Add `tests/test_runtime_entrypoints.py`.
-- [ ] `P0` Add test importing `app.api_v2:app`.
+- [verify] `P0` Add runtime entrypoint tests. Evidence: `tests/test_entrypoints.py`, `tests/unit/test_check_runtime_entrypoints.py`.
+- [verify] `P0` Add test importing `app.api_v2:app`. Evidence: `tests/test_entrypoints.py`.
 - [ ] `P0` Add test importing `app.api.main:app`.
-- [ ] `P0` Add test importing `app.legacy.api.main:app`, if legacy shim is retained.
-- [ ] `P0` Ensure compatibility imports resolve to the V2 app or documented shim.
-- [ ] `P0` Test that compatibility shim title/version matches V2 app.
-- [ ] `P0` Test that compatibility shim exposes the same `/health` behavior.
-- [ ] `P0` Test that compatibility shim exposes the same `/ready` behavior.
+- [verify] `P0` Add test importing `app.legacy.api.main:app`, if legacy shim is retained. Evidence: `tests/test_entrypoints.py`.
+- [verify] `P0` Ensure compatibility imports resolve to the V2 app or documented shim. Evidence: `tests/test_entrypoints.py`.
+- [verify] `P0` Test that compatibility shim title/version matches V2 app. Evidence: `scripts/check_runtime_entrypoints.py`, `tests/unit/test_check_runtime_entrypoints.py`.
+- [verify] `P0` Test that compatibility shim exposes the same `/health` behavior. Evidence: `tests/test_entrypoints.py`.
+- [verify] `P0` Test that compatibility shim exposes the same `/ready` behavior. Evidence: `tests/test_entrypoints.py`.
 - [ ] `P1` Add `scripts/check_runtime_entrypoints.py`.
 - [x] `P1` Add `make runtime-check`. Evidence: `Makefile`,
   `scripts/check_runtime_entrypoints.py`.
@@ -202,27 +202,27 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## 1.3 Fix `app/api_v2.py` router registration
 
-- [ ] `P0` Remove duplicate router import blocks from `app/api_v2.py`.
-- [ ] `P0` Move `system.router` registration into the actual router-registration loop.
-- [ ] `P0` Confirm `system.router` is registered under `/api/v2`.
-- [ ] `P0` Confirm `system.router` is registered under `/v2`.
-- [ ] `P0` Remove unreachable/dead router-registration code.
-- [ ] `P0` Add regression test for system routes.
-- [ ] `P0` Add import smoke test:
+- [verify] `P0` Remove duplicate router import blocks from `app/api_v2.py`. Evidence: `app/api_v2.py`.
+- [verify] `P0` Move `system.router` registration into the actual router-registration loop. Evidence: `app/api_v2.py`, `tests/unit/test_api_v2_router_contract.py`.
+- [verify] `P0` Confirm `system.router` is registered under `/api/v2`. Evidence: `tests/unit/test_api_v2_router_contract.py`.
+- [verify] `P0` Confirm `system.router` is registered under `/v2`. Evidence: `tests/unit/test_api_v2_router_contract.py`.
+- [verify] `P0` Remove unreachable/dead router-registration code. Evidence: `app/api_v2.py`.
+- [verify] `P0` Add regression test for system routes. Evidence: `tests/unit/test_api_v2_router_contract.py`.
+- [verify] `P0` Add import smoke test:
   ```bash
   python -c "from app.api_v2 import app; print(app.title)"
   ```
-- [ ] `P0` Add test ensuring all router modules import without side effects.
-- [ ] `P1` Add route inventory test that snapshots all registered routes.
-- [ ] `P1` Commit route inventory artifact under `docs/route_inventory.md`.
+- [verify] `P0` Add test ensuring all router modules import without side effects. Evidence: `tests/unit/test_api_v2_router_contract.py`.
+- [verify] `P1` Add route inventory test that snapshots all registered routes. Evidence: `tests/unit/test_generate_route_inventory.py`.
+- [verify] `P1` Commit route inventory artifact under `docs/route_inventory.md`. Evidence: `docs/route_inventory.md`.
 
 ## 1.4 Legacy route exclusion
 
 - [ ] `P0` Define which routes are V2 production routes.
 - [ ] `P0` Define which routes are legacy-only and forbidden in production.
-- [ ] `P0` Add test proving legacy-only routes are not exposed by `app.api_v2:app`.
-- [ ] `P0` Add test proving archived `app/legacy` code is not mounted.
-- [ ] `P0` Add test proving V1 routers are not included accidentally.
+- [verify] `P0` Add test proving legacy-only routes are not exposed by `app.api_v2:app`. Evidence: `tests/unit/test_api_v2_router_contract.py`, `tests/test_entrypoints.py`.
+- [verify] `P0` Add test proving archived `app/legacy` code is not mounted. Evidence: `tests/test_entrypoints.py`.
+- [verify] `P0` Add test proving V1 routers are not included accidentally. Evidence: `tests/unit/test_api_v2_router_contract.py`.
 - [ ] `P1` Add CI job `legacy-route-guard`.
 - [ ] `P1` Add `docs/legacy_compatibility.md`.
 - [ ] `P2` Remove stale V1 docs or mark them archived.
@@ -525,7 +525,7 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 - [ ] `P0` Add test that support cannot view unnecessary PII.
 - [ ] `P0` Add test that compliance auditor can view audit records without broad data mutation rights.
 - [ ] `P0` Add audit events for privileged access.
-- [ ] `P1` Add policy tests for every router.
+- [verify] `P1` Add policy tests for every router. Evidence: `docs/security/PHASE2_AUTHORIZATION_CLOSURE.md`, `scripts/check_phase2_authorization_evidence.py`, `scripts/check_privacy_boundary_evidence.py`; verification gap: every router still needs item-level reconciliation before this can become `[x]`.
 - [ ] `P1` Move from basic RBAC to policy-based authorization for sensitive workflows.
 - [ ] `P2` Add tightly audited admin impersonation only if absolutely required.
 
@@ -574,21 +574,21 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 ## 4.2 Declarative consent enforcement
 
 - [ ] `P0` Make consent enforcement declarative through FastAPI dependency or middleware.
-- [ ] `P0` Add `scripts/check_consent_gates.py`.
-- [ ] `P0` Identify all learner-data routes.
-- [ ] `P0` Mark consent-required route patterns.
-- [ ] `P0` Fail CI if consent-required route lacks consent gate.
-- [ ] `P0` Add negative test for diagnostics without consent.
-- [ ] `P0` Add negative test for lessons without consent.
-- [ ] `P0` Add negative test for learner profile access without consent.
-- [ ] `P0` Add negative test for study plan access without consent.
-- [ ] `P0` Add negative test for gamification without consent.
+- [verify] `P0` Add consent gate checker. Evidence: `scripts/generate_consent_gate_inventory.py`, `scripts/check_consent_gate_inventory.py`, `make popia-consent-gate-check`.
+- [verify] `P0` Identify all learner-data routes. Evidence: `docs/security/popia_consent_gate_inventory.md`, `docs/security/privacy_boundary_evidence.md`.
+- [verify] `P0` Mark consent-required route patterns. Evidence: `docs/security/popia_consent_boundary_matrix.md`, `scripts/check_popia_consent_boundary_matrix.py`.
+- [verify] `P0` Fail CI if consent-required route lacks consent gate. Evidence: `.github/workflows/privacy-boundary.yml`, `scripts/check_privacy_boundary_evidence.py`; verification gap: required-check enforcement must be configured in GitHub branch protection.
+- [verify] `P0` Add negative test for diagnostics without consent. Evidence: `docs/security/diagnostics_consent_gate.md`, `tests/unit/test_diagnostics_consent_gate_wiring.py`.
+- [verify] `P0` Add negative test for lessons without consent. Evidence: `docs/security/lesson_generation_consent_gate.md`, `tests/unit/test_lesson_generation_consent_gate_wiring.py`.
+- [verify] `P0` Add negative test for learner profile access without consent. Evidence: `docs/security/learner_read_consent_gate.md`, `tests/unit/test_learner_read_consent_gate_wiring.py`.
+- [verify] `P0` Add negative test for study plan access without consent. Evidence: `docs/security/study_plan_consent_gate.md`.
+- [verify] `P0` Add negative test for gamification without consent. Evidence: `docs/security/gamification_consent_gate.md`, `tests/unit/test_gamification_consent_gate_wiring.py`.
 - [ ] `P0` Add negative test for analytics processing without consent.
 - [ ] `P0` Add negative test for RLHF feedback without consent.
 - [ ] `P0` Add negative test for parent reports without consent.
 - [ ] `P0` Add negative test for data export without consent/authority.
 - [ ] `P0` Add negative test for erasure request without authority.
-- [ ] `P1` Add route-level consent policy documentation.
+- [verify] `P1` Add route-level consent policy documentation. Evidence: `docs/security/privacy_boundary_evidence.md`, `docs/security/popia_consent_gate_inventory.md`, `docs/security/popia_consent_boundary_matrix.md`.
 
 ## 4.3 Data subject rights
 
@@ -609,10 +609,10 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 - [ ] `P1` Add admin review queue for billing/school/legal-retention conflicts.
 - [ ] `P1` Add notification to guardian when export is ready.
 - [ ] `P1` Add notification to guardian when erasure completes.
-- [ ] `P1` Add tests for export workflow.
-- [ ] `P1` Add tests for erasure workflow.
-- [ ] `P1` Add tests for correction workflow.
-- [ ] `P1` Add tests for restriction workflow.
+- [verify] `P1` Add tests for export workflow. Evidence: `tests/integration/test_popia_data_export_authorization.py`, `tests/integration/test_parent_export_authorization.py`; verification gap: full export artifact generation still requires release evidence.
+- [verify] `P1` Add tests for erasure workflow. Evidence: `tests/popia/test_right_to_erasure.py`, `tests/integration/test_parent_erasure_authorization.py`, `tests/integration/test_popia_deletion_request_authorization.py`.
+- [verify] `P1` Add tests for correction workflow. Evidence: `tests/integration/test_popia_correction_request_authorization.py`.
+- [verify] `P1` Add tests for restriction workflow. Evidence: `tests/integration/test_popia_restriction_request_authorization.py`.
 
 ## 4.4 Data minimization and inventory
 
@@ -665,7 +665,7 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 - [ ] `P0` Add audit event for admin access.
 - [ ] `P0` Add audit event for billing changes.
 - [ ] `P1` Add immutable retention rules for audit records.
-- [ ] `P1` Add automated audit completeness tests.
+- [verify] `P1` Add automated audit completeness tests. Evidence: `scripts/check_audit_event_contracts.py`, `tests/unit/test_audit_event_contracts.py`, `docs/security/audit_event_contracts.md`; verification gap: staging audit sink evidence still required.
 - [ ] `P1` Build internal audit dashboard.
 
 ## 4.6 Legal/privacy docs
