@@ -175,6 +175,9 @@ database-resilience-env-matrix-check:
 production-restore-approval-check:
 	$(PYTHON) scripts/check_production_restore_approval.py
 
+persistence-resilience-check:
+	$(PYTHON) scripts/check_persistence_resilience_evidence.py
+
 caps-alignment-contract-check:
 	$(PYTHON) scripts/check_caps_alignment_contract.py
 
