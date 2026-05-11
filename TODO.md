@@ -69,6 +69,17 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## Documentation drift correction plan
 
+## Batch evidence update: PR14 accessibility PWA E2E
+
+- [verify] `P0` Add an aggregate accessibility/PWA/E2E evidence gate for
+  accessibility contracts, static scan docs, service worker, manifest, offline
+  sync, and Playwright journey scaffolding. Evidence:
+  `docs/frontend/accessibility_pwa_e2e_evidence.md`,
+  `scripts/check_accessibility_pwa_e2e_evidence.py`,
+  `tests/unit/test_accessibility_pwa_e2e_evidence.py`, and
+  `make accessibility-pwa-e2e-check` passed on 2026-05-11. Verification gap:
+  real-device mobile checks and Playwright runs against staging remain open.
+
 - [x] `P0` Split status documentation into "Implemented in code" and
   "Verified by green runtime/CI evidence" categories. Evidence:
   `TODO.md`, `docs/current_state.md`.
