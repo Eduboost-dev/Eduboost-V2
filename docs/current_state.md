@@ -39,14 +39,16 @@ The current verified truth is narrower: only the checks listed under
   exist.
 - Governance and evidence checks exist for release-readiness contracts, POPIA
   consent boundaries, route inventories, and PR-002R evidence.
-- API envelope and error-contract evidence exists through
-  `docs/api_envelope_contract.md`, `docs/error_contract.md`, and
-  `make api-envelope-error-contract-check`; success-envelope rollout across all
-  routers remains incomplete until router-specific tests prove each response
-  shape.
+- Repository provenance verification exists through
+  `scripts/verify_repo_state.py`, `make verify-repo-state`, and the
+  `.github/workflows/repo-state.yml` workflow.
 - Grade 4 Mathematics item-bank implementation exists with 14 approved starter
   items plus generated candidate content that still requires approval before
   production coverage can be claimed.
+- Learning evidence wiring exists through
+  `docs/learning_science/learning_evidence.md` and
+  `make learning-evidence-check`, with full item-bank approval still listed as
+  a verification gap.
 
 ## Verified By Green Runtime/CI Evidence
 
@@ -60,6 +62,8 @@ correction commit:
 - YAML parsing for every `.github/workflows/*.yml` with PyYAML.
 - `make beta-release-readiness-contract-check`, scoped to documentation
   contract wording only.
+- `pytest tests/unit/test_verify_repo_state.py -q --no-cov` validates the
+  repo-state checker contract.
 
 These checks still require fresh verification before release promotion:
 
