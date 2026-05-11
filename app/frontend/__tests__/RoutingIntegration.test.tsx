@@ -33,6 +33,24 @@ vi.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams("subject=MATH&topic=Fractions"),
 }));
 
+const serviceMocks = vi.hoisted(() => ({
+  getMastery: vi.fn(),
+  getGamificationProfile: vi.fn(),
+  generateLesson: vi.fn(),
+  markLessonComplete: vi.fn(),
+  awardXP: vi.fn(),
+}));
+
+vi.mock("../src/lib/api/services", () => ({
+  LearnerService: {
+    getMastery: serviceMocks.getMastery,
+    getGamificationProfile: serviceMocks.getGamificationProfile,
+    generateLesson: serviceMocks.generateLesson,
+    markLessonComplete: serviceMocks.markLessonComplete,
+    awardXP: serviceMocks.awardXP,
+  },
+}));
+
 // Mock the components used in pages to avoid massive dependency chain
 vi.mock("../src/components/eduboost/FeaturePanels", () => {
   const DashboardPanel = ({ onStartLesson, onStartDiag }: DashboardPanelProps) => (
@@ -60,28 +78,38 @@ vi.mock("../src/components/eduboost/InteractiveDiagnostic", () => {
   return { __esModule: true, InteractiveDiagnostic, default: { InteractiveDiagnostic } };
 });
 
+vi.mock("../src/components/eduboost/InteractiveLesson", () => {
+  const InteractiveLesson = ({ onComplete, onBack }: LessonPanelProps) => (
+    <div>
+      <button onClick={onComplete}>Complete Lesson</button>
+      <button onClick={onBack}>Back</button>
+    </div>
+  );
+  return { __esModule: true, default: InteractiveLesson };
+});
+
 describe("Routing Integration", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.spyOn(LearnerService, "getMastery").mockResolvedValue({
+    serviceMocks.getMastery.mockResolvedValue({
       learner_id: "learner-1",
       mastery: [{ subject_code: "MATH", mastery_score: 0.75 }],
     });
-    vi.spyOn(LearnerService, "getGamificationProfile").mockResolvedValue({
+    serviceMocks.getGamificationProfile.mockResolvedValue({
       learner_id: "learner-1",
       total_xp: 80,
       level: 2,
       streak_days: 4,
       earned_badges: [],
     });
-    vi.spyOn(LearnerService, "generateLesson").mockResolvedValue({
+    serviceMocks.generateLesson.mockResolvedValue({
       id: "lesson-1",
       title: "Fractions",
       content: "A quick fractions lesson.",
       summary: "Fractions made friendly.",
     });
-    vi.spyOn(LearnerService, "markLessonComplete").mockResolvedValue({ detail: "completed" });
-    vi.spyOn(LearnerService, "awardXP").mockResolvedValue({
+    serviceMocks.markLessonComplete.mockResolvedValue({ detail: "completed" });
+    serviceMocks.awardXP.mockResolvedValue({
       awarded: true,
       xp_amount: 35,
       lesson_completed: true,
@@ -106,8 +134,7 @@ describe("Routing Integration", () => {
       </LearnerProvider>
     );
 
-    await waitFor(() => screen.getByText("Start New Lesson"));
-    fireEvent.click(screen.getByText("Start New Lesson"));
+    fireEvent.click(await screen.findByText("Start New Lesson"));
     expect(mockPush).toHaveBeenCalledWith("/lesson");
 
     fireEvent.click(screen.getByText("Take Assessment"));
@@ -118,19 +145,22 @@ describe("Routing Integration", () => {
     window.localStorage.clear();
   });
 
-  it("Lesson completion routes back to /dashboard", async () => {
+  it("Lesson page completion routes back to /dashboard", async () => {
     render(
       <LearnerProvider>
         <LessonPage />
       </LearnerProvider>
     );
 
-    await waitFor(() => screen.getByText("Start Adventure"));
+    fireEvent.click(await screen.findByText("Mathematics"));
+    fireEvent.click(await screen.findByText("Fractions"));
     fireEvent.click(screen.getByText("Start Adventure"));
 
-    await waitFor(() => screen.getByText("Claim My Stars!"));
-    fireEvent.click(screen.getByText("Claim My Stars!"));
+    fireEvent.click(await screen.findByText("Complete Lesson"));
     await waitFor(() => expect(mockPush).toHaveBeenCalledWith("/dashboard"));
+    expect(serviceMocks.markLessonComplete).toHaveBeenCalledWith("lesson-1");
+    expect(serviceMocks.awardXP).toHaveBeenCalledWith(expect.objectContaining({ learner_id: "learner-1", xp_amount: 35 }));
+    expect(mockPush).toHaveBeenCalledWith("/dashboard");
   });
 
   it("Diagnostic page routes to /plan and /dashboard", () => {
