@@ -39,6 +39,9 @@ The current verified truth is narrower: only the checks listed under
   exist.
 - Governance and evidence checks exist for release-readiness contracts, POPIA
   consent boundaries, route inventories, and PR-002R evidence.
+- Frontend journey evidence is indexed by
+  `docs/frontend/frontend_journey_evidence.md` and checked by
+  `make frontend-journey-check`; staging browser E2E remains open.
 - Grade 4 Mathematics item-bank implementation exists with 14 approved starter
   items plus generated candidate content that still requires approval before
   production coverage can be claimed.
