@@ -229,21 +229,21 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## 1.5 API response envelope
 
-- [ ] `P0` Create `app/domain/api_v2_models.py`.
-- [ ] `P0` Define `ApiMeta` model.
-- [ ] `P0` Define `ApiError` model.
-- [ ] `P0` Define `ApiEnvelope[T]` model.
-- [ ] `P0` Define `PaginationMeta` model.
-- [ ] `P0` Define success envelope helper `ok`.
-- [ ] `P0` Define error envelope helper `fail`.
-- [ ] `P0` Define pagination envelope helper `paginated`.
-- [ ] `P0` Include `request_id` in every envelope.
-- [ ] `P0` Include `api_version` in every envelope.
-- [ ] `P0` Ensure `error` is `null` on success.
-- [ ] `P0` Ensure `data` is `null` on error.
-- [ ] `P0` Add unit tests for `ok`.
-- [ ] `P0` Add unit tests for `fail`.
-- [ ] `P0` Add unit tests for `paginated`.
+- [verify] `P0` Create `app/domain/api_v2_models.py`. Evidence: `app/domain/api_v2_models.py`, `tests/unit/test_api_v2_envelope.py`.
+- [verify] `P0` Define `ApiMeta` model. Evidence: `app/domain/api_v2_models.py`.
+- [verify] `P0` Define `ApiError` model. Evidence: `app/domain/api_v2_models.py`.
+- [verify] `P0` Define `ApiEnvelope[T]` model. Evidence: `app/domain/api_v2_models.py`.
+- [verify] `P0` Define `PaginationMeta` model. Evidence: `app/domain/api_v2_models.py`.
+- [verify] `P0` Define success envelope helper `ok`. Evidence: `app/domain/api_v2_models.py`, `tests/unit/test_api_v2_envelope.py`.
+- [verify] `P0` Define error envelope helper `fail`. Evidence: `app/domain/api_v2_models.py`, `tests/unit/test_api_v2_envelope.py`.
+- [verify] `P0` Define pagination envelope helper `paginated`. Evidence: `app/domain/api_v2_models.py`, `tests/unit/test_api_v2_envelope.py`.
+- [verify] `P0` Include `request_id` in every envelope. Evidence: `app/domain/api_v2_models.py`, `tests/unit/test_api_v2_envelope.py`.
+- [verify] `P0` Include `api_version` in every envelope. Evidence: `app/domain/api_v2_models.py`, `tests/unit/test_api_v2_envelope.py`.
+- [verify] `P0` Ensure `error` is `null` on success. Evidence: `tests/unit/test_api_v2_envelope.py`.
+- [verify] `P0` Ensure `data` is `null` on error. Evidence: `tests/unit/test_api_v2_envelope.py`, `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Add unit tests for `ok`. Evidence: `tests/unit/test_api_v2_envelope.py`.
+- [verify] `P0` Add unit tests for `fail`. Evidence: `tests/unit/test_api_v2_envelope.py`.
+- [verify] `P0` Add unit tests for `paginated`. Evidence: `tests/unit/test_api_v2_envelope.py`.
 - [ ] `P0` Apply envelope to auth router.
 - [ ] `P0` Apply envelope to learners router.
 - [ ] `P0` Apply envelope to lessons router.
@@ -259,37 +259,37 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 - [ ] `P0` Apply envelope to jobs router.
 - [ ] `P0` Apply envelope to system router.
 - [ ] `P1` Add lint/test rule preventing raw dict responses from production routers unless explicitly exempted.
-- [ ] `P1` Add docs examples for success envelope.
-- [ ] `P1` Add docs examples for error envelope.
-- [ ] `P1` Add docs examples for pagination envelope.
+- [verify] `P1` Add docs examples for success envelope. Evidence: `docs/api_envelope_contract.md`.
+- [verify] `P1` Add docs examples for error envelope. Evidence: `docs/api_envelope_contract.md`, `docs/error_contract.md`.
+- [verify] `P1` Add docs examples for pagination envelope. Evidence: `docs/api_envelope_contract.md`.
 
 ## 1.6 API error contract
 
-- [ ] `P0` Update `app/core/exceptions.py` to emit canonical error envelope.
-- [ ] `P0` Include machine-readable error code.
-- [ ] `P0` Include human-readable message.
-- [ ] `P0` Include field errors when validation fails.
-- [ ] `P0` Include remediation hint when useful.
-- [ ] `P0` Include request ID.
-- [ ] `P0` Prevent sensitive exception details from leaking.
-- [ ] `P0` Implement error code `validation_error`.
-- [ ] `P0` Implement error code `unauthorized`.
-- [ ] `P0` Implement error code `forbidden`.
-- [ ] `P0` Implement error code `not_found`.
-- [ ] `P0` Implement error code `conflict`.
-- [ ] `P0` Implement error code `rate_limited`.
-- [ ] `P0` Implement error code `consent_required`.
-- [ ] `P0` Implement error code `consent_expired`.
-- [ ] `P0` Implement error code `dependency_unavailable`.
-- [ ] `P0` Implement error code `internal_error`.
-- [ ] `P0` Add tests for all error codes.
-- [ ] `P0` Add tests for validation errors.
-- [ ] `P0` Add tests for auth errors.
-- [ ] `P0` Add tests for authorization errors.
-- [ ] `P0` Add tests for consent errors.
-- [ ] `P0` Add tests for rate-limit errors.
-- [ ] `P0` Add tests proving internal exceptions hide details in production.
-- [ ] `P1` Add `docs/error_contract.md`.
+- [verify] `P0` Update `app/core/exceptions.py` to emit canonical error envelope. Evidence: `app/core/exceptions.py`, `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Include machine-readable error code. Evidence: `app/core/exceptions.py`, `docs/error_contract.md`.
+- [verify] `P0` Include human-readable message. Evidence: `app/core/exceptions.py`, `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Include field errors when validation fails. Evidence: `app/core/exceptions.py`, `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Include remediation hint when useful. Evidence: `app/core/exceptions.py`, `docs/api_envelope_contract.md`.
+- [verify] `P0` Include request ID. Evidence: `app/core/exceptions.py`, `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Prevent sensitive exception details from leaking. Evidence: `app/core/exceptions.py`, `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Implement error code `validation_error`. Evidence: `docs/error_contract.md`, `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Implement error code `unauthorized`. Evidence: `docs/error_contract.md`, `app/core/exceptions.py`.
+- [verify] `P0` Implement error code `forbidden`. Evidence: `docs/error_contract.md`, `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Implement error code `not_found`. Evidence: `docs/error_contract.md`, `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Implement error code `conflict`. Evidence: `docs/error_contract.md`, `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Implement error code `rate_limited`. Evidence: `docs/error_contract.md`, `app/core/exceptions.py`.
+- [verify] `P0` Implement error code `consent_required`. Evidence: `docs/error_contract.md`, `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Implement error code `consent_expired`. Evidence: `docs/error_contract.md`, `app/core/exceptions.py`.
+- [verify] `P0` Implement error code `dependency_unavailable`. Evidence: `docs/error_contract.md`, `app/core/exceptions.py`.
+- [verify] `P0` Implement error code `internal_error`. Evidence: `docs/error_contract.md`, `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Add tests for all error codes. Evidence: `tests/unit/test_api_envelope_error_contract.py`; verification gap: executable endpoint tests still cover a representative subset.
+- [verify] `P0` Add tests for validation errors. Evidence: `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Add tests for auth errors. Evidence: `app/core/exceptions.py`, `docs/error_contract.md`; verification gap: endpoint-level auth error tests remain router-specific.
+- [verify] `P0` Add tests for authorization errors. Evidence: `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Add tests for consent errors. Evidence: `tests/unit/test_exception_envelopes.py`.
+- [verify] `P0` Add tests for rate-limit errors. Evidence: `app/core/exceptions.py`; verification gap: executable rate-limit handler test remains open.
+- [verify] `P0` Add tests proving internal exceptions hide details in production. Evidence: `tests/unit/test_exception_envelopes.py`.
+- [verify] `P1` Add `docs/error_contract.md`. Evidence: `docs/error_contract.md`.
 
 ## 1.7 OpenAPI generation and contract
 
