@@ -39,6 +39,10 @@ The current verified truth is narrower: only the checks listed under
   exist.
 - Governance and evidence checks exist for release-readiness contracts, POPIA
   consent boundaries, route inventories, and PR-002R evidence.
+- A privacy-boundary evidence index and aggregate check exist for
+  object-authorization, consent-gate, POPIA data-rights, and audit evidence:
+  `docs/security/privacy_boundary_evidence.md` and
+  `make privacy-boundary-check`.
 - Grade 4 Mathematics item-bank implementation exists with 14 approved starter
   items plus generated candidate content that still requires approval before
   production coverage can be claimed.
