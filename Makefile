@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 PYTHON ?= python3
 
-.PHONY: help dev test lint typecheck migrate docs clean migration-check schema-integrity migration-smoke openapi openapi-check route-inventory route-inventory-check runtime-check verify-repo-state pr002r-check beta-release-readiness-contract-check api-envelope-error-contract-check release-candidate-evidence-sweep-check phase2-authz-check popia-legal-check caps-learning-proof-check frontend-journey-check accessibility-pwa-e2e-check observability-ops-check
+.PHONY: help dev test lint typecheck migrate docs clean migration-check schema-integrity migration-smoke openapi openapi-check route-inventory route-inventory-check runtime-check verify-repo-state pr002r-check beta-release-readiness-contract-check api-envelope-error-contract-check release-candidate-evidence-sweep-check frontend-verification-evidence-check phase2-authz-check popia-legal-check caps-learning-proof-check frontend-journey-check accessibility-pwa-e2e-check observability-ops-check
 
 help:
 	@echo "Available commands:"
@@ -20,6 +20,7 @@ help:
 	@echo "  pr002r-check   - Verify PR-002R evidence bundle"
 	@echo "  beta-release-readiness-contract-check - Verify release-readiness docs contract wording"
 	@echo "  release-candidate-evidence-sweep-check - Verify release-candidate evidence sweep"
+	@echo "  frontend-verification-evidence-check - Verify frontend verification evidence"
 	@echo "  clean           - Remove temporary files"
 
 dev:
@@ -67,6 +68,9 @@ beta-release-readiness-contract-check:
 
 release-candidate-evidence-sweep-check:
 	$(PYTHON) scripts/check_release_candidate_evidence_sweep.py
+
+frontend-verification-evidence-check:
+	$(PYTHON) scripts/check_frontend_verification_evidence.py
 
 api-envelope-error-contract-check:
 	$(PYTHON) scripts/check_api_envelope_error_contract.py
@@ -381,7 +385,7 @@ cluster-h-release-evidence-checksum-index-check:
 	$(PYTHON) scripts/check_cluster_h_release_evidence_checksum_index.py
 
 cluster-h-terminal-closure-assertion-check:
-	$(PYTHON) scripts/check_cluster_h_terminal_closure_assertion.py
+	$(PYTHON) scripts/check_terminal_closure_assertion.py
 
 evidence-archive-completeness-guard-check:
 	$(PYTHON) scripts/check_evidence_archive_completeness_guard.py
