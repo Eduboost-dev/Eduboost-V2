@@ -29,3 +29,10 @@ data/caps/*
 artifacts/llm/
 # Sensitive keys
 *.pem
+coverage.xml
+.hypothesis/
+htmlcov/
+playwright-report/
+test-results/
+temp/
+.mypy_cache/

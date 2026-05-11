@@ -452,3 +452,111 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster H Operational Release Controls
 
 - Cluster H operational release controls added: sign-off manifest, rollback runbook, and post-deploy smoke checklist.
+
+## Cluster H Release Bundle Approval Closure
+
+- Cluster H release bundle, approval workflow, tag manifest, and closure check added.
+
+## Cluster H Final Project Release Closure
+
+- Cluster H final project release closure, retention, and checklist evidence added.
+
+## Cluster H Release Hygiene and PR Closeout
+
+- Cluster H release hygiene and PR closeout evidence added.
+
+## Cluster H Execution PR Verification
+
+- Cluster H beta release execution plan, PR body, and final verification bundle added.
+
+## Cluster H Release State Consistency Merge Readiness
+
+- Cluster H release state snapshot, evidence consistency, and final PR merge readiness added.
+
+## Cluster H Post-Merge Governance Handoff
+
+- Cluster H post-merge governance, owner accountability, and release decision log added.
+
+## Cluster H Audit Attestation Rollup
+
+- Cluster H release audit trail, closure attestation, and final closeout rollup added.
+
+## Cluster H Freeze Change-Control Operator Packet
+
+- Cluster H release freeze, change-control exception, and final beta operator packet evidence added.
+
+## Cluster H Communications Monitoring Support
+
+- Cluster H beta communications, monitoring trigger, and participant support handoff evidence added.
+
+## Cluster H Feedback Issues Acceptance
+
+- Cluster H beta feedback intake, known issues, and acceptance exit criteria evidence added.
+
+## Cluster H Outcome Retrospective Archive
+
+- Cluster H beta outcome report, retrospective action, and post-beta evidence archive evidence added.
+
+## Cluster H Governance Seal Terminal Closure
+
+- Cluster H beta governance seal, final index, and terminal closure assertion evidence added.
+
+## Cluster H Post-Terminal Handoff Archive Audit
+
+- Cluster H post-terminal handoff, archive completeness, and audit readiness evidence added.
+
+## Cluster H Execution Guardrail Closeout Checksum
+
+- Cluster H release-owner execution guardrail, final project closeout attestation, and evidence checksum index added.
+
+## Cluster H Merge Signoff Post-Closeout No-Op
+
+- Cluster H final merge signoff, release-owner post-closeout decision, and no-op execution assertion evidence added.
+
+## Cluster H Ledger Variance Maintenance
+
+- Cluster H final release evidence ledger, frozen scope variance register, and post-closeout maintenance boundary added.
+
+## Cluster H Acceptance Packet Handoff Freeze Access Policy
+
+- Cluster H final acceptance packet, handoff freeze assertion, and post-closeout evidence access policy added.
+
+## Cluster H Archival Lock PR-Ready TOC
+
+- Cluster H archival lock assertion, PR-ready final closure certificate, and final release evidence table of contents added.
+
+## Cluster H Reviewer Pack Merge-Control Retention
+
+- Cluster H final reviewer pack, merge-control evidence gate, and release evidence retention finalization added.
+
+## Cluster H Readiness Rollup Freeze Merge Summary
+
+- Cluster H final release readiness rollup, evidence freeze confirmation record, and PR merge evidence summary added.
+
+## Cluster H Acceptance Memo Record Closure Continuity
+
+- Cluster H final acceptance memo, release record closure ledger, and post-merge evidence continuity note added.
+
+## Cluster H Closure Manifest Branch Handoff Reviewer Decision
+
+- Cluster H final closure manifest, branch handoff proof record, and reviewer decision capture template added.
+
+## Cluster H Reviewer Disposition Terminal Seal PR Handoff
+
+- Cluster H final reviewer disposition record, terminal evidence seal, and final PR handoff summary added.
+
+## Cluster H Operator Brief Terminal Review Sealed Access
+
+- Cluster H final release operator brief, terminal review index, and sealed evidence access handoff added.
+
+## Cluster H Reviewer Closeout Audit Handoff Terminal PR Index
+
+- Cluster H sealed reviewer closeout packet, final audit handoff register, and terminal PR evidence index added.
+
+## Cluster H Sealed Package Audit Review Terminal Handoff
+
+- Cluster H final sealed package manifest, audit review closeout certificate, and terminal handoff closure note added.
+
+## Cluster H Archive Accession Custody Retrieval
+
+- Cluster H final archive accession record, post-closeout custody register, and terminal evidence retrieval guide added.
