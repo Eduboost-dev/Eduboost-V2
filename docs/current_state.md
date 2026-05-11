@@ -39,6 +39,9 @@ The current verified truth is narrower: only the checks listed under
   exist.
 - Governance and evidence checks exist for release-readiness contracts, POPIA
   consent boundaries, route inventories, and PR-002R evidence.
+- CI/CD and staging evidence is indexed by
+  `docs/operations/cicd_staging_evidence.md` and checked by
+  `make cicd-staging-check`; live staging evidence remains open.
 - Grade 4 Mathematics item-bank implementation exists with 14 approved starter
   items plus generated candidate content that still requires approval before
   production coverage can be claimed.
