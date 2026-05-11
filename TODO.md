@@ -12,6 +12,7 @@ Merge pull request #52 from NkgoloL/chore/slow-query-logging
 **Primary runtime:** `app.api_v2:app`  
 **Frontend:** `app/frontend`  
 **Production-readiness rule:** no item is considered complete unless there is implementation evidence and verification evidence.
+**Execution roadmap:** `docs/production_readiness_roadmap.md`
 
 ---
 
