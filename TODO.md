@@ -108,15 +108,15 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## 0.1 Canonical repo, fork, and branch policy
 
-- [ ] `P0` Confirm canonical source repo in `docs/repository_governance.md`.
-- [ ] `P0` Confirm active branch is `master`.
-- [ ] `P0` Confirm latest valid repo state is identified by the commit message containing `Merge pull request #52`.
-- [ ] `P0` Document relationship between `NkgoloL/Eduboost-V2` and `userxrebornbackup-ux/Eduboost-V2`.
-- [ ] `P0` Document which repo produces official releases.
-- [ ] `P0` Document which repo is allowed to receive production hotfixes.
-- [ ] `P0` Document whether the backup fork is temporary, permanent mirror, or recovery source.
-- [ ] `P0` Stop using raw commit count as the canonical freshness signal.
-- [ ] `P0` Use head SHA + merge marker + release tag + CI evidence as freshness criteria.
+- [verify] `P0` Confirm canonical source repo in `docs/repository_governance.md`. Evidence: `docs/repository_governance.md`, `scripts/verify_repo_state.py`.
+- [verify] `P0` Confirm active branch is `master`. Evidence: `docs/repository_governance.md`, `scripts/verify_repo_state.py`; verification gap: branch protection must be confirmed in GitHub settings.
+- [verify] `P0` Confirm latest valid repo state is identified by the commit message containing `Merge pull request #52`. Evidence: `scripts/verify_repo_state.py`.
+- [verify] `P0` Document relationship between `NkgoloL/Eduboost-V2` and `userxrebornbackup-ux/Eduboost-V2`. Evidence: `docs/repository_governance.md`.
+- [verify] `P0` Document which repo produces official releases. Evidence: `docs/repository_governance.md`.
+- [verify] `P0` Document which repo is allowed to receive production hotfixes. Evidence: `docs/repository_governance.md`.
+- [verify] `P0` Document whether the backup fork is temporary, permanent mirror, or recovery source. Evidence: `docs/repository_governance.md`; verification gap: owner approval record still required.
+- [verify] `P0` Stop using raw commit count as the canonical freshness signal. Evidence: `scripts/verify_repo_state.py`.
+- [verify] `P0` Use head SHA + merge marker + release tag + CI evidence as freshness criteria. Evidence: `scripts/verify_repo_state.py`, `.github/workflows/repo-state.yml`; verification gap: release tag evidence still required at release time.
 - [ ] `P1` Add mirror-sync policy.
 - [ ] `P1` Add fork divergence-detection policy.
 - [ ] `P1` Add fork recovery procedure.
@@ -129,15 +129,15 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## 0.2 Repo-state verification automation
 
-- [ ] `P0` Add `scripts/verify_repo_state.py`.
-- [ ] `P0` Script must verify current git branch is `master`.
-- [ ] `P0` Script must verify remote URL matches accepted canonical or recovery repo.
-- [ ] `P0` Script must verify latest commit message contains the accepted freshness marker.
-- [ ] `P0` Script must print current head SHA.
-- [ ] `P0` Script must fail if working tree is dirty unless `--allow-dirty` is passed.
-- [ ] `P0` Script must fail if run from the wrong repo.
-- [ ] `P1` Add `make verify-repo-state`.
-- [ ] `P1` Add CI step for repo-state verification.
+- [verify] `P0` Add `scripts/verify_repo_state.py`. Evidence: `scripts/verify_repo_state.py`, `tests/unit/test_verify_repo_state.py`.
+- [verify] `P0` Script must verify current git branch is `master`. Evidence: `scripts/verify_repo_state.py`; verification gap: release branch check runs strictly only on release branches.
+- [verify] `P0` Script must verify remote URL matches accepted canonical or recovery repo. Evidence: `scripts/verify_repo_state.py`, `tests/unit/test_verify_repo_state.py`.
+- [verify] `P0` Script must verify latest commit message contains the accepted freshness marker. Evidence: `scripts/verify_repo_state.py`, `tests/unit/test_verify_repo_state.py`.
+- [verify] `P0` Script must print current head SHA. Evidence: `scripts/verify_repo_state.py`.
+- [verify] `P0` Script must fail if working tree is dirty unless `--allow-dirty` is passed. Evidence: `scripts/verify_repo_state.py`, `tests/unit/test_verify_repo_state.py`.
+- [verify] `P0` Script must fail if run from the wrong repo. Evidence: `scripts/verify_repo_state.py`.
+- [verify] `P1` Add `make verify-repo-state`. Evidence: `Makefile`.
+- [verify] `P1` Add CI step for repo-state verification. Evidence: `.github/workflows/repo-state.yml`.
 - [ ] `P1` Add repo-state verification output to release evidence bundle.
 - [ ] `P2` Add JSON output mode to `scripts/verify_repo_state.py`.
 
