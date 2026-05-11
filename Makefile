@@ -201,12 +201,14 @@ remediation-safety-contract-check:
 cluster-f-closure-check:
 	$(PYTHON) scripts/check_cluster_f_closure.py
 
+ai-output-fixture-validation-check:
+	$(PYTHON) scripts/validate_ai_output_fixtures.py
 
-lesson-generate:
-	$(PYTHON) scripts/lessons/generate_lessons.py --caps-ref $(CAPS_REF) --n-lessons $(N) --difficulty $(DIFFICULTY)
+ai-prompt-surface-inventory:
+	$(PYTHON) scripts/generate_ai_prompt_surface_inventory.py
 
-lesson-validate:
-	$(PYTHON) scripts/lessons/validate_lessons.py --caps-ref $(CAPS_REF)
+ai-prompt-surface-inventory-check:
+	$(PYTHON) scripts/check_ai_prompt_surface_inventory.py
 
 lesson-bank-check:
 	$(PYTHON) scripts/ci/ci_lesson_bank_check.py

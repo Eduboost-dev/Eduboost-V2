@@ -57,3 +57,15 @@
 - `make cluster-e-closure-check`
 - `make cluster-f-closure-check`
 - `make cluster-g-closure-check`
+
+## Final Project Closure Evidence
+
+- `docs/operations/release_artifact_retention_contract.md`
+- `docs/operations/beta_release_final_checklist.md`
+- `docs/operations/project_release_closure_index.md`
+
+## Release Hygiene and PR Closeout Evidence
+
+- `docs/operations/generated_artifact_hygiene_contract.md`
+- `docs/operations/branch_sync_rebase_checklist.md`
+- `docs/operations/pr_closeout_evidence_checklist.md`
