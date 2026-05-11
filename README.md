@@ -15,7 +15,10 @@ imports and controlled migration behavior.
 - `app/api_v2.py` is the active backend entrypoint for new work.
 - `docker compose up --build` is the default local stack and points at the V2
   runtime.
-- The current PR-002R work establishes the V2 runtime and API contract baseline; production readiness still depends on the remaining security, POPIA, CI/CD, backup/restore, AI-safety, frontend, staging, and release-evidence gates.
+- The merged PR-002R and production-readiness evidence work establishes the V2
+  runtime and API contract baseline; production readiness still depends on
+  fresh security, POPIA, CI/CD, backup/restore, AI-safety, frontend, staging,
+  and release-evidence verification.
 - Legacy code has been archived behind compatibility shims under
   [`app/legacy`](/app/legacy/DEPRECATED.md) and [`app/legacy/api/main.py`](/app/legacy/api/main.py).
 - Redis is used for caching, token revocation, and background job status.

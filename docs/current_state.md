@@ -20,6 +20,11 @@ Compose assets, governance scripts, and release-evidence documents.
 The current verified truth is narrower: only the checks listed under
 "Verified by green runtime/CI evidence" may be used as readiness claims.
 
+The 2026-05-11 technical state refresh confirms that the PR1 through PR16
+production-readiness evidence train has been merged into `master`. Those merges
+improve the evidence baseline, but they do not convert the project into a
+public-beta-ready or production-ready release.
+
 ## Implemented In Code
 
 - Canonical backend runtime: `app.api_v2:app`.
@@ -52,11 +57,15 @@ The current verified truth is narrower: only the checks listed under
 
 ## Verified By Green Runtime/CI Evidence
 
-These checks passed locally on 2026-05-11 for the documentation-drift
-correction commit:
+These checks passed locally on 2026-05-11 for the refreshed technical-state
+assessment:
 
 - `make runtime-check`
 - `make openapi-check`
+- `make route-inventory-check`
+- `make migration-check`
+- `make popia-consent-gate-check`
+- `make diagnostics-assessment-check`
 - `pytest tests/smoke tests/test_entrypoints.py tests/test_health_checks.py -q --no-cov`
   with 35 passed and 4 skipped.
 - YAML parsing for every `.github/workflows/*.yml` with PyYAML.
@@ -105,6 +114,8 @@ These documents are retained for traceability but are not current-state truth:
 - `EduBoost_Technical_Status_Report.md`
 - `INTEGRATION_COMPLETE.md`
 - `PR_INTEGRATION_SUMMARY.md`
+- `docs/technical_state_report_2026-05-11.md` is a refreshed dated assessment,
+  not a permanent source of truth after subsequent code changes.
 - Cluster closure and release evidence files under `docs/operations/`
 - Archived audit and roadmap files under `audits/`
 

@@ -3,16 +3,21 @@
 This page is retained as a project-status index. The canonical current-state
 source of truth is [`docs/current_state.md`](current_state.md).
 
-This page summarizes the verified repository state as of **2026-05-10** and is
-superseded by `docs/current_state.md` for release-readiness claims.
+This page summarizes historical verified repository state and is superseded by
+`docs/current_state.md` and the refreshed
+[`docs/technical_state_report_2026-05-11.md`](technical_state_report_2026-05-11.md)
+for current release-readiness claims.
 
 ## Current Verified Baseline
 
 EduBoost V2 is in a **production-readiness implementation phase**, not a public-beta-ready state.
 
-The current PR-002R work establishes the backend runtime and API contract baseline:
+The merged PR-002R and production-readiness evidence work establishes the
+backend runtime and API contract baseline:
 
 - Canonical production branch: `master`.
+- The PR1 through PR16 production-readiness evidence train has been merged into
+  `master`; it is no longer pending branch work.
 - Canonical backend runtime: `app.api_v2:app`.
 - Freshness marker for the baseline that started this work: `Merge pull request #52 from NkgoloL/chore/slow-query-logging`.
 - The V2 runtime imports cleanly from `app.api_v2:app`.
@@ -23,6 +28,9 @@ The current PR-002R work establishes the backend runtime and API contract baseli
 - Global exception handlers emit the V2 error envelope.
 - `docs/openapi.json` is generated from `app.api_v2:app`.
 - `make openapi-check` verifies the committed OpenAPI schema has not drifted.
+- `make route-inventory-check`, `make migration-check`, `make
+  popia-consent-gate-check`, and `make diagnostics-assessment-check` passed in
+  the 2026-05-11 technical state refresh.
 - The OpenAPI drift workflow targets `master` and `release/**`, not `main`.
 
 - Diagnostics assessment section 4 is implemented on the integration branch: IRT hardening, diagnostic session recovery/lifecycle services, mastery snapshots, adaptive practice, spaced repetition, calibration, bias review routing, and learning-science docs are present. Targeted non-DB diagnostics tests pass locally; DB-backed item-bank CI still requires a valid local Postgres credential to run.

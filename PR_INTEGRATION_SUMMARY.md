@@ -1,5 +1,10 @@
 # PR Integration Summary (2026-05-08)
 
+> Historical snapshot notice: this file describes an earlier integration event.
+> It is retained for traceability, but it is not the current release-readiness
+> source of truth. Current status lives in `docs/current_state.md` and the
+> refreshed `docs/technical_state_report_2026-05-11.md`.
+
 Successfully integrated 8 PRs into main codebase:
 
 ## PR-001: Repository Governance & Backlog Hygiene ✅
