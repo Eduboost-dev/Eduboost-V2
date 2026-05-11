@@ -69,6 +69,18 @@ CI job, staging run, or release-evidence artifact proving the exact claim.
 
 ## Documentation drift correction plan
 
+## Batch evidence update: PR9 DB repositories
+
+- [verify] `P0` Add an aggregate database/repository evidence gate for
+  migration graph checks, schema integrity, repository pattern tests, and
+  repository documentation. Evidence:
+  `docs/database/db_repository_evidence.md`,
+  `scripts/check_db_repository_evidence.py`,
+  `tests/unit/test_db_repository_evidence.py`, and
+  `make db-repository-check` passed on 2026-05-11. Verification gap:
+  disposable PostgreSQL migration smoke, transaction rollback tests for every
+  high-risk workflow, and production-like data-volume checks remain open.
+
 - [x] `P0` Split status documentation into "Implemented in code" and
   "Verified by green runtime/CI evidence" categories. Evidence:
   `TODO.md`, `docs/current_state.md`.
