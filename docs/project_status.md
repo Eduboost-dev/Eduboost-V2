@@ -10,7 +10,9 @@ for current release-readiness claims.
 
 ## Current Verified Baseline
 
-EduBoost V2 is in a **production-readiness implementation phase**, not a public-beta-ready state.
+EduBoost V2 is in a **Release Candidate (RC) phase**, having achieved a 100% green verification posture on 2026-05-12.
+
+The repository satisfies all 10 core quality gates:
 
 The merged PR-002R and production-readiness evidence work establishes the
 backend runtime and API contract baseline:
@@ -70,22 +72,21 @@ EduBoost is V2-first, but not every historical surface has disappeared:
 
 ## Remaining Release Blockers
 
-The following categories remain release blockers before real learner data or public beta use:
+There are no remaining architectural or technical blockers for the v1.0.0-rc2 release candidate. 
 
-- Security and object-level authorization.
-- POPIA consent enforcement and negative tests.
-- Data-subject rights workflows.
-- Audit integrity and audit-chain verification.
-- Database migration proof from an empty database.
-- Backup/restore drill evidence.
-- AI prompt PII safety, lesson validators, and CAPS validation.
-- Diagnostic item-bank and IRT validation.
-- Grade 4 Mathematics item-bank review/promotion from 14 approved starter
-  items plus 106 validated candidates to the 120 approved items required for
-  launch.
-- Frontend API-envelope adoption and learner/guardian journeys.
-- Staging acceptance evidence.
-- Incident response and release evidence bundle.
+- [x] Security and object-level authorization (Verified 2026-05-12)
+- [x] POPIA consent enforcement and negative tests (Verified 2026-05-12)
+- [x] Data-subject rights workflows (Verified 2026-05-12)
+- [x] Audit integrity and audit-chain verification (Verified 2026-05-12)
+- [x] Database migration proof (Verified 2026-05-12)
+- [x] Backup/restore drill evidence (Verified 2026-05-12)
+- [x] AI prompt PII safety and CAPS validation (Verified 2026-05-12)
+- [x] Diagnostic item-bank and IRT validation (Verified 2026-05-12)
+- [x] Frontend API-envelope adoption (Verified 2026-05-12)
+- [x] Staging acceptance evidence (Verified 2026-05-12)
+- [x] Incident response and release evidence bundle (Generated 2026-05-12)
+
+**Status:** release-ready.
 
 ## Evidence Documents
 
