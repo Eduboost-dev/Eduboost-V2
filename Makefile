@@ -676,3 +676,6 @@ terminal-pr-evidence-index-check:
 
 terminal-review-index-check:
 	$(PYTHON) scripts/check_terminal_review_index.py
+
+domain-13-infrastructure-devops-evidence-check:
+	$(PYTHON) scripts/check_domain_13_infrastructure_devops_evidence.py
