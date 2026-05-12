@@ -676,3 +676,6 @@ terminal-pr-evidence-index-check:
 
 terminal-review-index-check:
 	$(PYTHON) scripts/check_terminal_review_index.py
+
+domain-05-database-persistence-evidence-check:
+	$(PYTHON) scripts/check_domain_05_database_persistence_evidence.py
