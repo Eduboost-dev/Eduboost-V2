@@ -676,3 +676,6 @@ terminal-pr-evidence-index-check:
 
 terminal-review-index-check:
 	$(PYTHON) scripts/check_terminal_review_index.py
+
+domain-04-popia-consent-compliance-evidence-check:
+	$(PYTHON) scripts/check_domain_04_popia_consent_compliance_evidence.py
