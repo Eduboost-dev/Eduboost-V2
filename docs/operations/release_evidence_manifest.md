@@ -1,8 +1,8 @@
 # Release Evidence Manifest
 
-Generated: `2026-05-12T15:52:15Z`
-Branch: `master`
-Commit: `3502b2b51d4ea197249ea3baf5661e4ab9656c2f`
+Generated: `2026-05-12T19:35:27Z`
+Branch: `fix/technical-state-report-implementation`
+Commit: `c03514093a76ed6b1f54271af645e3fb57588eae`
 
 ## Required Evidence Commands
 

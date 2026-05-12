@@ -44,6 +44,7 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `app/modules/diagnostics/diagnostic_session_service.py` | `diagnostic` |
 | `app/modules/diagnostics/irt_engine.py` | `diagnostic` |
 | `app/modules/diagnostics/irt_params.py` | `diagnostic` |
+| `app/modules/diagnostics/item_bank_pipeline.py` | `diagnostic` |
 | `app/modules/diagnostics/item_bank_service.py` | `diagnostic` |
 | `app/modules/diagnostics/item_generator.py` | `prompt, llm, diagnostic` |
 | `app/modules/diagnostics/item_selection_service.py` | `diagnostic` |
@@ -154,6 +155,7 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `scripts/merge_lora.py` | `llm` |
 | `scripts/popia_sweep.py` | `prompt, llm, anthropic, groq, diagnostic` |
 | `scripts/prepare_training_data.py` | `llm` |
+| `scripts/refresh_current_state_doc.py` | `llm` |
 | `scripts/seed_irt_items.py` | `diagnostic` |
 | `scripts/seed_item_bank.py` | `diagnostic` |
 | `scripts/sync_git_to_redmine.py` | `diagnostic` |
