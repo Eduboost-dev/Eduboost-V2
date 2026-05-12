@@ -677,5 +677,5 @@ terminal-pr-evidence-index-check:
 terminal-review-index-check:
 	$(PYTHON) scripts/check_terminal_review_index.py
 
-domain-10-observability-monitoring-evidence-check:
-	$(PYTHON) scripts/check_domain_10_observability_monitoring_evidence.py
+domain-01-repository-governance-ci-evidence-check:
+	$(PYTHON) scripts/check_domain_01_repository_governance_ci_evidence.py
