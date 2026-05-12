@@ -1,5 +1,8 @@
-"""HTTP contract tests for lesson generation write authorization."""
 from __future__ import annotations
+import pytest
+pytestmark = pytest.mark.integration
+
+"""HTTP contract tests for lesson generation write authorization."""
 
 from typing import Any
 from uuid import UUID

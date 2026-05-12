@@ -1,5 +1,8 @@
-"""HTTP contract tests for learner read object authorization."""
 from __future__ import annotations
+import pytest
+pytestmark = pytest.mark.integration
+
+"""HTTP contract tests for learner read object authorization."""
 
 from datetime import UTC, datetime
 from types import SimpleNamespace

@@ -1,9 +1,12 @@
+from __future__ import annotations
+import pytest
+pytestmark = pytest.mark.integration
+
 """V2 router integration test suite.
 
 Verifies the FastAPI V2 route surface using TestClient — no live DB or Redis.
 All service-layer dependencies are overridden via FastAPI dependency injection.
 """
-from __future__ import annotations
 import uuid
 from unittest.mock import AsyncMock, patch
 

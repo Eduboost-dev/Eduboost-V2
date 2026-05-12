@@ -1,3 +1,6 @@
+import pytest
+pytestmark = pytest.mark.integration
+
 """Integration tests for Role-Based Access Control (RBAC)."""
 import pytest
 from httpx import ASGITransport, AsyncClient

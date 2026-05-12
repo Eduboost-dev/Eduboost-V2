@@ -1,3 +1,7 @@
+from __future__ import annotations
+import pytest
+pytestmark = pytest.mark.integration
+
 """
 tests/integration/test_diagnostic_session.py
 ─────────────────────────────────────────────────────────────────────────────
@@ -21,7 +25,6 @@ Test strategy:
 ─────────────────────────────────────────────────────────────────────────────
 """
 
-from __future__ import annotations
 
 import uuid
 from datetime import datetime, timezone

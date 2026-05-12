@@ -1,5 +1,7 @@
 """Governance contract tests for PR-002R evidence and PR template."""
 from __future__ import annotations
+import pytest
+pytestmark = pytest.mark.integration
 
 from pathlib import Path
 

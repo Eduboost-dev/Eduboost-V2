@@ -1,5 +1,8 @@
-"""HTTP contract tests for consent-grant authorization."""
 from __future__ import annotations
+import pytest
+pytestmark = pytest.mark.integration
+
+"""HTTP contract tests for consent-grant authorization."""
 
 from datetime import UTC, datetime, timedelta
 from types import SimpleNamespace

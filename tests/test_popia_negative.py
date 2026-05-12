@@ -1,4 +1,7 @@
 import pytest
+pytestmark = pytest.mark.integration
+
+import pytest
 from fastapi.testclient import TestClient
 from fastapi import HTTPException
 from app.api_v2 import app

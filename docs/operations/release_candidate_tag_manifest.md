@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-12T11:15:44.237413+00:00`
-- branch: `codex/sync-frontend-lockfile-local`
-- commit: `b7ef0eb83946b356402c33b69a8b905c8fbac2bd`
-- release_candidate: `beta-b7ef0eb`
+- generated_at_utc: `2026-05-12T15:55:36.509580+00:00`
+- branch: `master`
+- commit: `3502b2b51d4ea197249ea3baf5661e4ab9656c2f`
+- release_candidate: `beta-3502b2b`
 
 ## Tagging Convention
 
@@ -26,8 +26,8 @@
 ## Example Commands
 
 ```bash
-git tag -a beta-b7ef0eb -m "Beta release candidate beta-b7ef0eb"
-git push origin beta-b7ef0eb
+git tag -a beta-3502b2b -m "Beta release candidate beta-3502b2b"
+git push origin beta-3502b2b
 ```
 
 ## Safety Boundary

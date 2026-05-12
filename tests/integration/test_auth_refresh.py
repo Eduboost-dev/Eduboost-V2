@@ -1,3 +1,6 @@
+import pytest
+pytestmark = pytest.mark.integration
+
 """Integration tests for JWT refresh token rotation."""
 import pytest
 from httpx import ASGITransport, AsyncClient

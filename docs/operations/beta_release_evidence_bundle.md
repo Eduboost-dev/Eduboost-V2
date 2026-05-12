@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-12T11:14:35.953033+00:00`
-- branch: `codex/sync-frontend-lockfile-local`
-- commit: `b7ef0eb83946b356402c33b69a8b905c8fbac2bd`
+- generated_at_utc: `2026-05-12T15:53:17.739257+00:00`
+- branch: `master`
+- commit: `3502b2b51d4ea197249ea3baf5661e4ab9656c2f`
 - release_candidate: `unset`
 
 ## Evidence Artifacts

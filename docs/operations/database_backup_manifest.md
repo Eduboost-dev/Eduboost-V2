@@ -1,9 +1,9 @@
 # Database Backup Manifest
 
-Manifest ID: `42855f11d9fc6dc8`
-Generated: `2026-05-12T11:14:44Z`
-Branch: `codex/sync-frontend-lockfile-local`
-Commit: `b7ef0eb83946b356402c33b69a8b905c8fbac2bd`
+Manifest ID: `5831bfc038eb63e0`
+Generated: `2026-05-12T15:53:39Z`
+Branch: `master`
+Commit: `3502b2b51d4ea197249ea3baf5661e4ab9656c2f`
 
 ## Backup Metadata
 

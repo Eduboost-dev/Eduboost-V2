@@ -1,5 +1,7 @@
 """Tests for the PR-002R evidence checker."""
 from __future__ import annotations
+import pytest
+pytestmark = pytest.mark.integration
 
 import importlib.util
 import subprocess

@@ -1,3 +1,22 @@
+from __future__ import annotations
+import pytest
+import json
+import uuid
+from copy import deepcopy
+from datetime import datetime, timezone
+from pathlib import Path
+
+import pytest_asyncio
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.core.database import create_all_tables
+from app.repositories.item_bank_repository import ItemBankRepository
+from app.modules.diagnostics.item_bank_service import ItemBankService
+from app.modules.diagnostics.item_validator import ItemValidator, ValidationError
+from app.modules.diagnostics.quality_scorer import QualityScorer
+
+pytestmark = pytest.mark.integration
+
 """
 tests/integration/test_item_bank_pipeline.py
 ─────────────────────────────────────────────────────────────────────────────
@@ -14,24 +33,6 @@ These tests use a real async database session (from the test fixtures).
 They depend on the item_bank_repository and item_bank_service being wired.
 ─────────────────────────────────────────────────────────────────────────────
 """
-
-from __future__ import annotations
-
-import json
-import uuid
-from copy import deepcopy
-from datetime import datetime, timezone
-from pathlib import Path
-
-import pytest
-import pytest_asyncio
-from sqlalchemy.ext.asyncio import AsyncSession
-
-from app.core.database import create_all_tables
-from app.repositories.item_bank_repository import ItemBankRepository
-from app.modules.diagnostics.item_bank_service import ItemBankService
-from app.modules.diagnostics.item_validator import ItemValidator, ValidationError
-from app.modules.diagnostics.quality_scorer import QualityScorer
 
 TOPIC_MAP_PATH = (
     Path(__file__).resolve().parent.parent.parent

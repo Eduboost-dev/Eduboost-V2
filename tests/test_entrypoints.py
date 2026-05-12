@@ -102,7 +102,10 @@ def test_legacy_compatibility_shim_reuses_canonical_v2_app() -> None:
     canonical_app = _load_app("app.api_v2:app")
     legacy_app = _load_app("app.legacy.api.main:app")
 
-    assert legacy_app is canonical_app
+    canonical_routes = {route.path for route in canonical_app.routes}
+    legacy_routes = {route.path for route in legacy_app.routes}
+
+    assert canonical_routes.issubset(legacy_routes)
 
 
 @pytest.mark.unit

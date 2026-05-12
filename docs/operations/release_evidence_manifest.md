@@ -1,8 +1,8 @@
 # Release Evidence Manifest
 
-Generated: `2026-05-12T11:13:17Z`
-Branch: `codex/sync-frontend-lockfile-local`
-Commit: `b7ef0eb83946b356402c33b69a8b905c8fbac2bd`
+Generated: `2026-05-12T15:52:15Z`
+Branch: `master`
+Commit: `3502b2b51d4ea197249ea3baf5661e4ab9656c2f`
 
 ## Required Evidence Commands
 

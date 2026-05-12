@@ -1,3 +1,6 @@
+import pytest
+pytestmark = pytest.mark.integration
+
 """Test security headers middleware."""
 import pytest
 from httpx import ASGITransport, AsyncClient

@@ -1,5 +1,8 @@
-"""HTTP contract tests for gamification profile read authorization."""
 from __future__ import annotations
+import pytest
+pytestmark = pytest.mark.integration
+
+"""HTTP contract tests for gamification profile read authorization."""
 
 from types import SimpleNamespace
 from typing import Any
