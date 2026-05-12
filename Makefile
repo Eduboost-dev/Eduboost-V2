@@ -676,3 +676,6 @@ terminal-pr-evidence-index-check:
 
 terminal-review-index-check:
 	$(PYTHON) scripts/check_terminal_review_index.py
+
+domain-11-billing-payments-evidence-check:
+	$(PYTHON) scripts/check_domain_11_billing_payments_evidence.py
