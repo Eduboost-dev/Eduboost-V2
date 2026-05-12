@@ -676,3 +676,6 @@ terminal-pr-evidence-index-check:
 
 terminal-review-index-check:
 	$(PYTHON) scripts/check_terminal_review_index.py
+
+domain-14-legal-privacy-documentation-evidence-check:
+	$(PYTHON) scripts/check_domain_14_legal_privacy_documentation_evidence.py
