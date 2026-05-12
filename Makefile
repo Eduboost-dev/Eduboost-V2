@@ -676,3 +676,6 @@ terminal-pr-evidence-index-check:
 
 terminal-review-index-check:
 	$(PYTHON) scripts/check_terminal_review_index.py
+
+domain-12-notifications-communication-evidence-check:
+	$(PYTHON) scripts/check_domain_12_notifications_communication_evidence.py
