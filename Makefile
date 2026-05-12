@@ -676,3 +676,6 @@ terminal-pr-evidence-index-check:
 
 terminal-review-index-check:
 	$(PYTHON) scripts/check_terminal_review_index.py
+
+domain-06-ai-llm-pipeline-evidence-check:
+	$(PYTHON) scripts/check_domain_06_ai_llm_pipeline_evidence.py
