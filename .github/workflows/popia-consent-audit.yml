@@ -44,6 +44,5 @@ jobs:
             tests/unit/test_popia_consent_gate_closure_report.py \
             tests/unit/test_popia_consent_boundary_matrix_check.py \
             tests/unit/test_generate_popia_consent_boundary_matrix.py \
-            -q --no-cov
-
             tests/unit/test_popia_consent_closure_check.py \
+            -q --no-cov
