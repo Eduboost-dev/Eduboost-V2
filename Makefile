@@ -764,3 +764,6 @@ domain-07-diagnostics-assessment-evidence-check:
 
 frontend-production-readiness-check:
 	$(PYTHON) scripts/check_frontend_production_readiness.py
+
+billing-monetization-production-readiness-check:
+	$(PYTHON) scripts/check_billing_monetization_production_readiness.py
