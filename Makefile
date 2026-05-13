@@ -785,3 +785,6 @@ testing-release-quality-gates-production-readiness-check:
 
 security-posture-threat-modeling-production-readiness-check:
 	$(PYTHON) scripts/check_security_posture_threat_modeling_production_readiness.py
+
+incident-response-operations-support-production-readiness-check:
+	$(PYTHON) scripts/check_incident_response_operations_support_production_readiness.py
