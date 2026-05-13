@@ -755,3 +755,9 @@ database-persistence-production-readiness-check:
 
 ai-llm-safety-caps-production-readiness-check:
 	$(PYTHON) scripts/check_ai_llm_safety_caps_production_readiness.py
+
+diagnostics-assessment-production-readiness-check:
+	$(PYTHON) scripts/check_diagnostics_assessment_production_readiness.py
+
+domain-07-diagnostics-assessment-evidence-check:
+	$(PYTHON) scripts/check_domain_07_diagnostics_assessment_evidence.py
