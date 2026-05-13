@@ -770,3 +770,6 @@ billing-monetization-production-readiness-check:
 
 notifications-communication-production-readiness-check:
 	$(PYTHON) scripts/check_notifications_communication_production_readiness.py
+
+observability-production-readiness-check:
+	$(PYTHON) scripts/check_observability_production_readiness.py
