@@ -749,3 +749,6 @@ pr-002r-check: runtime-check openapi-check legacy-route-guard
 		-v --tb=short --no-cov
 	@echo ""
 	@echo "PR-002R acceptance checks passed."
+
+database-persistence-production-readiness-check:
+	$(PYTHON) scripts/check_database_persistence_production_readiness.py
