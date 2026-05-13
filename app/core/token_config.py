@@ -40,7 +40,14 @@ ALGORITHM = "HS256"
 # JWT_SIGNING_KEY_ID / JWT_PREVIOUS_KEY_ID name each key.
 # When rotating: copy current → previous, generate new current.
 
-CURRENT_KEY = os.environ["JWT_SIGNING_KEY"]          # required
+_ENVIRONMENT = os.getenv("ENVIRONMENT", os.getenv("APP_ENV", "development")).lower()
+_CURRENT_KEY = os.getenv("JWT_SIGNING_KEY") or os.getenv("JWT_SECRET")
+if not _CURRENT_KEY:
+    if _ENVIRONMENT in {"production", "prod"}:
+        raise RuntimeError("JWT_SIGNING_KEY is required in production")
+    _CURRENT_KEY = "dev-only-insecure-jwt-signing-key"
+
+CURRENT_KEY = _CURRENT_KEY
 CURRENT_KID = os.getenv("JWT_SIGNING_KEY_ID", "k1")
 
 PREVIOUS_KEY = os.getenv("JWT_PREVIOUS_KEY")         # optional — validation window

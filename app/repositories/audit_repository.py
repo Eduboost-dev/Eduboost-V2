@@ -26,6 +26,37 @@ def configure_hmac_secret(secret: bytes) -> None:
     _HMAC_SECRET = secret
 
 
+def compute_audit_hash(
+    *,
+    event_id: object,
+    event_type: str,
+    actor_id: object | None,
+    resource_id: object | None,
+    previous_event_hash: str | None,
+    payload: dict[str, Any],
+) -> str:
+    """Return deterministic SHA-256 hash for audit-chain tests."""
+    canonical = json.dumps(
+        {
+            "event_id": str(event_id),
+            "event_type": event_type,
+            "actor_id": str(actor_id) if actor_id is not None else None,
+            "resource_id": str(resource_id) if resource_id is not None else None,
+            "previous_event_hash": previous_event_hash,
+            "payload": payload,
+        },
+        sort_keys=True,
+        default=str,
+    )
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def sign_audit_hash(event_hash: str, secret: str | bytes) -> str:
+    """Return HMAC-SHA256 signature for an audit hash."""
+    key = secret.encode("utf-8") if isinstance(secret, str) else secret
+    return hmac.new(key, event_hash.encode("utf-8"), hashlib.sha256).hexdigest()
+
+
 def _compute_hash(payload: dict[str, Any]) -> str:
     """SHA-256 of the canonical JSON payload."""
     canonical = json.dumps(payload, sort_keys=True, default=str)
