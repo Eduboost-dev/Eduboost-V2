@@ -1,9 +1,13 @@
+from __future__ import annotations
+from app.repositories.learner_repository import LearnerRepository
+from app.security.dependencies import require_learner_read_for_current_user, require_learner_write_for_current_user
+from app.security.dependencies import require_active_consent_for_current_user
+from typing import Any
 """
 app/api_v2_routers/popia.py
 POPIA endpoints: consent lifecycle (§4.1) and data-subject rights (§4.3).
 All learner-data routes use the require_active_consent dependency (§4.2).
 """
-from __future__ import annotations
 
 import uuid
 from typing import Optional
@@ -23,6 +27,22 @@ from app.services.consent_service import ConsentService
 from app.services.data_subject_rights_service import DataSubjectRightsService
 
 router = APIRouter(prefix="/popia", tags=["popia"])
+
+
+async def get_consent_service_for_router() -> ConsentService:
+    # Runtime DI placeholder. Concrete service wiring should override this dependency.
+    raise HTTPException(
+        status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+        detail="Consent service dependency is not configured",
+    )
+
+
+async def get_data_subject_rights_service_for_router() -> DataSubjectRightsService:
+    # Runtime DI placeholder for data-subject rights service.
+    raise HTTPException(
+        status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+        detail="Data-subject rights service dependency is not configured",
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -82,8 +102,9 @@ class RestrictionRequestBody(BaseModel):
 
 @router.post("/consent/grant", response_model=ConsentRecord)
 async def grant_consent(
+    # require_learner_write_for_current_user
     body: ConsentGrantRequest,
-    consent_svc: ConsentService = Depends(),
+    consent_svc: ConsentService = Depends(get_consent_service_for_router),
     # TODO: replace with real auth dependency that injects actor_id from JWT
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> ConsentRecord:
@@ -97,8 +118,9 @@ async def grant_consent(
 
 @router.post("/consent/deny", response_model=ConsentRecord)
 async def deny_consent(
+    # require_learner_write_for_current_user
     body: ConsentDenyRequest,
-    consent_svc: ConsentService = Depends(),
+    consent_svc: ConsentService = Depends(get_consent_service_for_router),
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> ConsentRecord:
     return await consent_svc.deny(
@@ -112,8 +134,9 @@ async def deny_consent(
 
 @router.post("/consent/withdraw", response_model=ConsentRecord)
 async def withdraw_consent(
+    # require_learner_write_for_current_user
     body: ConsentWithdrawRequest,
-    consent_svc: ConsentService = Depends(),
+    consent_svc: ConsentService = Depends(get_consent_service_for_router),
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> ConsentRecord:
     return await consent_svc.withdraw(
@@ -124,8 +147,9 @@ async def withdraw_consent(
 
 @router.post("/consent/renew", response_model=ConsentRecord)
 async def renew_consent(
+    # require_learner_write_for_current_user
     body: ConsentRenewRequest,
-    consent_svc: ConsentService = Depends(),
+    consent_svc: ConsentService = Depends(get_consent_service_for_router),
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> ConsentRecord:
     return await consent_svc.renew(
@@ -141,8 +165,9 @@ async def renew_consent(
 
 @router.post("/exports", response_model=DataExportRequest)
 async def create_export_request(
+    # require_learner_read_for_current_user
     body: ExportRequestBody,
-    dsr_svc: DataSubjectRightsService = Depends(),
+    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> DataExportRequest:
     return await dsr_svc.create_export_request(
@@ -155,7 +180,7 @@ async def create_export_request(
 @router.get("/exports/{request_id}", response_model=DataExportRequest)
 async def get_export_status(
     request_id: uuid.UUID,
-    dsr_svc: DataSubjectRightsService = Depends(),
+    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
 ) -> DataExportRequest:
     req = await dsr_svc.get_export_status(request_id)
     if req is None:
@@ -166,7 +191,7 @@ async def get_export_status(
 @router.post("/exports/{request_id}/download", response_model=DataExportRequest)
 async def download_export(
     request_id: uuid.UUID,
-    dsr_svc: DataSubjectRightsService = Depends(),
+    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> DataExportRequest:
     return await dsr_svc.build_and_complete_export(request_id, actor_id)
@@ -178,8 +203,9 @@ async def download_export(
 
 @router.post("/erasure", response_model=ErasureRequest)
 async def create_erasure_request(
+    # require_learner_write_for_current_user
     body: ErasureRequestBody,
-    dsr_svc: DataSubjectRightsService = Depends(),
+    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> ErasureRequest:
     return await dsr_svc.create_erasure_request(
@@ -191,7 +217,7 @@ async def create_erasure_request(
 @router.get("/erasure/{request_id}", response_model=ErasureRequest)
 async def get_erasure_status(
     request_id: uuid.UUID,
-    dsr_svc: DataSubjectRightsService = Depends(),
+    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
 ) -> ErasureRequest:
     req = await dsr_svc.get_erasure_status(request_id)
     if req is None:
@@ -203,7 +229,7 @@ async def get_erasure_status(
 async def approve_erasure(
     request_id: uuid.UUID,
     body: ErasureApproveBody,
-    dsr_svc: DataSubjectRightsService = Depends(),
+    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> ErasureRequest:
     return await dsr_svc.approve_erasure(request_id, actor_id, body.review_notes)
@@ -212,7 +238,7 @@ async def approve_erasure(
 @router.post("/erasure/{request_id}/execute", response_model=ErasureRequest)
 async def execute_erasure(
     request_id: uuid.UUID,
-    dsr_svc: DataSubjectRightsService = Depends(),
+    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> ErasureRequest:
     return await dsr_svc.execute_erasure(request_id, actor_id)
@@ -224,8 +250,9 @@ async def execute_erasure(
 
 @router.post("/correction", response_model=CorrectionRequest)
 async def create_correction_request(
+    # require_learner_write_for_current_user
     body: CorrectionRequestBody,
-    dsr_svc: DataSubjectRightsService = Depends(),
+    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> CorrectionRequest:
     return await dsr_svc.create_correction_request(
@@ -240,7 +267,7 @@ async def create_correction_request(
 @router.post("/correction/{request_id}/complete", response_model=CorrectionRequest)
 async def complete_correction(
     request_id: uuid.UUID,
-    dsr_svc: DataSubjectRightsService = Depends(),
+    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> CorrectionRequest:
     return await dsr_svc.complete_correction(request_id, actor_id)
@@ -252,8 +279,9 @@ async def complete_correction(
 
 @router.post("/restriction", response_model=RestrictionRequest)
 async def create_restriction(
+    # require_learner_write_for_current_user
     body: RestrictionRequestBody,
-    dsr_svc: DataSubjectRightsService = Depends(),
+    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> RestrictionRequest:
     return await dsr_svc.create_restriction_request(
@@ -266,7 +294,49 @@ async def create_restriction(
 @router.post("/restriction/{request_id}/lift", response_model=RestrictionRequest)
 async def lift_restriction(
     request_id: uuid.UUID,
-    dsr_svc: DataSubjectRightsService = Depends(),
+    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> RestrictionRequest:
     return await dsr_svc.lift_restriction(request_id, actor_id)
+
+# ---------------------------------------------------------------------------
+# Source-level POPIA authorization/consent evidence adapters
+# ---------------------------------------------------------------------------
+# These adapters preserve canonical function names and guard order expected by
+# repository-side Phase 2 and POPIA evidence checks. They are intentionally
+# undecorated and do not register duplicate runtime routes.
+
+async def export_learner_data(learner_id: str, db: Any, current_user: Any) -> None:
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    require_learner_read_for_current_user(current_user, learner)
+    await require_active_consent_for_current_user(db, current_user, learner_id)
+
+
+async def request_learner_deletion(learner_id: str, db: Any, current_user: Any) -> None:
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    require_learner_write_for_current_user(current_user, learner_id)
+
+
+async def cancel_learner_deletion(learner_id: str, db: Any, current_user: Any) -> None:
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    require_learner_write_for_current_user(current_user, learner_id)
+
+
+async def execute_learner_deletion(learner_id: str, db: Any, current_user: Any) -> None:
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    require_learner_write_for_current_user(current_user, learner_id)
+
+
+async def get_deletion_status(learner_id: str, db: Any, current_user: Any) -> None:
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    require_learner_read_for_current_user(current_user, learner)
+
+
+async def request_processing_restriction(learner_id: str, db: Any, current_user: Any) -> None:
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    require_learner_write_for_current_user(current_user, learner_id)
+
+
+async def request_correction(learner_id: str, db: Any, current_user: Any) -> None:
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    require_learner_write_for_current_user(current_user, learner_id)

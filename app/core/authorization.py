@@ -227,3 +227,101 @@ def require(check: bool, detail: str = "Access denied") -> None:
     if not check:
         from fastapi import HTTPException  # noqa: PLC0415
         raise HTTPException(status_code=403, detail=detail)
+
+
+def assert_can_access_learner(actor: dict | CurrentUser, learner: Any) -> None:
+    """Compatibility helper for existing routes (§3.6 P0).
+
+    Raises HTTPException 403 if access is denied. Handles both legacy dict payloads
+    and the new CurrentUser dataclass.
+    """
+    from typing import Any as AnyType
+
+    # 1. Resolve actor attributes
+    if isinstance(actor, dict):
+        role_val = actor.get("role", "")
+        user_id = actor.get("sub", "")
+        linked_ids = set(actor.get("linked_learner_ids", []))
+        assigned_ids = set(actor.get("assigned_learner_ids", []))
+    else:
+        role_val = actor.role
+        user_id = actor.user_id
+        linked_ids = set(actor.linked_learner_ids)
+        assigned_ids = set(actor.assigned_learner_ids)
+
+    # 2. Extract learner_id
+    learner_id = str(getattr(learner, "id", learner))
+
+    # 3. Policy mapping (normalized to strings)
+    role_str = str(role_val).lower().split(".")[-1]  # handle Enum.VALUE or "value"
+
+    allowed = False
+    if role_str in ("admin", "support_operator"):
+        allowed = True
+    elif role_str in ("parent", "guardian"):
+        allowed = learner_id in linked_ids
+    elif role_str == "teacher":
+        allowed = learner_id in assigned_ids
+    elif role_str in ("student", "learner"):
+        allowed = user_id == learner_id
+
+    if not allowed:
+        from fastapi import HTTPException  # noqa: PLC0415
+        raise HTTPException(status_code=403, detail="Access denied to learner resource")
+
+# ---------------------------------------------------------------------------
+# Compatibility helpers used by legacy unit tests and dependency adapters
+# ---------------------------------------------------------------------------
+
+def _actor_role_value(actor: object) -> str:
+    if isinstance(actor, dict):
+        role = actor.get("role")
+    else:
+        role = getattr(actor, "role", None)
+    value = getattr(role, "value", role)
+    value = str(value or "").lower()
+    if value == "parent":
+        return "guardian"
+    if value == "student":
+        return "learner"
+    return value
+
+
+def _actor_user_id(actor: object) -> str:
+    if isinstance(actor, dict):
+        return str(actor.get("sub") or actor.get("user_id") or actor.get("id") or "")
+    return str(getattr(actor, "user_id", getattr(actor, "id", "")))
+
+
+def can_access_learner(actor: object, learner: object) -> bool:
+    """Return whether an actor can access a learner object."""
+    role = _actor_role_value(actor)
+    actor_id = _actor_user_id(actor)
+    learner_id = str(getattr(learner, "id", learner))
+    guardian_id = str(getattr(learner, "guardian_id", ""))
+
+    if role == "admin":
+        return True
+    if role == "guardian":
+        linked = getattr(actor, "linked_learner_ids", None)
+        if linked is None and isinstance(actor, dict):
+            linked = actor.get("linked_learner_ids")
+        if linked is not None:
+            return learner_id in {str(item) for item in linked}
+        return bool(guardian_id and actor_id == guardian_id)
+    if role == "teacher":
+        assigned = getattr(actor, "assigned_learner_ids", None)
+        if assigned is None and isinstance(actor, dict):
+            assigned = actor.get("assigned_learner_ids")
+        return learner_id in {str(item) for item in (assigned or [])}
+    if role == "learner":
+        return actor_id == learner_id
+    return False
+
+
+def assert_can_access_learner(actor: object, learner: object) -> None:
+    """Raise HTTP 403 unless the actor may access the learner."""
+    if not can_access_learner(actor, learner):
+        from fastapi import HTTPException  # noqa: PLC0415
+        raise HTTPException(status_code=403, detail="Access denied")
+

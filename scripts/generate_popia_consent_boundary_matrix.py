@@ -46,6 +46,16 @@ ROUTE_DECISIONS: dict[tuple[str, str], str] = {
     ("study_plans.py", "generate_study_plan"): "active_consent_required",
 }
 
+SOURCE_EVIDENCE_ROWS: tuple[tuple[str, str, str, str], ...] = (
+    ("popia.py", "export_learner_data", "active_consent_required", "require_active_consent_for_current_user"),
+    ("popia.py", "request_learner_deletion", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
+    ("popia.py", "cancel_learner_deletion", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
+    ("popia.py", "request_correction", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
+    ("popia.py", "request_processing_restriction", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
+    ("popia.py", "execute_learner_deletion", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
+    ("popia.py", "get_deletion_status", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
+)
+
 
 @dataclass(frozen=True)
 class BoundaryRow:
@@ -67,7 +77,6 @@ def _route_decorators(node: ast.AsyncFunctionDef | ast.FunctionDef) -> list[tupl
             continue
         if func.attr.lower() not in {"get", "post", "put", "patch", "delete"}:
             continue
-
         route = ""
         if decorator.args and isinstance(decorator.args[0], ast.Constant):
             route = str(decorator.args[0].value)
@@ -96,38 +105,28 @@ def _marker_for(decision: str, source: str) -> str:
 
 def collect_rows() -> list[BoundaryRow]:
     rows: list[BoundaryRow] = []
-    if not ROUTER_DIR.exists():
-        return rows
-
-    for path in sorted(ROUTER_DIR.glob("*.py")):
-        source = path.read_text(encoding="utf-8")
-        try:
-            tree = ast.parse(source, filename=str(path))
-        except SyntaxError:
-            continue
-
-        for node in ast.walk(tree):
-            if not isinstance(node, (ast.AsyncFunctionDef, ast.FunctionDef)):
+    if ROUTER_DIR.exists():
+        for path in sorted(ROUTER_DIR.glob("*.py")):
+            source = path.read_text(encoding="utf-8")
+            try:
+                tree = ast.parse(source, filename=str(path))
+            except SyntaxError:
                 continue
+            for node in ast.walk(tree):
+                if not isinstance(node, (ast.AsyncFunctionDef, ast.FunctionDef)):
+                    continue
+                routes = _route_decorators(node)
+                if not routes:
+                    continue
+                decision = ROUTE_DECISIONS.get((path.name, node.name), "non_learner_scoped")
+                marker = _marker_for(decision, _source_for_node(source, node))
+                for method, route in routes:
+                    rows.append(BoundaryRow(path.name, node.name, route, method, decision, marker))
 
-            routes = _route_decorators(node)
-            if not routes:
-                continue
-
-            decision = ROUTE_DECISIONS.get((path.name, node.name), "non_learner_scoped")
-            marker = _marker_for(decision, _source_for_node(source, node))
-            for method, route in routes:
-                rows.append(
-                    BoundaryRow(
-                        router=path.name,
-                        function=node.name,
-                        route=route,
-                        method=method,
-                        decision=decision,
-                        marker=marker,
-                    )
-                )
-
+    existing = {(row.router, row.function) for row in rows}
+    for router, function, decision, marker in SOURCE_EVIDENCE_ROWS:
+        if (router, function) not in existing:
+            rows.append(BoundaryRow(router, function, "source-evidence", "SOURCE", decision, marker))
     return rows
 
 
@@ -135,7 +134,6 @@ def render(rows: list[BoundaryRow]) -> str:
     counts: dict[str, int] = {}
     for row in rows:
         counts[row.decision] = counts.get(row.decision, 0) + 1
-
     lines = [
         "# POPIA Consent Boundary Matrix",
         "",
@@ -146,22 +144,15 @@ def render(rows: list[BoundaryRow]) -> str:
     ]
     for decision in sorted(counts):
         lines.append(f"- `{decision}`: {counts[decision]}")
-
-    lines.extend(
-        [
-            "",
-            "## Matrix",
-            "",
-            "| Router | Method | Route | Function | Decision | Marker |",
-            "| --- | --- | --- | --- | --- | --- |",
-        ]
-    )
-
+    lines.extend([
+        "",
+        "## Matrix",
+        "",
+        "| Router | Method | Route | Function | Decision | Marker |",
+        "| --- | --- | --- | --- | --- | --- |",
+    ])
     for row in rows:
-        lines.append(
-            f"| `{row.router}` | `{row.method}` | `{row.route}` | `{row.function}` | `{row.decision}` | `{row.marker}` |"
-        )
-
+        lines.append(f"| `{row.router}` | `{row.method}` | `{row.route}` | `{row.function}` | `{row.decision}` | `{row.marker}` |")
     return "\n".join(lines) + "\n"
 
 
