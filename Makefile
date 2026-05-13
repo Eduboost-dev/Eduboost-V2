@@ -773,3 +773,6 @@ notifications-communication-production-readiness-check:
 
 observability-production-readiness-check:
 	$(PYTHON) scripts/check_observability_production_readiness.py
+
+ci-cd-deployment-production-readiness-check:
+	$(PYTHON) scripts/check_ci_cd_deployment_production_readiness.py
