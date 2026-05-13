@@ -782,3 +782,6 @@ backup-restore-disaster-recovery-production-readiness-check:
 
 testing-release-quality-gates-production-readiness-check:
 	$(PYTHON) scripts/check_testing_release_quality_gates_production_readiness.py
+
+security-posture-threat-modeling-production-readiness-check:
+	$(PYTHON) scripts/check_security_posture_threat_modeling_production_readiness.py
