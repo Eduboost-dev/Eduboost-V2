@@ -779,3 +779,6 @@ ci-cd-deployment-production-readiness-check:
 
 backup-restore-disaster-recovery-production-readiness-check:
 	$(PYTHON) scripts/check_backup_restore_disaster_recovery_production_readiness.py
+
+testing-release-quality-gates-production-readiness-check:
+	$(PYTHON) scripts/check_testing_release_quality_gates_production_readiness.py
