@@ -1,18 +1,126 @@
 [importlinter]
 root_package = app
 
+# ---------------------------------------------------------------------------
+# Contract 1 (existing, extended): Routers must not import repositories
+# ---------------------------------------------------------------------------
 [importlinter:contract:1]
-name = API package must not import repositories
+name = Routers must not import repositories directly
 type = forbidden
 source_modules =
+    app.api_v2_routers
     app.api
 forbidden_modules =
     app.repositories
 
+# ---------------------------------------------------------------------------
+# Contract 2 (existing, extended): Services must not import routers
+# ---------------------------------------------------------------------------
 [importlinter:contract:2]
-name = Services must not import API package
+name = Services must not import routers
 type = forbidden
 source_modules =
     app.services
 forbidden_modules =
+    app.api_v2_routers
     app.api
+
+# ---------------------------------------------------------------------------
+# Contract 3 (new): Modules must not import routers
+# ---------------------------------------------------------------------------
+[importlinter:contract:3]
+name = Modules must not import routers
+type = forbidden
+source_modules =
+    app.modules
+forbidden_modules =
+    app.api_v2_routers
+    app.api
+
+# ---------------------------------------------------------------------------
+# Contract 4 (new): Modules must not import services
+# (modules are self-contained; they expose APIs consumed by services, not vice versa)
+# ---------------------------------------------------------------------------
+[importlinter:contract:4]
+name = Modules must not import services
+type = forbidden
+source_modules =
+    app.modules
+forbidden_modules =
+    app.services
+
+# ---------------------------------------------------------------------------
+# Contract 5 (new): Repositories must not import routers
+# ---------------------------------------------------------------------------
+[importlinter:contract:5]
+name = Repositories must not import routers
+type = forbidden
+source_modules =
+    app.repositories
+forbidden_modules =
+    app.api_v2_routers
+    app.api
+
+# ---------------------------------------------------------------------------
+# Contract 6 (new): Repositories must not import services
+# ---------------------------------------------------------------------------
+[importlinter:contract:6]
+name = Repositories must not import services
+type = forbidden
+source_modules =
+    app.repositories
+forbidden_modules =
+    app.services
+
+# ---------------------------------------------------------------------------
+# Contract 7 (new): Repositories must not import modules
+# ---------------------------------------------------------------------------
+[importlinter:contract:7]
+name = Repositories must not import modules
+type = forbidden
+source_modules =
+    app.repositories
+forbidden_modules =
+    app.modules
+
+# ---------------------------------------------------------------------------
+# Contract 8 (new): Domain layer has no infrastructure imports
+# ---------------------------------------------------------------------------
+[importlinter:contract:8]
+name = Domain must not import infrastructure
+type = forbidden
+source_modules =
+    app.domain
+forbidden_modules =
+    app.repositories
+    app.core.db
+    app.core.redis
+    app.services
+    app.modules
+    app.api_v2_routers
+    app.api
+
+# ---------------------------------------------------------------------------
+# Contract 9 (new): Services must not import fastapi.Request
+# (services must be transport-agnostic; wrap request data before calling a service)
+# ---------------------------------------------------------------------------
+[importlinter:contract:9]
+name = Services must not depend on FastAPI Request
+type = forbidden
+source_modules =
+    app.services
+forbidden_modules =
+    fastapi
+
+# ---------------------------------------------------------------------------
+# Contract 10 (new): Layered dependency chain (independence check)
+# Routers -> services/modules -> repositories -> domain/core
+# ---------------------------------------------------------------------------
+[importlinter:contract:10]
+name = Layer independence — full chain
+type = layers
+layers =
+    app.api_v2_routers
+    app.services : app.modules
+    app.repositories
+    app.domain : app.core
