@@ -573,3 +573,8 @@ The root [`TODO.md`](/TODO.md) remains the live production-readiness backlog.
 ## Cluster H Archive Accession Custody Retrieval
 
 - Cluster H final archive accession record, post-closeout custody register, and terminal evidence retrieval guide added.
+
+
+## Production-readiness implementation phase
+
+EduBoost V2 remains in a production-readiness implementation phase: repository-side evidence is present, while runtime, legal, security, deployment, and human approval gates remain separate.
