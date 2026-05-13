@@ -794,3 +794,6 @@ documentation-adrs-claim-discipline-production-readiness-check:
 
 beta-launch-staging-acceptance-production-readiness-check:
 	$(PYTHON) scripts/check_beta_launch_staging_acceptance_production_readiness.py
+
+roadmap-after-production-readiness-baseline-check:
+	$(PYTHON) scripts/check_roadmap_after_production_readiness_baseline.py
