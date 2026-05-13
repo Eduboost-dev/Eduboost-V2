@@ -1,107 +1,49 @@
-## Summary
+## Description
 
-Describe the change, the motivation, and the user/system impact.
-
-Fixes #
+<!-- What does this PR change and why? -->
 
 ## Type of change
 
 - [ ] Bug fix
-- [ ] Feature
-- [ ] Breaking change
-- [ ] Documentation-only change
-- [ ] Chore/refactor
-- [ ] Security/privacy/compliance change
-- [ ] Infrastructure/deployment change
-- [ ] Curriculum/content/AI-safety change
+- [ ] New feature / bounded context
+- [ ] Refactor / cleanup
+- [ ] Docs update
+- [ ] Infrastructure / CI change
 
-## Scope
+---
 
-- [ ] Backend/API
-- [ ] Frontend/UX
-- [ ] Database/migrations
-- [ ] Authentication/authorization/session security
-- [ ] POPIA/privacy/learner data
-- [ ] AI/LLM/content safety
-- [ ] Curriculum/CAPS alignment
-- [ ] DevOps/observability/release
-- [ ] Documentation/governance only
+## Architecture checklist
 
-## Validation evidence
+> These are required for all PRs that touch `app/`.
 
-Provide exact commands, screenshots, logs, links, or artifacts. Use `N/A` only when a gate is genuinely irrelevant.
+### Router thinness (§2.3)
+- [ ] **Router contains no business logic.** Route handlers only: validate input, call a service/module, map the response. Any branching or domain decision has been moved to `app/services/`.
+- [ ] Route handler cyclomatic complexity ≤ 5 (verified by `make audit-routers`).
+- [ ] No repository imports in routers.
 
-- Tests run:
-- Lint/type checks run:
-- Migration check run:
-- Frontend build/e2e run:
-- Security/privacy checks run:
-- Manual QA performed:
+### Import boundaries (§2.4)
+- [ ] `lint-imports` passes locally (`make lint-imports`).
+- [ ] No upward imports (repositories → services, services → routers, etc.).
+- [ ] Services do not import `fastapi.Request`.
+- [ ] `app/domain/` has no infrastructure imports.
 
-## Required checklist
+### Business logic location (ADR 0010)
+- [ ] New business logic is in `app/services/<context>_service.py`, not in a router or a module-level service.
+- [ ] If a new module service file was added to `app/modules/`, it is a self-contained engine (no duplicate of an existing service).
 
-- [ ] I performed a self-review of the diff.
-- [ ] I updated documentation or explained why docs are not affected.
-- [ ] I added/updated tests, or explained why tests are not appropriate.
-- [ ] I checked that new and existing tests relevant to this change pass.
-- [ ] I checked that this change does not introduce untracked secrets, credentials, or learner PII.
-- [ ] I linked the relevant issue, TODO item, ADR, or release-gate evidence.
+### Metaphor layer (§2.5)
+- [ ] No metaphor layer names (`executive`, `judiciary`, `fourth_estate`, `ether`) appear in engineering code, ADRs, or API contracts.
 
-## Database and migration impact
+### General
+- [ ] Tests cover the new / changed service logic.
+- [ ] Any new ADR has been merged (or is included in this PR) before the governed change.
 
-- [ ] No schema/data migration impact.
-- [ ] Migration added and tested with upgrade.
-- [ ] Rollback/downgrade path documented or explicitly not supported.
-- [ ] Data backfill/reprocessing plan documented.
+---
 
-Details:
+## Testing
 
-## POPIA and learner-data impact
+<!-- Describe how you tested this change. -->
 
-- [ ] No learner personal-information impact.
-- [ ] Consent, purpose limitation, minimisation, retention, and erasure impact reviewed.
-- [ ] Data export/correction/restriction/erasure paths remain valid.
-- [ ] Audit logging is present for sensitive learner-data operations.
+## Linked issues / ADRs
 
-Details:
-
-## Security impact
-
-- [ ] No security impact.
-- [ ] Authentication/authorization/session behavior reviewed.
-- [ ] Rate limiting, abuse resistance, and object-level access controls reviewed.
-- [ ] Dependency, secret, and supply-chain implications reviewed.
-
-Details:
-
-## Accessibility impact
-
-- [ ] No user-facing UI impact.
-- [ ] Keyboard navigation considered.
-- [ ] Screen-reader labels/semantics considered.
-- [ ] Contrast, focus states, and responsive layouts considered.
-
-Details:
-
-## Analytics and observability impact
-
-- [ ] No analytics/telemetry impact.
-- [ ] New/changed events avoid PII leakage.
-- [ ] Metrics/logs/traces added or updated for operational visibility.
-- [ ] Alerting or dashboard impact documented.
-
-Details:
-
-## Deployment and rollback plan
-
-- [ ] No deployment impact.
-- [ ] Environment variables/secrets/configuration documented.
-- [ ] Release order documented.
-- [ ] Rollback procedure documented.
-- [ ] Smoke checks documented.
-
-Details:
-
-## Reviewer focus areas
-
-List the files, flows, risks, or design choices that deserve the most reviewer attention.
+<!-- e.g. Closes #123, Implements ADR 0010 -->
