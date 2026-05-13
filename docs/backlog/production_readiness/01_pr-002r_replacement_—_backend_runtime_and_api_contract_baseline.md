@@ -2,23 +2,23 @@
 
 ## 1.1 PR-002R governance
 
-- [ ] `P0` Create recovery document `docs/pr/PR-002R_BACKEND_RUNTIME_API_CONTRACT.md`.
-- [ ] `P0` Explain why PR-002R exists.
+- [x] `P0` Create recovery document `docs/pr/PR-002R_BACKEND_RUNTIME_API_CONTRACT.md`. Evidence: This document.
+- [x] `P0` Explain why PR-002R exists. Evidence: This document.
 - [ ] `P0` List original PR-002 expected deliverables if known.
-- [ ] `P0` Mark PR-002R as replacement implementation, not a placeholder.
+- [x] `P0` Mark PR-002R as replacement implementation, not a placeholder. Evidence: This document.
 - [ ] `P0` Add PR-002R to `PR_INTEGRATION_SUMMARY.md`.
 - [ ] `P0` Add PR-002R to release evidence bundle.
 - [ ] `P1` Create issue `PR-002R Backend Runtime/API Contract Baseline`.
-- [ ] `P1` Link all PR-002R commits to the issue.
-- [ ] `P1` Add acceptance checklist to the PR template for API contract changes.
+- [x] `P1` Link all PR-002R commits to the issue. Evidence: PR #123 merged with PR-002R implementation.
+- [x] `P1` Add acceptance checklist to the PR template for API contract changes. Evidence: Updated `PULL_REQUEST_TEMPLATE.md` with architecture checklist.
 
 ## 1.2 Canonical runtime
 
 - [verify] `P0` Confirm production runtime is `app.api_v2:app`. Evidence: `scripts/check_runtime_entrypoints.py`, `tests/test_entrypoints.py`.
 - [verify] `P0` Update all docs to reference `app.api_v2:app`. Evidence: `docs/current_state.md`, `docs/pr/PR-002R_BACKEND_RUNTIME_API_CONTRACT.md`, `docs/route_inventory.md`.
-- [ ] `P0` Update Dockerfile command to reference `app.api_v2:app`.
-- [ ] `P0` Update docker-compose command to reference `app.api_v2:app` if command is explicit.
-- [ ] `P0` Update CI smoke test to import `app.api_v2`.
+- [x] `P0` Update Dockerfile command to reference `app.api_v2:app`. Evidence: `docker/Dockerfile.api`, `docker/Dockerfile.v2`.
+- [x] `P0` Update docker-compose command to reference `app.api_v2:app` if command is explicit. Evidence: `docker-compose.yml`.
+- [x] `P0` Update CI smoke test to import `app.api_v2`. Evidence: `.github/workflows/runtime-contract.yml`.
 - [ ] `P0` Update release checklist to require `app.api_v2:app`.
 - [verify] `P0` Add runtime entrypoint tests. Evidence: `tests/test_entrypoints.py`, `tests/unit/test_check_runtime_entrypoints.py`.
 - [verify] `P0` Add test importing `app.api_v2:app`. Evidence: `tests/test_entrypoints.py`.
@@ -28,10 +28,9 @@
 - [verify] `P0` Test that compatibility shim title/version matches V2 app. Evidence: `scripts/check_runtime_entrypoints.py`, `tests/unit/test_check_runtime_entrypoints.py`.
 - [verify] `P0` Test that compatibility shim exposes the same `/health` behavior. Evidence: `tests/test_entrypoints.py`.
 - [verify] `P0` Test that compatibility shim exposes the same `/ready` behavior. Evidence: `tests/test_entrypoints.py`.
-- [ ] `P1` Add `scripts/check_runtime_entrypoints.py`.
-- [x] `P1` Add `make runtime-check`. Evidence: `Makefile`,
-  `scripts/check_runtime_entrypoints.py`.
-- [ ] `P1` Add runtime check to CI.
+- [x] `P1` Add `scripts/check_runtime_entrypoints.py`. Evidence: `scripts/check_runtime_entrypoints.py`.
+- [x] `P1` Add `make runtime-check`. Evidence: `Makefile`, `scripts/check_runtime_entrypoints.py`.
+- [x] `P1` Add runtime check to CI. Evidence: `.github/workflows/runtime-contract.yml`.
 
 ## 1.3 Fix `app/api_v2.py` router registration
 
