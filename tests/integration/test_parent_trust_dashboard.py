@@ -75,7 +75,7 @@ def test_parent_trust_dashboard_returns_gap_summary_and_export_links(monkeypatch
             return None
 
     monkeypatch.setattr("app.api_v2_routers.parents.LearnerRepository", FakeLearnerRepository)
-    monkeypatch.setattr("app.api_v2_routers.parents.ConsentService", FakeConsentService)
+    monkeypatch.setattr("app.api_v2_routers.parents.require_active_consent_for_current_user", AsyncMock(return_value=None))
     monkeypatch.setattr(
         "app.api_v2_routers.parents._executive.generate_progress_summary",
         AsyncMock(return_value="Steady progress with strong lesson follow-through."),

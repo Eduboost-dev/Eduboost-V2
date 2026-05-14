@@ -72,7 +72,7 @@ def test_diagnostic_submit_consumes_ai_quota(monkeypatch):
             return None
 
     quota_mock = AsyncMock()
-    monkeypatch.setattr("app.api_v2_routers.diagnostics.ConsentService", FakeConsentService)
+    monkeypatch.setattr("app.api_v2_routers.diagnostics.require_active_consent_for_current_user", AsyncMock(return_value=None))
     monkeypatch.setattr("app.api_v2_routers.diagnostics.LearnerRepository", FakeLearnerRepository)
     monkeypatch.setattr("app.api_v2_routers.diagnostics.GuardianRepository", FakeGuardianRepository)
     monkeypatch.setattr("app.api_v2_routers.diagnostics.IRTRepository", FakeIRTRepository)

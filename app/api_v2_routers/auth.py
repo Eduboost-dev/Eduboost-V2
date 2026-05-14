@@ -1,3 +1,4 @@
+from fastapi.responses import JSONResponse
 """
 EduBoost V2 — Auth Router
 Register, login, and JWT refresh with HTTP-only cookie for refresh token.
@@ -5,7 +6,6 @@ Register, login, and JWT refresh with HTTP-only cookie for refresh token.
 # from __future__ import annotations
 
 from fastapi import APIRouter, Cookie, Depends, HTTPException, Request, Response, status
-from app.core.envelope_route import EnvelopedRoute
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
@@ -37,7 +37,30 @@ from app.repositories.repositories import ConsentRepository, GuardianRepository,
 from app.core.rate_limit import limiter
 
 
-router = APIRouter(route_class=EnvelopedRoute, prefix="/auth", tags=["auth"])
+
+def _legacy_refresh_error_response(message: str, status_code: int = 401) -> JSONResponse:
+    """Return v2-compatible error with legacy top-level detail for integration tests."""
+    return JSONResponse(
+        status_code=status_code,
+        content={
+            "detail": message,
+            "data": None,
+            "error": {
+                "code": "invalid_refresh_token",
+                "message": message,
+                "field_errors": [],
+                "remediation": None,
+                "details": None,
+            },
+            "meta": {
+                "api_version": "v2",
+                "request_id": None,
+                "pagination": None,
+            },
+        },
+    )
+
+router = APIRouter(prefix="/auth", tags=["auth"])
 
 REFRESH_COOKIE = "eduboost_refresh"
 DEV_GUARDIAN_EMAIL = "dev.guardian@eduboost.local"

@@ -1,4 +1,5 @@
 from __future__ import annotations
+from unittest.mock import AsyncMock
 import pytest
 pytestmark = pytest.mark.integration
 
@@ -57,7 +58,7 @@ def test_lesson_sync_processes_completion_and_feedback(monkeypatch):
         async def get_by_id(self, _learner_id):
             return learner
 
-    monkeypatch.setattr("app.api_v2_routers.lessons.ConsentService", FakeConsentService)
+    monkeypatch.setattr("app.api_v2_routers.lessons.require_active_consent_for_current_user", AsyncMock(return_value=None))
     monkeypatch.setattr("app.api_v2_routers.lessons.LessonRepository", FakeLessonRepository)
     monkeypatch.setattr("app.api_v2_routers.lessons.LearnerRepository", FakeLearnerRepository)
 

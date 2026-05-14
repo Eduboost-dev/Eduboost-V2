@@ -1,4 +1,5 @@
 from __future__ import annotations
+from unittest.mock import AsyncMock
 import pytest
 pytestmark = pytest.mark.integration
 
@@ -65,7 +66,7 @@ def override_user(payload: dict[str, Any]):
 @pytest.fixture(autouse=True)
 def parent_erasure_overrides(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(parents_router, "LearnerRepository", FakeLearnerRepository)
-    monkeypatch.setattr(parents_router, "ConsentService", FakeConsentService)
+    monkeypatch.setattr(parents_router, "require_active_consent_for_current_user", AsyncMock(return_value=None))
     monkeypatch.setattr(parents_router, "FourthEstateService", FakeFourthEstateService)
     app.dependency_overrides[parents_router.get_db] = override_db
     yield

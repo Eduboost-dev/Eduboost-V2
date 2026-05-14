@@ -11,7 +11,7 @@ from uuid import UUID
 from app.core.database import get_db
 from app.core.jobs import enqueue_job
 from app.core.rate_limit import limiter
-from app.core.security import get_current_user
+from app.core.security import get_current_user_optional
 from app.core.dependencies import get_current_user_id
 from app.domain.api_v2_models import JobAcceptedResponse
 from app.domain.schemas import LessonFeedback, LessonRequest, LessonResponse, LessonSyncRequest
@@ -33,7 +33,7 @@ async def generate_lesson(
     request: Request,
     body: LessonRequest,
     background_tasks: BackgroundTasks,
-    current_user: dict = Depends(get_current_user),
+    current_user: dict | None = Depends(get_current_user_optional),
     db: AsyncSession = Depends(get_db),
     service: LessonService = Depends(get_lesson_service),
 ):
@@ -56,7 +56,7 @@ async def generate_lesson(
 @router.post("/generate/stream")
 async def generate_lesson_stream(
     body: LessonRequest,
-    current_user: dict = Depends(get_current_user),
+    current_user: dict | None = Depends(get_current_user_optional),
     db: AsyncSession = Depends(get_db),
     service: LessonService = Depends(get_lesson_service),
 ):

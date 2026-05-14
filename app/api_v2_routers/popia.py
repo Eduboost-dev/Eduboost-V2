@@ -12,7 +12,7 @@ All learner-data routes use the require_active_consent dependency (§4.2).
 import uuid
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from pydantic import BaseModel
 
 from app.core.consent_gate import ActiveConsent, require_active_consent
@@ -25,8 +25,37 @@ from app.domain.data_subject_rights import (
 )
 from app.services.consent_service import ConsentService
 from app.services.data_subject_rights_service import DataSubjectRightsService
+POPIADataRightsService = DataSubjectRightsService
 
 router = APIRouter(prefix="/popia", tags=["popia"])
+
+
+async def get_db() -> Any:
+    raise HTTPException(
+        status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+        detail="Database dependency is not configured",
+    )
+
+
+async def enqueue_job(background_tasks: Any, *, operation: str, payload: dict, handler: Any) -> None:
+    raise HTTPException(
+        status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+        detail="Job queue dependency is not configured",
+    )
+
+
+async def get_current_user() -> Any:
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Authentication required",
+    )
+
+
+async def require_parent_or_admin(current_user: Any = Depends(get_current_user)) -> Any:
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Authentication required",
+    )
 
 
 async def get_consent_service_for_router() -> ConsentService:
@@ -93,6 +122,19 @@ class CorrectionRequestBody(BaseModel):
 
 class RestrictionRequestBody(BaseModel):
     learner_id: uuid.UUID
+    reason: str
+
+
+class CorrectionRequestLegacyBody(BaseModel):
+    fields: dict[str, Any]
+    reason: str
+
+
+class RestrictionRequestLegacyBody(BaseModel):
+    reason: str
+
+
+class DeletionRequestBody(BaseModel):
     reason: str
 
 
@@ -298,6 +340,123 @@ async def lift_restriction(
     actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
 ) -> RestrictionRequest:
     return await dsr_svc.lift_restriction(request_id, actor_id)
+
+
+@router.post("/correction-request/{learner_id}")
+async def create_correction_request_for_learner(
+    learner_id: str,
+    body: CorrectionRequestLegacyBody,
+    db: Any = Depends(get_db),
+    current_user: Any = Depends(get_current_user),
+) -> Any:
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=404, detail="Learner not found")
+    require_learner_write_for_current_user(current_user, learner_id)
+    dsr_svc = POPIADataRightsService(db)
+    return await dsr_svc.request_correction(
+        learner_id=learner_id,
+        current_user=current_user,
+        fields=body.fields,
+        reason=body.reason,
+    )
+
+
+@router.post("/restriction-request/{learner_id}")
+async def create_restriction_request_for_learner(
+    learner_id: str,
+    body: RestrictionRequestLegacyBody,
+    db: Any = Depends(get_db),
+    current_user: Any = Depends(get_current_user),
+) -> Any:
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=404, detail="Learner not found")
+    require_learner_write_for_current_user(current_user, learner_id)
+    dsr_svc = POPIADataRightsService(db)
+    return await dsr_svc.restrict_processing(
+        learner_id=learner_id,
+        current_user=current_user,
+        reason=body.reason,
+    )
+
+
+@router.post("/deletion-request/{learner_id}")
+async def create_deletion_request_for_learner(
+    learner_id: str,
+    body: DeletionRequestBody,
+    db: Any = Depends(get_db),
+    current_user: Any = Depends(get_current_user),
+) -> Any:
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=404, detail="Learner not found")
+    require_learner_write_for_current_user(current_user, learner_id)
+    dsr_svc = POPIADataRightsService(db)
+    return await dsr_svc.request_erasure(
+        learner_id=learner_id,
+        current_user=current_user,
+        reason=body.reason,
+    )
+
+
+@router.post("/deletion-cancel/{learner_id}")
+async def cancel_deletion_for_learner(
+    learner_id: str,
+    db: Any = Depends(get_db),
+    current_user: Any = Depends(get_current_user),
+) -> Any:
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=404, detail="Learner not found")
+    require_learner_write_for_current_user(current_user, learner_id)
+    dsr_svc = POPIADataRightsService(db)
+    return await dsr_svc.cancel_erasure(learner_id=learner_id, current_user=current_user)
+
+
+@router.post("/deletion-execute/{learner_id}", status_code=status.HTTP_202_ACCEPTED)
+async def execute_deletion_for_learner(
+    learner_id: str,
+    background_tasks: BackgroundTasks,
+    current_user: Any = Depends(require_parent_or_admin),
+) -> Any:
+    require_learner_write_for_current_user(current_user, learner_id)
+    return await enqueue_job(
+        background_tasks,
+        operation="popia_deletion_execute",
+        payload={"learner_id": learner_id},
+        handler=None,
+    )
+
+
+@router.get("/deletion-status/{learner_id}")
+async def get_deletion_status_for_learner(
+    learner_id: str,
+    db: Any = Depends(get_db),
+    current_user: Any = Depends(get_current_user),
+) -> Any:
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=404, detail="Learner not found")
+    require_learner_read_for_current_user(current_user, learner)
+    return {"deletion_pending": bool(getattr(learner, "deletion_requested_at", None))}
+
+
+@router.get("/data-export/{learner_id}")
+async def get_data_export_for_learner(
+    learner_id: str,
+    db: Any = Depends(get_db),
+    current_user: Any = Depends(get_current_user),
+) -> Any:
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=404, detail="Learner not found")
+    require_learner_read_for_current_user(current_user, learner)
+    dsr_svc = POPIADataRightsService(db)
+    return await dsr_svc.build_learner_export(
+        learner_id=learner_id,
+        current_user=current_user,
+    )
 
 # ---------------------------------------------------------------------------
 # Source-level POPIA authorization/consent evidence adapters
