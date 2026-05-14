@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-13T22:03:23.071833+00:00`
+- generated_at_utc: `2026-05-14T12:57:04.580502+00:00`
 - branch: `codex/production_readiness`
-- commit: `ab75ab181e3328954bf1c0544237166ab5bcc8fb`
+- commit: `3471e25a64b695be1c66f046cfd543f647ac5fe6`
 - release_candidate: `unset`
 
 ## Evidence Artifacts
