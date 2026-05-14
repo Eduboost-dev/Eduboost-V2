@@ -35,7 +35,7 @@ imports and controlled migration behavior.
 
 For the current documentation sync status, see
 [`docs/current_state.md`](/docs/current_state.md), [`docs/project_status.md`](/docs/project_status.md), and the root
-[`TODO.md`](/TODO.md).
+[`TODO.md`](/TODO.md) live tracker.
 
 Item-bank coverage details live in
 [`docs/caps/grade4_maths_coverage_matrix.md`](/docs/caps/grade4_maths_coverage_matrix.md).
