@@ -12,7 +12,10 @@ class FakeService(POPIADataRightsService):
     def __init__(self, learner):
         self.learner = learner
 
-    async def load_authorized_learner(self, learner_id, current_user):
+    async def load_learner_for_read(self, learner_id, current_user):
+        return self.learner
+
+    async def load_learner_for_write(self, learner_id, current_user):
         return self.learner
 
 

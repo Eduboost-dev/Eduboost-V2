@@ -46,6 +46,7 @@ REQUIRED_INDEXES = {
         "ix_parental_consents_status",
         "ix_parental_consents_guardian_learner_status",
         "ix_parental_consents_active_status",
+        "uq_consent_guardian_learner",
     },
     "diagnostic_sessions": {"ix_diagnostic_sessions_created_at", "ix_diagnostic_sessions_incomplete"},
     "audit_events": {"idx_audit_events_ts", "idx_audit_events_actor", "idx_audit_events_hash"},
@@ -60,7 +61,6 @@ REQUIRED_CONSTRAINTS = {
         "ck_learner_profiles_streak_non_negative",
     },
     "parental_consents": {
-        "uq_consent_guardian_learner",
         "ck_parental_consents_expiry_after_grant",
         "ck_parental_consents_revoked_after_grant",
     },

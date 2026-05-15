@@ -141,8 +141,13 @@ CONTENT_REQUIREMENTS = {
         "active POPIA consent",
     ),
     "app/api_v2_routers/popia.py": (
-        "require_active_consent_for_current_user",
-        "await require_active_consent_for_current_user(db, current_user, learner_id)",
+        "dsr_svc: POPIADataRightsService",
+        "dsr_svc.build_learner_export(",
+        "dsr_svc.request_erasure(",
+    ),
+    "app/services/popia_service.py": (
+        "require_active_consent",
+        "await self.consent.require_active_consent(learner_id, actor_id=requester_id)",
     ),
     "app/api_v2_routers/parents.py": (
         "require_active_consent_for_current_user",

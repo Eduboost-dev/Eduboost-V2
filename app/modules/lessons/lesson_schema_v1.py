@@ -290,7 +290,7 @@ class LessonCreate(BaseModel):
             )
         return self
 
-    model_config = {"use_enum_values": True}
+    model_config = {"use_enum_values": True, "protected_namespaces": ()}
 
 
 class LessonResponse(LessonCreate):
@@ -308,7 +308,7 @@ class LessonResponse(LessonCreate):
         description="Set by DB server clock. Application default used only in tests.",
     )
 
-    model_config = {"from_attributes": True, "use_enum_values": True}
+    model_config = {"from_attributes": True, "use_enum_values": True, "protected_namespaces": ()}
 
 
 # ─── L1-02: JSON Schema (used by LLM gateway validator and mock provider) ────

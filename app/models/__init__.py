@@ -208,7 +208,13 @@ class ParentalConsent(Base):
         )
 
     __table_args__ = (
-        UniqueConstraint("guardian_id", "learner_id", name="uq_consent_guardian_learner"),
+        Index(
+            "uq_consent_guardian_learner",
+            "guardian_id",
+            "learner_id",
+            unique=True,
+            postgresql_where=sa.text("revoked_at IS NULL"),
+        ),
         CheckConstraint("expires_at > granted_at", name="ck_parental_consents_expiry_after_grant"),
         CheckConstraint("revoked_at IS NULL OR revoked_at >= granted_at", name="ck_parental_consents_revoked_after_grant"),
         Index(

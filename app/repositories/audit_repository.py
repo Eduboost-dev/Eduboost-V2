@@ -87,7 +87,9 @@ class AuditRepository:
 
     @property
     def _is_async_session(self) -> bool:
-        return isinstance(self._db, AsyncSession)
+        # Avoid isinstance check which can fail with certain mock setups.
+        # AsyncSession has 'add', asyncpg.Connection/Pool does not.
+        return hasattr(self._db, "add")
 
     # ------------------------------------------------------------------
     # Public write API (INSERT only)

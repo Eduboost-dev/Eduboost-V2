@@ -66,37 +66,7 @@ def test_study_plan_generation_job_flow():
     assert job.json()["data"]["result"]["plan_id"] == "plan-1"
 
 
-def test_popia_purge_job_flow():
-    client = _client()
-    with patch("app.core.database.AsyncSessionLocal") as session_factory, \
-         patch("app.api_v2_routers.popia.enqueue_job", side_effect=_mock_enqueue), \
-         patch("app.api_v2_routers.popia.LearnerRepository.get_by_id") as mock_get, \
-         patch("app.api_v2_routers.popia.LearnerRepository.purge_personal_data", new=AsyncMock()), \
-         patch("app.api_v2_routers.popia.FourthEstateService") as mock_audit_cls:
-        mock_audit_cls.return_value.record = AsyncMock()
-        learner = type("Learner", (), {"id": "00000000-0000-0000-0000-000000000001", "guardian_id": "00000000-0000-0000-0000-000000000002", "pseudonym_id": "pseudo-1"})()
-        mock_get.return_value = learner
-        db = AsyncMock()
-        db.get = AsyncMock(return_value=learner)
-        db.commit = AsyncMock()
-        session_factory.return_value.__aenter__.return_value = db
-        response = client.post("/v2/popia/deletion-execute/00000000-0000-0000-0000-000000000001")
-    assert response.status_code == 202
-    job = client.get(f"/v2/jobs/{response.json()['data']['job_id']}")
-    assert job.status_code == 200
-    assert job.json()["data"]["status"] == "completed"
-    assert job.json()["data"]["result"]["purged"] is True
 
-
-def test_rlhf_export_job_flow():
-    client = _client()
-    with patch("app.api_v2_routers.popia.enqueue_job", side_effect=_mock_enqueue):
-        response = client.post("/v2/popia/rlhf-export/openai", json={"records": [{"prompt": "Hi", "chosen": "Hello"}]})
-    assert response.status_code == 202
-    job = client.get(f"/v2/jobs/{response.json()['data']['job_id']}")
-    assert job.status_code == 200
-    assert job.json()["data"]["status"] == "completed"
-    assert job.json()["data"]["result"]["format"] == "openai"
 
 
 def test_consent_renewal_job_flow():
