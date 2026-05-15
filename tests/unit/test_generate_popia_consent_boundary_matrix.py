@@ -11,7 +11,7 @@ def test_popia_consent_boundary_matrix_collects_core_routes() -> None:
     lookup = {(row.router, row.function): row for row in rows}
 
     assert lookup[("lessons.py", "generate_lesson")].decision == "active_consent_required"
-    assert lookup[("popia.py", "request_learner_deletion")].decision == "rights_exercise_not_active_consent_blocked"
+    assert lookup[("popia.py", "create_erasure_request")].decision == "rights_exercise_not_active_consent_blocked"
     assert lookup[("assessments.py", "list_assessments")].decision == "authenticated_catalog_boundary"
 
 

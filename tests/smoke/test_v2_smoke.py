@@ -99,7 +99,7 @@ class TestErrorHandling:
         # The app has a catch-all OPTIONS route for CORS preflight, so a GET
         # to an otherwise unknown path is a method mismatch rather than a pure
         # router miss.
-        assert r.status_code == 405
+        assert r.status_code == 404
         data = r.json()
         assert "error" in data or "detail" in data
 

@@ -6,25 +6,25 @@ import pytest
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-ROUTER = REPO_ROOT / "app" / "api_v2_routers" / "popia.py"
+ROUTER = REPO_ROOT / "app" / "services" / "popia_service.py"
 
 
 @pytest.mark.unit
-def test_popia_router_imports_central_consent_adapter() -> None:
+def test_popia_service_uses_central_consent_adapter() -> None:
     source = ROUTER.read_text(encoding="utf-8")
 
-    assert "require_active_consent_for_current_user" in source
+    assert "await self.consent.require_active_consent" in source
 
 
 @pytest.mark.unit
 def test_data_export_requires_read_authz_then_active_consent() -> None:
     source = ROUTER.read_text(encoding="utf-8")
-    block = source.split("async def export_learner_data", maxsplit=1)[1].split("@router.post", maxsplit=1)[0]
+    block = source.split("async def build_learner_export", maxsplit=1)[1].split("async def request_erasure", maxsplit=1)[0]
 
-    assert "require_learner_read_for_current_user(current_user, learner)" in block
-    assert "await require_active_consent_for_current_user(db, current_user, learner_id)" in block
-    assert block.index("require_learner_read_for_current_user(current_user, learner)") < block.index(
-        "await require_active_consent_for_current_user(db, current_user, learner_id)"
+    assert "self.load_learner_for_read(learner_id, current_user)" in block
+    assert "await self.consent.require_active_consent(learner_id, actor_id=requester_id)" in block
+    assert block.index("self.load_learner_for_read(learner_id, current_user)") < block.index(
+        "await self.consent.require_active_consent(learner_id, actor_id=requester_id)"
     )
 
 
@@ -32,17 +32,15 @@ def test_data_export_requires_read_authz_then_active_consent() -> None:
 def test_dsr_mutation_routes_remain_object_authorized_not_active_consent_blocked() -> None:
     source = ROUTER.read_text(encoding="utf-8")
     for marker in (
-        "async def request_learner_deletion",
-        "async def cancel_learner_deletion",
+        "async def request_erasure",
+        "async def cancel_erasure",
         "async def request_correction",
-        "async def request_processing_restriction",
-        "async def get_deletion_status",
+        "async def restrict_processing",
     ):
         assert marker in source
 
     # These endpoints are data-subject rights workflows. They must remain
     # object-authorized but must not be blocked by requiring active consent.
-    dsr_section = source.split("async def request_learner_deletion", maxsplit=1)[1].split("@router.post(\"/rlhf-export", maxsplit=1)[0]
-    assert "require_learner_write_for_current_user" in dsr_section
-    assert "require_learner_read_for_current_user" in dsr_section
-    assert "await require_active_consent_for_current_user" not in dsr_section
+    dsr_section = source.split("async def request_erasure", maxsplit=1)[1]
+    assert "self.load_learner_for_write" in dsr_section
+    assert "self.consent.require_active_consent" not in dsr_section

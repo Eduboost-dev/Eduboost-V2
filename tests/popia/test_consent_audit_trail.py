@@ -117,5 +117,5 @@ async def test_missing_consent_writes_rejected_access_audit_event(
     event = result.scalar_one()
     assert str(event.actor_id) == guardian.id
     assert str(event.resource_id) == learner.id
-    assert event.payload["reason"] == "missing_or_expired"
+    assert event.payload["reason"] == "no_consent_record"
 

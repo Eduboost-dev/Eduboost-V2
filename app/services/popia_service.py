@@ -17,7 +17,7 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.authorization import assert_can_access_learner
+from app.security.dependencies import require_learner_read_for_current_user, require_learner_write_for_current_user
 from app.models import DiagnosticSession, KnowledgeGap, LearnerProfile, Lesson, ParentalConsent
 from app.repositories.audit_repository import AuditRepository
 from app.repositories.repositories import LearnerRepository
@@ -55,11 +55,18 @@ class POPIADataRightsService:
         self.audit = AuditRepository(db)
         self.consent = ConsentService(db)
 
-    async def load_authorized_learner(self, learner_id: str, current_user: dict[str, Any]) -> LearnerProfile:
+    async def load_learner_for_read(self, learner_id: str, current_user: dict[str, Any]) -> LearnerProfile:
         learner = await self.learners.get_by_id(learner_id)
         if learner is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
-        assert_can_access_learner(current_user, learner)
+        require_learner_read_for_current_user(current_user, learner)
+        return learner
+
+    async def load_learner_for_write(self, learner_id: str, current_user: dict[str, Any]) -> LearnerProfile:
+        learner = await self.learners.get_by_id(learner_id)
+        if learner is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+        require_learner_write_for_current_user(current_user, learner_id)
         return learner
 
     async def build_learner_export(
@@ -70,7 +77,7 @@ class POPIADataRightsService:
         export_format: Literal["json", "csv"] = "json",
     ) -> dict[str, Any]:
         requester_id = str(current_user.get("sub") or "")
-        learner = await self.load_authorized_learner(learner_id, current_user)
+        learner = await self.load_learner_for_read(learner_id, current_user)
         await self.consent.require_active_consent(learner_id, actor_id=requester_id)
 
         payload = await self._export_payload(learner)
@@ -102,7 +109,7 @@ class POPIADataRightsService:
 
     async def request_erasure(self, learner_id: str, current_user: dict[str, Any], *, reason: str = "guardian_request") -> dict[str, Any]:
         requester_id = str(current_user.get("sub") or "")
-        learner = await self.load_authorized_learner(learner_id, current_user)
+        learner = await self.load_learner_for_write(learner_id, current_user)
         if str(learner.guardian_id) != requester_id and str(current_user.get("role", "")).lower() != "admin":
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only the learner's guardian or admin can request erasure")
         if learner.deletion_requested_at is not None:
@@ -140,7 +147,7 @@ class POPIADataRightsService:
 
     async def cancel_erasure(self, learner_id: str, current_user: dict[str, Any]) -> dict[str, Any]:
         requester_id = str(current_user.get("sub") or "")
-        learner = await self.load_authorized_learner(learner_id, current_user)
+        learner = await self.load_learner_for_write(learner_id, current_user)
         if learner.deletion_requested_at is None:
             raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="No erasure request exists for this learner")
         learner.is_deleted = False
@@ -164,7 +171,7 @@ class POPIADataRightsService:
         reason: str,
     ) -> dict[str, Any]:
         requester_id = str(current_user.get("sub") or "")
-        learner = await self.load_authorized_learner(learner_id, current_user)
+        learner = await self.load_learner_for_write(learner_id, current_user)
         allowed = {"display_name", "grade", "language"}
         rejected = sorted(set(fields) - allowed)
         if rejected:
@@ -190,7 +197,7 @@ class POPIADataRightsService:
         reason: str,
     ) -> dict[str, Any]:
         requester_id = str(current_user.get("sub") or "")
-        learner = await self.load_authorized_learner(learner_id, current_user)
+        learner = await self.load_learner_for_write(learner_id, current_user)
         await self.consent.revoke(learner_id, guardian_id=requester_id, reason="processing_restricted")
         await self.audit.append(
             "processing.restricted",

@@ -25,8 +25,7 @@ from app.domain.data_subject_rights import (
     RestrictionRequest,
 )
 from app.services.consent_service import ConsentService
-from app.services.data_subject_rights_service import DataSubjectRightsService
-POPIADataRightsService = DataSubjectRightsService
+from app.services.popia_service import POPIADataRightsService
 
 from app.core.envelope_route import EnvelopedRoute
 
@@ -43,11 +42,9 @@ async def get_consent_service_for_router(db: AsyncSession = Depends(get_db)) -> 
     return ConsentService(ConsentRepository(db), AuditRepository(db))
 
 
-async def get_data_subject_rights_service_for_router(db: AsyncSession = Depends(get_db)) -> DataSubjectRightsService:
-    # Note: DataSubjectRightsService currently expects an asyncpg.Pool.
-    # For now, we pass the db session as a compatible object if possible,
-    # or this will need a pool-aware dependency.
-    return DataSubjectRightsService(db, AuditRepository(db))
+async def get_data_subject_rights_service_for_router(db: AsyncSession = Depends(get_db)) -> POPIADataRightsService:
+    """Dependency provider for POPIA data rights service."""
+    return POPIADataRightsService(db)
 
 
 # ---------------------------------------------------------------------------
@@ -83,6 +80,7 @@ class ExportRequestBody(BaseModel):
 
 class ErasureRequestBody(BaseModel):
     learner_id: uuid.UUID
+    reason: str = "guardian_request"
 
 
 class ErasureApproveBody(BaseModel):
@@ -102,11 +100,13 @@ class RestrictionRequestBody(BaseModel):
 
 
 class CorrectionRequestLegacyBody(BaseModel):
+    learner_id: uuid.UUID
     fields: dict[str, Any]
     reason: str
 
 
 class RestrictionRequestLegacyBody(BaseModel):
+    learner_id: uuid.UUID
     reason: str
 
 
@@ -181,330 +181,80 @@ async def renew_consent(
 # §4.3 Data Subject Rights – Export
 # ---------------------------------------------------------------------------
 
-@router.post("/exports", response_model=DataExportRequest)
+@router.post("/exports")
 async def create_export_request(
-    # require_learner_read_for_current_user
+    # require_active_consent_for_current_user
     body: ExportRequestBody,
-    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
-    actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
-) -> DataExportRequest:
-    return await dsr_svc.create_export_request(
-        learner_id=body.learner_id,
-        requested_by=actor_id,
-        fmt=body.format,
+    dsr_svc: POPIADataRightsService = Depends(get_data_subject_rights_service_for_router),
+    current_user: Any = Depends(get_current_user),
+) -> Any:
+    """Creates a new data export request (§4.3)."""
+    return await dsr_svc.build_learner_export(
+        learner_id=str(body.learner_id),
+        current_user=current_user,
     )
-
-
-@router.get("/exports/{request_id}", response_model=DataExportRequest)
-async def get_export_status(
-    request_id: uuid.UUID,
-    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
-) -> DataExportRequest:
-    req = await dsr_svc.get_export_status(request_id)
-    if req is None:
-        raise HTTPException(status_code=404, detail="Export request not found")
-    return req
-
-
-@router.post("/exports/{request_id}/download", response_model=DataExportRequest)
-async def download_export(
-    request_id: uuid.UUID,
-    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
-    actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
-) -> DataExportRequest:
-    return await dsr_svc.build_and_complete_export(request_id, actor_id)
 
 
 # ---------------------------------------------------------------------------
 # §4.3 Data Subject Rights – Erasure
 # ---------------------------------------------------------------------------
 
-@router.post("/erasure", response_model=ErasureRequest)
+@router.post("/erasure", status_code=status.HTTP_201_CREATED)
 async def create_erasure_request(
-    # require_learner_write_for_current_user
     body: ErasureRequestBody,
-    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
-    actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
-) -> ErasureRequest:
-    return await dsr_svc.create_erasure_request(
-        learner_id=body.learner_id,
-        requested_by=actor_id,
-    )
-
-
-@router.get("/erasure/{request_id}", response_model=ErasureRequest)
-async def get_erasure_status(
-    request_id: uuid.UUID,
-    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
-) -> ErasureRequest:
-    req = await dsr_svc.get_erasure_status(request_id)
-    if req is None:
-        raise HTTPException(status_code=404, detail="Erasure request not found")
-    return req
-
-
-@router.post("/erasure/{request_id}/approve", response_model=ErasureRequest)
-async def approve_erasure(
-    request_id: uuid.UUID,
-    body: ErasureApproveBody,
-    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
-    actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
-) -> ErasureRequest:
-    return await dsr_svc.approve_erasure(request_id, actor_id, body.review_notes)
-
-
-@router.post("/erasure/{request_id}/execute", response_model=ErasureRequest)
-async def execute_erasure(
-    request_id: uuid.UUID,
-    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
-    actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
-) -> ErasureRequest:
-    return await dsr_svc.execute_erasure(request_id, actor_id)
-
-
-# ---------------------------------------------------------------------------
-# §4.3 Data Subject Rights – Correction
-# ---------------------------------------------------------------------------
-
-@router.post("/correction", response_model=CorrectionRequest)
-async def create_correction_request(
-    # require_learner_write_for_current_user
-    body: CorrectionRequestBody,
-    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
-    actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
-) -> CorrectionRequest:
-    return await dsr_svc.create_correction_request(
-        learner_id=body.learner_id,
-        requested_by=actor_id,
-        field_name=body.field_name,
-        new_value=body.new_value,
-        old_value=body.old_value,
-    )
-
-
-@router.post("/correction/{request_id}/complete", response_model=CorrectionRequest)
-async def complete_correction(
-    request_id: uuid.UUID,
-    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
-    actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
-) -> CorrectionRequest:
-    return await dsr_svc.complete_correction(request_id, actor_id)
-
-
-# ---------------------------------------------------------------------------
-# §4.3 Data Subject Rights – Processing Restriction
-# ---------------------------------------------------------------------------
-
-@router.post("/restriction", response_model=RestrictionRequest)
-async def create_restriction(
-    # require_learner_write_for_current_user
-    body: RestrictionRequestBody,
-    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
-    actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
-) -> RestrictionRequest:
-    return await dsr_svc.create_restriction_request(
-        learner_id=body.learner_id,
-        requested_by=actor_id,
+    dsr_svc: POPIADataRightsService = Depends(get_data_subject_rights_service_for_router),
+    current_user: Any = Depends(get_current_user),
+) -> Any:
+    """Creates a new erasure request (§4.3)."""
+    return await dsr_svc.request_erasure(
+        learner_id=str(body.learner_id),
+        current_user=current_user,
         reason=body.reason,
     )
 
 
-@router.post("/restriction/{request_id}/lift", response_model=RestrictionRequest)
-async def lift_restriction(
-    request_id: uuid.UUID,
-    dsr_svc: DataSubjectRightsService = Depends(get_data_subject_rights_service_for_router),
-    actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
-) -> RestrictionRequest:
-    return await dsr_svc.lift_restriction(request_id, actor_id)
 
-
-@router.post("/correction-request/{learner_id}")
-async def create_correction_request_for_learner(
-    learner_id: str,
-    body: CorrectionRequestLegacyBody,
-    db: Any = Depends(get_db),
+@router.post("/erasure/{learner_id}/cancel")
+async def cancel_erasure(
+    learner_id: uuid.UUID,
+    dsr_svc: POPIADataRightsService = Depends(get_data_subject_rights_service_for_router),
     current_user: Any = Depends(get_current_user),
 ) -> Any:
-    learner = await LearnerRepository(db).get_by_id(learner_id)
-    if learner is None:
-        raise HTTPException(status_code=404, detail="Learner not found")
-    require_learner_write_for_current_user(current_user, learner_id)
-    dsr_svc = POPIADataRightsService(db)
+    """Cancels a pending erasure request."""
+    return await dsr_svc.cancel_erasure(
+        learner_id=str(learner_id),
+        current_user=current_user,
+    )
+
+
+# ---------------------------------------------------------------------------
+# §4.3 Data Subject Rights – Correction & Restriction
+# ---------------------------------------------------------------------------
+
+@router.post("/correction")
+async def create_correction_request(
+    body: CorrectionRequestLegacyBody,
+    dsr_svc: POPIADataRightsService = Depends(get_data_subject_rights_service_for_router),
+    current_user: Any = Depends(get_current_user),
+) -> Any:
+    """Creates a correction request (§4.3)."""
     return await dsr_svc.request_correction(
-        learner_id=learner_id,
+        learner_id=str(body.learner_id),
         current_user=current_user,
         fields=body.fields,
         reason=body.reason,
     )
 
 
-@router.post("/restriction-request/{learner_id}")
-async def create_restriction_request_for_learner(
-    learner_id: str,
+@router.post("/restriction")
+async def create_restriction_request(
     body: RestrictionRequestLegacyBody,
-    db: Any = Depends(get_db),
+    dsr_svc: POPIADataRightsService = Depends(get_data_subject_rights_service_for_router),
     current_user: Any = Depends(get_current_user),
 ) -> Any:
-    learner = await LearnerRepository(db).get_by_id(learner_id)
-    if learner is None:
-        raise HTTPException(status_code=404, detail="Learner not found")
-    require_learner_write_for_current_user(current_user, learner_id)
-    dsr_svc = POPIADataRightsService(db)
+    """Creates a processing restriction request (§4.3)."""
     return await dsr_svc.restrict_processing(
-        learner_id=learner_id,
+        learner_id=str(body.learner_id),
         current_user=current_user,
         reason=body.reason,
     )
-
-
-@router.post("/deletion-request/{learner_id}")
-async def create_deletion_request_for_learner(
-    learner_id: str,
-    body: DeletionRequestBody,
-    db: Any = Depends(get_db),
-    current_user: Any = Depends(get_current_user),
-) -> Any:
-    learner = await LearnerRepository(db).get_by_id(learner_id)
-    if learner is None:
-        raise HTTPException(status_code=404, detail="Learner not found")
-    require_learner_write_for_current_user(current_user, learner_id)
-    dsr_svc = POPIADataRightsService(db)
-    return await dsr_svc.request_erasure(
-        learner_id=learner_id,
-        current_user=current_user,
-        reason=body.reason,
-    )
-
-
-@router.post("/deletion-cancel/{learner_id}")
-async def cancel_deletion_for_learner(
-    learner_id: str,
-    db: Any = Depends(get_db),
-    current_user: Any = Depends(get_current_user),
-) -> Any:
-    learner = await LearnerRepository(db).get_by_id(learner_id)
-    if learner is None:
-        raise HTTPException(status_code=404, detail="Learner not found")
-    require_learner_write_for_current_user(current_user, learner_id)
-    dsr_svc = POPIADataRightsService(db)
-    return await dsr_svc.cancel_erasure(learner_id=learner_id, current_user=current_user)
-
-
-@router.post("/deletion-execute/{learner_id}", status_code=status.HTTP_202_ACCEPTED)
-async def execute_deletion_for_learner(
-    learner_id: str,
-    background_tasks: BackgroundTasks,
-    current_user: Any = Depends(require_parent_or_admin),
-) -> Any:
-    require_learner_write_for_current_user(current_user, learner_id)
-    async def _run() -> dict:
-        async with AsyncSessionLocal() as db:
-            learner = await LearnerRepository(db).get_by_id(learner_id)
-            if not learner:
-                raise HTTPException(status_code=404, detail="Learner not found")
-            
-            await LearnerRepository(db).purge_personal_data(learner_id)
-            await db.commit()
-            
-            await FourthEstateService(db).record(
-                event_type="POPIA_PURGE",
-                actor_id=str(current_user["sub"]),
-                learner_pseudonym=learner.pseudonym_id,
-                payload={"learner_id": learner_id}
-            )
-            return {"purged": True, "learner_id": learner_id}
-
-    return await enqueue_job(
-        background_tasks,
-        operation="popia_deletion_execute",
-        payload={"learner_id": learner_id},
-        handler=_run,
-    )
-
-
-@router.get("/deletion-status/{learner_id}")
-async def get_deletion_status_for_learner(
-    learner_id: str,
-    db: Any = Depends(get_db),
-    current_user: Any = Depends(get_current_user),
-) -> Any:
-    learner = await LearnerRepository(db).get_by_id(learner_id)
-    if learner is None:
-        raise HTTPException(status_code=404, detail="Learner not found")
-    require_learner_read_for_current_user(current_user, learner)
-    return {"deletion_pending": bool(getattr(learner, "deletion_requested_at", None))}
-
-
-@router.get("/data-export/{learner_id}")
-async def get_data_export_for_learner(
-    learner_id: str,
-    db: Any = Depends(get_db),
-    current_user: Any = Depends(get_current_user),
-) -> Any:
-    learner = await LearnerRepository(db).get_by_id(learner_id)
-    if learner is None:
-        raise HTTPException(status_code=404, detail="Learner not found")
-    require_learner_read_for_current_user(current_user, learner)
-    dsr_svc = POPIADataRightsService(db)
-    return await dsr_svc.build_learner_export(
-        learner_id=learner_id,
-        current_user=current_user,
-    )
-
-@router.post("/rlhf-export/{export_format}", status_code=status.HTTP_202_ACCEPTED)
-async def export_rlhf_dataset(
-    export_format: str,
-    body: dict,
-    background_tasks: BackgroundTasks,
-    current_user: Any = Depends(require_parent_or_admin),
-) -> Any:
-    """
-    Enqueues an RLHF dataset export job (§4.3/§4.6).
-    """
-    async def _run() -> dict:
-        # Placeholder for actual export logic
-        await asyncio.sleep(0.1)
-        return {"format": export_format, "status": "completed"}
-
-    return await enqueue_job(
-        background_tasks,
-        operation="rlhf_export",
-        payload={"format": export_format, "records_count": len(body.get("records", []))},
-        handler=_run,
-    )
-
-
-async def export_learner_data(learner_id: str, db: Any, current_user: Any) -> None:
-    learner = await LearnerRepository(db).get_by_id(learner_id)
-    require_learner_read_for_current_user(current_user, learner)
-    await require_active_consent_for_current_user(db, current_user, learner_id)
-
-
-async def request_learner_deletion(learner_id: str, db: Any, current_user: Any) -> None:
-    learner = await LearnerRepository(db).get_by_id(learner_id)
-    require_learner_write_for_current_user(current_user, learner_id)
-
-
-async def cancel_learner_deletion(learner_id: str, db: Any, current_user: Any) -> None:
-    learner = await LearnerRepository(db).get_by_id(learner_id)
-    require_learner_write_for_current_user(current_user, learner_id)
-
-
-async def execute_learner_deletion(learner_id: str, db: Any, current_user: Any) -> None:
-    learner = await LearnerRepository(db).get_by_id(learner_id)
-    require_learner_write_for_current_user(current_user, learner_id)
-
-
-async def get_deletion_status(learner_id: str, db: Any, current_user: Any) -> None:
-    learner = await LearnerRepository(db).get_by_id(learner_id)
-    require_learner_read_for_current_user(current_user, learner)
-
-
-async def request_processing_restriction(learner_id: str, db: Any, current_user: Any) -> None:
-    learner = await LearnerRepository(db).get_by_id(learner_id)
-    require_learner_write_for_current_user(current_user, learner_id)
-
-
-async def request_correction(learner_id: str, db: Any, current_user: Any) -> None:
-    learner = await LearnerRepository(db).get_by_id(learner_id)
-    require_learner_write_for_current_user(current_user, learner_id)

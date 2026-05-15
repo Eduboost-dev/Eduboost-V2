@@ -55,7 +55,7 @@ def run_checks() -> list[CheckResult]:
         ("diagnostics.py", "submit_diagnostic"),
         ("study_plans.py", "generate_study_plan"),
         ("parents.py", "get_learner_progress"),
-        ("popia.py", "export_learner_data"),
+        ("popia.py", "create_export_request"),
         ("assessments.py", "submit_attempt"),
         ("onboarding.py", "submit_onboarding"),
     }

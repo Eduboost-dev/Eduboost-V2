@@ -19,6 +19,8 @@ def ensure_repo_root_on_path() -> None:
         sys.path.insert(0, repo_root)
 
 ensure_repo_root_on_path()
+os.environ["APP_ENV"] = "test"
+os.environ["ENVIRONMENT"] = "test"
 
 from app.core.database import AsyncSessionFactory, create_all_tables, drop_all_tables, engine
 

@@ -2,25 +2,22 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-14T21:16:33.577580+00:00`
+- generated_at_utc: `2026-05-15T18:58:09.195188+00:00`
 - branch: `codex/production_readiness`
-- commit: `c9b255d6a61c7854da9ebea6d632b36b25d5995c`
+- commit: `0bac413d3f09cb144fd6b8674f770e725ddc282f`
 - release_candidate: `unset`
 
 ## Working Tree Status
 
 ```text
-M alembic/versions/20260510_0300_popia_consent_audit_dsr.py
- M app/api_v2_routers/auth.py
- M app/core/audit.py
- M app/core/config.py
- M app/core/password_policy.py
- M app/core/token_revocation.py
- M app/modules/consent/service.py
- M app/repositories/repositories.py
- M docker-compose.yml
- M docs/ai/ai_prompt_surface_inventory.md
- M docs/frontend/frontend_route_inventory.md
+D app/api/__init__.py
+ D app/api/main.py
+ M app/api_v2_routers/audit.py
+ M app/api_v2_routers/popia.py
+ M app/models/__init__.py
+ M app/modules/lessons/lesson_schema_v1.py
+ M app/repositories/audit_repository.py
+ M app/services/popia_service.py
  M docs/operations/beta_release_evidence_bundle.md
  M docs/operations/beta_release_pr_body.md
  M docs/operations/beta_signoff_manifest.md
@@ -30,31 +27,43 @@ M alembic/versions/20260510_0300_popia_consent_audit_dsr.py
  M docs/operations/release_evidence_manifest.md
  M docs/operations/release_state_snapshot.md
  M docs/operations/staging_smoke_evidence_manifest.md
+ M docs/security/PHASE2_AUTHORIZATION_CLOSURE.md
+ M docs/security/popia_consent_boundary_matrix.md
+ D docs/security/popia_deletion_execute_authorization_wiring.md
+ D docs/security/popia_deletion_status_authorization_wiring.md
+ M scripts/check_phase2_authorization_evidence.py
+ M scripts/check_popia_consent_audit_evidence.py
+ M scripts/check_popia_consent_boundary_matrix.py
+ M scripts/check_runtime_entrypoints.py
+ M scripts/generate_popia_consent_boundary_matrix.py
+ M scripts/validate_schema_integrity.py
  M tests/conftest.py
- M tests/integration/conftest.py
- M tests/integration/test_auth_refresh.py
- M tests/integration/test_consent_grant_authorization.py
- M tests/integration/test_consent_revoke_authorization.py
- M tests/integration/test_consent_status_authorization.py
- M tests/integration/test_diagnostic_items_authorization.py
- M tests/integration/test_diagnostic_submit_authorization.py
- M tests/integration/test_gamification_award_xp_authorization.py
- M tests/integration/test_gamification_profile_authorization.py
- M tests/integration/test_learner_mastery_authorization.py
- M tests/integration/test_learner_read_authorization.py
- M tests/integration/test_lesson_sync.py
- M tests/integration/test_parent_erasure_authorization.py
- M tests/integration/test_parent_export_authorization.py
- M tests/integration/test_parent_progress_authorization.py
- M tests/integration/test_parent_trust_dashboard.py
- M tests/integration/test_rate_limits.py
+ D tests/integration/test_popia_correction_request_authorization.py
+ D tests/integration/test_popia_data_export_authorization.py
+ D tests/integration/test_popia_deletion_cancel_authorization.py
+ D tests/integration/test_popia_deletion_execute_authorization.py
+ D tests/integration/test_popia_deletion_request_authorization.py
+ D tests/integration/test_popia_deletion_status_authorization.py
+ D tests/integration/test_popia_restriction_request_authorization.py
+ M tests/integration/test_v2_jobs.py
+ M tests/popia/test_consent_audit_trail.py
+ M tests/smoke/test_v2_smoke.py
+ M tests/test_popia_end_to_end.py
  M tests/test_popia_negative.py
- M tests/unit/test_refresh_token_rotation.py
-?? docs/release/full_pytest_errors_latest.txt
-?? docs/release/integration_auth_refresh_trace.txt
-?? docs/release/pytest_collect_all.txt
-?? fix_consent_mock.py
-?? fix_future_import.py
+ M tests/unit/modules/diagnostics/test_item_bank_pipeline.py
+ M tests/unit/test_generate_popia_consent_boundary_matrix.py
+ M tests/unit/test_popia_correction_request_authorization_wiring.py
+ M tests/unit/test_popia_data_export_authorization_wiring.py
+ M tests/unit/test_popia_data_rights_consent_boundary.py
+ M tests/unit/test_popia_deletion_cancel_authorization_wiring.py
+ D tests/unit/test_popia_deletion_execute_authorization_wiring.py
+ M tests/unit/test_popia_deletion_request_authorization_wiring.py
+ D tests/unit/test_popia_deletion_status_authorization_wiring.py
+ M tests/unit/test_popia_restriction_request_authorization_wiring.py
+ M tests/unit/test_popia_service.py
+?? docs/release/full_pytest_latest.txt
+?? docs/release/full_pytest_latest_v2.txt
+?? docs/release/integration_full_latest.txt
 ```
 
 ## State Artifacts

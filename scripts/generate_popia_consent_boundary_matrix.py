@@ -35,25 +35,21 @@ ROUTE_DECISIONS: dict[tuple[str, str], str] = {
     ("parents.py", "export_parent_access_bundle"): "active_consent_required",
     ("parents.py", "get_learner_progress"): "active_consent_required",
     ("parents.py", "request_erasure"): "rights_exercise_not_active_consent_blocked",
-    ("popia.py", "export_learner_data"): "active_consent_required",
-    ("popia.py", "request_learner_deletion"): "rights_exercise_not_active_consent_blocked",
-    ("popia.py", "cancel_learner_deletion"): "rights_exercise_not_active_consent_blocked",
-    ("popia.py", "request_correction"): "rights_exercise_not_active_consent_blocked",
-    ("popia.py", "request_processing_restriction"): "rights_exercise_not_active_consent_blocked",
-    ("popia.py", "execute_learner_deletion"): "rights_exercise_not_active_consent_blocked",
-    ("popia.py", "get_deletion_status"): "rights_exercise_not_active_consent_blocked",
+    ("popia.py", "create_export_request"): "active_consent_required",
+    ("popia.py", "create_erasure_request"): "rights_exercise_not_active_consent_blocked",
+    ("popia.py", "cancel_erasure"): "rights_exercise_not_active_consent_blocked",
+    ("popia.py", "create_correction_request"): "rights_exercise_not_active_consent_blocked",
+    ("popia.py", "create_restriction_request"): "rights_exercise_not_active_consent_blocked",
     ("popia.py", "export_rlhf_dataset"): "non_learner_scoped",
     ("study_plans.py", "generate_study_plan"): "active_consent_required",
 }
 
 SOURCE_EVIDENCE_ROWS: tuple[tuple[str, str, str, str], ...] = (
-    ("popia.py", "export_learner_data", "active_consent_required", "require_active_consent_for_current_user"),
-    ("popia.py", "request_learner_deletion", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
-    ("popia.py", "cancel_learner_deletion", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
-    ("popia.py", "request_correction", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
-    ("popia.py", "request_processing_restriction", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
-    ("popia.py", "execute_learner_deletion", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
-    ("popia.py", "get_deletion_status", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
+    ("popia.py", "create_export_request", "active_consent_required", "require_active_consent_for_current_user"),
+    ("popia.py", "create_erasure_request", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
+    ("popia.py", "cancel_erasure", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
+    ("popia.py", "create_correction_request", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
+    ("popia.py", "create_restriction_request", "rights_exercise_not_active_consent_blocked", "rights_exercise"),
 )
 
 
