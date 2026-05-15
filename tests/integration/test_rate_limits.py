@@ -9,7 +9,7 @@ from unittest.mock import AsyncMock
 from fastapi.testclient import TestClient
 
 from app.api_v2 import app
-from app.api_v2_routers.diagnostics import get_current_user
+from app.core.security import get_current_user
 
 
 def test_diagnostic_submit_consumes_ai_quota(monkeypatch):
@@ -81,13 +81,13 @@ def test_diagnostic_submit_consumes_ai_quota(monkeypatch):
     monkeypatch.setattr("app.api_v2_routers.diagnostics.check_ai_quota", quota_mock)
 
     def override_user():
-        return {"sub": "guardian-1"}
+        return {"sub": "guardian-1", "role": "parent", "guardian_learner_ids": ["learner-1"]}
 
     app.dependency_overrides.clear()
     app.dependency_overrides[get_current_user] = override_user
 
-    with TestClient(app) as client:
-        response = client.post(
+    client = TestClient(app)
+    response = client.post(
             "/api/v2/diagnostics/submit",
             json={"learner_id": "learner-1", "answers": [{"item_id": "item-1", "selected_option": "A"}]},
         )

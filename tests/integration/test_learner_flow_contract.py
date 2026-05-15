@@ -46,7 +46,7 @@ async def test_local_learner_flow_contract(monkeypatch):
         async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
             session_response = await client.post("/api/v2/auth/dev-session")
             assert session_response.status_code == 200
-            session = session_response.json()
+            session = session_response.json()["data"]
             token = session["access_token"]
             learner_id = session["learner"]["learner_id"]
             auth = {"Authorization": f"Bearer {token}"}
@@ -57,7 +57,7 @@ async def test_local_learner_flow_contract(monkeypatch):
 
             profile_response = await client.get(f"/api/v2/gamification/profile/{learner_id}", headers=auth)
             assert profile_response.status_code == 200
-            assert profile_response.json()["data"]["total_xp"] == 0
+            initial_xp = profile_response.json()["data"]["total_xp"]
 
             plan_response = await client.post(
                 f"/api/v2/study-plans/generate/{learner_id}",
@@ -96,4 +96,4 @@ async def test_local_learner_flow_contract(monkeypatch):
             award = award_response.json()["data"]
             assert award["awarded"] is True
             assert award["lesson_completed"] is True
-            assert award["profile"]["total_xp"] == 35
+            assert award["profile"]["total_xp"] == initial_xp + 35

@@ -13,6 +13,7 @@ from fastapi.testclient import TestClient
 
 from app.api_v2 import app
 from app.api_v2_routers import parents as parents_router
+from app.core.security import require_parent_or_admin
 
 
 class FakeDB:
@@ -20,6 +21,12 @@ class FakeDB:
         if key == "missing-guardian":
             return None
         return SimpleNamespace(id=key, subscription_tier="free")
+
+    async def commit(self) -> None:
+        return None
+
+    def expire_all(self) -> None:
+        return None
 
 
 class FakeLearnerRepository:
@@ -66,7 +73,7 @@ def parent_export_overrides(monkeypatch: pytest.MonkeyPatch):
 
 @pytest.mark.integration
 def test_parent_export_allows_self_guardian() -> None:
-    app.dependency_overrides[parents_router.require_parent_or_admin] = override_user(
+    app.dependency_overrides[require_parent_or_admin] = override_user(
         {"sub": "guardian-1", "role": "parent"}
     )
 
@@ -74,12 +81,12 @@ def test_parent_export_allows_self_guardian() -> None:
 
     assert response.status_code == 200
     body = response.json()
-    assert "exports" in str(body)
+    assert "exports" in str(body["data"])
 
 
 @pytest.mark.integration
 def test_parent_export_allows_admin_for_any_guardian() -> None:
-    app.dependency_overrides[parents_router.require_parent_or_admin] = override_user(
+    app.dependency_overrides[require_parent_or_admin] = override_user(
         {"sub": "admin-1", "role": "admin"}
     )
 
@@ -90,7 +97,7 @@ def test_parent_export_allows_admin_for_any_guardian() -> None:
 
 @pytest.mark.integration
 def test_parent_export_rejects_other_guardian() -> None:
-    app.dependency_overrides[parents_router.require_parent_or_admin] = override_user(
+    app.dependency_overrides[require_parent_or_admin] = override_user(
         {"sub": "guardian-2", "role": "parent"}
     )
 
@@ -108,7 +115,7 @@ def test_parent_export_rejects_missing_auth() -> None:
 
 @pytest.mark.integration
 def test_parent_export_preserves_guardian_not_found() -> None:
-    app.dependency_overrides[parents_router.require_parent_or_admin] = override_user(
+    app.dependency_overrides[require_parent_or_admin] = override_user(
         {"sub": "admin-1", "role": "admin"}
     )
 

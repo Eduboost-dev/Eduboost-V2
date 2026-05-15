@@ -107,3 +107,24 @@ async def complete_lesson(
     
     await service.complete_lesson(lesson_id)
     return {"status": "success", "message": "Lesson marked as completed"}
+
+
+@router.post("/sync")
+async def sync_lessons(
+    body: LessonSyncRequest,
+    current_user: dict = Depends(get_current_user),
+    service: LessonService = Depends(get_lesson_service),
+):
+    """
+    Batch sync lesson events (completion, feedback) from the client.
+    """
+    processed = 0
+    for event in body.responses:
+        if event.event_type == "complete":
+            await service.complete_lesson(event.lesson_id)
+            processed += 1
+        elif event.event_type == "feedback" and event.score is not None:
+            await service.record_feedback(event.lesson_id, event.score)
+            processed += 1
+    
+    return {"status": "success", "processed": processed}

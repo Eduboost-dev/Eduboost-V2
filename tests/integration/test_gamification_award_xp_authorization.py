@@ -19,6 +19,9 @@ class FakeDB:
     async def commit(self) -> None:
         return None
 
+    def expire_all(self) -> None:
+        return None
+
 
 class FakeLearnerRepository:
     def __init__(self, db: object) -> None:

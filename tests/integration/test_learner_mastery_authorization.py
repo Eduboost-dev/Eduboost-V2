@@ -58,8 +58,42 @@ class FakeKnowledgeGapRepository:
         ]
 
 
+class FakeMasteryRepository:
+    def __init__(self, db: object) -> None:
+        self.db = db
+
+    async def get_mastery_for_learner(self, learner_id: str) -> dict:
+        return {"mastery": 0.75, "subject_mastery": {"MATH": 0.8, "ENG": 0.7}}
+
+    async def list_topic_mastery_by_learner(self, learner_id: str) -> list[SimpleNamespace]:
+        return [
+            SimpleNamespace(
+                topic="fractions",
+                mastery_score=0.9,
+                caps_ref="M4.1.1",
+                mastery_label="Highly Proficient",
+                last_updated_at=datetime(2026, 1, 1, tzinfo=UTC),
+            ),
+            SimpleNamespace(
+                topic="geometry",
+                mastery_score=0.6,
+                caps_ref="M4.3.2",
+                mastery_label="Developing",
+                last_updated_at=datetime(2026, 1, 1, tzinfo=UTC),
+            ),
+        ]
+
+
+class FakeDB:
+    async def commit(self) -> None:
+        return None
+
+    def expire_all(self) -> None:
+        return None
+
+
 async def override_db() -> object:
-    return object()
+    return FakeDB()
 
 
 def override_user(payload: dict[str, Any]):
@@ -78,6 +112,7 @@ def learner_mastery_overrides(monkeypatch: pytest.MonkeyPatch):
         "KnowledgeGapRepository",
         FakeKnowledgeGapRepository,
     )
+    monkeypatch.setattr(learners_router, "MasteryRepository", FakeMasteryRepository)
 
     app.dependency_overrides[learners_router.get_db] = override_db
     yield

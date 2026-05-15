@@ -13,10 +13,15 @@ from fastapi.testclient import TestClient
 
 from app.api_v2 import app
 from app.api_v2_routers import parents as parents_router
+from app.core.security import require_parent_or_admin
 
 
 class FakeDB:
-    pass
+    async def commit(self) -> None:
+        return None
+
+    def expire_all(self) -> None:
+        return None
 
 
 class FakeLearnerRepository:
@@ -68,6 +73,7 @@ def parent_erasure_overrides(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(parents_router, "LearnerRepository", FakeLearnerRepository)
     monkeypatch.setattr(parents_router, "require_active_consent_for_current_user", AsyncMock(return_value=None))
     monkeypatch.setattr(parents_router, "FourthEstateService", FakeFourthEstateService)
+    monkeypatch.setattr(parents_router, "ConsentService", FakeConsentService)
     app.dependency_overrides[parents_router.get_db] = override_db
     yield
     app.dependency_overrides.clear()
@@ -75,7 +81,7 @@ def parent_erasure_overrides(monkeypatch: pytest.MonkeyPatch):
 
 @pytest.mark.integration
 def test_parent_erasure_allows_admin_write() -> None:
-    app.dependency_overrides[parents_router.require_parent_or_admin] = override_user(
+    app.dependency_overrides[require_parent_or_admin] = override_user(
         {"sub": "admin-1", "role": "admin"}
     )
 
@@ -86,7 +92,7 @@ def test_parent_erasure_allows_admin_write() -> None:
 
 @pytest.mark.integration
 def test_parent_erasure_allows_guardian_with_claim() -> None:
-    app.dependency_overrides[parents_router.require_parent_or_admin] = override_user(
+    app.dependency_overrides[require_parent_or_admin] = override_user(
         {"sub": "guardian-1", "role": "parent", "guardian_learner_ids": ["learner-1"]}
     )
 
@@ -97,7 +103,7 @@ def test_parent_erasure_allows_guardian_with_claim() -> None:
 
 @pytest.mark.integration
 def test_parent_erasure_rejects_unrelated_guardian() -> None:
-    app.dependency_overrides[parents_router.require_parent_or_admin] = override_user(
+    app.dependency_overrides[require_parent_or_admin] = override_user(
         {"sub": "guardian-2", "role": "parent", "guardian_learner_ids": ["learner-2"]}
     )
 
@@ -116,7 +122,7 @@ def test_parent_erasure_rejects_missing_auth() -> None:
 
 @pytest.mark.integration
 def test_parent_erasure_preserves_not_found() -> None:
-    app.dependency_overrides[parents_router.require_parent_or_admin] = override_user(
+    app.dependency_overrides[require_parent_or_admin] = override_user(
         {"sub": "admin-1", "role": "admin"}
     )
 

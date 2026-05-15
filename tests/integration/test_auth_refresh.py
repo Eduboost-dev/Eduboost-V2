@@ -30,7 +30,7 @@ async def test_refresh_token_happy_path():
             }
         )
         assert register_response.status_code == 201
-        register_data = register_response.json()
+        register_data = register_response.json()["data"]
         access_token = register_data["access_token"]
         refresh_cookie = register_response.cookies.get("eduboost_refresh")
         assert refresh_cookie is not None
@@ -48,7 +48,7 @@ async def test_refresh_token_happy_path():
             cookies={"eduboost_refresh": refresh_cookie}
         )
         assert refresh_response.status_code == 200
-        refresh_data = refresh_response.json()
+        refresh_data = refresh_response.json()["data"]
         new_access_token = refresh_data["access_token"]
         new_refresh_cookie = refresh_response.cookies.get("eduboost_refresh")
         assert new_refresh_cookie is not None
@@ -112,7 +112,7 @@ async def test_logout_clears_refresh_cookie():
             }
         )
         assert register_response.status_code == 201
-        access_token = register_response.json()["access_token"]
+        access_token = register_response.json()["data"]["access_token"]
         refresh_cookie = register_response.cookies.get("eduboost_refresh")
 
         # Logout

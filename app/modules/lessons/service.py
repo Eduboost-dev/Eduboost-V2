@@ -195,6 +195,16 @@ class LessonService:
         await self._lesson_repo.mark_completed(lesson_id)
         await self.db.commit()
 
+    async def record_feedback(self, lesson_id: str, score: int) -> None:
+        """Record learner feedback score for a lesson.
+
+        Args:
+            lesson_id: UUID of the lesson.
+            score: Feedback score (1-5).
+        """
+        await self._lesson_repo.record_feedback(lesson_id, score)
+        await self.db.commit()
+
     async def get_lesson_by_id(self, lesson_id: str) -> Lesson | None:
         """Fetch a single lesson by its UUID.
 
