@@ -1007,3 +1007,23 @@ backend-consolidation-implementation-foundation-report:
 backend-consolidation-implementation-foundation-full-check: backend-consolidation-implementation-foundation-check backend-consolidation-implementation-foundation-report backend-consolidation-terminal-full-check
 	pytest -c pytest.ini tests/unit/test_backend_consolidation_implementation_foundation.py -q --no-cov
 
+.PHONY: schema-drift-disposable-proof schema-drift-disposable-proof-check schema-drift-disposable-proof-schema-check deep-readiness-readonly-check audit-canonicalization-slice-check backend-implementation-364-366-full-check
+
+schema-drift-disposable-proof:
+	PYTHONPATH=. python3 scripts/run_disposable_schema_drift_proof.py
+
+schema-drift-disposable-proof-check:
+	PYTHONPATH=. python3 scripts/run_disposable_schema_drift_proof.py --validate --require-pass
+
+schema-drift-disposable-proof-schema-check:
+	PYTHONPATH=. python3 scripts/run_disposable_schema_drift_proof.py --validate
+
+deep-readiness-readonly-check:
+	PYTHONPATH=. python3 scripts/check_deep_readiness_readonly_guard.py
+
+audit-canonicalization-slice-check:
+	PYTHONPATH=. python3 scripts/check_audit_canonicalization_slice.py
+
+backend-implementation-364-366-full-check: deep-readiness-readonly-check audit-canonicalization-slice-check backend-consolidation-implementation-foundation-full-check
+	pytest -c pytest.ini tests/unit/test_schema_drift_deep_readiness_audit_slice.py -q --no-cov
+

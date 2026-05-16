@@ -195,3 +195,15 @@ make backend-consolidation-implementation-foundation-check
 make backend-consolidation-implementation-foundation-report
 make backend-consolidation-implementation-foundation-full-check
 ```
+
+
+## Backend implementation code_364-code_366
+
+Guarded implementation support for schema drift proof, read-only deep readiness, and the first audit canonicalization slice:
+
+```bash
+make schema-drift-disposable-proof
+make deep-readiness-readonly-check
+make audit-canonicalization-slice-check
+make backend-implementation-364-366-full-check
+```
