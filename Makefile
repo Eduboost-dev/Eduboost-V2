@@ -960,3 +960,14 @@ backend-consolidation-readiness-report:
 backend-consolidation-readiness-full-check: backend-consolidation-readiness-report backend-consolidation-noop-guard backend-consolidation-full-check backend-runtime-compatibility-full-check
 	pytest -c pytest.ini tests/unit/test_backend_consolidation_readiness_and_noop_guard.py -q --no-cov
 
+.PHONY: backend-consolidation-execution-packet-check backend-consolidation-execution-report backend-consolidation-execution-full-check
+
+backend-consolidation-execution-packet-check:
+	PYTHONPATH=. python3 scripts/check_backend_consolidation_execution_packet.py
+
+backend-consolidation-execution-report:
+	PYTHONPATH=. python3 scripts/generate_backend_consolidation_execution_report.py
+
+backend-consolidation-execution-full-check: backend-consolidation-execution-packet-check backend-consolidation-execution-report backend-consolidation-readiness-full-check
+	pytest -c pytest.ini tests/unit/test_backend_consolidation_execution_packet.py -q --no-cov
+

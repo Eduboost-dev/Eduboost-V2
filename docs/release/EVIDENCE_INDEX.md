@@ -150,3 +150,14 @@ make backend-consolidation-noop-guard
 make backend-consolidation-readiness-report
 make backend-consolidation-readiness-full-check
 ```
+
+
+## Backend consolidation execution packet
+
+Sequence backend consolidation before runtime rewiring or deletion:
+
+```bash
+make backend-consolidation-execution-packet-check
+make backend-consolidation-execution-report
+make backend-consolidation-execution-full-check
+```
