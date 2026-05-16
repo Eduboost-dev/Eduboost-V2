@@ -1007,3 +1007,95 @@ backend-consolidation-implementation-foundation-report:
 backend-consolidation-implementation-foundation-full-check: backend-consolidation-implementation-foundation-check backend-consolidation-implementation-foundation-report backend-consolidation-terminal-full-check
 	pytest -c pytest.ini tests/unit/test_backend_consolidation_implementation_foundation.py -q --no-cov
 
+.PHONY: schema-drift-disposable-proof schema-drift-disposable-proof-check schema-drift-disposable-proof-schema-check deep-readiness-readonly-check audit-canonicalization-slice-check backend-implementation-364-366-full-check
+
+schema-drift-disposable-proof:
+	PYTHONPATH=. python3 scripts/run_disposable_schema_drift_proof.py
+
+schema-drift-disposable-proof-check:
+	PYTHONPATH=. python3 scripts/run_disposable_schema_drift_proof.py --validate --require-pass
+
+schema-drift-disposable-proof-schema-check:
+	PYTHONPATH=. python3 scripts/run_disposable_schema_drift_proof.py --validate
+
+deep-readiness-readonly-check:
+	PYTHONPATH=. python3 scripts/check_deep_readiness_readonly_guard.py
+
+audit-canonicalization-slice-check:
+	PYTHONPATH=. python3 scripts/check_audit_canonicalization_slice.py
+
+backend-implementation-364-366-full-check: deep-readiness-readonly-check audit-canonicalization-slice-check backend-consolidation-implementation-foundation-full-check
+	pytest -c pytest.ini tests/unit/test_schema_drift_deep_readiness_audit_slice.py -q --no-cov
+
+.PHONY: consent-runtime-compatibility-slice-check audit-canonicalization-registry-check backend-consolidation-progress-report backend-implementation-367-370-full-check
+
+consent-runtime-compatibility-slice-check:
+	PYTHONPATH=. python3 scripts/check_consent_runtime_compatibility_slice.py
+
+audit-canonicalization-registry-check:
+	PYTHONPATH=. python3 scripts/check_audit_canonicalization_registry.py
+
+backend-consolidation-progress-report:
+	PYTHONPATH=. python3 scripts/generate_backend_consolidation_progress_report.py
+
+backend-implementation-367-370-full-check: consent-runtime-compatibility-slice-check audit-canonicalization-registry-check backend-consolidation-progress-report backend-implementation-364-366-full-check backend-consolidation-implementation-foundation-full-check
+	pytest -c pytest.ini tests/unit/test_consent_runtime_audit_registry_progress.py -q --no-cov
+
+.PHONY: backend-implementation-371-375-check backend-implementation-371-375-report backend-implementation-371-375-full-check
+
+backend-implementation-371-375-check:
+	PYTHONPATH=. python3 scripts/check_backend_implementation_371_375.py
+
+backend-implementation-371-375-report:
+	PYTHONPATH=. python3 scripts/generate_backend_implementation_371_375_report.py
+
+backend-implementation-371-375-full-check: backend-implementation-371-375-check backend-implementation-371-375-report backend-implementation-367-370-full-check backend-implementation-364-366-full-check
+	pytest -c pytest.ini tests/unit/test_backend_implementation_371_375.py -q --no-cov
+
+.PHONY: backend-runtime-wiring-preflight-check backend-runtime-wiring-preflight-report backend-implementation-376-382-full-check
+
+backend-runtime-wiring-preflight-check:
+	PYTHONPATH=. python3 scripts/check_backend_runtime_wiring_preflight.py
+
+backend-runtime-wiring-preflight-report:
+	PYTHONPATH=. python3 scripts/generate_backend_runtime_wiring_preflight_report.py
+
+backend-implementation-376-382-full-check: backend-runtime-wiring-preflight-check backend-runtime-wiring-preflight-report backend-implementation-371-375-full-check backend-implementation-367-370-full-check
+	pytest -c pytest.ini tests/unit/test_backend_runtime_wiring_preflight.py -q --no-cov
+
+.PHONY: backend-runtime-wiring-cases-check backend-runtime-wiring-cases-report backend-implementation-383-390-full-check
+
+backend-runtime-wiring-cases-check:
+	PYTHONPATH=. python3 scripts/check_backend_runtime_wiring_cases.py
+
+backend-runtime-wiring-cases-report:
+	PYTHONPATH=. python3 scripts/generate_backend_runtime_wiring_cases_report.py
+
+backend-implementation-383-390-full-check: backend-runtime-wiring-cases-check backend-runtime-wiring-cases-report backend-implementation-376-382-full-check backend-implementation-371-375-full-check
+	pytest -c pytest.ini tests/unit/test_backend_runtime_wiring_cases.py -q --no-cov
+
+.PHONY: backend-first-wiring-candidates-check backend-first-wiring-candidates-report backend-implementation-391-400-full-check
+
+backend-first-wiring-candidates-check:
+	PYTHONPATH=. python3 scripts/check_backend_first_wiring_candidates.py
+
+backend-first-wiring-candidates-report:
+	PYTHONPATH=. python3 scripts/generate_backend_first_wiring_candidates_report.py
+
+backend-implementation-391-400-full-check: backend-first-wiring-candidates-check backend-first-wiring-candidates-report backend-implementation-383-390-full-check backend-implementation-376-382-full-check
+	pytest -c pytest.ini tests/unit/test_backend_first_wiring_candidates.py -q --no-cov
+
+.PHONY: backend-runtime-enablement-guard backend-destructive-action-blocklist-check backend-runtime-enablement-report backend-runtime-enablement-full-check
+
+backend-runtime-enablement-guard:
+	PYTHONPATH=. python3 scripts/check_backend_runtime_enablement_guard.py
+
+backend-destructive-action-blocklist-check:
+	PYTHONPATH=. python3 scripts/check_backend_destructive_action_blocklist.py
+
+backend-runtime-enablement-report:
+	PYTHONPATH=. python3 scripts/generate_backend_runtime_enablement_report.py
+
+backend-runtime-enablement-full-check: backend-runtime-enablement-guard backend-destructive-action-blocklist-check backend-runtime-enablement-report backend-implementation-391-400-full-check backend-implementation-383-390-full-check
+	pytest -c pytest.ini tests/unit/test_backend_runtime_enablement_pack.py -q --no-cov
+
