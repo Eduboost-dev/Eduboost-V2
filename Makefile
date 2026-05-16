@@ -902,3 +902,11 @@ audit-callsite-inventory:
 audit-compatibility-check: audit-callsite-inventory
 	pytest -c pytest.ini tests/unit/test_audit_callsite_inventory_and_adapter.py -q --no-cov
 
+.PHONY: consent-callsite-inventory consent-compatibility-check
+
+consent-callsite-inventory:
+	PYTHONPATH=. python3 scripts/generate_consent_callsite_inventory.py --fail-empty
+
+consent-compatibility-check: consent-callsite-inventory
+	pytest -c pytest.ini tests/unit/test_consent_callsite_inventory_and_compat.py -q --no-cov
+

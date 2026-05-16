@@ -95,3 +95,13 @@ Inventory audit call sites before any repository deletion:
 make audit-callsite-inventory
 make audit-compatibility-check
 ```
+
+
+## Consent consolidation evidence
+
+Inventory consent call sites before any service/table consolidation:
+
+```bash
+make consent-callsite-inventory
+make consent-compatibility-check
+```
