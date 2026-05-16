@@ -275,3 +275,39 @@ make backend-destructive-action-blocklist-check
 make backend-runtime-enablement-report
 make backend-runtime-enablement-full-check
 ```
+
+
+## Backend implementation slice 421-430
+
+First scoped audit runtime wiring PR:
+
+```bash
+make first-audit-runtime-wiring-check
+make first-audit-runtime-wiring-no-destructive-actions
+make first-audit-runtime-wiring-report
+make backend-implementation-421-430-full-check
+```
+
+
+## Backend implementation slice 431-450
+
+First consent runtime helper and read-only deep-readiness runtime plan:
+
+```bash
+make first-consent-deep-readiness-runtime-wiring-check
+make runtime-wiring-no-destructive-actions
+make runtime-wiring-431-450-report
+make backend-implementation-431-450-full-check
+```
+
+
+## Backend runtime integration readiness 451-480
+
+Prepare dry-run runtime integration targets before scoped runtime PRs:
+
+```bash
+make backend-runtime-integration-readiness-check
+make backend-runtime-integration-blocklists-check
+make backend-runtime-integration-readiness-report
+make backend-runtime-integration-readiness-full-check
+```
