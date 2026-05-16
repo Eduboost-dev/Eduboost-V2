@@ -871,3 +871,26 @@ staging-smoke-check:
 staging-smoke-schema-check:
 	PYTHONPATH=. python3 scripts/run_staging_smoke.py --validate
 .PHONY: staging-smoke staging-smoke-check staging-smoke-schema-check
+
+.PHONY: migration-evidence-capture migration-evidence-check migration-evidence-schema-check
+
+migration-evidence-capture:
+	PYTHONPATH=. python3 scripts/capture_migration_evidence.py
+
+migration-evidence-check:
+	PYTHONPATH=. python3 scripts/capture_migration_evidence.py --validate --require-pass
+
+migration-evidence-schema-check:
+	PYTHONPATH=. python3 scripts/capture_migration_evidence.py --validate
+
+.PHONY: backend-consolidation-dragons-check schema-drift-check backend-consolidation-diagnostics-check
+
+backend-consolidation-dragons-check:
+	PYTHONPATH=. python3 scripts/check_backend_consolidation_dragons.py
+
+schema-drift-check:
+	PYTHONPATH=. python3 scripts/compare_orm_tables_to_database.py
+
+backend-consolidation-diagnostics-check: backend-consolidation-dragons-check schema-drift-check
+	pytest -c pytest.ini tests/unit/test_backend_consolidation_dragon_diagnostics.py -q --no-cov
+

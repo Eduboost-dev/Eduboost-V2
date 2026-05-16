@@ -64,3 +64,24 @@ export STAGING_BASE_URL="https://staging.example.com"
 make staging-smoke
 make staging-smoke-check
 ```
+
+
+## Migration evidence capture
+
+Capture database migration evidence against a disposable PostgreSQL database:
+
+```bash
+export DATABASE_URL="postgresql+asyncpg://user:pass@localhost:5432/eduboost_test"
+make migration-evidence-capture
+make migration-evidence-check
+```
+
+
+## Backend consolidation dragon diagnostics
+
+Track audit, consent, schema, and health/readiness consolidation risks:
+
+```bash
+make backend-consolidation-dragons-check
+make schema-drift-check
+```
