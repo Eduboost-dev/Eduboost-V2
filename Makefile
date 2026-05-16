@@ -812,21 +812,21 @@ final-release-blocker-checklist-check:
 .PHONY: test-env-check route-alias-matrix route-alias-matrix-check release-evidence-index-check release-hygiene-check reset-test-db
 
 test-env-check:
-	python3 scripts/check_test_environment.py
+	PYTHONPATH=. python3 scripts/check_test_environment.py
 
 route-alias-matrix:
-	python3 scripts/generate_route_alias_matrix.py
+	PYTHONPATH=. python3 scripts/generate_route_alias_matrix.py
 
 route-alias-matrix-check: route-alias-matrix
 	test -f docs/release/route_alias_matrix.md
 
 release-evidence-index-check:
-	python3 scripts/check_release_evidence_index.py
+	PYTHONPATH=. python3 scripts/check_release_evidence_index.py
 
 release-hygiene-check: test-env-check route-alias-matrix-check release-evidence-index-check
 
 reset-test-db:
-	python3 scripts/check_test_environment.py --strict
+	PYTHONPATH=. python3 scripts/check_test_environment.py --strict
 	@echo "Refusing to reset automatically from Makefile. Use the project-approved DB reset script only after verifying DATABASE_URL targets a disposable test database."
 	@exit 1
 
@@ -836,5 +836,19 @@ warning-cleanup-check:
 	python3 scripts/check_warning_cleanup.py
 
 test-env-strict-check:
-	python3 scripts/check_test_environment.py --strict
+	PYTHONPATH=. python3 scripts/check_test_environment.py --strict
+
+.PHONY: route-alias-policy-check ci-workflow-consolidation-check ci-core-local ci-contract-check
+
+route-alias-policy-check:
+	PYTHONPATH=. python3 scripts/check_route_alias_matrix.py
+
+ci-workflow-consolidation-check:
+	PYTHONPATH=. python3 scripts/check_ci_workflow_consolidation.py
+
+ci-contract-check: ci-workflow-consolidation-check route-alias-policy-check
+
+ci-core-local: release-hygiene-check route-alias-policy-check openapi-check
+	pytest -c pytest.ini tests/unit -q --no-cov
+	pytest -c pytest.ini tests/integration -q --no-cov
 
