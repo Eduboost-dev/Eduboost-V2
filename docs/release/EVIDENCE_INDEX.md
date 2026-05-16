@@ -195,3 +195,83 @@ make backend-consolidation-implementation-foundation-check
 make backend-consolidation-implementation-foundation-report
 make backend-consolidation-implementation-foundation-full-check
 ```
+
+
+## Backend implementation code_364-code_366
+
+Guarded implementation support for schema drift proof, read-only deep readiness, and the first audit canonicalization slice:
+
+```bash
+make schema-drift-disposable-proof
+make deep-readiness-readonly-check
+make audit-canonicalization-slice-check
+make backend-implementation-364-366-full-check
+```
+
+
+## Backend implementation progress slice 367-370
+
+Track consent runtime compatibility and audit canonicalization registry:
+
+```bash
+make consent-runtime-compatibility-slice-check
+make audit-canonicalization-registry-check
+make backend-consolidation-progress-report
+make backend-implementation-367-370-full-check
+```
+
+
+## Backend implementation slice 371-375
+
+Track audit migration orchestration, consent runtime orchestration, and deep-readiness route contracts:
+
+```bash
+make backend-implementation-371-375-check
+make backend-implementation-371-375-report
+make backend-implementation-371-375-full-check
+```
+
+
+## Backend implementation slice 376-382
+
+Preflight runtime wiring and decision ledger before concrete runtime changes:
+
+```bash
+make backend-runtime-wiring-preflight-check
+make backend-runtime-wiring-preflight-report
+make backend-implementation-376-382-full-check
+```
+
+
+## Backend implementation slice 383-390
+
+Validate fixture-backed runtime wiring cases before actual route/service wiring:
+
+```bash
+make backend-runtime-wiring-cases-check
+make backend-runtime-wiring-cases-report
+make backend-implementation-383-390-full-check
+```
+
+
+## Backend implementation slice 391-400
+
+Validate first safe wiring candidates before actual runtime route rewiring:
+
+```bash
+make backend-first-wiring-candidates-check
+make backend-first-wiring-candidates-report
+make backend-implementation-391-400-full-check
+```
+
+
+## Backend runtime enablement 401-420
+
+Close the non-destructive implementation runway before scoped runtime PRs:
+
+```bash
+make backend-runtime-enablement-guard
+make backend-destructive-action-blocklist-check
+make backend-runtime-enablement-report
+make backend-runtime-enablement-full-check
+```
