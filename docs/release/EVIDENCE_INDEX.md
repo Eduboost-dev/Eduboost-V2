@@ -230,3 +230,14 @@ make backend-implementation-371-375-check
 make backend-implementation-371-375-report
 make backend-implementation-371-375-full-check
 ```
+
+
+## Backend implementation slice 376-382
+
+Preflight runtime wiring and decision ledger before concrete runtime changes:
+
+```bash
+make backend-runtime-wiring-preflight-check
+make backend-runtime-wiring-preflight-report
+make backend-implementation-376-382-full-check
+```
