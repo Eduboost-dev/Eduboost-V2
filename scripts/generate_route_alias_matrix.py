@@ -17,6 +17,12 @@ class RouteRow:
 
 
 def _load_routes() -> set[tuple[str, str]]:
+    import sys
+    from pathlib import Path
+    REPO_ROOT = str(Path(__file__).resolve().parents[1])
+    if REPO_ROOT not in sys.path:
+        sys.path.insert(0, REPO_ROOT)
+
     from app.api_v2 import app
 
     rows: set[tuple[str, str]] = set()
@@ -82,3 +88,11 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+from pathlib import Path
+import sys
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+

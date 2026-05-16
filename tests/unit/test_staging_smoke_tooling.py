@@ -103,3 +103,8 @@ def test_validate_payload_can_require_pass(tmp_path):
     )
     assert module.validate_payload(path) is True
     assert module.validate_payload(path, require_pass=True) is False
+
+
+def test_smoke_runner_writes_latest_markdown_not_release_gate():
+    module = _load_module()
+    assert module.DEFAULT_MARKDOWN.name == "staging_smoke_latest.md"

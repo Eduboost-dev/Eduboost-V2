@@ -1,8 +1,14 @@
 # Database Migration Evidence
 
 **Status:** pending runtime execution
+<!-- Status: pending runtime execution -->
 
-This file records Alembic/schema migration execution against a disposable PostgreSQL database.
+This file is the stable release gate for database migration evidence. It must remain pending until a disposable PostgreSQL migration run is accepted by the release owner.
+
+Latest raw migration output, when available:
+
+- JSON: `docs/release/migration_latest.json`
+- Markdown: `docs/release/migration_latest.md`
 
 ## Required environment
 
@@ -30,10 +36,10 @@ This file records Alembic/schema migration execution against a disposable Postgr
 ## Command log
 
 ```bash
-# paste commands and output here
+# paste accepted migration evidence commands and output here
 ```
 
 ## Decision
 
-- [ ] Migration proof passed.
+- [ ] Migration proof passed and is accepted for release evidence.
 - [ ] Migration proof failed and release is blocked.
