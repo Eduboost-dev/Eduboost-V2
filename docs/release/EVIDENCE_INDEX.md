@@ -299,3 +299,15 @@ make runtime-wiring-no-destructive-actions
 make runtime-wiring-431-450-report
 make backend-implementation-431-450-full-check
 ```
+
+
+## Backend runtime integration readiness 451-480
+
+Prepare dry-run runtime integration targets before scoped runtime PRs:
+
+```bash
+make backend-runtime-integration-readiness-check
+make backend-runtime-integration-blocklists-check
+make backend-runtime-integration-readiness-report
+make backend-runtime-integration-readiness-full-check
+```
