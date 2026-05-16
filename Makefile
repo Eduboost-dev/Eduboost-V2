@@ -1140,4 +1140,38 @@ backend-runtime-integration-readiness-report:
 
 backend-runtime-integration-readiness-full-check: backend-runtime-integration-readiness-check backend-runtime-integration-blocklists-check backend-runtime-integration-readiness-report backend-implementation-431-450-full-check backend-implementation-421-430-full-check
 	pytest -c pytest.ini tests/unit/test_backend_runtime_integration_readiness.py -q --no-cov
-
+.PHONY: real-audit-runtime-integration-wire real-audit-runtime-integration-check backend-implementation-481-490-full-check
+real-audit-runtime-integration-wire:
+	PYTHONPATH=. python3 scripts/wire_real_audit_runtime_path.py
+real-audit-runtime-integration-check:
+	PYTHONPATH=. python3 scripts/check_real_audit_runtime_integration.py
+backend-implementation-481-490-full-check: real-audit-runtime-integration-check
+	pytest -c pytest.ini tests/unit/test_real_audit_runtime_facade.py -q --no-cov
+.PHONY: real-consent-runtime-repair real-consent-runtime-repair-check backend-implementation-491-500-full-check
+real-consent-runtime-repair:
+	PYTHONPATH=. python3 scripts/repair_real_consent_runtime_seams.py
+real-consent-runtime-repair-check:
+	PYTHONPATH=. python3 scripts/check_real_consent_runtime_repair.py
+backend-implementation-491-500-full-check: real-consent-runtime-repair-check
+	pytest -c pytest.ini tests/unit/test_real_consent_runtime_facade.py -q --no-cov
+.PHONY: readonly-deep-readiness-wire readonly-deep-readiness-check backend-implementation-501-510-full-check
+readonly-deep-readiness-wire:
+	PYTHONPATH=. python3 scripts/wire_readonly_deep_readiness_route.py
+readonly-deep-readiness-check:
+	PYTHONPATH=. python3 scripts/check_readonly_deep_readiness_runtime.py
+backend-implementation-501-510-full-check: readonly-deep-readiness-check
+	pytest -c pytest.ini tests/unit/test_readonly_deep_readiness_runtime.py -q --no-cov
+.PHONY: disposable-db-schema-proof-execute disposable-db-schema-proof-execution-check backend-implementation-511-520-full-check
+disposable-db-schema-proof-execute:
+	PYTHONPATH=. python3 scripts/execute_disposable_db_schema_proof.py
+disposable-db-schema-proof-execution-check:
+	PYTHONPATH=. python3 scripts/check_disposable_db_schema_proof_execution.py
+backend-implementation-511-520-full-check: disposable-db-schema-proof-execute disposable-db-schema-proof-execution-check
+	pytest -c pytest.ini tests/unit/test_disposable_db_schema_proof_execution.py -q --no-cov
+.PHONY: post-migration-cleanup post-migration-cleanup-check backend-implementation-521-530-full-check
+post-migration-cleanup:
+	PYTHONPATH=. python3 scripts/remove_proven_dead_backend_consolidation_artifacts.py
+post-migration-cleanup-check:
+	PYTHONPATH=. python3 scripts/check_post_migration_cleanup.py
+backend-implementation-521-530-full-check: post-migration-cleanup post-migration-cleanup-check
+	pytest -c pytest.ini tests/unit/test_post_migration_cleanup.py -q --no-cov

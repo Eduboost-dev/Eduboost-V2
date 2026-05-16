@@ -200,13 +200,13 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `app/services/consent_renewal_service.py` | 294 | parental_consent_model | `ParentalConsent.expires_at <= cutoff,` |
 | `app/services/consent_runtime_compatibility.py` | 10 | consent_service | `"app.services.consent_service.ConsentService",` |
 | `app/services/consent_runtime_compatibility.py` | 11 | consent_service | `"app.modules.consent.service.ConsentService",` |
-| `app/services/consent_service.py` | 19 | consent_repository | `from app.repositories.consent_repository import ConsentRepository` |
-| `app/services/consent_service.py` | 22 | consent_service | `class ConsentService:` |
-| `app/services/consent_service.py` | 25 | consent_repository | `consent_repo: ConsentRepository,` |
-| `app/services/consent_service.py` | 28 | consent_repository | `self._consent = consent_repo` |
-| `app/services/consent_service.py` | 35 | consent_grant | `async def grant(` |
-| `app/services/consent_service.py` | 44 | consent_grant | `updated = existing.grant(privacy_notice_version)` |
-| `app/services/consent_service.py` | 52 | consent_grant | `).grant(privacy_notice_version)` |
+| `app/services/consent_service.py` | 21 | consent_repository | `from app.repositories.consent_repository import ConsentRepository` |
+| `app/services/consent_service.py` | 24 | consent_service | `class ConsentService:` |
+| `app/services/consent_service.py` | 27 | consent_repository | `consent_repo: ConsentRepository,` |
+| `app/services/consent_service.py` | 30 | consent_repository | `self._consent = consent_repo` |
+| `app/services/consent_service.py` | 37 | consent_grant | `async def grant(` |
+| `app/services/consent_service.py` | 50 | consent_grant | `updated = existing.grant(privacy_notice_version)` |
+| `app/services/consent_service.py` | 58 | consent_grant | `).grant(privacy_notice_version)` |
 | `app/services/data_subject_rights_service.py` | 220 | consent_records_table | `"DELETE FROM consent_records WHERE learner_id = $1", learner_id` |
 | `app/services/data_subject_rights_service.py` | 379 | consent_records_table | `"FROM consent_records WHERE learner_id=$1",` |
 | `app/services/popia_service.py` | 21 | parental_consent_model | `from app.models import DiagnosticSession, KnowledgeGap, LearnerProfile, Lesson, ParentalConsent` |
@@ -230,11 +230,15 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `scripts/check_backend_consolidation_execution_packet.py` | 20 | consent_service | `"ConsentService",` |
 | `scripts/check_consent_rejection_audit.py` | 12 | require_active_consent | `"require_active_consent",` |
 | `scripts/check_database_persistence_production_readiness.py` | 106 | consent_repository | `"class ConsentRepository",` |
+| `scripts/check_first_audit_runtime_wiring_no_destructive_actions.py` | 19 | consent_records_table | `"merge consent_records",` |
+| `scripts/check_first_audit_runtime_wiring_no_destructive_actions.py` | 20 | parental_consents_table | `"merge parental_consents",` |
 | `scripts/check_popia_consent_audit_evidence.py` | 95 | consent_service | `"ConsentService(db).require_active_consent",` |
 | `scripts/check_popia_consent_audit_evidence.py` | 95 | require_active_consent | `"ConsentService(db).require_active_consent",` |
 | `scripts/check_popia_consent_audit_evidence.py` | 149 | require_active_consent | `"require_active_consent",` |
 | `scripts/check_popia_consent_audit_evidence.py` | 150 | require_active_consent | `"await self.consent.require_active_consent(learner_id, actor_id=requester_id)",` |
 | `scripts/check_popia_consent_boundary_matrix.py` | 39 | require_active_consent | `row.marker in {"require_active_consent_for_current_user", "require_active_consent"},` |
+| `scripts/check_runtime_wiring_no_destructive_actions.py` | 20 | consent_records_table | `"merge consent_records",` |
+| `scripts/check_runtime_wiring_no_destructive_actions.py` | 21 | parental_consents_table | `"merge parental_consents",` |
 | `scripts/compare_orm_tables_to_database.py` | 94 | consent_records_table | `"consent_records",` |
 | `scripts/generate_backend_deletion_candidate_inventory.py` | 14 | parental_consents_table | `("legacy_consent", re.compile(r"parental_consents\|ParentalConsent\|legacy consent", re.IGNORECASE)),` |
 | `scripts/generate_backend_deletion_candidate_inventory.py` | 14 | parental_consent_model | `("legacy_consent", re.compile(r"parental_consents\|ParentalConsent\|legacy consent", re.IGNORECASE)),` |
