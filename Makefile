@@ -1074,3 +1074,14 @@ backend-runtime-wiring-cases-report:
 backend-implementation-383-390-full-check: backend-runtime-wiring-cases-check backend-runtime-wiring-cases-report backend-implementation-376-382-full-check backend-implementation-371-375-full-check
 	pytest -c pytest.ini tests/unit/test_backend_runtime_wiring_cases.py -q --no-cov
 
+.PHONY: backend-first-wiring-candidates-check backend-first-wiring-candidates-report backend-implementation-391-400-full-check
+
+backend-first-wiring-candidates-check:
+	PYTHONPATH=. python3 scripts/check_backend_first_wiring_candidates.py
+
+backend-first-wiring-candidates-report:
+	PYTHONPATH=. python3 scripts/generate_backend_first_wiring_candidates_report.py
+
+backend-implementation-391-400-full-check: backend-first-wiring-candidates-check backend-first-wiring-candidates-report backend-implementation-383-390-full-check backend-implementation-376-382-full-check
+	pytest -c pytest.ini tests/unit/test_backend_first_wiring_candidates.py -q --no-cov
+

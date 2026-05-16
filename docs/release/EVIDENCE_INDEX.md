@@ -252,3 +252,14 @@ make backend-runtime-wiring-cases-check
 make backend-runtime-wiring-cases-report
 make backend-implementation-383-390-full-check
 ```
+
+
+## Backend implementation slice 391-400
+
+Validate first safe wiring candidates before actual runtime route rewiring:
+
+```bash
+make backend-first-wiring-candidates-check
+make backend-first-wiring-candidates-report
+make backend-implementation-391-400-full-check
+```
