@@ -910,3 +910,17 @@ consent-callsite-inventory:
 consent-compatibility-check: consent-callsite-inventory
 	pytest -c pytest.ini tests/unit/test_consent_callsite_inventory_and_compat.py -q --no-cov
 
+.PHONY: health-readiness-contract-check schema-drift-contract-check schema-drift-check-db backend-runtime-diagnostics-check
+
+health-readiness-contract-check:
+	PYTHONPATH=. python3 scripts/check_health_readiness_contract.py
+
+schema-drift-contract-check:
+	PYTHONPATH=. python3 scripts/check_schema_drift_contract.py
+
+schema-drift-check-db:
+	PYTHONPATH=. python3 scripts/compare_orm_tables_to_database.py --require-db --fail-on-drift
+
+backend-runtime-diagnostics-check: health-readiness-contract-check schema-drift-contract-check backend-consolidation-diagnostics-check
+	pytest -c pytest.ini tests/unit/test_health_readiness_schema_drift_guards.py -q --no-cov
+

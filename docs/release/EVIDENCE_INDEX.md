@@ -105,3 +105,14 @@ Inventory consent call sites before any service/table consolidation:
 make consent-callsite-inventory
 make consent-compatibility-check
 ```
+
+
+## Health/readiness and schema drift diagnostics
+
+Guard against false-positive readiness and ORM-vs-DB drift:
+
+```bash
+make health-readiness-contract-check
+make schema-drift-contract-check
+make schema-drift-check-db
+```
