@@ -127,3 +127,14 @@ make backend-consolidation-report
 make backend-consolidation-release-guard
 make backend-consolidation-full-check
 ```
+
+
+## Backend runtime compatibility
+
+Verify audit, consent, and deep-health compatibility surfaces before runtime rewiring:
+
+```bash
+make backend-runtime-compatibility-check
+make backend-runtime-compatibility-report
+make backend-runtime-compatibility-full-check
+```
