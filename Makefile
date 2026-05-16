@@ -1113,3 +1113,17 @@ first-audit-runtime-wiring-report:
 backend-implementation-421-430-full-check: first-audit-runtime-wiring-check first-audit-runtime-wiring-no-destructive-actions first-audit-runtime-wiring-report backend-runtime-enablement-full-check backend-implementation-391-400-full-check
 	pytest -c pytest.ini tests/unit/test_first_audit_runtime_wiring.py -q --no-cov
 
+.PHONY: first-consent-deep-readiness-runtime-wiring-check runtime-wiring-no-destructive-actions runtime-wiring-431-450-report backend-implementation-431-450-full-check
+
+first-consent-deep-readiness-runtime-wiring-check:
+	PYTHONPATH=. python3 scripts/check_first_consent_and_deep_readiness_runtime_wiring.py
+
+runtime-wiring-no-destructive-actions:
+	PYTHONPATH=. python3 scripts/check_runtime_wiring_no_destructive_actions.py
+
+runtime-wiring-431-450-report:
+	PYTHONPATH=. python3 scripts/generate_runtime_wiring_431_450_report.py
+
+backend-implementation-431-450-full-check: first-consent-deep-readiness-runtime-wiring-check runtime-wiring-no-destructive-actions runtime-wiring-431-450-report backend-implementation-421-430-full-check backend-runtime-enablement-full-check
+	pytest -c pytest.ini tests/unit/test_consent_deep_readiness_runtime_wiring.py -q --no-cov
+

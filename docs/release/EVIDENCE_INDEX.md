@@ -287,3 +287,15 @@ make first-audit-runtime-wiring-no-destructive-actions
 make first-audit-runtime-wiring-report
 make backend-implementation-421-430-full-check
 ```
+
+
+## Backend implementation slice 431-450
+
+First consent runtime helper and read-only deep-readiness runtime plan:
+
+```bash
+make first-consent-deep-readiness-runtime-wiring-check
+make runtime-wiring-no-destructive-actions
+make runtime-wiring-431-450-report
+make backend-implementation-431-450-full-check
+```
