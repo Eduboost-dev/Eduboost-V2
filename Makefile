@@ -852,3 +852,11 @@ ci-core-local: release-hygiene-check route-alias-policy-check openapi-check
 	pytest -c pytest.ini tests/unit -q --no-cov
 	pytest -c pytest.ini tests/integration -q --no-cov
 
+.PHONY: runtime-release-evidence-check release-readiness-local-check
+
+runtime-release-evidence-check:
+	PYTHONPATH=. python3 scripts/check_runtime_release_evidence.py
+
+release-readiness-local-check: release-hygiene-check runtime-release-evidence-check ci-contract-check
+	pytest -c pytest.ini tests/unit/test_runtime_release_evidence_contract.py tests/unit/test_release_hygiene_tooling.py tests/unit/test_ci_route_alias_policy.py -q --no-cov
+
