@@ -1041,3 +1041,14 @@ backend-consolidation-progress-report:
 backend-implementation-367-370-full-check: consent-runtime-compatibility-slice-check audit-canonicalization-registry-check backend-consolidation-progress-report backend-implementation-364-366-full-check backend-consolidation-implementation-foundation-full-check
 	pytest -c pytest.ini tests/unit/test_consent_runtime_audit_registry_progress.py -q --no-cov
 
+.PHONY: backend-implementation-371-375-check backend-implementation-371-375-report backend-implementation-371-375-full-check
+
+backend-implementation-371-375-check:
+	PYTHONPATH=. python3 scripts/check_backend_implementation_371_375.py
+
+backend-implementation-371-375-report:
+	PYTHONPATH=. python3 scripts/generate_backend_implementation_371_375_report.py
+
+backend-implementation-371-375-full-check: backend-implementation-371-375-check backend-implementation-371-375-report backend-implementation-367-370-full-check backend-implementation-364-366-full-check
+	pytest -c pytest.ini tests/unit/test_backend_implementation_371_375.py -q --no-cov
+
