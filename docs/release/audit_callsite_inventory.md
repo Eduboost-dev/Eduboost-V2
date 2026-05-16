@@ -1592,6 +1592,9 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/prepare_training_data.py` | 117 | audit_append_call | `pairs.append({` |
 | `scripts/prepare_training_data.py` | 125 | audit_append_call | `pairs.append({` |
 | `scripts/refresh_current_state_doc.py` | 341 | audit_append_call | `results.append(r)` |
+| `scripts/remove_proven_dead_backend_consolidation_artifacts.py` | 9 | audit_append_call | `skipped.append(f"{p.relative_to(ROOT)}: active/protected"); continue` |
+| `scripts/remove_proven_dead_backend_consolidation_artifacts.py` | 12 | audit_append_call | `skipped.append(f"{p.relative_to(ROOT)}: referenced"); continue` |
+| `scripts/remove_proven_dead_backend_consolidation_artifacts.py` | 13 | audit_append_call | `p.unlink(); removed.append(str(p.relative_to(ROOT)))` |
 | `scripts/rename_metaphor_layers.py` | 85 | audit_append_call | `hits.append((path, lineno, match.group(0).lower(), line.rstrip()))` |
 | `scripts/run_database_backup.py` | 37 | audit_append_call | `results.append(` |
 | `scripts/run_database_backup.py` | 60 | audit_append_call | `lines.append(f"- `{name}`")` |
