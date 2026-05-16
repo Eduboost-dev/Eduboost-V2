@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-16T17:02:23.447549+00:00`
+- generated_at_utc: `2026-05-16T17:33:28.863480+00:00`
 - branch: `codex/production_readiness`
-- commit: `c7a02d63c7ae117a8e1b9a25f94853e37c6ed2a0`
+- commit: `d4e487c8c7b550381dbc663675982b9d34784c36`
 - release_candidate: `unset`
 
 ## Working Tree Status
@@ -19,37 +19,24 @@ M Makefile
  M docs/operations/database_restore_evidence.md
  M docs/operations/release_candidate_tag_manifest.md
  M docs/operations/release_evidence_manifest.md
- M docs/operations/release_state_snapshot.md
  M docs/operations/staging_smoke_evidence_manifest.md
  M docs/release/EVIDENCE_INDEX.md
  M docs/release/audit_callsite_inventory.md
  M docs/release/backend_consolidation_diagnostic_report.md
+ M docs/release/backend_consolidation_evidence_manifest.md
  M docs/release/backend_consolidation_execution_report.md
  M docs/release/backend_consolidation_readiness_report.md
+ M docs/release/backend_consolidation_terminal_report.md
  M docs/release/backend_deletion_candidate_inventory.md
  M docs/release/backend_runtime_compatibility_report.md
  M docs/release/backend_runtime_probe_report.md
- M docs/release/consent_callsite_inventory.md
- M docs/release/migration_evidence.md
- M docs/release/staging_smoke_evidence.md
- M scripts/check_release_evidence_index.py
- M scripts/check_test_environment.py
- M scripts/generate_route_alias_matrix.py
- M scripts/run_staging_smoke.py
- M tests/unit/test_staging_smoke_tooling.py
-?? .github/workflows/backend-consolidation.yml
-?? docs/release/backend_consolidation_evidence_manifest.md
-?? docs/release/backend_consolidation_terminal_packet.md
-?? docs/release/backend_consolidation_terminal_report.md
-?? docs/release/migration_latest.json
-?? docs/release/migration_latest.md
-?? docs/release/migration_runbook.md
-?? scripts/capture_migration_evidence.py
-?? scripts/check_backend_consolidation_terminal_packet.py
-?? scripts/generate_backend_consolidation_evidence_manifest.py
-?? scripts/generate_backend_consolidation_terminal_report.py
-?? tests/unit/test_backend_consolidation_terminal_packet.py
-?? tests/unit/test_migration_evidence_tooling.py
+?? app/services/backend_consolidation_runtime.py
+?? docs/adr/ADR-022-audit-consent-table-ownership-options.md
+?? docs/release/backend_consolidation_implementation_foundation.md
+?? docs/release/backend_consolidation_implementation_foundation_report.md
+?? scripts/check_backend_consolidation_implementation_foundation.py
+?? scripts/generate_backend_consolidation_implementation_report.py
+?? tests/unit/test_backend_consolidation_implementation_foundation.py
 ```
 
 ## State Artifacts

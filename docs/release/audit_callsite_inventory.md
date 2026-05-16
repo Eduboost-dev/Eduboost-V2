@@ -917,6 +917,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/repositories/repositories.py` | 325 | audit_log_identifier | `entry = AuditLog(` |
 | `app/security/dependencies.py` | 34 | audit_append_call | `roles.append(Role(raw_role))` |
 | `app/services/audit_service.py` | 21 | audit_append_call | `row = await self.repository.append(` |
+| `app/services/backend_consolidation_runtime.py` | 38 | audit_record_call | `return await adapter.record(**event.to_kwargs())` |
+| `app/services/backend_consolidation_runtime.py` | 39 | audit_record_call | `return await adapter.record(**event)` |
 | `app/services/consent_service.py` | 18 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
 | `app/services/consent_service.py` | 26 | audit_repository | `audit_repo: AuditRepository,` |
 | `app/services/consent_service.py` | 55 | audit_record_call | `await self._audit.record(` |
@@ -1025,6 +1027,10 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_backend_consolidation_execution_packet.py` | 54 | audit_append_call | `failures.append(f"missing {path}")` |
 | `scripts/check_backend_consolidation_execution_packet.py` | 64 | audit_append_call | `failures.append(f"{path} missing {needle!r}")` |
 | `scripts/check_backend_consolidation_execution_packet.py` | 68 | audit_append_call | `failures.append(f"{path} has premature phrase {phrase!r}")` |
+| `scripts/check_backend_consolidation_implementation_foundation.py` | 49 | audit_append_call | `failures.append(f"missing {relative}")` |
+| `scripts/check_backend_consolidation_implementation_foundation.py` | 59 | audit_append_call | `failures.append(f"{relative} missing {needle!r}")` |
+| `scripts/check_backend_consolidation_implementation_foundation.py` | 63 | audit_append_call | `failures.append(f"forbidden phrase {phrase!r}")` |
+| `scripts/check_backend_consolidation_implementation_foundation.py` | 77 | audit_append_call | `failures.append("backend_consolidation_runtime.py compile failed")` |
 | `scripts/check_backend_consolidation_noop_guard.py` | 39 | audit_append_call | `failures.append(f"missing {relative}")` |
 | `scripts/check_backend_consolidation_noop_guard.py` | 46 | audit_append_call | `failures.append("pending decision marker missing")` |
 | `scripts/check_backend_consolidation_noop_guard.py` | 54 | audit_append_call | `failures.append("retention default safeguards missing")` |
@@ -1355,6 +1361,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_backend_consolidation_evidence_manifest.py` | 80 | audit_append_call | `lines.append(` |
 | `scripts/generate_backend_consolidation_execution_report.py` | 48 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
 | `scripts/generate_backend_consolidation_execution_report.py` | 60 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
+| `scripts/generate_backend_consolidation_implementation_report.py` | 48 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
+| `scripts/generate_backend_consolidation_implementation_report.py` | 59 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
 | `scripts/generate_backend_consolidation_readiness_report.py` | 42 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
 | `scripts/generate_backend_consolidation_readiness_report.py` | 52 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
 | `scripts/generate_backend_consolidation_report.py` | 47 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
@@ -1607,6 +1615,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/unit/test_audit_repository.py` | 191 | audit_repository | `repo = AuditRepository(db_session)` |
 | `tests/unit/test_audit_repository.py` | 194 | audit_append_call | `await repo.append("consent.granted", payload={}, actor_id=actor_id)` |
 | `tests/unit/test_audit_repository.py` | 195 | audit_append_call | `await repo.append("consent.revoked", payload={}, actor_id=actor_id)` |
+| `tests/unit/test_backend_consolidation_implementation_foundation.py` | 32 | audit_append_call | `self.calls.append(kwargs)` |
+| `tests/unit/test_backend_consolidation_implementation_foundation.py` | 54 | audit_append_call | `self.calls.append(kwargs)` |
 | `tests/unit/test_billing_monetization_production_readiness.py` | 69 | audit_log_identifier | `assert "processed:evt_1:invoice.created:1" in store.audit_log` |
 | `tests/unit/test_billing_monetization_production_readiness.py` | 70 | audit_log_identifier | `assert "duplicate:evt_1:invoice.created" in store.audit_log` |
 | `tests/unit/test_consent_policy.py` | 75 | audit_append_call | `self.events.append(kwargs)` |
