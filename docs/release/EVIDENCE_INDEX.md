@@ -53,3 +53,14 @@ Capture current local pytest evidence:
 make capture-pytest-release-evidence
 make pytest-release-evidence-check
 ```
+
+
+## Staging smoke evidence capture
+
+Run staging smoke after deployment:
+
+```bash
+export STAGING_BASE_URL="https://staging.example.com"
+make staging-smoke
+make staging-smoke-check
+```
