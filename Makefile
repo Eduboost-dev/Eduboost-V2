@@ -982,3 +982,17 @@ backend-runtime-probe-report:
 backend-runtime-probe-full-check: backend-runtime-probe-fixtures-check backend-runtime-probe-report backend-consolidation-execution-full-check
 	pytest -c pytest.ini tests/unit/test_backend_runtime_probe_fixtures.py -q --no-cov
 
+.PHONY: backend-consolidation-evidence-manifest backend-consolidation-terminal-check backend-consolidation-terminal-report backend-consolidation-terminal-full-check
+
+backend-consolidation-evidence-manifest:
+	PYTHONPATH=. python3 scripts/generate_backend_consolidation_evidence_manifest.py
+
+backend-consolidation-terminal-check: backend-consolidation-evidence-manifest
+	PYTHONPATH=. python3 scripts/check_backend_consolidation_terminal_packet.py
+
+backend-consolidation-terminal-report:
+	PYTHONPATH=. python3 scripts/generate_backend_consolidation_terminal_report.py
+
+backend-consolidation-terminal-full-check: backend-consolidation-terminal-report backend-consolidation-terminal-check backend-consolidation-execution-full-check backend-runtime-probe-full-check
+	pytest -c pytest.ini tests/unit/test_backend_consolidation_terminal_packet.py -q --no-cov
+

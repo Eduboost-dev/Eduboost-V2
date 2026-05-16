@@ -172,3 +172,15 @@ make backend-runtime-probe-fixtures-check
 make backend-runtime-probe-report
 make backend-runtime-probe-full-check
 ```
+
+
+## Backend consolidation terminal packet
+
+Close the backend consolidation diagnostic packet before implementation PRs:
+
+```bash
+make backend-consolidation-evidence-manifest
+make backend-consolidation-terminal-check
+make backend-consolidation-terminal-report
+make backend-consolidation-terminal-full-check
+```
