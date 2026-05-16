@@ -219,3 +219,14 @@ make audit-canonicalization-registry-check
 make backend-consolidation-progress-report
 make backend-implementation-367-370-full-check
 ```
+
+
+## Backend implementation slice 371-375
+
+Track audit migration orchestration, consent runtime orchestration, and deep-readiness route contracts:
+
+```bash
+make backend-implementation-371-375-check
+make backend-implementation-371-375-report
+make backend-implementation-371-375-full-check
+```
