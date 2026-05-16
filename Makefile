@@ -1099,3 +1099,17 @@ backend-runtime-enablement-report:
 backend-runtime-enablement-full-check: backend-runtime-enablement-guard backend-destructive-action-blocklist-check backend-runtime-enablement-report backend-implementation-391-400-full-check backend-implementation-383-390-full-check
 	pytest -c pytest.ini tests/unit/test_backend_runtime_enablement_pack.py -q --no-cov
 
+.PHONY: first-audit-runtime-wiring-check first-audit-runtime-wiring-no-destructive-actions first-audit-runtime-wiring-report backend-implementation-421-430-full-check
+
+first-audit-runtime-wiring-check:
+	PYTHONPATH=. python3 scripts/check_first_audit_runtime_wiring.py
+
+first-audit-runtime-wiring-no-destructive-actions:
+	PYTHONPATH=. python3 scripts/check_first_audit_runtime_wiring_no_destructive_actions.py
+
+first-audit-runtime-wiring-report:
+	PYTHONPATH=. python3 scripts/generate_first_audit_runtime_wiring_report.py
+
+backend-implementation-421-430-full-check: first-audit-runtime-wiring-check first-audit-runtime-wiring-no-destructive-actions first-audit-runtime-wiring-report backend-runtime-enablement-full-check backend-implementation-391-400-full-check
+	pytest -c pytest.ini tests/unit/test_first_audit_runtime_wiring.py -q --no-cov
+
