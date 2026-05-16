@@ -116,3 +116,14 @@ make health-readiness-contract-check
 make schema-drift-contract-check
 make schema-drift-check-db
 ```
+
+
+## Backend consolidation rollup
+
+Generate a complete diagnostic rollup and release guard:
+
+```bash
+make backend-consolidation-report
+make backend-consolidation-release-guard
+make backend-consolidation-full-check
+```

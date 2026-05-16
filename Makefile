@@ -924,3 +924,14 @@ schema-drift-check-db:
 backend-runtime-diagnostics-check: health-readiness-contract-check schema-drift-contract-check backend-consolidation-diagnostics-check
 	pytest -c pytest.ini tests/unit/test_health_readiness_schema_drift_guards.py -q --no-cov
 
+.PHONY: backend-consolidation-report backend-consolidation-release-guard backend-consolidation-full-check
+
+backend-consolidation-report:
+	PYTHONPATH=. python3 scripts/generate_backend_consolidation_report.py
+
+backend-consolidation-release-guard:
+	PYTHONPATH=. python3 scripts/check_backend_consolidation_release_guard.py
+
+backend-consolidation-full-check: backend-consolidation-report backend-consolidation-release-guard audit-compatibility-check consent-compatibility-check backend-runtime-diagnostics-check
+	pytest -c pytest.ini tests/unit/test_backend_consolidation_rollup_and_guard.py -q --no-cov
+
