@@ -1127,3 +1127,17 @@ runtime-wiring-431-450-report:
 backend-implementation-431-450-full-check: first-consent-deep-readiness-runtime-wiring-check runtime-wiring-no-destructive-actions runtime-wiring-431-450-report backend-implementation-421-430-full-check backend-runtime-enablement-full-check
 	pytest -c pytest.ini tests/unit/test_consent_deep_readiness_runtime_wiring.py -q --no-cov
 
+.PHONY: backend-runtime-integration-readiness-check backend-runtime-integration-blocklists-check backend-runtime-integration-readiness-report backend-runtime-integration-readiness-full-check
+
+backend-runtime-integration-readiness-check:
+	PYTHONPATH=. python3 scripts/check_backend_runtime_integration_readiness.py
+
+backend-runtime-integration-blocklists-check:
+	PYTHONPATH=. python3 scripts/check_backend_runtime_integration_blocklists.py
+
+backend-runtime-integration-readiness-report:
+	PYTHONPATH=. python3 scripts/generate_backend_runtime_integration_readiness_report.py
+
+backend-runtime-integration-readiness-full-check: backend-runtime-integration-readiness-check backend-runtime-integration-blocklists-check backend-runtime-integration-readiness-report backend-implementation-431-450-full-check backend-implementation-421-430-full-check
+	pytest -c pytest.ini tests/unit/test_backend_runtime_integration_readiness.py -q --no-cov
+
