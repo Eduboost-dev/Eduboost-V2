@@ -161,3 +161,14 @@ make backend-consolidation-execution-packet-check
 make backend-consolidation-execution-report
 make backend-consolidation-execution-full-check
 ```
+
+
+## Backend runtime probe fixtures
+
+Validate fixture-based audit, consent, and deep-readiness probes:
+
+```bash
+make backend-runtime-probe-fixtures-check
+make backend-runtime-probe-report
+make backend-runtime-probe-full-check
+```

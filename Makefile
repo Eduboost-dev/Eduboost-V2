@@ -971,3 +971,14 @@ backend-consolidation-execution-report:
 backend-consolidation-execution-full-check: backend-consolidation-execution-packet-check backend-consolidation-execution-report backend-consolidation-readiness-full-check
 	pytest -c pytest.ini tests/unit/test_backend_consolidation_execution_packet.py -q --no-cov
 
+.PHONY: backend-runtime-probe-fixtures-check backend-runtime-probe-report backend-runtime-probe-full-check
+
+backend-runtime-probe-fixtures-check:
+	PYTHONPATH=. python3 scripts/check_backend_runtime_probe_fixtures.py
+
+backend-runtime-probe-report:
+	PYTHONPATH=. python3 scripts/generate_backend_runtime_probe_report.py
+
+backend-runtime-probe-full-check: backend-runtime-probe-fixtures-check backend-runtime-probe-report backend-consolidation-execution-full-check
+	pytest -c pytest.ini tests/unit/test_backend_runtime_probe_fixtures.py -q --no-cov
+
