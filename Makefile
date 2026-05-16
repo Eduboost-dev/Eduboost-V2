@@ -935,3 +935,14 @@ backend-consolidation-release-guard:
 backend-consolidation-full-check: backend-consolidation-report backend-consolidation-release-guard audit-compatibility-check consent-compatibility-check backend-runtime-diagnostics-check
 	pytest -c pytest.ini tests/unit/test_backend_consolidation_rollup_and_guard.py -q --no-cov
 
+.PHONY: backend-runtime-compatibility-check backend-runtime-compatibility-report backend-runtime-compatibility-full-check
+
+backend-runtime-compatibility-check:
+	PYTHONPATH=. python3 scripts/check_backend_runtime_compatibility.py
+
+backend-runtime-compatibility-report:
+	PYTHONPATH=. python3 scripts/generate_backend_runtime_compatibility_report.py
+
+backend-runtime-compatibility-full-check: backend-runtime-compatibility-check backend-runtime-compatibility-report audit-compatibility-check consent-compatibility-check health-readiness-contract-check
+	pytest -c pytest.ini tests/unit/test_backend_runtime_compatibility_contracts.py -q --no-cov
+
