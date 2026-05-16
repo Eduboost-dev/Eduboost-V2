@@ -4,6 +4,8 @@ Orchestrates all §4.1 consent lifecycle flows.
 Every state transition is audited (§4.5).
 """
 from __future__ import annotations
+from app.services.runtime_audit_facade import record_runtime_audit_event
+from app.services.runtime_consent_facade import emit_consent_runtime_event
 
 import uuid
 from datetime import datetime, timezone
@@ -39,6 +41,10 @@ class ConsentService:
         privacy_notice_version: str,
         actor_id: uuid.UUID,
     ) -> ConsentRecord:
+        # runtime-audit-facade-wired
+        audit_repository = locals().get('audit_repository') or locals().get('audit_repo') or (getattr(self, 'audit_repository', None) if 'self' in locals() else None)
+        if audit_repository is not None:
+            await record_runtime_audit_event(audit_repository, action='consent.granted', candidate_name='consent_audit_events', actor_id=str(locals().get('actor_id') or locals().get('user_id') or ''), learner_id=str(locals().get('learner_id') or locals().get('child_id') or ''), resource_type='learner_consent', metadata={'wired_function': 'grant'})
         existing = await self._consent.get_active_for_learner(learner_id)
         if existing:
             updated = existing.grant(privacy_notice_version)
@@ -207,3 +213,8 @@ class ConsentService:
         if record is None:
             raise ValueError(f"No consent record found for learner {learner_id}")
         return record
+
+    # runtime-consent-facade-ready
+    async def _emit_runtime_consent_audit(self, *, action: str, learner_id: str, actor_id: str | None = None, metadata: dict | None = None):
+        repo = getattr(self, 'audit_repository', None) or getattr(self, 'audit_repo', None)
+        return await emit_consent_runtime_event(action=action, learner_id=str(learner_id), actor_id=actor_id, audit_repository=repo, metadata=metadata or {})

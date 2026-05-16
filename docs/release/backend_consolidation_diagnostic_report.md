@@ -1,6 +1,6 @@
 # Backend Consolidation Diagnostic Report
 
-Generated at: `2026-05-16T18:30:29Z`
+Generated at: `2026-05-16T20:19:32Z`
 
 | Check | Return code | Command |
 |---|---:|---|
@@ -53,24 +53,30 @@ Backend consolidation dragon diagnostic
   - app/repositories/audit_repository.py
   - app/services/data_subject_rights_service.py
   - ... 10 more file(s)
-- audit_logs: 17 match(es)
+- audit_logs: 21 match(es)
   - alembic/versions/0001_v2_consolidated_schema.py
   - app/models/__init__.py
   - app/modules/disaster_recovery/production_readiness_contracts.py
   - app/services/audit_canonicalization_registry.py
   - scripts/check_backend_consolidation_dragons.py
+  - scripts/check_backend_destructive_action_blocklist.py
+  - scripts/check_first_audit_runtime_wiring_no_destructive_actions.py
   - scripts/generate_audit_callsite_inventory.py
   - scripts/generate_backend_deletion_candidate_inventory.py
-- consent_records: 16 match(es)
+  - tests/unit/test_backend_runtime_enablement_pack.py
+  - tests/unit/test_backend_runtime_wiring_preflight.py
+- consent_records: 18 match(es)
   - alembic/versions/20260510_0300_popia_consent_audit_dsr.py
   - app/repositories/consent_repository.py
   - app/services/data_subject_rights_service.py
   - scripts/check_backend_consolidation_dragons.py
+  - scripts/check_first_audit_runtime_wiring_no_destructive_actions.py
+  - scripts/check_runtime_wiring_no_destructive_actions.py
   - scripts/compare_orm_tables_to_database.py
   - scripts/generate_consent_callsite_inventory.py
   - tests/legacy/integration/test_api_contracts.py
   - tests/legacy/integration/test_parent_portal_integration.py
-- parental_consents: 44 match(es)
+- parental_consents: 46 match(es)
   - alembic/versions/0001_v2_consolidated_schema.py
   - alembic/versions/20260505_1734_add_missing_production_indexes.py
   - alembic/versions/20260507_1200_popia_consent_audit_hardening.py
@@ -80,9 +86,10 @@ Backend consolidation dragon diagnostic
   - app/models/__init__.py
   - app/services/popia_service.py
   - scripts/check_backend_consolidation_dragons.py
+  - scripts/check_first_audit_runtime_wiring_no_destructive_actions.py
+  - scripts/check_runtime_wiring_no_destructive_actions.py
   - scripts/generate_backend_deletion_candidate_inventory.py
-  - scripts/generate_consent_callsite_inventory.py
-  - scripts/validate_schema_integrity.py
+  - ... 2 more file(s)
 - consent_service: 85 match(es)
   - app/api_v2_routers/consent.py
   - app/api_v2_routers/learners.py
@@ -120,7 +127,7 @@ Command: `/usr/bin/python3 scripts/generate_audit_callsite_inventory.py --fail-e
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/audit_callsite_inventory.md (1650 row(s))
+Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/audit_callsite_inventory.md (1742 row(s))
 ```
 
 ## consent inventory
@@ -130,7 +137,7 @@ Command: `/usr/bin/python3 scripts/generate_consent_callsite_inventory.py --fail
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/consent_callsite_inventory.md (337 row(s))
+Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/consent_callsite_inventory.md (341 row(s))
 ```
 
 ## health readiness contract
@@ -188,45 +195,7 @@ ORM tables
 - stripe_webhook_events
 - subject_mastery
 - topic_mastery
-Database tables
-- alembic_version
-- audit_events
-- audit_logs
-- calibration_audits
-- consent_records
-- correction_requests
-- data_export_requests
-- diagnostic_items
-- diagnostic_sessions
-- erasure_requests
-- guardians
-- irt_items
-- item_exposures
-- knowledge_gaps
-- learner_profiles
-- lesson_feedback
-- lessons
-- mastery_snapshots
-- parental_consents
-- practice_queue
-- restriction_requests
-- rlhf_exports
-- spaced_review_schedule
-- stripe_webhook_events
-- study_plan
-- subject_mastery
-- topic_mastery
-Ignored database tables
-- alembic_version
-Missing in database
-- none
-Extra in database
-- consent_records
-- correction_requests
-- data_export_requests
-- erasure_requests
-- restriction_requests
-- study_plan
+DATABASE_URL not supplied; database comparison skipped.
 
 - PASS [command] ORM-only schema drift check runs without DB
 ```

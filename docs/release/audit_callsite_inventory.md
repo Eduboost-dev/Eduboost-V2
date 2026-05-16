@@ -919,19 +919,33 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/audit_canonicalization_registry.py` | 46 | audit_logs_table | `current_shape="legacy audit_logs/AuditLog references",` |
 | `app/services/audit_canonicalization_registry.py` | 46 | audit_log_identifier | `current_shape="legacy audit_logs/AuditLog references",` |
 | `app/services/audit_canonicalization_slice.py` | 71 | audit_record_call | `return await adapter.record(command.to_event_input())` |
+| `app/services/audit_migration_orchestrator.py` | 73 | audit_record_call | `return await adapter.record(envelope.to_event_input())` |
 | `app/services/audit_service.py` | 21 | audit_append_call | `row = await self.repository.append(` |
+| `app/services/backend_adapter_wiring_service.py` | 28 | audit_append_call | `self.events.append(kwargs)` |
+| `app/services/backend_adapter_wiring_service.py` | 36 | audit_record_call | `response = await adapter.record(` |
+| `app/services/backend_adapter_wiring_service.py` | 53 | audit_append_call | `results.append(await record_candidate_payload(repository, payload))` |
 | `app/services/backend_consolidation_runtime.py` | 38 | audit_record_call | `return await adapter.record(**event.to_kwargs())` |
 | `app/services/backend_consolidation_runtime.py` | 39 | audit_record_call | `return await adapter.record(**event)` |
+| `app/services/backend_first_wiring_candidates.py` | 52 | audit_append_call | `candidates.append(` |
+| `app/services/backend_runtime_integration_readiness.py` | 58 | audit_append_call | `targets.append(` |
+| `app/services/backend_runtime_integration_readiness.py` | 131 | audit_append_call | `results.append(await _run_audit_dry_run(target))` |
+| `app/services/backend_runtime_integration_readiness.py` | 133 | audit_append_call | `results.append(_run_consent_dry_run(target))` |
+| `app/services/backend_runtime_integration_readiness.py` | 135 | audit_append_call | `results.append(_run_deep_readiness_dry_run(target))` |
+| `app/services/backend_runtime_integration_readiness.py` | 137 | audit_append_call | `results.append(` |
+| `app/services/backend_runtime_wiring_cases.py` | 55 | audit_append_call | `results.append(` |
+| `app/services/backend_runtime_wiring_cases.py` | 80 | audit_append_call | `results.append(` |
+| `app/services/backend_runtime_wiring_cases.py` | 97 | audit_append_call | `results.append(` |
+| `app/services/backend_runtime_wiring_cases.py` | 112 | audit_append_call | `results.append(` |
 | `app/services/consent_runtime_compatibility.py` | 94 | audit_append_call | `required.append(name)` |
-| `app/services/consent_service.py` | 18 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
-| `app/services/consent_service.py` | 26 | audit_repository | `audit_repo: AuditRepository,` |
-| `app/services/consent_service.py` | 55 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 91 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 111 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 132 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 151 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 191 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 200 | audit_append_call | `flagged.append(saved)` |
+| `app/services/consent_service.py` | 20 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
+| `app/services/consent_service.py` | 28 | audit_repository | `audit_repo: AuditRepository,` |
+| `app/services/consent_service.py` | 61 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 97 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 117 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 138 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 157 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 197 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 206 | audit_append_call | `flagged.append(saved)` |
 | `app/services/content_safety/lesson_contracts.py` | 99 | audit_append_call | `reasons.append("topic missing")` |
 | `app/services/content_safety/lesson_contracts.py` | 101 | audit_append_call | `reasons.append("CAPS alignment invalid")` |
 | `app/services/content_safety/lesson_contracts.py` | 103 | audit_append_call | `reasons.append("unsafe content")` |
@@ -949,11 +963,21 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/data_subject_rights_service.py` | 180 | audit_events_table | `Deletes learner PII but PRESERVES audit_events rows (anonymised).` |
 | `app/services/data_subject_rights_service.py` | 200 | audit_events_table | `UPDATE audit_events` |
 | `app/services/data_subject_rights_service.py` | 229 | audit_record_call | `await self._audit.record(` |
+| `app/services/deep_readiness_runtime.py` | 30 | audit_append_call | `checks.append(DeepReadinessCheckResult("database_connectivity","pass","read-only connectivity check completed"))` |
+| `app/services/deep_readiness_runtime.py` | 32 | audit_append_call | `checks.append(DeepReadinessCheckResult("database_connectivity","fail",f"{type(exc).__name__}: {exc}"))` |
+| `app/services/deep_readiness_runtime.py` | 35 | audit_append_call | `checks.append(DeepReadinessCheckResult("alembic_revision","pass","read-only Alembic revision query completed"))` |
+| `app/services/deep_readiness_runtime.py` | 37 | audit_append_call | `checks.append(DeepReadinessCheckResult("alembic_revision","warn",f"{type(exc).__name__}: {exc}"))` |
+| `app/services/deep_readiness_runtime.py` | 41 | audit_append_call | `checks.append(DeepReadinessCheckResult(f"table:{table}","pass","read-only table presence query completed"))` |
+| `app/services/deep_readiness_runtime.py` | 43 | audit_append_call | `checks.append(DeepReadinessCheckResult(f"table:{table}","warn",f"{type(exc).__name__}: {exc}"))` |
+| `app/services/deep_readiness_runtime.py` | 49 | audit_append_call | `checks.append(DeepReadinessCheckResult("cache_ping","pass","cache ping completed"))` |
 | `app/services/diagnostic_safety.py` | 30 | audit_append_call | `reasons.append(caps.reason)` |
 | `app/services/diagnostic_safety.py` | 32 | audit_append_call | `reasons.append("difficulty must be finite and between -4 and 4")` |
 | `app/services/diagnostic_safety.py` | 34 | audit_append_call | `reasons.append("discrimination must be finite and between 0 and 4")` |
 | `app/services/diagnostic_safety.py` | 36 | audit_append_call | `reasons.append("distractors must be mutually distinct")` |
 | `app/services/diagnostic_safety.py` | 38 | audit_append_call | `reasons.append("approved items require an explanation")` |
+| `app/services/first_audit_runtime_wiring.py` | 60 | audit_append_call | `self.events.append(kwargs)` |
+| `app/services/first_audit_runtime_wiring.py` | 132 | audit_record_call | `response = await adapter.record(` |
+| `app/services/first_deep_readiness_runtime_wiring.py` | 85 | audit_append_call | `selected_checks.append(name)` |
 | `app/services/lesson_context_builder.py` | 217 | audit_append_call | `parts.append(f"({subtopic})")` |
 | `app/services/lesson_context_builder.py` | 221 | audit_append_call | `parts.append(f"with emphasis on correcting: {tags_str}")` |
 | `app/services/lesson_context_builder.py` | 231 | audit_append_call | `parts.append(severity_hints.get(severity, ""))` |
@@ -969,6 +993,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/popia_service.py` | 156 | audit_append_call | `await self.audit.append(` |
 | `app/services/popia_service.py` | 183 | audit_append_call | `await self.audit.append(` |
 | `app/services/popia_service.py` | 202 | audit_append_call | `await self.audit.append(` |
+| `app/services/runtime_audit_facade.py` | 25 | audit_record_call | `await AuditRepositoryCompatAdapter(repository).record(` |
 | `scripts/archive/db_migration_phase2.sql` | 205 | audit_events_table | `CREATE TABLE IF NOT EXISTS audit_events (` |
 | `scripts/archive/db_migration_phase2.sql` | 219 | audit_events_table | `CREATE INDEX IF NOT EXISTS ix_audit_events_learner ON audit_events(learner_id);` |
 | `scripts/archive/db_migration_phase2.sql` | 220 | audit_events_table | `CREATE INDEX IF NOT EXISTS ix_audit_events_occurred ON audit_events(occurred_at);` |
@@ -1051,6 +1076,20 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_backend_consolidation_terminal_packet.py` | 38 | audit_append_call | `failures.append(f"missing {relative}")` |
 | `scripts/check_backend_consolidation_terminal_packet.py` | 48 | audit_append_call | `failures.append(f"packet missing {needle!r}")` |
 | `scripts/check_backend_consolidation_terminal_packet.py` | 61 | audit_append_call | `failures.append("command failed: " + " ".join(command))` |
+| `scripts/check_backend_destructive_action_blocklist.py` | 15 | audit_logs_table | `"audit_logs deletion: approved",` |
+| `scripts/check_backend_destructive_action_blocklist.py` | 31 | audit_append_call | `failures.append(f"missing {relative}")` |
+| `scripts/check_backend_destructive_action_blocklist.py` | 37 | audit_append_call | `failures.append(f"{relative}: {phrase}")` |
+| `scripts/check_backend_first_wiring_candidates.py` | 46 | audit_append_call | `failures.append("no safe candidates")` |
+| `scripts/check_backend_first_wiring_candidates.py` | 52 | audit_append_call | `failures.append("unsafe candidates detected")` |
+| `scripts/check_backend_first_wiring_candidates.py` | 58 | audit_append_call | `failures.append("payload count mismatch")` |
+| `scripts/check_backend_first_wiring_candidates.py` | 65 | audit_append_call | `failures.append(message)` |
+| `scripts/check_backend_first_wiring_candidates.py` | 73 | audit_append_call | `failures.append(f"missing {doc}")` |
+| `scripts/check_backend_implementation_371_375.py` | 31 | audit_append_call | `failures.append("no audit candidates")` |
+| `scripts/check_backend_implementation_371_375.py` | 44 | audit_append_call | `failures.append("audit event mapping")` |
+| `scripts/check_backend_implementation_371_375.py` | 55 | audit_append_call | `failures.append("consent payload classification")` |
+| `scripts/check_backend_implementation_371_375.py` | 62 | audit_append_call | `failures.append("unsafe public readiness")` |
+| `scripts/check_backend_implementation_371_375.py` | 70 | audit_append_call | `failures.append("deep readiness catalogue")` |
+| `scripts/check_backend_implementation_371_375.py` | 78 | audit_append_call | `failures.append(f"missing {doc}")` |
 | `scripts/check_backend_runtime_compatibility.py` | 31 | audit_append_call | `failures.append("missing app.repositories.audit_compat")` |
 | `scripts/check_backend_runtime_compatibility.py` | 38 | audit_append_call | `failures.append(f"missing audit compat {name}")` |
 | `scripts/check_backend_runtime_compatibility.py` | 42 | audit_repository | `repo_cls = getattr(canonical, "AuditRepository", None)` |
@@ -1062,6 +1101,14 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_backend_runtime_compatibility.py` | 84 | audit_append_call | `failures.append("no consent service module imported")` |
 | `scripts/check_backend_runtime_compatibility.py` | 96 | audit_append_call | `failures.append("missing health readiness contract")` |
 | `scripts/check_backend_runtime_compatibility.py` | 104 | audit_append_call | `failures.append(f"health contract missing {needle!r}")` |
+| `scripts/check_backend_runtime_enablement_guard.py` | 26 | audit_append_call | `failures.append(result.name)` |
+| `scripts/check_backend_runtime_enablement_guard.py` | 41 | audit_append_call | `failures.append(f"missing {relative}")` |
+| `scripts/check_backend_runtime_integration_blocklists.py` | 33 | audit_append_call | `failures.append(f"missing {relative}")` |
+| `scripts/check_backend_runtime_integration_blocklists.py` | 40 | audit_append_call | `failures.append(f"{relative}: {pattern}")` |
+| `scripts/check_backend_runtime_integration_readiness.py` | 38 | audit_append_call | `failures.append("insufficient targets")` |
+| `scripts/check_backend_runtime_integration_readiness.py` | 44 | audit_append_call | `failures.append(result.target_id)` |
+| `scripts/check_backend_runtime_integration_readiness.py` | 52 | audit_append_call | `failures.append(f"missing blocked change {expected}")` |
+| `scripts/check_backend_runtime_integration_readiness.py` | 60 | audit_append_call | `failures.append(f"missing {doc}")` |
 | `scripts/check_backend_runtime_probe_fixtures.py` | 36 | audit_append_call | `failures.append(f"{event['name']} action mismatch")` |
 | `scripts/check_backend_runtime_probe_fixtures.py` | 38 | audit_append_call | `failures.append(f"{event['name']} resource_id mismatch")` |
 | `scripts/check_backend_runtime_probe_fixtures.py` | 41 | audit_append_call | `failures.append(f"{event['name']} payload missing {key}")` |
@@ -1072,6 +1119,11 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_backend_runtime_probe_fixtures.py` | 86 | audit_append_call | `failures.append("audit_write_probe must be internal_only_disabled_by_default")` |
 | `scripts/check_backend_runtime_probe_fixtures.py` | 88 | audit_append_call | `failures.append(f"{check.get('name')} has unsafe/unknown mode {check.get('mode')}")` |
 | `scripts/check_backend_runtime_probe_fixtures.py` | 104 | audit_append_call | `failures.append(f"missing {path}")` |
+| `scripts/check_backend_runtime_wiring_cases.py` | 30 | audit_append_call | `failures.append(f"missing {path}")` |
+| `scripts/check_backend_runtime_wiring_cases.py` | 36 | audit_append_call | `failures.append(result.case_name)` |
+| `scripts/check_backend_runtime_wiring_preflight.py` | 27 | audit_append_call | `failures.append(result.area.value)` |
+| `scripts/check_backend_runtime_wiring_preflight.py` | 35 | audit_append_call | `failures.append(f"missing {doc}")` |
+| `scripts/check_backend_runtime_wiring_preflight.py` | 45 | audit_append_call | `failures.append(f"ledger missing {needle}")` |
 | `scripts/check_backup_restore_disaster_recovery_production_readiness.py` | 145 | audit_append_call | `results.append(` |
 | `scripts/check_backup_restore_disaster_recovery_production_readiness.py` | 156 | audit_append_call | `results.append(` |
 | `scripts/check_backup_restore_disaster_recovery_production_readiness.py` | 180 | audit_append_call | `results.append(DisasterRecoveryReadinessResult("disaster_recovery_contracts", False, f"contract check failed: {exc}"))` |
@@ -1188,6 +1240,19 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_final_reviewer_disposition_record.py` | 56 | audit_append_call | `results.append(` |
 | `scripts/check_final_reviewer_pack_checklist.py` | 52 | audit_append_call | `results.append(` |
 | `scripts/check_final_sealed_package_manifest.py` | 55 | audit_append_call | `results.append(` |
+| `scripts/check_first_audit_runtime_wiring.py` | 49 | audit_append_call | `failures.append("unsafe candidate")` |
+| `scripts/check_first_audit_runtime_wiring.py` | 55 | audit_append_call | `failures.append("candidate boundary")` |
+| `scripts/check_first_audit_runtime_wiring.py` | 62 | audit_append_call | `failures.append("payload mapping")` |
+| `scripts/check_first_audit_runtime_wiring.py` | 69 | audit_append_call | `failures.append(message)` |
+| `scripts/check_first_audit_runtime_wiring.py` | 77 | audit_append_call | `failures.append(f"missing {doc}")` |
+| `scripts/check_first_audit_runtime_wiring_no_destructive_actions.py` | 18 | audit_logs_table | `"delete audit_logs",` |
+| `scripts/check_first_audit_runtime_wiring_no_destructive_actions.py` | 33 | audit_append_call | `failures.append(f"missing {relative}")` |
+| `scripts/check_first_audit_runtime_wiring_no_destructive_actions.py` | 39 | audit_append_call | `failures.append(f"{relative}: {pattern}")` |
+| `scripts/check_first_consent_and_deep_readiness_runtime_wiring.py` | 38 | audit_append_call | `failures.append("consent candidate unsafe")` |
+| `scripts/check_first_consent_and_deep_readiness_runtime_wiring.py` | 45 | audit_append_call | `failures.append("consent payload invalid")` |
+| `scripts/check_first_consent_and_deep_readiness_runtime_wiring.py` | 52 | audit_append_call | `failures.append("deep-readiness candidate unsafe")` |
+| `scripts/check_first_consent_and_deep_readiness_runtime_wiring.py` | 59 | audit_append_call | `failures.append("deep-readiness plan invalid")` |
+| `scripts/check_first_consent_and_deep_readiness_runtime_wiring.py` | 67 | audit_append_call | `failures.append(f"missing {doc}")` |
 | `scripts/check_frontend_accessibility_contract.py` | 44 | audit_append_call | `results.append(` |
 | `scripts/check_frontend_accessibility_static.py` | 59 | audit_append_call | `results.append(` |
 | `scripts/check_frontend_accessibility_static.py` | 68 | audit_append_call | `results.append(` |
@@ -1333,6 +1398,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_runtime_release_evidence.py` | 73 | audit_append_call | `failures.append(f"missing file {path}")` |
 | `scripts/check_runtime_release_evidence.py` | 83 | audit_append_call | `failures.append(f"{path} missing {needle!r}")` |
 | `scripts/check_runtime_release_evidence.py` | 95 | audit_append_call | `failures.append(f"{path} pending status removed")` |
+| `scripts/check_runtime_wiring_no_destructive_actions.py` | 35 | audit_append_call | `failures.append(f"missing {relative}")` |
+| `scripts/check_runtime_wiring_no_destructive_actions.py` | 41 | audit_append_call | `failures.append(f"{relative}: {pattern}")` |
 | `scripts/check_schema_drift_contract.py` | 27 | audit_append_call | `failures.append(f"missing {path}")` |
 | `scripts/check_schema_drift_contract.py` | 41 | audit_append_call | `failures.append("compare_orm_tables_to_database.py failed without DB")` |
 | `scripts/check_sealed_evidence_access_handoff.py` | 54 | audit_append_call | `results.append(` |
@@ -1366,6 +1433,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/deduplicate_makefile_targets.py` | 152 | audit_append_call | `new_lines.append(line)` |
 | `scripts/evaluate_pedagogy.py` | 88 | audit_append_call | `cases.append(BenchmarkCase(**record))` |
 | `scripts/evaluate_pedagogy.py` | 171 | audit_append_call | `case_results.append(result)` |
+| `scripts/execute_disposable_db_schema_proof.py` | 26 | audit_append_call | `code,out=run(cmd); overall=max(overall,code); lines.append(f"\| `{' '.join(cmd).replace(url,'<DATABASE_URL>')}` \| {code} \|"); lines+=["","```text",out.rstrip(),"```"]` |
 | `scripts/generate_ai_prompt_surface_inventory.py` | 49 | audit_append_call | `surfaces.append(PromptSurface(str(path.relative_to(REPO_ROOT)), markers))` |
 | `scripts/generate_ai_prompt_surface_inventory.py` | 76 | audit_append_call | `lines.append("\| _none found_ \| _none_ \|")` |
 | `scripts/generate_ai_prompt_surface_inventory.py` | 79 | audit_append_call | `lines.append(f"\| `{surface.path}` \| `{', '.join(surface.markers)}` \|")` |
@@ -1394,10 +1462,25 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_backend_deletion_candidate_inventory.py` | 34 | audit_append_call | `files.append(path)` |
 | `scripts/generate_backend_deletion_candidate_inventory.py` | 47 | audit_append_call | `candidates.append(Candidate(str(path.relative_to(REPO_ROOT)), line_number, category, line.strip()[:220]))` |
 | `scripts/generate_backend_deletion_candidate_inventory.py` | 61 | audit_append_call | `lines.append(f"\| `{candidate.path}` \| {candidate.line} \| {candidate.category} \| `{text}` \| TODO \| no \|")` |
+| `scripts/generate_backend_first_wiring_candidates_report.py` | 41 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
+| `scripts/generate_backend_first_wiring_candidates_report.py` | 53 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
+| `scripts/generate_backend_implementation_371_375_report.py` | 42 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
+| `scripts/generate_backend_implementation_371_375_report.py` | 54 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
 | `scripts/generate_backend_runtime_compatibility_report.py` | 48 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
 | `scripts/generate_backend_runtime_compatibility_report.py` | 60 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
+| `scripts/generate_backend_runtime_enablement_report.py` | 62 | audit_append_call | `lines.append(f"\| `{relative}` \| `{_sha256(path)}` \|")` |
+| `scripts/generate_backend_runtime_enablement_report.py` | 64 | audit_append_call | `lines.append(f"\| `{relative}` \| `MISSING` \|")` |
+| `scripts/generate_backend_runtime_enablement_report.py` | 75 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
+| `scripts/generate_backend_runtime_enablement_report.py` | 89 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
+| `scripts/generate_backend_runtime_integration_readiness_report.py` | 56 | audit_append_call | `lines.append(f"\| `{relative}` \| `{_sha(path) if path.exists() else 'MISSING'}` \|")` |
+| `scripts/generate_backend_runtime_integration_readiness_report.py` | 67 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
+| `scripts/generate_backend_runtime_integration_readiness_report.py` | 81 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
 | `scripts/generate_backend_runtime_probe_report.py` | 48 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
 | `scripts/generate_backend_runtime_probe_report.py` | 59 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
+| `scripts/generate_backend_runtime_wiring_cases_report.py` | 41 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
+| `scripts/generate_backend_runtime_wiring_cases_report.py` | 53 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
+| `scripts/generate_backend_runtime_wiring_preflight_report.py` | 42 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
+| `scripts/generate_backend_runtime_wiring_preflight_report.py` | 54 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
 | `scripts/generate_beta_release_evidence_bundle.py` | 71 | audit_append_call | `lines.append(f"\| {artifact.category} \| `{artifact.path}` \| `{present}` \|")` |
 | `scripts/generate_beta_signoff_manifest.py` | 69 | audit_append_call | `lines.append(f"\| {area.name} \| {area.evidence} \| _pending_ \| _pending_ \|")` |
 | `scripts/generate_beta_signoff_manifest.py` | 79 | audit_append_call | `lines.append(f"- `{rel_path}`")` |
@@ -1413,6 +1496,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_dep_graph.py` | 99 | audit_append_call | `lines.append(f'    {src_id}["{src_label}"] --> {tgt_id}["{tgt_label}"]')` |
 | `scripts/generate_dep_graph.py` | 111 | audit_append_call | `lines.append(f'    "{source}" -> "{target}";')` |
 | `scripts/generate_dep_graph.py` | 112 | audit_append_call | `lines.append("}")` |
+| `scripts/generate_first_audit_runtime_wiring_report.py` | 42 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
+| `scripts/generate_first_audit_runtime_wiring_report.py` | 54 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
 | `scripts/generate_frontend_api_client_inventory.py` | 73 | audit_append_call | `surfaces.append(` |
 | `scripts/generate_frontend_api_client_inventory.py` | 110 | audit_append_call | `lines.append("\| _none found_ \| _none_ \| _none_ \|")` |
 | `scripts/generate_frontend_api_client_inventory.py` | 115 | audit_append_call | `lines.append(f"\| `{surface.path}` \| `{api_text}` \| `{domain_text}` \|")` |
@@ -1456,6 +1541,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_route_inventory.py` | 195 | audit_append_call | `lines.append(f"- `{prefix}`")` |
 | `scripts/generate_route_inventory.py` | 212 | audit_append_call | `lines.append(` |
 | `scripts/generate_route_inventory.py` | 216 | audit_append_call | `lines.append("")` |
+| `scripts/generate_runtime_wiring_431_450_report.py` | 42 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
+| `scripts/generate_runtime_wiring_431_450_report.py` | 54 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
 | `scripts/generate_staging_smoke_evidence_manifest.py` | 63 | audit_append_call | `lines.append(f"\| {entry.name} \| `{entry.command}` \|")` |
 | `scripts/inspect_learner_routes.py` | 106 | audit_append_call | `candidates.append(` |
 | `scripts/inspect_learner_routes.py` | 128 | audit_append_call | `references.append(` |
@@ -1642,10 +1729,15 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/unit/test_audit_repository.py` | 195 | audit_append_call | `await repo.append("consent.revoked", payload={}, actor_id=actor_id)` |
 | `tests/unit/test_backend_consolidation_implementation_foundation.py` | 32 | audit_append_call | `self.calls.append(kwargs)` |
 | `tests/unit/test_backend_consolidation_implementation_foundation.py` | 54 | audit_append_call | `self.calls.append(kwargs)` |
+| `tests/unit/test_backend_runtime_enablement_pack.py` | 23 | audit_logs_table | `assert "`audit_logs` deletion: blocked" in text` |
+| `tests/unit/test_backend_runtime_wiring_preflight.py` | 24 | audit_logs_table | `assert "`audit_logs` deletion allowed" in text` |
 | `tests/unit/test_billing_monetization_production_readiness.py` | 69 | audit_log_identifier | `assert "processed:evt_1:invoice.created:1" in store.audit_log` |
 | `tests/unit/test_billing_monetization_production_readiness.py` | 70 | audit_log_identifier | `assert "duplicate:evt_1:invoice.created" in store.audit_log` |
 | `tests/unit/test_consent_policy.py` | 75 | audit_append_call | `self.events.append(kwargs)` |
 | `tests/unit/test_no_raw_dict_responses.py` | 74 | audit_append_call | `violations.append(` |
+| `tests/unit/test_readonly_deep_readiness_runtime.py` | 7 | audit_append_call | `async def execute(self, statement): self.statements.append(str(statement)); return R()` |
+| `tests/unit/test_real_audit_runtime_facade.py` | 6 | audit_append_call | `async def record(self, **kw): self.events.append(kw); return {"ok": True}` |
+| `tests/unit/test_real_consent_runtime_facade.py` | 5 | audit_append_call | `async def record(self, **kw): self.events.append(kw); return {"ok": True}` |
 | `tests/unit/test_schema_drift_deep_readiness_audit_slice.py` | 48 | audit_events_table | `for bad in ["session.commit()", "INSERT INTO audit_events", "alembic stamp head"]:` |
 | `tests/unit/test_schema_drift_deep_readiness_audit_slice.py` | 65 | audit_append_call | `self.calls.append(kwargs)` |
 | `tests/unit/test_v2_services.py` | 6 | audit_log_identifier | `from app.domain.entities import AuditLog, LearnerProfile` |
