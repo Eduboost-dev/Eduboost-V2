@@ -1,42 +1,21 @@
 # Staging Smoke Evidence
 
-**Status:** pending runtime execution
+**Status:** runtime smoke failed
+<!-- Status: runtime smoke failed -->
 
-This file must be updated after a real staging deployment smoke run.
+- Captured at: `2026-05-16T07:15:14Z`
+- Base URL: `https://staging.example.com`
+- JSON evidence: `/home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/staging_smoke_latest.json`
 
-## Required environment
-
-| Field | Value |
-|---|---|
-| Staging URL | TODO |
-| Commit SHA | TODO |
-| Deployment ID | TODO |
-| Operator | TODO |
-| Timestamp UTC | TODO |
-
-## Required smoke checks
-
-| Check | Expected result | Evidence |
-|---|---|---|
-| `GET /api/v2/health/deep` | `200 OK` with all critical checks healthy | TODO |
-| `GET /api/v2/openapi.json` or published OpenAPI artefact | schema available and current | TODO |
-| Auth register/login/refresh/logout | success path works; cookies/headers correct | TODO |
-| Learner dashboard/read route | object authorization works | TODO |
-| Lesson generation route | accepted or expected controlled response | TODO |
-| Study plan generation route | accepted or expected controlled response | TODO |
-| POPIA data export route | authorized path works; unauthorized path rejected | TODO |
-| Security headers | expected headers present | TODO |
-| CORS | allowed origin accepted; disallowed origin rejected | TODO |
-| Observability | request appears in logs/traces/metrics | TODO |
-
-## Command log
-
-```bash
-# paste commands and output here
-```
+| Check | Method | Path | Expected | Actual | Passed | Error |
+|---|---|---|---|---:|---|---|
+| health_deep | GET | `/api/v2/health/deep` | `200,503` |  | no | URLError: <urlopen error [Errno -5] No address associated with hostname> |
+| openapi | GET | `/openapi.json` | `200` |  | no | URLError: <urlopen error [Errno -5] No address associated with hostname> |
+| security_headers | GET | `/api/v2/health` | `200,404` |  | no | URLError: <urlopen error [Errno -5] No address associated with hostname> |
+| auth_register_shape | POST | `/api/v2/auth/register` | `201,400,409,422` |  | no | URLError: <urlopen error [Errno -5] No address associated with hostname> |
+| popia_export_requires_auth | GET | `/api/v2/popia/data-export/smoke-learner` | `401,403,404` |  | no | URLError: <urlopen error [Errno -5] No address associated with hostname> |
 
 ## Decision
 
-- [ ] Staging smoke passed.
-- [ ] Staging smoke failed and release is blocked.
-- [ ] Staging smoke partially passed; exceptions documented.
+- [ ] Staging smoke accepted by release owner.
+- [ ] Staging smoke rejected and release blocked.

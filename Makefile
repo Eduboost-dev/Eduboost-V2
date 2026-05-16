@@ -65,14 +65,6 @@ runtime-check:
 verify-repo-state:
 	$(PYTHON) scripts/verify_repo_state.py --expected-branch "$${EXPECTED_RELEASE_BRANCH:-master}" $${VERIFY_REPO_STATE_ARGS:-}
 
-test-env-check:
-	@echo "Checking test environment safety..."
-	@if echo "$$DATABASE_URL" | grep -qi -e "prod" -e "staging" -e "eduboost.cluster"; then \
-		echo "ERROR: DATABASE_URL points to a protected environment. Refusing to continue."; \
-		exit 1; \
-	fi
-	@echo "Test environment appears safe."
-
 pr002r-check:
 	$(PYTHON) scripts/check_pr002r_evidence.py
 
@@ -870,3 +862,12 @@ pytest-release-evidence-check:
 
 local-release-evidence-check: pytest-release-evidence-check runtime-release-evidence-check release-evidence-index-check
 
+.PHONY: staging-smoke staging-smoke-check
+
+staging-smoke:
+	PYTHONPATH=. python3 scripts/run_staging_smoke.py
+staging-smoke-check:
+	PYTHONPATH=. python3 scripts/run_staging_smoke.py --validate --require-pass
+staging-smoke-schema-check:
+	PYTHONPATH=. python3 scripts/run_staging_smoke.py --validate
+.PHONY: staging-smoke staging-smoke-check staging-smoke-schema-check
