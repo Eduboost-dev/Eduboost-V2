@@ -1,6 +1,6 @@
 # Backend Consolidation Diagnostic Report
 
-Generated at: `2026-05-16T15:25:37Z`
+Generated at: `2026-05-16T16:59:03Z`
 
 | Check | Return code | Command |
 |---|---:|---|
@@ -25,7 +25,7 @@ Return code: `0`
 
 ```text
 Backend consolidation dragon diagnostic
-- audit_repository: 37 match(es)
+- audit_repository: 41 match(es)
   - app/api_v2_routers/popia.py
   - app/core/audit.py
   - app/modules/consent/service.py
@@ -35,10 +35,10 @@ Backend consolidation dragon diagnostic
   - app/services/consent_service.py
   - app/services/data_subject_rights_service.py
   - app/services/popia_service.py
+  - scripts/check_backend_runtime_compatibility.py
   - scripts/check_database_persistence_production_readiness.py
-  - scripts/verify_audit_chain.py
-  - tests/unit/test_audit_integrity.py
-  - ... 1 more file(s)
+  - scripts/generate_backend_deletion_candidate_inventory.py
+  - ... 3 more file(s)
 - audit_events: 106 match(es)
   - alembic/versions/0006_v2_audit_events.py
   - alembic/versions/20260507_1200_popia_consent_audit_hardening.py
@@ -53,12 +53,13 @@ Backend consolidation dragon diagnostic
   - app/repositories/audit_repository.py
   - app/services/data_subject_rights_service.py
   - ... 8 more file(s)
-- audit_logs: 15 match(es)
+- audit_logs: 16 match(es)
   - alembic/versions/0001_v2_consolidated_schema.py
   - app/models/__init__.py
   - app/modules/disaster_recovery/production_readiness_contracts.py
   - scripts/check_backend_consolidation_dragons.py
   - scripts/generate_audit_callsite_inventory.py
+  - scripts/generate_backend_deletion_candidate_inventory.py
 - consent_records: 15 match(es)
   - alembic/versions/20260510_0300_popia_consent_audit_dsr.py
   - app/repositories/consent_repository.py
@@ -67,7 +68,7 @@ Backend consolidation dragon diagnostic
   - scripts/generate_consent_callsite_inventory.py
   - tests/legacy/integration/test_api_contracts.py
   - tests/legacy/integration/test_parent_portal_integration.py
-- parental_consents: 43 match(es)
+- parental_consents: 44 match(es)
   - alembic/versions/0001_v2_consolidated_schema.py
   - alembic/versions/20260505_1734_add_missing_production_indexes.py
   - alembic/versions/20260507_1200_popia_consent_audit_hardening.py
@@ -77,9 +78,10 @@ Backend consolidation dragon diagnostic
   - app/models/__init__.py
   - app/services/popia_service.py
   - scripts/check_backend_consolidation_dragons.py
+  - scripts/generate_backend_deletion_candidate_inventory.py
   - scripts/generate_consent_callsite_inventory.py
   - scripts/validate_schema_integrity.py
-- consent_service: 82 match(es)
+- consent_service: 83 match(es)
   - app/api_v2_routers/consent.py
   - app/api_v2_routers/learners.py
   - app/api_v2_routers/parents.py
@@ -92,7 +94,7 @@ Backend consolidation dragon diagnostic
   - app/modules/lessons/service.py
   - app/security/dependencies.py
   - app/services/consent.py
-  - ... 22 more file(s)
+  - ... 23 more file(s)
 - deep_health: 29 match(es)
   - app/api_v2.py
   - app/core/health.py
@@ -116,7 +118,7 @@ Command: `/usr/bin/python3 scripts/generate_audit_callsite_inventory.py --fail-e
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/audit_callsite_inventory.md (1563 row(s))
+Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/audit_callsite_inventory.md (1613 row(s))
 ```
 
 ## consent inventory
@@ -126,7 +128,7 @@ Command: `/usr/bin/python3 scripts/generate_consent_callsite_inventory.py --fail
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/consent_callsite_inventory.md (330 row(s))
+Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/consent_callsite_inventory.md (334 row(s))
 ```
 
 ## health readiness contract
@@ -184,7 +186,44 @@ ORM tables
 - stripe_webhook_events
 - subject_mastery
 - topic_mastery
-DATABASE_URL not supplied; database comparison skipped.
+Database tables
+- alembic_version
+- audit_events
+- audit_logs
+- calibration_audits
+- consent_records
+- correction_requests
+- data_export_requests
+- diagnostic_items
+- diagnostic_sessions
+- erasure_requests
+- guardians
+- irt_items
+- item_exposures
+- knowledge_gaps
+- learner_profiles
+- lesson_feedback
+- lessons
+- mastery_snapshots
+- parental_consents
+- practice_queue
+- restriction_requests
+- rlhf_exports
+- spaced_review_schedule
+- stripe_webhook_events
+- study_plan
+- subject_mastery
+- topic_mastery
+Missing in database
+- none
+Extra in database
+- alembic_version
+- consent_records
+- correction_requests
+- data_export_requests
+- erasure_requests
+- restriction_requests
+- study_plan
 
 - PASS [command] ORM-only schema drift check runs without DB
 ```

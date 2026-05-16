@@ -19,7 +19,7 @@ from urllib.parse import urljoin
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = REPO_ROOT / "docs" / "release" / "staging_smoke_latest.json"
-DEFAULT_MARKDOWN = REPO_ROOT / "docs" / "release" / "staging_smoke_evidence.md"
+DEFAULT_MARKDOWN = REPO_ROOT / "docs" / "release" / "staging_smoke_latest.md"
 
 
 @dataclass(frozen=True)
@@ -74,12 +74,7 @@ def _normalize_base_url(value: str) -> str:
 
 
 def _is_placeholder_base_url(base_url: str) -> bool:
-    """Return true for placeholder/example staging URLs.
-
-    `example.*`, `.invalid`, and `.test` domains are reserved/non-production
-    documentation or test domains and must not be accepted as real staging
-    evidence unless --allow-example-url is explicitly supplied for tooling tests.
-    """
+    # Return true for placeholder/example staging URLs.
     lowered = base_url.strip().lower().rstrip("/")
     return (
         "example.com" in lowered

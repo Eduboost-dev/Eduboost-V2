@@ -225,6 +225,7 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `scripts/check_audit_event_contracts.py` | 33 | consent_service | `"AuditLog emission is handled inside ConsentService",` |
 | `scripts/check_backend_consolidation_dragons.py` | 53 | consent_records_table | `"consent_records": _scan(r"\bconsent_records\b"),` |
 | `scripts/check_backend_consolidation_dragons.py` | 54 | parental_consents_table | `"parental_consents": _scan(r"\bparental_consents\b"),` |
+| `scripts/check_backend_consolidation_execution_packet.py` | 20 | consent_service | `"ConsentService",` |
 | `scripts/check_consent_rejection_audit.py` | 12 | require_active_consent | `"require_active_consent",` |
 | `scripts/check_database_persistence_production_readiness.py` | 106 | consent_repository | `"class ConsentRepository",` |
 | `scripts/check_popia_consent_audit_evidence.py` | 95 | consent_service | `"ConsentService(db).require_active_consent",` |
@@ -232,6 +233,9 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `scripts/check_popia_consent_audit_evidence.py` | 149 | require_active_consent | `"require_active_consent",` |
 | `scripts/check_popia_consent_audit_evidence.py` | 150 | require_active_consent | `"await self.consent.require_active_consent(learner_id, actor_id=requester_id)",` |
 | `scripts/check_popia_consent_boundary_matrix.py` | 39 | require_active_consent | `row.marker in {"require_active_consent_for_current_user", "require_active_consent"},` |
+| `scripts/generate_backend_deletion_candidate_inventory.py` | 14 | parental_consents_table | `("legacy_consent", re.compile(r"parental_consents\|ParentalConsent\|legacy consent", re.IGNORECASE)),` |
+| `scripts/generate_backend_deletion_candidate_inventory.py` | 14 | parental_consent_model | `("legacy_consent", re.compile(r"parental_consents\|ParentalConsent\|legacy consent", re.IGNORECASE)),` |
+| `scripts/generate_backend_deletion_candidate_inventory.py` | 15 | consent_repository | `("duplicate_repository", re.compile(r"class\s+\w*Repository\|AuditRepository\|ConsentRepository")),` |
 | `scripts/generate_consent_callsite_inventory.py` | 28 | require_active_consent | `("require_active_consent", re.compile(r"\brequire_active_consent\b")),` |
 | `scripts/generate_consent_callsite_inventory.py` | 89 | consent_records_table | `"- [ ] Identify whether `consent_records` is current state, event history, or both.",` |
 | `scripts/generate_consent_callsite_inventory.py` | 90 | parental_consents_table | `"- [ ] Identify whether `parental_consents` is current state, relationship consent, or legacy.",` |
