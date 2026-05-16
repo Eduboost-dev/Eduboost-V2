@@ -1,60 +1,101 @@
-# Backend Consolidation Terminal Report
+# Backend Consolidation Implementation Foundation Report
 
-Generated at: `2026-05-16T17:31:24Z`
+Generated at: `2026-05-16T17:30:37Z`
 
 | Check | Return code | Command |
 |---|---:|---|
-| evidence manifest | 0 | `/usr/bin/python3 scripts/generate_backend_consolidation_evidence_manifest.py` |
-| execution report | 0 | `/usr/bin/python3 scripts/generate_backend_consolidation_execution_report.py` |
-| readiness report | 0 | `/usr/bin/python3 scripts/generate_backend_consolidation_readiness_report.py` |
-| runtime probe report | 0 | `/usr/bin/python3 scripts/generate_backend_runtime_probe_report.py` |
-| terminal packet check | 0 | `/usr/bin/python3 scripts/check_backend_consolidation_terminal_packet.py` |
+| implementation foundation | 0 | `/usr/bin/python3 scripts/check_backend_consolidation_implementation_foundation.py` |
+| runtime compatibility | 0 | `/usr/bin/python3 scripts/check_backend_runtime_compatibility.py` |
+| execution packet | 0 | `/usr/bin/python3 scripts/check_backend_consolidation_execution_packet.py` |
+| terminal packet | 0 | `/usr/bin/python3 scripts/check_backend_consolidation_terminal_packet.py` |
 
 ## Boundary
 
-This terminal report closes the diagnostic packet only. It does not approve destructive implementation.
+This report confirms implementation foundation readiness only. It does not approve deletion, table merging, or schema mutation.
 
-## evidence manifest
+## implementation foundation
 
-Command: `/usr/bin/python3 scripts/generate_backend_consolidation_evidence_manifest.py`
-
-Return code: `0`
-
-```text
-Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/backend_consolidation_evidence_manifest.md (24 row(s), 0 missing)
-```
-
-## execution report
-
-Command: `/usr/bin/python3 scripts/generate_backend_consolidation_execution_report.py`
+Command: `/usr/bin/python3 scripts/check_backend_consolidation_implementation_foundation.py`
 
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/backend_consolidation_execution_report.md
+Backend consolidation implementation foundation check
+- PASS [file] app/services/backend_consolidation_runtime.py: present
+- PASS [content] app/services/backend_consolidation_runtime.py: contains 'record_canonical_audit_event'
+- PASS [content] app/services/backend_consolidation_runtime.py: contains 'record_consent_audit_event'
+- PASS [content] app/services/backend_consolidation_runtime.py: contains 'probe_constructor'
+- PASS [file] docs/adr/ADR-022-audit-consent-table-ownership-options.md: present
+- PASS [content] docs/adr/ADR-022-audit-consent-table-ownership-options.md: contains 'Option A'
+- PASS [content] docs/adr/ADR-022-audit-consent-table-ownership-options.md: contains 'Option B'
+- PASS [content] docs/adr/ADR-022-audit-consent-table-ownership-options.md: contains 'Option C'
+- PASS [content] docs/adr/ADR-022-audit-consent-table-ownership-options.md: contains 'Option D'
+- PASS [content] docs/adr/ADR-022-audit-consent-table-ownership-options.md: contains 'Not approved'
+- PASS [file] docs/release/backend_consolidation_implementation_foundation.md: present
+- PASS [content] docs/release/backend_consolidation_implementation_foundation.md: contains 'non-destructive implementation foundation'
+- PASS [content] docs/release/backend_consolidation_implementation_foundation.md: contains 'Explicitly excluded'
+- PASS [compile] backend_consolidation_runtime.py
+- PASS backend consolidation implementation foundation
 ```
 
-## readiness report
+## runtime compatibility
 
-Command: `/usr/bin/python3 scripts/generate_backend_consolidation_readiness_report.py`
+Command: `/usr/bin/python3 scripts/check_backend_runtime_compatibility.py`
 
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/backend_consolidation_readiness_report.md
+Audit runtime compatibility surface
+- PASS [audit compat] AuditRepositoryCompatAdapter: present
+- PASS [audit compat] AuditEventInput: present
+- PASS [audit compat] normalize_audit_kwargs: present
+- PASS [audit repository] exposes record/append/create-compatible method
+Consent runtime compatibility surface
+- PASS [consent compat] ConsentAuditEvent: present
+- PASS [consent compat] normalize_consent_audit_event: present
+- PASS [consent compat] classify_consent_action: present
+- PASS [consent import] app.services.consent_service: importable
+- PASS [consent import] app.modules.consent.service: importable
+- PASS [consent import] app.services.popia_service: importable
+Deep-health compatibility surface
+- PASS [health contract] contains 'database connectivity'
+- PASS [health contract] contains 'Alembic current revision'
+- PASS [health contract] contains 'required core table presence'
+- PASS backend runtime compatibility surface
 ```
 
-## runtime probe report
+## execution packet
 
-Command: `/usr/bin/python3 scripts/generate_backend_runtime_probe_report.py`
+Command: `/usr/bin/python3 scripts/check_backend_consolidation_execution_packet.py`
 
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/backend_runtime_probe_report.md
+Backend consolidation execution packet check
+- PASS [file] docs/release/backend_consolidation_execution_packet.md: present
+- PASS [content] docs/release/backend_consolidation_execution_packet.md: contains 'implementation sequencing only'
+- PASS [content] docs/release/backend_consolidation_execution_packet.md: contains 'Explicitly forbidden'
+- PASS [content] docs/release/backend_consolidation_execution_packet.md: contains 'alembic stamp head'
+- PASS [file] docs/release/audit_canonicalization_implementation_checklist.md: present
+- PASS [content] docs/release/audit_canonicalization_implementation_checklist.md: contains 'AuditRepositoryCompatAdapter'
+- PASS [content] docs/release/audit_canonicalization_implementation_checklist.md: contains 'Legacy data retained'
+- PASS [content] docs/release/audit_canonicalization_implementation_checklist.md: contains 'Deletion postponed'
+- PASS [file] docs/release/consent_runtime_repair_checklist.md: present
+- PASS [content] docs/release/consent_runtime_repair_checklist.md: contains 'ConsentService'
+- PASS [content] docs/release/consent_runtime_repair_checklist.md: contains 'POPIADataRightsService'
+- PASS [content] docs/release/consent_runtime_repair_checklist.md: contains 'Read/write authz preserved'
+- PASS [file] docs/release/schema_drift_db_execution_checklist.md: present
+- PASS [content] docs/release/schema_drift_db_execution_checklist.md: contains 'make migration-evidence-capture'
+- PASS [content] docs/release/schema_drift_db_execution_checklist.md: contains 'make schema-drift-check-db'
+- PASS [content] docs/release/schema_drift_db_execution_checklist.md: contains 'no blind stamp'
+- PASS [file] docs/release/deep_readiness_implementation_checklist.md: present
+- PASS [content] docs/release/deep_readiness_implementation_checklist.md: contains 'read-only'
+- PASS [content] docs/release/deep_readiness_implementation_checklist.md: contains 'internal/admin only'
+- PASS [content] docs/release/deep_readiness_implementation_checklist.md: contains 'must not write to the DB'
+- PASS backend consolidation execution packet
 ```
 
-## terminal packet check
+## terminal packet
 
 Command: `/usr/bin/python3 scripts/check_backend_consolidation_terminal_packet.py`
 

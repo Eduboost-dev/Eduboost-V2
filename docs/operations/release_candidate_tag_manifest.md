@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-16T17:02:22.786041+00:00`
+- generated_at_utc: `2026-05-16T17:33:28.348822+00:00`
 - branch: `codex/production_readiness`
-- commit: `c7a02d63c7ae117a8e1b9a25f94853e37c6ed2a0`
-- release_candidate: `beta-c7a02d6`
+- commit: `d4e487c8c7b550381dbc663675982b9d34784c36`
+- release_candidate: `beta-d4e487c`
 
 ## Tagging Convention
 
@@ -26,8 +26,8 @@
 ## Example Commands
 
 ```bash
-git tag -a beta-c7a02d6 -m "Beta release candidate beta-c7a02d6"
-git push origin beta-c7a02d6
+git tag -a beta-d4e487c -m "Beta release candidate beta-d4e487c"
+git push origin beta-d4e487c
 ```
 
 ## Safety Boundary

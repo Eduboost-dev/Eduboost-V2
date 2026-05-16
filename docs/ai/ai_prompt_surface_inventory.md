@@ -96,6 +96,7 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `app/repositories/item_bank_repository.py` | `llm, diagnostic` |
 | `app/repositories/lesson_repository.py` | `prompt, llm` |
 | `app/repositories/repositories.py` | `diagnostic` |
+| `app/services/backend_consolidation_runtime.py` | `diagnostic` |
 | `app/services/content_safety/__init__.py` | `llm` |
 | `app/services/content_safety/lesson_contracts.py` | `llm, remediation` |
 | `app/services/content_safety/pii.py` | `prompt, llm` |
