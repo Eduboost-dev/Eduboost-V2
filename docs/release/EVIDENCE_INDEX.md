@@ -85,3 +85,13 @@ Track audit, consent, schema, and health/readiness consolidation risks:
 make backend-consolidation-dragons-check
 make schema-drift-check
 ```
+
+
+## Audit consolidation evidence
+
+Inventory audit call sites before any repository deletion:
+
+```bash
+make audit-callsite-inventory
+make audit-compatibility-check
+```

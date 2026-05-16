@@ -894,3 +894,11 @@ schema-drift-check:
 backend-consolidation-diagnostics-check: backend-consolidation-dragons-check schema-drift-check
 	pytest -c pytest.ini tests/unit/test_backend_consolidation_dragon_diagnostics.py -q --no-cov
 
+.PHONY: audit-callsite-inventory audit-compatibility-check
+
+audit-callsite-inventory:
+	PYTHONPATH=. python3 scripts/generate_audit_callsite_inventory.py --fail-empty
+
+audit-compatibility-check: audit-callsite-inventory
+	pytest -c pytest.ini tests/unit/test_audit_callsite_inventory_and_adapter.py -q --no-cov
+
