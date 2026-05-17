@@ -6,8 +6,8 @@ This PR closes the EduBoost V2 staging/beta release evidence layer.
 
 - release_candidate: `unset`
 - branch: `codex/production_readiness`
-- commit: `12709d957d0a0f3c618b885a109ef704477dc53a`
-- generated_at_utc: `2026-05-17T21:23:47.463822+00:00`
+- commit: `2c2bd7fae4167979241dd5aedac5643ec1f1e461`
+- generated_at_utc: `2026-05-17T21:42:53.921413+00:00`
 
 ## Verification
 

@@ -435,3 +435,22 @@ make legacy-learner-access-guard-report
 make backend-implementation-651-670-full-check
 ```
 
+## Backend implementation 671-690 — Import-linter architecture contracts
+
+Audit drivers:
+
+- Repaired P0 routers must not import repositories directly.
+- Router-to-service and service-family maps must remain visible.
+- `.importlinter` contracts should exist even if the local tool is not yet installed.
+- Remaining architecture boundary debt must be queued explicitly.
+
+Commands:
+
+```bash
+make service-family-map
+make router-service-dependency-map
+make architecture-boundary-contracts-check
+make import-linter-contracts-run
+make backend-implementation-671-690-full-check
+```
+

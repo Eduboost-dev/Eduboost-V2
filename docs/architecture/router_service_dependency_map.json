@@ -1,0 +1,283 @@
+{
+  "generated_at": "2026-05-17T21:40:24Z",
+  "rows": [
+    {
+      "router": "app/api_v2_routers/0005_irt_seed.py",
+      "service_imports": [],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": []
+    },
+    {
+      "router": "app/api_v2_routers/__init__.py",
+      "service_imports": [],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": []
+    },
+    {
+      "router": "app/api_v2_routers/api_v2.py",
+      "service_imports": [],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": []
+    },
+    {
+      "router": "app/api_v2_routers/assessments.py",
+      "service_imports": [
+        "app.services.assessment_service_v2"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": [
+        "app.core.database",
+        "sqlalchemy.ext.asyncio"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/audit.py",
+      "service_imports": [
+        "app.services.audit_service"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": []
+    },
+    {
+      "router": "app/api_v2_routers/auth.py",
+      "service_imports": [
+        "app.services.auth_token_claims",
+        "app.services.fourth_estate"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [
+        "app.repositories.repositories"
+      ],
+      "database_imports": [
+        "app.core.database",
+        "sqlalchemy.ext.asyncio"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/billing.py",
+      "service_imports": [
+        "app.services.fourth_estate",
+        "app.services.stripe_service"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": [
+        "app.core.database",
+        "sqlalchemy.ext.asyncio"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/consent.py",
+      "service_imports": [
+        "app.modules.consent.service"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [
+        "app.repositories.repositories"
+      ],
+      "database_imports": [
+        "app.core.database",
+        "sqlalchemy.ext.asyncio"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/consent_renewal.py",
+      "service_imports": [
+        "app.services.consent_renewal_service"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": [
+        "app.core.database"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/diagnostics.py",
+      "service_imports": [
+        "app.modules.diagnostics",
+        "app.modules.diagnostics.diagnostic_session_service",
+        "app.modules.diagnostics.item_bank_service",
+        "app.modules.diagnostics.session_recovery_service",
+        "app.services.caps_validator",
+        "app.services.diagnostic"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [
+        "app.repositories.diagnostic_session_repository",
+        "app.repositories.item_bank_repository",
+        "app.repositories.mastery_repository",
+        "app.repositories.repositories"
+      ],
+      "database_imports": [
+        "app.core.database",
+        "sqlalchemy.ext.asyncio"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/ether.py",
+      "service_imports": [
+        "app.services.ether_service"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": [
+        "app.core.database",
+        "sqlalchemy.ext.asyncio"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/gamification.py",
+      "service_imports": [
+        "app.services.fourth_estate",
+        "app.services.gamification_service_v2"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [
+        "app.repositories.gamification_repository",
+        "app.repositories.repositories"
+      ],
+      "database_imports": [
+        "app.core.database",
+        "sqlalchemy.ext.asyncio"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/jobs.py",
+      "service_imports": [],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": []
+    },
+    {
+      "router": "app/api_v2_routers/judiciary.py",
+      "service_imports": [
+        "app.services.judiciary_service_v2"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": []
+    },
+    {
+      "router": "app/api_v2_routers/learners.py",
+      "service_imports": [
+        "app.modules.progress.progress_timeline_service",
+        "app.services.fourth_estate"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [
+        "app.repositories.mastery_repository",
+        "app.repositories.repositories"
+      ],
+      "database_imports": [
+        "app.core.database",
+        "sqlalchemy.ext.asyncio"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/lessons.py",
+      "service_imports": [
+        "app.modules.lessons",
+        "app.modules.lessons.service",
+        "app.services.lesson_authorization"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": [
+        "app.core.database",
+        "sqlalchemy.ext.asyncio"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/onboarding.py",
+      "service_imports": [
+        "app.services.ether"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [
+        "app.repositories.repositories"
+      ],
+      "database_imports": [
+        "app.core.database",
+        "sqlalchemy.ext.asyncio"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/parents.py",
+      "service_imports": [
+        "app.services.consent",
+        "app.services.executive",
+        "app.services.fourth_estate"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [
+        "app.repositories.repositories"
+      ],
+      "database_imports": [
+        "app.core.database",
+        "sqlalchemy.ext.asyncio"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/popia.py",
+      "service_imports": [
+        "app.modules.consent.service",
+        "app.services.fourth_estate",
+        "app.services.popia_service"
+      ],
+      "dependency_imports": [
+        "app.api_v2_deps.consent_lifecycle"
+      ],
+      "repository_imports": [],
+      "database_imports": []
+    },
+    {
+      "router": "app/api_v2_routers/study_plans.py",
+      "service_imports": [
+        "app.services.audit_service",
+        "app.services.study_plan_service_v2",
+        "app.services.telemetry"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [
+        "app.repositories.repositories",
+        "app.repositories.study_plan_repository"
+      ],
+      "database_imports": [
+        "app.core.database",
+        "sqlalchemy.ext.asyncio"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/system.py",
+      "service_imports": [
+        "app.services.system_service_v2"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": []
+    },
+    {
+      "router": "app/api_v2_routers/test_api.py",
+      "service_imports": [],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": []
+    },
+    {
+      "router": "app/api_v2_routers/test_services.py",
+      "service_imports": [
+        "app.services.diagnostic",
+        "app.services.ether",
+        "app.services.judiciary"
+      ],
+      "dependency_imports": [],
+      "repository_imports": [],
+      "database_imports": []
+    }
+  ]
+}
