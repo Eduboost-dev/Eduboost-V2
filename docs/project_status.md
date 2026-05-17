@@ -1,48 +1,29 @@
 # Project Status
 
-This page is retained as a project-status index. The canonical current-state
-source of truth is [`docs/current_state.md`](current_state.md).
-
-This page summarizes historical verified repository state and is superseded by
-`docs/current_state.md` and the refreshed
-[`docs/technical_state_report_2026-05-11.md`](technical_state_report_2026-05-11.md)
-for current release-readiness claims.
+This page is a project-status index. The canonical current-state source of truth is docs/current_state.md, which is generated from live checks by scripts/refresh_current_state_doc.py.
 
 ## Current Verified Baseline
 
-EduBoost V2 is in a **Release Candidate (RC) phase**, having achieved a 100% green verification posture on 2026-05-12.
+EduBoost V2 is in a release-candidate hardening phase, not a release-ready or public-beta-ready phase.
 
-The repository satisfies all 10 core quality gates:
+The latest local refresh on 2026-05-17 assessed commit 859695dac818 and reports RED quality status: 9 of 11 required checks passed. The live API contract checks now pass after regenerating docs/openapi.json and docs/route_inventory.md, but two required gates remain open:
 
-The merged PR-002R and production-readiness evidence work establishes the
-backend runtime and API contract baseline:
+- Architecture import boundaries fail. Import Linter now runs against the actual V2 packages and exposes real boundary violations between routers, modules, services, repositories, domain, and core.
+- Backend unit gate did not complete inside the 300-second current-state timeout. The previous documented 1702 passed, 29 skipped result is historical until a fresh run is captured.
 
-- Canonical production branch: `master`.
-- The PR1 through PR16 production-readiness evidence train has been merged into
-  `master`; it is no longer pending branch work.
-- Canonical backend runtime: `app.api_v2:app`.
-- Freshness marker for the baseline that started this work: `Merge pull request #52 from NkgoloL/chore/slow-query-logging`.
-- The V2 runtime imports cleanly from `app.api_v2:app`.
-- Production routers are registered under both `/api/v2` and `/v2`.
-- `system.router` is registered under both supported V2 prefixes.
-- The legacy V1 lesson-generation compatibility route is excluded from the canonical `app.api_v2:app` route surface.
-- Canonical response helpers now exist for V2 success, error, and paginated envelopes.
-- Global exception handlers emit the V2 error envelope.
-- `docs/openapi.json` is generated from `app.api_v2:app`.
-- `make openapi-check` verifies the committed OpenAPI schema has not drifted.
-- `make route-inventory-check`, `make migration-check`, `make
-  popia-consent-gate-check`, and `make diagnostics-assessment-check` passed in
-  the 2026-05-11 technical state refresh.
-- The OpenAPI drift workflow targets `master` and `release/**`, not `main`.
+Recently reconciled checks that now agree with the live runtime:
 
-- Diagnostics assessment section 4 is implemented on the integration branch: IRT hardening, diagnostic session recovery/lifecycle services, mastery snapshots, adaptive practice, spaced repetition, calibration, bias review routing, and learning-science docs are present. Targeted non-DB diagnostics tests pass locally; DB-backed item-bank CI still requires a valid local Postgres credential to run.
-- The CAPS Grade 4 Mathematics item-bank implementation is integrated and has
-  a coverage matrix at [`docs/caps/grade4_maths_coverage_matrix.md`](caps/grade4_maths_coverage_matrix.md).
-  The current seed has 14 approved starter items and 106 AI-generated candidate
-  items that pass validation. Those candidates still need curriculum approval
-  before the 120-item production coverage gate can be claimed as met. The
-  production completion plan is
-  [`docs/caps/grade4_maths_120_item_production_plan.md`](caps/grade4_maths_120_item_production_plan.md).
+- app.api_v2:app imports successfully.
+- OpenAPI drift check passes.
+- Route inventory drift check passes.
+- Frontend lint, type-check, and Vitest unit checks pass.
+- PR-002R evidence, E2E opt-in workflow, Makefile deduplication, staging release gate, and POPIA legal evidence checks pass locally.
+
+## Release Readiness
+
+Status: blocked. Do not describe the repository as production-ready, release-ready, or public-beta-ready until docs/current_state.md is green and the release evidence bundle has current CI, staging, backup, restore, rollback, branch-protection, and sign-off evidence.
+
+The root TODO.md remains the North Star tracker for work that is implemented but still needs CI, runtime, external, legal, security, product, or beta-launch proof.
 
 ## Claim Discipline
 
@@ -52,41 +33,36 @@ Claims must be phrased according to evidence:
 
 | Claim type | Meaning |
 | --- | --- |
-| `implemented` | Source code exists. |
-| `tested` | Targeted tests pass locally or in CI. |
-| `CI verified` | Required workflow passed on the relevant branch or PR. |
-| `staging verified` | Evidence exists from the staging environment. |
-| `production verified` | Evidence exists from the production environment. |
-| `planned` | Work is accepted but not implemented. |
-| `blocked` | Work cannot proceed without an explicit blocker being resolved. |
+| implemented | Source code exists. |
+| tested | Targeted tests pass locally or in CI. |
+| CI verified | Required workflow passed on the relevant branch or PR. |
+| staging verified | Evidence exists from the staging environment. |
+| production verified | Evidence exists from the production environment. |
+| planned | Work is accepted but not implemented. |
+| blocked | Work cannot proceed without an explicit blocker being resolved. |
 
 ## Compatibility Boundary
 
 EduBoost is V2-first, but not every historical surface has disappeared:
 
-- Archived legacy code is kept under `app/legacy`.
-- `app.legacy.api.main:app` is retained as a compatibility shim.
-- The legacy shim may expose a 410 Gone response for `/api/v1/lessons/generate` when explicitly imported.
-- The canonical production runtime remains `app.api_v2:app`.
+- Archived legacy code is kept under app/legacy.
+- app.legacy.api.main:app is retained as a compatibility shim.
+- The legacy shim may expose a 410 Gone response for /api/v1/lessons/generate when explicitly imported.
+- The canonical production runtime remains app.api_v2:app.
 - Legacy compatibility routes must not appear in the canonical V2 OpenAPI schema.
 
 ## Remaining Release Blockers
 
-There are no remaining architectural or technical blockers for the v1.0.0-rc2 release candidate. 
+Current blockers are evidence-backed, not inferred:
 
-- [x] Security and object-level authorization (Verified 2026-05-12)
-- [x] POPIA consent enforcement and negative tests (Verified 2026-05-12)
-- [x] Data-subject rights workflows (Verified 2026-05-12)
-- [x] Audit integrity and audit-chain verification (Verified 2026-05-12)
-- [x] Database migration proof (Verified 2026-05-12)
-- [x] Backup/restore drill evidence (Verified 2026-05-12)
-- [x] AI prompt PII safety and CAPS validation (Verified 2026-05-12)
-- [x] Diagnostic item-bank and IRT validation (Verified 2026-05-12)
-- [x] Frontend API-envelope adoption (Verified 2026-05-12)
-- [x] Staging acceptance evidence (Verified 2026-05-12)
-- [x] Incident response and release evidence bundle (Generated 2026-05-12)
-
-**Status:** release-ready.
+- [ ] Resolve architecture import-boundary violations or deliberately revise the contracts with documented rationale.
+- [ ] Capture a fresh full backend unit-suite result outside the 300-second current-state timeout.
+- [ ] Capture authoritative remote CI evidence for the target branch.
+- [ ] Verify branch protection and required checks.
+- [ ] Execute and capture staging smoke evidence against a real deployed environment.
+- [ ] Execute and capture backup, restore, and rollback drill evidence.
+- [ ] Complete external legal/security/product sign-offs before real learner data or public beta.
+- [ ] Resolve the CAPS content gate: current approved item count is below beta and production thresholds.
 
 ## Evidence Documents
 

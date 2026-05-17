@@ -47,6 +47,8 @@ CHECKS: list[tuple[str, list[str], bool]] = [
     ("Runtime entrypoints",       ["make", "runtime-check"],          True),
     ("OpenAPI drift",             ["make", "openapi-check"],           True),
     ("Route inventory",           ["make", "route-inventory-check"],   True),
+    ("Architecture import boundaries",
+     ["bash", "-lc", "if command -v lint-imports >/dev/null; then lint-imports --config .importlinter; else .venv/bin/lint-imports --config .importlinter; fi"], True),
 
     # Backend unit gate
     ("Backend unit gate",
@@ -174,15 +176,16 @@ def render_current_state(
                 failure_details += f"**stderr:**\n```\n{r.stderr[:500]}\n```\n\n"
 
     sync_note = ""
+    upstream_label = git_upstream_label()
     if behind > 0:
         sync_note = (
             f"\n> ⚠️ **Branch sync warning:** local HEAD is **{behind} commit(s) behind** "
-            f"`origin/master`. Run `./scripts/sync_check_origin.sh --sync` before "
+            f"`{upstream_label}`. Sync before "
             f"treating these results as authoritative.\n"
         )
     elif ahead > 0:
         sync_note = (
-            f"\n> ℹ️ Local HEAD is {ahead} commit(s) ahead of `origin/master`.\n"
+            f"\n> ℹ️ Local HEAD is {ahead} commit(s) ahead of `{upstream_label}`.\n"
         )
 
     return textwrap.dedent(f"""\
@@ -190,7 +193,8 @@ def render_current_state(
 
         **Last refreshed:** {time_str}  
         **Assessed commit:** `{git_head[:12]}`  
-        **Remote `origin/master`:** `{git_remote_head[:12]}`  
+        **Upstream branch:** `{git_upstream_label()}`  
+        **Upstream commit:** `{git_remote_head[:12]}`  
         **Branch divergence:** {ahead} ahead / {behind} behind  
         **Quality gate:** {gate_status} ({passed_count}/{total_required} required checks passing)
         {sync_note}
@@ -220,7 +224,7 @@ def render_current_state(
         ## Next Steps
 
         1. Resolve any ❌ failures above before claiming release-green status.
-        2. Sync local checkout to `origin/master` if behind.
+        2. Sync local checkout to the configured upstream branch if behind.
         3. Refresh this document again after fixes: `make refresh-current-state`.
         4. Update `docs/project_status.md` release-readiness assessment.
     """)
@@ -277,10 +281,22 @@ def git_head() -> str:
         return "unknown"
 
 
-def git_remote_head(remote: str = "origin", branch: str = "master") -> str:
+def git_upstream_label() -> str:
     try:
         return subprocess.check_output(
-            ["git", "rev-parse", f"{remote}/{branch}"],
+            ["git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"],
+            cwd=str(REPO_ROOT),
+            text=True,
+        ).strip()
+    except Exception:
+        return "origin/master"
+
+
+def git_remote_head(upstream: str | None = None) -> str:
+    upstream = upstream or git_upstream_label()
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", upstream],
             cwd=str(REPO_ROOT),
             text=True,
         ).strip()
@@ -288,14 +304,15 @@ def git_remote_head(remote: str = "origin", branch: str = "master") -> str:
         return "unknown"
 
 
-def git_divergence(remote: str = "origin", branch: str = "master") -> tuple[int, int]:
+def git_divergence(upstream: str | None = None) -> tuple[int, int]:
+    upstream = upstream or git_upstream_label()
     try:
         ahead = int(subprocess.check_output(
-            ["git", "rev-list", "--count", f"{remote}/{branch}..HEAD"],
+            ["git", "rev-list", "--count", f"{upstream}..HEAD"],
             cwd=str(REPO_ROOT), text=True,
         ).strip())
         behind = int(subprocess.check_output(
-            ["git", "rev-list", "--count", f"HEAD..{remote}/{branch}"],
+            ["git", "rev-list", "--count", f"HEAD..{upstream}"],
             cwd=str(REPO_ROOT), text=True,
         ).strip())
         return ahead, behind
