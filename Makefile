@@ -1208,3 +1208,51 @@ auth-hardening-status:
 backend-implementation-531-560-full-check: roadmap-reconciliation-check readme-ci-badge-patch docker-production-hardening-patch docker-production-hardening-check auth-hardening-status beta-content-threshold-schema-check
 	pytest -c pytest.ini tests/unit/test_roadmap_production_hardening.py -q --no-cov
 
+.PHONY: remote-ci-evidence-capture branch-protection-evidence-capture beta-content-hard-gate staging-smoke-finalize backup-drill-evidence restore-drill-evidence rollback-drill-evidence alertmanager-drill-evidence beta-readiness-status release-owner-beta-go-no-go beta-evidence-schema-check backend-implementation-561-580-full-check
+
+remote-ci-evidence-capture:
+	PYTHONPATH=. python3 scripts/capture_remote_ci_evidence.py
+
+branch-protection-evidence-capture:
+	PYTHONPATH=. python3 scripts/capture_branch_protection_evidence.py
+
+beta-content-hard-gate:
+	PYTHONPATH=. python3 scripts/enforce_beta_content_gate.py
+
+staging-smoke-finalize:
+	PYTHONPATH=. python3 scripts/finalize_staging_smoke_evidence.py
+
+backup-drill-evidence:
+	OPERATIONAL_DRILL=backup PYTHONPATH=. python3 scripts/capture_operational_drill_evidence.py
+
+restore-drill-evidence:
+	OPERATIONAL_DRILL=restore PYTHONPATH=. python3 scripts/capture_operational_drill_evidence.py
+
+rollback-drill-evidence:
+	OPERATIONAL_DRILL=rollback PYTHONPATH=. python3 scripts/capture_operational_drill_evidence.py
+
+alertmanager-drill-evidence:
+	OPERATIONAL_DRILL=alertmanager PYTHONPATH=. python3 scripts/capture_operational_drill_evidence.py
+
+beta-readiness-status:
+	PYTHONPATH=. python3 scripts/generate_beta_readiness_status.py
+
+release-owner-beta-go-no-go:
+	PYTHONPATH=. python3 scripts/generate_release_owner_beta_go_no_go.py
+
+beta-evidence-schema-check:
+	PYTHONPATH=. python3 scripts/check_evidence_json_schema.py docs/release/ci_evidence.json docs/release/branch_protection_evidence.json docs/beta/beta_content_hard_gate.json docs/release/staging_smoke_final_evidence.json docs/release/beta_readiness_status.json
+
+backend-implementation-561-580-full-check:
+	PYTHONPATH=. python3 scripts/capture_remote_ci_evidence.py || true
+	PYTHONPATH=. python3 scripts/capture_branch_protection_evidence.py || true
+	PYTHONPATH=. python3 scripts/enforce_beta_content_gate.py || true
+	PYTHONPATH=. python3 scripts/finalize_staging_smoke_evidence.py || true
+	OPERATIONAL_DRILL=backup PYTHONPATH=. python3 scripts/capture_operational_drill_evidence.py || true
+	OPERATIONAL_DRILL=restore PYTHONPATH=. python3 scripts/capture_operational_drill_evidence.py || true
+	OPERATIONAL_DRILL=rollback PYTHONPATH=. python3 scripts/capture_operational_drill_evidence.py || true
+	PYTHONPATH=. python3 scripts/generate_beta_readiness_status.py || true
+	PYTHONPATH=. python3 scripts/generate_release_owner_beta_go_no_go.py
+	PYTHONPATH=. python3 scripts/check_evidence_json_schema.py docs/release/ci_evidence.json docs/release/branch_protection_evidence.json docs/beta/beta_content_hard_gate.json docs/release/staging_smoke_final_evidence.json docs/release/backup_drill_evidence.json docs/release/restore_drill_evidence.json docs/release/rollback_drill_evidence.json docs/release/beta_readiness_status.json
+	pytest -c pytest.ini tests/unit/test_beta_evidence_release_gating.py -q --no-cov
+

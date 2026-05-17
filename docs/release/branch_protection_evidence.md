@@ -1,9 +1,23 @@
 # Branch Protection Evidence
 
-**Status:** pending GitHub repository settings confirmation
+**Status:** pending_branch_protection_evidence
 
-- Protected branch:
-- Required checks:
-- Pull request required:
-- Bypass disabled:
-- Screenshot path or GitHub settings export:
+| Field | Value |
+|---|---|
+| Protected branch | codex/production_readiness |
+| Required checks | PENDING |
+| Pull request required | False |
+| Admin enforced | False |
+| Bypass disabled | False |
+| Evidence URL/path | PENDING |
+| Captured at | 2026-05-17T09:46:24Z |
+
+## Usage
+
+```bash
+PROTECTED_BRANCH=codex/production_readiness \
+BRANCH_REQUIRED_CHECKS='ci-core,backend-runtime-enablement-full-check' \
+BRANCH_PR_REQUIRED=true \
+BRANCH_BYPASS_DISABLED=true \
+make branch-protection-evidence-capture
+```

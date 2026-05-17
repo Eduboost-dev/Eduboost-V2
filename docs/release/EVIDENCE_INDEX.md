@@ -331,3 +331,21 @@ Human/infrastructure evidence still required:
 - `docs/release/popia_sweep_evidence.md`
 - `docs/release/backup_restore_evidence.md`
 - staging smoke evidence
+
+
+## Backend implementation 561-580 — Beta evidence execution and release gating
+
+```bash
+make remote-ci-evidence-capture
+make branch-protection-evidence-capture
+make beta-content-hard-gate
+make staging-smoke-finalize
+make backup-drill-evidence
+make restore-drill-evidence
+make rollback-drill-evidence
+make beta-readiness-status
+make release-owner-beta-go-no-go
+make backend-implementation-561-580-full-check
+```
+
+Evidence remains blocked until real external CI, branch-protection, content, staging, and operational drill artifacts are supplied.
