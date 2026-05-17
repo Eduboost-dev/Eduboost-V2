@@ -7,6 +7,10 @@ import { vi } from 'vitest'
 const MockRouter = { push: vi.fn() }
 vi.mock('next/navigation', () => ({ useRouter: () => MockRouter }))
 
+beforeEach(() => {
+  MockRouter.push.mockClear()
+})
+
 test('shows loading state when loading', () => {
   // Use a provider but ensure eb_active_learner not set so loading becomes false quickly
   // Simulate loading by temporarily mocking useLearner via localStorage manipulation
@@ -38,4 +42,21 @@ test('redirects when not allowed and not loading', () => {
     </LearnerProvider>
   )
   expect(MockRouter.push).toHaveBeenCalled()
+})
+
+test('allows parent access when guardian token exists', () => {
+  // @ts-ignore
+  global.window = Object.create(window)
+  const store: Record<string,string> = { guardian_token: 'abc' }
+  // @ts-ignore
+  global.window.localStorage = { getItem: (k:string)=>store[k]||null, setItem: (k:string,v:string)=>store[k]=v, removeItem: (k:string)=>delete store[k] }
+
+  render(
+    <LearnerProvider>
+      <RouteGuard required="parent"><div>ok</div></RouteGuard>
+    </LearnerProvider>
+  )
+
+  expect(screen.getByText('ok')).toBeInTheDocument()
+  expect(MockRouter.push).not.toHaveBeenCalled()
 })
