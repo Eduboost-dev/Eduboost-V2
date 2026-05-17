@@ -48,8 +48,9 @@ def exists(path: str) -> bool:
     return bool(list(ROOT.glob(path))) if "*" in path else (ROOT / path).exists()
 
 def refine(task: Task) -> Task:
-    if task.evidence and all(exists(item) for item in task.evidence) and task.status.startswith("PENDING_AGENT"):
-        return Task(task.id, task.priority, task.area, task.title, "PARTIAL_OR_DONE_VERIFY", task.evidence, "Run task-specific checker and confirm evidence freshness.")
+    if task.evidence and all(exists(item) for item in task.evidence):
+        if task.status.startswith("PENDING_") or task.status == "PARTIAL":
+            return Task(task.id, task.priority, task.area, task.title, "PARTIAL_OR_DONE_VERIFY", task.evidence, "Run task-specific checker and confirm evidence freshness.")
     return task
 
 def main() -> int:

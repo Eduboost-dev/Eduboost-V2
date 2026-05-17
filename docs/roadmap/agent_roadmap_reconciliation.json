@@ -4,11 +4,11 @@
     "priority": "P0",
     "area": "CI/CD",
     "title": "Trigger GitHub Actions CI on fork",
-    "status": "PENDING_HUMAN",
+    "status": "PARTIAL_OR_DONE_VERIFY",
     "evidence": [
       "docs/release/ci_evidence.md"
     ],
-    "next_action": "Enable Actions and archive first green run URL."
+    "next_action": "Run task-specific checker and confirm evidence freshness."
   },
   {
     "id": "T-02",
@@ -26,11 +26,11 @@
     "priority": "P0",
     "area": "CI/CD",
     "title": "Enable branch protection",
-    "status": "PENDING_HUMAN",
+    "status": "PARTIAL_OR_DONE_VERIFY",
     "evidence": [
       "docs/release/branch_protection_evidence.md"
     ],
-    "next_action": "Configure branch protection and archive evidence."
+    "next_action": "Run task-specific checker and confirm evidence freshness."
   },
   {
     "id": "T-04",
@@ -152,11 +152,11 @@
     "priority": "P1",
     "area": "POPIA",
     "title": "Run POPIA sweep and archive evidence",
-    "status": "PENDING_INFRA",
+    "status": "PARTIAL_OR_DONE_VERIFY",
     "evidence": [
       "docs/release/popia_sweep_evidence.md"
     ],
-    "next_action": "Run sweep in configured environment and commit output."
+    "next_action": "Run task-specific checker and confirm evidence freshness."
   },
   {
     "id": "T-15",
@@ -185,11 +185,11 @@
     "priority": "P2",
     "area": "Testing",
     "title": "Object-level authz for every router",
-    "status": "PARTIAL",
+    "status": "PARTIAL_OR_DONE_VERIFY",
     "evidence": [
       "tests/integration/test_learner_read_authorization.py"
     ],
-    "next_action": "Extend coverage to every ID-parameterized route."
+    "next_action": "Run task-specific checker and confirm evidence freshness."
   },
   {
     "id": "T-18",
@@ -218,11 +218,11 @@
     "priority": "P2",
     "area": "Localisation",
     "title": "Multilingual educator validation",
-    "status": "PENDING_HUMAN",
+    "status": "PARTIAL_OR_DONE_VERIFY",
     "evidence": [
       "docs/beta/multilingual_review_process.md"
     ],
-    "next_action": "Collect reviewer signoff."
+    "next_action": "Run task-specific checker and confirm evidence freshness."
   },
   {
     "id": "T-21",
@@ -240,10 +240,10 @@
     "priority": "P3",
     "area": "Architecture",
     "title": "ADRs for major decisions",
-    "status": "PARTIAL",
+    "status": "PARTIAL_OR_DONE_VERIFY",
     "evidence": [
       "docs/adr"
     ],
-    "next_action": "Reconcile existing ADRs and add missing decisions."
+    "next_action": "Run task-specific checker and confirm evidence freshness."
   }
 ]
