@@ -1,0 +1,9 @@
+{
+  "status": "fail",
+  "source": "docs/release/staging_smoke_latest.json",
+  "base_url": "https://staging.example.com",
+  "passed": false,
+  "result_count": 5,
+  "captured_at": "2026-05-17T09:46:24Z",
+  "required": true
+}
