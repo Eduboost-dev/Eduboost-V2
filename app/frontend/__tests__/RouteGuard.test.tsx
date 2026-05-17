@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { RouteGuard } from '../src/components/eduboost/RouteGuard'
 import { LearnerProvider } from '../src/context/LearnerContext'
 import { vi } from 'vitest'
@@ -59,4 +59,42 @@ test('allows parent access when guardian token exists', () => {
 
   expect(screen.getByText('ok')).toBeInTheDocument()
   expect(MockRouter.push).not.toHaveBeenCalled()
+})
+
+test('shows guardian login prompt and retry on parent route when token is missing', async () => {
+  // @ts-ignore
+  global.window = Object.create(window)
+  const store: Record<string,string> = {}
+  // @ts-ignore
+  global.window.localStorage = { getItem: (k:string)=>store[k]||null, setItem: (k:string,v:string)=>store[k]=v, removeItem: (k:string)=>delete store[k] }
+
+  render(
+    <LearnerProvider>
+      <RouteGuard required="parent"><div>ok</div></RouteGuard>
+    </LearnerProvider>
+  )
+
+  expect(await screen.findByText(/Please log in as a guardian/i)).toBeInTheDocument()
+  MockRouter.push.mockClear()
+  fireEvent.click(screen.getByRole('button', { name: /Try Again/i }))
+  expect(MockRouter.push).toHaveBeenCalledWith('/login')
+})
+
+test('shows default learner prompt and retry navigates home for teacher route', async () => {
+  // @ts-ignore
+  global.window = Object.create(window)
+  const store: Record<string,string> = {}
+  // @ts-ignore
+  global.window.localStorage = { getItem: (k:string)=>store[k]||null, setItem: (k:string,v:string)=>store[k]=v, removeItem: (k:string)=>delete store[k] }
+
+  render(
+    <LearnerProvider>
+      <RouteGuard required="teacher"><div>ok</div></RouteGuard>
+    </LearnerProvider>
+  )
+
+  expect(await screen.findByText(/Please choose a learner profile to continue/i)).toBeInTheDocument()
+  MockRouter.push.mockClear()
+  fireEvent.click(screen.getByRole('button', { name: /Try Again/i }))
+  expect(MockRouter.push).toHaveBeenCalledWith('/')
 })
