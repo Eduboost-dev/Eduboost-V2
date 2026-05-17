@@ -3311,7 +3311,7 @@
     },
     "/api/v2/health/deep": {
       "get": {
-        "operationId": "deep_health_api_v2_health_deep_get",
+        "operationId": "ready_api_v2_health_deep_get",
         "responses": {
           "200": {
             "content": {
@@ -3322,7 +3322,7 @@
             "description": "Successful Response"
           }
         },
-        "summary": "Deep Health",
+        "summary": "Ready",
         "tags": [
           "ops"
         ]
@@ -6606,7 +6606,7 @@
     },
     "/v2/health/deep": {
       "get": {
-        "operationId": "deep_health_v2_health_deep_get",
+        "operationId": "ready_v2_health_deep_get",
         "responses": {
           "200": {
             "content": {
@@ -6617,7 +6617,7 @@
             "description": "Successful Response"
           }
         },
-        "summary": "Deep Health",
+        "summary": "Ready",
         "tags": [
           "ops"
         ]

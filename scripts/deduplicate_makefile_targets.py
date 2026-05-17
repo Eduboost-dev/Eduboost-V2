@@ -68,7 +68,7 @@ def parse_targets(lines: list[str]) -> dict[str, list[int]]:
 def find_duplicates(
     occurrences: dict[str, list[int]]
 ) -> dict[str, list[int]]:
-    return {k: v for k, v in occurrences.items() if len(v) > 1}
+    return {k: v for k, v in occurrences.items() if k != ".PHONY" and len(v) > 1}
 
 
 # ---------------------------------------------------------------------------

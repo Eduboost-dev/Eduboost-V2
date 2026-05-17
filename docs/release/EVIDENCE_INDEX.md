@@ -349,3 +349,18 @@ make backend-implementation-561-580-full-check
 ```
 
 Evidence remains blocked until real external CI, branch-protection, content, staging, and operational drill artifacts are supplied.
+
+
+## Backend implementation 581-590 — Beta evidence integrity repair
+
+Repair contaminated beta evidence and restore truthful NO-GO semantics unless real external evidence is present:
+
+```bash
+make beta-evidence-integrity-repair
+make truthful-beta-readiness-status
+make truthful-release-owner-beta-go-no-go
+make beta-evidence-integrity-check
+make backend-implementation-581-590-full-check
+```
+
+Synthetic/local/mock/manual-bypass evidence cannot satisfy beta readiness gates.

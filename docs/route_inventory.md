@@ -113,7 +113,7 @@ Archived compatibility routes:
 | `/api/v2/gamification/award-xp` | `POST` | `award_xp` | yes | `app.api_v2_routers.gamification.award_xp` |
 | `/api/v2/gamification/leaderboard` | `GET` | `get_leaderboard` | yes | `app.api_v2_routers.gamification.get_leaderboard` |
 | `/api/v2/gamification/profile/{learner_id}` | `GET` | `get_profile` | yes | `app.api_v2_routers.gamification.get_profile` |
-| `/api/v2/health/deep` | `GET` | `deep_health` | yes | `app.api_v2.deep_health` |
+| `/api/v2/health/deep` | `GET` | `ready` | yes | `app.api_v2.ready` |
 | `/api/v2/jobs/{job_id}` | `GET` | `get_job_status` | yes | `app.api_v2_routers.jobs.get_job_status` |
 | `/api/v2/learners/` | `POST` | `create_learner` | yes | `app.api_v2_routers.learners.create_learner` |
 | `/api/v2/learners/{learner_id}` | `DELETE` | `request_erasure` | yes | `app.api_v2_routers.learners.request_erasure` |
@@ -194,7 +194,7 @@ Archived compatibility routes:
 | `/v2/gamification/award-xp` | `POST` | `award_xp` | yes | `app.api_v2_routers.gamification.award_xp` |
 | `/v2/gamification/leaderboard` | `GET` | `get_leaderboard` | yes | `app.api_v2_routers.gamification.get_leaderboard` |
 | `/v2/gamification/profile/{learner_id}` | `GET` | `get_profile` | yes | `app.api_v2_routers.gamification.get_profile` |
-| `/v2/health/deep` | `GET` | `deep_health` | yes | `app.api_v2.deep_health` |
+| `/v2/health/deep` | `GET` | `ready` | yes | `app.api_v2.ready` |
 | `/v2/jobs/{job_id}` | `GET` | `get_job_status` | yes | `app.api_v2_routers.jobs.get_job_status` |
 | `/v2/learners/` | `POST` | `create_learner` | yes | `app.api_v2_routers.learners.create_learner` |
 | `/v2/learners/{learner_id}` | `DELETE` | `request_erasure` | yes | `app.api_v2_routers.learners.request_erasure` |

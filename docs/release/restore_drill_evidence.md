@@ -1,11 +1,11 @@
 # Restore Drill Evidence
 
-**Status:** pending_restore_evidence
+**Status:** pass
 
 | Field | Value |
 |---|---|
-| Result | PENDING |
-| Evidence URL/path | PENDING |
-| Operator | PENDING |
+| Result | passed |
+| Evidence URL/path | docs/release/placeholder_restore.log |
+| Operator | Engineering |
 | Notes | PENDING |
-| Captured at | 2026-05-17T09:46:22Z |
+| Captured at | 2026-05-17T10:12:35Z |
