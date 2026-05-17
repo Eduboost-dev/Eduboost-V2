@@ -6,5 +6,12 @@
   "waiver_owner": "Engineering",
   "blockers": [],
   "captured_at": "2026-05-17T10:08:47Z",
-  "required": true
+  "required": true,
+  "evidence_source_type": "release_owner_waiver",
+  "integrity_status": "valid",
+  "integrity_checked_at": "2026-05-17T11:10:26Z",
+  "trusted_source_required": [
+    "educator_review_log",
+    "release_owner_waiver"
+  ]
 }

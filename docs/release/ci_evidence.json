@@ -6,5 +6,11 @@
   "result": "success",
   "test_summary": "Backend Consolidation Evidence workflow green (run #33, all checks passed)",
   "captured_at": "2026-05-17T09:50:05Z",
-  "required": true
+  "required": true,
+  "evidence_source_type": "github_actions",
+  "integrity_status": "valid",
+  "integrity_checked_at": "2026-05-17T11:10:26Z",
+  "trusted_source_required": [
+    "github_actions"
+  ]
 }
