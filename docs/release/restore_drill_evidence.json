@@ -1,0 +1,10 @@
+{
+  "drill": "restore",
+  "status": "pending_restore_evidence",
+  "result": "",
+  "evidence_url": "",
+  "operator": "",
+  "notes": "",
+  "captured_at": "2026-05-17T09:46:22Z",
+  "required": true
+}

@@ -1,0 +1,12 @@
+{
+  "status": "blocked",
+  "approved_items": 14,
+  "required_items": 40,
+  "waiver": "",
+  "waiver_owner": "",
+  "blockers": [
+    "insufficient_approved_items"
+  ],
+  "captured_at": "2026-05-17T09:46:24Z",
+  "required": true
+}
