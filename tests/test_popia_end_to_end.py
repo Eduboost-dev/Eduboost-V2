@@ -59,8 +59,8 @@ def test_popia_full_flow_success():
     mock_svc.request_erasure.return_value = {"status": "pending"}
     mock_svc.cancel_erasure.return_value = {"status": "cancelled"}
 
-    from app.api_v2_routers.popia import get_data_subject_rights_service_for_router
-    app.dependency_overrides[get_data_subject_rights_service_for_router] = lambda: mock_svc
+    from app.api_v2_deps.consent_lifecycle import get_canonical_data_rights_service
+    app.dependency_overrides[get_canonical_data_rights_service] = lambda: mock_svc
 
     try:
         # 1. Export

@@ -2,18 +2,16 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-17T20:41:53.176981+00:00`
+- generated_at_utc: `2026-05-17T21:25:48.279544+00:00`
 - branch: `codex/production_readiness`
-- commit: `951aeca359fca7369b96643180bb01a640eccf3f`
+- commit: `12709d957d0a0f3c618b885a109ef704477dc53a`
 - release_candidate: `unset`
 
 ## Working Tree Status
 
 ```text
 M Makefile
- M app/api_v2_routers/auth.py
- M app/core/security.py
- M app/modules/lessons/parent_explanation_mode.py
+ M app/api_v2_routers/popia.py
  M docs/beta/beta_content_hard_gate.json
  M docs/beta/beta_content_hard_gate.md
  M docs/operations/beta_release_evidence_bundle.md
@@ -23,7 +21,6 @@ M Makefile
  M docs/operations/database_restore_evidence.md
  M docs/operations/release_candidate_tag_manifest.md
  M docs/operations/release_evidence_manifest.md
- M docs/operations/release_state_snapshot.md
  M docs/operations/staging_smoke_evidence_manifest.md
  M docs/release/EVIDENCE_INDEX.md
  M docs/release/alertmanager_drill_evidence.json
@@ -58,28 +55,31 @@ M Makefile
  M docs/release/first_audit_runtime_wiring_report.md
  M docs/release/release_owner_beta_go_no_go_memo.md
  M docs/release/restore_drill_evidence.json
- M docs/release/restore_drill_evidence.md
  M docs/release/rollback_drill_evidence.json
- M docs/release/rollback_drill_evidence.md
  M docs/release/runtime_wiring_431_450_report.md
  M docs/release/schema_drift_disposable_latest.json
  M docs/release/schema_drift_disposable_latest.md
  M docs/release/staging_smoke_final_evidence.json
  M docs/release/staging_smoke_final_evidence.md
- M docs/security/PHASE2_AUTHORIZATION_CLOSURE.md
-?? app/services/auth_token_claims.py
-?? application
-?? audits/reports/CORE_TECHNICAL_AUDIT_2026-05-17.md
-?? docs/release/auth_token_claims_introspection.json
-?? docs/release/auth_token_claims_introspection.md
-?? docs/release/auth_token_claims_repair_report.md
-?? models
-?? repositories
-?? scripts/check_auth_token_claims_repair.py
-?? scripts/inspect_auth_token_claims.py
-?? scripts/repair_auth_token_claims.py
-?? shared
-?? tests/unit/test_auth_token_claims_contracts.py
+ M tests/test_popia_end_to_end.py
+ M tests/test_popia_negative.py
+?? app/api_v2_deps/
+?? docs/architecture/boundary_enforcement_policy.md
+?? docs/architecture/import_linter_availability.md
+?? docs/architecture/legacy_learner_access_guard_report.json
+?? docs/architecture/legacy_learner_access_guard_report.md
+?? docs/architecture/router_repository_boundary_matrix.json
+?? docs/architecture/router_repository_boundary_matrix.md
+?? docs/architecture/service_boundary_inventory.json
+?? docs/architecture/service_boundary_inventory.md
+?? docs/release/popia_router_boundary_repair_report.md
+?? scripts/check_import_linter_availability.py
+?? scripts/check_router_boundary_enforcement.py
+?? scripts/generate_legacy_learner_access_guard_report.py
+?? scripts/generate_router_boundary_matrix.py
+?? scripts/generate_service_boundary_inventory.py
+?? scripts/patch_popia_router_boundary.py
+?? tests/unit/test_boundary_enforcement_contracts.py
 ```
 
 ## State Artifacts

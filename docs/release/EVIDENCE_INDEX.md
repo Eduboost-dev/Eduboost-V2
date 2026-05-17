@@ -416,3 +416,22 @@ make auth-token-claims-check
 make backend-implementation-631-650-full-check
 ```
 
+## Backend implementation 651-670 — Boundary enforcement and import discipline
+
+Audit drivers:
+
+- Repaired P0 routers should not construct repositories directly.
+- POPIA consent lifecycle dependency construction belongs in an API dependency module, not the router.
+- Import-linter availability and service boundary inventory must be recorded before strict Phase 1 enforcement.
+
+Commands:
+
+```bash
+make popia-router-boundary-repair
+make router-boundary-matrix
+make router-boundary-check
+make service-boundary-inventory
+make legacy-learner-access-guard-report
+make backend-implementation-651-670-full-check
+```
+

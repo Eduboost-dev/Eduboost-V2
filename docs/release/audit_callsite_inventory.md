@@ -121,8 +121,6 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/api_v2_routers/parents.py` | 157 | audit_append_call | `response_learners.append(` |
 | `app/api_v2_routers/parents.py` | 204 | audit_append_call | `exports.append(` |
 | `app/api_v2_routers/parents.py` | 286 | audit_record_call | `await FourthEstateService(db).record(` |
-| `app/api_v2_routers/popia.py` | 43 | audit_repository | `from app.repositories.repositories import AuditRepository, ConsentRepository, LearnerRepository` |
-| `app/api_v2_routers/popia.py` | 47 | audit_repository | `return ConsentService(ConsentRepository(db), AuditRepository(db))` |
 | `app/core/audit.py` | 11 | audit_repository | `from app.repositories.repositories import AuditRepository` |
 | `app/core/audit.py` | 23 | audit_repository | `self._repo = AuditRepository(db)` |
 | `app/core/audit.py` | 62 | audit_record_call | `await self.record(` |
@@ -1415,6 +1413,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_roadmap_after_production_readiness_baseline.py` | 161 | audit_append_call | `results.append(` |
 | `scripts/check_roadmap_after_production_readiness_baseline.py` | 187 | audit_append_call | `results.append(RoadmapReadinessResult("roadmap_contracts", False, f"contract check failed: {exc}"))` |
 | `scripts/check_route_alias_matrix.py` | 73 | audit_append_call | `lines.append(f"{row.method.upper()} {row.canonical_path} -- baseline exception; review before release")` |
+| `scripts/check_router_boundary_enforcement.py` | 24 | audit_append_call | `failures.append(f"{router}: {violations}")` |
 | `scripts/check_runtime_entrypoints.py` | 124 | audit_append_call | `results.append(check_entrypoint(spec, canonical=index == 0))` |
 | `scripts/check_runtime_entrypoints.py` | 154 | audit_append_call | `lines.append(f"- {status} {result.spec}")` |
 | `scripts/check_runtime_entrypoints.py` | 157 | audit_append_call | `lines.append(f"  title: {result.title}")` |
@@ -1545,6 +1544,9 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_learner_authz_matrix.py` | 126 | audit_append_call | `rows.append(` |
 | `scripts/generate_learner_authz_matrix.py` | 160 | audit_append_call | `lines.append(` |
 | `scripts/generate_learner_authz_matrix.py` | 168 | audit_append_call | `lines.append(f"- `{row.router}` `{row.method} {row.path}` via `{row.function}`")` |
+| `scripts/generate_legacy_learner_access_guard_report.py` | 18 | audit_append_call | `rows.append({"path": str(path.relative_to(ROOT)), "count": text.count("assert_can_access_learner")})` |
+| `scripts/generate_legacy_learner_access_guard_report.py` | 29 | audit_append_call | `lines.append(f"\| `{row['path']}` \| {row['count']} \|")` |
+| `scripts/generate_legacy_learner_access_guard_report.py` | 31 | audit_append_call | `lines.append("\| - \| 0 \|")` |
 | `scripts/generate_phase2_authorization_closure_report.py` | 71 | audit_append_call | `lines.append(f"- `{rel_path}` — {status}")` |
 | `scripts/generate_phase2_authorization_closure_report.py` | 100 | audit_append_call | `lines.append(f"- `{rel_path}` — {status}")` |
 | `scripts/generate_phase2_authorization_closure_report.py` | 114 | audit_append_call | `lines.append("Status: **not closed** — missing learner authorization markers remain.")` |
@@ -1571,8 +1573,15 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_route_inventory.py` | 195 | audit_append_call | `lines.append(f"- `{prefix}`")` |
 | `scripts/generate_route_inventory.py` | 212 | audit_append_call | `lines.append(` |
 | `scripts/generate_route_inventory.py` | 216 | audit_append_call | `lines.append("")` |
+| `scripts/generate_router_boundary_matrix.py` | 26 | audit_append_call | `modules.append(node.module or "")` |
+| `scripts/generate_router_boundary_matrix.py` | 42 | audit_append_call | `allowed.append(module)` |
+| `scripts/generate_router_boundary_matrix.py` | 44 | audit_append_call | `violations.append(module)` |
+| `scripts/generate_router_boundary_matrix.py` | 45 | audit_append_call | `rows.append({` |
+| `scripts/generate_router_boundary_matrix.py` | 71 | audit_append_call | `lines.append(f"\| `{row['router']}` \| {row['p0_router']} \| {repo} \| {allowed} \| {violations} \|")` |
 | `scripts/generate_runtime_wiring_431_450_report.py` | 42 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
 | `scripts/generate_runtime_wiring_431_450_report.py` | 54 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
+| `scripts/generate_service_boundary_inventory.py` | 35 | audit_append_call | `rows.append({"path": str(path.relative_to(ROOT)), "classification": classify(path)})` |
+| `scripts/generate_service_boundary_inventory.py` | 45 | audit_append_call | `lines.append(f"\| `{row['path']}` \| {row['classification']} \|")` |
 | `scripts/generate_staging_smoke_evidence_manifest.py` | 63 | audit_append_call | `lines.append(f"\| {entry.name} \| `{entry.command}` \|")` |
 | `scripts/generate_truthful_beta_readiness_status.py` | 71 | audit_append_call | `lines.append(f"\| {gate} \| {data.get('status')} \| {data.get('integrity_status')} \| {data.get('evidence_source_type', 'unknown')} \|")` |
 | `scripts/generate_truthful_beta_readiness_status.py` | 76 | audit_append_call | `lines.append("- None")` |
@@ -1613,6 +1622,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/maintenance/audit_todo_backlog.py` | 365 | audit_append_call | `cp.append(f'{i}. **{b}** — {len(oi)} open, {crit} critical.')` |
 | `scripts/maintenance/audit_todo_backlog.py` | 368 | audit_append_call | `cp.append(f"\| {r['id']} \| {r['priority']} \| {r['repo_status']} \| {r['task'].replace('\|','\\\|')} \|")` |
 | `scripts/maintenance/audit_todo_backlog.py` | 373 | audit_append_call | `for r in first: fb.append(f"\| {r['id']} \| {r['priority']} \| {r['repo_status']} \| {r['task'].replace('\|','\\\|')} \| {(r['evidence_paths'] or '—').replace('\|','\\\|')} \|")` |
+| `scripts/patch_popia_router_boundary.py` | 50 | audit_append_call | `lines.append(line)` |
 | `scripts/popia_sweep.py` | 113 | audit_append_call | `self.issues.append(issue)` |
 | `scripts/popia_sweep.py` | 133 | audit_append_call | `files.append(path)` |
 | `scripts/popia_sweep.py` | 230 | audit_append_call | `decorator_names.append(decorator.attr)` |

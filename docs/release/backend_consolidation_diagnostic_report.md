@@ -1,6 +1,6 @@
 # Backend Consolidation Diagnostic Report
 
-Generated at: `2026-05-17T20:38:40Z`
+Generated at: `2026-05-17T21:22:47Z`
 
 | Check | Return code | Command |
 |---|---:|---|
@@ -25,8 +25,7 @@ Return code: `0`
 
 ```text
 Backend consolidation dragon diagnostic
-- audit_repository: 41 match(es)
-  - app/api_v2_routers/popia.py
+- audit_repository: 39 match(es)
   - app/core/audit.py
   - app/modules/consent/service.py
   - app/repositories/__init__.py
@@ -38,7 +37,8 @@ Backend consolidation dragon diagnostic
   - scripts/check_backend_runtime_compatibility.py
   - scripts/check_database_persistence_production_readiness.py
   - scripts/generate_backend_deletion_candidate_inventory.py
-  - ... 3 more file(s)
+  - scripts/verify_audit_chain.py
+  - ... 2 more file(s)
 - audit_events: 108 match(es)
   - alembic/versions/0006_v2_audit_events.py
   - alembic/versions/20260507_1200_popia_consent_audit_hardening.py
@@ -92,7 +92,8 @@ Backend consolidation dragon diagnostic
   - scripts/check_runtime_wiring_no_destructive_actions.py
   - scripts/generate_backend_deletion_candidate_inventory.py
   - ... 2 more file(s)
-- consent_service: 110 match(es)
+- consent_service: 109 match(es)
+  - app/api_v2_deps/consent_lifecycle.py
   - app/api_v2_routers/consent.py
   - app/api_v2_routers/learners.py
   - app/api_v2_routers/parents.py
@@ -104,8 +105,7 @@ Backend consolidation dragon diagnostic
   - app/modules/jobs.py
   - app/modules/lessons/service.py
   - app/security/dependencies.py
-  - app/services/consent.py
-  - ... 25 more file(s)
+  - ... 26 more file(s)
 - deep_health: 29 match(es)
   - app/api_v2.py
   - app/core/health.py
@@ -129,7 +129,7 @@ Command: `/usr/bin/python3 scripts/generate_audit_callsite_inventory.py --fail-e
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/audit_callsite_inventory.md (1795 row(s))
+Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/audit_callsite_inventory.md (1805 row(s))
 ```
 
 ## consent inventory
@@ -139,7 +139,7 @@ Command: `/usr/bin/python3 scripts/generate_consent_callsite_inventory.py --fail
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/consent_callsite_inventory.md (374 row(s))
+Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/consent_callsite_inventory.md (372 row(s))
 ```
 
 ## health readiness contract

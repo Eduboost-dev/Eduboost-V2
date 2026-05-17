@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-05-17T21:23:48Z",
+  "remaining_legacy_guard_references": [
+    {
+      "path": "app/api_v2_routers/diagnostics.py",
+      "count": 1
+    },
+    {
+      "path": "app/api_v2_routers/learners.py",
+      "count": 1
+    },
+    {
+      "path": "app/core/authorization.py",
+      "count": 2
+    },
+    {
+      "path": "app/core/dependencies.py",
+      "count": 2
+    }
+  ]
+}
