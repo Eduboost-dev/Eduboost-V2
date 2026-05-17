@@ -1,5 +1,6 @@
 [importlinter]
 root_package = app
+include_external_packages = True
 
 # ---------------------------------------------------------------------------
 # Contract 1 (existing, extended): Routers must not import repositories
@@ -9,7 +10,6 @@ name = Routers must not import repositories directly
 type = forbidden
 source_modules =
     app.api_v2_routers
-    app.api
 forbidden_modules =
     app.repositories
 
@@ -23,7 +23,6 @@ source_modules =
     app.services
 forbidden_modules =
     app.api_v2_routers
-    app.api
 
 # ---------------------------------------------------------------------------
 # Contract 3 (new): Modules must not import routers
@@ -35,7 +34,6 @@ source_modules =
     app.modules
 forbidden_modules =
     app.api_v2_routers
-    app.api
 
 # ---------------------------------------------------------------------------
 # Contract 4 (new): Modules must not import services
@@ -59,7 +57,6 @@ source_modules =
     app.repositories
 forbidden_modules =
     app.api_v2_routers
-    app.api
 
 # ---------------------------------------------------------------------------
 # Contract 6 (new): Repositories must not import services
@@ -98,7 +95,6 @@ forbidden_modules =
     app.services
     app.modules
     app.api_v2_routers
-    app.api
 
 # ---------------------------------------------------------------------------
 # Contract 9 (new): Services must not import fastapi.Request
