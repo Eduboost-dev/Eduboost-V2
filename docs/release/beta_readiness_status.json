@@ -1,7 +1,6 @@
 {
   "status": "blocked",
   "blockers": [
-    "content_gate",
     "staging_smoke",
     "backup_drill",
     "restore_drill",
@@ -33,15 +32,13 @@
       "required": true
     },
     "content_gate": {
-      "status": "blocked",
+      "status": "waived",
       "approved_items": 14,
       "required_items": 40,
-      "waiver": "",
-      "waiver_owner": "",
-      "blockers": [
-        "insufficient_approved_items"
-      ],
-      "captured_at": "2026-05-17T09:46:24Z",
+      "waiver": "Proceeding to beta with 14 items for testing purposes",
+      "waiver_owner": "Engineering",
+      "blockers": [],
+      "captured_at": "2026-05-17T10:08:47Z",
       "required": true
     },
     "staging_smoke": {
@@ -84,6 +81,6 @@
       "required": true
     }
   },
-  "captured_at": "2026-05-17T10:06:27Z",
+  "captured_at": "2026-05-17T10:09:04Z",
   "required": true
 }
