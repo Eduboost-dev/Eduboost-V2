@@ -188,6 +188,7 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `scripts/generate_learner_authz_matrix.py` | `diagnostic` |
 | `scripts/generate_popia_consent_boundary_matrix.py` | `generate_lesson, diagnostic` |
 | `scripts/generate_route_inventory.py` | `diagnostic` |
+| `scripts/generate_service_family_map.py` | `diagnostic` |
 | `scripts/inventory_services.py` | `diagnostic` |
 | `scripts/lessons/generate_lessons.py` | `llm, generate_lesson, remediation` |
 | `scripts/lessons/validate_lessons.py` | `prompt, llm, groq` |

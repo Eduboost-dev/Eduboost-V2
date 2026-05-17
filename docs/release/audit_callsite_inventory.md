@@ -1045,6 +1045,14 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_api_envelope_error_contract.py` | 91 | audit_append_call | `results.append(EvidenceResult(rel_path, path.exists(), "present" if path.exists() else "missing"))` |
 | `scripts/check_api_envelope_error_contract.py` | 97 | audit_append_call | `results.append(` |
 | `scripts/check_api_envelope_error_contract.py` | 107 | audit_append_call | `results.append(` |
+| `scripts/check_architecture_boundary_contracts.py` | 32 | audit_append_call | `modules.append(node.module or "")` |
+| `scripts/check_architecture_boundary_contracts.py` | 50 | audit_append_call | `failures.append(f"{' '.join(command)} failed: {result.stdout}")` |
+| `scripts/check_architecture_boundary_contracts.py` | 55 | audit_append_call | `failures.append(f"{router} missing")` |
+| `scripts/check_architecture_boundary_contracts.py` | 64 | audit_append_call | `failures.append(f"{router}: missing required import {required}")` |
+| `scripts/check_architecture_boundary_contracts.py` | 69 | audit_append_call | `failures.append(f"{router}: forbidden import {forbidden}")` |
+| `scripts/check_architecture_boundary_contracts.py` | 77 | audit_append_call | `failures.append(f"{router}: forbidden {prefix} imports {offenders}")` |
+| `scripts/check_architecture_boundary_contracts.py` | 86 | audit_append_call | `failures.append(".importlinter missing")` |
+| `scripts/check_architecture_boundary_contracts.py` | 93 | audit_append_call | `failures.append("service boundary classification policy missing")` |
 | `scripts/check_archival_lock_assertion.py` | 51 | audit_append_call | `results.append(` |
 | `scripts/check_audit_canonicalization_registry.py` | 25 | audit_append_call | `failures.append("no ready candidates")` |
 | `scripts/check_audit_canonicalization_registry.py` | 38 | audit_append_call | `failures.append("registry doc missing")` |
@@ -1578,10 +1586,16 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_router_boundary_matrix.py` | 44 | audit_append_call | `violations.append(module)` |
 | `scripts/generate_router_boundary_matrix.py` | 45 | audit_append_call | `rows.append({` |
 | `scripts/generate_router_boundary_matrix.py` | 71 | audit_append_call | `lines.append(f"\| `{row['router']}` \| {row['p0_router']} \| {repo} \| {allowed} \| {violations} \|")` |
+| `scripts/generate_router_service_dependency_map.py` | 21 | audit_append_call | `modules.append(node.module or "")` |
+| `scripts/generate_router_service_dependency_map.py` | 32 | audit_append_call | `rows.append({` |
+| `scripts/generate_router_service_dependency_map.py` | 55 | audit_append_call | `lines.append(` |
 | `scripts/generate_runtime_wiring_431_450_report.py` | 42 | audit_append_call | `rows.append((name, code, " ".join(command), output))` |
 | `scripts/generate_runtime_wiring_431_450_report.py` | 54 | audit_append_call | `lines.append(f"\| {name} \| {code} \| `{command}` \|")` |
 | `scripts/generate_service_boundary_inventory.py` | 35 | audit_append_call | `rows.append({"path": str(path.relative_to(ROOT)), "classification": classify(path)})` |
 | `scripts/generate_service_boundary_inventory.py` | 45 | audit_append_call | `lines.append(f"\| `{row['path']}` \| {row['classification']} \|")` |
+| `scripts/generate_service_family_map.py` | 74 | audit_append_call | `rows.append({` |
+| `scripts/generate_service_family_map.py` | 83 | audit_append_call | `grouped[row["domain"]].append(row)` |
+| `scripts/generate_service_family_map.py` | 101 | audit_append_call | `lines.append(` |
 | `scripts/generate_staging_smoke_evidence_manifest.py` | 63 | audit_append_call | `lines.append(f"\| {entry.name} \| `{entry.command}` \|")` |
 | `scripts/generate_truthful_beta_readiness_status.py` | 71 | audit_append_call | `lines.append(f"\| {gate} \| {data.get('status')} \| {data.get('integrity_status')} \| {data.get('evidence_source_type', 'unknown')} \|")` |
 | `scripts/generate_truthful_beta_readiness_status.py` | 76 | audit_append_call | `lines.append("- None")` |

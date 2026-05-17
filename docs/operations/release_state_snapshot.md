@@ -2,16 +2,24 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-17T21:25:48.279544+00:00`
+- generated_at_utc: `2026-05-17T21:44:46.613621+00:00`
 - branch: `codex/production_readiness`
-- commit: `12709d957d0a0f3c618b885a109ef704477dc53a`
+- commit: `2c2bd7fae4167979241dd5aedac5643ec1f1e461`
 - release_candidate: `unset`
 
 ## Working Tree Status
 
 ```text
-M Makefile
- M app/api_v2_routers/popia.py
+M .importlinter
+ M Makefile
+ M docs/ai/ai_prompt_surface_inventory.md
+ M docs/architecture/import_linter_availability.md
+ M docs/architecture/legacy_learner_access_guard_report.json
+ M docs/architecture/legacy_learner_access_guard_report.md
+ M docs/architecture/router_repository_boundary_matrix.json
+ M docs/architecture/router_repository_boundary_matrix.md
+ M docs/architecture/service_boundary_inventory.json
+ M docs/architecture/service_boundary_inventory.md
  M docs/beta/beta_content_hard_gate.json
  M docs/beta/beta_content_hard_gate.md
  M docs/operations/beta_release_evidence_bundle.md
@@ -50,7 +58,6 @@ M Makefile
  M docs/release/branch_protection_evidence.md
  M docs/release/ci_evidence.json
  M docs/release/ci_evidence.md
- M docs/release/consent_callsite_inventory.md
  M docs/release/disposable_db_schema_proof_execution_report.md
  M docs/release/first_audit_runtime_wiring_report.md
  M docs/release/release_owner_beta_go_no_go_memo.md
@@ -61,25 +68,19 @@ M Makefile
  M docs/release/schema_drift_disposable_latest.md
  M docs/release/staging_smoke_final_evidence.json
  M docs/release/staging_smoke_final_evidence.md
- M tests/test_popia_end_to_end.py
- M tests/test_popia_negative.py
-?? app/api_v2_deps/
-?? docs/architecture/boundary_enforcement_policy.md
-?? docs/architecture/import_linter_availability.md
-?? docs/architecture/legacy_learner_access_guard_report.json
-?? docs/architecture/legacy_learner_access_guard_report.md
-?? docs/architecture/router_repository_boundary_matrix.json
-?? docs/architecture/router_repository_boundary_matrix.md
-?? docs/architecture/service_boundary_inventory.json
-?? docs/architecture/service_boundary_inventory.md
-?? docs/release/popia_router_boundary_repair_report.md
-?? scripts/check_import_linter_availability.py
-?? scripts/check_router_boundary_enforcement.py
-?? scripts/generate_legacy_learner_access_guard_report.py
-?? scripts/generate_router_boundary_matrix.py
-?? scripts/generate_service_boundary_inventory.py
-?? scripts/patch_popia_router_boundary.py
-?? tests/unit/test_boundary_enforcement_contracts.py
+?? docs/architecture/boundary_debt_queue.md
+?? docs/architecture/import_linter_contract_run.md
+?? docs/architecture/router_service_dependency_map.json
+?? docs/architecture/router_service_dependency_map.md
+?? docs/architecture/service_boundary_classification_policy.md
+?? docs/architecture/service_family_map.json
+?? docs/architecture/service_family_map.md
+?? docs/release/phase2_data_integrity_blockers.md
+?? scripts/check_architecture_boundary_contracts.py
+?? scripts/generate_router_service_dependency_map.py
+?? scripts/generate_service_family_map.py
+?? scripts/run_import_linter_contracts.py
+?? tests/unit/test_architecture_boundary_contracts.py
 ```
 
 ## State Artifacts

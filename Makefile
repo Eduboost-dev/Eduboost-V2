@@ -1344,3 +1344,21 @@ backend-implementation-651-670-full-check: popia-router-boundary-repair router-b
 	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services app/repositories
 	pytest -c pytest.ini tests/unit/test_boundary_enforcement_contracts.py -q --no-cov --tb=short
 
+.PHONY: service-family-map router-service-dependency-map architecture-boundary-contracts-check import-linter-contracts-run backend-implementation-671-690-full-check
+
+service-family-map:
+	PYTHONPATH=. python3 scripts/generate_service_family_map.py
+
+router-service-dependency-map:
+	PYTHONPATH=. python3 scripts/generate_router_service_dependency_map.py
+
+architecture-boundary-contracts-check:
+	PYTHONPATH=. python3 scripts/check_architecture_boundary_contracts.py
+
+import-linter-contracts-run:
+	PYTHONPATH=. python3 scripts/run_import_linter_contracts.py
+
+backend-implementation-671-690-full-check: service-family-map router-service-dependency-map architecture-boundary-contracts-check import-linter-contracts-run
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts
+	pytest -c pytest.ini tests/unit/test_architecture_boundary_contracts.py -q --no-cov --tb=short
+
