@@ -1,0 +1,87 @@
+{
+  "status": "blocked",
+  "blockers": [
+    "branch_protection",
+    "content_gate",
+    "staging_smoke",
+    "backup_drill",
+    "restore_drill",
+    "rollback_drill"
+  ],
+  "evidence": {
+    "remote_ci": {
+      "status": "green",
+      "run_url": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/25987485447",
+      "commit_sha": "5a8377316d062a01fcd85ae34a133c7c3cd1ef84",
+      "branch": "codex/production_readiness",
+      "result": "success",
+      "test_summary": "Backend Consolidation Evidence workflow green (run #33, all checks passed)",
+      "captured_at": "2026-05-17T09:50:05Z",
+      "required": true
+    },
+    "branch_protection": {
+      "status": "pending_branch_protection_evidence",
+      "protected_branch": "codex/production_readiness",
+      "required_checks": [],
+      "pull_request_required": false,
+      "admin_enforced": false,
+      "bypass_disabled": false,
+      "evidence_url": "",
+      "captured_at": "2026-05-17T09:46:24Z",
+      "required": true
+    },
+    "content_gate": {
+      "status": "blocked",
+      "approved_items": 14,
+      "required_items": 40,
+      "waiver": "",
+      "waiver_owner": "",
+      "blockers": [
+        "insufficient_approved_items"
+      ],
+      "captured_at": "2026-05-17T09:46:24Z",
+      "required": true
+    },
+    "staging_smoke": {
+      "status": "fail",
+      "source": "docs/release/staging_smoke_latest.json",
+      "base_url": "https://staging.example.com",
+      "passed": false,
+      "result_count": 5,
+      "captured_at": "2026-05-17T09:46:24Z",
+      "required": true
+    },
+    "backup_drill": {
+      "drill": "backup",
+      "status": "pending_backup_evidence",
+      "result": "",
+      "evidence_url": "",
+      "operator": "",
+      "notes": "",
+      "captured_at": "2026-05-17T09:46:24Z",
+      "required": true
+    },
+    "restore_drill": {
+      "drill": "restore",
+      "status": "pending_restore_evidence",
+      "result": "",
+      "evidence_url": "",
+      "operator": "",
+      "notes": "",
+      "captured_at": "2026-05-17T09:46:22Z",
+      "required": true
+    },
+    "rollback_drill": {
+      "drill": "rollback",
+      "status": "pending_rollback_evidence",
+      "result": "",
+      "evidence_url": "",
+      "operator": "",
+      "notes": "",
+      "captured_at": "2026-05-17T09:46:22Z",
+      "required": true
+    }
+  },
+  "captured_at": "2026-05-17T09:50:16Z",
+  "required": true
+}
