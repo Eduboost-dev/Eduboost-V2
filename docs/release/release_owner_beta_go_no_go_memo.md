@@ -1,6 +1,6 @@
 # Release-Owner Beta Go/No-Go Memo
 
-Generated at: `2026-05-17T09:46:24Z`
+Generated at: `2026-05-17T12:12:51Z`
 
 ## Recommendation: NO-GO
 
@@ -13,7 +13,6 @@ Beta readiness status: `blocked`
 - remote_ci
 - branch_protection
 - content_gate
-- staging_smoke
 - backup_drill
 - restore_drill
 - rollback_drill

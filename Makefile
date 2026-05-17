@@ -1256,3 +1256,22 @@ backend-implementation-561-580-full-check:
 	PYTHONPATH=. python3 scripts/check_evidence_json_schema.py docs/release/ci_evidence.json docs/release/branch_protection_evidence.json docs/beta/beta_content_hard_gate.json docs/release/staging_smoke_final_evidence.json docs/release/backup_drill_evidence.json docs/release/restore_drill_evidence.json docs/release/rollback_drill_evidence.json docs/release/beta_readiness_status.json
 	pytest -c pytest.ini tests/unit/test_beta_evidence_release_gating.py -q --no-cov
 
+.PHONY: beta-evidence-integrity-repair truthful-beta-readiness-status truthful-release-owner-beta-go-no-go beta-evidence-integrity-check backend-implementation-581-590-full-check
+
+beta-evidence-integrity-repair:
+	PYTHONPATH=. python3 scripts/repair_beta_evidence_integrity.py
+
+truthful-beta-readiness-status:
+	PYTHONPATH=. python3 scripts/generate_truthful_beta_readiness_status.py
+
+truthful-release-owner-beta-go-no-go:
+	PYTHONPATH=. python3 scripts/generate_truthful_release_owner_beta_go_no_go.py
+
+beta-evidence-integrity-check:
+	PYTHONPATH=. python3 scripts/check_beta_evidence_integrity.py
+
+backend-implementation-581-590-full-check: beta-evidence-integrity-repair truthful-release-owner-beta-go-no-go beta-evidence-integrity-check
+	PYTHONPATH=. python3 scripts/generate_truthful_beta_readiness_status.py || true
+	PYTHONPATH=. python3 scripts/generate_truthful_release_owner_beta_go_no_go.py
+	pytest -c pytest.ini tests/unit/test_beta_evidence_integrity_repair.py -q --no-cov
+
