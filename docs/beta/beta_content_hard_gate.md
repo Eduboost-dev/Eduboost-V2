@@ -9,4 +9,4 @@
 | Waiver | None |
 | Waiver owner | None |
 | Blockers | insufficient_approved_items |
-| Captured at | 2026-05-17T12:12:51Z |
+| Captured at | 2026-05-17T20:39:45Z |

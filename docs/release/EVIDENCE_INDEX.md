@@ -399,3 +399,20 @@ make lesson-object-authorization-check
 make backend-implementation-611-630-full-check
 ```
 
+## Backend implementation 631-650 — Auth token claim consistency
+
+Audit drivers:
+
+- Register/login/refresh must share canonical authz-relevant token claim construction.
+- Refresh must preserve guardian_learner_ids for learner authorization.
+- Auth routes must not write raw email into email_encrypted.
+
+Commands:
+
+```bash
+make auth-token-claims-inspect
+make auth-token-claims-repair
+make auth-token-claims-check
+make backend-implementation-631-650-full-check
+```
+

@@ -111,7 +111,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/api_v2_routers/0005_irt_seed.py` | 148 | audit_append_call | `_ITEMS.append(_make(7, "Mathematics", "Algebra & Trigonometry", q, opts, c, a, b))` |
 | `app/api_v2_routers/0005_irt_seed.py` | 170 | audit_append_call | `_ITEMS.append(_make(grade, "English", "Language", q, opts, c, a, b))` |
 | `app/api_v2_routers/0005_irt_seed.py` | 188 | audit_append_call | `_ITEMS.append(_make(grade, "Natural Sciences", "Science", q, opts, c, a, b))` |
-| `app/api_v2_routers/auth.py` | 182 | audit_append_call | `learner_ids.append(str(learner.id))` |
+| `app/api_v2_routers/auth.py` | 201 | audit_append_call | `learner_ids.append(str(learner.id))` |
 | `app/api_v2_routers/billing.py` | 44 | audit_record_call | `await audit.record("STRIPE_WEBHOOK", payload=result)` |
 | `app/api_v2_routers/consent.py` | 47 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.grant().` |
 | `app/api_v2_routers/consent.py` | 80 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.revoke().` |
@@ -121,8 +121,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/api_v2_routers/parents.py` | 157 | audit_append_call | `response_learners.append(` |
 | `app/api_v2_routers/parents.py` | 204 | audit_append_call | `exports.append(` |
 | `app/api_v2_routers/parents.py` | 286 | audit_record_call | `await FourthEstateService(db).record(` |
-| `app/api_v2_routers/popia.py` | 38 | audit_repository | `from app.repositories.repositories import AuditRepository, ConsentRepository, LearnerRepository` |
-| `app/api_v2_routers/popia.py` | 42 | audit_repository | `return ConsentService(ConsentRepository(db), AuditRepository(db))` |
+| `app/api_v2_routers/popia.py` | 43 | audit_repository | `from app.repositories.repositories import AuditRepository, ConsentRepository, LearnerRepository` |
+| `app/api_v2_routers/popia.py` | 47 | audit_repository | `return ConsentService(ConsentRepository(db), AuditRepository(db))` |
 | `app/core/audit.py` | 11 | audit_repository | `from app.repositories.repositories import AuditRepository` |
 | `app/core/audit.py` | 23 | audit_repository | `self._repo = AuditRepository(db)` |
 | `app/core/audit.py` | 62 | audit_record_call | `await self.record(` |
@@ -938,16 +938,16 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/backend_runtime_wiring_cases.py` | 97 | audit_append_call | `results.append(` |
 | `app/services/backend_runtime_wiring_cases.py` | 112 | audit_append_call | `results.append(` |
 | `app/services/consent_runtime_compatibility.py` | 94 | audit_append_call | `required.append(name)` |
-| `app/services/consent_service.py` | 20 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
-| `app/services/consent_service.py` | 28 | audit_repository | `audit_repo: AuditRepository,` |
-| `app/services/consent_service.py` | 44 | audit_log_identifier | `# audit_log` |
-| `app/services/consent_service.py` | 62 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 98 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 118 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 139 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 158 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 198 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 207 | audit_append_call | `flagged.append(saved)` |
+| `app/services/consent_service.py` | 25 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
+| `app/services/consent_service.py` | 33 | audit_repository | `audit_repo: AuditRepository,` |
+| `app/services/consent_service.py` | 49 | audit_log_identifier | `# audit_log` |
+| `app/services/consent_service.py` | 67 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 103 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 123 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 144 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 163 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 203 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 212 | audit_append_call | `flagged.append(saved)` |
 | `app/services/content_safety/lesson_contracts.py` | 99 | audit_append_call | `reasons.append("topic missing")` |
 | `app/services/content_safety/lesson_contracts.py` | 101 | audit_append_call | `reasons.append("CAPS alignment invalid")` |
 | `app/services/content_safety/lesson_contracts.py` | 103 | audit_append_call | `reasons.append("unsafe content")` |
@@ -980,6 +980,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/first_audit_runtime_wiring.py` | 60 | audit_append_call | `self.events.append(kwargs)` |
 | `app/services/first_audit_runtime_wiring.py` | 132 | audit_record_call | `response = await adapter.record(` |
 | `app/services/first_deep_readiness_runtime_wiring.py` | 85 | audit_append_call | `selected_checks.append(name)` |
+| `app/services/lesson_authorization.py` | 174 | audit_append_call | `found.append(item)` |
+| `app/services/lesson_authorization.py` | 187 | audit_append_call | `found.append(item)` |
 | `app/services/lesson_context_builder.py` | 217 | audit_append_call | `parts.append(f"({subtopic})")` |
 | `app/services/lesson_context_builder.py` | 221 | audit_append_call | `parts.append(f"with emphasis on correcting: {tags_str}")` |
 | `app/services/lesson_context_builder.py` | 231 | audit_append_call | `parts.append(severity_hints.get(severity, ""))` |
@@ -1057,6 +1059,12 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_audit_review_closeout_certificate.py` | 55 | audit_append_call | `results.append(` |
 | `scripts/check_auth_boundary_evidence.py` | 58 | audit_append_call | `results.append(EvidenceResult(rel_path, path.exists(), "present" if path.exists() else "missing"))` |
 | `scripts/check_auth_boundary_evidence.py` | 62 | audit_append_call | `results.append(EvidenceResult(rel_path, snippet in text, f"contains {snippet!r}" if snippet in text else f"missing {snippet!r}"))` |
+| `scripts/check_auth_token_claims_repair.py` | 38 | audit_append_call | `failures.append("helper missing")` |
+| `scripts/check_auth_token_claims_repair.py` | 43 | audit_append_call | `failures.append("router missing")` |
+| `scripts/check_auth_token_claims_repair.py` | 51 | audit_append_call | `failures.append("helper import missing")` |
+| `scripts/check_auth_token_claims_repair.py` | 56 | audit_append_call | `failures.append("helper marker missing")` |
+| `scripts/check_auth_token_claims_repair.py` | 59 | audit_append_call | `failures.append("raw email_encrypted")` |
+| `scripts/check_auth_token_claims_repair.py` | 67 | audit_append_call | `failures.append("report missing")` |
 | `scripts/check_backend_consolidation_dragons.py` | 28 | audit_append_call | `paths.append(path)` |
 | `scripts/check_backend_consolidation_dragons.py` | 44 | audit_append_call | `matched_paths.append(str(path.relative_to(REPO_ROOT)))` |
 | `scripts/check_backend_consolidation_dragons.py` | 51 | audit_events_table | `"audit_events": _scan(r"\baudit_events\b"),` |
@@ -1315,6 +1323,11 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_learning_evidence.py` | 74 | audit_append_call | `results.append(EvidenceResult(rel_path, path.exists(), "present" if path.exists() else "missing"))` |
 | `scripts/check_learning_evidence.py` | 80 | audit_append_call | `results.append(` |
 | `scripts/check_lesson_generation_safety_contract.py` | 41 | audit_append_call | `results.append(` |
+| `scripts/check_lesson_object_authorization_repair.py` | 34 | audit_append_call | `failures.append("helper import")` |
+| `scripts/check_lesson_object_authorization_repair.py` | 45 | audit_append_call | `failures.append(f"{node.name} read")` |
+| `scripts/check_lesson_object_authorization_repair.py` | 51 | audit_append_call | `failures.append(f"{node.name} write")` |
+| `scripts/check_lesson_object_authorization_repair.py` | 57 | audit_append_call | `failures.append(f"{node.name} sync")` |
+| `scripts/check_lesson_object_authorization_repair.py` | 65 | audit_append_call | `failures.append("report")` |
 | `scripts/check_llm_provider_fallback_contract.py` | 47 | audit_append_call | `results.append(` |
 | `scripts/check_llm_provider_fallback_contract.py` | 56 | audit_append_call | `results.append(` |
 | `scripts/check_llm_provider_fallback_contract.py` | 65 | audit_append_call | `results.append(` |
@@ -1343,6 +1356,15 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_popia_consent_boundary_matrix.py` | 36 | audit_append_call | `results.append(` |
 | `scripts/check_popia_consent_boundary_matrix.py` | 45 | audit_append_call | `results.append(` |
 | `scripts/check_popia_consent_boundary_matrix.py` | 64 | audit_append_call | `results.append(CheckResult(f"{key[0]}::{key[1]}", key in present, "expected active-consent route"))` |
+| `scripts/check_popia_consent_lifecycle_repair.py` | 28 | audit_append_call | `failures.append("deprecated consent service import")` |
+| `scripts/check_popia_consent_lifecycle_repair.py` | 36 | audit_append_call | `failures.append("canonical consent service import")` |
+| `scripts/check_popia_consent_lifecycle_repair.py` | 40 | audit_append_call | `failures.append("generated actor dependency")` |
+| `scripts/check_popia_consent_lifecycle_repair.py` | 48 | audit_append_call | `failures.append("canonical consent dependency helper")` |
+| `scripts/check_popia_consent_lifecycle_repair.py` | 60 | audit_append_call | `failures.append("no lifecycle functions")` |
+| `scripts/check_popia_consent_lifecycle_repair.py` | 67 | audit_append_call | `failures.append(f"{node.name} current_user")` |
+| `scripts/check_popia_consent_lifecycle_repair.py` | 72 | audit_append_call | `failures.append(f"{node.name} learner-write")` |
+| `scripts/check_popia_consent_lifecycle_repair.py` | 77 | audit_append_call | `failures.append(f"{node.name} actor")` |
+| `scripts/check_popia_consent_lifecycle_repair.py` | 85 | audit_append_call | `failures.append("repair report")` |
 | `scripts/check_popia_legal_evidence.py` | 34 | audit_append_call | `results.append(Result("docs/legal/legal_documents_index.md", snippet.lower() in text.lower(), f"contains {snippet!r}"))` |
 | `scripts/check_post_beta_evidence_archive_manifest.py` | 59 | audit_append_call | `results.append(` |
 | `scripts/check_post_closeout_custody_register.py` | 55 | audit_append_call | `results.append(` |
@@ -1556,12 +1578,15 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_truthful_beta_readiness_status.py` | 76 | audit_append_call | `lines.append("- None")` |
 | `scripts/generate_truthful_release_owner_beta_go_no_go.py` | 38 | audit_append_call | `lines.append("- None")` |
 | `scripts/generate_truthful_release_owner_beta_go_no_go.py` | 43 | audit_logs_table | `"This memo does not approve production launch, destructive database changes, consent-table merge, audit_logs drop, public mutating health probes, or synthetic evidence substitution.",` |
+| `scripts/inspect_auth_token_claims.py` | 35 | audit_append_call | `rows.append(node.module or "")` |
 | `scripts/inspect_learner_routes.py` | 106 | audit_append_call | `candidates.append(` |
 | `scripts/inspect_learner_routes.py` | 128 | audit_append_call | `references.append(` |
 | `scripts/inspect_learner_routes.py` | 156 | audit_append_call | `lines.append(` |
 | `scripts/inspect_learner_routes.py` | 161 | audit_append_call | `lines.append("\| — \| — \| — \| — \| — \| no route candidates found \|")` |
 | `scripts/inspect_learner_routes.py` | 175 | audit_append_call | `lines.append(f"\| `{reference.file}` \| {reference.line} \| `{safe_text}` \|")` |
 | `scripts/inspect_learner_routes.py` | 178 | audit_append_call | `lines.append(f"\| — \| — \| `{len(references) - 200} additional references omitted` \|")` |
+| `scripts/inspect_lesson_object_authorization.py` | 23 | audit_append_call | `rows.append({"name": node.name, "args": args, "lineno": node.lineno})` |
+| `scripts/inspect_popia_consent_lifecycle.py` | 34 | audit_append_call | `imports.append(node.module or "")` |
 | `scripts/integrate_patch.py` | 59 | audit_append_call | `staged_conflicts.append(target)` |
 | `scripts/integrate_patch.py` | 64 | audit_append_call | `moved.append(dest_file)` |
 | `scripts/inventory_services.py` | 92 | audit_append_call | `found_duplicates.append((dup_path, canonical_rel))` |
@@ -1604,13 +1629,21 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/prepare_training_data.py` | 117 | audit_append_call | `pairs.append({` |
 | `scripts/prepare_training_data.py` | 125 | audit_append_call | `pairs.append({` |
 | `scripts/reconcile_agent_roadmap.py` | 69 | audit_append_call | `lines.append(f"\| {task.id} \| {task.priority} \| {task.area} \| {task.status} \| {task.title} \| {task.next_action} \|")` |
-| `scripts/refresh_current_state_doc.py` | 356 | audit_append_call | `results.append(r)` |
+| `scripts/refresh_current_state_doc.py` | 358 | audit_append_call | `results.append(r)` |
 | `scripts/remove_proven_dead_backend_consolidation_artifacts.py` | 9 | audit_append_call | `skipped.append(f"{p.relative_to(ROOT)}: active/protected"); continue` |
 | `scripts/remove_proven_dead_backend_consolidation_artifacts.py` | 12 | audit_append_call | `skipped.append(f"{p.relative_to(ROOT)}: referenced"); continue` |
 | `scripts/remove_proven_dead_backend_consolidation_artifacts.py` | 13 | audit_append_call | `p.unlink(); removed.append(str(p.relative_to(ROOT)))` |
 | `scripts/rename_metaphor_layers.py` | 85 | audit_append_call | `hits.append((path, lineno, match.group(0).lower(), line.rstrip()))` |
 | `scripts/repair_beta_evidence_integrity.py` | 129 | audit_append_call | `blockers.append("invalid_or_synthetic_evidence")` |
 | `scripts/repair_beta_evidence_integrity.py` | 164 | audit_append_call | `lines.append(` |
+| `scripts/repair_lesson_object_authorization.py` | 110 | audit_append_call | `blockers.append(f"{node.name}: missing db/session or current_user-like argument for read authz")` |
+| `scripts/repair_lesson_object_authorization.py` | 112 | audit_append_call | `insertions.append((node.body[0].lineno - 1, f"{indent}{MARKER_READ}\n{indent}await require_lesson_read_access_for_current_user({db}, {user}, lesson_id)"))` |
+| `scripts/repair_lesson_object_authorization.py` | 115 | audit_append_call | `blockers.append(f"{node.name}: missing db/session or current_user-like argument for write authz")` |
+| `scripts/repair_lesson_object_authorization.py` | 117 | audit_append_call | `insertions.append((node.body[0].lineno - 1, f"{indent}{MARKER_WRITE}\n{indent}await require_lesson_write_access_for_current_user({db}, {user}, lesson_id)"))` |
+| `scripts/repair_lesson_object_authorization.py` | 121 | audit_append_call | `blockers.append(f"{node.name}: missing db/current_user/payload argument for sync authz")` |
+| `scripts/repair_lesson_object_authorization.py` | 128 | audit_append_call | `insertions.append((node.body[0].lineno - 1, snippet))` |
+| `scripts/repair_popia_consent_lifecycle.py` | 215 | audit_append_call | `blocks.append(node)` |
+| `scripts/repair_popia_consent_lifecycle.py` | 253 | audit_append_call | `insertions.append((insertion_line, snippet))` |
 | `scripts/run_database_backup.py` | 37 | audit_append_call | `results.append(` |
 | `scripts/run_database_backup.py` | 60 | audit_append_call | `lines.append(f"- `{name}`")` |
 | `scripts/run_database_restore.py` | 36 | audit_append_call | `results.append(` |
@@ -1752,6 +1785,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/unit/test_billing_monetization_production_readiness.py` | 69 | audit_log_identifier | `assert "processed:evt_1:invoice.created:1" in store.audit_log` |
 | `tests/unit/test_billing_monetization_production_readiness.py` | 70 | audit_log_identifier | `assert "duplicate:evt_1:invoice.created" in store.audit_log` |
 | `tests/unit/test_consent_policy.py` | 75 | audit_append_call | `self.events.append(kwargs)` |
+| `tests/unit/test_lesson_object_authorization_contracts.py` | 48 | audit_append_call | `candidates.append(node)` |
+| `tests/unit/test_lesson_object_authorization_contracts.py` | 62 | audit_append_call | `candidates.append(node)` |
 | `tests/unit/test_no_raw_dict_responses.py` | 74 | audit_append_call | `violations.append(` |
 | `tests/unit/test_readonly_deep_readiness_runtime.py` | 7 | audit_append_call | `async def execute(self, statement): self.statements.append(str(statement)); return R()` |
 | `tests/unit/test_real_audit_runtime_facade.py` | 6 | audit_append_call | `async def record(self, **kw): self.events.append(kw); return {"ok": True}` |

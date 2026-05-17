@@ -1,6 +1,6 @@
 # CI Evidence
 
-**Status:** pending_remote_ci_evidence
+**Status:** pending remote CI verification
 
 | Field | Value |
 |---|---|
@@ -9,7 +9,7 @@
 | Branch | PENDING |
 | Result | PENDING |
 | Test summary | PENDING |
-| Captured at | 2026-05-17T12:12:51Z |
+| Captured at | 2026-05-17T20:43:55Z |
 
 ## Usage
 
@@ -20,3 +20,6 @@ CI_COMMIT_SHA=<sha> \
 CI_BRANCH=codex/production_readiness \
 make remote-ci-evidence-capture
 ```
+
+## Checklists
+- Route alias policy: pending verification

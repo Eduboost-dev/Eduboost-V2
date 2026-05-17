@@ -1,4 +1,5 @@
 from fastapi.responses import JSONResponse
+from app.services.auth_token_claims import build_access_token_claims, merge_refresh_claims
 """
 EduBoost V2 — Auth Router
 Register, login, and JWT refresh with HTTP-only cookie for refresh token.
@@ -24,6 +25,7 @@ from app.core.security import (
     create_access_token,
     create_refresh_token,
     decode_token,
+    encrypt_pii,
     get_current_user,
     hash_email,
     hash_password,
@@ -38,6 +40,15 @@ from app.repositories.repositories import ConsentRepository, GuardianRepository,
 from app.core.rate_limit import limiter
 
 
+
+
+# code_631_650_auth_token_claims_repair
+def _canonical_access_claims(user, *, existing_claims=None, extra=None):
+    return build_access_token_claims(user, existing_claims=existing_claims, extra=extra)
+
+
+def _canonical_refresh_claims(existing_claims, user):
+    return merge_refresh_claims(existing_claims or {}, user)
 
 def _legacy_refresh_error_response(message: str, status_code: int = 401) -> JSONResponse:
     """Return v2-compatible error with legacy top-level detail for integration tests."""
@@ -89,7 +100,7 @@ async def register(request: Request, body: RegisterRequest, response: Response, 
     role = UserRole(body.role)
     guardian = await repo.create(
         email_hash=email_hash,
-        email_encrypted=submitted_email,
+        email_encrypted=encrypt_pii(submitted_email.lower().strip()),
         display_name=body.display_name,
         role=role,
         password_hash=hash_password(body.password),
@@ -97,7 +108,11 @@ async def register(request: Request, body: RegisterRequest, response: Response, 
 
     refresh = create_refresh_token(guardian.id, guardian.role)
     refresh_payload = decode_token(refresh)
-    access = create_access_token(guardian.id, guardian.role, {"refresh_jti": refresh_payload.get("jti"), "refresh_family": refresh_payload.get("family")})
+    claims = _canonical_access_claims(
+        guardian,
+        extra={"refresh_jti": refresh_payload.get("jti"), "refresh_family": refresh_payload.get("family")}
+    )
+    access = create_access_token(guardian.id, guardian.role, claims)
 
     await store_refresh_token(refresh)
     _set_refresh_cookie(response, refresh)
@@ -121,7 +136,11 @@ async def login(request: Request, body: LoginRequest, response: Response, db: As
 
     refresh = create_refresh_token(guardian.id, guardian.role)
     refresh_payload = decode_token(refresh)
-    access = create_access_token(guardian.id, guardian.role, {"refresh_jti": refresh_payload.get("jti"), "refresh_family": refresh_payload.get("family")})
+    claims = _canonical_access_claims(
+        guardian,
+        extra={"refresh_jti": refresh_payload.get("jti"), "refresh_family": refresh_payload.get("family")}
+    )
+    access = create_access_token(guardian.id, guardian.role, claims)
 
     await store_refresh_token(refresh)
     _set_refresh_cookie(response, refresh)
@@ -150,7 +169,7 @@ async def create_dev_session(response: Response, db: AsyncSession = Depends(get_
     if guardian is None:
         guardian = await guardian_repo.create(
             email_hash=email_hash,
-            email_encrypted=DEV_GUARDIAN_EMAIL,
+            email_encrypted=encrypt_pii(DEV_GUARDIAN_EMAIL.lower().strip()),
             display_name=DEV_GUARDIAN_NAME,
             role=UserRole.PARENT,
             password_hash=hash_password(DEV_GUARDIAN_PASSWORD),
@@ -181,15 +200,16 @@ async def create_dev_session(response: Response, db: AsyncSession = Depends(get_
     if learner.id not in learner_ids:
         learner_ids.append(str(learner.id))
         
-    access = create_access_token(
-        guardian.id, 
-        guardian.role, 
-        {
+    guardian.guardian_learner_ids = learner_ids
+    claims = _canonical_access_claims(
+        guardian,
+        extra={
             "refresh_jti": refresh_payload.get("jti"), 
             "refresh_family": refresh_payload.get("family"),
             "guardian_learner_ids": learner_ids
         }
     )
+    access = create_access_token(guardian.id, guardian.role, claims)
     await store_refresh_token(refresh)
     _set_refresh_cookie(response, refresh)
     await audit.auth_event("DEV_SESSION_BOOTSTRAPPED", guardian.id, {"learner_id": learner.id})
@@ -234,7 +254,17 @@ async def refresh_token(
 
     new_refresh = create_refresh_token(guardian.id, guardian.role, family_id=payload.get("family"))
     new_refresh_payload = decode_token(new_refresh)
-    access = create_access_token(guardian.id, guardian.role, {"refresh_jti": new_refresh_payload.get("jti"), "refresh_family": new_refresh_payload.get("family")})
+    
+    # Query guardian_learner_ids to ensure they are preserved/updated correctly!
+    learner_repo = LearnerRepository(db)
+    learners = await learner_repo.get_by_guardian(guardian.id)
+    guardian.guardian_learner_ids = [str(l.id) for l in learners]
+    
+    claims = _canonical_access_claims(
+        guardian,
+        extra={"refresh_jti": new_refresh_payload.get("jti"), "refresh_family": new_refresh_payload.get("family")}
+    )
+    access = create_access_token(guardian.id, guardian.role, claims)
     await store_refresh_token(new_refresh)
     await FourthEstateService(db).auth_event("USER_TOKEN_REFRESHED", guardian.id)
     _set_refresh_cookie(response, new_refresh)

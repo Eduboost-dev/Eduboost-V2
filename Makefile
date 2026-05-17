@@ -1305,3 +1305,18 @@ backend-implementation-611-630-full-check: lesson-object-authorization-inspect l
 	python3 -m compileall -q app/api_v2_routers app/modules/lessons app/services app/repositories
 	pytest -c pytest.ini tests/unit/test_lesson_object_authorization_contracts.py -q --no-cov --tb=short
 
+.PHONY: auth-token-claims-inspect auth-token-claims-repair auth-token-claims-check backend-implementation-631-650-full-check
+
+auth-token-claims-inspect:
+	PYTHONPATH=. python3 scripts/inspect_auth_token_claims.py
+
+auth-token-claims-repair:
+	PYTHONPATH=. python3 scripts/repair_auth_token_claims.py
+
+auth-token-claims-check:
+	PYTHONPATH=. python3 scripts/check_auth_token_claims_repair.py
+
+backend-implementation-631-650-full-check: auth-token-claims-inspect auth-token-claims-repair auth-token-claims-check
+	python3 -m compileall -q app/api_v2_routers app/services app/modules/auth app/repositories
+	pytest -c pytest.ini tests/unit/test_auth_token_claims_contracts.py -q --no-cov --tb=short
+

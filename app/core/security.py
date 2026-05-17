@@ -4,12 +4,15 @@ JWT creation/verification, bcrypt password hashing, RBAC role enforcement.
 """
 from __future__ import annotations
 
+import base64
 import hashlib
+import hmac
 import uuid
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
 import bcrypt
+from cryptography.fernet import Fernet
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
@@ -17,6 +20,7 @@ from jose import JWTError, jwt
 from app.core.config import settings
 from app.core.token_revocation import is_token_revoked, is_user_revoked
 from app.models import UserRole
+
 
 Role = UserRole
 TokenPayload = dict[str, Any]
@@ -144,6 +148,31 @@ require_admin = require_roles(UserRole.ADMIN)
 require_parent_or_admin = require_roles(UserRole.PARENT, UserRole.ADMIN)
 require_teacher_or_admin = require_roles(UserRole.TEACHER, UserRole.ADMIN)
 
+
+def _get_fernet() -> Fernet:
+    key_material = hmac.new(
+        settings.ENCRYPTION_KEY.encode(),
+        settings.ENCRYPTION_SALT.encode(),
+        hashlib.sha256,
+    ).digest()
+    fernet_key = base64.urlsafe_b64encode(key_material)
+    return Fernet(fernet_key)
+
+
+def encrypt_pii(plaintext: str) -> str:
+    """Encrypt PII (e.g., guardian email). Returns hex-encoded ciphertext."""
+    if not plaintext:
+        return ""
+    return _get_fernet().encrypt(plaintext.encode()).hex()
+
+
+def decrypt_pii(ciphertext_hex: str) -> str:
+    """Decrypt PII ciphertext."""
+    if not ciphertext_hex:
+        return ""
+    return _get_fernet().decrypt(bytes.fromhex(ciphertext_hex)).decode()
+
+
 __all__ = [
     "Role",
     "TokenPayload",
@@ -160,4 +189,7 @@ __all__ = [
     "require_roles",
     "require_teacher_or_admin",
     "verify_password",
+    "encrypt_pii",
+    "decrypt_pii",
 ]
+

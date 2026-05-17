@@ -41,10 +41,10 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `alembic/versions/_deprecated/0001_schema_from_technical_report.py` | 70 | parental_consents_table | `"parental_consents",` |
 | `alembic/versions/_deprecated/0001_schema_from_technical_report.py` | 81 | parental_consents_table | `op.create_index("ix_consents_learner_id", "parental_consents", ["learner_id"])` |
 | `alembic/versions/_deprecated/0001_schema_from_technical_report.py` | 187 | parental_consents_table | `"parental_consents",` |
-| `app/api_v2_routers/auth.py` | 37 | consent_repository | `from app.repositories.repositories import ConsentRepository, GuardianRepository, LearnerRepository` |
-| `app/api_v2_routers/auth.py` | 145 | consent_repository | `consent_repo = ConsentRepository(db)` |
-| `app/api_v2_routers/auth.py` | 169 | consent_repository | `if await consent_repo.get_active(learner.id) is None:` |
-| `app/api_v2_routers/auth.py` | 170 | consent_repository | `await consent_repo.create(` |
+| `app/api_v2_routers/auth.py` | 39 | consent_repository | `from app.repositories.repositories import ConsentRepository, GuardianRepository, LearnerRepository` |
+| `app/api_v2_routers/auth.py` | 164 | consent_repository | `consent_repo = ConsentRepository(db)` |
+| `app/api_v2_routers/auth.py` | 188 | consent_repository | `if await consent_repo.get_active(learner.id) is None:` |
+| `app/api_v2_routers/auth.py` | 189 | consent_repository | `await consent_repo.create(` |
 | `app/api_v2_routers/consent.py` | 18 | consent_service | `from app.modules.consent.service import ConsentService` |
 | `app/api_v2_routers/consent.py` | 47 | consent_service | `# AuditLog emission is handled inside ConsentService.grant().` |
 | `app/api_v2_routers/consent.py` | 47 | consent_grant | `# AuditLog emission is handled inside ConsentService.grant().` |
@@ -58,18 +58,31 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `app/api_v2_routers/learners.py` | 143 | consent_service | `consent_svc = ConsentService(db)` |
 | `app/api_v2_routers/parents.py` | 23 | consent_service | `from app.services.consent import ConsentService` |
 | `app/api_v2_routers/parents.py` | 282 | consent_service | `consent_service = ConsentService(db)` |
-| `app/api_v2_routers/popia.py` | 9 | require_active_consent | `All learner-data routes use the require_active_consent dependency (§4.2).` |
-| `app/api_v2_routers/popia.py` | 19 | require_active_consent | `from app.core.consent_gate import ActiveConsent, require_active_consent` |
-| `app/api_v2_routers/popia.py` | 27 | consent_service | `from app.services.consent_service import ConsentService` |
-| `app/api_v2_routers/popia.py` | 38 | consent_repository | `from app.repositories.repositories import AuditRepository, ConsentRepository, LearnerRepository` |
-| `app/api_v2_routers/popia.py` | 41 | consent_service | `async def get_consent_service_for_router(db: AsyncSession = Depends(get_db)) -> ConsentService:` |
-| `app/api_v2_routers/popia.py` | 42 | consent_service | `return ConsentService(ConsentRepository(db), AuditRepository(db))` |
-| `app/api_v2_routers/popia.py` | 42 | consent_repository | `return ConsentService(ConsentRepository(db), AuditRepository(db))` |
-| `app/api_v2_routers/popia.py` | 125 | consent_service | `consent_svc: ConsentService = Depends(get_consent_service_for_router),` |
-| `app/api_v2_routers/popia.py` | 129 | consent_grant | `return await consent_svc.grant(` |
-| `app/api_v2_routers/popia.py` | 141 | consent_service | `consent_svc: ConsentService = Depends(get_consent_service_for_router),` |
-| `app/api_v2_routers/popia.py` | 157 | consent_service | `consent_svc: ConsentService = Depends(get_consent_service_for_router),` |
-| `app/api_v2_routers/popia.py` | 170 | consent_service | `consent_svc: ConsentService = Depends(get_consent_service_for_router),` |
+| `app/api_v2_routers/popia.py` | 9 | consent_repository | `from app.repositories.consent_repository import ConsentRepository` |
+| `app/api_v2_routers/popia.py` | 14 | require_active_consent | `All learner-data routes use the require_active_consent dependency (§4.2).` |
+| `app/api_v2_routers/popia.py` | 24 | require_active_consent | `from app.core.consent_gate import ActiveConsent, require_active_consent` |
+| `app/api_v2_routers/popia.py` | 32 | consent_service | `from app.modules.consent.service import ConsentService` |
+| `app/api_v2_routers/popia.py` | 43 | consent_repository | `from app.repositories.repositories import AuditRepository, ConsentRepository, LearnerRepository` |
+| `app/api_v2_routers/popia.py` | 46 | consent_service | `async def get_consent_service_for_router(db: AsyncSession = Depends(get_db)) -> ConsentService:` |
+| `app/api_v2_routers/popia.py` | 47 | consent_service | `return ConsentService(ConsentRepository(db), AuditRepository(db))` |
+| `app/api_v2_routers/popia.py` | 47 | consent_repository | `return ConsentService(ConsentRepository(db), AuditRepository(db))` |
+| `app/api_v2_routers/popia.py` | 156 | consent_service | `def get_canonical_consent_service(db: AsyncSession = Depends(get_db)) -> ConsentService:` |
+| `app/api_v2_routers/popia.py` | 158 | consent_service | `params = inspect.signature(ConsentService).parameters` |
+| `app/api_v2_routers/popia.py` | 160 | consent_service | `return ConsentService(session=db)` |
+| `app/api_v2_routers/popia.py` | 162 | consent_service | `return ConsentService(db=db)` |
+| `app/api_v2_routers/popia.py` | 163 | consent_repository | `if "consent_repository" in params or "consent_repo" in params:` |
+| `app/api_v2_routers/popia.py` | 164 | consent_repository | `repo = ConsentRepository(db)` |
+| `app/api_v2_routers/popia.py` | 166 | consent_service | `return ConsentService(consent_repository=repo)` |
+| `app/api_v2_routers/popia.py` | 167 | consent_service | `return ConsentService(consent_repo=repo)` |
+| `app/api_v2_routers/popia.py` | 167 | consent_repository | `return ConsentService(consent_repo=repo)` |
+| `app/api_v2_routers/popia.py` | 169 | consent_service | `return ConsentService(db)` |
+| `app/api_v2_routers/popia.py` | 172 | consent_service | `"Cannot construct canonical ConsentService from AsyncSession. "` |
+| `app/api_v2_routers/popia.py` | 173 | consent_service | `"Align app.modules.consent.service.ConsentService constructor before using POPIA lifecycle routes."` |
+| `app/api_v2_routers/popia.py` | 180 | consent_service | `consent_svc: ConsentService = Depends(get_canonical_consent_service),` |
+| `app/api_v2_routers/popia.py` | 186 | consent_grant | `return await consent_svc.grant(` |
+| `app/api_v2_routers/popia.py` | 198 | consent_service | `consent_svc: ConsentService = Depends(get_canonical_consent_service),` |
+| `app/api_v2_routers/popia.py` | 216 | consent_service | `consent_svc: ConsentService = Depends(get_canonical_consent_service),` |
+| `app/api_v2_routers/popia.py` | 231 | consent_service | `consent_svc: ConsentService = Depends(get_canonical_consent_service),` |
 | `app/core/consent_gate.py` | 10 | require_active_consent | `_: ConsentRecord = Depends(require_active_consent),` |
 | `app/core/consent_gate.py` | 26 | consent_service | `from app.services.consent_service import ConsentService` |
 | `app/core/consent_gate.py` | 52 | require_active_consent | `async def require_active_consent(` |
@@ -200,13 +213,14 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `app/services/consent_renewal_service.py` | 294 | parental_consent_model | `ParentalConsent.expires_at <= cutoff,` |
 | `app/services/consent_runtime_compatibility.py` | 10 | consent_service | `"app.services.consent_service.ConsentService",` |
 | `app/services/consent_runtime_compatibility.py` | 11 | consent_service | `"app.modules.consent.service.ConsentService",` |
-| `app/services/consent_service.py` | 21 | consent_repository | `from app.repositories.consent_repository import ConsentRepository` |
-| `app/services/consent_service.py` | 24 | consent_service | `class ConsentService:` |
-| `app/services/consent_service.py` | 27 | consent_repository | `consent_repo: ConsentRepository,` |
-| `app/services/consent_service.py` | 30 | consent_repository | `self._consent = consent_repo` |
-| `app/services/consent_service.py` | 37 | consent_grant | `async def grant(` |
-| `app/services/consent_service.py` | 51 | consent_grant | `updated = existing.grant(privacy_notice_version)` |
-| `app/services/consent_service.py` | 59 | consent_grant | `).grant(privacy_notice_version)` |
+| `app/services/consent_service.py` | 2 | consent_service | `# Canonical consent service: app.modules.consent.service.ConsentService` |
+| `app/services/consent_service.py` | 26 | consent_repository | `from app.repositories.consent_repository import ConsentRepository` |
+| `app/services/consent_service.py` | 29 | consent_service | `class ConsentService:` |
+| `app/services/consent_service.py` | 32 | consent_repository | `consent_repo: ConsentRepository,` |
+| `app/services/consent_service.py` | 35 | consent_repository | `self._consent = consent_repo` |
+| `app/services/consent_service.py` | 42 | consent_grant | `async def grant(` |
+| `app/services/consent_service.py` | 56 | consent_grant | `updated = existing.grant(privacy_notice_version)` |
+| `app/services/consent_service.py` | 64 | consent_grant | `).grant(privacy_notice_version)` |
 | `app/services/data_subject_rights_service.py` | 220 | consent_records_table | `"DELETE FROM consent_records WHERE learner_id = $1", learner_id` |
 | `app/services/data_subject_rights_service.py` | 379 | consent_records_table | `"FROM consent_records WHERE learner_id=$1",` |
 | `app/services/popia_service.py` | 21 | parental_consent_model | `from app.models import DiagnosticSession, KnowledgeGap, LearnerProfile, Lesson, ParentalConsent` |
@@ -263,6 +277,25 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `scripts/popia_sweep.py` | 273 | require_active_consent | `"calling ConsentService.require_active_consent(). "` |
 | `scripts/popia_sweep.py` | 297 | consent_grant | `kw in func_source for kw in ["mark_granted", "mark_revoked", "execute_erasure", "grant(", "revoke("]` |
 | `scripts/popia_sweep.py` | 297 | consent_revoke | `kw in func_source for kw in ["mark_granted", "mark_revoked", "execute_erasure", "grant(", "revoke("]` |
+| `scripts/repair_popia_consent_lifecycle.py` | 126 | consent_service | `"from app.services.consent_service import ConsentService",` |
+| `scripts/repair_popia_consent_lifecycle.py` | 127 | consent_service | `"from app.modules.consent.service import ConsentService",` |
+| `scripts/repair_popia_consent_lifecycle.py` | 184 | consent_service | `def get_canonical_consent_service(db: AsyncSession = Depends(get_db)) -> ConsentService:` |
+| `scripts/repair_popia_consent_lifecycle.py` | 186 | consent_service | `params = inspect.signature(ConsentService).parameters` |
+| `scripts/repair_popia_consent_lifecycle.py` | 188 | consent_service | `return ConsentService(session=db)` |
+| `scripts/repair_popia_consent_lifecycle.py` | 190 | consent_service | `return ConsentService(db=db)` |
+| `scripts/repair_popia_consent_lifecycle.py` | 191 | consent_repository | `if "consent_repository" in params or "consent_repo" in params:` |
+| `scripts/repair_popia_consent_lifecycle.py` | 192 | consent_repository | `repo = ConsentRepository(db)` |
+| `scripts/repair_popia_consent_lifecycle.py` | 194 | consent_service | `return ConsentService(consent_repository=repo)` |
+| `scripts/repair_popia_consent_lifecycle.py` | 195 | consent_service | `return ConsentService(consent_repo=repo)` |
+| `scripts/repair_popia_consent_lifecycle.py` | 195 | consent_repository | `return ConsentService(consent_repo=repo)` |
+| `scripts/repair_popia_consent_lifecycle.py` | 197 | consent_service | `return ConsentService(db)` |
+| `scripts/repair_popia_consent_lifecycle.py` | 200 | consent_service | `"Cannot construct canonical ConsentService from AsyncSession. "` |
+| `scripts/repair_popia_consent_lifecycle.py` | 201 | consent_service | `"Align app.modules.consent.service.ConsentService constructor before using POPIA lifecycle routes."` |
+| `scripts/repair_popia_consent_lifecycle.py` | 262 | consent_service | `r":\s*ConsentService\s*=\s*Depends\([^)]*\)",` |
+| `scripts/repair_popia_consent_lifecycle.py` | 263 | consent_service | `": ConsentService = Depends(get_canonical_consent_service)",` |
+| `scripts/repair_popia_consent_lifecycle.py` | 276 | consent_service | `"# Canonical consent service: app.modules.consent.service.ConsentService\n"` |
+| `scripts/repair_popia_consent_lifecycle.py` | 317 | consent_repository | `text = _ensure_import(text, "from app.repositories.consent_repository import ConsentRepository")` |
+| `scripts/repair_popia_consent_lifecycle.py` | 351 | consent_service | `"\| Canonical ConsentService helper inserted \| true \|",` |
 | `scripts/validate_schema_integrity.py` | 27 | parental_consents_table | `"parental_consents",` |
 | `scripts/validate_schema_integrity.py` | 45 | parental_consents_table | `"parental_consents": {` |
 | `scripts/validate_schema_integrity.py` | 63 | parental_consents_table | `"parental_consents": {` |
