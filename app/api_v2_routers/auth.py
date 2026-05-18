@@ -2,7 +2,7 @@
 EduBoost V2 — Auth Router
 Register, login, and JWT refresh with HTTP-only cookie for refresh token.
 """
-from __future__ import annotations
+from typing import TYPE_CHECKING
 
 from fastapi import APIRouter, Cookie, Depends, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
@@ -38,8 +38,6 @@ from app.services.auth_token_claims import build_access_token_claims, merge_refr
 from app.domain.schemas import LoginRequest, RefreshRequest, RegisterRequest, TokenResponse
 from app.models import UserRole
 from app.core.rate_limit import limiter
-
-
 
 
 # code_631_650_auth_token_claims_repair

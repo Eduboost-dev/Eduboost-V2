@@ -530,3 +530,36 @@ make runtime-blockers-followup-check
 make backend-implementation-781-830-full-check
 ```
 
+## Backend implementation 831-870 — POPIA lifecycle integration tests and diagnostics DB integrity proof
+
+Audit drivers:
+
+- POPIA lifecycle adapter repair must be backed by runtime-shaped integration tests.
+- Diagnostics must have DB-backed proof that unserved item/session/CAPS mismatches are rejected.
+- Focused ruff checks for critical runtime files must be mandatory for this slice.
+
+Commands:
+
+```bash
+make runtime-integration-proof-report
+make runtime-integration-proof-check
+make popia-lifecycle-integration-test
+make diagnostics-db-integrity-proof-test
+make backend-implementation-831-870-full-check
+```
+
+## Backend implementation 831-870R — Auth forward-reference runtime import repair
+
+Failure addressed:
+
+- `app.api_v2` import failed during FastAPI route registration because `RegisterRequest` was referenced in `auth.py` route annotations but was not present in auth module globals.
+- This caused broad collection failures across integration, smoke, and health tests.
+
+Commands:
+
+```bash
+make auth-forward-refs-repair
+make auth-forward-refs-check
+make backend-implementation-831-870R-forward-ref-check
+```
+
