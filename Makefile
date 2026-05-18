@@ -1437,3 +1437,33 @@ backend-implementation-781-830-full-check: runtime-blockers-followup-repair runt
 	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/modules app/services scripts
 	pytest -c pytest.ini tests/unit/test_runtime_blockers_after_followup_audit.py -q --no-cov --tb=short
 
+.PHONY: runtime-integration-proof-report runtime-integration-proof-check popia-lifecycle-integration-test diagnostics-db-integrity-proof-test backend-implementation-831-870-full-check
+
+runtime-integration-proof-report:
+	PYTHONPATH=. python3 scripts/generate_runtime_integration_proof_reports.py
+
+runtime-integration-proof-check:
+	PYTHONPATH=. python3 scripts/check_runtime_integration_proof.py
+
+popia-lifecycle-integration-test:
+	pytest -c pytest.ini tests/integration/test_popia_lifecycle_runtime_contract.py -q --no-cov --tb=short
+
+diagnostics-db-integrity-proof-test:
+	pytest -c pytest.ini tests/integration/test_diagnostics_db_integrity_proof.py -q --no-cov --tb=short
+
+backend-implementation-831-870-full-check: runtime-integration-proof-report runtime-integration-proof-check popia-lifecycle-integration-test diagnostics-db-integrity-proof-test
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/modules app/services scripts tests
+	pytest -c pytest.ini tests/unit/test_runtime_integration_proof_contracts.py -q --no-cov --tb=short
+
+.PHONY: auth-forward-refs-repair auth-forward-refs-check backend-implementation-831-870R-forward-ref-check
+
+auth-forward-refs-repair:
+	PYTHONPATH=. python3 scripts/repair_auth_forward_refs.py
+
+auth-forward-refs-check:
+	PYTHONPATH=. python3 scripts/check_auth_forward_refs.py
+
+backend-implementation-831-870R-forward-ref-check: auth-forward-refs-repair auth-forward-refs-check
+	python3 -m compileall -q app/api_v2_routers/auth.py scripts/repair_auth_forward_refs.py scripts/check_auth_forward_refs.py
+	pytest -c pytest.ini tests/unit/test_auth_forward_ref_import_contract.py -q --no-cov --tb=short
+
