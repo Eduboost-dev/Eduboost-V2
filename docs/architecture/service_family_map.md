@@ -1,6 +1,6 @@
 # Service Family Map
 
-Generated at: `2026-05-18T07:38:25Z`
+Generated at: `2026-05-18T23:19:06Z`
 
 | Domain | Path | Classification | Classes |
 |---|---|---|---|
@@ -10,6 +10,9 @@ Generated at: `2026-05-18T07:38:25Z`
 | audit | `app/services/audit_canonicalization_slice.py` | unclassified | `CanonicalAuditCommand` |
 | audit | `app/services/audit_migration_orchestrator.py` | migration_or_compat_helper | `AuditMigrationEnvelope` |
 | audit | `app/services/audit_service.py` | duplicate_domain_service | `AuditService` |
+| auth | `app/services/auth_application_service.py` | duplicate_domain_service | `AuthApplicationService`, `AuthApplicationServiceError`, `AuthRepositoryBundle` |
+| auth | `app/services/auth_db_lifecycle_proof.py` | unclassified | `AuthDBProofApplicationService`, `AuthDBProofTokens`, `SQLiteAuthLifecycleProofStore` |
+| auth | `app/services/auth_lifecycle_impl.py` | unclassified | - |
 | auth | `app/services/auth_runtime_boundary.py` | active_runtime_facade | `AuthRuntimeContext` |
 | auth | `app/services/auth_service.py` | duplicate_domain_service | `AuthError`, `AuthService`, `CompatSession`, `CompatSession`, `LoginResult`, `SignupResult` |
 | auth | `app/services/auth_token_claims.py` | unclassified | `AuthTokenClaims` |
@@ -40,6 +43,7 @@ Generated at: `2026-05-18T07:38:25Z`
 | diagnostic | `app/services/diagnostic_data_integrity.py` | unclassified | `DiagnosticIntegrityError`, `DiagnosticSubmissionIntegrityResult` |
 | diagnostic | `app/services/diagnostic_safety.py` | unclassified | `DiagnosticItemValidation`, `DiagnosticItemValidator` |
 | diagnostic | `app/services/diagnostic_service_v2.py` | duplicate_domain_service | `DiagnosticServiceV2` |
+| diagnostic | `app/services/diagnostic_session_integrity.py` | unclassified | `ServedDiagnosticItem` |
 | diagnostic | `app/services/diagnostic_session_service.py` | duplicate_domain_service | `DiagnosticSessionNotFoundError`, `DiagnosticSessionService` |
 | other | `app/services/ether.py` | unclassified | - |
 | other | `app/services/ether_service.py` | duplicate_domain_service | `OnboardingResponse` |
@@ -49,8 +53,10 @@ Generated at: `2026-05-18T07:38:25Z`
 | other | `app/services/first_deep_readiness_runtime_wiring.py` | active_runtime_facade | `DeepReadinessRuntimePlan`, `FirstDeepReadinessRuntimeCandidate` |
 | other | `app/services/fourth_estate.py` | unclassified | - |
 | gamification | `app/services/gamification_service_v2.py` | duplicate_domain_service | `GamificationServiceV2`, `_EmptyGamificationRepository` |
+| other | `app/services/job_dependency_factory.py` | unclassified | - |
 | other | `app/services/job_runtime_integrity.py` | active_runtime_facade | `JobRuntimeIntegrityError` |
 | other | `app/services/judiciary.py` | unclassified | - |
+| other | `app/services/jwt_keyring.py` | unclassified | `JWTKey`, `JWTKeyringError` |
 | learner | `app/services/learner_service.py` | duplicate_domain_service | `LearnerService` |
 | auth | `app/services/lesson_authorization.py` | authorization_helper | - |
 | lesson | `app/services/lesson_context_builder.py` | unclassified | `LessonContext`, `LessonContextBuilder` |
@@ -58,6 +64,7 @@ Generated at: `2026-05-18T07:38:25Z`
 | other | `app/services/llm/gateway.py` | unclassified | `CanonicalLLMGateway`, `DeterministicMockProvider`, `LLMGatewayMetadata`, `LLMGatewayRequest`, `LLMGatewayResponse`, `LLMProvider`, `ProviderHealth`, `ProviderPolicy`, `ProviderResult`, `TokenUsage` |
 | other | `app/services/parent_report_service_v2.py` | duplicate_domain_service | `ParentReportServiceV2` |
 | other | `app/services/pii_sweep.py` | unclassified | `PIIFinding`, `PIIScanner`, `PIISweepError`, `SweepResult` |
+| consent | `app/services/popia_consent_lifecycle_adapter.py` | unclassified | `POPIAConsentLifecycleAdapter` |
 | popia | `app/services/popia_service.py` | duplicate_domain_service | `POPIADataRightsService`, `RightsRequestStatus` |
 | other | `app/services/quota_service.py` | duplicate_domain_service | `QuotaExceededError`, `QuotaService`, `SemanticCacheService` |
 | other | `app/services/rlhf_service.py` | duplicate_domain_service | `RLHFService` |

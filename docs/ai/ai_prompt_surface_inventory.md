@@ -106,6 +106,7 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `app/services/diagnostic_data_integrity.py` | `diagnostic` |
 | `app/services/diagnostic_safety.py` | `llm, diagnostic` |
 | `app/services/diagnostic_service_v2.py` | `diagnostic` |
+| `app/services/diagnostic_session_integrity.py` | `diagnostic` |
 | `app/services/diagnostic_session_service.py` | `diagnostic` |
 | `app/services/executive.py` | `llm` |
 | `app/services/lesson_context_builder.py` | `prompt, diagnostic, remediation` |
@@ -170,6 +171,8 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `scripts/check_privacy_legal_release_evidence.py` | `diagnostic` |
 | `scripts/check_release_candidate_evidence_sweep.py` | `diagnostic` |
 | `scripts/check_remediation_safety_contract.py` | `remediation` |
+| `scripts/check_runtime_blockers_after_followup_audit.py` | `diagnostic` |
+| `scripts/check_runtime_integration_proof.py` | `diagnostic` |
 | `scripts/check_security_posture_threat_modeling_production_readiness.py` | `prompt, remediation` |
 | `scripts/ci/check_diagnostics_assessment.py` | `diagnostic` |
 | `scripts/compare_orm_tables_to_database.py` | `diagnostic` |
@@ -190,6 +193,7 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `scripts/generate_learner_authz_matrix.py` | `diagnostic` |
 | `scripts/generate_popia_consent_boundary_matrix.py` | `generate_lesson, diagnostic` |
 | `scripts/generate_route_inventory.py` | `diagnostic` |
+| `scripts/generate_runtime_integration_proof_reports.py` | `diagnostic` |
 | `scripts/generate_service_family_map.py` | `diagnostic` |
 | `scripts/inspect_diagnostics_and_jobs_integrity.py` | `diagnostic` |
 | `scripts/inventory_services.py` | `diagnostic` |
@@ -201,6 +205,7 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `scripts/prepare_training_data.py` | `llm` |
 | `scripts/refresh_current_state_doc.py` | `llm` |
 | `scripts/repair_diagnostics_data_integrity.py` | `diagnostic` |
+| `scripts/repair_runtime_blockers_after_followup_audit.py` | `diagnostic` |
 | `scripts/seed_irt_items.py` | `diagnostic` |
 | `scripts/seed_item_bank.py` | `diagnostic` |
 | `scripts/sync_git_to_redmine.py` | `diagnostic` |

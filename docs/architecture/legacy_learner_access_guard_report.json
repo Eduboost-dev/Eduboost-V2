@@ -1,10 +1,6 @@
 {
-  "generated_at": "2026-05-18T07:38:27Z",
+  "generated_at": "2026-05-18T23:22:23Z",
   "remaining_legacy_guard_references": [
-    {
-      "path": "app/api_v2_routers/diagnostics.py",
-      "count": 1
-    },
     {
       "path": "app/api_v2_routers/learners.py",
       "count": 1

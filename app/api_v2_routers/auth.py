@@ -123,7 +123,21 @@ async def login(
     )
 
 @router.post("/dev-session")
-async def create_dev_session(response: Response, db: AsyncSession = Depends(get_db), auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context), auth_service: AuthApplicationService = Depends(get_auth_application_service)):
+async def create_dev_session(
+    response: Response,
+    db: AsyncSession = Depends(get_db),
+    auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context),
+    auth_service: AuthApplicationService = Depends(get_auth_application_service),
+):
+    """
+    Non-production bootstrap endpoint for the local learner flow.
+    Creates or reuses a guardian, learner, and active consent so the frontend
+    can exercise authenticated V2 routes without hand-editing localStorage.
+    DEV_SESSION_BOOTSTRAPPED
+    """
+    if settings.is_production():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
+
     # code_911_950_auth_lifecycle_delegate
     return await auth_service.create_dev_session(
             response=response,

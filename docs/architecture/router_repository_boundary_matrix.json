@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-18T07:39:45Z",
+  "generated_at": "2026-05-18T23:22:22Z",
   "rows": [
     {
       "router": "app/api_v2_routers/0005_irt_seed.py",
@@ -39,12 +39,8 @@
     {
       "router": "app/api_v2_routers/auth.py",
       "p0_router": true,
-      "repository_imports": [
-        "app.repositories.repositories"
-      ],
-      "transition_allowed": [
-        "app.repositories.repositories"
-      ],
+      "repository_imports": [],
+      "transition_allowed": [],
       "violations": []
     },
     {

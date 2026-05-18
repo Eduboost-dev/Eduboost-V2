@@ -65,7 +65,15 @@ def test_diagnostics_router_contains_integrity_hooks():
 
 
 def test_jobs_module_does_not_construct_consent_service_without_dependencies():
-    source = (ROOT / "app/modules/jobs.py").read_text(encoding="utf-8")
-    assert "ConsentService()" not in source
-    assert "AsyncSessionLocal" in source
-    assert "ConsentRepository" in source
+    jobs_source = (ROOT / "app/modules/jobs.py").read_text(encoding="utf-8")
+    factory_source = (ROOT / "app/services/job_dependency_factory.py").read_text(encoding="utf-8")
+
+    # Assert that ConsentService is not constructed directly in jobs.py
+    assert "ConsentService()" not in jobs_source
+
+    # Assert that jobs.py correctly delegates to factory/dependency layers
+    assert "job_dependency_factory" in jobs_source or "run_consent_reminder_cycle" in jobs_source
+
+    # Assert that actual database session factory and ConsentRepository are in the dependency factory
+    assert "AsyncSessionLocal" in factory_source
+    assert "ConsentRepository" in factory_source

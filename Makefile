@@ -1560,3 +1560,18 @@ backend-implementation-1031-1070-full-check: auth-db-lifecycle-proof-report auth
 	python3 -m compileall -q app/services scripts tests
 	python3 -m ruff check app/services/auth_db_lifecycle_proof.py scripts/generate_auth_db_lifecycle_proof_report.py scripts/check_auth_db_lifecycle_proof.py tests/integration/test_auth_transactional_db_lifecycle_proof.py tests/unit/test_auth_db_lifecycle_proof_contracts.py --select F821,F401,F811,E402
 
+.PHONY: jwt-production-guard-repair jwt-production-guard-test jwt-production-guard-check backend-implementation-1071-1110-full-check
+
+jwt-production-guard-repair:
+	PYTHONPATH=. python3 scripts/repair_jwt_production_guard.py
+
+jwt-production-guard-test:
+	pytest -c pytest.ini tests/unit/test_jwt_keyring_production_guard.py -q --no-cov --tb=short
+
+jwt-production-guard-check:
+	PYTHONPATH=. python3 scripts/check_jwt_production_guard.py
+
+backend-implementation-1071-1110-full-check: jwt-production-guard-repair jwt-production-guard-check
+	python3 -m compileall -q app/services app/core scripts tests
+	python3 -m ruff check app/services/jwt_keyring.py scripts/repair_jwt_production_guard.py scripts/check_jwt_production_guard.py tests/unit/test_jwt_keyring_production_guard.py --select F821,F401,F811,E402
+
