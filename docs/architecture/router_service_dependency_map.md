@@ -1,6 +1,6 @@
 # Router Service Dependency Map
 
-Generated at: `2026-05-18T07:38:26Z`
+Generated at: `2026-05-18T23:19:06Z`
 
 | Router | Dependencies | Services/modules | Repositories | Database imports |
 |---|---|---|---|---|
@@ -9,7 +9,7 @@ Generated at: `2026-05-18T07:38:26Z`
 | `app/api_v2_routers/api_v2.py` | - | - | - | - |
 | `app/api_v2_routers/assessments.py` | - | `app.services.assessment_service_v2` | - | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/audit.py` | - | `app.services.audit_service` | - | - |
-| `app/api_v2_routers/auth.py` | `app.api_v2_deps.auth_runtime` | `app.services.auth_token_claims`, `app.services.fourth_estate` | `app.repositories.repositories` | `app.core.database`, `sqlalchemy.ext.asyncio` |
+| `app/api_v2_routers/auth.py` | `app.api_v2_deps.auth_runtime`, `app.api_v2_deps.auth_service` | `app.services.auth_application_service`, `app.services.auth_token_claims`, `app.services.fourth_estate` | - | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/billing.py` | - | `app.services.fourth_estate`, `app.services.stripe_service` | - | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/consent.py` | - | `app.modules.consent.service` | `app.repositories.repositories` | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/consent_renewal.py` | - | `app.services.consent_renewal_service` | - | `app.core.database` |
@@ -22,7 +22,7 @@ Generated at: `2026-05-18T07:38:26Z`
 | `app/api_v2_routers/lessons.py` | - | `app.modules.lessons`, `app.modules.lessons.service`, `app.services.lesson_authorization` | - | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/onboarding.py` | - | `app.services.ether` | `app.repositories.repositories` | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/parents.py` | - | `app.services.consent`, `app.services.executive`, `app.services.fourth_estate` | `app.repositories.repositories` | `app.core.database`, `sqlalchemy.ext.asyncio` |
-| `app/api_v2_routers/popia.py` | `app.api_v2_deps.consent_lifecycle` | `app.modules.consent.service`, `app.services.fourth_estate`, `app.services.popia_service` | - | - |
+| `app/api_v2_routers/popia.py` | `app.api_v2_deps.consent_lifecycle` | `app.modules.consent.service`, `app.services.popia_service` | - | - |
 | `app/api_v2_routers/study_plans.py` | - | `app.services.audit_service`, `app.services.study_plan_service_v2`, `app.services.telemetry` | `app.repositories.repositories`, `app.repositories.study_plan_repository` | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/system.py` | - | `app.services.system_service_v2` | - | - |
 | `app/api_v2_routers/test_api.py` | - | - | - | - |

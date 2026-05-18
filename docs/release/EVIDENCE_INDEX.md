@@ -657,3 +657,21 @@ make auth-db-lifecycle-proof-contracts
 make backend-implementation-1031-1070-full-check
 ```
 
+## JWT-001 / Backend implementation 1071-1110 — JWT fallback safety and production secret guard
+
+Audit drivers:
+
+- JWT keyring fallback must include `settings.JWT_SECRET` and `JWT_SECRET`.
+- Production must reject placeholder JWT secrets.
+- `app.api_v2` must remain import-safe with a configured secret.
+- Static proof is insufficient for this P0 security item.
+
+Commands:
+
+```bash
+make jwt-production-guard-repair
+make jwt-production-guard-test
+make jwt-production-guard-check
+make backend-implementation-1071-1110-full-check
+```
+

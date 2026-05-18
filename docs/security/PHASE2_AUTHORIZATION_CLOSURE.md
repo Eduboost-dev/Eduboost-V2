@@ -10,8 +10,8 @@ routes that do not carry a learner object.
 
 - Routes inspected: 71
 - Covered learner-scoped routes: 50
-- Non-learner-scoped routes: 18
-- Missing learner authorization markers: 3
+- Non-learner-scoped routes: 19
+- Missing learner authorization markers: 2
 
 ## Key Evidence
 
@@ -53,7 +53,6 @@ and remain covered by Phase 2 evidence checks.
 Status: **not closed** — missing learner authorization markers remain.
 
 - `auth.py` `POST /dev-session` via `create_dev_session`
-- `auth.py` `POST /refresh` via `refresh_token`
 - `gamification.py` `GET /leaderboard` via `get_leaderboard`
 
 ## Closure Stamp

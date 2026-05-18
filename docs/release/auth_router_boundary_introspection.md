@@ -1,6 +1,6 @@
 # Auth Router Boundary Introspection
 
-Generated at: `2026-05-18T07:38:24Z`
+Generated at: `2026-05-18T23:19:22Z`
 
 | Check | Value |
 |---|---|
@@ -16,10 +16,10 @@ Generated at: `2026-05-18T07:38:24Z`
 - `_canonical_refresh_claims` args=['existing_claims', 'user']
 - `_legacy_refresh_error_response` args=['message', 'status_code']
 - `me` args=['current_user']
-- `register` args=['request', 'body', 'response', 'db']
-- `login` args=['request', 'body', 'response', 'db']
-- `create_dev_session` args=['response', 'db', 'auth_runtime']
-- `refresh_token` args=['request', 'response', 'body', 'db', 'cookie_refresh', 'auth_runtime']
+- `register` args=['request', 'body', 'response', 'db', 'auth_runtime', 'auth_service']
+- `login` args=['request', 'body', 'response', 'db', 'auth_runtime', 'auth_service']
+- `create_dev_session` args=['response', 'db', 'auth_runtime', 'auth_service']
+- `refresh_token` args=['request', 'response', 'body', 'db', 'cookie_refresh', 'auth_runtime', 'auth_service']
 - `_set_refresh_cookie` args=['response', 'token']
 - `list_sessions` args=['current_user']
 - `logout` args=['response', 'current_user', 'db', 'cookie_refresh']

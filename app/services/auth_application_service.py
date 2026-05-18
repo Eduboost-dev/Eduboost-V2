@@ -213,13 +213,15 @@ from app.services import auth_lifecycle_impl as _auth_lifecycle_impl  # noqa: E4
 
 
 async def _auth_service_call_impl(self, impl_name: str, **kwargs):
-    kwargs.pop('legacy_impl', None)
+    legacy_impl = kwargs.pop('legacy_impl', None)
     kwargs.pop('auth_service', None)
-    impl = getattr(_auth_lifecycle_impl, impl_name)
+    impl = legacy_impl or getattr(_auth_lifecycle_impl, impl_name)
     result = impl(**kwargs)
     if hasattr(result, '__await__'):
         return await result
     return result
+
+AuthApplicationService._auth_service_call_impl = _auth_service_call_impl
 
 
 async def _auth_service_create_dev_session(self, **kwargs):
