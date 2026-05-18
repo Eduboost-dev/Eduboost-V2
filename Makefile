@@ -1524,3 +1524,21 @@ backend-implementation-951-990-full-check: auth-service-ownership-migrate auth-s
 	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts tests
 	python3 -m ruff check app/api_v2_routers/auth.py app/services/auth_application_service.py app/services/auth_lifecycle_impl.py app/api_v2_deps/auth_service.py --select F821,F401,F811,E402
 
+.PHONY: auth-http-success-scope-report auth-http-success-scope-test auth-http-success-scope-check auth-http-success-scope-contracts backend-implementation-991-1030-full-check
+
+auth-http-success-scope-report:
+	PYTHONPATH=. python3 scripts/generate_auth_http_success_scope_report.py
+
+auth-http-success-scope-test:
+	pytest -c pytest.ini tests/integration/test_auth_lifecycle_http_success_scope.py -q --no-cov --tb=short
+
+auth-http-success-scope-check:
+	PYTHONPATH=. python3 scripts/check_auth_http_success_scope.py
+
+auth-http-success-scope-contracts:
+	pytest -c pytest.ini tests/unit/test_auth_http_success_scope_contracts.py -q --no-cov --tb=short
+
+backend-implementation-991-1030-full-check: auth-http-success-scope-report auth-http-success-scope-check auth-http-success-scope-contracts
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts tests
+	python3 -m ruff check app/api_v2_routers/auth.py app/services/auth_application_service.py app/services/auth_lifecycle_impl.py app/api_v2_deps/auth_service.py tests/integration/test_auth_lifecycle_http_success_scope.py --select F821,F401,F811,E402
+
