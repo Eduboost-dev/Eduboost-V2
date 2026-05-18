@@ -1,6 +1,6 @@
 # Service Family Map
 
-Generated at: `2026-05-17T22:07:36Z`
+Generated at: `2026-05-18T06:57:16Z`
 
 | Domain | Path | Classification | Classes |
 |---|---|---|---|
@@ -10,6 +10,7 @@ Generated at: `2026-05-17T22:07:36Z`
 | audit | `app/services/audit_canonicalization_slice.py` | unclassified | `CanonicalAuditCommand` |
 | audit | `app/services/audit_migration_orchestrator.py` | migration_or_compat_helper | `AuditMigrationEnvelope` |
 | audit | `app/services/audit_service.py` | duplicate_domain_service | `AuditService` |
+| auth | `app/services/auth_runtime_boundary.py` | active_runtime_facade | `AuthRuntimeContext` |
 | auth | `app/services/auth_service.py` | duplicate_domain_service | `AuthError`, `AuthService`, `CompatSession`, `CompatSession`, `LoginResult`, `SignupResult` |
 | auth | `app/services/auth_token_claims.py` | unclassified | `AuthTokenClaims` |
 | other | `app/services/backend_adapter_wiring_service.py` | duplicate_domain_service | `AdapterWiringResult`, `InMemoryAuditSink` |

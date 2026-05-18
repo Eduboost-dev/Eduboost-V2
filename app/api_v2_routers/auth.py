@@ -1,5 +1,6 @@
 from fastapi.responses import JSONResponse
 from app.services.auth_token_claims import build_access_token_claims, merge_refresh_claims
+from app.api_v2_deps.auth_runtime import AuthRuntimeContext, get_auth_runtime_context
 """
 EduBoost V2 — Auth Router
 Register, login, and JWT refresh with HTTP-only cookie for refresh token.
@@ -36,7 +37,7 @@ from app.core.token_revocation import revoke_token, revoke_user_tokens
 from app.services.fourth_estate import FourthEstateService
 from app.domain.schemas import LoginRequest, RefreshRequest, RegisterRequest, TokenResponse
 from app.models import UserRole
-from app.repositories.repositories import ConsentRepository, GuardianRepository, LearnerRepository
+from app.repositories.repositories import ConsentRepository, GuardianRepository
 from app.core.rate_limit import limiter
 
 
@@ -150,7 +151,7 @@ async def login(request: Request, body: LoginRequest, response: Response, db: As
 
 
 @router.post("/dev-session")
-async def create_dev_session(response: Response, db: AsyncSession = Depends(get_db)):
+async def create_dev_session(response: Response, db: AsyncSession = Depends(get_db), auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context)):
     """
     Non-production bootstrap endpoint for the local learner flow.
     Creates or reuses a guardian, learner, and active consent so the frontend
@@ -160,7 +161,7 @@ async def create_dev_session(response: Response, db: AsyncSession = Depends(get_
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
 
     guardian_repo = GuardianRepository(db)
-    learner_repo = LearnerRepository(db)
+    learner_repo = auth_runtime.learner_repo
     consent_repo = ConsentRepository(db)
     audit = FourthEstateService(db)
 
@@ -175,7 +176,7 @@ async def create_dev_session(response: Response, db: AsyncSession = Depends(get_
             password_hash=hash_password(DEV_GUARDIAN_PASSWORD),
         )
 
-    learners = await learner_repo.get_by_guardian(guardian.id)
+    guardian_learner_ids = await auth_runtime.guardian_learner_ids(guardian.id)
     learner = next((item for item in learners if item.display_name == DEV_LEARNER_NAME), None)
     if learner is None:
         learner = await learner_repo.create(
@@ -240,6 +241,7 @@ async def refresh_token(
     body: RefreshRequest | None = None,
     db: AsyncSession = Depends(get_db),
     cookie_refresh: str | None = Cookie(default=None, alias=REFRESH_COOKIE),
+    auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context),
 ):
     token = (body.refresh_token if body else None) or cookie_refresh
     if not token:
@@ -256,8 +258,8 @@ async def refresh_token(
     new_refresh_payload = decode_token(new_refresh)
     
     # Query guardian_learner_ids to ensure they are preserved/updated correctly!
-    learner_repo = LearnerRepository(db)
-    learners = await learner_repo.get_by_guardian(guardian.id)
+    learner_repo = auth_runtime.learner_repo
+    guardian_learner_ids = await auth_runtime.guardian_learner_ids(guardian.id)
     guardian.guardian_learner_ids = [str(l.id) for l in learners]
     
     claims = _canonical_access_claims(

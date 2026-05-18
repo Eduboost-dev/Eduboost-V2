@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-17T22:07:36Z",
+  "generated_at": "2026-05-18T06:57:16Z",
   "domains": {
     "other": [
       {
@@ -623,6 +623,14 @@
       }
     ],
     "auth": [
+      {
+        "path": "app/services/auth_runtime_boundary.py",
+        "domain": "auth",
+        "classification": "active_runtime_facade",
+        "classes": [
+          "AuthRuntimeContext"
+        ]
+      },
       {
         "path": "app/services/auth_service.py",
         "domain": "auth",
@@ -1275,6 +1283,14 @@
       "classification": "duplicate_domain_service",
       "classes": [
         "AuditService"
+      ]
+    },
+    {
+      "path": "app/services/auth_runtime_boundary.py",
+      "domain": "auth",
+      "classification": "active_runtime_facade",
+      "classes": [
+        "AuthRuntimeContext"
       ]
     },
     {

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-17T22:07:36Z",
+  "generated_at": "2026-05-18T06:57:16Z",
   "rows": [
     {
       "router": "app/api_v2_routers/0005_irt_seed.py",
@@ -49,7 +49,9 @@
         "app.services.auth_token_claims",
         "app.services.fourth_estate"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth_runtime"
+      ],
       "repository_imports": [
         "app.repositories.repositories"
       ],

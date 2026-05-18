@@ -2,19 +2,16 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-17T22:12:28.718701+00:00`
+- generated_at_utc: `2026-05-18T07:03:00.489905+00:00`
 - branch: `codex/production_readiness`
-- commit: `02f3babd855703460eefc1727f5fdc71f44d2a60`
+- commit: `d808cab9e62f4d3e23d9ea2691677c10e407cda7`
 - release_candidate: `unset`
 
 ## Working Tree Status
 
 ```text
 M Makefile
- M app/api_v2_routers/diagnostics.py
- M app/core/jobs.py
- M app/modules/jobs.py
- M docs/ai/ai_prompt_surface_inventory.md
+ M app/api_v2_routers/auth.py
  M docs/architecture/import_linter_availability.md
  M docs/architecture/import_linter_contract_run.md
  M docs/architecture/legacy_learner_access_guard_report.json
@@ -36,6 +33,7 @@ M Makefile
  M docs/operations/database_restore_evidence.md
  M docs/operations/release_candidate_tag_manifest.md
  M docs/operations/release_evidence_manifest.md
+ M docs/operations/release_state_snapshot.md
  M docs/operations/staging_smoke_evidence_manifest.md
  M docs/release/EVIDENCE_INDEX.md
  M docs/release/alertmanager_drill_evidence.json
@@ -76,18 +74,19 @@ M Makefile
  M docs/release/schema_drift_disposable_latest.md
  M docs/release/staging_smoke_final_evidence.json
  M docs/release/staging_smoke_final_evidence.md
-?? app/services/diagnostic_data_integrity.py
-?? app/services/job_runtime_integrity.py
-?? docs/release/arq_consent_job_repair_report.md
-?? docs/release/diagnostics_data_integrity_repair_report.md
-?? docs/release/diagnostics_jobs_integrity_introspection.json
-?? docs/release/diagnostics_jobs_integrity_introspection.md
-?? docs/release/diagnostics_jobs_remaining_blockers.md
-?? scripts/check_diagnostics_jobs_integrity.py
-?? scripts/inspect_diagnostics_and_jobs_integrity.py
-?? scripts/repair_arq_consent_reminder_job.py
-?? scripts/repair_diagnostics_data_integrity.py
-?? tests/unit/test_diagnostics_jobs_integrity_contracts.py
+?? app/api_v2_deps/auth_runtime.py
+?? app/services/auth_runtime_boundary.py
+?? docs/architecture/auth_boundary_debt_report.json
+?? docs/architecture/auth_boundary_debt_report.md
+?? docs/release/auth_router_boundary_introspection.json
+?? docs/release/auth_router_boundary_introspection.md
+?? docs/release/auth_router_boundary_repair_report.md
+?? docs/release/next_security_dependency_slice_queue.md
+?? scripts/check_auth_router_boundary.py
+?? scripts/generate_auth_boundary_debt_report.py
+?? scripts/inspect_auth_router_boundary.py
+?? scripts/repair_auth_router_boundary.py
+?? tests/unit/test_auth_router_boundary_contracts.py
 ```
 
 ## State Artifacts

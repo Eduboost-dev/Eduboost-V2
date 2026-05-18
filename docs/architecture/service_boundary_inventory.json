@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-17T22:10:22Z",
+  "generated_at": "2026-05-18T07:00:36Z",
   "rows": [
     {
       "path": "app/services/ai_safety.py",
@@ -24,6 +24,10 @@
     {
       "path": "app/services/audit_service.py",
       "classification": "domain_or_cross_cutting_service"
+    },
+    {
+      "path": "app/services/auth_runtime_boundary.py",
+      "classification": "active_runtime_facade"
     },
     {
       "path": "app/services/auth_service.py",

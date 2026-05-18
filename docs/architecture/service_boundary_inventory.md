@@ -1,6 +1,6 @@
 # Service Boundary Inventory
 
-Generated at: `2026-05-17T22:10:22Z`
+Generated at: `2026-05-18T07:00:36Z`
 
 | Path | Classification |
 |---|---|
@@ -10,6 +10,7 @@ Generated at: `2026-05-17T22:10:22Z`
 | `app/services/audit_canonicalization_slice.py` | unclassified |
 | `app/services/audit_migration_orchestrator.py` | migration_or_compat_helper |
 | `app/services/audit_service.py` | domain_or_cross_cutting_service |
+| `app/services/auth_runtime_boundary.py` | active_runtime_facade |
 | `app/services/auth_service.py` | domain_or_cross_cutting_service |
 | `app/services/auth_token_claims.py` | unclassified |
 | `app/services/backend_adapter_wiring_service.py` | domain_or_cross_cutting_service |

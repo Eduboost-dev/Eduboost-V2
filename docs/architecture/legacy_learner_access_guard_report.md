@@ -1,6 +1,6 @@
 # Legacy Learner Access Guard Report
 
-Generated at: `2026-05-17T22:10:22Z`
+Generated at: `2026-05-18T07:00:36Z`
 
 | Path | Count |
 |---|---:|

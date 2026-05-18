@@ -55,10 +55,10 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `app/api_v2_deps/consent_lifecycle.py` | 87 | consent_service | `return ConsentService(db)` |
 | `app/api_v2_deps/consent_lifecycle.py` | 90 | consent_service | `"Cannot construct canonical ConsentService from AsyncSession. "` |
 | `app/api_v2_deps/consent_lifecycle.py` | 91 | consent_service | `"Align app.modules.consent.service.ConsentService constructor before using POPIA lifecycle routes."` |
-| `app/api_v2_routers/auth.py` | 39 | consent_repository | `from app.repositories.repositories import ConsentRepository, GuardianRepository, LearnerRepository` |
-| `app/api_v2_routers/auth.py` | 164 | consent_repository | `consent_repo = ConsentRepository(db)` |
-| `app/api_v2_routers/auth.py` | 188 | consent_repository | `if await consent_repo.get_active(learner.id) is None:` |
-| `app/api_v2_routers/auth.py` | 189 | consent_repository | `await consent_repo.create(` |
+| `app/api_v2_routers/auth.py` | 40 | consent_repository | `from app.repositories.repositories import ConsentRepository, GuardianRepository` |
+| `app/api_v2_routers/auth.py` | 165 | consent_repository | `consent_repo = ConsentRepository(db)` |
+| `app/api_v2_routers/auth.py` | 189 | consent_repository | `if await consent_repo.get_active(learner.id) is None:` |
+| `app/api_v2_routers/auth.py` | 190 | consent_repository | `await consent_repo.create(` |
 | `app/api_v2_routers/consent.py` | 18 | consent_service | `from app.modules.consent.service import ConsentService` |
 | `app/api_v2_routers/consent.py` | 47 | consent_service | `# AuditLog emission is handled inside ConsentService.grant().` |
 | `app/api_v2_routers/consent.py` | 47 | consent_grant | `# AuditLog emission is handled inside ConsentService.grant().` |
