@@ -111,7 +111,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/api_v2_routers/0005_irt_seed.py` | 148 | audit_append_call | `_ITEMS.append(_make(7, "Mathematics", "Algebra & Trigonometry", q, opts, c, a, b))` |
 | `app/api_v2_routers/0005_irt_seed.py` | 170 | audit_append_call | `_ITEMS.append(_make(grade, "English", "Language", q, opts, c, a, b))` |
 | `app/api_v2_routers/0005_irt_seed.py` | 188 | audit_append_call | `_ITEMS.append(_make(grade, "Natural Sciences", "Science", q, opts, c, a, b))` |
-| `app/api_v2_routers/auth.py` | 201 | audit_append_call | `learner_ids.append(str(learner.id))` |
+| `app/api_v2_routers/auth.py` | 202 | audit_append_call | `learner_ids.append(str(learner.id))` |
 | `app/api_v2_routers/billing.py` | 44 | audit_record_call | `await audit.record("STRIPE_WEBHOOK", payload=result)` |
 | `app/api_v2_routers/consent.py` | 47 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.grant().` |
 | `app/api_v2_routers/consent.py` | 80 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.revoke().` |
@@ -1068,6 +1068,11 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_audit_review_closeout_certificate.py` | 55 | audit_append_call | `results.append(` |
 | `scripts/check_auth_boundary_evidence.py` | 58 | audit_append_call | `results.append(EvidenceResult(rel_path, path.exists(), "present" if path.exists() else "missing"))` |
 | `scripts/check_auth_boundary_evidence.py` | 62 | audit_append_call | `results.append(EvidenceResult(rel_path, snippet in text, f"contains {snippet!r}" if snippet in text else f"missing {snippet!r}"))` |
+| `scripts/check_auth_router_boundary.py` | 25 | audit_append_call | `failures.append("missing auth runtime dependency import")` |
+| `scripts/check_auth_router_boundary.py` | 31 | audit_append_call | `failures.append("LearnerRepository remains in auth router")` |
+| `scripts/check_auth_router_boundary.py` | 37 | audit_append_call | `failures.append("direct get_by_guardian remains")` |
+| `scripts/check_auth_router_boundary.py` | 43 | audit_append_call | `failures.append("guardian learner ids not referenced")` |
+| `scripts/check_auth_router_boundary.py` | 50 | audit_append_call | `failures.append("missing repair report")` |
 | `scripts/check_auth_token_claims_repair.py` | 38 | audit_append_call | `failures.append("helper missing")` |
 | `scripts/check_auth_token_claims_repair.py` | 43 | audit_append_call | `failures.append("router missing")` |
 | `scripts/check_auth_token_claims_repair.py` | 51 | audit_append_call | `failures.append("helper import missing")` |
@@ -1486,6 +1491,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_audit_callsite_inventory.py` | 57 | audit_append_call | `rows.append(` |
 | `scripts/generate_audit_callsite_inventory.py` | 79 | audit_append_call | `output.append(f"\| `{row.path}` \| {row.line} \| {row.category} \| `{text}` \|")` |
 | `scripts/generate_audit_callsite_inventory.py` | 89 | audit_logs_table | `"- [ ] Identify any `audit_logs` data-retention requirement.",` |
+| `scripts/generate_auth_boundary_debt_report.py` | 23 | audit_append_call | `modules.append(node.module or "")` |
 | `scripts/generate_backend_consolidation_evidence_manifest.py` | 62 | audit_append_call | `rows.append(ManifestRow(relative, True, path.stat().st_size, _sha256(path)))` |
 | `scripts/generate_backend_consolidation_evidence_manifest.py` | 64 | audit_append_call | `rows.append(ManifestRow(relative, False, 0, ""))` |
 | `scripts/generate_backend_consolidation_evidence_manifest.py` | 80 | audit_append_call | `lines.append(` |
@@ -1611,6 +1617,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_truthful_beta_readiness_status.py` | 76 | audit_append_call | `lines.append("- None")` |
 | `scripts/generate_truthful_release_owner_beta_go_no_go.py` | 38 | audit_append_call | `lines.append("- None")` |
 | `scripts/generate_truthful_release_owner_beta_go_no_go.py` | 43 | audit_logs_table | `"This memo does not approve production launch, destructive database changes, consent-table merge, audit_logs drop, public mutating health probes, or synthetic evidence substitution.",` |
+| `scripts/inspect_auth_router_boundary.py` | 23 | audit_append_call | `modules.append(node.module or "")` |
+| `scripts/inspect_auth_router_boundary.py` | 36 | audit_append_call | `rows.append({` |
 | `scripts/inspect_auth_token_claims.py` | 35 | audit_append_call | `rows.append(node.module or "")` |
 | `scripts/inspect_diagnostics_and_jobs_integrity.py` | 32 | audit_append_call | `modules.append(node.module or "")` |
 | `scripts/inspect_learner_routes.py` | 106 | audit_append_call | `candidates.append(` |
@@ -1669,6 +1677,11 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/remove_proven_dead_backend_consolidation_artifacts.py` | 12 | audit_append_call | `skipped.append(f"{p.relative_to(ROOT)}: referenced"); continue` |
 | `scripts/remove_proven_dead_backend_consolidation_artifacts.py` | 13 | audit_append_call | `p.unlink(); removed.append(str(p.relative_to(ROOT)))` |
 | `scripts/rename_metaphor_layers.py` | 85 | audit_append_call | `hits.append((path, lineno, match.group(0).lower(), line.rstrip()))` |
+| `scripts/repair_auth_router_boundary.py` | 60 | audit_append_call | `updated_lines.append(line.split("import", 1)[0] + "import " + ", ".join(kept) + "\n")` |
+| `scripts/repair_auth_router_boundary.py` | 67 | audit_append_call | `updated_lines.append(line.split("import", 1)[0] + "import " + ", ".join(kept) + "\n")` |
+| `scripts/repair_auth_router_boundary.py` | 70 | audit_append_call | `updated_lines.append(line)` |
+| `scripts/repair_auth_router_boundary.py` | 148 | audit_append_call | `patches.append((header_start, body_start, [replaced]))` |
+| `scripts/repair_auth_router_boundary.py` | 159 | audit_append_call | `patches.append((close_index, close_index, [f"{close_indent}    {param},"]))` |
 | `scripts/repair_beta_evidence_integrity.py` | 129 | audit_append_call | `blockers.append("invalid_or_synthetic_evidence")` |
 | `scripts/repair_beta_evidence_integrity.py` | 164 | audit_append_call | `lines.append(` |
 | `scripts/repair_diagnostics_data_integrity.py` | 114 | audit_append_call | `insertions.append((first.lineno - 1, snippet))` |

@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-05-18T06:57:19Z",
+  "auth_router": "app/api_v2_routers/auth.py",
+  "repository_imports": [
+    "app.repositories.repositories"
+  ],
+  "learner_repository_symbol_present": false,
+  "direct_get_by_guardian_present": false,
+  "remaining_debt": [
+    "Extract remaining auth repository interactions into canonical AuthService",
+    "Remove auth router repository imports after AuthService extraction",
+    "Remove auth transition ignore_imports from .importlinter"
+  ]
+}

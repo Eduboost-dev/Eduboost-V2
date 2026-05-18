@@ -473,3 +473,21 @@ make diagnostics-jobs-integrity-check
 make backend-implementation-691-720-full-check
 ```
 
+## Backend implementation 721-750 — Auth router boundary closure
+
+Audit drivers:
+
+- The auth router should no longer directly construct `LearnerRepository` for refresh claim scope.
+- Guardian learner scope regeneration should run through an auth runtime boundary service.
+- Remaining auth repository interactions should be explicit boundary debt before full AuthService extraction.
+
+Commands:
+
+```bash
+make auth-router-boundary-inspect
+make auth-router-boundary-repair
+make auth-router-boundary-check
+make auth-boundary-debt-report
+make backend-implementation-721-750-full-check
+```
+

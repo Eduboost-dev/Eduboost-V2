@@ -1380,3 +1380,21 @@ backend-implementation-691-720-full-check: diagnostics-jobs-integrity-inspect di
 	python3 -m compileall -q app/api_v2_routers app/modules app/services scripts
 	pytest -c pytest.ini tests/unit/test_diagnostics_jobs_integrity_contracts.py -q --no-cov --tb=short
 
+.PHONY: auth-router-boundary-inspect auth-router-boundary-repair auth-router-boundary-check auth-boundary-debt-report backend-implementation-721-750-full-check
+
+auth-router-boundary-inspect:
+	PYTHONPATH=. python3 scripts/inspect_auth_router_boundary.py
+
+auth-router-boundary-repair:
+	PYTHONPATH=. python3 scripts/repair_auth_router_boundary.py
+
+auth-router-boundary-check:
+	PYTHONPATH=. python3 scripts/check_auth_router_boundary.py
+
+auth-boundary-debt-report:
+	PYTHONPATH=. python3 scripts/generate_auth_boundary_debt_report.py
+
+backend-implementation-721-750-full-check: auth-router-boundary-inspect auth-router-boundary-repair auth-router-boundary-check auth-boundary-debt-report
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts
+	pytest -c pytest.ini tests/unit/test_auth_router_boundary_contracts.py -q --no-cov --tb=short
+

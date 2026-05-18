@@ -8,6 +8,6 @@
 | Base URL | https://staging.example.com |
 | Passed | True |
 | Result count | 5 |
-| Captured at | 2026-05-17T22:10:20Z |
+| Captured at | 2026-05-18T07:00:34Z |
 
 Run `make staging-smoke` and `make staging-smoke-check` against a real staging URL before beta.
