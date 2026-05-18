@@ -2,17 +2,16 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-18T08:39:37.235851+00:00`
+- generated_at_utc: `2026-05-18T08:57:48.427548+00:00`
 - branch: `fix/github-ci-cd-errors`
-- commit: `996786f9faffec5ada9651e9637d40c3ce574e97`
+- commit: `7b41cde0e80010fe0537150ad5644202a9992e2a`
 - release_candidate: `unset`
 
 ## Working Tree Status
 
 ```text
-M .env.example
- M Makefile
- M app/core/security.py
+M docs/architecture/auth_service_extraction_followup.json
+ M docs/architecture/auth_service_extraction_followup.md
  M docs/beta/beta_content_hard_gate.json
  M docs/beta/beta_content_hard_gate.md
  M docs/operations/beta_release_evidence_bundle.md
@@ -23,21 +22,7 @@ M .env.example
  M docs/operations/release_candidate_tag_manifest.md
  M docs/operations/release_evidence_manifest.md
  M docs/operations/staging_smoke_evidence_manifest.md
- M docs/release/EVIDENCE_INDEX.md
- M docs/release/audit_callsite_inventory.md
- M docs/release/backend_consolidation_diagnostic_report.md
- M docs/release/backend_consolidation_evidence_manifest.md
- M docs/release/backend_consolidation_execution_report.md
- M docs/release/backend_consolidation_implementation_foundation_report.md
  M docs/release/backend_consolidation_progress_report.md
- M docs/release/backend_consolidation_readiness_report.md
- M docs/release/backend_consolidation_terminal_report.md
- M docs/release/backend_deletion_candidate_inventory.md
- M docs/release/backend_first_wiring_candidates_report.md
- M docs/release/backend_implementation_371_375_report.md
- M docs/release/backend_runtime_compatibility_report.md
- M docs/release/backend_runtime_enablement_report.md
- M docs/release/backend_runtime_integration_readiness_report.md
  M docs/release/backend_runtime_probe_report.md
  M docs/release/backend_runtime_wiring_cases_report.md
  M docs/release/backend_runtime_wiring_preflight_report.md
@@ -56,27 +41,11 @@ M .env.example
  M docs/release/schema_drift_disposable_latest.md
  M docs/release/staging_smoke_final_evidence.json
  M docs/release/staging_smoke_final_evidence.md
-?? app/services/jwt_keyring.py
-?? docs/architecture/auth_service_extraction_followup.json
-?? docs/architecture/auth_service_extraction_followup.md
-?? docs/release/next_content_ops_evidence_queue.md
-?? docs/security/dependency_constraints_snapshot.md
-?? docs/security/dependency_pin_report.json
-?? docs/security/dependency_pin_report.md
-?? docs/security/jwt_rotation_introspection.json
-?? docs/security/jwt_rotation_introspection.md
-?? docs/security/jwt_rotation_plan.md
-?? docs/security/jwt_rotation_repair_report.md
-?? docs/security/pip_audit_report.md
-?? requirements/constraints.snapshot.txt
-?? scripts/check_jwt_rotation.py
-?? scripts/generate_auth_extraction_followup.py
-?? scripts/generate_constraints_snapshot.py
-?? scripts/generate_dependency_pin_report.py
-?? scripts/inspect_jwt_rotation.py
-?? scripts/repair_jwt_rotation.py
-?? scripts/run_optional_pip_audit.py
-?? tests/unit/test_jwt_rotation_dependency_security.py
+ M docs/security/dependency_pin_report.json
+ M docs/security/dependency_pin_report.md
+ M docs/security/jwt_rotation_introspection.json
+ M docs/security/jwt_rotation_introspection.md
+ M docs/security/jwt_rotation_repair_report.md
 ```
 
 ## State Artifacts

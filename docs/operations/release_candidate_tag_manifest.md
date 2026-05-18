@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-18T08:39:36.495836+00:00`
+- generated_at_utc: `2026-05-18T08:57:47.862341+00:00`
 - branch: `fix/github-ci-cd-errors`
-- commit: `996786f9faffec5ada9651e9637d40c3ce574e97`
-- release_candidate: `beta-996786f`
+- commit: `7b41cde0e80010fe0537150ad5644202a9992e2a`
+- release_candidate: `beta-7b41cde`
 
 ## Tagging Convention
 
@@ -26,8 +26,8 @@
 ## Example Commands
 
 ```bash
-git tag -a beta-996786f -m "Beta release candidate beta-996786f"
-git push origin beta-996786f
+git tag -a beta-7b41cde -m "Beta release candidate beta-7b41cde"
+git push origin beta-7b41cde
 ```
 
 ## Safety Boundary
