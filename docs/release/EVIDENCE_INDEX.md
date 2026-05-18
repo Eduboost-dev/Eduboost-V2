@@ -620,3 +620,22 @@ make auth-lifecycle-http-non-500-tests
 make backend-implementation-951-990-full-check
 ```
 
+## Backend implementation 991-1030 — Auth HTTP success-path tests and refresh scope proof
+
+Audit drivers:
+
+- Register/login/refresh should be proven through HTTP route handling with controlled dependency overrides.
+- Refresh should preserve `guardian_learner_ids` in the response path.
+- Duplicate registration and wrong-password failures should be clean non-500 responses.
+- auth.py must remain import-safe, repository-free, and service-delegated.
+
+Commands:
+
+```bash
+make auth-http-success-scope-report
+make auth-http-success-scope-test
+make auth-http-success-scope-check
+make auth-http-success-scope-contracts
+make backend-implementation-991-1030-full-check
+```
+
