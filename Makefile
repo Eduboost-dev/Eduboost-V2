@@ -1467,3 +1467,18 @@ backend-implementation-831-870R-forward-ref-check: auth-forward-refs-repair auth
 	python3 -m compileall -q app/api_v2_routers/auth.py scripts/repair_auth_forward_refs.py scripts/check_auth_forward_refs.py
 	pytest -c pytest.ini tests/unit/test_auth_forward_ref_import_contract.py -q --no-cov --tb=short
 
+.PHONY: auth-service-extraction-repair auth-service-extraction-check auth-service-extraction-report backend-implementation-871-910-full-check
+
+auth-service-extraction-repair:
+	PYTHONPATH=. python3 scripts/repair_auth_service_extraction.py
+
+auth-service-extraction-check:
+	PYTHONPATH=. python3 scripts/check_auth_service_extraction.py
+
+auth-service-extraction-report:
+	PYTHONPATH=. python3 scripts/generate_auth_service_extraction_report.py
+
+backend-implementation-871-910-full-check: auth-service-extraction-repair auth-service-extraction-check auth-service-extraction-report
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts tests/unit/test_auth_service_extraction_contracts.py
+	pytest -c pytest.ini tests/unit/test_auth_service_extraction_contracts.py -q --no-cov --tb=short
+
