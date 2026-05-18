@@ -600,3 +600,23 @@ make auth-lifecycle-route-registration-tests
 make backend-implementation-911-950-full-check
 ```
 
+## Backend implementation 951-990 — Complete AuthApplicationService ownership and auth HTTP lifecycle tests
+
+Audit drivers:
+
+- Private auth lifecycle helpers must move out of `auth.py`.
+- AuthApplicationService must own lifecycle dispatch.
+- Auth lifecycle HTTP routes must register and avoid 500s on invalid request payloads.
+- auth.py must stay free of repository imports, repository constructors, and future annotations.
+
+Commands:
+
+```bash
+make auth-service-ownership-migrate
+make auth-service-ownership-check
+make auth-service-ownership-report
+make auth-service-ownership-tests
+make auth-lifecycle-http-non-500-tests
+make backend-implementation-951-990-full-check
+```
+

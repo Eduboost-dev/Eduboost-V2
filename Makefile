@@ -1503,3 +1503,24 @@ backend-implementation-911-950-full-check: auth-lifecycle-method-extraction-repa
 	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts tests
 	python3 -m ruff check app/api_v2_routers/auth.py app/services/auth_application_service.py app/api_v2_deps/auth_service.py --select F821,F401,F811,E402
 
+.PHONY: auth-service-ownership-migrate auth-service-ownership-check auth-service-ownership-report auth-service-ownership-tests auth-lifecycle-http-non-500-tests backend-implementation-951-990-full-check
+
+auth-service-ownership-migrate:
+	PYTHONPATH=. python3 scripts/migrate_auth_lifecycle_helpers_to_service.py
+
+auth-service-ownership-check:
+	PYTHONPATH=. python3 scripts/check_auth_service_ownership.py
+
+auth-service-ownership-report:
+	PYTHONPATH=. python3 scripts/generate_auth_service_ownership_report.py
+
+auth-service-ownership-tests:
+	pytest -c pytest.ini tests/unit/test_auth_service_ownership_contracts.py -q --no-cov --tb=short
+
+auth-lifecycle-http-non-500-tests:
+	pytest -c pytest.ini tests/integration/test_auth_lifecycle_http_non_500.py -q --no-cov --tb=short
+
+backend-implementation-951-990-full-check: auth-service-ownership-migrate auth-service-ownership-check auth-service-ownership-report auth-service-ownership-tests auth-lifecycle-http-non-500-tests
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts tests
+	python3 -m ruff check app/api_v2_routers/auth.py app/services/auth_application_service.py app/services/auth_lifecycle_impl.py app/api_v2_deps/auth_service.py --select F821,F401,F811,E402
+

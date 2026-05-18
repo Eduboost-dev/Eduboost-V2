@@ -208,35 +208,36 @@ __all__ = [
     "import_symbol",
 ]
 
-# code_911_950_auth_lifecycle_methods
-async def _auth_lifecycle_call_legacy(self, legacy_impl, **kwargs):
-    """Execute a preserved auth lifecycle implementation through the service boundary."""
-    if legacy_impl is None:
-        raise AuthApplicationServiceError("legacy_impl is required for transitional lifecycle extraction")
-    result = legacy_impl(**kwargs)
-    if hasattr(result, "__await__"):
+# code_951_990_auth_service_owned_lifecycle_methods
+from app.services import auth_lifecycle_impl as _auth_lifecycle_impl  # noqa: E402
+
+
+async def _auth_service_call_impl(self, impl_name: str, **kwargs):
+    kwargs.pop('legacy_impl', None)
+    kwargs.pop('auth_service', None)
+    impl = getattr(_auth_lifecycle_impl, impl_name)
+    result = impl(**kwargs)
+    if hasattr(result, '__await__'):
         return await result
     return result
 
 
-async def _auth_lifecycle_register(self, *, legacy_impl=None, **kwargs):
-    return await self._auth_lifecycle_call_legacy(legacy_impl, **kwargs)
+async def _auth_service_create_dev_session(self, **kwargs):
+    return await self._auth_service_call_impl('create_dev_session_impl', **kwargs)
 
+AuthApplicationService.create_dev_session = _auth_service_create_dev_session
 
-async def _auth_lifecycle_login(self, *, legacy_impl=None, **kwargs):
-    return await self._auth_lifecycle_call_legacy(legacy_impl, **kwargs)
+async def _auth_service_login(self, **kwargs):
+    return await self._auth_service_call_impl('login_impl', **kwargs)
 
+AuthApplicationService.login = _auth_service_login
 
-async def _auth_lifecycle_refresh(self, *, legacy_impl=None, **kwargs):
-    return await self._auth_lifecycle_call_legacy(legacy_impl, **kwargs)
+async def _auth_service_refresh(self, **kwargs):
+    return await self._auth_service_call_impl('refresh_impl', **kwargs)
 
+AuthApplicationService.refresh = _auth_service_refresh
 
-async def _auth_lifecycle_create_dev_session(self, *, legacy_impl=None, **kwargs):
-    return await self._auth_lifecycle_call_legacy(legacy_impl, **kwargs)
+async def _auth_service_register(self, **kwargs):
+    return await self._auth_service_call_impl('register_impl', **kwargs)
 
-
-AuthApplicationService._auth_lifecycle_call_legacy = _auth_lifecycle_call_legacy
-AuthApplicationService.register = _auth_lifecycle_register
-AuthApplicationService.login = _auth_lifecycle_login
-AuthApplicationService.refresh = _auth_lifecycle_refresh
-AuthApplicationService.create_dev_session = _auth_lifecycle_create_dev_session
+AuthApplicationService.register = _auth_service_register
