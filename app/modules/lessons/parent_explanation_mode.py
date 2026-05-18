@@ -221,7 +221,7 @@ Write a parent summary with EXACTLY this structure (JSON format):
 
 async def generate_parent_summary(
     request: ParentSummaryRequest,
-    llm_gateway,  # type: LLMGateway — avoid circular import
+    llm_gateway,  # avoid circular import
 ) -> ParentSummaryResponse:
     """
     Calls the LLM gateway to generate a parent-facing lesson summary.

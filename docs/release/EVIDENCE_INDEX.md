@@ -364,3 +364,296 @@ make backend-implementation-581-590-full-check
 ```
 
 Synthetic/local/mock/manual-bypass evidence cannot satisfy beta readiness gates.
+
+## Backend implementation 591-610 — POPIA consent lifecycle repair
+
+Audit drivers:
+
+- POPIA lifecycle endpoints must use the canonical SQLAlchemy-compatible consent service.
+- Consent lifecycle actor attribution must come from the authenticated principal, not generated UUIDs.
+- Consent lifecycle mutations must enforce learner-write authorization.
+
+Commands:
+
+```bash
+make popia-consent-lifecycle-inspect
+make popia-consent-lifecycle-repair
+make popia-consent-lifecycle-check
+make backend-implementation-591-610-full-check
+```
+
+## Backend implementation 611-630 — Lesson object authorization repair
+
+Audit drivers:
+
+- Lesson read routes must enforce learner-read authorization based on the lesson owner learner_id.
+- Lesson completion routes must enforce learner-write authorization based on the lesson owner learner_id.
+- Lesson sync routes must validate every submitted lesson_id before applying mutations.
+
+Commands:
+
+```bash
+make lesson-object-authorization-inspect
+make lesson-object-authorization-repair
+make lesson-object-authorization-check
+make backend-implementation-611-630-full-check
+```
+
+## Backend implementation 631-650 — Auth token claim consistency
+
+Audit drivers:
+
+- Register/login/refresh must share canonical authz-relevant token claim construction.
+- Refresh must preserve guardian_learner_ids for learner authorization.
+- Auth routes must not write raw email into email_encrypted.
+
+Commands:
+
+```bash
+make auth-token-claims-inspect
+make auth-token-claims-repair
+make auth-token-claims-check
+make backend-implementation-631-650-full-check
+```
+
+## Backend implementation 651-670 — Boundary enforcement and import discipline
+
+Audit drivers:
+
+- Repaired P0 routers should not construct repositories directly.
+- POPIA consent lifecycle dependency construction belongs in an API dependency module, not the router.
+- Import-linter availability and service boundary inventory must be recorded before strict Phase 1 enforcement.
+
+Commands:
+
+```bash
+make popia-router-boundary-repair
+make router-boundary-matrix
+make router-boundary-check
+make service-boundary-inventory
+make legacy-learner-access-guard-report
+make backend-implementation-651-670-full-check
+```
+
+## Backend implementation 671-690 — Import-linter architecture contracts
+
+Audit drivers:
+
+- Repaired P0 routers must not import repositories directly.
+- Router-to-service and service-family maps must remain visible.
+- `.importlinter` contracts should exist even if the local tool is not yet installed.
+- Remaining architecture boundary debt must be queued explicitly.
+
+Commands:
+
+```bash
+make service-family-map
+make router-service-dependency-map
+make architecture-boundary-contracts-check
+make import-linter-contracts-run
+make backend-implementation-671-690-full-check
+```
+
+## Backend implementation 691-720 — Diagnostics and durable jobs data integrity
+
+Audit drivers:
+
+- Diagnostic submissions must reject malformed, duplicate, or unserved item payloads.
+- Theta/mastery updates must reject non-finite, out-of-range, or excessive-delta values.
+- ARQ consent reminder job must construct ConsentService with an explicit DB session/repository.
+- FastAPI BackgroundTasks must remain limited to non-critical request-adjacent work.
+
+Commands:
+
+```bash
+make diagnostics-jobs-integrity-inspect
+make diagnostics-data-integrity-repair
+make arq-consent-job-repair
+make diagnostics-jobs-integrity-check
+make backend-implementation-691-720-full-check
+```
+
+## Backend implementation 721-750 — Auth router boundary closure
+
+Audit drivers:
+
+- The auth router should no longer directly construct `LearnerRepository` for refresh claim scope.
+- Guardian learner scope regeneration should run through an auth runtime boundary service.
+- Remaining auth repository interactions should be explicit boundary debt before full AuthService extraction.
+
+Commands:
+
+```bash
+make auth-router-boundary-inspect
+make auth-router-boundary-repair
+make auth-router-boundary-check
+make auth-boundary-debt-report
+make backend-implementation-721-750-full-check
+```
+
+## Backend implementation 751-780 — JWT rotation and dependency security hardening
+
+Audit drivers:
+
+- JWTs should support `kid` headers and current/previous key verification.
+- Dependency pinning gaps must be visible before beta.
+- Remaining auth service extraction debt must remain explicit after auth router boundary closure.
+
+Commands:
+
+```bash
+make jwt-rotation-inspect
+make jwt-rotation-repair
+make jwt-rotation-check
+make dependency-pin-report
+make dependency-constraints-snapshot
+make optional-pip-audit
+make auth-extraction-followup
+make backend-implementation-751-780-full-check
+```
+
+## Backend implementation 781-830R2 — Follow-up audit runtime blocker repair
+
+Audit drivers:
+
+- POPIA lifecycle adapter must bridge router kwargs to canonical consent service signatures.
+- Auth router must not contain undefined `learners` references.
+- ARQ jobs must not reference missing `AsyncSessionLocal`, `ConsentService`, or old job names.
+- Diagnostics generated hooks must not use `require_items=False`.
+- This is a patch-forward repair and does not claim the full audit is closed.
+
+Commands:
+
+```bash
+make runtime-blockers-followup-repair
+make runtime-blockers-followup-check
+make backend-implementation-781-830-full-check
+```
+
+## Backend implementation 831-870 — POPIA lifecycle integration tests and diagnostics DB integrity proof
+
+Audit drivers:
+
+- POPIA lifecycle adapter repair must be backed by runtime-shaped integration tests.
+- Diagnostics must have DB-backed proof that unserved item/session/CAPS mismatches are rejected.
+- Focused ruff checks for critical runtime files must be mandatory for this slice.
+
+Commands:
+
+```bash
+make runtime-integration-proof-report
+make runtime-integration-proof-check
+make popia-lifecycle-integration-test
+make diagnostics-db-integrity-proof-test
+make backend-implementation-831-870-full-check
+```
+
+## Backend implementation 831-870R — Auth forward-reference runtime import repair
+
+Failure addressed:
+
+- `app.api_v2` import failed during FastAPI route registration because `RegisterRequest` was referenced in `auth.py` route annotations but was not present in auth module globals.
+- This caused broad collection failures across integration, smoke, and health tests.
+
+Commands:
+
+```bash
+make auth-forward-refs-repair
+make auth-forward-refs-check
+make backend-implementation-831-870R-forward-ref-check
+```
+
+## Backend implementation 871-910 — AuthService extraction and auth router repository closure
+
+Audit drivers:
+
+- Auth router direct repository imports were still a boundary violation after learner-scope repair.
+- `auth.py` must not directly construct repository classes.
+- `auth.py` must avoid postponed annotations because FastAPI route registration already hit Pydantic forward-reference failures.
+
+Commands:
+
+```bash
+make auth-service-extraction-repair
+make auth-service-extraction-check
+make auth-service-extraction-report
+make backend-implementation-871-910-full-check
+```
+
+## Backend implementation 911-950 — Auth service method extraction and lifecycle integration tests
+
+Audit drivers:
+
+- Auth lifecycle routes should delegate through AuthApplicationService methods.
+- auth.py must remain import-safe for FastAPI route registration.
+- auth.py must not reintroduce direct repository imports or future annotations.
+- Route registration should be covered by runtime-shaped tests.
+
+Commands:
+
+```bash
+make auth-lifecycle-method-extraction-repair
+make auth-lifecycle-method-extraction-check
+make auth-lifecycle-extraction-report
+make auth-lifecycle-method-tests
+make auth-lifecycle-route-registration-tests
+make backend-implementation-911-950-full-check
+```
+
+## Backend implementation 951-990 — Complete AuthApplicationService ownership and auth HTTP lifecycle tests
+
+Audit drivers:
+
+- Private auth lifecycle helpers must move out of `auth.py`.
+- AuthApplicationService must own lifecycle dispatch.
+- Auth lifecycle HTTP routes must register and avoid 500s on invalid request payloads.
+- auth.py must stay free of repository imports, repository constructors, and future annotations.
+
+Commands:
+
+```bash
+make auth-service-ownership-migrate
+make auth-service-ownership-check
+make auth-service-ownership-report
+make auth-service-ownership-tests
+make auth-lifecycle-http-non-500-tests
+make backend-implementation-951-990-full-check
+```
+
+## Backend implementation 991-1030 — Auth HTTP success-path tests and refresh scope proof
+
+Audit drivers:
+
+- Register/login/refresh should be proven through HTTP route handling with controlled dependency overrides.
+- Refresh should preserve `guardian_learner_ids` in the response path.
+- Duplicate registration and wrong-password failures should be clean non-500 responses.
+- auth.py must remain import-safe, repository-free, and service-delegated.
+
+Commands:
+
+```bash
+make auth-http-success-scope-report
+make auth-http-success-scope-test
+make auth-http-success-scope-check
+make auth-http-success-scope-contracts
+make backend-implementation-991-1030-full-check
+```
+
+## Backend implementation 1031-1070 — Transactional auth repository/DB proof
+
+Audit drivers:
+
+- Auth lifecycle behavior should be proven beyond dependency-override stubs.
+- Register/login/refresh must exercise persistence, duplicate detection, password hash verification, refresh replay rejection, and guardian learner scope.
+- This batch uses an isolated SQLite proof store and does not claim production repository conformance.
+
+Commands:
+
+```bash
+make auth-db-lifecycle-proof-report
+make auth-db-lifecycle-proof-test
+make auth-db-lifecycle-proof-check
+make auth-db-lifecycle-proof-contracts
+make backend-implementation-1031-1070-full-check
+```
+

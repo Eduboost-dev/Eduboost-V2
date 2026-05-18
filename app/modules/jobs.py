@@ -21,6 +21,8 @@ Example:
         )
 """
 from __future__ import annotations
+from app.services.job_runtime_integrity import validate_arq_job_payload
+from app.services.job_dependency_factory import durable_job_session, run_consent_reminder_cycle
 
 import logging
 from datetime import datetime
@@ -37,52 +39,15 @@ logger = logging.getLogger(__name__)
 
 # ── Job Definitions ───────────────────────────────────────────────────────────
 
-async def send_consent_renewal_reminders(ctx: dict[str, Any]) -> dict[str, Any]:
-    """Send email reminders for consents expiring within 30 days.
 
-    Cron schedule: daily at 06:00 UTC (08:00 SAST).  Queries
-    :meth:`~app.modules.consent.service.ConsentService.get_expiring_consents`
-    and sends a renewal email to each guardian via SendGrid.
+async def send_consent_reminders(ctx: dict | None = None) -> None:
+    validate_arq_job_payload(ctx or {})
+    await run_consent_reminder_cycle(ctx or {})
 
-    Args:
-        ctx: ARQ worker context dictionary.
 
-    Returns:
-        dict[str, Any]: Summary with keys ``sent`` (emails dispatched)
-        and ``total_expiring`` (consents found).
-
-    Raises:
-        Exception: Re-raised after incrementing the failure counter.
-    """
-    import time
-    start = time.perf_counter()
-    job_name = "consent_renewal_reminders"
-
-    try:
-        from app.core.database import AsyncSessionLocal
-        from app.modules.consent.service import ConsentService
-
-        consent_service = ConsentService()
-        async with AsyncSessionLocal() as db:
-            expiring = await consent_service.get_expiring_consents(db, days=30)
-
-        sent = 0
-        for consent in expiring:
-            try:
-                await _send_renewal_email(consent)
-                sent += 1
-            except Exception as e:
-                logger.warning("Failed to send renewal email for consent %s: %s", consent.id, e)
-
-        arq_jobs_total.labels(job_name=job_name, status="success").inc()
-        duration = time.perf_counter() - start
-        arq_job_duration_seconds.labels(job_name=job_name).observe(duration)
-        return {"sent": sent, "total_expiring": len(expiring)}
-
-    except Exception as exc:
-        arq_jobs_total.labels(job_name=job_name, status="failed").inc()
-        logger.error("Job %s failed: %s", job_name, exc, exc_info=True)
-        raise
+async def send_consent_renewal_reminders(ctx: dict | None = None) -> None:
+    validate_arq_job_payload(ctx or {})
+    await run_consent_reminder_cycle(ctx or {})
 
 
 async def process_rlhf_feedback_batch(ctx: dict[str, Any], batch_id: str) -> dict[str, Any]:
@@ -142,12 +107,11 @@ async def expire_stale_diagnostic_sessions(ctx: dict[str, Any]) -> dict[str, Any
     start = time.perf_counter()
     job_name = "expire_diagnostic_sessions"
     try:
-        from app.core.database import AsyncSessionLocal
         from sqlalchemy import update
         from app.models import DiagnosticSession
 
         cutoff = datetime.now(UTC) - timedelta(hours=24)
-        async with AsyncSessionLocal() as db:
+        async with durable_job_session() as db:
             result = await db.execute(
                 update(DiagnosticSession)
                 .where(
@@ -164,7 +128,7 @@ async def expire_stale_diagnostic_sessions(ctx: dict[str, Any]) -> dict[str, Any
         arq_job_duration_seconds.labels(job_name=job_name).observe(duration)
         return {"expired": count}
 
-    except Exception as exc:
+    except Exception:
         arq_jobs_total.labels(job_name=job_name, status="failed").inc()
         raise
 
@@ -254,10 +218,9 @@ async def _send_renewal_email(consent: Any) -> None:
 
     # Guardian email is encrypted — must decrypt before sending
     from app.core.security import decrypt_pii
-    from app.core.database import AsyncSessionLocal
     from app.repositories import GuardianRepository
 
-    async with AsyncSessionLocal() as db:
+    async with durable_job_session() as db:
         guardian_repo = GuardianRepository()
         guardian = await guardian_repo.get(consent.guardian_id, db)
         if not guardian:

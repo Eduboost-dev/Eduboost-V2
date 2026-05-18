@@ -13,7 +13,7 @@ from fastapi.testclient import TestClient
 
 from app.api_v2 import app
 from app.core import security as core_security
-from app.api_v2_routers.popia import get_data_subject_rights_service_for_router
+from app.api_v2_deps.consent_lifecycle import get_canonical_data_rights_service
 
 client = TestClient(app)
 
@@ -26,8 +26,14 @@ def _set_user(sub: str, role: str = "guardian"):
     app.dependency_overrides[core_security.get_current_user] = fake_current_user
 
 
+@pytest.fixture
+def override_popia_svc():
+    mock_svc = AsyncMock(spec=POPIADataRightsService)
+    app.dependency_overrides[get_canonical_data_rights_service] = lambda: mock_svc
+
+
 def _set_service(mock_svc):
-    app.dependency_overrides[get_data_subject_rights_service_for_router] = lambda: mock_svc
+    app.dependency_overrides[get_canonical_data_rights_service] = lambda: mock_svc
 
 
 def teardown_function():

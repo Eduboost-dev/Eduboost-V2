@@ -1,11 +1,16 @@
 # Rollback Drill Evidence
 
-**Status:** pass
+**Status:** pending runtime execution
+<!-- Status: pending runtime execution -->
 
 | Field | Value |
 |---|---|
-| Result | passed |
-| Evidence URL/path | docs/release/placeholder_rollback.log |
-| Operator | Engineering |
-| Notes | PENDING |
-| Captured at | 2026-05-17T10:12:35Z |
+| Result | TODO |
+| Evidence URL/path | TODO |
+| Operator | TODO |
+| Notes | TODO |
+| Captured at | TODO |
+
+## Checklists
+- Application rollback command: TODO
+- Post-rollback health: TODO

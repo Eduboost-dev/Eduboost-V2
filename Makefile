@@ -1275,3 +1275,288 @@ backend-implementation-581-590-full-check: beta-evidence-integrity-repair truthf
 	PYTHONPATH=. python3 scripts/generate_truthful_release_owner_beta_go_no_go.py
 	pytest -c pytest.ini tests/unit/test_beta_evidence_integrity_repair.py -q --no-cov
 
+.PHONY: popia-consent-lifecycle-inspect popia-consent-lifecycle-repair popia-consent-lifecycle-check backend-implementation-591-610-full-check
+
+popia-consent-lifecycle-inspect:
+	PYTHONPATH=. python3 scripts/inspect_popia_consent_lifecycle.py
+
+popia-consent-lifecycle-repair:
+	PYTHONPATH=. python3 scripts/repair_popia_consent_lifecycle.py
+
+popia-consent-lifecycle-check:
+	PYTHONPATH=. python3 scripts/check_popia_consent_lifecycle_repair.py
+
+backend-implementation-591-610-full-check: popia-consent-lifecycle-inspect popia-consent-lifecycle-repair popia-consent-lifecycle-check
+	python3 -m compileall -q app/api_v2_routers app/modules/consent app/services app/repositories
+	pytest -c pytest.ini tests/unit/test_popia_consent_lifecycle_contracts.py -q --no-cov --tb=short
+
+.PHONY: lesson-object-authorization-inspect lesson-object-authorization-repair lesson-object-authorization-check backend-implementation-611-630-full-check
+
+lesson-object-authorization-inspect:
+	PYTHONPATH=. python3 scripts/inspect_lesson_object_authorization.py
+
+lesson-object-authorization-repair:
+	PYTHONPATH=. python3 scripts/repair_lesson_object_authorization.py
+
+lesson-object-authorization-check:
+	PYTHONPATH=. python3 scripts/check_lesson_object_authorization_repair.py
+
+backend-implementation-611-630-full-check: lesson-object-authorization-inspect lesson-object-authorization-repair lesson-object-authorization-check
+	python3 -m compileall -q app/api_v2_routers app/modules/lessons app/services app/repositories
+	pytest -c pytest.ini tests/unit/test_lesson_object_authorization_contracts.py -q --no-cov --tb=short
+
+.PHONY: auth-token-claims-inspect auth-token-claims-repair auth-token-claims-check backend-implementation-631-650-full-check
+
+auth-token-claims-inspect:
+	PYTHONPATH=. python3 scripts/inspect_auth_token_claims.py
+
+auth-token-claims-repair:
+	PYTHONPATH=. python3 scripts/repair_auth_token_claims.py
+
+auth-token-claims-check:
+	PYTHONPATH=. python3 scripts/check_auth_token_claims_repair.py
+
+backend-implementation-631-650-full-check: auth-token-claims-inspect auth-token-claims-repair auth-token-claims-check
+	python3 -m compileall -q app/api_v2_routers app/services app/modules/auth app/repositories
+	pytest -c pytest.ini tests/unit/test_auth_token_claims_contracts.py -q --no-cov --tb=short
+
+.PHONY: popia-router-boundary-repair router-boundary-matrix router-boundary-check import-linter-availability service-boundary-inventory legacy-learner-access-guard-report backend-implementation-651-670-full-check
+
+popia-router-boundary-repair:
+	PYTHONPATH=. python3 scripts/patch_popia_router_boundary.py
+
+router-boundary-matrix:
+	PYTHONPATH=. python3 scripts/generate_router_boundary_matrix.py
+
+router-boundary-check:
+	PYTHONPATH=. python3 scripts/check_router_boundary_enforcement.py
+
+import-linter-availability:
+	PYTHONPATH=. python3 scripts/check_import_linter_availability.py
+
+service-boundary-inventory:
+	PYTHONPATH=. python3 scripts/generate_service_boundary_inventory.py
+
+legacy-learner-access-guard-report:
+	PYTHONPATH=. python3 scripts/generate_legacy_learner_access_guard_report.py
+
+backend-implementation-651-670-full-check: popia-router-boundary-repair router-boundary-check import-linter-availability service-boundary-inventory legacy-learner-access-guard-report
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services app/repositories
+	pytest -c pytest.ini tests/unit/test_boundary_enforcement_contracts.py -q --no-cov --tb=short
+
+.PHONY: service-family-map router-service-dependency-map architecture-boundary-contracts-check import-linter-contracts-run backend-implementation-671-690-full-check
+
+service-family-map:
+	PYTHONPATH=. python3 scripts/generate_service_family_map.py
+
+router-service-dependency-map:
+	PYTHONPATH=. python3 scripts/generate_router_service_dependency_map.py
+
+architecture-boundary-contracts-check:
+	PYTHONPATH=. python3 scripts/check_architecture_boundary_contracts.py
+
+import-linter-contracts-run:
+	PYTHONPATH=. python3 scripts/run_import_linter_contracts.py
+
+backend-implementation-671-690-full-check: service-family-map router-service-dependency-map architecture-boundary-contracts-check import-linter-contracts-run
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts
+	pytest -c pytest.ini tests/unit/test_architecture_boundary_contracts.py -q --no-cov --tb=short
+
+.PHONY: diagnostics-jobs-integrity-inspect diagnostics-data-integrity-repair arq-consent-job-repair diagnostics-jobs-integrity-check backend-implementation-691-720-full-check
+
+diagnostics-jobs-integrity-inspect:
+	PYTHONPATH=. python3 scripts/inspect_diagnostics_and_jobs_integrity.py
+
+diagnostics-data-integrity-repair:
+	PYTHONPATH=. python3 scripts/repair_diagnostics_data_integrity.py
+
+arq-consent-job-repair:
+	PYTHONPATH=. python3 scripts/repair_arq_consent_reminder_job.py
+
+diagnostics-jobs-integrity-check:
+	PYTHONPATH=. python3 scripts/check_diagnostics_jobs_integrity.py
+
+backend-implementation-691-720-full-check: diagnostics-jobs-integrity-inspect diagnostics-data-integrity-repair arq-consent-job-repair diagnostics-jobs-integrity-check
+	python3 -m compileall -q app/api_v2_routers app/modules app/services scripts
+	pytest -c pytest.ini tests/unit/test_diagnostics_jobs_integrity_contracts.py -q --no-cov --tb=short
+
+.PHONY: auth-router-boundary-inspect auth-router-boundary-repair auth-router-boundary-check auth-boundary-debt-report backend-implementation-721-750-full-check
+
+auth-router-boundary-inspect:
+	PYTHONPATH=. python3 scripts/inspect_auth_router_boundary.py
+
+auth-router-boundary-repair:
+	PYTHONPATH=. python3 scripts/repair_auth_router_boundary.py
+
+auth-router-boundary-check:
+	PYTHONPATH=. python3 scripts/check_auth_router_boundary.py
+
+auth-boundary-debt-report:
+	PYTHONPATH=. python3 scripts/generate_auth_boundary_debt_report.py
+
+backend-implementation-721-750-full-check: auth-router-boundary-inspect auth-router-boundary-repair auth-router-boundary-check auth-boundary-debt-report
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts
+	pytest -c pytest.ini tests/unit/test_auth_router_boundary_contracts.py -q --no-cov --tb=short
+
+.PHONY: jwt-rotation-inspect jwt-rotation-repair jwt-rotation-check dependency-pin-report dependency-constraints-snapshot optional-pip-audit auth-extraction-followup backend-implementation-751-780-full-check
+
+jwt-rotation-inspect:
+	PYTHONPATH=. python3 scripts/inspect_jwt_rotation.py
+
+jwt-rotation-repair:
+	PYTHONPATH=. python3 scripts/repair_jwt_rotation.py
+
+jwt-rotation-check:
+	PYTHONPATH=. python3 scripts/check_jwt_rotation.py
+
+dependency-pin-report:
+	PYTHONPATH=. python3 scripts/generate_dependency_pin_report.py || true
+
+dependency-constraints-snapshot:
+	PYTHONPATH=. python3 scripts/generate_constraints_snapshot.py
+
+optional-pip-audit:
+	PYTHONPATH=. python3 scripts/run_optional_pip_audit.py || true
+
+auth-extraction-followup:
+	PYTHONPATH=. python3 scripts/generate_auth_extraction_followup.py
+
+backend-implementation-751-780-full-check: jwt-rotation-inspect jwt-rotation-repair jwt-rotation-check dependency-pin-report dependency-constraints-snapshot optional-pip-audit auth-extraction-followup
+	python3 -m compileall -q app/services app/core scripts
+	pytest -c pytest.ini tests/unit/test_jwt_rotation_dependency_security.py -q --no-cov --tb=short
+
+.PHONY: runtime-blockers-followup-repair runtime-blockers-followup-check backend-implementation-781-830-full-check
+
+runtime-blockers-followup-repair:
+	PYTHONPATH=. python3 scripts/repair_runtime_blockers_after_followup_audit.py
+
+runtime-blockers-followup-check:
+	PYTHONPATH=. python3 scripts/check_runtime_blockers_after_followup_audit.py
+
+backend-implementation-781-830-full-check: runtime-blockers-followup-repair runtime-blockers-followup-check
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/modules app/services scripts
+	pytest -c pytest.ini tests/unit/test_runtime_blockers_after_followup_audit.py -q --no-cov --tb=short
+
+.PHONY: runtime-integration-proof-report runtime-integration-proof-check popia-lifecycle-integration-test diagnostics-db-integrity-proof-test backend-implementation-831-870-full-check
+
+runtime-integration-proof-report:
+	PYTHONPATH=. python3 scripts/generate_runtime_integration_proof_reports.py
+
+runtime-integration-proof-check:
+	PYTHONPATH=. python3 scripts/check_runtime_integration_proof.py
+
+popia-lifecycle-integration-test:
+	pytest -c pytest.ini tests/integration/test_popia_lifecycle_runtime_contract.py -q --no-cov --tb=short
+
+diagnostics-db-integrity-proof-test:
+	pytest -c pytest.ini tests/integration/test_diagnostics_db_integrity_proof.py -q --no-cov --tb=short
+
+backend-implementation-831-870-full-check: runtime-integration-proof-report runtime-integration-proof-check popia-lifecycle-integration-test diagnostics-db-integrity-proof-test
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/modules app/services scripts tests
+	pytest -c pytest.ini tests/unit/test_runtime_integration_proof_contracts.py -q --no-cov --tb=short
+
+.PHONY: auth-forward-refs-repair auth-forward-refs-check backend-implementation-831-870R-forward-ref-check
+
+auth-forward-refs-repair:
+	PYTHONPATH=. python3 scripts/repair_auth_forward_refs.py
+
+auth-forward-refs-check:
+	PYTHONPATH=. python3 scripts/check_auth_forward_refs.py
+
+backend-implementation-831-870R-forward-ref-check: auth-forward-refs-repair auth-forward-refs-check
+	python3 -m compileall -q app/api_v2_routers/auth.py scripts/repair_auth_forward_refs.py scripts/check_auth_forward_refs.py
+	pytest -c pytest.ini tests/unit/test_auth_forward_ref_import_contract.py -q --no-cov --tb=short
+
+.PHONY: auth-service-extraction-repair auth-service-extraction-check auth-service-extraction-report backend-implementation-871-910-full-check
+
+auth-service-extraction-repair:
+	PYTHONPATH=. python3 scripts/repair_auth_service_extraction.py
+
+auth-service-extraction-check:
+	PYTHONPATH=. python3 scripts/check_auth_service_extraction.py
+
+auth-service-extraction-report:
+	PYTHONPATH=. python3 scripts/generate_auth_service_extraction_report.py
+
+backend-implementation-871-910-full-check: auth-service-extraction-repair auth-service-extraction-check auth-service-extraction-report
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts tests/unit/test_auth_service_extraction_contracts.py
+	pytest -c pytest.ini tests/unit/test_auth_service_extraction_contracts.py -q --no-cov --tb=short
+
+.PHONY: auth-lifecycle-method-extraction-repair auth-lifecycle-method-extraction-check auth-lifecycle-extraction-report auth-lifecycle-method-tests auth-lifecycle-route-registration-tests backend-implementation-911-950-full-check
+
+auth-lifecycle-method-extraction-repair:
+	PYTHONPATH=. python3 scripts/repair_auth_lifecycle_method_extraction.py
+
+auth-lifecycle-method-extraction-check:
+	PYTHONPATH=. python3 scripts/check_auth_lifecycle_method_extraction.py
+
+auth-lifecycle-extraction-report:
+	PYTHONPATH=. python3 scripts/generate_auth_lifecycle_extraction_report.py
+
+auth-lifecycle-method-tests:
+	pytest -c pytest.ini tests/unit/test_auth_lifecycle_service_methods.py -q --no-cov --tb=short
+
+auth-lifecycle-route-registration-tests:
+	pytest -c pytest.ini tests/integration/test_auth_lifecycle_route_registration.py -q --no-cov --tb=short
+
+backend-implementation-911-950-full-check: auth-lifecycle-method-extraction-repair auth-lifecycle-method-extraction-check auth-lifecycle-extraction-report auth-lifecycle-method-tests auth-lifecycle-route-registration-tests
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts tests
+	python3 -m ruff check app/api_v2_routers/auth.py app/services/auth_application_service.py app/api_v2_deps/auth_service.py --select F821,F401,F811,E402
+
+.PHONY: auth-service-ownership-migrate auth-service-ownership-check auth-service-ownership-report auth-service-ownership-tests auth-lifecycle-http-non-500-tests backend-implementation-951-990-full-check
+
+auth-service-ownership-migrate:
+	PYTHONPATH=. python3 scripts/migrate_auth_lifecycle_helpers_to_service.py
+
+auth-service-ownership-check:
+	PYTHONPATH=. python3 scripts/check_auth_service_ownership.py
+
+auth-service-ownership-report:
+	PYTHONPATH=. python3 scripts/generate_auth_service_ownership_report.py
+
+auth-service-ownership-tests:
+	pytest -c pytest.ini tests/unit/test_auth_service_ownership_contracts.py -q --no-cov --tb=short
+
+auth-lifecycle-http-non-500-tests:
+	pytest -c pytest.ini tests/integration/test_auth_lifecycle_http_non_500.py -q --no-cov --tb=short
+
+backend-implementation-951-990-full-check: auth-service-ownership-migrate auth-service-ownership-check auth-service-ownership-report auth-service-ownership-tests auth-lifecycle-http-non-500-tests
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts tests
+	python3 -m ruff check app/api_v2_routers/auth.py app/services/auth_application_service.py app/services/auth_lifecycle_impl.py app/api_v2_deps/auth_service.py --select F821,F401,F811,E402
+
+.PHONY: auth-http-success-scope-report auth-http-success-scope-test auth-http-success-scope-check auth-http-success-scope-contracts backend-implementation-991-1030-full-check
+
+auth-http-success-scope-report:
+	PYTHONPATH=. python3 scripts/generate_auth_http_success_scope_report.py
+
+auth-http-success-scope-test:
+	pytest -c pytest.ini tests/integration/test_auth_lifecycle_http_success_scope.py -q --no-cov --tb=short
+
+auth-http-success-scope-check:
+	PYTHONPATH=. python3 scripts/check_auth_http_success_scope.py
+
+auth-http-success-scope-contracts:
+	pytest -c pytest.ini tests/unit/test_auth_http_success_scope_contracts.py -q --no-cov --tb=short
+
+backend-implementation-991-1030-full-check: auth-http-success-scope-report auth-http-success-scope-check auth-http-success-scope-contracts
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts tests
+	python3 -m ruff check app/api_v2_routers/auth.py app/services/auth_application_service.py app/services/auth_lifecycle_impl.py app/api_v2_deps/auth_service.py tests/integration/test_auth_lifecycle_http_success_scope.py --select F821,F401,F811,E402
+
+.PHONY: auth-db-lifecycle-proof-report auth-db-lifecycle-proof-test auth-db-lifecycle-proof-check auth-db-lifecycle-proof-contracts backend-implementation-1031-1070-full-check
+
+auth-db-lifecycle-proof-report:
+	PYTHONPATH=. python3 scripts/generate_auth_db_lifecycle_proof_report.py
+
+auth-db-lifecycle-proof-test:
+	pytest -c pytest.ini tests/integration/test_auth_transactional_db_lifecycle_proof.py -q --no-cov --tb=short
+
+auth-db-lifecycle-proof-check:
+	PYTHONPATH=. python3 scripts/check_auth_db_lifecycle_proof.py
+
+auth-db-lifecycle-proof-contracts:
+	pytest -c pytest.ini tests/unit/test_auth_db_lifecycle_proof_contracts.py -q --no-cov --tb=short
+
+backend-implementation-1031-1070-full-check: auth-db-lifecycle-proof-report auth-db-lifecycle-proof-check auth-db-lifecycle-proof-contracts
+	python3 -m compileall -q app/services scripts tests
+	python3 -m ruff check app/services/auth_db_lifecycle_proof.py scripts/generate_auth_db_lifecycle_proof_report.py scripts/check_auth_db_lifecycle_proof.py tests/integration/test_auth_transactional_db_lifecycle_proof.py tests/unit/test_auth_db_lifecycle_proof_contracts.py --select F821,F401,F811,E402
+
