@@ -563,3 +563,20 @@ make auth-forward-refs-check
 make backend-implementation-831-870R-forward-ref-check
 ```
 
+## Backend implementation 871-910 — AuthService extraction and auth router repository closure
+
+Audit drivers:
+
+- Auth router direct repository imports were still a boundary violation after learner-scope repair.
+- `auth.py` must not directly construct repository classes.
+- `auth.py` must avoid postponed annotations because FastAPI route registration already hit Pydantic forward-reference failures.
+
+Commands:
+
+```bash
+make auth-service-extraction-repair
+make auth-service-extraction-check
+make auth-service-extraction-report
+make backend-implementation-871-910-full-check
+```
+

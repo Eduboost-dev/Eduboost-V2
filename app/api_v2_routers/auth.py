@@ -2,12 +2,14 @@
 EduBoost V2 — Auth Router
 Register, login, and JWT refresh with HTTP-only cookie for refresh token.
 """
-from typing import TYPE_CHECKING
-
 from fastapi import APIRouter, Cookie, Depends, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from app.core.envelope_route import EnvelopedRoute
 from sqlalchemy.ext.asyncio import AsyncSession
+from app.api_v2_deps.auth_service import (  # noqa: F401
+    AuthApplicationService,
+    get_auth_application_service,
+)
 
 from app.api_v2_deps.auth_runtime import AuthRuntimeContext, get_auth_runtime_context
 from app.core.config import settings
