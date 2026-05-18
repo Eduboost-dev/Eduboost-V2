@@ -3,13 +3,17 @@ EduBoost V2 — Security Helpers
 JWT creation/verification, bcrypt password hashing, RBAC role enforcement.
 """
 from __future__ import annotations
+from app.services.jwt_keyring import current_jwt_algorithm, current_jwt_headers, current_jwt_signing_key, decode_jwt_with_keyring
 
+import base64
 import hashlib
+import hmac
 import uuid
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
 import bcrypt
+from cryptography.fernet import Fernet
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
@@ -17,6 +21,7 @@ from jose import JWTError, jwt
 from app.core.config import settings
 from app.core.token_revocation import is_token_revoked, is_user_revoked
 from app.models import UserRole
+
 
 Role = UserRole
 TokenPayload = dict[str, Any]
@@ -53,7 +58,7 @@ def create_access_token(subject: str, role: UserRole, extra: dict[str, Any] | No
         "type": "access",
         **(extra or {}),
     }
-    return jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
+    return jwt.encode(payload, current_jwt_signing_key(), algorithm=current_jwt_algorithm(settings.JWT_ALGORITHM), headers=current_jwt_headers())
 
 
 def create_refresh_token(subject: str, role: UserRole, family_id: str | None = None) -> str:
@@ -67,12 +72,12 @@ def create_refresh_token(subject: str, role: UserRole, family_id: str | None = N
         "type": "refresh",
         "family": family_id or str(uuid.uuid4()),
     }
-    return jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
+    return jwt.encode(payload, current_jwt_signing_key(), algorithm=current_jwt_algorithm(settings.JWT_ALGORITHM), headers=current_jwt_headers())
 
 
 def decode_token(token: str) -> dict[str, Any]:
     try:
-        return jwt.decode(token, settings.JWT_SECRET, algorithms=[settings.JWT_ALGORITHM])
+        return decode_jwt_with_keyring(token)
     except JWTError as exc:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -144,6 +149,31 @@ require_admin = require_roles(UserRole.ADMIN)
 require_parent_or_admin = require_roles(UserRole.PARENT, UserRole.ADMIN)
 require_teacher_or_admin = require_roles(UserRole.TEACHER, UserRole.ADMIN)
 
+
+def _get_fernet() -> Fernet:
+    key_material = hmac.new(
+        settings.ENCRYPTION_KEY.encode(),
+        settings.ENCRYPTION_SALT.encode(),
+        hashlib.sha256,
+    ).digest()
+    fernet_key = base64.urlsafe_b64encode(key_material)
+    return Fernet(fernet_key)
+
+
+def encrypt_pii(plaintext: str) -> str:
+    """Encrypt PII (e.g., guardian email). Returns hex-encoded ciphertext."""
+    if not plaintext:
+        return ""
+    return _get_fernet().encrypt(plaintext.encode()).hex()
+
+
+def decrypt_pii(ciphertext_hex: str) -> str:
+    """Decrypt PII ciphertext."""
+    if not ciphertext_hex:
+        return ""
+    return _get_fernet().decrypt(bytes.fromhex(ciphertext_hex)).decode()
+
+
 __all__ = [
     "Role",
     "TokenPayload",
@@ -160,4 +190,7 @@ __all__ = [
     "require_roles",
     "require_teacher_or_admin",
     "verify_password",
+    "encrypt_pii",
+    "decrypt_pii",
 ]
+

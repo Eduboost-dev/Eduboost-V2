@@ -24,8 +24,10 @@ def main() -> int:
     test_summary = os.getenv("CI_TEST_SUMMARY", "").strip()
 
     green = _looks_like_url(run_url) and result in {"success", "passed", "green"}
+    status_label = "green" if green else "pending_remote_ci_evidence"
+    status_md = "green" if green else "pending remote CI verification"
     payload = {
-        "status": "green" if green else "pending_remote_ci_evidence",
+        "status": status_label,
         "run_url": run_url,
         "commit_sha": commit_sha,
         "branch": branch,
@@ -36,7 +38,7 @@ def main() -> int:
     }
     JSON_OUT.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     MD.write_text("\n".join([
-        "# CI Evidence", "", f"**Status:** {payload['status']}", "",
+        "# CI Evidence", "", f"**Status:** {status_md}", "",
         "| Field | Value |", "|---|---|",
         f"| GitHub Actions run URL | {run_url or 'PENDING'} |",
         f"| Commit SHA | {commit_sha or 'PENDING'} |",
@@ -50,6 +52,8 @@ def main() -> int:
         "CI_COMMIT_SHA=<sha> \\",
         "CI_BRANCH=codex/production_readiness \\",
         "make remote-ci-evidence-capture", "```", "",
+        "## Checklists",
+        "- Route alias policy: pending verification", "",
     ]), encoding="utf-8")
     print(f"Wrote {MD.relative_to(ROOT)}")
     print(f"Wrote {JSON_OUT.relative_to(ROOT)}")

@@ -19,6 +19,8 @@ ALLOWLIST = {
     ("onboarding.py", "GET", "/questions"),
     # Development/session bootstrap is not learner-object scoped.
     ("auth.py", "POST", "/dev-session"),
+    # Token refresh endpoint is system auth, not learner-object scoped.
+    ("auth.py", "POST", "/refresh"),
     # Operational consent-renewal trigger is tracked outside learner-object route checks.
     # Public ranking endpoint; this is aggregate gamification data and not learner-object scoped.
     ("gamification.py", "GET", "/leaderboard"),

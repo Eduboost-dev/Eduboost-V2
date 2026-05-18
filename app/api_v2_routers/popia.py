@@ -1,50 +1,29 @@
-from __future__ import annotations
-from app.repositories.learner_repository import LearnerRepository
-from app.security.dependencies import require_learner_read_for_current_user, require_learner_write_for_current_user
-from app.security.dependencies import require_active_consent_for_current_user
-from typing import Any
 """
 app/api_v2_routers/popia.py
 POPIA endpoints: consent lifecycle (§4.1) and data-subject rights (§4.3).
 All learner-data routes use the require_active_consent dependency (§4.2).
 """
+from __future__ import annotations
 
-import asyncio
 import uuid
-from typing import Optional
+from typing import Any, Optional
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 from pydantic import BaseModel
 
-from app.core.consent_gate import ActiveConsent, require_active_consent
-from app.domain.consent import ConsentRecord
-from app.domain.data_subject_rights import (
-    CorrectionRequest,
-    DataExportRequest,
-    ErasureRequest,
-    RestrictionRequest,
+from app.api_v2_deps.consent_lifecycle import (
+    authenticated_actor_id as _authenticated_actor_id,
+    enforce_popia_learner_write as _enforce_popia_learner_write,
+    get_canonical_consent_service,
+    get_canonical_data_rights_service,
 )
-from app.services.consent_service import ConsentService
+from app.core.envelope_route import EnvelopedRoute
+from app.core.security import get_current_user
+from app.domain.consent import ConsentRecord
+from app.modules.consent.service import ConsentService
 from app.services.popia_service import POPIADataRightsService
 
-from app.core.envelope_route import EnvelopedRoute
-
 router = APIRouter(route_class=EnvelopedRoute, prefix="/popia", tags=["popia"])
-
-
-from app.core.database import get_db, AsyncSessionLocal
-from app.core.jobs import enqueue_job
-from app.core.security import get_current_user, require_parent_or_admin
-from app.repositories.repositories import AuditRepository, ConsentRepository, LearnerRepository
-from app.services.fourth_estate import FourthEstateService
-
-async def get_consent_service_for_router(db: AsyncSession = Depends(get_db)) -> ConsentService:
-    return ConsentService(ConsentRepository(db), AuditRepository(db))
-
-
-async def get_data_subject_rights_service_for_router(db: AsyncSession = Depends(get_db)) -> POPIADataRightsService:
-    """Dependency provider for POPIA data rights service."""
-    return POPIADataRightsService(db)
 
 
 # ---------------------------------------------------------------------------
@@ -118,14 +97,17 @@ class DeletionRequestBody(BaseModel):
 # §4.1 Consent lifecycle
 # ---------------------------------------------------------------------------
 
+
 @router.post("/consent/grant", response_model=ConsentRecord)
 async def grant_consent(
     # require_learner_write_for_current_user
     body: ConsentGrantRequest,
-    consent_svc: ConsentService = Depends(get_consent_service_for_router),
+    consent_svc: ConsentService = Depends(get_canonical_consent_service),
     # TODO: replace with real auth dependency that injects actor_id from JWT
-    actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
+    current_user = Depends(get_current_user),
 ) -> ConsentRecord:
+    await _enforce_popia_learner_write(current_user, body.learner_id)
+    actor_id = _authenticated_actor_id(current_user)
     return await consent_svc.grant(
         learner_id=body.learner_id,
         guardian_id=body.guardian_id,
@@ -138,9 +120,11 @@ async def grant_consent(
 async def deny_consent(
     # require_learner_write_for_current_user
     body: ConsentDenyRequest,
-    consent_svc: ConsentService = Depends(get_consent_service_for_router),
-    actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
+    consent_svc: ConsentService = Depends(get_canonical_consent_service),
+    current_user = Depends(get_current_user),
 ) -> ConsentRecord:
+    await _enforce_popia_learner_write(current_user, body.learner_id)
+    actor_id = _authenticated_actor_id(current_user)
     return await consent_svc.deny(
         learner_id=body.learner_id,
         guardian_id=body.guardian_id,
@@ -154,9 +138,11 @@ async def deny_consent(
 async def withdraw_consent(
     # require_learner_write_for_current_user
     body: ConsentWithdrawRequest,
-    consent_svc: ConsentService = Depends(get_consent_service_for_router),
-    actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
+    consent_svc: ConsentService = Depends(get_canonical_consent_service),
+    current_user = Depends(get_current_user),
 ) -> ConsentRecord:
+    await _enforce_popia_learner_write(current_user, body.learner_id)
+    actor_id = _authenticated_actor_id(current_user)
     return await consent_svc.withdraw(
         learner_id=body.learner_id,
         actor_id=actor_id,
@@ -167,9 +153,11 @@ async def withdraw_consent(
 async def renew_consent(
     # require_learner_write_for_current_user
     body: ConsentRenewRequest,
-    consent_svc: ConsentService = Depends(get_consent_service_for_router),
-    actor_id: uuid.UUID = Depends(lambda: uuid.uuid4()),
+    consent_svc: ConsentService = Depends(get_canonical_consent_service),
+    current_user = Depends(get_current_user),
 ) -> ConsentRecord:
+    await _enforce_popia_learner_write(current_user, body.learner_id)
+    actor_id = _authenticated_actor_id(current_user)
     return await consent_svc.renew(
         learner_id=body.learner_id,
         actor_id=actor_id,
@@ -185,7 +173,7 @@ async def renew_consent(
 async def create_export_request(
     # require_active_consent_for_current_user
     body: ExportRequestBody,
-    dsr_svc: POPIADataRightsService = Depends(get_data_subject_rights_service_for_router),
+    dsr_svc: POPIADataRightsService = Depends(get_canonical_data_rights_service),
     current_user: Any = Depends(get_current_user),
 ) -> Any:
     """Creates a new data export request (§4.3)."""
@@ -202,7 +190,7 @@ async def create_export_request(
 @router.post("/erasure", status_code=status.HTTP_201_CREATED)
 async def create_erasure_request(
     body: ErasureRequestBody,
-    dsr_svc: POPIADataRightsService = Depends(get_data_subject_rights_service_for_router),
+    dsr_svc: POPIADataRightsService = Depends(get_canonical_data_rights_service),
     current_user: Any = Depends(get_current_user),
 ) -> Any:
     """Creates a new erasure request (§4.3)."""
@@ -217,7 +205,7 @@ async def create_erasure_request(
 @router.post("/erasure/{learner_id}/cancel")
 async def cancel_erasure(
     learner_id: uuid.UUID,
-    dsr_svc: POPIADataRightsService = Depends(get_data_subject_rights_service_for_router),
+    dsr_svc: POPIADataRightsService = Depends(get_canonical_data_rights_service),
     current_user: Any = Depends(get_current_user),
 ) -> Any:
     """Cancels a pending erasure request."""
@@ -234,7 +222,7 @@ async def cancel_erasure(
 @router.post("/correction")
 async def create_correction_request(
     body: CorrectionRequestLegacyBody,
-    dsr_svc: POPIADataRightsService = Depends(get_data_subject_rights_service_for_router),
+    dsr_svc: POPIADataRightsService = Depends(get_canonical_data_rights_service),
     current_user: Any = Depends(get_current_user),
 ) -> Any:
     """Creates a correction request (§4.3)."""
@@ -249,7 +237,7 @@ async def create_correction_request(
 @router.post("/restriction")
 async def create_restriction_request(
     body: RestrictionRequestLegacyBody,
-    dsr_svc: POPIADataRightsService = Depends(get_data_subject_rights_service_for_router),
+    dsr_svc: POPIADataRightsService = Depends(get_canonical_data_rights_service),
     current_user: Any = Depends(get_current_user),
 ) -> Any:
     """Creates a processing restriction request (§4.3)."""

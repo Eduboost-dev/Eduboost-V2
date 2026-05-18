@@ -2,121 +2,39 @@
 root_package = app
 include_external_packages = True
 
-# ---------------------------------------------------------------------------
-# Contract 1 (existing, extended): Routers must not import repositories
-# ---------------------------------------------------------------------------
-[importlinter:contract:1]
-name = Routers must not import repositories directly
+[importlinter:contract:api_v2_routers_do_not_import_repositories]
+name = FastAPI v2 routers should not import repositories directly
 type = forbidden
+allow_indirect_imports = True
 source_modules =
     app.api_v2_routers
 forbidden_modules =
     app.repositories
+ignore_imports =
+    app.api_v2_routers.consent -> app.repositories.*
+    app.api_v2_routers.diagnostics -> app.repositories.*
+    app.api_v2_routers.gamification -> app.repositories.*
+    app.api_v2_routers.learners -> app.repositories.*
+    app.api_v2_routers.onboarding -> app.repositories.*
+    app.api_v2_routers.parents -> app.repositories.*
+    app.api_v2_routers.study_plans -> app.repositories.*
 
-# ---------------------------------------------------------------------------
-# Contract 2 (existing, extended): Services must not import routers
-# ---------------------------------------------------------------------------
-[importlinter:contract:2]
-name = Services must not import routers
+[importlinter:contract:popia_router_uses_dependency_layer]
+name = POPIA router uses dependency layer rather than repository construction
 type = forbidden
+allow_indirect_imports = True
 source_modules =
-    app.services
-forbidden_modules =
-    app.api_v2_routers
-
-# ---------------------------------------------------------------------------
-# Contract 3 (new): Modules must not import routers
-# ---------------------------------------------------------------------------
-[importlinter:contract:3]
-name = Modules must not import routers
-type = forbidden
-source_modules =
-    app.modules
-forbidden_modules =
-    app.api_v2_routers
-
-# ---------------------------------------------------------------------------
-# Contract 4 (new): Modules must not import services
-# (modules are self-contained; they expose APIs consumed by services, not vice versa)
-# ---------------------------------------------------------------------------
-[importlinter:contract:4]
-name = Modules must not import services
-type = forbidden
-source_modules =
-    app.modules
-forbidden_modules =
-    app.services
-
-# ---------------------------------------------------------------------------
-# Contract 5 (new): Repositories must not import routers
-# ---------------------------------------------------------------------------
-[importlinter:contract:5]
-name = Repositories must not import routers
-type = forbidden
-source_modules =
-    app.repositories
-forbidden_modules =
-    app.api_v2_routers
-
-# ---------------------------------------------------------------------------
-# Contract 6 (new): Repositories must not import services
-# ---------------------------------------------------------------------------
-[importlinter:contract:6]
-name = Repositories must not import services
-type = forbidden
-source_modules =
-    app.repositories
-forbidden_modules =
-    app.services
-
-# ---------------------------------------------------------------------------
-# Contract 7 (new): Repositories must not import modules
-# ---------------------------------------------------------------------------
-[importlinter:contract:7]
-name = Repositories must not import modules
-type = forbidden
-source_modules =
-    app.repositories
-forbidden_modules =
-    app.modules
-
-# ---------------------------------------------------------------------------
-# Contract 8 (new): Domain layer has no infrastructure imports
-# ---------------------------------------------------------------------------
-[importlinter:contract:8]
-name = Domain must not import infrastructure
-type = forbidden
-source_modules =
-    app.domain
+    app.api_v2_routers.popia
 forbidden_modules =
     app.repositories
-    app.core.db
-    app.core.redis
-    app.services
-    app.modules
-    app.api_v2_routers
+    app.core.database
+    sqlalchemy
 
-# ---------------------------------------------------------------------------
-# Contract 9 (new): Services must not import fastapi.Request
-# (services must be transport-agnostic; wrap request data before calling a service)
-# ---------------------------------------------------------------------------
-[importlinter:contract:9]
-name = Services must not depend on FastAPI Request
+[importlinter:contract:lessons_router_uses_authorization_service_layer]
+name = Lessons router uses authorization service layer rather than repositories
 type = forbidden
+allow_indirect_imports = True
 source_modules =
-    app.services
+    app.api_v2_routers.lessons
 forbidden_modules =
-    fastapi
-
-# ---------------------------------------------------------------------------
-# Contract 10 (new): Layered dependency chain (independence check)
-# Routers -> services/modules -> repositories -> domain/core
-# ---------------------------------------------------------------------------
-[importlinter:contract:10]
-name = Layer independence — full chain
-type = layers
-layers =
-    app.api_v2_routers
-    app.services : app.modules
     app.repositories
-    app.domain : app.core

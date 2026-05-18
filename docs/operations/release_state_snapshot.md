@@ -2,19 +2,30 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-17T12:15:08.117377+00:00`
+- generated_at_utc: `2026-05-18T07:03:00.489905+00:00`
 - branch: `codex/production_readiness`
-- commit: `859695dac8184e8d9696272ed9f74aecdd267ef0`
+- commit: `d808cab9e62f4d3e23d9ea2691677c10e407cda7`
 - release_candidate: `unset`
 
 ## Working Tree Status
 
 ```text
-M .importlinter
+M Makefile
+ M app/api_v2_routers/auth.py
+ M docs/architecture/import_linter_availability.md
+ M docs/architecture/import_linter_contract_run.md
+ M docs/architecture/legacy_learner_access_guard_report.json
+ M docs/architecture/legacy_learner_access_guard_report.md
+ M docs/architecture/router_repository_boundary_matrix.json
+ M docs/architecture/router_repository_boundary_matrix.md
+ M docs/architecture/router_service_dependency_map.json
+ M docs/architecture/router_service_dependency_map.md
+ M docs/architecture/service_boundary_inventory.json
+ M docs/architecture/service_boundary_inventory.md
+ M docs/architecture/service_family_map.json
+ M docs/architecture/service_family_map.md
  M docs/beta/beta_content_hard_gate.json
  M docs/beta/beta_content_hard_gate.md
- M docs/current_state.md
- M docs/openapi.json
  M docs/operations/beta_release_evidence_bundle.md
  M docs/operations/beta_release_pr_body.md
  M docs/operations/beta_signoff_manifest.md
@@ -22,7 +33,9 @@ M .importlinter
  M docs/operations/database_restore_evidence.md
  M docs/operations/release_candidate_tag_manifest.md
  M docs/operations/release_evidence_manifest.md
+ M docs/operations/release_state_snapshot.md
  M docs/operations/staging_smoke_evidence_manifest.md
+ M docs/release/EVIDENCE_INDEX.md
  M docs/release/alertmanager_drill_evidence.json
  M docs/release/audit_callsite_inventory.md
  M docs/release/backend_consolidation_diagnostic_report.md
@@ -46,11 +59,11 @@ M .importlinter
  M docs/release/beta_evidence_integrity_repair_report.json
  M docs/release/beta_evidence_integrity_repair_report.md
  M docs/release/beta_readiness_status.json
- M docs/release/beta_readiness_status.md
  M docs/release/branch_protection_evidence.json
  M docs/release/branch_protection_evidence.md
  M docs/release/ci_evidence.json
  M docs/release/ci_evidence.md
+ M docs/release/consent_callsite_inventory.md
  M docs/release/disposable_db_schema_proof_execution_report.md
  M docs/release/first_audit_runtime_wiring_report.md
  M docs/release/release_owner_beta_go_no_go_memo.md
@@ -61,10 +74,19 @@ M .importlinter
  M docs/release/schema_drift_disposable_latest.md
  M docs/release/staging_smoke_final_evidence.json
  M docs/release/staging_smoke_final_evidence.md
- M docs/route_inventory.md
- M scripts/deduplicate_makefile_targets.py
- M scripts/refresh_current_state_doc.py
-?? docs/technical_state_report_2026-05-17.md
+?? app/api_v2_deps/auth_runtime.py
+?? app/services/auth_runtime_boundary.py
+?? docs/architecture/auth_boundary_debt_report.json
+?? docs/architecture/auth_boundary_debt_report.md
+?? docs/release/auth_router_boundary_introspection.json
+?? docs/release/auth_router_boundary_introspection.md
+?? docs/release/auth_router_boundary_repair_report.md
+?? docs/release/next_security_dependency_slice_queue.md
+?? scripts/check_auth_router_boundary.py
+?? scripts/generate_auth_boundary_debt_report.py
+?? scripts/inspect_auth_router_boundary.py
+?? scripts/repair_auth_router_boundary.py
+?? tests/unit/test_auth_router_boundary_contracts.py
 ```
 
 ## State Artifacts

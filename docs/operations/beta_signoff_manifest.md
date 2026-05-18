@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-17T12:13:52.384137+00:00`
+- generated_at_utc: `2026-05-18T07:01:43.093153+00:00`
 - branch: `codex/production_readiness`
-- commit: `859695dac8184e8d9696272ed9f74aecdd267ef0`
+- commit: `d808cab9e62f4d3e23d9ea2691677c10e407cda7`
 - release_candidate: `unset`
 
 ## Required Sign-Off Areas
