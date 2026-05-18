@@ -3,6 +3,9 @@ EduBoost V2 — FastAPI Application Entrypoint
 Strict Modular Monolith. No Celery, no RabbitMQ, no microservices.
 """
 from __future__ import annotations
+from app.services.jwt_keyring import validate_jwt_keyring_environment
+
+validate_jwt_keyring_environment()
 
 import asyncio
 from contextlib import asynccontextmanager
