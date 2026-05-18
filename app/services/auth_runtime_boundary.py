@@ -57,6 +57,8 @@ class AuthRuntimeContext:
 
     db: Any
     learner_repo: Any | None = None
+    consent_repo: Any | None = None
+    guardian_repo: Any | None = None
 
     async def guardian_learner_ids(self, guardian_id: Any) -> list[Any]:
         if self.learner_repo is None:
@@ -87,8 +89,18 @@ def build_auth_runtime_context(db: Any) -> AuthRuntimeContext:
         _import_symbol("app.repositories.learner_repository.LearnerRepository")
         or _import_symbol("app.repositories.repositories.LearnerRepository")
     )
+    consent_repo_cls = (
+        _import_symbol("app.repositories.consent_repository.ConsentRepository")
+        or _import_symbol("app.repositories.repositories.ConsentRepository")
+    )
+    guardian_repo_cls = (
+        _import_symbol("app.repositories.guardian_repository.GuardianRepository")
+        or _import_symbol("app.repositories.repositories.GuardianRepository")
+    )
     learner_repo = _construct_repository(learner_repo_cls, db) if learner_repo_cls is not None else None
-    return AuthRuntimeContext(db=db, learner_repo=learner_repo)
+    consent_repo = _construct_repository(consent_repo_cls, db) if consent_repo_cls is not None else None
+    guardian_repo = _construct_repository(guardian_repo_cls, db) if guardian_repo_cls is not None else None
+    return AuthRuntimeContext(db=db, learner_repo=learner_repo, consent_repo=consent_repo, guardian_repo=guardian_repo)
 
 
 __all__ = ["AuthRuntimeContext", "build_auth_runtime_context"]

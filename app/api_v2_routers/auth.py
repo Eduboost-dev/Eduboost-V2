@@ -1,16 +1,15 @@
-from fastapi.responses import JSONResponse
-from app.services.auth_token_claims import build_access_token_claims, merge_refresh_claims
-from app.api_v2_deps.auth_runtime import AuthRuntimeContext, get_auth_runtime_context
 """
 EduBoost V2 — Auth Router
 Register, login, and JWT refresh with HTTP-only cookie for refresh token.
 """
-# from __future__ import annotations
+from __future__ import annotations
 
 from fastapi import APIRouter, Cookie, Depends, HTTPException, Request, Response, status
+from fastapi.responses import JSONResponse
 from app.core.envelope_route import EnvelopedRoute
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.api_v2_deps.auth_runtime import AuthRuntimeContext, get_auth_runtime_context
 from app.core.config import settings
 from app.core.database import get_db
 from app.core.refresh_tokens import (
@@ -35,9 +34,9 @@ from app.core.security import (
 )
 from app.core.token_revocation import revoke_token, revoke_user_tokens
 from app.services.fourth_estate import FourthEstateService
+from app.services.auth_token_claims import build_access_token_claims, merge_refresh_claims
 from app.domain.schemas import LoginRequest, RefreshRequest, RegisterRequest, TokenResponse
 from app.models import UserRole
-from app.repositories.repositories import ConsentRepository, GuardianRepository
 from app.core.rate_limit import limiter
 
 
@@ -89,8 +88,14 @@ async def me(current_user: dict = Depends(get_current_user)):
 
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
 @limiter.limit(settings.RATE_LIMIT_AUTH)
-async def register(request: Request, body: RegisterRequest, response: Response, db: AsyncSession = Depends(get_db)):
-    repo = GuardianRepository(db)
+async def register(
+    request: Request,
+    body: RegisterRequest,
+    response: Response,
+    db: AsyncSession = Depends(get_db),
+    auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context),
+):
+    repo = auth_runtime.guardian_repo
     audit = FourthEstateService(db)
 
     submitted_email = getattr(body, "email")
@@ -124,8 +129,14 @@ async def register(request: Request, body: RegisterRequest, response: Response, 
 
 @router.post("/login", response_model=TokenResponse)
 @limiter.limit(settings.RATE_LIMIT_AUTH)
-async def login(request: Request, body: LoginRequest, response: Response, db: AsyncSession = Depends(get_db)):
-    repo = GuardianRepository(db)
+async def login(
+    request: Request,
+    body: LoginRequest,
+    response: Response,
+    db: AsyncSession = Depends(get_db),
+    auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context),
+):
+    repo = auth_runtime.guardian_repo
     audit = FourthEstateService(db)
 
     submitted_email = getattr(body, "email")
@@ -160,9 +171,9 @@ async def create_dev_session(response: Response, db: AsyncSession = Depends(get_
     if settings.is_production():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
 
-    guardian_repo = GuardianRepository(db)
+    guardian_repo = auth_runtime.guardian_repo
     learner_repo = auth_runtime.learner_repo
-    consent_repo = ConsentRepository(db)
+    consent_repo = auth_runtime.consent_repo
     audit = FourthEstateService(db)
 
     email_hash = hash_email(DEV_GUARDIAN_EMAIL)
@@ -176,8 +187,8 @@ async def create_dev_session(response: Response, db: AsyncSession = Depends(get_
             password_hash=hash_password(DEV_GUARDIAN_PASSWORD),
         )
 
-    guardian_learner_ids = await auth_runtime.guardian_learner_ids(guardian.id)
-    learner = next((item for item in learners if item.display_name == DEV_LEARNER_NAME), None)
+    existing_profiles = await learner_repo.get_by_guardian(guardian.id) if learner_repo is not None else []
+    learner = next((item for item in existing_profiles if item.display_name == DEV_LEARNER_NAME), None)
     if learner is None:
         learner = await learner_repo.create(
             guardian_id=guardian.id,
@@ -197,8 +208,8 @@ async def create_dev_session(response: Response, db: AsyncSession = Depends(get_
     refresh_payload = decode_token(refresh)
     
     # Include the learner IDs in the access token so authorization logic works
-    learner_ids = [str(l.id) for l in learners]
-    if learner.id not in learner_ids:
+    learner_ids = [str(item.id) for item in existing_profiles]
+    if str(learner.id) not in learner_ids:
         learner_ids.append(str(learner.id))
         
     guardian.guardian_learner_ids = learner_ids
@@ -249,7 +260,7 @@ async def refresh_token(
 
     payload = await consume_refresh_token(token)
 
-    repo = GuardianRepository(db)
+    repo = auth_runtime.guardian_repo
     guardian = await repo.get_by_id(payload["sub"])
     if not guardian or not guardian.is_active:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Account inactive")
@@ -258,9 +269,8 @@ async def refresh_token(
     new_refresh_payload = decode_token(new_refresh)
     
     # Query guardian_learner_ids to ensure they are preserved/updated correctly!
-    learner_repo = auth_runtime.learner_repo
     guardian_learner_ids = await auth_runtime.guardian_learner_ids(guardian.id)
-    guardian.guardian_learner_ids = [str(l.id) for l in learners]
+    guardian.guardian_learner_ids = [str(item) for item in guardian_learner_ids]
     
     claims = _canonical_access_claims(
         guardian,

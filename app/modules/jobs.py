@@ -21,9 +21,8 @@ Example:
         )
 """
 from __future__ import annotations
-import inspect
-from app.repositories.consent_repository import ConsentRepository
 from app.services.job_runtime_integrity import validate_arq_job_payload
+from app.services.job_dependency_factory import durable_job_session, run_consent_reminder_cycle
 
 import logging
 from datetime import datetime
@@ -40,35 +39,15 @@ logger = logging.getLogger(__name__)
 
 # ── Job Definitions ───────────────────────────────────────────────────────────
 
+
 async def send_consent_reminders(ctx: dict | None = None) -> None:
-    """ARQ job: send consent renewal reminders using an explicit DB session."""
     validate_arq_job_payload(ctx or {})
+    await run_consent_reminder_cycle(ctx or {})
 
-    async with AsyncSessionLocal() as session:
-        repo = ConsentRepository(session)
-        params = inspect.signature(ConsentService).parameters
-        kwargs = {}
-        if "consent_repo" in params:
-            kwargs["consent_repo"] = repo
-        elif "consent_repository" in params:
-            kwargs["consent_repository"] = repo
-        if "db" in params:
-            kwargs["db"] = session
-        if "session" in params:
-            kwargs["session"] = session
-        service = ConsentService(**kwargs) if kwargs else ConsentService(session)
 
-        reminder = (
-            getattr(service, "send_renewal_reminders", None)
-            or getattr(service, "send_consent_reminders", None)
-            or getattr(service, "process_renewal_reminders", None)
-        )
-        if reminder is None:
-            return
-
-        result = reminder()
-        if inspect.isawaitable(result):
-            await result
+async def send_consent_renewal_reminders(ctx: dict | None = None) -> None:
+    validate_arq_job_payload(ctx or {})
+    await run_consent_reminder_cycle(ctx or {})
 
 
 async def process_rlhf_feedback_batch(ctx: dict[str, Any], batch_id: str) -> dict[str, Any]:
@@ -128,12 +107,11 @@ async def expire_stale_diagnostic_sessions(ctx: dict[str, Any]) -> dict[str, Any
     start = time.perf_counter()
     job_name = "expire_diagnostic_sessions"
     try:
-        from app.core.database import AsyncSessionLocal
         from sqlalchemy import update
         from app.models import DiagnosticSession
 
         cutoff = datetime.now(UTC) - timedelta(hours=24)
-        async with AsyncSessionLocal() as db:
+        async with durable_job_session() as db:
             result = await db.execute(
                 update(DiagnosticSession)
                 .where(
@@ -150,7 +128,7 @@ async def expire_stale_diagnostic_sessions(ctx: dict[str, Any]) -> dict[str, Any
         arq_job_duration_seconds.labels(job_name=job_name).observe(duration)
         return {"expired": count}
 
-    except Exception as exc:
+    except Exception:
         arq_jobs_total.labels(job_name=job_name, status="failed").inc()
         raise
 
@@ -240,10 +218,9 @@ async def _send_renewal_email(consent: Any) -> None:
 
     # Guardian email is encrypted — must decrypt before sending
     from app.core.security import decrypt_pii
-    from app.core.database import AsyncSessionLocal
     from app.repositories import GuardianRepository
 
-    async with AsyncSessionLocal() as db:
+    async with durable_job_session() as db:
         guardian_repo = GuardianRepository()
         guardian = await guardian_repo.get(consent.guardian_id, db)
         if not guardian:

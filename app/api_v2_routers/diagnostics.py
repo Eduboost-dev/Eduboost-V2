@@ -8,7 +8,6 @@ from app.core.envelope_route import EnvelopedRoute
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.authorization import assert_can_access_learner
 from app.core.database import get_db
 from app.core.rate_limiter import check_ai_quota
 from app.core.security import get_current_user
@@ -32,6 +31,7 @@ from app.modules.diagnostics.diagnostic_session_service import DiagnosticSession
 from app.modules.diagnostics.session_recovery_service import SessionRecoveryService
 from app.repositories.diagnostic_session_repository import DiagnosticSessionRepository
 from app.repositories.mastery_repository import MasteryRepository
+from app.services.diagnostic_data_integrity import validate_diagnostic_submission_payload
 
 router = APIRouter(route_class=EnvelopedRoute, prefix="/diagnostics", tags=["diagnostics"])
 router.include_router(bias_review_router.router)
@@ -97,7 +97,7 @@ async def submit_diagnostic(
     current_user: dict = Depends(get_current_user),
 ):
     # code_691_720_diagnostic_submission_integrity
-    validate_diagnostic_submission_payload(body, require_items=False)
+    validate_diagnostic_submission_payload(body, require_items=True)
     learner = await LearnerRepository(db).get_by_id(body.learner_id)
     if not learner:
         raise HTTPException(status_code=404, detail="Learner not found")
@@ -328,4 +328,3 @@ async def diagnostic_respond(
         raise HTTPException(status_code=404, detail="Diagnostic item not found")
     result = await session_service.submit_response(session_id, item, correct=body.correct, response=body.response)
     return result.__dict__
-from app.services.diagnostic_data_integrity import validate_diagnostic_submission_payload, validate_mastery_update_payload

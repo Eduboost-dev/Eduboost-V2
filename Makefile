@@ -1398,3 +1398,42 @@ backend-implementation-721-750-full-check: auth-router-boundary-inspect auth-rou
 	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/services scripts
 	pytest -c pytest.ini tests/unit/test_auth_router_boundary_contracts.py -q --no-cov --tb=short
 
+.PHONY: jwt-rotation-inspect jwt-rotation-repair jwt-rotation-check dependency-pin-report dependency-constraints-snapshot optional-pip-audit auth-extraction-followup backend-implementation-751-780-full-check
+
+jwt-rotation-inspect:
+	PYTHONPATH=. python3 scripts/inspect_jwt_rotation.py
+
+jwt-rotation-repair:
+	PYTHONPATH=. python3 scripts/repair_jwt_rotation.py
+
+jwt-rotation-check:
+	PYTHONPATH=. python3 scripts/check_jwt_rotation.py
+
+dependency-pin-report:
+	PYTHONPATH=. python3 scripts/generate_dependency_pin_report.py || true
+
+dependency-constraints-snapshot:
+	PYTHONPATH=. python3 scripts/generate_constraints_snapshot.py
+
+optional-pip-audit:
+	PYTHONPATH=. python3 scripts/run_optional_pip_audit.py || true
+
+auth-extraction-followup:
+	PYTHONPATH=. python3 scripts/generate_auth_extraction_followup.py
+
+backend-implementation-751-780-full-check: jwt-rotation-inspect jwt-rotation-repair jwt-rotation-check dependency-pin-report dependency-constraints-snapshot optional-pip-audit auth-extraction-followup
+	python3 -m compileall -q app/services app/core scripts
+	pytest -c pytest.ini tests/unit/test_jwt_rotation_dependency_security.py -q --no-cov --tb=short
+
+.PHONY: runtime-blockers-followup-repair runtime-blockers-followup-check backend-implementation-781-830-full-check
+
+runtime-blockers-followup-repair:
+	PYTHONPATH=. python3 scripts/repair_runtime_blockers_after_followup_audit.py
+
+runtime-blockers-followup-check:
+	PYTHONPATH=. python3 scripts/check_runtime_blockers_after_followup_audit.py
+
+backend-implementation-781-830-full-check: runtime-blockers-followup-repair runtime-blockers-followup-check
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers app/modules app/services scripts
+	pytest -c pytest.ini tests/unit/test_runtime_blockers_after_followup_audit.py -q --no-cov --tb=short
+

@@ -1,4 +1,5 @@
 from __future__ import annotations
+from app.services.popia_consent_lifecycle_adapter import POPIAConsentLifecycleAdapter
 
 import inspect
 from typing import Any
@@ -73,18 +74,18 @@ def get_canonical_consent_service(db: AsyncSession = Depends(get_db)) -> Consent
     params = inspect.signature(ConsentService).parameters
 
     if "session" in params:
-        return ConsentService(session=db)
+        return POPIAConsentLifecycleAdapter(ConsentService(session=db))
     if "db" in params:
-        return ConsentService(db=db)
+        return POPIAConsentLifecycleAdapter(ConsentService(db=db))
 
     if "consent_repository" in params or "consent_repo" in params:
         repo = ConsentRepository(db)
         if "consent_repository" in params:
-            return ConsentService(consent_repository=repo)
-        return ConsentService(consent_repo=repo)
+            return POPIAConsentLifecycleAdapter(ConsentService(consent_repository=repo))
+        return POPIAConsentLifecycleAdapter(ConsentService(consent_repo=repo))
 
     try:
-        return ConsentService(db)
+        return POPIAConsentLifecycleAdapter(ConsentService(db))
     except TypeError as exc:
         raise RuntimeError(
             "Cannot construct canonical ConsentService from AsyncSession. "
