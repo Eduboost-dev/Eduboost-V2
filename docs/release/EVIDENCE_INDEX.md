@@ -877,3 +877,20 @@ make lesson-gamification-transaction-rollback-proof-check
 make backend-implementation-1551-1590-full-check
 ```
 
+## TX-001C / Backend implementation 1591-1630 — Transaction rollback proof rollup
+
+Audit drivers:
+
+- Transaction rollback proof must aggregate all high-risk multi-write domains.
+- A single domain proof must not be mistaken for global transaction closure.
+- Production route wiring and live Postgres proof remain outside this rollup.
+
+Commands:
+
+```bash
+make transaction-rollback-rollup-report
+make transaction-rollback-rollup-check
+make transaction-rollback-rollup-test
+make backend-implementation-1591-1630-full-check
+```
+

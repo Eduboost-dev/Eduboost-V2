@@ -1748,3 +1748,18 @@ backend-implementation-1551-1590-full-check: lesson-gamification-transaction-rol
 	python3 -m compileall -q app/services scripts tests
 	python3 -m ruff check app/services/lesson_transactional_completion.py scripts/check_lesson_gamification_transaction_rollback_proof.py tests/integration/test_lesson_gamification_transaction_rollback_proof.py tests/unit/test_lesson_transactional_completion_contracts.py --select F821,F401,F811,E402
 
+.PHONY: transaction-rollback-rollup-report transaction-rollback-rollup-check transaction-rollback-rollup-test backend-implementation-1591-1630-full-check
+
+transaction-rollback-rollup-report:
+	PYTHONPATH=. python3 -c "from scripts.transaction_rollback_rollup import write_rollup; r = write_rollup(); print(r.status)"
+
+transaction-rollback-rollup-check:
+	PYTHONPATH=. python3 scripts/check_transaction_rollback_rollup.py
+
+transaction-rollback-rollup-test:
+	pytest -c pytest.ini tests/unit/test_transaction_rollback_rollup.py -q --no-cov --tb=short
+
+backend-implementation-1591-1630-full-check: transaction-rollback-rollup-report transaction-rollback-rollup-check transaction-rollback-rollup-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/transaction_rollback_rollup.py scripts/check_transaction_rollback_rollup.py tests/unit/test_transaction_rollback_rollup.py --select F821,F401,F811,E402
+
