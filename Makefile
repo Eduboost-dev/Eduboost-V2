@@ -2170,3 +2170,21 @@ backend-implementation-2271-2310-full-check: final-gate-refresh final-gate-refre
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/final_gate_refresh.py scripts/patch_final_gate_refresh_registry.py scripts/check_final_gate_refresh.py tests/unit/test_final_gate_refresh.py --select F821,F401,F811,E402
 
+.PHONY: evidence-attachment-runbook evidence-attachment-runbook-registry-patch evidence-attachment-runbook-check evidence-attachment-runbook-test backend-implementation-2311-2350-full-check
+
+evidence-attachment-runbook:
+	PYTHONPATH=. python3 -c "from scripts.evidence_attachment_runbook import write_runbook; r = write_runbook(); print(r.command_count)"
+
+evidence-attachment-runbook-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_evidence_attachment_runbook_registry.py
+
+evidence-attachment-runbook-check: evidence-attachment-runbook-registry-patch
+	PYTHONPATH=. python3 scripts/check_evidence_attachment_runbook.py
+
+evidence-attachment-runbook-test:
+	pytest -c pytest.ini tests/unit/test_evidence_attachment_runbook.py -q --no-cov --tb=short
+
+backend-implementation-2311-2350-full-check: evidence-attachment-runbook evidence-attachment-runbook-check evidence-attachment-runbook-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/evidence_attachment_runbook.py scripts/check_evidence_attachment_runbook.py scripts/patch_evidence_attachment_runbook_registry.py tests/unit/test_evidence_attachment_runbook.py --select F821,F401,F811,E402
+
