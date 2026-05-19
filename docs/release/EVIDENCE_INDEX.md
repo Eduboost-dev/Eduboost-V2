@@ -1039,3 +1039,62 @@ make staging-acceptance-test
 make backend-implementation-1911-1950-full-check
 ```
 
+## CI-RUN-001 / Backend implementation 1951-1990 — CI evidence attachment and verification support
+
+Audit drivers:
+
+- CI-001 needs a real GitHub Actions run URL before it can move beyond `external-blocked`.
+- Local command output must not be treated as remote CI authority.
+- Recorded CI evidence must be syntactically validated before release-mode checks can pass.
+
+Commands:
+
+```bash
+make ci-run-evidence-template
+make ci-run-evidence-status
+make ci-run-evidence-local-check
+make ci-run-evidence-release-check
+make ci-run-evidence-test
+make backend-implementation-1951-1990-full-check
+```
+
+Attachment command:
+
+```bash
+CI_RUN_URL="https://github.com/NkgoloL/Eduboost-V2/actions/runs/123456789" \
+CI_RESULT="passed" \
+CI_WORKFLOW="release" \
+CI_VERIFIED_BY="release-owner" \
+make ci-run-evidence-attach
+```
+
+## APPROVAL-EVID-001 / Backend implementation 1991-2030 — Legal/security/content approval evidence attachment support
+
+Audit drivers:
+
+- Legal, security, and content approvals remain beta blockers.
+- Approval templates must not be confused with sign-off.
+- Release-mode approval checks must fail until approval metadata is attached.
+
+Commands:
+
+```bash
+make approval-evidence-templates
+make approval-evidence-status
+make approval-evidence-local-check
+make approval-evidence-release-check
+make approval-evidence-test
+make backend-implementation-1991-2030-full-check
+```
+
+Attachment command:
+
+```bash
+APPROVAL_ID="SEC-001" \
+APPROVAL_DECISION="approved" \
+APPROVAL_APPROVER="security-owner" \
+APPROVAL_EVIDENCE_URL="https://example.com/security-report" \
+APPROVAL_SCOPE="beta release security review" \
+make approval-evidence-attach
+```
+

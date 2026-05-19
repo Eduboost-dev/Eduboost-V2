@@ -105,12 +105,12 @@ findings:
     severity: P1
     gate: 2
     owner: release
-    implementation_batch: code_1671_1710
+    implementation_batch: code_1951_1990
     proof_status: external-blocked
-    proof_command: attach passing GitHub Actions run URL and run make ci-authority-release-check
+    proof_command: make ci-run-evidence-release-check
     evidence_file: docs/release/ci_evidence.md
     last_verified_commit: null
-    closure_blocker: GitHub Actions run URL required for codex/production_readiness
+    closure_blocker: valid GitHub Actions run URL and passing result metadata required
     blocks_beta: true
     external_dependency: true
   - id: LEGAL-001
@@ -118,12 +118,12 @@ findings:
     severity: P1
     gate: 5
     owner: legal
-    implementation_batch: code_1791_1830
+    implementation_batch: code_1991_2030
     proof_status: external-blocked
-    proof_command: make external-approval-release-check after approval metadata is attached
+    proof_command: make approval-evidence-release-check
     evidence_file: docs/release/external_approvals/legal_approval.md
     last_verified_commit: null
-    closure_blocker: external approval sign-off metadata required
+    closure_blocker: approval metadata and evidence URL required
     blocks_beta: true
     external_dependency: true
   - id: SEC-001
@@ -131,12 +131,12 @@ findings:
     severity: P1
     gate: 5
     owner: security
-    implementation_batch: code_1791_1830
+    implementation_batch: code_1991_2030
     proof_status: external-blocked
-    proof_command: make external-approval-release-check after approval metadata is attached
+    proof_command: make approval-evidence-release-check
     evidence_file: docs/release/external_approvals/security_approval.md
     last_verified_commit: null
-    closure_blocker: external approval sign-off metadata required
+    closure_blocker: approval metadata and evidence URL required
     blocks_beta: true
     external_dependency: true
   - id: CONTENT-001
@@ -144,12 +144,12 @@ findings:
     severity: P1
     gate: 5
     owner: content
-    implementation_batch: code_1791_1830
+    implementation_batch: code_1991_2030
     proof_status: external-blocked
-    proof_command: make external-approval-release-check after approval metadata is attached
+    proof_command: make approval-evidence-release-check
     evidence_file: docs/release/external_approvals/content_approval.md
     last_verified_commit: null
-    closure_blocker: external approval sign-off metadata required
+    closure_blocker: approval metadata and evidence URL required
     blocks_beta: true
     external_dependency: true
   - id: LESSON-AUTH-001
@@ -354,5 +354,31 @@ findings:
     evidence_file: docs/release/staging_acceptance_status.md
     last_verified_commit: c01648dd42d169b26a7bf6daa2295efa9a75c629
     closure_blocker: scaffold only; STAGING-001 remains external-blocked until real staging evidence is attached
+    blocks_beta: false
+    external_dependency: false
+  - id: CI-RUN-001
+    title: CI evidence attachment and verification support
+    severity: P1
+    gate: 2
+    owner: release
+    implementation_batch: code_1951_1990
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-1951-1990-full-check
+    evidence_file: docs/release/ci_run_evidence_status.md
+    last_verified_commit: ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1
+    closure_blocker: scaffold only; CI-001 remains external-blocked until accepted CI evidence is attached
+    blocks_beta: false
+    external_dependency: false
+  - id: APPROVAL-EVID-001
+    title: Legal/security/content approval evidence attachment support
+    severity: P1
+    gate: 5
+    owner: release
+    implementation_batch: code_1991_2030
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-1991-2030-full-check
+    evidence_file: docs/release/approval_evidence_status.md
+    last_verified_commit: ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1
+    closure_blocker: scaffold only; individual approvals remain external-blocked until accepted metadata is attached
     blocks_beta: false
     external_dependency: false

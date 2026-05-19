@@ -1,7 +1,7 @@
 # Release Go/No-Go Status
 
-Generated at: `2026-05-19T14:32:42Z`
-Commit: `c01648dd42d169b26a7bf6daa2295efa9a75c629`
+Generated at: `2026-05-19T16:31:07Z`
+Commit: `ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1`
 
 **Decision:** `NO-GO`
 
@@ -28,7 +28,7 @@ Commit: `c01648dd42d169b26a7bf6daa2295efa9a75c629`
 | `EXT-GATE-001` | `runtime-passing` | True | False | external approval remains incomplete | `docs/release/external_approval_status.md` |
 | `LEGAL-001` | `external-blocked` | True | False | external approval remains incomplete | `docs/release/external_approvals/legal_approval.md` |
 | `SEC-001` | `external-blocked` | True | False | external approval remains incomplete | `docs/release/external_approvals/security_approval.md` |
-| `STAGING-001` | `external-blocked` | True | False | external approval remains incomplete | `docs/release/external_approvals/staging_acceptance.md` |
+| `STAGING-001` | `external-blocked` | True | False | external approval remains incomplete | `docs/release/staging_smoke_evidence.md` |
 
 ## Blockers
 

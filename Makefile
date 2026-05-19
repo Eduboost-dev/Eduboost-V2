@@ -1926,3 +1926,73 @@ backend-implementation-1911-1950-full-check: staging-acceptance-template staging
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/staging_acceptance_evidence.py scripts/patch_staging_acceptance_registry.py scripts/check_staging_acceptance.py tests/unit/test_staging_acceptance_evidence.py --select F821,F401,F811,E402
 
+.PHONY: ci-run-evidence-template ci-run-evidence-status ci-run-evidence-local-check ci-run-evidence-release-check ci-run-evidence-test ci-run-evidence-registry-patch ci-run-evidence-attach backend-implementation-1951-1990-full-check
+
+ci-run-evidence-template:
+	PYTHONPATH=. python3 scripts/ci_run_evidence.py --template
+
+ci-run-evidence-status:
+	PYTHONPATH=. python3 scripts/ci_run_evidence.py --status
+
+ci-run-evidence-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_ci_run_evidence_registry.py
+
+ci-run-evidence-local-check: ci-run-evidence-registry-patch
+	PYTHONPATH=. python3 scripts/check_ci_run_evidence.py
+
+ci-run-evidence-release-check:
+	PYTHONPATH=. python3 scripts/check_ci_run_evidence.py --release
+
+ci-run-evidence-test:
+	pytest -c pytest.ini tests/unit/test_ci_run_evidence.py -q --no-cov --tb=short
+
+ci-run-evidence-attach:
+	@test -n "$$CI_RUN_URL" || (echo "CI_RUN_URL is required"; exit 1)
+	@test -n "$$CI_RESULT" || (echo "CI_RESULT is required"; exit 1)
+	@test -n "$$CI_WORKFLOW" || (echo "CI_WORKFLOW is required"; exit 1)
+	@test -n "$$CI_VERIFIED_BY" || (echo "CI_VERIFIED_BY is required"; exit 1)
+	PYTHONPATH=. python3 scripts/ci_run_evidence.py --attach --run-url "$$CI_RUN_URL" --result "$$CI_RESULT" --workflow "$$CI_WORKFLOW" --verified-by "$$CI_VERIFIED_BY" --commit-sha "$${CI_COMMIT_SHA:-$$(git rev-parse HEAD)}" --branch "$${CI_BRANCH:-codex/production_readiness}" --repository "$${CI_REPOSITORY:-NkgoloL/Eduboost-V2}" --date-verified "$${CI_DATE_VERIFIED:-$$(date -u +%Y-%m-%d)}" --notes "$${CI_NOTES:-attached through CI-RUN-001 helper}"
+	PYTHONPATH=. python3 scripts/patch_ci_run_evidence_registry.py
+	@if [ -f scripts/release_go_no_go.py ]; then PYTHONPATH=. python3 -c "from scripts.release_go_no_go import write_status; s = write_status(); print(s.decision)"; fi
+	@if [ -f scripts/beta_blocker_burndown.py ]; then PYTHONPATH=. python3 -c "from scripts.beta_blocker_burndown import write_plan; p = write_plan(); print(p.burn_down_status)"; fi
+
+backend-implementation-1951-1990-full-check: ci-run-evidence-template ci-run-evidence-status ci-run-evidence-local-check ci-run-evidence-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/ci_run_evidence.py scripts/patch_ci_run_evidence_registry.py scripts/check_ci_run_evidence.py tests/unit/test_ci_run_evidence.py --select F821,F401,F811,E402
+
+.PHONY: approval-evidence-templates approval-evidence-status approval-evidence-registry-patch approval-evidence-local-check approval-evidence-release-check approval-evidence-test approval-evidence-attach backend-implementation-1991-2030-full-check
+
+approval-evidence-templates:
+	PYTHONPATH=. python3 scripts/approval_evidence.py --templates
+
+approval-evidence-status:
+	PYTHONPATH=. python3 scripts/approval_evidence.py --status
+
+approval-evidence-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_approval_evidence_registry.py
+
+approval-evidence-local-check: approval-evidence-registry-patch
+	PYTHONPATH=. python3 scripts/check_approval_evidence.py
+
+approval-evidence-release-check:
+	PYTHONPATH=. python3 scripts/check_approval_evidence.py --release
+
+approval-evidence-test:
+	pytest -c pytest.ini tests/unit/test_approval_evidence.py -q --no-cov --tb=short
+
+approval-evidence-attach:
+	@test -n "$$APPROVAL_ID" || (echo "APPROVAL_ID is required: LEGAL-001, SEC-001, or CONTENT-001"; exit 1)
+	@test -n "$$APPROVAL_DECISION" || (echo "APPROVAL_DECISION is required"; exit 1)
+	@test -n "$$APPROVAL_APPROVER" || (echo "APPROVAL_APPROVER is required"; exit 1)
+	@test -n "$$APPROVAL_EVIDENCE_URL" || (echo "APPROVAL_EVIDENCE_URL is required"; exit 1)
+	@test -n "$$APPROVAL_SCOPE" || (echo "APPROVAL_SCOPE is required"; exit 1)
+	PYTHONPATH=. python3 scripts/approval_evidence.py --attach "$$APPROVAL_ID" --decision "$$APPROVAL_DECISION" --approver "$$APPROVAL_APPROVER" --evidence-url "$$APPROVAL_EVIDENCE_URL" --date-verified "$${APPROVAL_DATE_VERIFIED:-$$(date -u +%Y-%m-%d)}" --scope "$$APPROVAL_SCOPE" --notes "$${APPROVAL_NOTES:-attached through APPROVAL-EVID-001 helper}"
+	PYTHONPATH=. python3 scripts/patch_approval_evidence_registry.py
+	@if [ -f scripts/external_approval_gate.py ]; then PYTHONPATH=. python3 -c "from scripts.external_approval_gate import write_status; s = write_status(); print(s.status)"; fi
+	@if [ -f scripts/release_go_no_go.py ]; then PYTHONPATH=. python3 -c "from scripts.release_go_no_go import write_status; s = write_status(); print(s.decision)"; fi
+	@if [ -f scripts/beta_blocker_burndown.py ]; then PYTHONPATH=. python3 -c "from scripts.beta_blocker_burndown import write_plan; p = write_plan(); print(p.burn_down_status)"; fi
+
+backend-implementation-1991-2030-full-check: approval-evidence-templates approval-evidence-status approval-evidence-local-check approval-evidence-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/approval_evidence.py scripts/patch_approval_evidence_registry.py scripts/check_approval_evidence.py tests/unit/test_approval_evidence.py --select F821,F401,F811,E402
+

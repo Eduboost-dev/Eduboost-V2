@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-05-19T16:16:36Z",
+  "current_commit": "ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1",
+  "evidence_file": "docs/release/ci_evidence.md",
+  "status": "external-blocked",
+  "evidence": {
+    "repository": "NkgoloL/Eduboost-V2",
+    "branch": "codex/production_readiness",
+    "commit_sha": "pending",
+    "github_actions_run_url": "pending",
+    "result": "pending",
+    "workflow": "pending",
+    "verified_by": "pending",
+    "date_verified": "pending",
+    "notes": "pending"
+  },
+  "blockers": [
+    "commit SHA is pending or invalid",
+    "GitHub Actions run URL is pending or invalid",
+    "result must be pass/passed/success/successful/green/ok",
+    "workflow is pending",
+    "verified by is pending",
+    "date verified is pending"
+  ]
+}

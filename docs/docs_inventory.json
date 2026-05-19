@@ -4,11 +4,11 @@
     "api": 6,
     "architecture": 35,
     "general": 476,
-    "release": 268,
+    "release": 276,
     "security": 98
   },
-  "commit": "c01648dd42d169b26a7bf6daa2295efa9a75c629",
-  "document_count": 908,
+  "commit": "ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1",
+  "document_count": 916,
   "documents": [
     {
       "category": "general",
@@ -3886,8 +3886,8 @@
       "category": "release",
       "generated": false,
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "34c7454bcfc557b8ce1c81885949b35e39ce2ee4bfe06963669a204aace54426",
-      "size_bytes": 33048,
+      "sha256": "07e9bdce2617e9aa16461912e09a65943461b6107e0bf030b53440a0f63c79f9",
+      "size_bytes": 34697,
       "title": "EduBoost V2 Release Evidence Index"
     },
     {
@@ -3993,6 +3993,22 @@
       "sha256": "29c03417b0fc1815d16b93fc4c7e7648711cddc02a20b5794ebb1b221c36e0e2",
       "size_bytes": 242,
       "title": "Alertmanager Drill Evidence"
+    },
+    {
+      "category": "release",
+      "generated": false,
+      "path": "docs/release/approval_evidence_status.json",
+      "sha256": "5d6b6343bbbe14f22e6e6fd81f153f488fd62bac1e0d13add034607c893086e4",
+      "size_bytes": 2800,
+      "title": "approval_evidence_status.json"
+    },
+    {
+      "category": "release",
+      "generated": false,
+      "path": "docs/release/approval_evidence_status.md",
+      "sha256": "97dba6d00adde05b58da0984e505c9079b347078460f3ea27d1735bf49046e15",
+      "size_bytes": 1296,
+      "title": "Approval Evidence Status"
     },
     {
       "category": "release",
@@ -4590,15 +4606,15 @@
       "category": "release",
       "generated": false,
       "path": "docs/release/beta_blocker_burndown_plan.json",
-      "sha256": "0c593dd2a4e6faa5b6b1f262d17e62d7d61423f4f3e99abd6bfe04fdc5350b4e",
-      "size_bytes": 3605,
+      "sha256": "f5534a029d8b3b711346cf803aceba774fd9009b4542801e1d7c3ee2c6f16b53",
+      "size_bytes": 3590,
       "title": "beta_blocker_burndown_plan.json"
     },
     {
       "category": "release",
       "generated": false,
       "path": "docs/release/beta_blocker_burndown_plan.md",
-      "sha256": "283963bc53b419015d0de8b571494d609d1da7876429047c023252d076cd1c75",
+      "sha256": "993b20126c98521df757d7daebc2860c997ce6d3e9c49898a215a2f7773135fb",
       "size_bytes": 2059,
       "title": "Beta Blocker Burn-Down Plan"
     },
@@ -4694,9 +4710,25 @@
       "category": "release",
       "generated": false,
       "path": "docs/release/ci_evidence.md",
-      "sha256": "2f9e3fac81f915748b868d91abb102f0f9feccbf03e8330566110e2e73ecebf7",
-      "size_bytes": 1027,
+      "sha256": "28f1653c9ec79d49f2fcb49a4d195d3da7c086bb9ffd5d295f980f4343e62683",
+      "size_bytes": 1318,
       "title": "CI Authority Evidence"
+    },
+    {
+      "category": "release",
+      "generated": false,
+      "path": "docs/release/ci_run_evidence_status.json",
+      "sha256": "176438c02e7ff70853a4d998056eccb0e74d9ead17fb523d2cb3afe9999ca03e",
+      "size_bytes": 766,
+      "title": "ci_run_evidence_status.json"
+    },
+    {
+      "category": "release",
+      "generated": false,
+      "path": "docs/release/ci_run_evidence_status.md",
+      "sha256": "aad3c694f2fd4df8377a201be825fb7734c371ec8951b444e1ea9f3df49e7da8",
+      "size_bytes": 801,
+      "title": "CI Run Evidence Status"
     },
     {
       "category": "release",
@@ -4902,15 +4934,15 @@
       "category": "release",
       "generated": false,
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "a35181d76b1705bdc6b58b092fc1eb311fb75c035c323da6526d133ca8352f34",
-      "size_bytes": 13441,
+      "sha256": "5966f68caa7394b3def0852c4c0a1036f2fe73ce7d06a29ea4d2062899bab9d2",
+      "size_bytes": 14431,
       "title": "evidence_status_registry.yml"
     },
     {
       "category": "release",
       "generated": false,
       "path": "docs/release/external_approval_status.json",
-      "sha256": "373fb43708ab9903f8b7b427c9e68b46754e2d16d7250b797d6d09163572c422",
+      "sha256": "7f9612813f81c1fe97d83027f2c437ef6e64fe37019632bd297295934fcc07ec",
       "size_bytes": 3030,
       "title": "external_approval_status.json"
     },
@@ -4918,7 +4950,7 @@
       "category": "release",
       "generated": false,
       "path": "docs/release/external_approval_status.md",
-      "sha256": "f02f290437052aad1cbb7084e831b97b2b93377051f93052c9700d139938e5af",
+      "sha256": "563a1e7d9bef2f091130329ca3279e9d965750446f4fc0dc1da16375ed3488ad",
       "size_bytes": 1584,
       "title": "External Approval Status"
     },
@@ -5301,6 +5333,22 @@
     {
       "category": "release",
       "generated": false,
+      "path": "docs/release/next_execution_queue_after_1951_1990.md",
+      "sha256": "9f1c525ca2b8d6bc9c55615d49a28cbe347f8da33c4f2133e7b49c1d9a75aeee",
+      "size_bytes": 553,
+      "title": "Next Execution Queue After CI-RUN-001 / code_1951_1990"
+    },
+    {
+      "category": "release",
+      "generated": false,
+      "path": "docs/release/next_execution_queue_after_1991_2030.md",
+      "sha256": "2c6e08b02f46e1b6f4eb5e6ff7ac4970f04539819004a4b6020ecc04d71f33b4",
+      "size_bytes": 493,
+      "title": "Next Execution Queue After APPROVAL-EVID-001 / code_1991_2030"
+    },
+    {
+      "category": "release",
+      "generated": false,
       "path": "docs/release/next_execution_queue_after_831_870.md",
       "sha256": "4ec28450d1d3e3c53f507f5d2453a6add5ce4528b74982ec076a2072167f78ac",
       "size_bytes": 434,
@@ -5533,6 +5581,22 @@
     {
       "category": "release",
       "generated": false,
+      "path": "docs/release/no_false_closure_status_after_1951_1990.md",
+      "sha256": "d6a54e77fb997a480072498929ce739236ccbcec147ea6fcf07133dc04e5a66d",
+      "size_bytes": 541,
+      "title": "No False-Closure Status After CI-RUN-001 / code_1951_1990"
+    },
+    {
+      "category": "release",
+      "generated": false,
+      "path": "docs/release/no_false_closure_status_after_1991_2030.md",
+      "sha256": "d045801196434de9a1e8dac28d8a11d4617281e54a5c65d9f0e69a472f2d49f5",
+      "size_bytes": 555,
+      "title": "No False-Closure Status After APPROVAL-EVID-001 / code_1991_2030"
+    },
+    {
+      "category": "release",
+      "generated": false,
       "path": "docs/release/no_false_closure_status_after_831_870.md",
       "sha256": "28c1d54ed6443d5a24051524023c79a1fd029c9870350f8c7bbff5fd64190dd3",
       "size_bytes": 509,
@@ -5702,16 +5766,16 @@
       "category": "release",
       "generated": false,
       "path": "docs/release/release_go_no_go_status.json",
-      "sha256": "15e5c7dcff0fd166242f7f198a47f206d041949cfc8738d2ab0fb78439600522",
-      "size_bytes": 12235,
+      "sha256": "604ae542d7b5079a4d840211381a714ea40127bc246de247785de9938cfcea62",
+      "size_bytes": 14254,
       "title": "release_go_no_go_status.json"
     },
     {
       "category": "release",
       "generated": false,
       "path": "docs/release/release_go_no_go_status.md",
-      "sha256": "6db6541486a1637f384f9405941101f2c6268868445aa846c02355839fd160e6",
-      "size_bytes": 2833,
+      "sha256": "57077bed50a1755e082b963186b1914b840eb23e4fffa6c781f320bd1364d950",
+      "size_bytes": 2818,
       "title": "Release Go/No-Go Status"
     },
     {
@@ -7275,7 +7339,7 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "generated_at": "2026-05-19T15:39:31Z",
+  "generated_at": "2026-05-19T16:31:08Z",
   "generated_count": 3,
   "missing_important_docs": []
 }

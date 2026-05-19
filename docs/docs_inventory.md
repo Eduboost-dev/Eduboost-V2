@@ -1,9 +1,9 @@
 # Documentation Inventory
 
-Generated at: `2026-05-19T15:39:31Z`
-Commit: `c01648dd42d169b26a7bf6daa2295efa9a75c629`
+Generated at: `2026-05-19T16:31:08Z`
+Commit: `ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1`
 
-- Documents: `908`
+- Documents: `916`
 - Generated docs: `3`
 
 ## Categories
@@ -14,7 +14,7 @@ Commit: `c01648dd42d169b26a7bf6daa2295efa9a75c629`
 | `api` | 6 |
 | `architecture` | 35 |
 | `general` | 476 |
-| `release` | 268 |
+| `release` | 276 |
 | `security` | 98 |
 
 ## Documents
@@ -505,7 +505,7 @@ Commit: `c01648dd42d169b26a7bf6daa2295efa9a75c629`
 | `docs/reference/modules.md` | `general` | Learning Engines | 436 | False |
 | `docs/reference/repositories.md` | `general` | Repositories | 488 | False |
 | `docs/reference/services.md` | `general` | Services | 807 | False |
-| `docs/release/EVIDENCE_INDEX.md` | `release` | EduBoost V2 Release Evidence Index | 33048 | False |
+| `docs/release/EVIDENCE_INDEX.md` | `release` | EduBoost V2 Release Evidence Index | 34697 | False |
 | `docs/release/EduBoost_V2_Comparative_Audit_Report.md` | `release` | EduBoost SA V2 — Comparative Technical Audit Report | 18013 | False |
 | `docs/release/EduBoost_V2_Final_Technical_Assessment.md` | `release` | EduBoost V2 Final Technical Assessment | 2216 | False |
 | `docs/release/EduBoost_V2_North_Star_TODO.md` | `release` | EduBoost V2 North-Star TODO | 2540 | False |
@@ -519,6 +519,8 @@ Commit: `c01648dd42d169b26a7bf6daa2295efa9a75c629`
 | `docs/release/PR-002R_EVIDENCE.md` | `release` | PR-002R Release Evidence Index | 2426 | False |
 | `docs/release/alertmanager_drill_evidence.json` | `release` | alertmanager_drill_evidence.json | 534 | False |
 | `docs/release/alertmanager_drill_evidence.md` | `release` | Alertmanager Drill Evidence | 242 | False |
+| `docs/release/approval_evidence_status.json` | `release` | approval_evidence_status.json | 2800 | False |
+| `docs/release/approval_evidence_status.md` | `release` | Approval Evidence Status | 1296 | False |
 | `docs/release/arq_consent_job_repair_report.md` | `release` | ARQ Consent Job Repair Report | 340 | False |
 | `docs/release/arq_dependency_worker_import_repair_report.md` | `release` | ARQ Dependency and Worker Import Repair Report | 520 | False |
 | `docs/release/audit_callsite_inventory.md` | `release` | Audit Call-Site Inventory | 265309 | False |
@@ -593,7 +595,7 @@ Commit: `c01648dd42d169b26a7bf6daa2295efa9a75c629`
 | `docs/release/backend_runtime_wiring_test_pack.md` | `release` | Backend Runtime Wiring Test Pack | 713 | False |
 | `docs/release/backup_drill_evidence.json` | `release` | backup_drill_evidence.json | 194 | False |
 | `docs/release/backup_drill_evidence.md` | `release` | Backup Drill Evidence | 225 | False |
-| `docs/release/beta_blocker_burndown_plan.json` | `release` | beta_blocker_burndown_plan.json | 3605 | False |
+| `docs/release/beta_blocker_burndown_plan.json` | `release` | beta_blocker_burndown_plan.json | 3590 | False |
 | `docs/release/beta_blocker_burndown_plan.md` | `release` | Beta Blocker Burn-Down Plan | 2059 | False |
 | `docs/release/beta_evidence_integrity_repair_report.json` | `release` | beta_evidence_integrity_repair_report.json | 2863 | False |
 | `docs/release/beta_evidence_integrity_repair_report.md` | `release` | Beta Evidence Integrity Repair Report | 1232 | False |
@@ -606,7 +608,9 @@ Commit: `c01648dd42d169b26a7bf6daa2295efa9a75c629`
 | `docs/release/ci_authority_status.json` | `release` | ci_authority_status.json | 2319 | False |
 | `docs/release/ci_authority_status.md` | `release` | CI Authority Status | 2326 | False |
 | `docs/release/ci_evidence.json` | `release` | ci_evidence.json | 196 | False |
-| `docs/release/ci_evidence.md` | `release` | CI Authority Evidence | 1027 | False |
+| `docs/release/ci_evidence.md` | `release` | CI Authority Evidence | 1318 | False |
+| `docs/release/ci_run_evidence_status.json` | `release` | ci_run_evidence_status.json | 766 | False |
+| `docs/release/ci_run_evidence_status.md` | `release` | CI Run Evidence Status | 801 | False |
 | `docs/release/ci_workflow_consolidation.md` | `release` | EduBoost V2 CI Workflow Consolidation Plan | 1293 | False |
 | `docs/release/consent_callsite_inventory.md` | `release` | Consent Call-Site Inventory | 61521 | False |
 | `docs/release/consent_candidate_execution_ledger.md` | `release` | Consent Candidate Execution Ledger | 428 | False |
@@ -632,7 +636,7 @@ Commit: `c01648dd42d169b26a7bf6daa2295efa9a75c629`
 | `docs/release/diagnostics_session_binding_repair_report.md` | `release` | Diagnostics Session Binding Repair Report | 452 | False |
 | `docs/release/disposable_db_schema_proof_execution_report.md` | `release` | Disposable DB Schema Proof Execution Report | 168 | False |
 | `docs/release/docker_hardening_status.md` | `release` | Docker Hardening Status | 122 | False |
-| `docs/release/evidence_status_registry.yml` | `release` | evidence_status_registry.yml | 13441 | False |
+| `docs/release/evidence_status_registry.yml` | `release` | evidence_status_registry.yml | 14431 | False |
 | `docs/release/external_approval_status.json` | `release` | external_approval_status.json | 3030 | False |
 | `docs/release/external_approval_status.md` | `release` | External Approval Status | 1584 | False |
 | `docs/release/external_approvals/content_approval.md` | `release` | Educator/content release approval | 522 | False |
@@ -682,6 +686,8 @@ Commit: `c01648dd42d169b26a7bf6daa2295efa9a75c629`
 | `docs/release/next_execution_queue_after_1831_1870.md` | `release` | Next Execution Queue After RELEASE-GO-001 / code_1831_1870 | 383 | False |
 | `docs/release/next_execution_queue_after_1871_1910.md` | `release` | Next Execution Queue After BLOCKER-BURN-001 / code_1871_1910 | 435 | False |
 | `docs/release/next_execution_queue_after_1911_1950.md` | `release` | Next Execution Queue After STAGING-PROOF-001 / code_1911_1950 | 445 | False |
+| `docs/release/next_execution_queue_after_1951_1990.md` | `release` | Next Execution Queue After CI-RUN-001 / code_1951_1990 | 553 | False |
+| `docs/release/next_execution_queue_after_1991_2030.md` | `release` | Next Execution Queue After APPROVAL-EVID-001 / code_1991_2030 | 493 | False |
 | `docs/release/next_execution_queue_after_831_870.md` | `release` | Next Execution Queue After code_831_870 | 434 | False |
 | `docs/release/next_execution_queue_after_871_910.md` | `release` | Next Execution Queue After code_871_910 | 622 | False |
 | `docs/release/next_execution_queue_after_911_950.md` | `release` | Next Execution Queue After code_911_950 | 610 | False |
@@ -711,6 +717,8 @@ Commit: `c01648dd42d169b26a7bf6daa2295efa9a75c629`
 | `docs/release/no_false_closure_status_after_1831_1870.md` | `release` | No False-Closure Status After RELEASE-GO-001 / code_1831_1870 | 502 | False |
 | `docs/release/no_false_closure_status_after_1871_1910.md` | `release` | No False-Closure Status After BLOCKER-BURN-001 / code_1871_1910 | 540 | False |
 | `docs/release/no_false_closure_status_after_1911_1950.md` | `release` | No False-Closure Status After STAGING-PROOF-001 / code_1911_1950 | 517 | False |
+| `docs/release/no_false_closure_status_after_1951_1990.md` | `release` | No False-Closure Status After CI-RUN-001 / code_1951_1990 | 541 | False |
+| `docs/release/no_false_closure_status_after_1991_2030.md` | `release` | No False-Closure Status After APPROVAL-EVID-001 / code_1991_2030 | 555 | False |
 | `docs/release/no_false_closure_status_after_831_870.md` | `release` | No False-Closure Status After code_831_870 | 509 | False |
 | `docs/release/no_false_closure_status_after_871_910.md` | `release` | No False-Closure Status After code_871_910 | 645 | False |
 | `docs/release/no_false_closure_status_after_911_950.md` | `release` | No False-Closure Status After code_911_950 | 673 | False |
@@ -732,8 +740,8 @@ Commit: `c01648dd42d169b26a7bf6daa2295efa9a75c629`
 | `docs/release/real_audit_runtime_integration_report.md` | `release` | Real Audit Runtime Integration Report | 166 | False |
 | `docs/release/real_consent_runtime_repair_report.md` | `release` | Real Consent Runtime Repair Report | 158 | False |
 | `docs/release/release_decision_log.md` | `release` | Release Decision Log | 591 | False |
-| `docs/release/release_go_no_go_status.json` | `release` | release_go_no_go_status.json | 12235 | False |
-| `docs/release/release_go_no_go_status.md` | `release` | Release Go/No-Go Status | 2833 | False |
+| `docs/release/release_go_no_go_status.json` | `release` | release_go_no_go_status.json | 14254 | False |
+| `docs/release/release_go_no_go_status.md` | `release` | Release Go/No-Go Status | 2818 | False |
 | `docs/release/release_owner_beta_go_no_go_memo.md` | `release` | Release-Owner Beta Go/No-Go Memo | 556 | False |
 | `docs/release/release_owner_runtime_wiring_signoff_template.md` | `release` | Release Owner Runtime Wiring Signoff Template | 468 | False |
 | `docs/release/remote_ci_blocker_status.md` | `release` | Remote CI Blocker Status | 231 | False |
