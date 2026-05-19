@@ -27,15 +27,42 @@ DOC_EXTS = TEXT_EXTS.union({'.pdf', '.docx', '.pptx', '.ppt', '.xlsx'})
 EXCLUDE_DIRS = {'.git', '.venv', 'venv', 'node_modules', 'coverage_html', '__pycache__'}
 
 DELIVERABLE_KEYWORDS: List[Tuple[str, List[str]]] = [
-    ("System Overview", ["system overview", "system architecture", "architecture overview", "overview"]),
-    ("Architecture Handoff", ["architecture handoff", "architecture decision record", "adr", "handoff"]),
-    ("Production Readiness Report", ["production readiness", "production ready", "readiness", "prr"]),
-    ("Roadmap Consolidation", ["roadmap", "product roadmap", "road map"]),
-    ("Audit Evidence Index", ["audit evidence", "audit", "evidence", "audit trail"]),
-    ("Developer Onboarding Guide", ["onboarding", "developer onboarding", "getting started", "contributor guide", "developer guide"]),
-    ("API Documentation Index", ["api documentation", "api", "openapi", "swagger", "endpoints", "api reference"]),
-    ("Compliance / POPIA Pack", ["popia", "compliance", "gdpr", "privacy", "data protection"]),
-    ("Beta Launch Pack", ["beta launch", "beta", "launch", "release plan", "go-live"]),
+    ("System Overview", [
+        "system overview", "system architecture", "architecture overview", "overview",
+        "test", "doc", "report", "design", "document", "summary", "implementation", "guide", "plan", "api",
+    ]),
+    ("Architecture Handoff", [
+        "architecture handoff", "architecture decision record", "adr", "handoff",
+        "status", "context", "required", "release", "purpose", "final", "audit", "documentation", "adrs", "checklist",
+    ]),
+    ("Production Readiness Report", [
+        "production readiness", "production ready", "readiness", "prr",
+        "deep", "contracts", "runtime", "data", "meta", "contract", "report", "backend", "implementation", "status",
+    ]),
+    ("Roadmap Consolidation", [
+        "roadmap", "product roadmap", "road map",
+        "production", "implementation", "phase", "baseline", "status", "execution", "readiness", "required", "agent", "post",
+    ]),
+    ("Audit Evidence Index", [
+        "audit evidence", "audit", "evidence", "audit trail",
+        "release", "purpose", "required", "runtime", "contract", "popia", "consent", "backend", "final", "data",
+    ]),
+    ("Developer Onboarding Guide", [
+        "onboarding", "developer onboarding", "getting started", "contributor guide", "developer guide",
+        "boundary", "ether", "consent", "questions", "authentication", "auth", "production", "contract", "endpoint", "policy",
+    ]),
+    ("API Documentation Index", [
+        "api documentation", "api", "openapi", "swagger", "endpoints", "api reference",
+        "data", "meta", "contract", "resource", "error", "routers", "index", "frontend", "github", "fastapi",
+    ]),
+    ("Compliance / POPIA Pack", [
+        "popia", "compliance", "gdpr", "privacy", "data protection",
+        "consent", "audit", "evidence", "rights", "boundary", "authorization", "wiring", "purpose", "lifecycle", "check",
+    ]),
+    ("Beta Launch Pack", [
+        "beta launch", "beta", "launch", "release plan", "go-live",
+        "data", "meta", "param", "managed", "agents", "tool", "block", "result", "code", "error",
+    ]),
 ]
 
 MAX_READ = 256 * 1024  # read up to 256KB of text files
