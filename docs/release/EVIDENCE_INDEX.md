@@ -762,3 +762,20 @@ make auth-repository-fixture-proof-check
 make backend-implementation-1271-1310-full-check
 ```
 
+## LESSON-AUTH-001 / Backend implementation 1311-1350 — Lesson object authorization hardening
+
+Audit drivers:
+
+- Lesson authorization must fail closed for cross-learner access.
+- Repository/data failures must not be hidden as misleading 404s.
+- Lesson read/complete/sync route ordering must authorize before read/mutation.
+
+Commands:
+
+```bash
+make lesson-authorization-hardening-repair
+make lesson-authorization-hardening-test
+make lesson-authorization-hardening-check
+make backend-implementation-1311-1350-full-check
+```
+

@@ -1655,3 +1655,18 @@ backend-implementation-1271-1310-full-check: auth-repository-fixture-repair auth
 	python3 -m compileall -q app/services scripts tests
 	python3 -m ruff check app/services/auth_application_service.py app/services/auth_runtime_boundary.py scripts/repair_auth_repository_fixture_proof.py scripts/check_auth_repository_fixture_proof.py tests/integration/test_auth_repository_fixture_proof.py tests/unit/test_auth_repository_fixture_proof_contracts.py --select F821,F401,F811,E402
 
+.PHONY: lesson-authorization-hardening-repair lesson-authorization-hardening-test lesson-authorization-hardening-check backend-implementation-1311-1350-full-check
+
+lesson-authorization-hardening-repair:
+	PYTHONPATH=. python3 scripts/patch_lesson_authorization_hardening.py
+
+lesson-authorization-hardening-test:
+	pytest -c pytest.ini tests/unit/test_lesson_authorization_hardening.py tests/integration/test_lesson_authorization_negative_contract.py -q --no-cov --tb=short
+
+lesson-authorization-hardening-check:
+	PYTHONPATH=. python3 scripts/check_lesson_authorization_hardening.py
+
+backend-implementation-1311-1350-full-check: lesson-authorization-hardening-repair lesson-authorization-hardening-check lesson-authorization-hardening-test
+	python3 -m compileall -q app/services app/api_v2_routers scripts tests
+	python3 -m ruff check app/services/lesson_authorization.py app/api_v2_routers/lessons.py scripts/patch_lesson_authorization_hardening.py scripts/check_lesson_authorization_hardening.py tests/unit/test_lesson_authorization_hardening.py tests/integration/test_lesson_authorization_negative_contract.py --select F821,F401,F811,E402
+

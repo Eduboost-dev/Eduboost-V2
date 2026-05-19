@@ -155,3 +155,18 @@ findings:
     closure_blocker: production item-bank approval target not yet met
     blocks_beta: true
     external_dependency: true
+
+  - id: LESSON-AUTH-001
+    title: Lesson object authorization hardening and negative tests
+    severity: P1
+    gate: 3
+    owner: backend
+    implementation_batch: code_1311_1350
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-1311-1350-full-check
+    evidence_file: docs/release/lesson_authorization_hardening_report.md
+    last_verified_commit: null
+    closure_blocker: full HTTP and staging proof for all lesson routes remains pending
+    blocks_beta: true
+    external_dependency: false
+

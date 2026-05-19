@@ -14,25 +14,46 @@ from app.core.security import get_current_user
 from app.domain.schemas import DiagnosticResult, DiagnosticSubmit
 from app.security.dependencies import require_learner_read_for_current_user, require_active_consent_for_current_user
 from app.security.dependencies import require_learner_write_for_current_user
-from app.repositories.repositories import (
-    DiagnosticRepository,
-    GuardianRepository,
-    IRTRepository,
-    KnowledgeGapRepository,
-    LearnerRepository,
-)
+import importlib
+from typing import Any
+
 from app.services.diagnostic import DiagnosticEngine
 from app.services.caps_validator import CAPSAlignmentValidator
 from app.core.metrics import ITEM_BANK_COVERAGE_RATIO
 from app.modules.diagnostics.item_bank_service import ItemBankService
-from app.repositories.item_bank_repository import ItemBankRepository
 from app.modules.diagnostics import bias_review_router
 from app.modules.diagnostics.diagnostic_session_service import DiagnosticSessionService
 from app.modules.diagnostics.session_recovery_service import SessionRecoveryService
-from app.repositories.diagnostic_session_repository import DiagnosticSessionRepository
-from app.repositories.mastery_repository import MasteryRepository
 from app.services.diagnostic_data_integrity import DiagnosticIntegrityError, validate_diagnostic_submission_payload
 from app.services.diagnostic_route_integrity import validate_adaptive_diagnostic_response
+
+def _get_repo_cls(dotted_path: str) -> Any:
+    module_name, _, attr = dotted_path.rpartition(".")
+    return getattr(importlib.import_module(module_name), attr)
+
+def _LearnerRepo(db: Any) -> Any:
+    return _get_repo_cls("app.repositories.repositories.LearnerRepository")(db)
+
+def _GuardianRepo(db: Any) -> Any:
+    return _get_repo_cls("app.repositories.repositories.GuardianRepository")(db)
+
+def _IRTRepo(db: Any) -> Any:
+    return _get_repo_cls("app.repositories.repositories.IRTRepository")(db)
+
+def _DiagnosticRepo(db: Any) -> Any:
+    return _get_repo_cls("app.repositories.repositories.DiagnosticRepository")(db)
+
+def _KnowledgeGapRepo(db: Any) -> Any:
+    return _get_repo_cls("app.repositories.repositories.KnowledgeGapRepository")(db)
+
+def _ItemBankRepo(db: Any) -> Any:
+    return _get_repo_cls("app.repositories.item_bank_repository.ItemBankRepository")(db)
+
+def _DiagnosticSessionRepo(db: Any) -> Any:
+    return _get_repo_cls("app.repositories.diagnostic_session_repository.DiagnosticSessionRepository")(db)
+
+def _MasteryRepo(db: Any) -> Any:
+    return _get_repo_cls("app.repositories.mastery_repository.MasteryRepository")(db)
 
 router = APIRouter(route_class=EnvelopedRoute, prefix="/diagnostics", tags=["diagnostics"])
 router.include_router(bias_review_router.router)
@@ -60,7 +81,7 @@ async def get_diagnostic_items(
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(get_current_user),
 ):
-    learner = await LearnerRepository(db).get_by_id(learner_id)
+    learner = await _LearnerRepo(db).get_by_id(learner_id)
     if not learner:
         raise HTTPException(status_code=404, detail="Learner not found")
     require_learner_read_for_current_user(current_user, learner)
@@ -71,7 +92,7 @@ async def get_diagnostic_items(
         "properties": {"learner_grade": learner.grade},
     }
 
-    items = await IRTRepository(db).get_items_for_grade(learner.grade, limit=20)
+    items = await _IRTRepo(db).get_items_for_grade(learner.grade, limit=20)
     return [
         {
             "id": i.id,
@@ -99,16 +120,16 @@ async def submit_diagnostic(
 ):
     # code_691_720_diagnostic_submission_integrity
     validate_diagnostic_submission_payload(body, require_items=True)
-    learner = await LearnerRepository(db).get_by_id(body.learner_id)
+    learner = await _LearnerRepo(db).get_by_id(body.learner_id)
     if not learner:
         raise HTTPException(status_code=404, detail="Learner not found")
     require_learner_write_for_current_user(current_user, body.learner_id)
     await require_active_consent_for_current_user(db, current_user, str(body.learner_id))
-    guardian = await GuardianRepository(db).get_by_id(learner.guardian_id)
+    guardian = await _GuardianRepo(db).get_by_id(learner.guardian_id)
     tier = guardian.subscription_tier if guardian else "free"
     await check_ai_quota(learner.guardian_id, tier)
 
-    items = await IRTRepository(db).get_items_for_grade(learner.grade)
+    items = await _IRTRepo(db).get_items_for_grade(learner.grade)
     item_map = {i.id: i for i in items}
 
     correct_ids = {a.item_id for a in body.answers if item_map.get(a.item_id) and a.selected_option == item_map[a.item_id].correct_option}
@@ -123,16 +144,16 @@ async def submit_diagnostic(
     theta_after = analysis["theta"]
 
     # Persist session
-    diag_repo = DiagnosticRepository(db)
+    diag_repo = _DiagnosticRepo(db)
     session = await diag_repo.create_session(body.learner_id, learner.theta)
     await diag_repo.complete_session(session.id, responses_dict, theta_after)
 
     # Update learner theta
-    await LearnerRepository(db).update_theta(body.learner_id, theta_after)
+    await _LearnerRepo(db).update_theta(body.learner_id, theta_after)
 
     # Identify and persist gaps
     gaps = analysis["ranked_gaps"]
-    gap_repo = KnowledgeGapRepository(db)
+    gap_repo = _KnowledgeGapRepo(db)
     for g in gaps:
         await gap_repo.upsert(body.learner_id, g["grade"], g["subject"], g["topic"], g["severity"])
 
@@ -160,7 +181,7 @@ async def get_item_bank_coverage(
     current_user: dict = Depends(get_current_user),
 ):
     _require_item_bank_admin(current_user)
-    service = ItemBankService(ItemBankRepository(db))
+    service = ItemBankService(_ItemBankRepo(db))
     summary = await service.get_coverage_summary()
     for caps_ref, row in summary.items():
         ITEM_BANK_COVERAGE_RATIO.labels(caps_ref=caps_ref).set(row.get("coverage_ratio", 0.0))
@@ -174,7 +195,7 @@ async def get_item_bank_item(
     current_user: dict = Depends(get_current_user),
 ):
     _require_item_bank_admin(current_user)
-    item = await ItemBankRepository(db).get_item(item_id)
+    item = await _ItemBankRepo(db).get_item(item_id)
     if item is None:
         raise HTTPException(status_code=404, detail="Item not found")
     return {
@@ -214,7 +235,7 @@ async def review_item_bank_item(
 ):
     _require_item_bank_admin(current_user)
     reviewer_id = UUID(str(current_user["sub"]))
-    service = ItemBankService(ItemBankRepository(db))
+    service = ItemBankService(_ItemBankRepo(db))
     item = await service.mark_item_reviewed(
         item_id=item_id,
         new_status=body.review_status,
@@ -253,8 +274,8 @@ async def start_diagnostic_session(
     require_learner_write_for_current_user(current_user, str(body.learner_id))
     await require_active_consent_for_current_user(db, current_user, str(body.learner_id))
     service = DiagnosticSessionService(
-        session_repository=DiagnosticSessionRepository(db),
-        mastery_repository=MasteryRepository(db),
+        session_repository=_DiagnosticSessionRepo(db),
+        mastery_repository=_MasteryRepo(db),
         recovery_service=SessionRecoveryService(),
     )
     snap = await service.start_session(body.learner_id, body.caps_ref, theta=body.theta)
@@ -270,7 +291,7 @@ async def recover_diagnostic_session(
     snap = await DiagnosticSessionService(recovery_service=SessionRecoveryService()).recover_session(session_id)
     if snap is None:
         raise HTTPException(status_code=404, detail="No recoverable diagnostic session")
-    learner = await LearnerRepository(db).get_by_id(snap.learner_id)
+    learner = await _LearnerRepo(db).get_by_id(snap.learner_id)
     if learner is None:
         raise HTTPException(status_code=404, detail="Learner not found")
     require_learner_read_for_current_user(current_user, learner)
@@ -289,7 +310,7 @@ async def diagnostic_next_item(
     snap = await session_service.recover_session(session_id)
     if snap is None:
         raise HTTPException(status_code=404, detail="No recoverable diagnostic session")
-    learner = await LearnerRepository(db).get_by_id(snap.learner_id)
+    learner = await _LearnerRepo(db).get_by_id(snap.learner_id)
     if learner is None:
         raise HTTPException(status_code=404, detail="Learner not found")
     require_learner_read_for_current_user(current_user, learner)
@@ -297,7 +318,7 @@ async def diagnostic_next_item(
     session_caps_ref = getattr(snap, "caps_ref", None) or caps_ref
     if session_caps_ref and str(caps_ref) != str(session_caps_ref):
         raise HTTPException(status_code=400, detail="caps_ref does not match recovered diagnostic session")
-    repo = ItemBankRepository(db)
+    repo = _ItemBankRepo(db)
     items = list(await repo.list_by_caps_ref(session_caps_ref, limit=200))
     item = await session_service.get_next_item(session_id, items)
     if item is None:
@@ -319,8 +340,8 @@ async def diagnostic_respond(
     current_user: dict = Depends(get_current_user),
 ):
     session_service = DiagnosticSessionService(
-        session_repository=DiagnosticSessionRepository(db),
-        mastery_repository=MasteryRepository(db),
+        session_repository=_DiagnosticSessionRepo(db),
+        mastery_repository=_MasteryRepo(db),
         recovery_service=SessionRecoveryService(),
     )
     snap = await session_service.recover_session(session_id)
@@ -332,7 +353,7 @@ async def diagnostic_respond(
         validate_adaptive_diagnostic_response(body, snapshot=snap, session_id=session_id)
     except DiagnosticIntegrityError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
-    item = await ItemBankRepository(db).get_item(body.item_id)
+    item = await _ItemBankRepo(db).get_item(body.item_id)
     if item is None:
         raise HTTPException(status_code=404, detail="Diagnostic item not found")
     result = await session_service.submit_response(session_id, item, correct=body.correct, response=body.response)
