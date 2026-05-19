@@ -1134,3 +1134,21 @@ make route-tx-auth-slice-test
 make backend-implementation-2071-2110-full-check
 ```
 
+## ROUTE-TX-POPIA-001 / Backend implementation 2111-2150 — POPIA route transaction slice
+
+Audit drivers:
+
+- POPIA routes were prioritized in the route transaction implementation plan.
+- Route-source proof must show selected POPIA mutation routes delegate to service boundaries.
+- Live DB rollback proof remains separate and cannot be replaced by static markers.
+
+Commands:
+
+```bash
+make route-tx-popia-slice-report
+make route-tx-popia-slice-check
+make route-tx-popia-slice-release-check
+make route-tx-popia-slice-test
+make backend-implementation-2111-2150-full-check
+```
+

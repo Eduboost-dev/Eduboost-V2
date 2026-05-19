@@ -2038,3 +2038,24 @@ backend-implementation-2071-2110-full-check: route-tx-auth-slice-report route-tx
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/route_tx_auth_slice.py scripts/patch_route_tx_auth_slice_registry.py scripts/check_route_tx_auth_slice.py tests/unit/test_route_tx_auth_slice.py --select F821,F401,F811,E402
 
+.PHONY: route-tx-popia-slice-report route-tx-popia-slice-registry-patch route-tx-popia-slice-check route-tx-popia-slice-release-check route-tx-popia-slice-test backend-implementation-2111-2150-full-check
+
+route-tx-popia-slice-report:
+	PYTHONPATH=. python3 -c "from scripts.route_tx_popia_slice import write_report; r = write_report(); print(r.local_status)"
+
+route-tx-popia-slice-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_route_tx_popia_slice_registry.py
+
+route-tx-popia-slice-check: route-tx-popia-slice-registry-patch
+	PYTHONPATH=. python3 scripts/check_route_tx_popia_slice.py
+
+route-tx-popia-slice-release-check:
+	PYTHONPATH=. python3 scripts/check_route_tx_popia_slice.py --release
+
+route-tx-popia-slice-test:
+	pytest -c pytest.ini tests/unit/test_route_tx_popia_slice.py -q --no-cov --tb=short
+
+backend-implementation-2111-2150-full-check: route-tx-popia-slice-report route-tx-popia-slice-check route-tx-popia-slice-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/route_tx_popia_slice.py scripts/patch_route_tx_popia_slice_registry.py scripts/check_route_tx_popia_slice.py tests/unit/test_route_tx_popia_slice.py --select F821,F401,F811,E402
+
