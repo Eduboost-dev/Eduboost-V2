@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-19T16:48:22Z",
-  "current_commit": "5487eeab0a9accf09d52ccf127fffcdbc2a2e002",
+  "generated_at": "2026-05-19T19:43:33Z",
+  "current_commit": "e6b24b9d4c950c4d04681de5327a75cda597af02",
   "source_inventory": "docs/architecture/tx_route_wiring_inventory.json",
   "source_status": "production-route-transaction-wiring-not-proven",
   "plan_status": "blocked-until-route-wiring-and-live-db-proof",

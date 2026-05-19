@@ -213,6 +213,7 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `scripts/patch_diagnostics_dynamic_repository_boundary.py` | `diagnostic` |
 | `scripts/patch_diagnostics_scoring_snapshot.py` | `diagnostic` |
 | `scripts/patch_diagnostics_session_binding.py` | `diagnostic` |
+| `scripts/popia_route_tx_gap_plan.py` | `diagnostic` |
 | `scripts/popia_sweep.py` | `prompt, llm, anthropic, groq, diagnostic` |
 | `scripts/prepare_training_data.py` | `llm` |
 | `scripts/refresh_current_state_doc.py` | `llm` |

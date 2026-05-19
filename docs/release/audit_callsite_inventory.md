@@ -1703,17 +1703,17 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/ci_authority.py` | 108 | audit_append_call | `blockers.append("Workflow file does not mention every required local CI-equivalent command family")` |
 | `scripts/ci_authority.py` | 110 | audit_append_call | `blockers.append("Missing local CI-equivalent Makefile targets: " + ", ".join(missing_targets))` |
 | `scripts/ci_authority.py` | 112 | audit_append_call | `blockers.append("No GitHub Actions run URL recorded in docs/release/ci_evidence.md")` |
-| `scripts/ci_authority.py` | 205 | audit_append_call | `lines.append(f"\| `{target}` \| {target in present} \|")` |
-| `scripts/ci_authority.py` | 211 | audit_append_call | `lines.append("- None")` |
-| `scripts/ci_run_evidence.py` | 160 | audit_append_call | `blockers.append("repository is pending")` |
-| `scripts/ci_run_evidence.py` | 162 | audit_append_call | `blockers.append("branch is pending")` |
-| `scripts/ci_run_evidence.py` | 164 | audit_append_call | `blockers.append("commit SHA is pending or invalid")` |
-| `scripts/ci_run_evidence.py` | 166 | audit_append_call | `blockers.append("GitHub Actions run URL is pending or invalid")` |
-| `scripts/ci_run_evidence.py` | 168 | audit_append_call | `blockers.append("result must be pass/passed/success/successful/green/ok")` |
-| `scripts/ci_run_evidence.py` | 170 | audit_append_call | `blockers.append("workflow is pending")` |
-| `scripts/ci_run_evidence.py` | 172 | audit_append_call | `blockers.append("verified by is pending")` |
-| `scripts/ci_run_evidence.py` | 174 | audit_append_call | `blockers.append("date verified is pending")` |
-| `scripts/ci_run_evidence.py` | 249 | audit_append_call | `lines.extend(f"- {b}" for b in status.blockers) if status.blockers else lines.append("- None")` |
+| `scripts/ci_authority.py` | 208 | audit_append_call | `lines.append(f"\| `{target}` \| {target in present} \|")` |
+| `scripts/ci_authority.py` | 214 | audit_append_call | `lines.append("- None")` |
+| `scripts/ci_run_evidence.py` | 164 | audit_append_call | `blockers.append("repository is pending")` |
+| `scripts/ci_run_evidence.py` | 166 | audit_append_call | `blockers.append("branch is pending")` |
+| `scripts/ci_run_evidence.py` | 168 | audit_append_call | `blockers.append("commit SHA is pending or invalid")` |
+| `scripts/ci_run_evidence.py` | 170 | audit_append_call | `blockers.append("GitHub Actions run URL is pending or invalid")` |
+| `scripts/ci_run_evidence.py` | 172 | audit_append_call | `blockers.append("result must be pass/passed/success/successful/green/ok")` |
+| `scripts/ci_run_evidence.py` | 174 | audit_append_call | `blockers.append("workflow is pending")` |
+| `scripts/ci_run_evidence.py` | 176 | audit_append_call | `blockers.append("verified by is pending")` |
+| `scripts/ci_run_evidence.py` | 178 | audit_append_call | `blockers.append("date verified is pending")` |
+| `scripts/ci_run_evidence.py` | 257 | audit_append_call | `lines.extend(f"- {b}" for b in status.blockers) if status.blockers else lines.append("- None")` |
 | `scripts/deduplicate_makefile_targets.py` | 64 | audit_append_call | `occurrences[m.group(1)].append(i)` |
 | `scripts/deduplicate_makefile_targets.py` | 89 | audit_append_call | `block.append(i)` |
 | `scripts/deduplicate_makefile_targets.py` | 149 | audit_append_call | `new_lines.append(phony_line)` |

@@ -1169,3 +1169,21 @@ make popia-route-tx-gap-test
 make backend-implementation-2111-2150R-full-check
 ```
 
+## ROUTE-TX-DIAG-001 / Backend implementation 2151-2190 — Diagnostics route transaction slice
+
+Audit drivers:
+
+- Diagnostics routes remain part of the production route transaction wiring queue.
+- Local source proof must be classified honestly as passing or not-proven.
+- Live DB rollback proof remains separate and cannot be replaced by local route-source scans.
+
+Commands:
+
+```bash
+make route-tx-diagnostics-slice-report
+make route-tx-diagnostics-slice-check
+make route-tx-diagnostics-slice-release-check
+make route-tx-diagnostics-slice-test
+make backend-implementation-2151-2190-full-check
+```
+

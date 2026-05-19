@@ -2071,3 +2071,24 @@ backend-implementation-2111-2150R-full-check: popia-route-tx-gap-plan popia-rout
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/popia_route_tx_gap_plan.py scripts/check_popia_route_tx_no_false_closure.py scripts/patch_popia_route_tx_not_proven_registry.py tests/unit/test_popia_route_tx_gap_plan.py --select F821,F401,F811,E402
 
+.PHONY: route-tx-diagnostics-slice-report route-tx-diagnostics-slice-registry-patch route-tx-diagnostics-slice-check route-tx-diagnostics-slice-release-check route-tx-diagnostics-slice-test backend-implementation-2151-2190-full-check
+
+route-tx-diagnostics-slice-report:
+	PYTHONPATH=. python3 -c "from scripts.route_tx_diagnostics_slice import write_report, write_gap_plan; r = write_report(); p = write_gap_plan(); print(r.local_status); print(p.status)"
+
+route-tx-diagnostics-slice-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_route_tx_diagnostics_slice_registry.py
+
+route-tx-diagnostics-slice-check: route-tx-diagnostics-slice-registry-patch
+	PYTHONPATH=. python3 scripts/check_route_tx_diagnostics_slice.py
+
+route-tx-diagnostics-slice-release-check:
+	PYTHONPATH=. python3 scripts/check_route_tx_diagnostics_slice.py --release
+
+route-tx-diagnostics-slice-test:
+	pytest -c pytest.ini tests/unit/test_route_tx_diagnostics_slice.py -q --no-cov --tb=short
+
+backend-implementation-2151-2190-full-check: route-tx-diagnostics-slice-report route-tx-diagnostics-slice-check route-tx-diagnostics-slice-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/route_tx_diagnostics_slice.py scripts/patch_route_tx_diagnostics_slice_registry.py scripts/check_route_tx_diagnostics_slice.py tests/unit/test_route_tx_diagnostics_slice.py --select F821,F401,F811,E402
+
