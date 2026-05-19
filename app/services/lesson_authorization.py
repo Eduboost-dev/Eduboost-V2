@@ -111,7 +111,10 @@ async def lesson_owner_learner_id(db: Any, lesson_id: Any) -> Any:
                 owner = _owner_from_result(await _call_repo_method(repo, method_name, lesson_id, db))
                 if owner is not None:
                     return owner
-        except Exception:
+        except (TypeError, AttributeError, RuntimeError, ValueError):
+            # Constructor/signature/shape fallbacks are expected while the canonical
+            # lesson repository surface is settling. Data-layer and unexpected
+            # repository failures must propagate instead of being hidden as 404s.
             pass
 
     model = _first_import(LESSON_MODEL_CANDIDATES)

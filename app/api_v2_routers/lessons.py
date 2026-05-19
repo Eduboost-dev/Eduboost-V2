@@ -13,9 +13,8 @@ from app.core.database import get_db
 from app.core.jobs import enqueue_job
 from app.core.rate_limit import limiter
 from app.core.security import get_current_user
-from app.core.dependencies import get_current_user_id
 from app.domain.api_v2_models import JobAcceptedResponse
-from app.domain.schemas import LessonFeedback, LessonRequest, LessonResponse, LessonSyncRequest
+from app.domain.schemas import LessonRequest, LessonResponse, LessonSyncRequest
 from app.modules.lessons.service import LessonService
 from app.modules.lessons import lesson_coverage_router, lesson_review_router
 from app.services.lesson_authorization import iter_sync_lesson_ids, require_lesson_read_access_for_current_user, require_lesson_write_access_for_current_user
