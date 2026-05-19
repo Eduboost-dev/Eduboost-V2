@@ -473,3 +473,16 @@ findings:
     closure_blocker: scaffold only; live DB evidence aggregate status is external-blocked
     blocks_beta: false
     external_dependency: false
+  - id: FINAL-GATE-REFRESH-001
+    title: Final release gate refresh after evidence attachment scaffolds
+    severity: P1
+    gate: 7
+    owner: release
+    implementation_batch: code_2271_2310
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-2271-2310-full-check
+    evidence_file: docs/release/final_beta_gate_refresh.md
+    last_verified_commit: 39202930e1ad3bee2c0e6e1bc14ecd32d26d345f
+    closure_blocker: refresh only; generated beta decision is NO-GO
+    blocks_beta: false
+    external_dependency: false

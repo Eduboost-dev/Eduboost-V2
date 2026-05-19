@@ -2149,3 +2149,24 @@ backend-implementation-2231-2270-full-check: live-db-tx-evidence-templates live-
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/live_db_tx_evidence.py scripts/patch_live_db_tx_evidence_registry.py scripts/check_live_db_tx_evidence.py tests/unit/test_live_db_tx_evidence.py --select F821,F401,F811,E402
 
+.PHONY: final-gate-refresh final-gate-refresh-registry-patch final-gate-refresh-check final-gate-refresh-release-check final-gate-refresh-test backend-implementation-2271-2310-full-check
+
+final-gate-refresh:
+	PYTHONPATH=. python3 -c "from scripts.final_gate_refresh import write_refresh; r = write_refresh(); print(r.beta_decision)"
+
+final-gate-refresh-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_final_gate_refresh_registry.py
+
+final-gate-refresh-check: final-gate-refresh-registry-patch
+	PYTHONPATH=. python3 scripts/check_final_gate_refresh.py
+
+final-gate-refresh-release-check:
+	PYTHONPATH=. python3 scripts/check_final_gate_refresh.py --release
+
+final-gate-refresh-test:
+	pytest -c pytest.ini tests/unit/test_final_gate_refresh.py -q --no-cov --tb=short
+
+backend-implementation-2271-2310-full-check: final-gate-refresh final-gate-refresh-check final-gate-refresh-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/final_gate_refresh.py scripts/patch_final_gate_refresh_registry.py scripts/check_final_gate_refresh.py tests/unit/test_final_gate_refresh.py --select F821,F401,F811,E402
+

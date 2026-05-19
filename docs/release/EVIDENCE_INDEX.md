@@ -1235,3 +1235,21 @@ TX_VERIFIED_BY="release-owner" \
 make live-db-tx-evidence-attach
 ```
 
+## FINAL-GATE-REFRESH-001 / Backend implementation 2271-2310 — Final release gate refresh
+
+Audit drivers:
+
+- Evidence attachment scaffolds need one consolidated refresh surface.
+- Beta-critical blockers must remain visible after all generated reports are updated.
+- Release-mode checks must fail while generated beta decision is `NO-GO`.
+
+Commands:
+
+```bash
+make final-gate-refresh
+make final-gate-refresh-check
+make final-gate-refresh-release-check
+make final-gate-refresh-test
+make backend-implementation-2271-2310-full-check
+```
+

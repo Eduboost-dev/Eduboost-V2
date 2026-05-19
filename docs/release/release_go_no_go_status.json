@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-19T21:21:13Z",
-  "current_commit": "7fe85504e32583fe8e8a7b047873429dc1cf05cd",
+  "generated_at": "2026-05-19T21:33:02Z",
+  "current_commit": "39202930e1ad3bee2c0e6e1bc14ecd32d26d345f",
   "decision": "NO-GO",
   "beta_blocker_count": 7,
   "engineering_blocker_count": 1,
@@ -433,6 +433,19 @@
       "external_dependency": false,
       "evidence_file": "docs/release/beta_blocker_burndown_plan.md",
       "closure_blocker": "plan only; blockers remain until their own evidence gates pass",
+      "go_eligible": true,
+      "reason": "non-beta-blocking item"
+    },
+    {
+      "id": "FINAL-GATE-REFRESH-001",
+      "title": "Final release gate refresh after evidence attachment scaffolds",
+      "severity": "P1",
+      "gate": "7",
+      "proof_status": "runtime-passing",
+      "blocks_beta": false,
+      "external_dependency": false,
+      "evidence_file": "docs/release/final_beta_gate_refresh.md",
+      "closure_blocker": "refresh only; generated beta decision is NO-GO",
       "go_eligible": true,
       "reason": "non-beta-blocking item"
     },

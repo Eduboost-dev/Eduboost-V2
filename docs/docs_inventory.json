@@ -4,11 +4,11 @@
     "api": 6,
     "architecture": 37,
     "general": 483,
-    "release": 309,
+    "release": 313,
     "security": 98
   },
-  "commit": "7fe85504e32583fe8e8a7b047873429dc1cf05cd",
-  "document_count": 958,
+  "commit": "39202930e1ad3bee2c0e6e1bc14ecd32d26d345f",
+  "document_count": 962,
   "documents": [
     {
       "category": "general",
@@ -34093,6 +34093,11 @@
           "level": 2,
           "line": 1208,
           "text": "LIVE-DB-TX-EVID-001 / Backend implementation 2231-2270 \u2014 Live DB transaction evidence attachment support"
+        },
+        {
+          "level": 2,
+          "line": 1238,
+          "text": "FINAL-GATE-REFRESH-001 / Backend implementation 2271-2310 \u2014 Final release gate refresh"
         }
       ],
       "links": [
@@ -34118,8 +34123,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "34088bac788ded4e4d379e3362bd18d33f31fa96db03f6e189a6e4741140c204",
-      "size_bytes": 39000,
+      "sha256": "dbabadf75cd1f110346280c267b28c3d4f0717c32911ca40e646dc7b2fe51e64",
+      "size_bytes": 39535,
       "statuses": [
         "todo",
         "passed",
@@ -35638,7 +35643,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/approval_evidence_status.json",
-      "sha256": "d8b88f916039e7a141b248bd6f8f5959afcc3a567d6fe5a76a8aea7eeb2e5ee8",
+      "sha256": "be95776410bc90eb1034df1cbef419e4b9c1307a47978574c0eaadd6f821706c",
       "size_bytes": 2800,
       "statuses": [
         "external-blocked",
@@ -35671,7 +35676,7 @@
       ],
       "links": [],
       "path": "docs/release/approval_evidence_status.md",
-      "sha256": "32e12959242512d4859f0e25141237ca0d49d12a88418c415238190f7abce61f",
+      "sha256": "c2b68ed712c053ac9472f6122770b57c42ebb7fa1a0ea63a36c074e540e0497d",
       "size_bytes": 1296,
       "statuses": [
         "external-blocked",
@@ -39471,7 +39476,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/beta_blocker_burndown_plan.json",
-      "sha256": "724c07ebf2c146ad29baee7bfde4975b6b032ba0ac5edd7496ffbaa2125b82b7",
+      "sha256": "631a3f28ef76bff414d53ed2baf9d484173e5c42a4ecafa7e1dd49bd48aede97",
       "size_bytes": 4049,
       "statuses": [
         "blocked",
@@ -39510,7 +39515,7 @@
       ],
       "links": [],
       "path": "docs/release/beta_blocker_burndown_plan.md",
-      "sha256": "ac7b7773ddf5f5c61809b80d2b618e0fac6b3852007bc87c732b98078ca97b95",
+      "sha256": "694cf97fe9dbca33b85e6720b1267ba81d62babdcad9fd143510a2ca02634c2e",
       "size_bytes": 2225,
       "statuses": [
         "blocked",
@@ -39848,7 +39853,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/ci_run_evidence_status.json",
-      "sha256": "41358799318ae63a3e3149a938678e34f0073d14e995255bb45717835e46e6f3",
+      "sha256": "148e212f55270f831f5a4fdd9875673e8fb98c5d97e1d9fc27d4b9b4898401d6",
       "size_bytes": 766,
       "statuses": [
         "external-blocked",
@@ -39882,7 +39887,7 @@
       ],
       "links": [],
       "path": "docs/release/ci_run_evidence_status.md",
-      "sha256": "f172d3e7596e34274c7c9baf2f3e931b478312a14b2d4594008da6187ce48f74",
+      "sha256": "befffeba36f0f2213fc6eb4f52671356322ffd4be38bbcd1e02bf45af61e95ad",
       "size_bytes": 801,
       "statuses": [
         "external-blocked",
@@ -40752,7 +40757,8 @@
         "docs/release/popia_route_transaction_live_db_evidence.md",
         "docs/release/popia_route_transaction_gap_plan.md",
         "docs/release/diagnostics_route_transaction_live_db_evidence.md",
-        "docs/release/live_db_transaction_evidence_status.md"
+        "docs/release/live_db_transaction_evidence_status.md",
+        "docs/release/final_beta_gate_refresh.md"
       ],
       "generated": false,
       "headings": [
@@ -40829,8 +40835,8 @@
       ],
       "links": [],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "f5c17625d99d37e4b55447607aa9f1c400b7f3117f0899023f251871afbf05a7",
-      "size_bytes": 18291,
+      "sha256": "dd9c31922ca8adbcc301a062df1a06129197a074323d300a2cb6cf3e4f4d5be8",
+      "size_bytes": 18835,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -40853,7 +40859,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/external_approval_status.json",
-      "sha256": "2b13c9c283e355ba6d9d8713ffc24a7bc624263c7f227df2462e742d29fb5026",
+      "sha256": "81ef194f7e65f66f9cb9ab3dbfda2337dd323981f7ab542676508e530ba40804",
       "size_bytes": 3030,
       "statuses": [
         "external-blocked",
@@ -40885,7 +40891,7 @@
       ],
       "links": [],
       "path": "docs/release/external_approval_status.md",
-      "sha256": "5012e983489fa6fb5fdf16238842f45ee06c17b03f4e2b6a081a98a879f4a4ee",
+      "sha256": "156ee14fffa42ba6ca9ebbdfcbe9cfe919617f33af5e4e504291149ce99dcfa6",
       "size_bytes": 1584,
       "statuses": [
         "external-blocked",
@@ -41016,6 +41022,101 @@
         "pending"
       ],
       "title": "Staging acceptance approval"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [
+        "docs/release/jwt_production_guard_repair_report.md",
+        "docs/release/arq_dependency_worker_import_repair_report.md",
+        "docs/release/no_false_closure_status_after_1151_1190.md",
+        "docs/release/evidence_status_registry.yml",
+        "docs/release/diagnostics_session_binding_repair_report.md",
+        "docs/release/ci_evidence.md",
+        "docs/release/external_approvals/legal_approval.md",
+        "docs/release/external_approvals/security_approval.md",
+        "docs/release/external_approvals/content_approval.md",
+        "docs/release/lesson_authorization_hardening_report.md",
+        "docs/release/diagnostics_scoring_snapshot_repair_report.md",
+        "docs/release/staging_smoke_evidence.md",
+        "docs/release/external_approval_status.md"
+      ],
+      "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/release/final_beta_gate_refresh.json",
+      "sha256": "e5d729d9384bcf46063b175c43f9e91f682288c946c2ad7ae9719fa85f6a1051",
+      "size_bytes": 10261,
+      "statuses": [
+        "external-blocked",
+        "blocked",
+        "not-proven",
+        "pending"
+      ],
+      "title": "Final Beta Gate Refresh"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [
+        "docs/release/jwt_production_guard_repair_report.md",
+        "docs/release/arq_dependency_worker_import_repair_report.md",
+        "docs/release/no_false_closure_status_after_1151_1190.md",
+        "docs/release/evidence_status_registry.yml",
+        "docs/release/diagnostics_session_binding_repair_report.md",
+        "docs/release/ci_evidence.md",
+        "docs/release/external_approvals/legal_approval.md",
+        "docs/release/external_approvals/security_approval.md",
+        "docs/release/external_approvals/content_approval.md",
+        "docs/release/lesson_authorization_hardening_report.md",
+        "docs/release/diagnostics_scoring_snapshot_repair_report.md",
+        "docs/release/staging_smoke_evidence.md",
+        "docs/release/external_approval_status.md"
+      ],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Final Beta Gate Refresh"
+        },
+        {
+          "level": 2,
+          "line": 10,
+          "text": "Refreshed status surfaces"
+        },
+        {
+          "level": 2,
+          "line": 24,
+          "text": "Beta-critical findings"
+        },
+        {
+          "level": 2,
+          "line": 42,
+          "text": "Required next actions"
+        },
+        {
+          "level": 2,
+          "line": 48,
+          "text": "No false-closure rules"
+        },
+        {
+          "level": 2,
+          "line": 55,
+          "text": "Interpretation"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/final_beta_gate_refresh.md",
+      "sha256": "c1c5d4844237edd75a07f6b7327577c2a102d905ade747de4e588d9c49049591",
+      "size_bytes": 3578,
+      "statuses": [
+        "external-blocked",
+        "blocked",
+        "not-proven",
+        "pending"
+      ],
+      "title": "Final Beta Gate Refresh"
     },
     {
       "category": "release",
@@ -41472,7 +41573,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/live_db_transaction_evidence_status.json",
-      "sha256": "30e0a8205aaf86f9de602187b4bc34eb96e82313cdd6ecb17d69f193f9f950f4",
+      "sha256": "254e158122c484e6ea643aba306e86e65eb5c694a5ffa31a583157eeb1ecf10f",
       "size_bytes": 3527,
       "statuses": [
         "external-blocked",
@@ -41506,7 +41607,7 @@
       ],
       "links": [],
       "path": "docs/release/live_db_transaction_evidence_status.md",
-      "sha256": "de7429bafa0e11f9948f3cd6ddc86a5e8ff27027c54c2dea8cd5225ea33287be",
+      "sha256": "3acd02a1b8b0b654960b576f2f769a53837bc2fde6a8e023c5e61c2d41912d8f",
       "size_bytes": 1534,
       "statuses": [
         "external-blocked",
@@ -42726,6 +42827,35 @@
         {
           "level": 1,
           "line": 1,
+          "text": "Next Execution Queue After FINAL-GATE-REFRESH-001 / code_2271_2310"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next batch"
+        },
+        {
+          "level": 2,
+          "line": 7,
+          "text": "Scope candidates"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2271_2310.md",
+      "sha256": "4e2f5177f3e3e1ee90e2f514faa19b186ca06284426b4b7be8a7c0b8dff6d37a",
+      "size_bytes": 512,
+      "statuses": [],
+      "title": "Next Execution Queue After FINAL-GATE-REFRESH-001 / code_2271_2310"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "Next Execution Queue After code_831_870"
         },
         {
@@ -43885,6 +44015,35 @@
         {
           "level": 1,
           "line": 1,
+          "text": "No False-Closure Status After FINAL-GATE-REFRESH-001 / code_2271_2310"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 12,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2271_2310.md",
+      "sha256": "7deb32addce9ca67457e5ac6fe923cf0e0d003c0399f541b350fe85b2537a674",
+      "size_bytes": 546,
+      "statuses": [],
+      "title": "No False-Closure Status After FINAL-GATE-REFRESH-001 / code_2271_2310"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "No False-Closure Status After code_831_870"
         },
         {
@@ -44572,14 +44731,15 @@
         "docs/release/approval_evidence_status.md",
         "docs/release/staging_acceptance_status.md",
         "docs/release/beta_blocker_burndown_plan.md",
+        "docs/release/final_beta_gate_refresh.md",
         "docs/release/release_go_no_go_status.md"
       ],
       "generated": false,
       "headings": [],
       "links": [],
       "path": "docs/release/release_go_no_go_status.json",
-      "sha256": "89a8c0c7b861cc5eb55531d1ab0de5298e0cb4eee2c0da734753b39add6042a0",
-      "size_bytes": 17830,
+      "sha256": "3d7c4a6ce7e8a9869b17ad581e04bcb160c4ac3704700b9640b9a060b5e2f639",
+      "size_bytes": 18319,
       "statuses": [
         "external-blocked",
         "pending",
@@ -44637,7 +44797,7 @@
       ],
       "links": [],
       "path": "docs/release/release_go_no_go_status.md",
-      "sha256": "666c817fe7a59b197600b917e5929f542e79e53425a8c23a7773c610d46d989d",
+      "sha256": "1e0930d4ed6655bccdf4aeaaead645d26aa477a3036d98b79dd783ab54c76e3e",
       "size_bytes": 2905,
       "statuses": [
         "external-blocked",
@@ -45044,7 +45204,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/route_transaction_slice_rollup.json",
-      "sha256": "a52284968f0ebae6278c60cc0d98d2804b5b3d6215ed57d6e9cec9e00d0afb25",
+      "sha256": "e2ed0dba0c4324d203b915d9145491f8c122369b99091c44986cba34417374dd",
       "size_bytes": 3628,
       "statuses": [
         "blocked",
@@ -45090,7 +45250,7 @@
       ],
       "links": [],
       "path": "docs/release/route_transaction_slice_rollup.md",
-      "sha256": "03b92927335f8e0dadff00c3b684f433f170add44006e926716e81f3db00d8da",
+      "sha256": "0d163ffdfe118da6d9526de397540e8215ec73409ccd0b735cbd55f6e158570e",
       "size_bytes": 1403,
       "statuses": [
         "blocked",
@@ -45606,7 +45766,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/staging_acceptance_status.json",
-      "sha256": "7969229b5214520a591138022780082831c4c24214b2da48f0ee6a02921969f9",
+      "sha256": "933415bc98e8dcab3985f227ce48bbfec3c319a580c558a69a9efe9cba21303b",
       "size_bytes": 1913,
       "statuses": [
         "external-blocked",
@@ -45638,7 +45798,7 @@
       ],
       "links": [],
       "path": "docs/release/staging_acceptance_status.md",
-      "sha256": "bcb4da6735421394ed2aff1a23fae348110ac451fedcb2ad7a9eb89ada13d88d",
+      "sha256": "1b1daaef365512908bb4422e5cebebaf6c94c2a124957d1cfbd59f36a9f7a170",
       "size_bytes": 1227,
       "statuses": [
         "external-blocked",
@@ -51980,8 +52140,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 958,
-  "generated_at": "2026-05-19T21:21:24Z",
+  "files_scanned": 962,
+  "generated_at": "2026-05-19T21:33:28Z",
   "generated_count": 4,
   "missing_important_docs": []
 }
