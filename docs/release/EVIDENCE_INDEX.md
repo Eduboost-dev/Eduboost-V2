@@ -693,3 +693,19 @@ make arq-worker-import-check
 make backend-implementation-1111-1150-full-check
 ```
 
+## POPIA-001 / Backend implementation 1151-1190 — POPIA lifecycle HTTP response-contract proof
+
+Audit drivers:
+
+- POPIA lifecycle routes declare `ConsentRecord` but legacy deny/withdraw fallback paths could return integer row counts.
+- FastAPI response-model validation must be exercised over HTTP with `raise_server_exceptions=True`.
+- Unauthorized learner consent mutation must fail closed.
+
+Commands:
+
+```bash
+make popia-lifecycle-response-contract-test
+make popia-lifecycle-response-contract-check
+make backend-implementation-1151-1190-full-check
+```
+

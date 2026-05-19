@@ -13,6 +13,8 @@ help:
 	@echo "  typecheck       - Run type checker (mypy)"
 	@echo "  migrate         - Run database migrations"
 	@echo "  docs            - Build and serve documentation"
+	@echo "  docs-inventory  - Generate documentation intelligence inventory"
+	@echo "  docs-inventory-check - Verify documentation intelligence inventory is current"
 	@echo "  openapi         - Generate docs/openapi.json"
 	@echo "  openapi-check   - Verify docs/openapi.json is current"
 	@echo "  route-inventory - Generate docs/route_inventory.md"
@@ -46,6 +48,12 @@ migrate:
 
 docs:
 	mkdocs serve
+
+docs-inventory:
+	$(PYTHON) scripts/docs_inventory.py
+
+docs-inventory-check:
+	$(PYTHON) scripts/docs_inventory.py --check
 
 openapi:
 	$(PYTHON) scripts/generate_openapi.py
@@ -1590,3 +1598,14 @@ backend-implementation-1111-1150-full-check: arq-dependency-worker-repair arq-wo
 	python3 -m compileall -q app/services app/modules scripts tests
 	python3 -m ruff check app/services/arq_import_compat.py app/services/job_dependency_factory.py app/modules/jobs.py scripts/repair_arq_dependency_worker_import.py scripts/check_arq_worker_import.py tests/unit/test_arq_worker_import_contract.py --select F821,F401,F811,E402
 
+.PHONY: popia-lifecycle-response-contract-test popia-lifecycle-response-contract-check backend-implementation-1151-1190-full-check
+
+popia-lifecycle-response-contract-test:
+	pytest -c pytest.ini tests/integration/test_popia_lifecycle_response_contract.py tests/unit/test_popia_lifecycle_response_contracts.py -q --no-cov --tb=short
+
+popia-lifecycle-response-contract-check:
+	PYTHONPATH=. python3 scripts/check_popia_lifecycle_response_contract.py
+
+backend-implementation-1151-1190-full-check: popia-lifecycle-response-contract-check
+	python3 -m compileall -q app/services app/api_v2_routers scripts tests
+	python3 -m ruff check app/services/popia_consent_lifecycle_adapter.py app/api_v2_routers/popia.py scripts/check_popia_lifecycle_response_contract.py tests/integration/test_popia_lifecycle_response_contract.py tests/unit/test_popia_lifecycle_response_contracts.py --select F821,F401,F811,E402
