@@ -1824,3 +1824,18 @@ backend-implementation-1711-1750-full-check: docs-inventory docs-inventory-check
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/docs_inventory.py scripts/check_docs_intelligence.py tests/unit/test_docs_intelligence.py --select F821,F401,F811,E402
 
+.PHONY: tx-route-wiring-inventory tx-route-wiring-check tx-route-wiring-test backend-implementation-1751-1790-full-check
+
+tx-route-wiring-inventory:
+	PYTHONPATH=. python3 -c "from scripts.tx_route_wiring_inventory import write_inventory; i = write_inventory(); print(i.status)"
+
+tx-route-wiring-check:
+	PYTHONPATH=. python3 scripts/check_tx_route_wiring.py
+
+tx-route-wiring-test:
+	pytest -c pytest.ini tests/unit/test_tx_route_wiring_inventory.py -q --no-cov --tb=short
+
+backend-implementation-1751-1790-full-check: tx-route-wiring-inventory tx-route-wiring-check tx-route-wiring-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/tx_route_wiring_inventory.py scripts/check_tx_route_wiring.py tests/unit/test_tx_route_wiring_inventory.py --select F821,F401,F811,E402
+

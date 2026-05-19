@@ -280,3 +280,17 @@ findings:
     closure_blocker: CI authority and external approvals remain separate release blockers
     blocks_beta: false
     external_dependency: false
+
+  - id: TX-ROUTE-001
+    title: Production route transaction wiring inventory
+    severity: P1
+    gate: 4
+    owner: backend
+    implementation_batch: code_1751_1790
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-1751-1790-full-check
+    evidence_file: docs/architecture/tx_route_wiring_inventory.md
+    last_verified_commit: null
+    closure_blocker: production route transactional rewiring and live database proof still pending
+    blocks_beta: false
+    external_dependency: false
