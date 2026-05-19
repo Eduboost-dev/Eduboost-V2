@@ -1736,3 +1736,15 @@ backend-implementation-1511-1550-full-check: diagnostics-transaction-rollback-pr
 	python3 -m compileall -q app/services scripts tests
 	python3 -m ruff check app/services/diagnostic_transactional_response.py scripts/check_diagnostics_transaction_rollback_proof.py tests/integration/test_diagnostics_transaction_rollback_proof.py tests/unit/test_diagnostic_transactional_response_contracts.py --select F821,F401,F811,E402
 
+.PHONY: lesson-gamification-transaction-rollback-proof-test lesson-gamification-transaction-rollback-proof-check backend-implementation-1551-1590-full-check
+
+lesson-gamification-transaction-rollback-proof-test:
+	pytest -c pytest.ini tests/integration/test_lesson_gamification_transaction_rollback_proof.py tests/unit/test_lesson_transactional_completion_contracts.py -q --no-cov --tb=short
+
+lesson-gamification-transaction-rollback-proof-check:
+	PYTHONPATH=. python3 scripts/check_lesson_gamification_transaction_rollback_proof.py
+
+backend-implementation-1551-1590-full-check: lesson-gamification-transaction-rollback-proof-test lesson-gamification-transaction-rollback-proof-check
+	python3 -m compileall -q app/services scripts tests
+	python3 -m ruff check app/services/lesson_transactional_completion.py scripts/check_lesson_gamification_transaction_rollback_proof.py tests/integration/test_lesson_gamification_transaction_rollback_proof.py tests/unit/test_lesson_transactional_completion_contracts.py --select F821,F401,F811,E402
+

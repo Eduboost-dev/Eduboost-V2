@@ -239,3 +239,17 @@ findings:
     closure_blocker: live Postgres and production route transaction proof still pending
     blocks_beta: false
     external_dependency: false
+
+  - id: TX-LESSON-001
+    title: Lesson completion gamification transaction rollback proof
+    severity: P1
+    gate: 4
+    owner: backend
+    implementation_batch: code_1551_1590
+    proof_status: integration-passing
+    proof_command: make backend-implementation-1551-1590-full-check
+    evidence_file: docs/release/no_false_closure_status_after_1551_1590.md
+    last_verified_commit: null
+    closure_blocker: live Postgres and production route transaction wiring proof still pending
+    blocks_beta: false
+    external_dependency: false

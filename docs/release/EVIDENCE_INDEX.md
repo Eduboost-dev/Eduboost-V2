@@ -861,3 +861,19 @@ make diagnostics-transaction-rollback-proof-check
 make backend-implementation-1511-1550-full-check
 ```
 
+## TX-LESSON-001 / Backend implementation 1551-1590 — Lesson completion gamification transaction rollback proof
+
+Audit drivers:
+
+- Lesson completion and gamification XP award are a high-risk multi-write path.
+- Lesson completion, XP update, and audit/event write must commit or roll back together.
+- Broader TX-001 stays open until production wiring and live DB rollback proof exist.
+
+Commands:
+
+```bash
+make lesson-gamification-transaction-rollback-proof-test
+make lesson-gamification-transaction-rollback-proof-check
+make backend-implementation-1551-1590-full-check
+```
+
