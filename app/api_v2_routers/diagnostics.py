@@ -31,7 +31,8 @@ from app.modules.diagnostics.diagnostic_session_service import DiagnosticSession
 from app.modules.diagnostics.session_recovery_service import SessionRecoveryService
 from app.repositories.diagnostic_session_repository import DiagnosticSessionRepository
 from app.repositories.mastery_repository import MasteryRepository
-from app.services.diagnostic_data_integrity import validate_diagnostic_submission_payload
+from app.services.diagnostic_data_integrity import DiagnosticIntegrityError, validate_diagnostic_submission_payload
+from app.services.diagnostic_route_integrity import validate_adaptive_diagnostic_response
 
 router = APIRouter(route_class=EnvelopedRoute, prefix="/diagnostics", tags=["diagnostics"])
 router.include_router(bias_review_router.router)
@@ -240,6 +241,7 @@ class DiagnosticSessionResponseRequest(BaseModel):
     item_id: UUID
     correct: bool
     response: str | None = None
+    caps_ref: str | None = None
 
 
 @router.post("/sessions", status_code=status.HTTP_201_CREATED)
@@ -292,8 +294,11 @@ async def diagnostic_next_item(
         raise HTTPException(status_code=404, detail="Learner not found")
     require_learner_read_for_current_user(current_user, learner)
     await require_active_consent_for_current_user(db, current_user, snap.learner_id)
+    session_caps_ref = getattr(snap, "caps_ref", None) or caps_ref
+    if session_caps_ref and str(caps_ref) != str(session_caps_ref):
+        raise HTTPException(status_code=400, detail="caps_ref does not match recovered diagnostic session")
     repo = ItemBankRepository(db)
-    items = list(await repo.list_by_caps_ref(caps_ref, limit=200))
+    items = list(await repo.list_by_caps_ref(session_caps_ref, limit=200))
     item = await session_service.get_next_item(session_id, items)
     if item is None:
         return {"completed": True}
@@ -323,6 +328,10 @@ async def diagnostic_respond(
         raise HTTPException(status_code=404, detail="No recoverable diagnostic session")
     require_learner_write_for_current_user(current_user, snap.learner_id)
     await require_active_consent_for_current_user(db, current_user, snap.learner_id)
+    try:
+        validate_adaptive_diagnostic_response(body, snapshot=snap, session_id=session_id)
+    except DiagnosticIntegrityError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
     item = await ItemBankRepository(db).get_item(body.item_id)
     if item is None:
         raise HTTPException(status_code=404, detail="Diagnostic item not found")

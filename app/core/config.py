@@ -190,3 +190,10 @@ def get_settings() -> Settings:
 
 # Exported singleton
 settings = get_settings()
+
+# code_1071_1110_jwt_production_secret_guard
+def validate_production_secrets() -> None:
+    """Validate security-sensitive production secrets."""
+    from app.services.jwt_keyring import validate_jwt_keyring_environment
+
+    validate_jwt_keyring_environment()

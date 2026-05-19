@@ -11,20 +11,21 @@ REPOSITORY_CANDIDATES: dict[str, tuple[str, ...]] = {
         "app.repositories.repositories.UserRepository",
     ),
     "guardian_repo": (
-        "app.repositories.guardian_repository.GuardianRepository",
         "app.repositories.repositories.GuardianRepository",
+        "app.repositories.auth_repository.GuardianRepository",
+        "app.repositories.guardian_repository.GuardianRepository",
     ),
     "learner_repo": (
-        "app.repositories.learner_repository.LearnerRepository",
         "app.repositories.repositories.LearnerRepository",
+        "app.repositories.learner_repository.LearnerRepository",
     ),
     "consent_repo": (
-        "app.repositories.consent_repository.ConsentRepository",
         "app.repositories.repositories.ConsentRepository",
+        "app.repositories.consent_repository.ConsentRepository",
     ),
     "audit_repo": (
-        "app.repositories.audit_repository.AuditRepository",
         "app.repositories.repositories.AuditRepository",
+        "app.repositories.audit_repository.AuditRepository",
     ),
     "refresh_token_repo": (
         "app.repositories.refresh_token_repository.RefreshTokenRepository",
@@ -213,13 +214,15 @@ from app.services import auth_lifecycle_impl as _auth_lifecycle_impl  # noqa: E4
 
 
 async def _auth_service_call_impl(self, impl_name: str, **kwargs):
-    kwargs.pop('legacy_impl', None)
+    legacy_impl = kwargs.pop('legacy_impl', None)
     kwargs.pop('auth_service', None)
-    impl = getattr(_auth_lifecycle_impl, impl_name)
+    impl = legacy_impl or getattr(_auth_lifecycle_impl, impl_name)
     result = impl(**kwargs)
     if hasattr(result, '__await__'):
         return await result
     return result
+
+AuthApplicationService._auth_service_call_impl = _auth_service_call_impl
 
 
 async def _auth_service_create_dev_session(self, **kwargs):

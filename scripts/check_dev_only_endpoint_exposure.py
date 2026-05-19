@@ -2,10 +2,13 @@
 """Validate dev-only endpoint production exposure guards."""
 from __future__ import annotations
 
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 REQUIREMENTS = {
     "app/api_v2_routers/auth.py": (

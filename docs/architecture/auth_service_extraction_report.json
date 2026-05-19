@@ -1,10 +1,15 @@
 {
-  "generated_at": "2026-05-18T12:39:56Z",
+  "generated_at": "2026-05-18T23:19:22Z",
   "auth_router_repository_imports": [],
   "auth_router_uses_auth_service_dependency": true,
   "auth_router_contains_future_annotations": false,
   "auth_application_service_functions": [
     "__post_init__",
+    "_auth_service_call_impl",
+    "_auth_service_create_dev_session",
+    "_auth_service_login",
+    "_auth_service_refresh",
+    "_auth_service_register",
     "_repo",
     "audit_repo",
     "audit_repo",

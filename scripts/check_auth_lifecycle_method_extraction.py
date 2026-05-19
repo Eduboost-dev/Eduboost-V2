@@ -7,8 +7,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 AUTH = ROOT / "app/api_v2_routers/auth.py"
 SERVICE = ROOT / "app/services/auth_application_service.py"
 
@@ -42,11 +43,13 @@ def main() -> int:
         else:
             failures.append(f"auth_service.{method} missing")
 
-    for helper in ("_auth_lifecycle_legacy_register_impl", "_auth_lifecycle_legacy_login_impl", "_auth_lifecycle_legacy_refresh_impl"):
-        if helper in source:
-            print(f"- PASS preserved helper {helper}")
+    IMPL_PATH = ROOT / "app/services/auth_lifecycle_impl.py"
+    impl_source = IMPL_PATH.read_text(encoding="utf-8")
+    for helper in ("register_impl", "login_impl", "refresh_impl"):
+        if helper in impl_source:
+            print(f"- PASS preserved helper {helper} in service impl")
         else:
-            failures.append(f"missing preserved helper {helper}")
+            failures.append(f"missing helper {helper} in service impl")
 
     for marker in ("AuthApplicationService.register", "AuthApplicationService.login", "AuthApplicationService.refresh"):
         if marker in service_source:

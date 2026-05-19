@@ -13,6 +13,8 @@ help:
 	@echo "  typecheck       - Run type checker (mypy)"
 	@echo "  migrate         - Run database migrations"
 	@echo "  docs            - Build and serve documentation"
+	@echo "  docs-inventory  - Generate documentation intelligence inventory"
+	@echo "  docs-inventory-check - Verify documentation intelligence inventory is current"
 	@echo "  openapi         - Generate docs/openapi.json"
 	@echo "  openapi-check   - Verify docs/openapi.json is current"
 	@echo "  route-inventory - Generate docs/route_inventory.md"
@@ -46,6 +48,12 @@ migrate:
 
 docs:
 	mkdocs serve
+
+docs-inventory:
+	$(PYTHON) scripts/docs_inventory.py
+
+docs-inventory-check:
+	$(PYTHON) scripts/docs_inventory.py --check
 
 openapi:
 	$(PYTHON) scripts/generate_openapi.py
@@ -1559,4 +1567,91 @@ auth-db-lifecycle-proof-contracts:
 backend-implementation-1031-1070-full-check: auth-db-lifecycle-proof-report auth-db-lifecycle-proof-check auth-db-lifecycle-proof-contracts
 	python3 -m compileall -q app/services scripts tests
 	python3 -m ruff check app/services/auth_db_lifecycle_proof.py scripts/generate_auth_db_lifecycle_proof_report.py scripts/check_auth_db_lifecycle_proof.py tests/integration/test_auth_transactional_db_lifecycle_proof.py tests/unit/test_auth_db_lifecycle_proof_contracts.py --select F821,F401,F811,E402
+
+.PHONY: jwt-production-guard-repair jwt-production-guard-test jwt-production-guard-check backend-implementation-1071-1110-full-check
+
+jwt-production-guard-repair:
+	PYTHONPATH=. python3 scripts/repair_jwt_production_guard.py
+
+jwt-production-guard-test:
+	pytest -c pytest.ini tests/unit/test_jwt_keyring_production_guard.py -q --no-cov --tb=short
+
+jwt-production-guard-check:
+	PYTHONPATH=. python3 scripts/check_jwt_production_guard.py
+
+backend-implementation-1071-1110-full-check: jwt-production-guard-repair jwt-production-guard-check
+	python3 -m compileall -q app/services app/core scripts tests
+	python3 -m ruff check app/services/jwt_keyring.py scripts/repair_jwt_production_guard.py scripts/check_jwt_production_guard.py tests/unit/test_jwt_keyring_production_guard.py --select F821,F401,F811,E402
+
+.PHONY: arq-dependency-worker-repair arq-worker-import-test arq-worker-import-check backend-implementation-1111-1150-full-check
+
+arq-dependency-worker-repair:
+	PYTHONPATH=. python3 scripts/repair_arq_dependency_worker_import.py
+
+arq-worker-import-test:
+	pytest -c pytest.ini tests/unit/test_arq_worker_import_contract.py -q --no-cov --tb=short
+
+arq-worker-import-check:
+	PYTHONPATH=. python3 scripts/check_arq_worker_import.py
+
+backend-implementation-1111-1150-full-check: arq-dependency-worker-repair arq-worker-import-check
+	python3 -m compileall -q app/services app/modules scripts tests
+	python3 -m ruff check app/services/arq_import_compat.py app/services/job_dependency_factory.py app/modules/jobs.py scripts/repair_arq_dependency_worker_import.py scripts/check_arq_worker_import.py tests/unit/test_arq_worker_import_contract.py --select F821,F401,F811,E402
+
+.PHONY: popia-lifecycle-response-contract-test popia-lifecycle-response-contract-check backend-implementation-1151-1190-full-check
+
+popia-lifecycle-response-contract-test:
+	pytest -c pytest.ini tests/integration/test_popia_lifecycle_response_contract.py tests/unit/test_popia_lifecycle_response_contracts.py -q --no-cov --tb=short
+
+popia-lifecycle-response-contract-check:
+	PYTHONPATH=. python3 scripts/check_popia_lifecycle_response_contract.py
+
+backend-implementation-1151-1190-full-check: popia-lifecycle-response-contract-check
+	python3 -m compileall -q app/services app/api_v2_routers scripts tests
+	python3 -m ruff check app/services/popia_consent_lifecycle_adapter.py app/api_v2_routers/popia.py scripts/check_popia_lifecycle_response_contract.py tests/integration/test_popia_lifecycle_response_contract.py tests/unit/test_popia_lifecycle_response_contracts.py --select F821,F401,F811,E402
+
+.PHONY: evidence-status-registry-check evidence-status-registry-test pytest-skip-inventory backend-implementation-1191-1230-full-check
+
+evidence-status-registry-check:
+	PYTHONPATH=. python3 scripts/check_evidence_status_registry.py
+
+evidence-status-registry-test:
+	pytest -c pytest.ini tests/unit/test_evidence_status_registry.py -q --no-cov --tb=short
+
+pytest-skip-inventory:
+	PYTHONPATH=. python3 scripts/record_pytest_skip_inventory.py --write-evidence
+
+backend-implementation-1191-1230-full-check: evidence-status-registry-check evidence-status-registry-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/evidence_registry.py scripts/check_evidence_status_registry.py scripts/record_pytest_skip_inventory.py tests/unit/test_evidence_status_registry.py --select F821,F401,F811,E402
+
+.PHONY: diagnostics-session-binding-repair diagnostics-session-binding-test diagnostics-session-binding-check backend-implementation-1231-1270-full-check
+
+diagnostics-session-binding-repair:
+	PYTHONPATH=. python3 scripts/patch_diagnostics_session_binding.py
+
+diagnostics-session-binding-test:
+	pytest -c pytest.ini tests/unit/test_diagnostic_route_integrity.py tests/integration/test_diagnostics_session_binding_routes.py -q --no-cov --tb=short
+
+diagnostics-session-binding-check:
+	PYTHONPATH=. python3 scripts/check_diagnostics_session_binding.py
+
+backend-implementation-1231-1270-full-check: diagnostics-session-binding-repair diagnostics-session-binding-check diagnostics-session-binding-test
+	python3 -m compileall -q app/services app/api_v2_routers scripts tests
+	python3 -m ruff check app/services/diagnostic_route_integrity.py app/services/diagnostic_session_integrity.py app/api_v2_routers/diagnostics.py scripts/patch_diagnostics_session_binding.py scripts/check_diagnostics_session_binding.py tests/unit/test_diagnostic_route_integrity.py tests/integration/test_diagnostics_session_binding_routes.py --select F821,F401,F811,E402
+
+.PHONY: auth-repository-fixture-repair auth-repository-fixture-proof-test auth-repository-fixture-proof-check backend-implementation-1271-1310-full-check
+
+auth-repository-fixture-repair:
+	PYTHONPATH=. python3 scripts/repair_auth_repository_fixture_proof.py
+
+auth-repository-fixture-proof-test:
+	pytest -c pytest.ini tests/integration/test_auth_repository_fixture_proof.py tests/unit/test_auth_repository_fixture_proof_contracts.py -q --no-cov --tb=short
+
+auth-repository-fixture-proof-check:
+	PYTHONPATH=. python3 scripts/check_auth_repository_fixture_proof.py
+
+backend-implementation-1271-1310-full-check: auth-repository-fixture-repair auth-repository-fixture-proof-check
+	python3 -m compileall -q app/services scripts tests
+	python3 -m ruff check app/services/auth_application_service.py app/services/auth_runtime_boundary.py scripts/repair_auth_repository_fixture_proof.py scripts/check_auth_repository_fixture_proof.py tests/integration/test_auth_repository_fixture_proof.py tests/unit/test_auth_repository_fixture_proof_contracts.py --select F821,F401,F811,E402
 

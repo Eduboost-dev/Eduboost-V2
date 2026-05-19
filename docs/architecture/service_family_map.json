@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-18T07:38:25Z",
+  "generated_at": "2026-05-18T23:19:06Z",
   "domains": {
     "other": [
       {
@@ -180,6 +180,12 @@
         "classes": []
       },
       {
+        "path": "app/services/job_dependency_factory.py",
+        "domain": "other",
+        "classification": "unclassified",
+        "classes": []
+      },
+      {
         "path": "app/services/job_runtime_integrity.py",
         "domain": "other",
         "classification": "active_runtime_facade",
@@ -192,6 +198,15 @@
         "domain": "other",
         "classification": "unclassified",
         "classes": []
+      },
+      {
+        "path": "app/services/jwt_keyring.py",
+        "domain": "other",
+        "classification": "unclassified",
+        "classes": [
+          "JWTKey",
+          "JWTKeyringError"
+        ]
       },
       {
         "path": "app/services/llm/gateway.py",
@@ -624,6 +639,32 @@
     ],
     "auth": [
       {
+        "path": "app/services/auth_application_service.py",
+        "domain": "auth",
+        "classification": "duplicate_domain_service",
+        "classes": [
+          "AuthApplicationService",
+          "AuthApplicationServiceError",
+          "AuthRepositoryBundle"
+        ]
+      },
+      {
+        "path": "app/services/auth_db_lifecycle_proof.py",
+        "domain": "auth",
+        "classification": "unclassified",
+        "classes": [
+          "AuthDBProofApplicationService",
+          "AuthDBProofTokens",
+          "SQLiteAuthLifecycleProofStore"
+        ]
+      },
+      {
+        "path": "app/services/auth_lifecycle_impl.py",
+        "domain": "auth",
+        "classification": "unclassified",
+        "classes": []
+      },
+      {
         "path": "app/services/auth_runtime_boundary.py",
         "domain": "auth",
         "classification": "active_runtime_facade",
@@ -732,6 +773,14 @@
         "classes": [
           "FirstConsentRuntimeCandidate",
           "FirstConsentRuntimePayload"
+        ]
+      },
+      {
+        "path": "app/services/popia_consent_lifecycle_adapter.py",
+        "domain": "consent",
+        "classification": "unclassified",
+        "classes": [
+          "POPIAConsentLifecycleAdapter"
         ]
       },
       {
@@ -1012,6 +1061,14 @@
         ]
       },
       {
+        "path": "app/services/diagnostic_session_integrity.py",
+        "domain": "diagnostic",
+        "classification": "unclassified",
+        "classes": [
+          "ServedDiagnosticItem"
+        ]
+      },
+      {
         "path": "app/services/diagnostic_session_service.py",
         "domain": "diagnostic",
         "classification": "duplicate_domain_service",
@@ -1286,6 +1343,32 @@
       ]
     },
     {
+      "path": "app/services/auth_application_service.py",
+      "domain": "auth",
+      "classification": "duplicate_domain_service",
+      "classes": [
+        "AuthApplicationService",
+        "AuthApplicationServiceError",
+        "AuthRepositoryBundle"
+      ]
+    },
+    {
+      "path": "app/services/auth_db_lifecycle_proof.py",
+      "domain": "auth",
+      "classification": "unclassified",
+      "classes": [
+        "AuthDBProofApplicationService",
+        "AuthDBProofTokens",
+        "SQLiteAuthLifecycleProofStore"
+      ]
+    },
+    {
+      "path": "app/services/auth_lifecycle_impl.py",
+      "domain": "auth",
+      "classification": "unclassified",
+      "classes": []
+    },
+    {
       "path": "app/services/auth_runtime_boundary.py",
       "domain": "auth",
       "classification": "active_runtime_facade",
@@ -1547,6 +1630,14 @@
       ]
     },
     {
+      "path": "app/services/diagnostic_session_integrity.py",
+      "domain": "diagnostic",
+      "classification": "unclassified",
+      "classes": [
+        "ServedDiagnosticItem"
+      ]
+    },
+    {
       "path": "app/services/diagnostic_session_service.py",
       "domain": "diagnostic",
       "classification": "duplicate_domain_service",
@@ -1620,6 +1711,12 @@
       ]
     },
     {
+      "path": "app/services/job_dependency_factory.py",
+      "domain": "other",
+      "classification": "unclassified",
+      "classes": []
+    },
+    {
       "path": "app/services/job_runtime_integrity.py",
       "domain": "other",
       "classification": "active_runtime_facade",
@@ -1632,6 +1729,15 @@
       "domain": "other",
       "classification": "unclassified",
       "classes": []
+    },
+    {
+      "path": "app/services/jwt_keyring.py",
+      "domain": "other",
+      "classification": "unclassified",
+      "classes": [
+        "JWTKey",
+        "JWTKeyringError"
+      ]
     },
     {
       "path": "app/services/learner_service.py",
@@ -1698,6 +1804,14 @@
         "PIIScanner",
         "PIISweepError",
         "SweepResult"
+      ]
+    },
+    {
+      "path": "app/services/popia_consent_lifecycle_adapter.py",
+      "domain": "consent",
+      "classification": "unclassified",
+      "classes": [
+        "POPIAConsentLifecycleAdapter"
       ]
     },
     {

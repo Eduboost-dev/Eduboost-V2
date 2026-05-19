@@ -657,3 +657,108 @@ make auth-db-lifecycle-proof-contracts
 make backend-implementation-1031-1070-full-check
 ```
 
+## JWT-001 / Backend implementation 1071-1110 — JWT fallback safety and production secret guard
+
+Audit drivers:
+
+- JWT keyring fallback must include `settings.JWT_SECRET` and `JWT_SECRET`.
+- Production must reject placeholder JWT secrets.
+- `app.api_v2` must remain import-safe with a configured secret.
+- Static proof is insufficient for this P0 security item.
+
+Commands:
+
+```bash
+make jwt-production-guard-repair
+make jwt-production-guard-test
+make jwt-production-guard-check
+make backend-implementation-1071-1110-full-check
+```
+
+## ARQ-001 / Backend implementation 1111-1150 — ARQ dependency pin and worker import proof
+
+Audit drivers:
+
+- `app.modules.jobs` must import from a clean project environment.
+- `arq` must be pinned in dependency files.
+- WorkerSettings must expose consent reminder job entrypoints.
+- Stale jobs checks must validate `job_dependency_factory`, not old direct constructor text.
+
+Commands:
+
+```bash
+make arq-dependency-worker-repair
+make arq-worker-import-test
+make arq-worker-import-check
+make backend-implementation-1111-1150-full-check
+```
+
+## POPIA-001 / Backend implementation 1151-1190 — POPIA lifecycle HTTP response-contract proof
+
+Audit drivers:
+
+- POPIA lifecycle routes declare `ConsentRecord` but legacy deny/withdraw fallback paths could return integer row counts.
+- FastAPI response-model validation must be exercised over HTTP with `raise_server_exceptions=True`.
+- Unauthorized learner consent mutation must fail closed.
+
+Commands:
+
+```bash
+make popia-lifecycle-response-contract-test
+make popia-lifecycle-response-contract-check
+make backend-implementation-1151-1190-full-check
+```
+
+## EVID-001 / Backend implementation 1191-1230 — Evidence registry and skipped-test governance
+
+Audit drivers:
+
+- Skipped tests must be treated as `not-proven`.
+- P0/P1 findings cannot close with static-only evidence.
+- External blockers must be tracked as release blockers.
+- POPIA-001 remains not-proven while focused lifecycle response-contract proof contains skipped cases.
+
+Commands:
+
+```bash
+make evidence-status-registry-check
+make evidence-status-registry-test
+make pytest-skip-inventory
+make backend-implementation-1191-1230-full-check
+```
+
+## DIAG-001 / Backend implementation 1231-1270 — Diagnostics served-item/session/CAPS binding
+
+Audit drivers:
+
+- Adaptive diagnostic routes must reject responses for unserved items.
+- Adaptive diagnostic routes must reject CAPS context injection.
+- Route behavior must use recovered session state as the source of truth.
+- This is route-runtime proof, not final production DB proof.
+
+Commands:
+
+```bash
+make diagnostics-session-binding-repair
+make diagnostics-session-binding-test
+make diagnostics-session-binding-check
+make backend-implementation-1231-1270-full-check
+```
+
+## AUTH-REPO-001 / Backend implementation 1271-1310 — Production repository auth fixture proof
+
+Audit drivers:
+
+- Controlled auth HTTP overrides and isolated SQLite proof stores were insufficient to prove production repository compatibility.
+- AuthApplicationService must resolve real session-bound ORM repositories.
+- Register/login/refresh must be exercised against actual project ORM models in an AsyncSession fixture.
+
+Commands:
+
+```bash
+make auth-repository-fixture-repair
+make auth-repository-fixture-proof-test
+make auth-repository-fixture-proof-check
+make backend-implementation-1271-1310-full-check
+```
+
