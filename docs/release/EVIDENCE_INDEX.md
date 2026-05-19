@@ -1253,3 +1253,20 @@ make final-gate-refresh-test
 make backend-implementation-2271-2310-full-check
 ```
 
+## EVIDENCE-ATTACHMENT-RUNBOOK-001 / Backend implementation 2311-2350 — Operator runbook for attaching real release evidence
+
+Audit drivers:
+
+- Evidence scaffolds are now in place, but real evidence remains external.
+- Operators need one exact command surface for attaching CI, staging, approval, and live DB evidence.
+- The runbook must preserve NO-GO posture until real evidence and release-owner sign-off exist.
+
+Commands:
+
+```bash
+make evidence-attachment-runbook
+make evidence-attachment-runbook-check
+make evidence-attachment-runbook-test
+make backend-implementation-2311-2350-full-check
+```
+

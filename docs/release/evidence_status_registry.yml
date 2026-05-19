@@ -486,3 +486,16 @@ findings:
     closure_blocker: refresh only; generated beta decision is NO-GO
     blocks_beta: false
     external_dependency: false
+  - id: EVIDENCE-ATTACHMENT-RUNBOOK-001
+    title: Operator runbook for attaching real release evidence
+    severity: P1
+    gate: 7
+    owner: release
+    implementation_batch: code_2311_2350
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-2311-2350-full-check
+    evidence_file: docs/release/evidence_attachment_runbook.md
+    last_verified_commit: 407e7b2bb821606b24f9ee3c2f42ff6f54312da0
+    closure_blocker: runbook only; real evidence must still be attached before beta GO
+    blocks_beta: false
+    external_dependency: false
