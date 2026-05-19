@@ -709,3 +709,21 @@ make popia-lifecycle-response-contract-check
 make backend-implementation-1151-1190-full-check
 ```
 
+## EVID-001 / Backend implementation 1191-1230 — Evidence registry and skipped-test governance
+
+Audit drivers:
+
+- Skipped tests must be treated as `not-proven`.
+- P0/P1 findings cannot close with static-only evidence.
+- External blockers must be tracked as release blockers.
+- POPIA-001 remains not-proven while focused lifecycle response-contract proof contains skipped cases.
+
+Commands:
+
+```bash
+make evidence-status-registry-check
+make evidence-status-registry-test
+make pytest-skip-inventory
+make backend-implementation-1191-1230-full-check
+```
+

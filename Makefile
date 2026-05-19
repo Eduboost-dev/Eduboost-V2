@@ -1609,3 +1609,19 @@ popia-lifecycle-response-contract-check:
 backend-implementation-1151-1190-full-check: popia-lifecycle-response-contract-check
 	python3 -m compileall -q app/services app/api_v2_routers scripts tests
 	python3 -m ruff check app/services/popia_consent_lifecycle_adapter.py app/api_v2_routers/popia.py scripts/check_popia_lifecycle_response_contract.py tests/integration/test_popia_lifecycle_response_contract.py tests/unit/test_popia_lifecycle_response_contracts.py --select F821,F401,F811,E402
+
+.PHONY: evidence-status-registry-check evidence-status-registry-test pytest-skip-inventory backend-implementation-1191-1230-full-check
+
+evidence-status-registry-check:
+	PYTHONPATH=. python3 scripts/check_evidence_status_registry.py
+
+evidence-status-registry-test:
+	pytest -c pytest.ini tests/unit/test_evidence_status_registry.py -q --no-cov --tb=short
+
+pytest-skip-inventory:
+	PYTHONPATH=. python3 scripts/record_pytest_skip_inventory.py --write-evidence
+
+backend-implementation-1191-1230-full-check: evidence-status-registry-check evidence-status-registry-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/evidence_registry.py scripts/check_evidence_status_registry.py scripts/record_pytest_skip_inventory.py tests/unit/test_evidence_status_registry.py --select F821,F401,F811,E402
+
