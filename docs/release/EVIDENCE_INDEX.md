@@ -779,3 +779,20 @@ make lesson-authorization-hardening-check
 make backend-implementation-1311-1350-full-check
 ```
 
+## ARCH-001R / Backend implementation 1351-1390R — Diagnostics dynamic repository boundary repair
+
+Audit drivers:
+
+- Dynamic repository resolution inside `diagnostics.py` hides coupling from static scanners.
+- Critical routers must not use `importlib.import_module` to locate repositories.
+- Diagnostics repository compatibility resolution belongs in a dependency/service boundary, not the router.
+
+Commands:
+
+```bash
+make diagnostics-dynamic-repository-boundary-repair
+make diagnostics-dynamic-repository-boundary-test
+make diagnostics-dynamic-repository-boundary-check
+make backend-implementation-1351-1390R-full-check
+```
+

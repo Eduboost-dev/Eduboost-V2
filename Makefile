@@ -1670,3 +1670,18 @@ backend-implementation-1311-1350-full-check: lesson-authorization-hardening-repa
 	python3 -m compileall -q app/services app/api_v2_routers scripts tests
 	python3 -m ruff check app/services/lesson_authorization.py app/api_v2_routers/lessons.py scripts/patch_lesson_authorization_hardening.py scripts/check_lesson_authorization_hardening.py tests/unit/test_lesson_authorization_hardening.py tests/integration/test_lesson_authorization_negative_contract.py --select F821,F401,F811,E402
 
+.PHONY: diagnostics-dynamic-repository-boundary-repair diagnostics-dynamic-repository-boundary-test diagnostics-dynamic-repository-boundary-check backend-implementation-1351-1390R-full-check
+
+diagnostics-dynamic-repository-boundary-repair:
+	PYTHONPATH=. python3 scripts/patch_diagnostics_dynamic_repository_boundary.py
+
+diagnostics-dynamic-repository-boundary-test:
+	pytest -c pytest.ini tests/unit/test_diagnostics_dynamic_repository_boundary.py -q --no-cov --tb=short
+
+diagnostics-dynamic-repository-boundary-check:
+	PYTHONPATH=. python3 scripts/check_diagnostics_dynamic_repository_boundary.py
+
+backend-implementation-1351-1390R-full-check: diagnostics-dynamic-repository-boundary-repair diagnostics-dynamic-repository-boundary-check diagnostics-dynamic-repository-boundary-test
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers scripts tests
+	python3 -m ruff check app/api_v2_deps/diagnostic_repositories.py app/api_v2_routers/diagnostics.py scripts/patch_diagnostics_dynamic_repository_boundary.py scripts/check_diagnostics_dynamic_repository_boundary.py tests/unit/test_diagnostics_dynamic_repository_boundary.py --select F821,F401,F811,E402
+
