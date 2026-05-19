@@ -10,6 +10,7 @@ from app.modules.diagnostics.item_selection_service import ItemSelectionService
 from app.modules.diagnostics.session_recovery_service import DiagnosticSessionSnapshot, SessionRecoveryService
 from app.modules.diagnostics.termination_service import TerminationService
 from app.modules.progress.mastery_model import compute_mastery_score, label_for_score
+from app.services.diagnostic_scoring_snapshot import diagnostic_item_from_response, diagnostic_response_snapshot
 
 
 @dataclass
@@ -74,9 +75,9 @@ class DiagnosticSessionService:
         if snap is None:
             raise ValueError("diagnostic session snapshot not found")
         item_id = str(getattr(item, "item_id", getattr(item, "id", "")))
-        snap.responses.append({"item_id": item_id, "correct": correct, "response": response})
+        snap.responses.append({**diagnostic_response_snapshot(item, item_id=item_id), "correct": correct, "response": response})
         snap.items_served = len(snap.responses)
-        responses = [(item, bool(row["correct"])) for row in snap.responses]
+        responses = [(diagnostic_item_from_response(row, fallback_item=item), bool(row["correct"])) for row in snap.responses]
         snap.theta, snap.se_estimate = eap_update_3pl(responses, prior_mean=snap.theta)
         if not correct:
             caps_ref = getattr(item, "caps_ref", snap.caps_ref)

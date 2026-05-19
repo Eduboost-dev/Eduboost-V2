@@ -1,360 +1,281 @@
 #!/usr/bin/env python3
-"""docs_inventory.py
-
-Scan the workspace for documentation files, extract metadata, classify,
-and emit:
-
-- docs_inventory.json
-- docs_inventory.md
-- docs_gap_report.md
-- docs_generation_plan.md
-
-This is intended as a small, dependency-free first-pass tool to seed
-higher-level automation (Docling, MarkItDown, LlamaIndex, etc.).
-"""
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
-import os
-import re
-from datetime import datetime
+import subprocess
+from dataclasses import asdict, dataclass
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
 
-TEXT_EXTS = {'.md', '.markdown', '.rst', '.html', '.htm', '.txt', '.json', '.yml', '.yaml', '.csv'}
-DOC_EXTS = TEXT_EXTS.union({'.pdf', '.docx', '.pptx', '.ppt', '.xlsx'})
-EXCLUDE_DIRS = {'.git', '.venv', 'venv', 'node_modules', 'coverage_html', '__pycache__'}
 
-DELIVERABLE_KEYWORDS: List[Tuple[str, List[str]]] = [
-    ("System Overview", [
-        "system overview", "system architecture", "architecture overview", "overview",
-        "test", "doc", "report", "design", "document", "summary", "implementation", "guide", "plan", "api",
-    ]),
-    ("Architecture Handoff", [
-        "architecture handoff", "architecture decision record", "adr", "handoff",
-        "status", "context", "required", "release", "purpose", "final", "audit", "documentation", "adrs", "checklist",
-    ]),
-    ("Production Readiness Report", [
-        "production readiness", "production ready", "readiness", "prr",
-        "deep", "contracts", "runtime", "data", "meta", "contract", "report", "backend", "implementation", "status",
-    ]),
-    ("Roadmap Consolidation", [
-        "roadmap", "product roadmap", "road map",
-        "production", "implementation", "phase", "baseline", "status", "execution", "readiness", "required", "agent", "post",
-    ]),
-    ("Audit Evidence Index", [
-        "audit evidence", "audit", "evidence", "audit trail",
-        "release", "purpose", "required", "runtime", "contract", "popia", "consent", "backend", "final", "data",
-    ]),
-    ("Developer Onboarding Guide", [
-        "onboarding", "developer onboarding", "getting started", "contributor guide", "developer guide",
-        "boundary", "ether", "consent", "questions", "authentication", "auth", "production", "contract", "endpoint", "policy",
-    ]),
-    ("API Documentation Index", [
-        "api documentation", "api", "openapi", "swagger", "endpoints", "api reference",
-        "data", "meta", "contract", "resource", "error", "routers", "index", "frontend", "github", "fastapi",
-    ]),
-    ("Compliance / POPIA Pack", [
-        "popia", "compliance", "gdpr", "privacy", "data protection",
-        "consent", "audit", "evidence", "rights", "boundary", "authorization", "wiring", "purpose", "lifecycle", "check",
-    ]),
-    ("Beta Launch Pack", [
-        "beta launch", "beta", "launch", "release plan", "go-live",
-        "data", "meta", "param", "managed", "agents", "tool", "block", "result", "code", "error",
-    ]),
+ROOT = Path(__file__).resolve().parents[1]
+DOCS = ROOT / "docs"
+OUT_JSON = DOCS / "docs_inventory.json"
+OUT_MD = DOCS / "docs_inventory.md"
+OUT_GAP = DOCS / "docs_gap_report.md"
+
+GENERATED = {
+    "docs/docs_inventory.json",
+    "docs/docs_inventory.md",
+    "docs/docs_gap_report.md",
+}
+
+IMPORTANT_DOCS = [
+    "docs/release/evidence_status_registry.yml",
+    "docs/release/ci_evidence.md",
+    "docs/release/transaction_rollback_rollup_report.md",
+    "docs/release/no_false_closure_status_after_1631_1670.md",
+    "docs/architecture/transaction_boundary_inventory.md",
+    "docs/architecture/router_repository_boundary_inventory.md",
 ]
 
-MAX_READ = 256 * 1024  # read up to 256KB of text files
+
+@dataclass(frozen=True)
+class DocumentInventoryItem:
+    path: str
+    size_bytes: int
+    sha256: str
+    title: str
+    category: str
+    generated: bool
 
 
-def is_excluded(path: Path) -> bool:
-    return any(part in EXCLUDE_DIRS for part in path.parts)
+@dataclass(frozen=True)
+class DocumentInventory:
+    generated_at: str
+    commit: str
+    document_count: int
+    generated_count: int
+    categories: dict[str, int]
+    documents: list[DocumentInventoryItem]
+    missing_important_docs: list[str]
 
 
-def find_doc_files(root: Path) -> List[Path]:
-    files: List[Path] = []
-    for p in root.rglob("*"):
-        if not p.is_file():
-            continue
-        if is_excluded(p):
-            continue
-        if p.suffix.lower() in DOC_EXTS or p.name.lower().endswith(('.md', '.markdown')):
-            files.append(p)
-    return sorted(files)
-
-
-def read_text(path: Path) -> str:
-    try:
-        with path.open('rb') as f:
-            data = f.read(MAX_READ)
-        # quick binary check
-        if b"\x00" in data:
-            return ""
-        return data.decode('utf-8', errors='replace')
-    except Exception:
-        return ""
-
-
-def parse_frontmatter(text: str) -> Dict[str, Any]:
-    fm: Dict[str, Any] = {}
-    if text.startswith('---'):
-        parts = text.splitlines()
-        if len(parts) > 1:
-            fm_lines = []
-            for line in parts[1:]:
-                if line.strip() in ('---', '...'):
-                    break
-                fm_lines.append(line)
-            for line in fm_lines:
-                if ':' in line:
-                    k, v = line.split(':', 1)
-                    fm[k.strip().lower()] = v.strip().strip('"\'')
-    return fm
-
-
-def extract_headings(text: str) -> List[Tuple[int, str]]:
-    headings: List[Tuple[int, str]] = []
-    for m in re.finditer(r'^(#{1,6})\s+(.*)$', text, flags=re.MULTILINE):
-        level = len(m.group(1))
-        headings.append((level, m.group(2).strip()))
-    # rudimentary reST underlined headings
-    for m in re.finditer(r'^(?P<title>.+)\n(?P<under>[-=~`^\*]+)\n', text, flags=re.MULTILINE):
-        headings.append((1, m.group('title').strip()))
-    return headings
-
-
-def extract_links(text: str) -> List[str]:
-    links: List[str] = []
-    for m in re.finditer(r'\[([^\]]+)\]\(([^)]+)\)', text):
-        links.append(m.group(2).strip())
-    for m in re.finditer(r'(https?://[^\s)]+)', text):
-        links.append(m.group(1).strip())
-    # file paths
-    for m in re.finditer(r'([\w/\.-]+\.(?:md|markdown|pdf|docx|pptx|xlsx))', text):
-        links.append(m.group(1))
-    return sorted(set(links))
-
-
-def extract_status(text: str, fm: Dict[str, Any]) -> Optional[str]:
-    if 'status' in fm:
-        return str(fm['status'])
-    m = re.search(r'(?i)^status[:\s]+([A-Za-z0-9 _-]+)$', text, flags=re.MULTILINE)
-    if m:
-        return m.group(1).strip()
-    if re.search(r'(?i)\bdraft\b', text):
-        return 'draft'
-    return None
-
-
-def extract_dates(text: str, path: Path, fm: Dict[str, Any]) -> str:
-    if 'date' in fm:
-        return fm['date']
-    m = re.search(r'(?i)last updated[:\s]+(.+)$', text, flags=re.MULTILINE)
-    if m:
-        return m.group(1).strip()
-    try:
-        ts = path.stat().st_mtime
-        return datetime.utcfromtimestamp(ts).isoformat()
-    except Exception:
-        return ''
-
-
-def find_evidence_refs(links: List[str]) -> List[str]:
-    ev = []
-    for l in links:
-        if re.search(r'(?i)(evidence|audit|artifact|review|audits|artifacts)', l):
-            ev.append(l)
-    return ev
-
-
-def classify_tags(text: str, title: str) -> List[str]:
-    found: List[str] = []
-    hay = (title + '\n' + text).lower()
-    for name, kws in DELIVERABLE_KEYWORDS:
-        for kw in kws:
-            if kw in hay:
-                found.append(name)
-                break
-    return sorted(set(found))
-
-
-def analyze_file(path: Path) -> Dict[str, Any]:
-    ext = path.suffix.lower()
-    text = read_text(path) if ext in TEXT_EXTS else ''
-    fm = parse_frontmatter(text) if text else {}
-    title = fm.get('title') or ''
-    if not title:
-        # first H1
-        m = re.search(r'(?m)^#\s+(.+)$', text)
-        if m:
-            title = m.group(1).strip()
-        else:
-            title = path.stem
-    headings = extract_headings(text) if text else []
-    links = extract_links(text) if text else []
-    status = extract_status(text, fm)
-    date = extract_dates(text, path, fm)
-    evidence = find_evidence_refs(links)
-    tags = classify_tags(text, title)
-    doc_type = (
-        'markdown' if ext in ('.md', '.markdown') else
-        'restructuredtext' if ext == '.rst' else
-        'html' if ext in ('.html', '.htm') else
-        'pdf' if ext == '.pdf' else
-        'presentation' if ext in ('.pptx', '.ppt') else
-        'document' if ext == '.docx' else
-        'spreadsheet' if ext in ('.xlsx',) else
-        'data' if ext in ('.csv', '.json') else
-        'other'
+def current_commit() -> str:
+    result = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        check=False,
     )
-    return {
-        'path': str(path.as_posix()),
-        'title': title,
-        'type': doc_type,
-        'ext': ext,
-        'status': status or 'unknown',
-        'date': date,
-        'headings': [{'level': h[0], 'text': h[1]} for h in headings[:20]],
-        'top_headings': [h[1] for h in headings[:3]],
-        'links': links,
-        'evidence_refs': evidence,
-        'tags': tags,
-    }
+    if result.returncode != 0:
+        return "unknown"
+    return result.stdout.strip()
 
 
-def emit_json(items: List[Dict[str, Any]], out_path: Path) -> None:
-    out_path.write_text(json.dumps(items, indent=2, ensure_ascii=False))
+def _category(path: Path) -> str:
+    rel = path.relative_to(ROOT).as_posix()
+    if rel.startswith("docs/release/"):
+        return "release"
+    if rel.startswith("docs/architecture/"):
+        return "architecture"
+    if rel.startswith("docs/security/"):
+        return "security"
+    if rel.startswith("docs/adr/"):
+        return "adr"
+    if rel.startswith("docs/api") or rel.startswith("docs/openapi"):
+        return "api"
+    return "general"
 
 
-def emit_markdown(items: List[Dict[str, Any]], out_path: Path) -> None:
-    lines: List[str] = []
-    lines.append('# Docs Inventory')
-    lines.append(f'Generated: {datetime.utcnow().isoformat()}Z')
-    lines.append('')
-    lines.append('| Path | Title | Type | Status | Date | Tags | Top Headings | Evidence |')
-    lines.append('|---|---|---|---|---|---|---|---|')
-    for it in items:
-        path_link = f'[{it["path"]}]({it["path"]})'
-        title = it['title'].replace('|', '\\|')
-        ttype = it['type']
-        status = it.get('status', '')
-        date = it.get('date', '')
-        tags = ', '.join(it.get('tags', []))
-        top_h = ', '.join(it.get('top_headings', []))
-        ev = ', '.join(it.get('evidence_refs', []))
-        lines.append(f'| {path_link} | {title} | {ttype} | {status} | {date} | {tags} | {top_h} | {ev} |')
-    out_path.write_text('\n'.join(lines))
+def _title(path: Path) -> str:
+    if path.suffix.lower() not in {".md", ".markdown"}:
+        return path.name
+    try:
+        for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
+            stripped = line.strip()
+            if stripped.startswith("#"):
+                return stripped.lstrip("#").strip() or path.name
+    except Exception:
+        return path.name
+    return path.name
 
 
-def make_gap_report(items: List[Dict[str, Any]], out_path: Path) -> None:
-    lines: List[str] = []
-    lines.append('# Docs Gap Report')
-    lines.append(f'Generated: {datetime.utcnow().isoformat()}Z')
-    lines.append('')
-    by_tag: Dict[str, List[str]] = {}
-    for name, _ in DELIVERABLE_KEYWORDS:
-        by_tag[name] = []
-    for it in items:
-        for tag in it.get('tags', []):
-            if tag in by_tag:
-                by_tag[tag].append(it['path'])
-    for name, _ in DELIVERABLE_KEYWORDS:
-        found = by_tag.get(name, [])
-        if found:
-            lines.append(f'## {name}')
-            lines.append(f'- Status: Present ({len(found)} document(s))')
-            for p in found:
-                lines.append(f'  - [{p}]({p})')
+def _sha(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def iter_docs() -> list[Path]:
+    if not DOCS.exists():
+        return []
+    paths: list[Path] = []
+    for pattern in ["**/*.md", "**/*.json", "**/*.yml", "**/*.yaml"]:
+        paths.extend(DOCS.glob(pattern))
+    return sorted({path for path in paths if path.is_file()})
+
+
+def build_inventory() -> DocumentInventory:
+    items: list[DocumentInventoryItem] = []
+    categories: dict[str, int] = {}
+
+    for path in iter_docs():
+        rel = path.relative_to(ROOT).as_posix()
+        if rel in GENERATED:
+            # Generated files are represented when they already exist, but the
+            # generator computes drift from non-generated source docs.
+            generated = True
         else:
-            # try weak matches: any doc containing any keyword in path/title
-            candidates: List[str] = []
-            kws = []
-            for nm, ks in DELIVERABLE_KEYWORDS:
-                if nm == name:
-                    kws = ks
-                    break
-            for it in items:
-                hay = (it['title'] + '\n' + '\n'.join(it.get('top_headings', []))).lower()
-                if any(k in hay for k in kws):
-                    candidates.append(it['path'])
-            lines.append(f'## {name}')
-            lines.append('- Status: Missing or incomplete')
-            if candidates:
-                lines.append('- Candidate source documents:')
-                for p in candidates:
-                    lines.append(f'  - [{p}]({p})')
-            else:
-                lines.append('- No obvious candidate documents found')
-    out_path.write_text('\n'.join(lines))
+            generated = False
+
+        category = _category(path)
+        categories[category] = categories.get(category, 0) + 1
+        items.append(
+            DocumentInventoryItem(
+                path=rel,
+                size_bytes=0 if generated else path.stat().st_size,
+                sha256="GENERATED" if generated else _sha(path),
+                title=_title(path),
+                category=category,
+                generated=generated,
+            )
+        )
+
+    missing = [path for path in IMPORTANT_DOCS if not (ROOT / path).exists()]
+
+    return DocumentInventory(
+        generated_at=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        commit=current_commit(),
+        document_count=len(items),
+        generated_count=sum(1 for item in items if item.generated),
+        categories=dict(sorted(categories.items())),
+        documents=items,
+        missing_important_docs=missing,
+    )
 
 
-def make_generation_plan(items: List[Dict[str, Any]], out_path: Path) -> None:
-    lines: List[str] = []
-    lines.append('# Docs Generation Plan')
-    lines.append(f'Generated: {datetime.utcnow().isoformat()}Z')
-    lines.append('')
-    lines.append('This plan lists missing deliverables and recommended source documents and tools to generate them.')
-    lines.append('')
-    by_tag: Dict[str, List[str]] = {name: [] for name, _ in DELIVERABLE_KEYWORDS}
-    for it in items:
-        for tag in it.get('tags', []):
-            if tag in by_tag:
-                by_tag[tag].append(it['path'])
-    for name, kws in DELIVERABLE_KEYWORDS:
-        lines.append(f'## {name}')
-        sources = by_tag.get(name, [])
-        if sources:
-            lines.append(f'- Status: Candidate content available ({len(sources)})')
-            lines.append('- Candidate sources:')
-            for s in sources:
-                lines.append(f'  - [{s}]({s})')
-            lines.append('- Recommended tools:')
-            lines.append('  - Use Docling to extract structured sections and metadata')
-            lines.append('  - Use MarkItDown to normalize/merge into a canonical Markdown doc')
-            lines.append('  - Use LlamaIndex-style semantic indexing for retrieval and consolidation')
-        else:
-            lines.append('- Status: No clear source documents')
-            lines.append('- Recommended actions:')
-            lines.append('  - Interview stakeholders or search meeting notes, PRs, and release artifacts')
-            lines.append('  - Draft a new document from the product/tech leads')
-            lines.append('  - Use the Documents/Presentations/Spreadsheets skill to ingest non-markdown assets')
-        lines.append('')
-    out_path.write_text('\n'.join(lines))
+def _stable_payload(inventory: DocumentInventory) -> dict:
+    payload = asdict(inventory)
+    # Do not include wall-clock timestamp in check comparisons.
+    payload["generated_at"] = "STABLE"
+    return payload
 
 
-def main() -> None:
+def render_json(inventory: DocumentInventory) -> str:
+    return json.dumps(asdict(inventory), indent=2, sort_keys=True) + "\n"
+
+
+def render_md(inventory: DocumentInventory) -> str:
+    lines = [
+        "# Documentation Inventory",
+        "",
+        f"Generated at: `{inventory.generated_at}`",
+        f"Commit: `{inventory.commit}`",
+        "",
+        f"- Documents: `{inventory.document_count}`",
+        f"- Generated docs: `{inventory.generated_count}`",
+        "",
+        "## Categories",
+        "",
+        "| Category | Count |",
+        "|---|---:|",
+    ]
+    for category, count in inventory.categories.items():
+        lines.append(f"| `{category}` | {count} |")
+
+    lines.extend(["", "## Documents", "", "| Path | Category | Title | Size | Generated |", "|---|---|---|---:|---:|"])
+    for item in inventory.documents:
+        lines.append(f"| `{item.path}` | `{item.category}` | {item.title} | {item.size_bytes} | {item.generated} |")
+
+    return "\n".join(lines) + "\n"
+
+
+def render_gap(inventory: DocumentInventory) -> str:
+    lines = [
+        "# Documentation Gap Report",
+        "",
+        f"Generated at: `{inventory.generated_at}`",
+        f"Commit: `{inventory.commit}`",
+        "",
+        "## Important document coverage",
+        "",
+        "| Required document | Present |",
+        "|---|---:|",
+    ]
+    missing = set(inventory.missing_important_docs)
+    for path in IMPORTANT_DOCS:
+        lines.append(f"| `{path}` | {path not in missing} |")
+
+    lines.extend(["", "## Gaps", ""])
+    if inventory.missing_important_docs:
+        lines.extend(f"- Missing `{path}`" for path in inventory.missing_important_docs)
+    else:
+        lines.append("- No required documentation intelligence gaps detected.")
+
+    lines.extend(
+        [
+            "",
+            "## No false-closure note",
+            "",
+            "This report tracks documentation intelligence freshness. It does not prove CI authority, external approvals, staging readiness, or production readiness.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def write_inventory() -> DocumentInventory:
+    inventory = build_inventory()
+    OUT_JSON.write_text(render_json(inventory), encoding="utf-8")
+    OUT_MD.write_text(render_md(inventory), encoding="utf-8")
+    OUT_GAP.write_text(render_gap(inventory), encoding="utf-8")
+    return inventory
+
+
+def check_inventory() -> list[str]:
+    expected = build_inventory()
+
+    errors: list[str] = []
+    expected_json = json.loads(render_json(expected))
+    if OUT_JSON.exists():
+        actual_json = json.loads(OUT_JSON.read_text(encoding="utf-8"))
+        expected_stable = expected_json | {"generated_at": "STABLE"}
+        actual_stable = actual_json | {"generated_at": "STABLE"}
+        # Commit may legitimately change between generation and check after a
+        # commit. Treat it as informational for drift.
+        expected_stable["commit"] = "STABLE"
+        actual_stable["commit"] = "STABLE"
+        if expected_stable != actual_stable:
+            errors.append("docs/docs_inventory.json is stale")
+    else:
+        errors.append("docs/docs_inventory.json is missing")
+
+    if not OUT_MD.exists():
+        errors.append("docs/docs_inventory.md is missing")
+    if not OUT_GAP.exists():
+        errors.append("docs/docs_gap_report.md is missing")
+
+    if expected.missing_important_docs:
+        errors.append("Missing important docs: " + ", ".join(expected.missing_important_docs))
+
+    return errors
+
+
+def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument('--root', default='.', help='Root directory to scan')
-    parser.add_argument('--out', default='docs_inventory.json', help='JSON output path')
-    parser.add_argument('--md', default='docs_inventory.md', help='Markdown inventory output path')
-    parser.add_argument('--gap', default='docs_gap_report.md', help='Gap report output path')
-    parser.add_argument('--plan', default='docs_generation_plan.md', help='Generation plan output path')
+    parser.add_argument("--check", action="store_true", help="fail if generated docs intelligence is stale")
+    parser.add_argument("--write", action="store_true", help="write generated docs intelligence artifacts")
     args = parser.parse_args()
 
-    root = Path(args.root)
-    if not root.exists():
-        print(f'Root not found: {root}')
-        return
+    if args.check:
+        errors = check_inventory()
+        if errors:
+            for error in errors:
+                print(f"- FAIL {error}")
+            return 1
+        print("Documentation intelligence inventory is current.")
+        return 0
 
-    files = find_doc_files(root)
-    print(f'Found {len(files)} candidate documentation files under {root}')
-    items: List[Dict[str, Any]] = []
-    for f in files:
-        try:
-            items.append(analyze_file(f))
-        except Exception as e:
-            print(f'Error analyzing {f}: {e}')
-
-    emit_json(items, Path(args.out))
-    emit_markdown(items, Path(args.md))
-    make_gap_report(items, Path(args.gap))
-    make_generation_plan(items, Path(args.plan))
-
-    print('Wrote:')
-    for p in (args.out, args.md, args.gap, args.plan):
-        print(f' - {p}')
+    inventory = write_inventory()
+    print(f"Wrote {OUT_JSON.relative_to(ROOT)}")
+    print(f"Wrote {OUT_MD.relative_to(ROOT)}")
+    print(f"Wrote {OUT_GAP.relative_to(ROOT)}")
+    print(f"Documents: {inventory.document_count}")
+    return 0
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    raise SystemExit(main())

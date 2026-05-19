@@ -49,12 +49,6 @@ migrate:
 docs:
 	mkdocs serve
 
-docs-inventory:
-	$(PYTHON) scripts/docs_inventory.py
-
-docs-inventory-check:
-	$(PYTHON) scripts/docs_inventory.py --check
-
 openapi:
 	$(PYTHON) scripts/generate_openapi.py
 
@@ -1670,3 +1664,391 @@ backend-implementation-1311-1350-full-check: lesson-authorization-hardening-repa
 	python3 -m compileall -q app/services app/api_v2_routers scripts tests
 	python3 -m ruff check app/services/lesson_authorization.py app/api_v2_routers/lessons.py scripts/patch_lesson_authorization_hardening.py scripts/check_lesson_authorization_hardening.py tests/unit/test_lesson_authorization_hardening.py tests/integration/test_lesson_authorization_negative_contract.py --select F821,F401,F811,E402
 
+.PHONY: diagnostics-dynamic-repository-boundary-repair diagnostics-dynamic-repository-boundary-test diagnostics-dynamic-repository-boundary-check backend-implementation-1351-1390R-full-check
+
+diagnostics-dynamic-repository-boundary-repair:
+	PYTHONPATH=. python3 scripts/patch_diagnostics_dynamic_repository_boundary.py
+
+diagnostics-dynamic-repository-boundary-test:
+	pytest -c pytest.ini tests/unit/test_diagnostics_dynamic_repository_boundary.py -q --no-cov --tb=short
+
+diagnostics-dynamic-repository-boundary-check:
+	PYTHONPATH=. python3 scripts/check_diagnostics_dynamic_repository_boundary.py
+
+backend-implementation-1351-1390R-full-check: diagnostics-dynamic-repository-boundary-repair diagnostics-dynamic-repository-boundary-check diagnostics-dynamic-repository-boundary-test
+	python3 -m compileall -q app/api_v2_deps app/api_v2_routers scripts tests
+	python3 -m ruff check app/api_v2_deps/diagnostic_repositories.py app/api_v2_routers/diagnostics.py scripts/patch_diagnostics_dynamic_repository_boundary.py scripts/check_diagnostics_dynamic_repository_boundary.py tests/unit/test_diagnostics_dynamic_repository_boundary.py --select F821,F401,F811,E402
+
+.PHONY: transaction-boundary-inventory transaction-boundary-guardrail-check transaction-boundary-guardrail-test backend-implementation-1391-1430-full-check
+
+transaction-boundary-inventory:
+	PYTHONPATH=. python3 scripts/transaction_boundary_inventory.py
+
+transaction-boundary-guardrail-check:
+	PYTHONPATH=. python3 scripts/check_transaction_boundary_guardrails.py
+
+transaction-boundary-guardrail-test:
+	pytest -c pytest.ini tests/unit/test_transaction_boundary_guardrails.py -q --no-cov --tb=short
+
+backend-implementation-1391-1430-full-check: transaction-boundary-inventory transaction-boundary-guardrail-check transaction-boundary-guardrail-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/transaction_boundary_inventory.py scripts/check_transaction_boundary_guardrails.py tests/unit/test_transaction_boundary_guardrails.py --select F821,F401,F811,E402
+
+.PHONY: popia-transaction-rollback-proof-test popia-transaction-rollback-proof-check backend-implementation-1431-1470-full-check
+
+popia-transaction-rollback-proof-test:
+	pytest -c pytest.ini tests/integration/test_popia_transaction_rollback_proof.py tests/unit/test_popia_transactional_lifecycle_contracts.py -q --no-cov --tb=short
+
+popia-transaction-rollback-proof-check:
+	PYTHONPATH=. python3 scripts/check_popia_transaction_rollback_proof.py
+
+backend-implementation-1431-1470-full-check: popia-transaction-rollback-proof-check popia-transaction-rollback-proof-test
+	python3 -m compileall -q app/services scripts tests
+	python3 -m ruff check app/services/popia_transactional_lifecycle.py scripts/check_popia_transaction_rollback_proof.py tests/integration/test_popia_transaction_rollback_proof.py tests/unit/test_popia_transactional_lifecycle_contracts.py --select F821,F401,F811,E402
+
+.PHONY: auth-transaction-rollback-proof-test auth-transaction-rollback-proof-check backend-implementation-1471-1510-full-check
+
+auth-transaction-rollback-proof-test:
+	pytest -c pytest.ini tests/integration/test_auth_transaction_rollback_proof.py tests/unit/test_auth_transactional_registration_contracts.py -q --no-cov --tb=short
+
+auth-transaction-rollback-proof-check:
+	PYTHONPATH=. python3 scripts/check_auth_transaction_rollback_proof.py
+
+backend-implementation-1471-1510-full-check: auth-transaction-rollback-proof-test auth-transaction-rollback-proof-check
+	python3 -m compileall -q app/services scripts tests
+	python3 -m ruff check app/services/auth_transactional_registration.py scripts/check_auth_transaction_rollback_proof.py tests/integration/test_auth_transaction_rollback_proof.py tests/unit/test_auth_transactional_registration_contracts.py --select F821,F401,F811,E402
+
+.PHONY: diagnostics-transaction-rollback-proof-test diagnostics-transaction-rollback-proof-check backend-implementation-1511-1550-full-check
+
+diagnostics-transaction-rollback-proof-test:
+	pytest -c pytest.ini tests/integration/test_diagnostics_transaction_rollback_proof.py tests/unit/test_diagnostic_transactional_response_contracts.py -q --no-cov --tb=short
+
+diagnostics-transaction-rollback-proof-check:
+	PYTHONPATH=. python3 scripts/check_diagnostics_transaction_rollback_proof.py
+
+backend-implementation-1511-1550-full-check: diagnostics-transaction-rollback-proof-test diagnostics-transaction-rollback-proof-check
+	python3 -m compileall -q app/services scripts tests
+	python3 -m ruff check app/services/diagnostic_transactional_response.py scripts/check_diagnostics_transaction_rollback_proof.py tests/integration/test_diagnostics_transaction_rollback_proof.py tests/unit/test_diagnostic_transactional_response_contracts.py --select F821,F401,F811,E402
+
+.PHONY: lesson-gamification-transaction-rollback-proof-test lesson-gamification-transaction-rollback-proof-check backend-implementation-1551-1590-full-check
+
+lesson-gamification-transaction-rollback-proof-test:
+	pytest -c pytest.ini tests/integration/test_lesson_gamification_transaction_rollback_proof.py tests/unit/test_lesson_transactional_completion_contracts.py -q --no-cov --tb=short
+
+lesson-gamification-transaction-rollback-proof-check:
+	PYTHONPATH=. python3 scripts/check_lesson_gamification_transaction_rollback_proof.py
+
+backend-implementation-1551-1590-full-check: lesson-gamification-transaction-rollback-proof-test lesson-gamification-transaction-rollback-proof-check
+	python3 -m compileall -q app/services scripts tests
+	python3 -m ruff check app/services/lesson_transactional_completion.py scripts/check_lesson_gamification_transaction_rollback_proof.py tests/integration/test_lesson_gamification_transaction_rollback_proof.py tests/unit/test_lesson_transactional_completion_contracts.py --select F821,F401,F811,E402
+
+.PHONY: transaction-rollback-rollup-report transaction-rollback-rollup-check transaction-rollback-rollup-test backend-implementation-1591-1630-full-check
+
+transaction-rollback-rollup-report:
+	PYTHONPATH=. python3 -c "from scripts.transaction_rollback_rollup import write_rollup; r = write_rollup(); print(r.status)"
+
+transaction-rollback-rollup-check:
+	PYTHONPATH=. python3 scripts/check_transaction_rollback_rollup.py
+
+transaction-rollback-rollup-test:
+	pytest -c pytest.ini tests/unit/test_transaction_rollback_rollup.py -q --no-cov --tb=short
+
+backend-implementation-1591-1630-full-check: transaction-rollback-rollup-report transaction-rollback-rollup-check transaction-rollback-rollup-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/transaction_rollback_rollup.py scripts/check_transaction_rollback_rollup.py tests/unit/test_transaction_rollback_rollup.py --select F821,F401,F811,E402
+
+.PHONY: proof-no-skips-check diagnostics-scoring-snapshot-repair diagnostics-scoring-snapshot-test diagnostics-scoring-snapshot-check evidence-registry-commit-provenance-check backend-implementation-1631-1670-full-check
+
+proof-no-skips-check:
+	PYTHONPATH=. python3 scripts/check_popia_lifecycle_response_contract.py
+	PYTHONPATH=. python3 scripts/check_diagnostics_session_binding.py
+
+diagnostics-scoring-snapshot-repair:
+	PYTHONPATH=. python3 scripts/patch_diagnostics_scoring_snapshot.py
+
+diagnostics-scoring-snapshot-test:
+	pytest -c pytest.ini tests/unit/test_diagnostics_scoring_snapshot.py tests/unit/test_proof_pytest_no_skips.py -q --no-cov --tb=short
+
+diagnostics-scoring-snapshot-check:
+	PYTHONPATH=. python3 scripts/check_diagnostics_scoring_snapshot.py
+
+evidence-registry-commit-provenance-check:
+	PYTHONPATH=. python3 scripts/check_evidence_registry_commit_provenance.py
+
+backend-implementation-1631-1670-full-check: proof-no-skips-check diagnostics-scoring-snapshot-repair diagnostics-scoring-snapshot-test diagnostics-scoring-snapshot-check evidence-registry-commit-provenance-check
+	python3 -m compileall -q app/services app/modules/diagnostics scripts tests
+	python3 -m ruff check app/services/diagnostic_scoring_snapshot.py app/modules/diagnostics/diagnostic_session_service.py scripts/proof_pytest.py scripts/patch_diagnostics_scoring_snapshot.py scripts/check_diagnostics_scoring_snapshot.py scripts/check_popia_lifecycle_response_contract.py scripts/check_diagnostics_session_binding.py scripts/evidence_registry.py scripts/stamp_evidence_registry_commit.py scripts/check_evidence_registry_commit_provenance.py tests/unit/test_diagnostics_scoring_snapshot.py tests/unit/test_proof_pytest_no_skips.py tests/unit/test_evidence_registry_commit_provenance.py tests/integration/test_popia_lifecycle_response_contract.py tests/integration/test_diagnostics_session_binding_routes.py --select F821,F401,F811,E402
+
+.PHONY: ci-authority-registry-patch ci-authority-status ci-authority-local-check ci-authority-release-check ci-authority-test backend-implementation-1671-1710-full-check
+
+ci-authority-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_ci_authority_registry.py
+
+ci-authority-status:
+	PYTHONPATH=. python3 -c "from scripts.ci_authority import write_status; s = write_status(); print(s.ci_status)"
+
+ci-authority-local-check: ci-authority-registry-patch
+	PYTHONPATH=. python3 scripts/check_ci_authority.py
+
+ci-authority-release-check:
+	PYTHONPATH=. python3 scripts/check_ci_authority.py --release
+
+ci-authority-test:
+	pytest -c pytest.ini tests/unit/test_ci_authority.py -q --no-cov --tb=short
+
+backend-implementation-1671-1710-full-check: ci-authority-status ci-authority-local-check ci-authority-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/ci_authority.py scripts/patch_ci_authority_registry.py scripts/check_ci_authority.py tests/unit/test_ci_authority.py --select F821,F401,F811,E402
+
+.PHONY: docs-inventory docs-inventory-check docs-intelligence-check docs-intelligence-test backend-implementation-1711-1750-full-check
+
+docs-inventory:
+	PYTHONPATH=. python3 scripts/docs_inventory.py --write
+
+docs-inventory-check:
+	PYTHONPATH=. python3 scripts/docs_inventory.py --check
+
+docs-intelligence-check:
+	PYTHONPATH=. python3 scripts/check_docs_intelligence.py
+
+docs-intelligence-test:
+	pytest -c pytest.ini tests/unit/test_docs_intelligence.py -q --no-cov --tb=short
+
+backend-implementation-1711-1750-full-check: docs-inventory docs-inventory-check docs-intelligence-check docs-intelligence-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/docs_inventory.py scripts/check_docs_intelligence.py tests/unit/test_docs_intelligence.py --select F821,F401,F811,E402
+
+.PHONY: tx-route-wiring-inventory tx-route-wiring-check tx-route-wiring-test backend-implementation-1751-1790-full-check
+
+tx-route-wiring-inventory:
+	PYTHONPATH=. python3 -c "from scripts.tx_route_wiring_inventory import write_inventory; i = write_inventory(); print(i.status)"
+
+tx-route-wiring-check:
+	PYTHONPATH=. python3 scripts/check_tx_route_wiring.py
+
+tx-route-wiring-test:
+	pytest -c pytest.ini tests/unit/test_tx_route_wiring_inventory.py -q --no-cov --tb=short
+
+backend-implementation-1751-1790-full-check: tx-route-wiring-inventory tx-route-wiring-check tx-route-wiring-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/tx_route_wiring_inventory.py scripts/check_tx_route_wiring.py tests/unit/test_tx_route_wiring_inventory.py --select F821,F401,F811,E402
+
+.PHONY: external-approval-registry-patch external-approval-status external-approval-local-check external-approval-release-check external-approval-test backend-implementation-1791-1830-full-check
+
+external-approval-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_external_approval_registry.py
+
+external-approval-status:
+	PYTHONPATH=. python3 -c "from scripts.external_approval_gate import write_status; s = write_status(); print(s.status)"
+
+external-approval-local-check: external-approval-registry-patch
+	PYTHONPATH=. python3 scripts/check_external_approval_gate.py
+
+external-approval-release-check:
+	PYTHONPATH=. python3 scripts/check_external_approval_gate.py --release
+
+external-approval-test:
+	pytest -c pytest.ini tests/unit/test_external_approval_gate.py -q --no-cov --tb=short
+
+backend-implementation-1791-1830-full-check: external-approval-status external-approval-local-check external-approval-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/external_approval_gate.py scripts/patch_external_approval_registry.py scripts/check_external_approval_gate.py tests/unit/test_external_approval_gate.py --select F821,F401,F811,E402
+
+.PHONY: release-go-no-go-registry-patch release-go-no-go-status release-go-no-go-local-check release-go-no-go-release-check release-go-no-go-test backend-implementation-1831-1870-full-check
+
+release-go-no-go-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_release_go_no_go_registry.py
+
+release-go-no-go-status:
+	PYTHONPATH=. python3 -c "from scripts.release_go_no_go import write_status; s = write_status(); print(s.decision)"
+
+release-go-no-go-local-check: release-go-no-go-registry-patch
+	PYTHONPATH=. python3 scripts/check_release_go_no_go.py
+
+release-go-no-go-release-check:
+	PYTHONPATH=. python3 scripts/check_release_go_no_go.py --release
+
+release-go-no-go-test:
+	pytest -c pytest.ini tests/unit/test_release_go_no_go.py -q --no-cov --tb=short
+
+backend-implementation-1831-1870-full-check: release-go-no-go-status release-go-no-go-local-check release-go-no-go-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/release_go_no_go.py scripts/patch_release_go_no_go_registry.py scripts/check_release_go_no_go.py tests/unit/test_release_go_no_go.py --select F821,F401,F811,E402
+
+.PHONY: beta-blocker-burndown-registry-patch beta-blocker-burndown-plan beta-blocker-burndown-check beta-blocker-burndown-release-check beta-blocker-burndown-test backend-implementation-1871-1910-full-check
+
+beta-blocker-burndown-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_beta_blocker_burndown_registry.py
+
+beta-blocker-burndown-plan:
+	PYTHONPATH=. python3 -c "from scripts.beta_blocker_burndown import write_plan; p = write_plan(); print(p.burn_down_status)"
+
+beta-blocker-burndown-check: beta-blocker-burndown-registry-patch
+	PYTHONPATH=. python3 scripts/check_beta_blocker_burndown.py
+
+beta-blocker-burndown-release-check:
+	PYTHONPATH=. python3 scripts/check_beta_blocker_burndown.py --release
+
+beta-blocker-burndown-test:
+	pytest -c pytest.ini tests/unit/test_beta_blocker_burndown.py -q --no-cov --tb=short
+
+backend-implementation-1871-1910-full-check: beta-blocker-burndown-plan beta-blocker-burndown-check beta-blocker-burndown-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/beta_blocker_burndown.py scripts/patch_beta_blocker_burndown_registry.py scripts/check_beta_blocker_burndown.py tests/unit/test_beta_blocker_burndown.py --select F821,F401,F811,E402
+
+.PHONY: staging-acceptance-registry-patch staging-acceptance-template staging-acceptance-status staging-acceptance-local-check staging-acceptance-release-check staging-acceptance-test backend-implementation-1911-1950-full-check
+
+staging-acceptance-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_staging_acceptance_registry.py
+
+staging-acceptance-template:
+	PYTHONPATH=. python3 -c "from scripts.staging_acceptance_evidence import write_template; write_template(); print('staging template ready')"
+
+staging-acceptance-status:
+	PYTHONPATH=. python3 -c "from scripts.staging_acceptance_evidence import write_status; s = write_status(); print(s.status)"
+
+staging-acceptance-local-check: staging-acceptance-registry-patch
+	PYTHONPATH=. python3 scripts/check_staging_acceptance.py
+
+staging-acceptance-release-check:
+	PYTHONPATH=. python3 scripts/check_staging_acceptance.py --release
+
+staging-acceptance-test:
+	pytest -c pytest.ini tests/unit/test_staging_acceptance_evidence.py -q --no-cov --tb=short
+
+backend-implementation-1911-1950-full-check: staging-acceptance-template staging-acceptance-status staging-acceptance-local-check staging-acceptance-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/staging_acceptance_evidence.py scripts/patch_staging_acceptance_registry.py scripts/check_staging_acceptance.py tests/unit/test_staging_acceptance_evidence.py --select F821,F401,F811,E402
+
+.PHONY: ci-run-evidence-template ci-run-evidence-status ci-run-evidence-local-check ci-run-evidence-release-check ci-run-evidence-test ci-run-evidence-registry-patch ci-run-evidence-attach backend-implementation-1951-1990-full-check
+
+ci-run-evidence-template:
+	PYTHONPATH=. python3 scripts/ci_run_evidence.py --template
+
+ci-run-evidence-status:
+	PYTHONPATH=. python3 scripts/ci_run_evidence.py --status
+
+ci-run-evidence-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_ci_run_evidence_registry.py
+
+ci-run-evidence-local-check: ci-run-evidence-registry-patch
+	PYTHONPATH=. python3 scripts/check_ci_run_evidence.py
+
+ci-run-evidence-release-check:
+	PYTHONPATH=. python3 scripts/check_ci_run_evidence.py --release
+
+ci-run-evidence-test:
+	pytest -c pytest.ini tests/unit/test_ci_run_evidence.py -q --no-cov --tb=short
+
+ci-run-evidence-attach:
+	@test -n "$$CI_RUN_URL" || (echo "CI_RUN_URL is required"; exit 1)
+	@test -n "$$CI_RESULT" || (echo "CI_RESULT is required"; exit 1)
+	@test -n "$$CI_WORKFLOW" || (echo "CI_WORKFLOW is required"; exit 1)
+	@test -n "$$CI_VERIFIED_BY" || (echo "CI_VERIFIED_BY is required"; exit 1)
+	PYTHONPATH=. python3 scripts/ci_run_evidence.py --attach --run-url "$$CI_RUN_URL" --result "$$CI_RESULT" --workflow "$$CI_WORKFLOW" --verified-by "$$CI_VERIFIED_BY" --commit-sha "$${CI_COMMIT_SHA:-$$(git rev-parse HEAD)}" --branch "$${CI_BRANCH:-codex/production_readiness}" --repository "$${CI_REPOSITORY:-NkgoloL/Eduboost-V2}" --date-verified "$${CI_DATE_VERIFIED:-$$(date -u +%Y-%m-%d)}" --notes "$${CI_NOTES:-attached through CI-RUN-001 helper}"
+	PYTHONPATH=. python3 scripts/patch_ci_run_evidence_registry.py
+	@if [ -f scripts/release_go_no_go.py ]; then PYTHONPATH=. python3 -c "from scripts.release_go_no_go import write_status; s = write_status(); print(s.decision)"; fi
+	@if [ -f scripts/beta_blocker_burndown.py ]; then PYTHONPATH=. python3 -c "from scripts.beta_blocker_burndown import write_plan; p = write_plan(); print(p.burn_down_status)"; fi
+
+backend-implementation-1951-1990-full-check: ci-run-evidence-template ci-run-evidence-status ci-run-evidence-local-check ci-run-evidence-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/ci_run_evidence.py scripts/patch_ci_run_evidence_registry.py scripts/check_ci_run_evidence.py tests/unit/test_ci_run_evidence.py --select F821,F401,F811,E402
+
+.PHONY: approval-evidence-templates approval-evidence-status approval-evidence-registry-patch approval-evidence-local-check approval-evidence-release-check approval-evidence-test approval-evidence-attach backend-implementation-1991-2030-full-check
+
+approval-evidence-templates:
+	PYTHONPATH=. python3 scripts/approval_evidence.py --templates
+
+approval-evidence-status:
+	PYTHONPATH=. python3 scripts/approval_evidence.py --status
+
+approval-evidence-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_approval_evidence_registry.py
+
+approval-evidence-local-check: approval-evidence-registry-patch
+	PYTHONPATH=. python3 scripts/check_approval_evidence.py
+
+approval-evidence-release-check:
+	PYTHONPATH=. python3 scripts/check_approval_evidence.py --release
+
+approval-evidence-test:
+	pytest -c pytest.ini tests/unit/test_approval_evidence.py -q --no-cov --tb=short
+
+approval-evidence-attach:
+	@test -n "$$APPROVAL_ID" || (echo "APPROVAL_ID is required: LEGAL-001, SEC-001, or CONTENT-001"; exit 1)
+	@test -n "$$APPROVAL_DECISION" || (echo "APPROVAL_DECISION is required"; exit 1)
+	@test -n "$$APPROVAL_APPROVER" || (echo "APPROVAL_APPROVER is required"; exit 1)
+	@test -n "$$APPROVAL_EVIDENCE_URL" || (echo "APPROVAL_EVIDENCE_URL is required"; exit 1)
+	@test -n "$$APPROVAL_SCOPE" || (echo "APPROVAL_SCOPE is required"; exit 1)
+	PYTHONPATH=. python3 scripts/approval_evidence.py --attach "$$APPROVAL_ID" --decision "$$APPROVAL_DECISION" --approver "$$APPROVAL_APPROVER" --evidence-url "$$APPROVAL_EVIDENCE_URL" --date-verified "$${APPROVAL_DATE_VERIFIED:-$$(date -u +%Y-%m-%d)}" --scope "$$APPROVAL_SCOPE" --notes "$${APPROVAL_NOTES:-attached through APPROVAL-EVID-001 helper}"
+	PYTHONPATH=. python3 scripts/patch_approval_evidence_registry.py
+	@if [ -f scripts/external_approval_gate.py ]; then PYTHONPATH=. python3 -c "from scripts.external_approval_gate import write_status; s = write_status(); print(s.status)"; fi
+	@if [ -f scripts/release_go_no_go.py ]; then PYTHONPATH=. python3 -c "from scripts.release_go_no_go import write_status; s = write_status(); print(s.decision)"; fi
+	@if [ -f scripts/beta_blocker_burndown.py ]; then PYTHONPATH=. python3 -c "from scripts.beta_blocker_burndown import write_plan; p = write_plan(); print(p.burn_down_status)"; fi
+
+backend-implementation-1991-2030-full-check: approval-evidence-templates approval-evidence-status approval-evidence-local-check approval-evidence-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/approval_evidence.py scripts/patch_approval_evidence_registry.py scripts/check_approval_evidence.py tests/unit/test_approval_evidence.py --select F821,F401,F811,E402
+
+.PHONY: route-tx-impl-plan route-tx-impl-registry-patch route-tx-impl-plan-check route-tx-impl-plan-release-check route-tx-impl-plan-test backend-implementation-2031-2070-full-check
+
+route-tx-impl-plan:
+	PYTHONPATH=. python3 -c "from scripts.route_tx_impl_plan import write_plan; p = write_plan(); print(p.plan_status)"
+
+route-tx-impl-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_route_tx_impl_registry.py
+
+route-tx-impl-plan-check: route-tx-impl-registry-patch
+	PYTHONPATH=. python3 scripts/check_route_tx_impl_plan.py
+
+route-tx-impl-plan-release-check:
+	PYTHONPATH=. python3 scripts/check_route_tx_impl_plan.py --release
+
+route-tx-impl-plan-test:
+	pytest -c pytest.ini tests/unit/test_route_tx_impl_plan.py -q --no-cov --tb=short
+
+backend-implementation-2031-2070-full-check: route-tx-impl-plan route-tx-impl-plan-check route-tx-impl-plan-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/route_tx_impl_plan.py scripts/patch_route_tx_impl_registry.py scripts/check_route_tx_impl_plan.py tests/unit/test_route_tx_impl_plan.py --select F821,F401,F811,E402
+
+.PHONY: route-tx-auth-slice-report route-tx-auth-slice-registry-patch route-tx-auth-slice-check route-tx-auth-slice-release-check route-tx-auth-slice-test backend-implementation-2071-2110-full-check
+
+route-tx-auth-slice-report:
+	PYTHONPATH=. python3 -c "from scripts.route_tx_auth_slice import write_report; r = write_report(); print(r.local_status)"
+
+route-tx-auth-slice-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_route_tx_auth_slice_registry.py
+
+route-tx-auth-slice-check: route-tx-auth-slice-registry-patch
+	PYTHONPATH=. python3 scripts/check_route_tx_auth_slice.py
+
+route-tx-auth-slice-release-check:
+	PYTHONPATH=. python3 scripts/check_route_tx_auth_slice.py --release
+
+route-tx-auth-slice-test:
+	pytest -c pytest.ini tests/unit/test_route_tx_auth_slice.py -q --no-cov --tb=short
+
+backend-implementation-2071-2110-full-check: route-tx-auth-slice-report route-tx-auth-slice-check route-tx-auth-slice-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/route_tx_auth_slice.py scripts/patch_route_tx_auth_slice_registry.py scripts/check_route_tx_auth_slice.py tests/unit/test_route_tx_auth_slice.py --select F821,F401,F811,E402
+
+.PHONY: route-tx-popia-slice-report route-tx-popia-slice-registry-patch route-tx-popia-slice-check route-tx-popia-slice-release-check route-tx-popia-slice-test backend-implementation-2111-2150-full-check
+
+route-tx-popia-slice-report:
+	PYTHONPATH=. python3 -c "from scripts.route_tx_popia_slice import write_report; r = write_report(); print(r.local_status)"
+
+route-tx-popia-slice-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_route_tx_popia_slice_registry.py
+
+route-tx-popia-slice-check: route-tx-popia-slice-registry-patch
+	PYTHONPATH=. python3 scripts/check_route_tx_popia_slice.py
+
+route-tx-popia-slice-release-check:
+	PYTHONPATH=. python3 scripts/check_route_tx_popia_slice.py --release
+
+route-tx-popia-slice-test:
+	pytest -c pytest.ini tests/unit/test_route_tx_popia_slice.py -q --no-cov --tb=short
+
+backend-implementation-2111-2150-full-check: route-tx-popia-slice-report route-tx-popia-slice-check route-tx-popia-slice-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/route_tx_popia_slice.py scripts/patch_route_tx_popia_slice_registry.py scripts/check_route_tx_popia_slice.py tests/unit/test_route_tx_popia_slice.py --select F821,F401,F811,E402

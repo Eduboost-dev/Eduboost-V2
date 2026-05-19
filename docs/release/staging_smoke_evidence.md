@@ -1,48 +1,37 @@
 # Staging Smoke Evidence
 
-**Status:** pending runtime execution
-<!-- Status: pending runtime execution -->
+**Item:** STAGING-001
 
-This file is the stable release gate for staging smoke evidence. It must remain pending until a real staging deployment smoke run is accepted by the release owner.
+**Environment:** pending
 
-Latest raw smoke output, when available:
+**Staging URL:** pending
 
-- JSON: `docs/release/staging_smoke_latest.json`
-- Markdown: `docs/release/staging_smoke_latest.md`
+**Commit SHA:** pending
 
-## Required environment
+**GitHub Actions run URL:** pending
 
-| Field | Value |
-|---|---|
-| Staging URL | TODO |
-| Commit SHA | TODO |
-| Deployment ID | TODO |
-| Operator | TODO |
-| Timestamp UTC | TODO |
+**Smoke command:** pending
 
-## Required smoke checks
+**Smoke result:** pending
 
-| Check | Expected result | Evidence |
-|---|---|---|
-| `GET /api/v2/health/deep` | `200 OK` with all critical checks healthy, or documented degraded `503` before acceptance | TODO |
-| `GET /openapi.json` | schema available and current | TODO |
-| Auth register/login/refresh/logout | success path works; cookies/headers correct | TODO |
-| Learner dashboard/read route | object authorization works | TODO |
-| Lesson generation route | accepted or expected controlled response | TODO |
-| Study plan generation route | accepted or expected controlled response | TODO |
-| POPIA data export route | authorized path works; unauthorized path rejected | TODO |
-| Security headers | expected headers present | TODO |
-| CORS | allowed origin accepted; disallowed origin rejected | TODO |
-| Observability | request appears in logs/traces/metrics | TODO |
+**Health endpoint result:** pending
 
-## Command log
+**API smoke result:** pending
 
-```bash
-# paste accepted staging smoke commands and output here
-```
+**Database migration status:** pending
 
-## Decision
+**Verified by:** pending
 
-- [ ] Staging smoke passed and is accepted for release evidence.
-- [ ] Staging smoke failed and release is blocked.
-- [ ] Staging smoke partially passed; exceptions documented and approved.
+**Date verified:** pending
+
+## Required attachments or links
+
+- Staging deployment URL.
+- Passing GitHub Actions run URL for the deployed commit.
+- Health/readiness smoke output.
+- API smoke output.
+- Migration status output.
+
+## No false-closure rule
+
+This file is not staging acceptance while any required field remains pending or while the smoke result is not `pass`.

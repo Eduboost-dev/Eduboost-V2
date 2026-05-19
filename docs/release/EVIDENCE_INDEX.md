@@ -779,3 +779,376 @@ make lesson-authorization-hardening-check
 make backend-implementation-1311-1350-full-check
 ```
 
+## ARCH-001R / Backend implementation 1351-1390R — Diagnostics dynamic repository boundary repair
+
+Audit drivers:
+
+- Dynamic repository resolution inside `diagnostics.py` hides coupling from static scanners.
+- Critical routers must not use `importlib.import_module` to locate repositories.
+- Diagnostics repository compatibility resolution belongs in a dependency/service boundary, not the router.
+
+Commands:
+
+```bash
+make diagnostics-dynamic-repository-boundary-repair
+make diagnostics-dynamic-repository-boundary-test
+make diagnostics-dynamic-repository-boundary-check
+make backend-implementation-1351-1390R-full-check
+```
+
+## TX-001 / Backend implementation 1391-1430 — Transaction boundary inventory and guardrails
+
+Audit drivers:
+
+- Multi-write operations must not be claimed atomic without rollback proof.
+- Auth, POPIA, diagnostics, lessons, and gamification flows require transaction-boundary evidence.
+- This batch creates an inventory and keeps TX-001 `not-proven` until targeted rollback tests exist.
+
+Commands:
+
+```bash
+make transaction-boundary-inventory
+make transaction-boundary-guardrail-check
+make transaction-boundary-guardrail-test
+make backend-implementation-1391-1430-full-check
+```
+
+## TX-001B / Backend implementation 1431-1470 — POPIA transaction rollback proof
+
+Audit drivers:
+
+- POPIA lifecycle transition and audit event writes are compliance-sensitive multi-write flows.
+- If audit write fails, consent transition must roll back.
+- If consent write fails, no audit orphan may be created.
+
+Commands:
+
+```bash
+make popia-transaction-rollback-proof-test
+make popia-transaction-rollback-proof-check
+make backend-implementation-1431-1470-full-check
+```
+
+## TX-AUTH-001 / Backend implementation 1471-1510 — Auth registration transaction rollback proof
+
+Audit drivers:
+
+- Auth register/dev-bootstrap style multi-write flows need atomicity proof.
+- User, guardian, and learner writes must commit or roll back together.
+- Broader TX-001 stays open until every high-risk multi-write domain has rollback proof.
+
+Commands:
+
+```bash
+make auth-transaction-rollback-proof-test
+make auth-transaction-rollback-proof-check
+make backend-implementation-1471-1510-full-check
+```
+
+## TX-DIAG-001 / Backend implementation 1511-1550 — Diagnostic response transaction rollback proof
+
+Audit drivers:
+
+- Diagnostic response submission must not partially persist response, mastery, or audit/event state.
+- Response, mastery, and audit event writes must commit or roll back together.
+- Broader TX-001 stays open until every high-risk multi-write domain has rollback proof.
+
+Commands:
+
+```bash
+make diagnostics-transaction-rollback-proof-test
+make diagnostics-transaction-rollback-proof-check
+make backend-implementation-1511-1550-full-check
+```
+
+## TX-LESSON-001 / Backend implementation 1551-1590 — Lesson completion gamification transaction rollback proof
+
+Audit drivers:
+
+- Lesson completion and gamification XP award are a high-risk multi-write path.
+- Lesson completion, XP update, and audit/event write must commit or roll back together.
+- Broader TX-001 stays open until production wiring and live DB rollback proof exist.
+
+Commands:
+
+```bash
+make lesson-gamification-transaction-rollback-proof-test
+make lesson-gamification-transaction-rollback-proof-check
+make backend-implementation-1551-1590-full-check
+```
+
+## TX-001C / Backend implementation 1591-1630 — Transaction rollback proof rollup
+
+Audit drivers:
+
+- Transaction rollback proof must aggregate all high-risk multi-write domains.
+- A single domain proof must not be mistaken for global transaction closure.
+- Production route wiring and live Postgres proof remain outside this rollup.
+
+Commands:
+
+```bash
+make transaction-rollback-rollup-report
+make transaction-rollback-rollup-check
+make transaction-rollback-rollup-test
+make backend-implementation-1591-1630-full-check
+```
+
+## EVID-001R + DIAG-SCORE-001 / Backend implementation 1631-1670 — skipped-proof enforcement and diagnostics scoring snapshot repair
+
+Audit drivers:
+
+- Pytest return code 0 can hide skipped proof cases.
+- Skipped tests are `not-proven`, not passing proof.
+- Runtime/integration registry claims need commit provenance.
+- Diagnostic historical scoring must use each response's own item parameters.
+
+Commands:
+
+```bash
+make proof-no-skips-check
+make diagnostics-scoring-snapshot-test
+make diagnostics-scoring-snapshot-check
+make evidence-registry-commit-provenance-check
+make backend-implementation-1631-1670-full-check
+```
+
+## CI-001 / Backend implementation 1671-1710 — CI authority and release evidence gate
+
+Audit drivers:
+
+- Local tests are not remote CI authority.
+- CI-001 must remain `external-blocked` without a real GitHub Actions run URL.
+- Release mode must fail unless the run URL is attached.
+
+Commands:
+
+```bash
+make ci-authority-status
+make ci-authority-local-check
+make ci-authority-release-check
+make ci-authority-test
+make backend-implementation-1671-1710-full-check
+```
+
+## DOCS-INTEL-001 / Backend implementation 1711-1750 — Documentation intelligence refresh
+
+Audit drivers:
+
+- `python3 scripts/docs_inventory.py --check` was failing because generated docs intelligence was stale.
+- Recent transaction/evidence artifacts must be represented in generated documentation inventory.
+- Documentation intelligence must not be confused with runtime, CI, or external approval proof.
+
+Commands:
+
+```bash
+make docs-inventory
+make docs-inventory-check
+make docs-intelligence-check
+make docs-intelligence-test
+make backend-implementation-1711-1750-full-check
+```
+
+## TX-ROUTE-001 / Backend implementation 1751-1790 — Production route transaction wiring inventory
+
+Audit drivers:
+
+- Isolated rollback proof must not be misread as live production route transaction proof.
+- Critical route files should be inventoried for transaction wiring status.
+- Production route wiring and live DB proof remain separate closure items.
+
+Commands:
+
+```bash
+make tx-route-wiring-inventory
+make tx-route-wiring-check
+make tx-route-wiring-test
+make backend-implementation-1751-1790-full-check
+```
+
+## EXT-GATE-001 / Backend implementation 1791-1830 — External approval tracking gate
+
+Audit drivers:
+
+- External legal, security, content, and staging approvals are release blockers.
+- Local engineering proof must not be mistaken for external approval.
+- Release mode must fail while approval metadata remains pending.
+
+Commands:
+
+```bash
+make external-approval-status
+make external-approval-local-check
+make external-approval-release-check
+make external-approval-test
+make backend-implementation-1791-1830-full-check
+```
+
+## RELEASE-GO-001 / Backend implementation 1831-1870 — Release-owner go/no-go status rollup
+
+Audit drivers:
+
+- Release owners need one generated status surface.
+- CI and external approval blockers must influence the release decision.
+- Release-mode checks must fail while generated status is `NO-GO`.
+
+Commands:
+
+```bash
+make release-go-no-go-status
+make release-go-no-go-local-check
+make release-go-no-go-release-check
+make release-go-no-go-test
+make backend-implementation-1831-1870-full-check
+```
+
+## BLOCKER-BURN-001 / Backend implementation 1871-1910 — Beta blocker burn-down planning
+
+Audit drivers:
+
+- The release-owner NO-GO status must become an actionable burn-down queue.
+- CI and external approval blockers must not be closed by local scripts.
+- Release mode must remain blocked until the burn-down is clear.
+
+Commands:
+
+```bash
+make beta-blocker-burndown-plan
+make beta-blocker-burndown-check
+make beta-blocker-burndown-release-check
+make beta-blocker-burndown-test
+make backend-implementation-1871-1910-full-check
+```
+
+## STAGING-PROOF-001 / Backend implementation 1911-1950 — Staging acceptance evidence capture scaffold
+
+Audit drivers:
+
+- Staging acceptance is a beta blocker.
+- Local tests cannot prove staging acceptance.
+- Release-mode staging checks must fail until real staging evidence is attached.
+
+Commands:
+
+```bash
+make staging-acceptance-template
+make staging-acceptance-status
+make staging-acceptance-local-check
+make staging-acceptance-release-check
+make staging-acceptance-test
+make backend-implementation-1911-1950-full-check
+```
+
+## CI-RUN-001 / Backend implementation 1951-1990 — CI evidence attachment and verification support
+
+Audit drivers:
+
+- CI-001 needs a real GitHub Actions run URL before it can move beyond `external-blocked`.
+- Local command output must not be treated as remote CI authority.
+- Recorded CI evidence must be syntactically validated before release-mode checks can pass.
+
+Commands:
+
+```bash
+make ci-run-evidence-template
+make ci-run-evidence-status
+make ci-run-evidence-local-check
+make ci-run-evidence-release-check
+make ci-run-evidence-test
+make backend-implementation-1951-1990-full-check
+```
+
+Attachment command:
+
+```bash
+CI_RUN_URL="https://github.com/NkgoloL/Eduboost-V2/actions/runs/123456789" \
+CI_RESULT="passed" \
+CI_WORKFLOW="release" \
+CI_VERIFIED_BY="release-owner" \
+make ci-run-evidence-attach
+```
+
+## APPROVAL-EVID-001 / Backend implementation 1991-2030 — Legal/security/content approval evidence attachment support
+
+Audit drivers:
+
+- Legal, security, and content approvals remain beta blockers.
+- Approval templates must not be confused with sign-off.
+- Release-mode approval checks must fail until approval metadata is attached.
+
+Commands:
+
+```bash
+make approval-evidence-templates
+make approval-evidence-status
+make approval-evidence-local-check
+make approval-evidence-release-check
+make approval-evidence-test
+make backend-implementation-1991-2030-full-check
+```
+
+Attachment command:
+
+```bash
+APPROVAL_ID="SEC-001" \
+APPROVAL_DECISION="approved" \
+APPROVAL_APPROVER="security-owner" \
+APPROVAL_EVIDENCE_URL="https://example.com/security-report" \
+APPROVAL_SCOPE="beta release security review" \
+make approval-evidence-attach
+```
+
+## ROUTE-TX-IMPL-001 / Backend implementation 2031-2070 — Production transaction route wiring implementation plan
+
+Audit drivers:
+
+- TX-ROUTE-001 identified production mutation routes whose transaction wiring remains not proven.
+- A concrete ordered implementation plan is needed before modifying production route handlers.
+- Static route markers and isolated rollback tests are not sufficient closure evidence.
+
+Commands:
+
+```bash
+make route-tx-impl-plan
+make route-tx-impl-plan-check
+make route-tx-impl-plan-release-check
+make route-tx-impl-plan-test
+make backend-implementation-2031-2070-full-check
+```
+
+## ROUTE-TX-AUTH-001 / Backend implementation 2071-2110 — First auth route transaction slice
+
+Audit drivers:
+
+- Auth routes were prioritized in the route transaction implementation plan.
+- Route-source proof must show selected auth mutation routes delegate to the auth application service.
+- Live DB rollback proof remains separate and cannot be replaced by static markers.
+
+Commands:
+
+```bash
+make route-tx-auth-slice-report
+make route-tx-auth-slice-check
+make route-tx-auth-slice-release-check
+make route-tx-auth-slice-test
+make backend-implementation-2071-2110-full-check
+```
+
+## ROUTE-TX-POPIA-001 / Backend implementation 2111-2150 — POPIA route transaction slice
+
+Audit drivers:
+
+- POPIA routes were prioritized in the route transaction implementation plan.
+- Route-source proof must show selected POPIA mutation routes delegate to service boundaries.
+- Live DB rollback proof remains separate and cannot be replaced by static markers.
+
+Commands:
+
+```bash
+make route-tx-popia-slice-report
+make route-tx-popia-slice-check
+make route-tx-popia-slice-release-check
+make route-tx-popia-slice-test
+make backend-implementation-2111-2150-full-check
+```
+
