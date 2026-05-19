@@ -1763,3 +1763,25 @@ backend-implementation-1591-1630-full-check: transaction-rollback-rollup-report 
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/transaction_rollback_rollup.py scripts/check_transaction_rollback_rollup.py tests/unit/test_transaction_rollback_rollup.py --select F821,F401,F811,E402
 
+.PHONY: proof-no-skips-check diagnostics-scoring-snapshot-repair diagnostics-scoring-snapshot-test diagnostics-scoring-snapshot-check evidence-registry-commit-provenance-check backend-implementation-1631-1670-full-check
+
+proof-no-skips-check:
+	PYTHONPATH=. python3 scripts/check_popia_lifecycle_response_contract.py
+	PYTHONPATH=. python3 scripts/check_diagnostics_session_binding.py
+
+diagnostics-scoring-snapshot-repair:
+	PYTHONPATH=. python3 scripts/patch_diagnostics_scoring_snapshot.py
+
+diagnostics-scoring-snapshot-test:
+	pytest -c pytest.ini tests/unit/test_diagnostics_scoring_snapshot.py tests/unit/test_proof_pytest_no_skips.py -q --no-cov --tb=short
+
+diagnostics-scoring-snapshot-check:
+	PYTHONPATH=. python3 scripts/check_diagnostics_scoring_snapshot.py
+
+evidence-registry-commit-provenance-check:
+	PYTHONPATH=. python3 scripts/check_evidence_registry_commit_provenance.py
+
+backend-implementation-1631-1670-full-check: proof-no-skips-check diagnostics-scoring-snapshot-repair diagnostics-scoring-snapshot-test diagnostics-scoring-snapshot-check evidence-registry-commit-provenance-check
+	python3 -m compileall -q app/services app/modules/diagnostics scripts tests
+	python3 -m ruff check app/services/diagnostic_scoring_snapshot.py app/modules/diagnostics/diagnostic_session_service.py scripts/proof_pytest.py scripts/patch_diagnostics_scoring_snapshot.py scripts/check_diagnostics_scoring_snapshot.py scripts/check_popia_lifecycle_response_contract.py scripts/check_diagnostics_session_binding.py scripts/evidence_registry.py scripts/stamp_evidence_registry_commit.py scripts/check_evidence_registry_commit_provenance.py tests/unit/test_diagnostics_scoring_snapshot.py tests/unit/test_proof_pytest_no_skips.py tests/unit/test_evidence_registry_commit_provenance.py tests/integration/test_popia_lifecycle_response_contract.py tests/integration/test_diagnostics_session_binding_routes.py --select F821,F401,F811,E402
+

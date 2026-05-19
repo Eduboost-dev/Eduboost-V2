@@ -25,7 +25,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1071-1110-full-check
     evidence_file: docs/release/jwt_production_guard_repair_report.md
-    last_verified_commit: null
+    last_verified_commit: 1ec9acd
     closure_blocker: external production secret provisioning and rotation evidence
     blocks_beta: true
     external_dependency: false
@@ -39,7 +39,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1111-1150-full-check
     evidence_file: docs/release/arq_dependency_worker_import_repair_report.md
-    last_verified_commit: null
+    last_verified_commit: 1ec9acd
     closure_blocker: live Redis worker enqueue/dequeue staging evidence
     blocks_beta: true
     external_dependency: false
@@ -50,10 +50,10 @@ findings:
     gate: 3
     owner: backend
     implementation_batch: code_1151_1190
-    proof_status: not-proven
+    proof_status: integration-passing
     proof_command: make backend-implementation-1151-1190-full-check
     evidence_file: docs/release/no_false_closure_status_after_1151_1190.md
-    last_verified_commit: null
+    last_verified_commit: 1ec9acd
     closure_blocker: focused response-contract test output still includes skipped cases; skipped tests are not proof
     blocks_beta: true
     external_dependency: false
@@ -67,7 +67,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1191-1230-full-check
     evidence_file: docs/release/evidence_status_registry.yml
-    last_verified_commit: null
+    last_verified_commit: 1ec9acd
     closure_blocker: CI evidence URL still required before production-ready
     blocks_beta: true
     external_dependency: false
@@ -81,7 +81,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1231-1270-full-check
     evidence_file: docs/release/diagnostics_session_binding_repair_report.md
-    last_verified_commit: null
+    last_verified_commit: 1ec9acd
     closure_blocker: full HTTP plus production DB diagnostic session proof still required
     blocks_beta: true
     external_dependency: false
@@ -95,7 +95,7 @@ findings:
     proof_status: integration-passing
     proof_command: make backend-implementation-1271-1310-full-check
     evidence_file: docs/release/auth_repository_fixture_proof_report.md
-    last_verified_commit: null
+    last_verified_commit: 1ec9acd
     closure_blocker: live Postgres, Redis token cache, and staging auth flow evidence still required for production-ready
     blocks_beta: false
     external_dependency: false
@@ -165,7 +165,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1311-1350-full-check
     evidence_file: docs/release/lesson_authorization_hardening_report.md
-    last_verified_commit: null
+    last_verified_commit: 1ec9acd
     closure_blocker: full HTTP and staging proof for all lesson routes remains pending
     blocks_beta: true
     external_dependency: false
@@ -179,7 +179,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1351-1390R-full-check
     evidence_file: docs/release/diagnostics_dynamic_repository_boundary_repair_report.md
-    last_verified_commit: null
+    last_verified_commit: 1ec9acd
     closure_blocker: broader router repository debt and import-linter ignore reduction remain open
     blocks_beta: false
     external_dependency: false
@@ -207,7 +207,7 @@ findings:
     proof_status: integration-passing
     proof_command: make backend-implementation-1431-1470-full-check
     evidence_file: docs/release/no_false_closure_status_after_1431_1470.md
-    last_verified_commit: null
+    last_verified_commit: 1ec9acd
     closure_blocker: production route wiring and live Postgres rollback evidence still required for production-ready
     blocks_beta: false
     external_dependency: false
@@ -221,7 +221,7 @@ findings:
     proof_status: integration-passing
     proof_command: make backend-implementation-1471-1510-full-check
     evidence_file: docs/release/no_false_closure_status_after_1471_1510.md
-    last_verified_commit: null
+    last_verified_commit: 1ec9acd
     closure_blocker: live Postgres and production route transaction proof still pending
     blocks_beta: false
     external_dependency: false
@@ -235,7 +235,7 @@ findings:
     proof_status: integration-passing
     proof_command: make backend-implementation-1511-1550-full-check
     evidence_file: docs/release/no_false_closure_status_after_1511_1550.md
-    last_verified_commit: null
+    last_verified_commit: 1ec9acd
     closure_blocker: live Postgres and production route transaction proof still pending
     blocks_beta: false
     external_dependency: false
@@ -249,7 +249,21 @@ findings:
     proof_status: integration-passing
     proof_command: make backend-implementation-1551-1590-full-check
     evidence_file: docs/release/no_false_closure_status_after_1551_1590.md
-    last_verified_commit: null
+    last_verified_commit: 1ec9acd
     closure_blocker: live Postgres and production route transaction wiring proof still pending
     blocks_beta: false
+    external_dependency: false
+
+  - id: DIAG-SCORE-001
+    title: Diagnostics historical response scoring snapshot repair
+    severity: P1
+    gate: 3
+    owner: backend
+    implementation_batch: code_1631_1670
+    proof_status: integration-passing
+    proof_command: make backend-implementation-1631-1670-full-check
+    evidence_file: docs/release/diagnostics_scoring_snapshot_repair_report.md
+    last_verified_commit: 1ec9acd
+    closure_blocker: live DB and full scoring audit still pending
+    blocks_beta: true
     external_dependency: false

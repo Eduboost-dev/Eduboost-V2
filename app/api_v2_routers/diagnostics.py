@@ -307,7 +307,7 @@ async def diagnostic_respond(
     require_learner_write_for_current_user(current_user, snap.learner_id)
     await require_active_consent_for_current_user(db, current_user, snap.learner_id)
     try:
-        validate_adaptive_diagnostic_response(body, snapshot=snap, session_id=session_id)
+        validate_adaptive_diagnostic_response(body.model_dump(), snapshot=snap, session_id=session_id)
     except DiagnosticIntegrityError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     item = await diagnostic_repositories.item_bank(db).get_item(body.item_id)

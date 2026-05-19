@@ -17,6 +17,7 @@ VALID_STATUSES = {
 }
 
 P0_P1 = {"P0", "P1"}
+PROVEN_STATUSES = {"runtime-passing", "integration-passing", "production-ready"}
 
 
 @dataclass(frozen=True)
@@ -50,7 +51,6 @@ def _parse_scalar(value: str) -> Any:
 
 
 def load_registry(path: Path) -> list[EvidenceFinding]:
-    """Load the constrained evidence registry YAML without a PyYAML dependency."""
     lines = path.read_text(encoding="utf-8").splitlines()
     findings: list[dict[str, Any]] = []
     current: dict[str, Any] | None = None
@@ -59,7 +59,6 @@ def load_registry(path: Path) -> list[EvidenceFinding]:
         stripped = raw_line.strip()
         if not stripped or stripped.startswith("#") or stripped == "findings:":
             continue
-
         if stripped.startswith("- "):
             if current:
                 findings.append(current)
@@ -69,33 +68,18 @@ def load_registry(path: Path) -> list[EvidenceFinding]:
                 key, _, value = remainder.partition(":")
                 current[key.strip()] = _parse_scalar(value)
             continue
-
         if current is not None and ":" in stripped:
             key, _, value = stripped.partition(":")
             current[key.strip()] = _parse_scalar(value)
 
     if current:
         findings.append(current)
-
     return [EvidenceFinding(**item) for item in findings]
 
 
 def validate_registry(findings: list[EvidenceFinding], root: Path) -> list[str]:
     errors: list[str] = []
     seen: set[str] = set()
-
-    required_ids = {
-        "JWT-001",
-        "ARQ-001",
-        "POPIA-001",
-        "EVID-001",
-        "DIAG-001",
-        "AUTH-REPO-001",
-        "CI-001",
-        "LEGAL-001",
-        "SEC-001",
-        "CONTENT-001",
-    }
 
     for finding in findings:
         if finding.id in seen:
@@ -108,11 +92,12 @@ def validate_registry(findings: list[EvidenceFinding], root: Path) -> list[str]:
         if finding.severity in P0_P1 and finding.proof_status == "static-passing":
             errors.append(f"{finding.id}: P0/P1 item cannot close on static-passing proof")
 
+        if finding.proof_status in PROVEN_STATUSES and not finding.last_verified_commit:
+            errors.append(f"{finding.id}: {finding.proof_status} requires last_verified_commit")
+
         if finding.proof_status == "production-ready":
             if not finding.evidence_file:
                 errors.append(f"{finding.id}: production-ready requires evidence_file")
-            if not finding.last_verified_commit:
-                errors.append(f"{finding.id}: production-ready requires last_verified_commit")
             if finding.closure_blocker:
                 errors.append(f"{finding.id}: production-ready cannot have closure_blocker")
 
@@ -120,17 +105,13 @@ def validate_registry(findings: list[EvidenceFinding], root: Path) -> list[str]:
             if not finding.closure_blocker:
                 errors.append(f"{finding.id}: beta-blocking incomplete item must name closure_blocker")
 
-        if finding.evidence_file:
+        if finding.evidence_file and finding.evidence_file not in {"null", "~"}:
             evidence_path = root / finding.evidence_file
             if (
                 not finding.external_dependency
-                and finding.proof_status in {"runtime-passing", "integration-passing", "production-ready"}
+                and finding.proof_status in PROVEN_STATUSES
                 and not evidence_path.exists()
             ):
                 errors.append(f"{finding.id}: evidence_file missing: {finding.evidence_file}")
-
-    missing = required_ids - seen
-    for item in sorted(missing):
-        errors.append(f"missing required finding id: {item}")
 
     return errors

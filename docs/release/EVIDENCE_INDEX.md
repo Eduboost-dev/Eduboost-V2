@@ -894,3 +894,22 @@ make transaction-rollback-rollup-test
 make backend-implementation-1591-1630-full-check
 ```
 
+## EVID-001R + DIAG-SCORE-001 / Backend implementation 1631-1670 — skipped-proof enforcement and diagnostics scoring snapshot repair
+
+Audit drivers:
+
+- Pytest return code 0 can hide skipped proof cases.
+- Skipped tests are `not-proven`, not passing proof.
+- Runtime/integration registry claims need commit provenance.
+- Diagnostic historical scoring must use each response's own item parameters.
+
+Commands:
+
+```bash
+make proof-no-skips-check
+make diagnostics-scoring-snapshot-test
+make diagnostics-scoring-snapshot-check
+make evidence-registry-commit-provenance-check
+make backend-implementation-1631-1670-full-check
+```
+

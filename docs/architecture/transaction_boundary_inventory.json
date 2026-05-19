@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T10:01:23Z",
+  "generated_at": "2026-05-19T11:16:06Z",
   "scan_roots": [
     "app/api_v2_routers",
     "app/services",
@@ -721,6 +721,20 @@
       "status": "single-mutation-candidate"
     },
     {
+      "file": "app/services/auth_transactional_registration.py",
+      "function": "register",
+      "lineno": 55,
+      "mutation_calls": [
+        "execute"
+      ],
+      "transaction_markers": [
+        "begin",
+        "transaction"
+      ],
+      "critical_areas": [],
+      "status": "transaction-marker-present"
+    },
+    {
       "file": "app/services/consent_compat.py",
       "function": "normalize_consent_audit_event",
       "lineno": 48,
@@ -1011,6 +1025,22 @@
       "status": "single-mutation-candidate"
     },
     {
+      "file": "app/services/diagnostic_transactional_response.py",
+      "function": "submit_response",
+      "lineno": 60,
+      "mutation_calls": [
+        "execute"
+      ],
+      "transaction_markers": [
+        "begin",
+        "transaction"
+      ],
+      "critical_areas": [
+        "diagnostics_response"
+      ],
+      "status": "transaction-marker-present"
+    },
+    {
       "file": "app/services/job_runtime_integrity.py",
       "function": "assert_no_runtime_objects",
       "lineno": 29,
@@ -1077,6 +1107,23 @@
       "transaction_markers": [],
       "critical_areas": [],
       "status": "single-mutation-candidate"
+    },
+    {
+      "file": "app/services/lesson_transactional_completion.py",
+      "function": "complete_lesson",
+      "lineno": 54,
+      "mutation_calls": [
+        "execute",
+        "update"
+      ],
+      "transaction_markers": [
+        "begin",
+        "transaction"
+      ],
+      "critical_areas": [
+        "lesson_completion"
+      ],
+      "status": "transaction-marker-present"
     },
     {
       "file": "app/services/llm/gateway.py",
@@ -1220,6 +1267,6 @@
     }
   ],
   "candidate_count": 96,
-  "critical_candidate_count": 45,
+  "critical_candidate_count": 47,
   "policy": "Multi-write candidates remain not-proven until rollback/integration tests demonstrate atomicity."
 }

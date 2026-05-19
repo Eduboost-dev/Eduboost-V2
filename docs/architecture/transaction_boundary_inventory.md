@@ -1,9 +1,9 @@
 # Transaction Boundary Inventory
 
-Generated at: `2026-05-19T10:01:23Z`
+Generated at: `2026-05-19T11:16:06Z`
 
 Candidate count: `96`
-Critical candidate count: `45`
+Critical candidate count: `47`
 
 Policy: Multi-write candidates remain not-proven until rollback/integration tests demonstrate atomicity.
 
@@ -67,6 +67,7 @@ Policy: Multi-write candidates remain not-proven until rollback/integration test
 | `app/services/auth_lifecycle_impl.py` | `create_dev_session_impl` | 58 | `multi-write-candidate-not-proven` | `auth_refresh` | `create` | `-` |
 | `app/services/auth_lifecycle_impl.py` | `register_impl` | 208 | `multi-write-candidate-not-proven` | `auth_refresh` | `create` | `-` |
 | `app/services/auth_service.py` | `guardian_signup` | 147 | `single-mutation-candidate` | `-` | `create` | `-` |
+| `app/services/auth_transactional_registration.py` | `register` | 55 | `transaction-marker-present` | `-` | `execute` | `begin, transaction` |
 | `app/services/consent_compat.py` | `normalize_consent_audit_event` | 48 | `single-mutation-candidate` | `-` | `update` | `-` |
 | `app/services/consent_renewal_service.py` | `_fetch_expiring_consents` | 276 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `execute` | `-` |
 | `app/services/consent_renewal_service.py` | `_fetch_guardian` | 299 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `execute` | `-` |
@@ -91,12 +92,14 @@ Policy: Multi-write candidates remain not-proven until rollback/integration test
 | `app/services/diagnostic_data_integrity.py` | `walk` | 25 | `single-mutation-candidate` | `-` | `add` | `-` |
 | `app/services/diagnostic_data_integrity.py` | `validate_diagnostic_submission_payload` | 63 | `single-mutation-candidate` | `-` | `add` | `-` |
 | `app/services/diagnostic_session_integrity.py` | `served_item_ids` | 42 | `single-mutation-candidate` | `-` | `add` | `-` |
+| `app/services/diagnostic_transactional_response.py` | `submit_response` | 60 | `transaction-marker-present` | `diagnostics_response` | `execute` | `begin, transaction` |
 | `app/services/job_runtime_integrity.py` | `assert_no_runtime_objects` | 29 | `single-mutation-candidate` | `-` | `add` | `-` |
 | `app/services/job_runtime_integrity.py` | `walk` | 32 | `single-mutation-candidate` | `-` | `add` | `-` |
 | `app/services/lesson_authorization.py` | `lesson_owner_learner_id` | 105 | `multi-write-candidate-not-proven` | `lesson_completion` | `execute` | `-` |
 | `app/services/lesson_authorization.py` | `iter_sync_lesson_ids` | 162 | `single-mutation-candidate` | `-` | `add` | `-` |
 | `app/services/lesson_authorization.py` | `walk` | 166 | `single-mutation-candidate` | `-` | `add` | `-` |
 | `app/services/lesson_service_v2.py` | `generate_lesson` | 29 | `single-mutation-candidate` | `-` | `create` | `-` |
+| `app/services/lesson_transactional_completion.py` | `complete_lesson` | 54 | `transaction-marker-present` | `lesson_completion` | `execute, update` | `begin, transaction` |
 | `app/services/llm/gateway.py` | `complete` | 140 | `multi-write-candidate-not-proven` | `lesson_completion` | `complete` | `-` |
 | `app/services/pii_sweep.py` | `scan_record` | 132 | `single-mutation-candidate` | `-` | `add` | `-` |
 | `app/services/pii_sweep.py` | `_check_sa_id` | 163 | `single-mutation-candidate` | `-` | `add` | `-` |
