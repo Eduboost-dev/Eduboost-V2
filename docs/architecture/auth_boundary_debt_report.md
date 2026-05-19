@@ -1,10 +1,10 @@
 # Auth Boundary Debt Report
 
-Generated at: `2026-05-18T07:38:24Z`
+Generated at: `2026-05-18T23:19:22Z`
 
 | Item | Value |
 |---|---|
-| Repository imports | `app.repositories.repositories` |
+| Repository imports | - |
 | LearnerRepository symbol present | False |
 | Direct get_by_guardian present | False |
 

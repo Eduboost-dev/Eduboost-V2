@@ -6,8 +6,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 AUTH_ROUTER = ROOT / "app/api_v2_routers/auth.py"
 
 
@@ -37,11 +38,12 @@ def main() -> int:
         failures.append("direct get_by_guardian remains")
         print("- FAIL direct get_by_guardian remains in auth router")
 
-    if "auth_runtime.guardian_learner_ids" in source or "guardian_learner_ids" in source:
-        print("- PASS guardian learner scope still referenced for refresh claims")
+    service_impl = (ROOT / "app/services/auth_lifecycle_impl.py").read_text(encoding="utf-8")
+    if "auth_runtime.guardian_learner_ids" in service_impl or "guardian_learner_ids" in service_impl:
+        print("- PASS guardian learner scope still referenced for refresh claims in service impl")
     else:
-        failures.append("guardian learner ids not referenced")
-        print("- FAIL guardian learner ids not referenced")
+        failures.append("guardian learner ids not referenced in service impl")
+        print("- FAIL guardian learner ids not referenced in service impl")
 
     report = ROOT / "docs/release/auth_router_boundary_repair_report.md"
     if report.exists():

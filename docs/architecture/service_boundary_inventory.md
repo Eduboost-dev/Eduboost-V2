@@ -1,6 +1,6 @@
 # Service Boundary Inventory
 
-Generated at: `2026-05-18T07:38:27Z`
+Generated at: `2026-05-18T23:22:22Z`
 
 | Path | Classification |
 |---|---|
@@ -10,6 +10,9 @@ Generated at: `2026-05-18T07:38:27Z`
 | `app/services/audit_canonicalization_slice.py` | unclassified |
 | `app/services/audit_migration_orchestrator.py` | migration_or_compat_helper |
 | `app/services/audit_service.py` | domain_or_cross_cutting_service |
+| `app/services/auth_application_service.py` | domain_or_cross_cutting_service |
+| `app/services/auth_db_lifecycle_proof.py` | unclassified |
+| `app/services/auth_lifecycle_impl.py` | unclassified |
 | `app/services/auth_runtime_boundary.py` | active_runtime_facade |
 | `app/services/auth_service.py` | domain_or_cross_cutting_service |
 | `app/services/auth_token_claims.py` | unclassified |
@@ -40,6 +43,7 @@ Generated at: `2026-05-18T07:38:27Z`
 | `app/services/diagnostic_data_integrity.py` | unclassified |
 | `app/services/diagnostic_safety.py` | unclassified |
 | `app/services/diagnostic_service_v2.py` | domain_or_cross_cutting_service |
+| `app/services/diagnostic_session_integrity.py` | unclassified |
 | `app/services/diagnostic_session_service.py` | domain_or_cross_cutting_service |
 | `app/services/ether.py` | unclassified |
 | `app/services/ether_service.py` | domain_or_cross_cutting_service |
@@ -49,8 +53,10 @@ Generated at: `2026-05-18T07:38:27Z`
 | `app/services/first_deep_readiness_runtime_wiring.py` | active_runtime_facade |
 | `app/services/fourth_estate.py` | unclassified |
 | `app/services/gamification_service_v2.py` | domain_or_cross_cutting_service |
+| `app/services/job_dependency_factory.py` | unclassified |
 | `app/services/job_runtime_integrity.py` | active_runtime_facade |
 | `app/services/judiciary.py` | unclassified |
+| `app/services/jwt_keyring.py` | unclassified |
 | `app/services/learner_service.py` | domain_or_cross_cutting_service |
 | `app/services/lesson_authorization.py` | unclassified |
 | `app/services/lesson_context_builder.py` | unclassified |
@@ -58,6 +64,7 @@ Generated at: `2026-05-18T07:38:27Z`
 | `app/services/llm/gateway.py` | unclassified |
 | `app/services/parent_report_service_v2.py` | domain_or_cross_cutting_service |
 | `app/services/pii_sweep.py` | unclassified |
+| `app/services/popia_consent_lifecycle_adapter.py` | unclassified |
 | `app/services/popia_service.py` | domain_or_cross_cutting_service |
 | `app/services/quota_service.py` | domain_or_cross_cutting_service |
 | `app/services/rlhf_service.py` | domain_or_cross_cutting_service |

@@ -35,9 +35,12 @@ def test_auth_router_delegates_lifecycle_methods_to_service():
     assert "auth_service.register(" in source
     assert "auth_service.login(" in source
     assert "auth_service.refresh(" in source
-    assert "_auth_lifecycle_legacy_register_impl" in source
-    assert "_auth_lifecycle_legacy_login_impl" in source
-    assert "_auth_lifecycle_legacy_refresh_impl" in source
+
+    # Assert that the real implementations exist in the lifecycle service module
+    service_impl = (ROOT / "app/services/auth_lifecycle_impl.py").read_text(encoding="utf-8")
+    assert "register_impl" in service_impl
+    assert "login_impl" in service_impl
+    assert "refresh_impl" in service_impl
 
 
 def test_auth_router_has_no_repository_imports_or_future_annotations():
