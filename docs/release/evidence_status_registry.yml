@@ -170,3 +170,17 @@ findings:
     blocks_beta: true
     external_dependency: false
 
+  - id: ARCH-001R
+    title: Repair diagnostics dynamic repository boundary
+    severity: P1
+    gate: 4
+    owner: backend
+    implementation_batch: code_1351_1390R
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-1351-1390R-full-check
+    evidence_file: docs/release/diagnostics_dynamic_repository_boundary_repair_report.md
+    last_verified_commit: null
+    closure_blocker: broader router repository debt and import-linter ignore reduction remain open
+    blocks_beta: false
+    external_dependency: false
+
