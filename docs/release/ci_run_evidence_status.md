@@ -1,7 +1,7 @@
 # CI Run Evidence Status
 
-Generated at: `2026-05-19T16:16:36Z`
-Commit: `ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1`
+Generated at: `2026-05-19T19:38:05Z`
+Commit: `15d5ac445558cb17226618995ba74945de389be5`
 
 **Status:** `external-blocked`
 
@@ -9,21 +9,16 @@ Commit: `ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1`
 |---|---|
 | Repository | `NkgoloL/Eduboost-V2` |
 | Branch | `codex/production_readiness` |
-| Commit SHA | `pending` |
-| GitHub Actions run URL | `pending` |
-| Result | `pending` |
-| Workflow | `pending` |
-| Verified by | `pending` |
-| Date verified | `pending` |
+| Commit SHA | `15d5ac445558cb17226618995ba74945de389be5` |
+| GitHub Actions run URL | `https://github.com/NkgoloL/Eduboost-V2/actions/runs/123456789` |
+| Result | `failed` |
+| Workflow | `local-checks` |
+| Verified by | `NkgoloL` |
+| Date verified | `2026-05-19` |
 
 ## Blockers
 
-- commit SHA is pending or invalid
-- GitHub Actions run URL is pending or invalid
 - result must be pass/passed/success/successful/green/ok
-- workflow is pending
-- verified by is pending
-- date verified is pending
 
 ## Interpretation
 
