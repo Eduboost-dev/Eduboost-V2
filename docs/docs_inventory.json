@@ -4,11 +4,11 @@
     "api": 6,
     "architecture": 37,
     "general": 483,
-    "release": 305,
+    "release": 309,
     "security": 98
   },
-  "commit": "aae05b3af3c94d99539d9d7fa3b98494eb442f93",
-  "document_count": 954,
+  "commit": "7fe85504e32583fe8e8a7b047873429dc1cf05cd",
+  "document_count": 958,
   "documents": [
     {
       "category": "general",
@@ -34088,6 +34088,11 @@
           "level": 2,
           "line": 1190,
           "text": "ROUTE-TX-ROLLUP-001 / Backend implementation 2191-2230 \u2014 Route transaction slice rollup"
+        },
+        {
+          "level": 2,
+          "line": 1208,
+          "text": "LIVE-DB-TX-EVID-001 / Backend implementation 2231-2270 \u2014 Live DB transaction evidence attachment support"
         }
       ],
       "links": [
@@ -34105,11 +34110,16 @@
           "kind": "external",
           "target": "https://example.com/security-report\"",
           "text": "https://example.com/security-report\""
+        },
+        {
+          "kind": "external",
+          "target": "https://example.com/auth-live-db-proof\"",
+          "text": "https://example.com/auth-live-db-proof\""
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "68b3be507128817aeac276e8dce069ffa812422f6b350354688a6dde0c56639c",
-      "size_bytes": 38151,
+      "sha256": "34088bac788ded4e4d379e3362bd18d33f31fa96db03f6e189a6e4741140c204",
+      "size_bytes": 39000,
       "statuses": [
         "todo",
         "passed",
@@ -39461,7 +39471,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/beta_blocker_burndown_plan.json",
-      "sha256": "14642cba201b4ac2014be8abc8ff563bdb32b0596991fa2de38026c9de030449",
+      "sha256": "724c07ebf2c146ad29baee7bfde4975b6b032ba0ac5edd7496ffbaa2125b82b7",
       "size_bytes": 4049,
       "statuses": [
         "blocked",
@@ -39500,7 +39510,7 @@
       ],
       "links": [],
       "path": "docs/release/beta_blocker_burndown_plan.md",
-      "sha256": "150ba31deae0dd899c7b0ba9113909f463771f25046aff2432c0254d6a245d17",
+      "sha256": "ac7b7773ddf5f5c61809b80d2b618e0fac6b3852007bc87c732b98078ca97b95",
       "size_bytes": 2225,
       "statuses": [
         "blocked",
@@ -40738,10 +40748,11 @@
         "docs/release/ci_run_evidence_status.md",
         "docs/release/approval_evidence_status.md",
         "docs/release/route_transaction_implementation_plan.md",
-        "docs/release/auth_route_transaction_slice_report.md",
-        "docs/release/popia_route_transaction_slice_report.md",
+        "docs/release/auth_route_transaction_live_db_evidence.md",
+        "docs/release/popia_route_transaction_live_db_evidence.md",
         "docs/release/popia_route_transaction_gap_plan.md",
-        "docs/release/diagnostics_route_transaction_slice_report.md"
+        "docs/release/diagnostics_route_transaction_live_db_evidence.md",
+        "docs/release/live_db_transaction_evidence_status.md"
       ],
       "generated": false,
       "headings": [
@@ -40818,8 +40829,8 @@
       ],
       "links": [],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "ab084c09ddac880e9d01b21b0f2fa37ae5d717a5b02da47911091a6429548705",
-      "size_bytes": 17864,
+      "sha256": "f5c17625d99d37e4b55447607aa9f1c400b7f3117f0899023f251871afbf05a7",
+      "size_bytes": 18291,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -41448,6 +41459,62 @@
       "size_bytes": 392,
       "statuses": [],
       "title": "Lesson Object Authorization Repair Report"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [
+        "docs/release/auth_route_transaction_live_db_evidence.md",
+        "docs/release/popia_route_transaction_live_db_evidence.md",
+        "docs/release/diagnostics_route_transaction_live_db_evidence.md"
+      ],
+      "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/release/live_db_transaction_evidence_status.json",
+      "sha256": "30e0a8205aaf86f9de602187b4bc34eb96e82313cdd6ecb17d69f193f9f950f4",
+      "size_bytes": 3527,
+      "statuses": [
+        "external-blocked",
+        "pending",
+        "pass",
+        "passed"
+      ],
+      "title": "Live Db Transaction Evidence Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Live DB Transaction Evidence Status"
+        },
+        {
+          "level": 2,
+          "line": 14,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 35,
+          "text": "Interpretation"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/live_db_transaction_evidence_status.md",
+      "sha256": "de7429bafa0e11f9948f3cd6ddc86a5e8ff27027c54c2dea8cd5225ea33287be",
+      "size_bytes": 1534,
+      "statuses": [
+        "external-blocked",
+        "pending",
+        "pass",
+        "passed"
+      ],
+      "title": "Live DB Transaction Evidence Status"
     },
     {
       "category": "release",
@@ -42628,6 +42695,37 @@
         {
           "level": 1,
           "line": 1,
+          "text": "Next Execution Queue After LIVE-DB-TX-EVID-001 / code_2231_2270"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next batch"
+        },
+        {
+          "level": 2,
+          "line": 7,
+          "text": "Scope candidates"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2231_2270.md",
+      "sha256": "f0a8dd4bc40b8710ed96706ea34dcdb5031df15aa6ae7186b051f22d3e69c2ab",
+      "size_bytes": 530,
+      "statuses": [
+        "blocked"
+      ],
+      "title": "Next Execution Queue After LIVE-DB-TX-EVID-001 / code_2231_2270"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "Next Execution Queue After code_831_870"
         },
         {
@@ -43755,6 +43853,38 @@
         {
           "level": 1,
           "line": 1,
+          "text": "No False-Closure Status After LIVE-DB-TX-EVID-001 / code_2231_2270"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 13,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2231_2270.md",
+      "sha256": "7f077dec46cb5d04e4a52ffcf8e20503443131e80ffd24297c8353ce260d5730",
+      "size_bytes": 624,
+      "statuses": [
+        "pending",
+        "external-blocked"
+      ],
+      "title": "No False-Closure Status After LIVE-DB-TX-EVID-001 / code_2231_2270"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "No False-Closure Status After code_831_870"
         },
         {
@@ -44428,10 +44558,11 @@
         "docs/release/ci_run_evidence_status.md",
         "docs/release/diagnostics_dynamic_repository_boundary_repair_report.md",
         "docs/release/auth_repository_fixture_proof_report.md",
-        "docs/release/auth_route_transaction_slice_report.md",
-        "docs/release/diagnostics_route_transaction_slice_report.md",
+        "docs/release/live_db_transaction_evidence_status.md",
+        "docs/release/auth_route_transaction_live_db_evidence.md",
+        "docs/release/diagnostics_route_transaction_live_db_evidence.md",
         "docs/release/route_transaction_implementation_plan.md",
-        "docs/release/popia_route_transaction_slice_report.md",
+        "docs/release/popia_route_transaction_live_db_evidence.md",
         "docs/release/popia_route_transaction_gap_plan.md",
         "docs/release/route_transaction_slice_rollup.md",
         "docs/release/no_false_closure_status_after_1471_1510.md",
@@ -44447,8 +44578,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/release_go_no_go_status.json",
-      "sha256": "a22eff5eb1f26c795d43c55fdef6b0515953e8a5f2bb7fd097fa48efb73c1f19",
-      "size_bytes": 17364,
+      "sha256": "89a8c0c7b861cc5eb55531d1ab0de5298e0cb4eee2c0da734753b39add6042a0",
+      "size_bytes": 17830,
       "statuses": [
         "external-blocked",
         "pending",
@@ -44506,7 +44637,7 @@
       ],
       "links": [],
       "path": "docs/release/release_go_no_go_status.md",
-      "sha256": "538c35a1f6808850f81760fc60aa9a7ad2301fc94fc672b21ea4b1042efd9d62",
+      "sha256": "666c817fe7a59b197600b917e5929f542e79e53425a8c23a7773c610d46d989d",
       "size_bytes": 2905,
       "statuses": [
         "external-blocked",
@@ -44913,7 +45044,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/route_transaction_slice_rollup.json",
-      "sha256": "c4d054ade2d77af942cb3a265c5c2c178a6505f8319aee1618e5f0bd9fc6c57b",
+      "sha256": "a52284968f0ebae6278c60cc0d98d2804b5b3d6215ed57d6e9cec9e00d0afb25",
       "size_bytes": 3628,
       "statuses": [
         "blocked",
@@ -44959,7 +45090,7 @@
       ],
       "links": [],
       "path": "docs/release/route_transaction_slice_rollup.md",
-      "sha256": "09f3c6014cbe32f6c89b1ddca29107765a34cd96a522a702d3863f202a337082",
+      "sha256": "03b92927335f8e0dadff00c3b684f433f170add44006e926716e81f3db00d8da",
       "size_bytes": 1403,
       "statuses": [
         "blocked",
@@ -51849,8 +51980,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 954,
-  "generated_at": "2026-05-19T21:07:32Z",
+  "files_scanned": 958,
+  "generated_at": "2026-05-19T21:21:24Z",
   "generated_count": 4,
   "missing_important_docs": []
 }

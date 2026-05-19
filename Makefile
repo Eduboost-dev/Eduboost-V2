@@ -2113,3 +2113,39 @@ backend-implementation-2191-2230-full-check: route-tx-slice-rollup route-tx-slic
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/route_tx_slice_rollup.py scripts/patch_route_tx_slice_rollup_registry.py scripts/check_route_tx_slice_rollup.py tests/unit/test_route_tx_slice_rollup.py --select F821,F401,F811,E402
 
+.PHONY: live-db-tx-evidence-templates live-db-tx-evidence-status live-db-tx-evidence-registry-patch live-db-tx-evidence-local-check live-db-tx-evidence-release-check live-db-tx-evidence-test live-db-tx-evidence-attach backend-implementation-2231-2270-full-check
+
+live-db-tx-evidence-templates:
+	PYTHONPATH=. python3 scripts/live_db_tx_evidence.py --templates
+
+live-db-tx-evidence-status:
+	PYTHONPATH=. python3 scripts/live_db_tx_evidence.py --status
+
+live-db-tx-evidence-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_live_db_tx_evidence_registry.py
+
+live-db-tx-evidence-local-check: live-db-tx-evidence-registry-patch
+	PYTHONPATH=. python3 scripts/check_live_db_tx_evidence.py
+
+live-db-tx-evidence-release-check:
+	PYTHONPATH=. python3 scripts/check_live_db_tx_evidence.py --release
+
+live-db-tx-evidence-test:
+	pytest -c pytest.ini tests/unit/test_live_db_tx_evidence.py -q --no-cov --tb=short
+
+live-db-tx-evidence-attach:
+	@test -n "$$TX_SLICE" || (echo "TX_SLICE is required: auth, popia, or diagnostics"; exit 1)
+	@test -n "$$TX_EVIDENCE_URL" || (echo "TX_EVIDENCE_URL is required"; exit 1)
+	@test -n "$$TX_TEST_RESULT" || (echo "TX_TEST_RESULT is required"; exit 1)
+	@test -n "$$TX_DATABASE" || (echo "TX_DATABASE is required"; exit 1)
+	@test -n "$$TX_VERIFIED_BY" || (echo "TX_VERIFIED_BY is required"; exit 1)
+	PYTHONPATH=. python3 scripts/live_db_tx_evidence.py --attach "$$TX_SLICE" --evidence-url "$$TX_EVIDENCE_URL" --test-result "$$TX_TEST_RESULT" --database "$$TX_DATABASE" --commit-sha "$${TX_COMMIT_SHA:-$$(git rev-parse HEAD)}" --verified-by "$$TX_VERIFIED_BY" --date-verified "$${TX_DATE_VERIFIED:-$$(date -u +%Y-%m-%d)}" --notes "$${TX_NOTES:-attached through LIVE-DB-TX-EVID-001 helper}"
+	PYTHONPATH=. python3 scripts/patch_live_db_tx_evidence_registry.py
+	@if [ -f scripts/route_tx_slice_rollup.py ]; then PYTHONPATH=. python3 -c "from scripts.route_tx_slice_rollup import write_rollup; r = write_rollup(); print(r.status)"; fi
+	@if [ -f scripts/release_go_no_go.py ]; then PYTHONPATH=. python3 -c "from scripts.release_go_no_go import write_status; s = write_status(); print(s.decision)"; fi
+	@if [ -f scripts/beta_blocker_burndown.py ]; then PYTHONPATH=. python3 -c "from scripts.beta_blocker_burndown import write_plan; p = write_plan(); print(p.burn_down_status)"; fi
+
+backend-implementation-2231-2270-full-check: live-db-tx-evidence-templates live-db-tx-evidence-status live-db-tx-evidence-local-check live-db-tx-evidence-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/live_db_tx_evidence.py scripts/patch_live_db_tx_evidence_registry.py scripts/check_live_db_tx_evidence.py tests/unit/test_live_db_tx_evidence.py --select F821,F401,F811,E402
+

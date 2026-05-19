@@ -1205,3 +1205,33 @@ make route-tx-slice-rollup-test
 make backend-implementation-2191-2230-full-check
 ```
 
+## LIVE-DB-TX-EVID-001 / Backend implementation 2231-2270 — Live DB transaction evidence attachment support
+
+Audit drivers:
+
+- Auth, POPIA, and diagnostics route slices still need live DB rollback evidence.
+- Local route-source proof cannot substitute for live DB rollback proof.
+- Evidence attachment must regenerate route transaction rollup and release status.
+
+Commands:
+
+```bash
+make live-db-tx-evidence-templates
+make live-db-tx-evidence-status
+make live-db-tx-evidence-local-check
+make live-db-tx-evidence-release-check
+make live-db-tx-evidence-test
+make backend-implementation-2231-2270-full-check
+```
+
+Attachment command:
+
+```bash
+TX_SLICE="auth" \
+TX_EVIDENCE_URL="https://example.com/auth-live-db-proof" \
+TX_TEST_RESULT="passed" \
+TX_DATABASE="postgresql-staging" \
+TX_VERIFIED_BY="release-owner" \
+make live-db-tx-evidence-attach
+```
+
