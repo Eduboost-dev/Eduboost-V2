@@ -4,11 +4,11 @@
     "api": 6,
     "architecture": 35,
     "general": 476,
-    "release": 276,
+    "release": 280,
     "security": 98
   },
-  "commit": "ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1",
-  "document_count": 916,
+  "commit": "5487eeab0a9accf09d52ccf127fffcdbc2a2e002",
+  "document_count": 920,
   "documents": [
     {
       "category": "general",
@@ -3886,8 +3886,8 @@
       "category": "release",
       "generated": false,
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "07e9bdce2617e9aa16461912e09a65943461b6107e0bf030b53440a0f63c79f9",
-      "size_bytes": 34697,
+      "sha256": "c3c28c8e967e0f81e070f4edd770911727306317e1fcfd95e02bf103c353e30a",
+      "size_bytes": 35306,
       "title": "EduBoost V2 Release Evidence Index"
     },
     {
@@ -4606,7 +4606,7 @@
       "category": "release",
       "generated": false,
       "path": "docs/release/beta_blocker_burndown_plan.json",
-      "sha256": "f5534a029d8b3b711346cf803aceba774fd9009b4542801e1d7c3ee2c6f16b53",
+      "sha256": "e0d728fa0ac93a25a8d1cc4583c1d8a10e864042e32089ad6aee6fe03c7949a1",
       "size_bytes": 3590,
       "title": "beta_blocker_burndown_plan.json"
     },
@@ -4614,7 +4614,7 @@
       "category": "release",
       "generated": false,
       "path": "docs/release/beta_blocker_burndown_plan.md",
-      "sha256": "993b20126c98521df757d7daebc2860c997ce6d3e9c49898a215a2f7773135fb",
+      "sha256": "c18d310324ccde1ad7a977352b1a01bf146150e646ab50cf61e0eea9ac28ccdd",
       "size_bytes": 2059,
       "title": "Beta Blocker Burn-Down Plan"
     },
@@ -4934,8 +4934,8 @@
       "category": "release",
       "generated": false,
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "5966f68caa7394b3def0852c4c0a1036f2fe73ce7d06a29ea4d2062899bab9d2",
-      "size_bytes": 14431,
+      "sha256": "0a6c77815809d5e947801a1bf0454fe35d12f2cccdcbaa03389e3ddda2533c66",
+      "size_bytes": 15030,
       "title": "evidence_status_registry.yml"
     },
     {
@@ -5349,6 +5349,14 @@
     {
       "category": "release",
       "generated": false,
+      "path": "docs/release/next_execution_queue_after_2031_2070.md",
+      "sha256": "87954aa7aad6b5697c2f2004e1289ddccb6829005b11cff421143d22f1e0cd48",
+      "size_bytes": 565,
+      "title": "Next Execution Queue After ROUTE-TX-IMPL-001 / code_2031_2070"
+    },
+    {
+      "category": "release",
+      "generated": false,
       "path": "docs/release/next_execution_queue_after_831_870.md",
       "sha256": "4ec28450d1d3e3c53f507f5d2453a6add5ce4528b74982ec076a2072167f78ac",
       "size_bytes": 434,
@@ -5597,6 +5605,14 @@
     {
       "category": "release",
       "generated": false,
+      "path": "docs/release/no_false_closure_status_after_2031_2070.md",
+      "sha256": "53513786fc2b6eae300a25938c0b3e9510cb9f231e9be2fe3e23d0598cfad9d4",
+      "size_bytes": 645,
+      "title": "No False-Closure Status After ROUTE-TX-IMPL-001 / code_2031_2070"
+    },
+    {
+      "category": "release",
+      "generated": false,
       "path": "docs/release/no_false_closure_status_after_831_870.md",
       "sha256": "28c1d54ed6443d5a24051524023c79a1fd029c9870350f8c7bbff5fd64190dd3",
       "size_bytes": 509,
@@ -5766,15 +5782,15 @@
       "category": "release",
       "generated": false,
       "path": "docs/release/release_go_no_go_status.json",
-      "sha256": "604ae542d7b5079a4d840211381a714ea40127bc246de247785de9938cfcea62",
-      "size_bytes": 14254,
+      "sha256": "a41633cfd2d6c02b6e4fba32d3faee5b070d2ff11c50a33cab4bf3babe417f2e",
+      "size_bytes": 14781,
       "title": "release_go_no_go_status.json"
     },
     {
       "category": "release",
       "generated": false,
       "path": "docs/release/release_go_no_go_status.md",
-      "sha256": "57077bed50a1755e082b963186b1914b840eb23e4fffa6c781f320bd1364d950",
+      "sha256": "1e937e3ebb26132bc431fededef9f49989a8cc9b0593f6f21a4732da492feb03",
       "size_bytes": 2818,
       "title": "Release Go/No-Go Status"
     },
@@ -5849,6 +5865,22 @@
       "sha256": "f81f85f1faff6163d75e7f0b53cdfd89f5e988654f5e499915cda1a6272c9ff0",
       "size_bytes": 754,
       "title": "EduBoost V2 Route Alias Policy"
+    },
+    {
+      "category": "release",
+      "generated": false,
+      "path": "docs/release/route_transaction_implementation_plan.json",
+      "sha256": "344cc511e01a555f6582dbbadba6f6e590d0685bfa62d1160a3d45a829421091",
+      "size_bytes": 13056,
+      "title": "route_transaction_implementation_plan.json"
+    },
+    {
+      "category": "release",
+      "generated": false,
+      "path": "docs/release/route_transaction_implementation_plan.md",
+      "sha256": "7325425fdc7710f85c24b40839a73b672bdabf2c45070660a58655c427c52827",
+      "size_bytes": 10909,
+      "title": "Route Transaction Implementation Plan"
     },
     {
       "category": "release",
@@ -7339,7 +7371,7 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "generated_at": "2026-05-19T16:31:08Z",
+  "generated_at": "2026-05-19T16:48:24Z",
   "generated_count": 3,
   "missing_important_docs": []
 }

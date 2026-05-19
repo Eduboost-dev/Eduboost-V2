@@ -1,9 +1,9 @@
 # Documentation Inventory
 
-Generated at: `2026-05-19T16:31:08Z`
-Commit: `ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1`
+Generated at: `2026-05-19T16:48:24Z`
+Commit: `5487eeab0a9accf09d52ccf127fffcdbc2a2e002`
 
-- Documents: `916`
+- Documents: `920`
 - Generated docs: `3`
 
 ## Categories
@@ -14,7 +14,7 @@ Commit: `ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1`
 | `api` | 6 |
 | `architecture` | 35 |
 | `general` | 476 |
-| `release` | 276 |
+| `release` | 280 |
 | `security` | 98 |
 
 ## Documents
@@ -505,7 +505,7 @@ Commit: `ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1`
 | `docs/reference/modules.md` | `general` | Learning Engines | 436 | False |
 | `docs/reference/repositories.md` | `general` | Repositories | 488 | False |
 | `docs/reference/services.md` | `general` | Services | 807 | False |
-| `docs/release/EVIDENCE_INDEX.md` | `release` | EduBoost V2 Release Evidence Index | 34697 | False |
+| `docs/release/EVIDENCE_INDEX.md` | `release` | EduBoost V2 Release Evidence Index | 35306 | False |
 | `docs/release/EduBoost_V2_Comparative_Audit_Report.md` | `release` | EduBoost SA V2 — Comparative Technical Audit Report | 18013 | False |
 | `docs/release/EduBoost_V2_Final_Technical_Assessment.md` | `release` | EduBoost V2 Final Technical Assessment | 2216 | False |
 | `docs/release/EduBoost_V2_North_Star_TODO.md` | `release` | EduBoost V2 North-Star TODO | 2540 | False |
@@ -636,7 +636,7 @@ Commit: `ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1`
 | `docs/release/diagnostics_session_binding_repair_report.md` | `release` | Diagnostics Session Binding Repair Report | 452 | False |
 | `docs/release/disposable_db_schema_proof_execution_report.md` | `release` | Disposable DB Schema Proof Execution Report | 168 | False |
 | `docs/release/docker_hardening_status.md` | `release` | Docker Hardening Status | 122 | False |
-| `docs/release/evidence_status_registry.yml` | `release` | evidence_status_registry.yml | 14431 | False |
+| `docs/release/evidence_status_registry.yml` | `release` | evidence_status_registry.yml | 15030 | False |
 | `docs/release/external_approval_status.json` | `release` | external_approval_status.json | 3030 | False |
 | `docs/release/external_approval_status.md` | `release` | External Approval Status | 1584 | False |
 | `docs/release/external_approvals/content_approval.md` | `release` | Educator/content release approval | 522 | False |
@@ -688,6 +688,7 @@ Commit: `ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1`
 | `docs/release/next_execution_queue_after_1911_1950.md` | `release` | Next Execution Queue After STAGING-PROOF-001 / code_1911_1950 | 445 | False |
 | `docs/release/next_execution_queue_after_1951_1990.md` | `release` | Next Execution Queue After CI-RUN-001 / code_1951_1990 | 553 | False |
 | `docs/release/next_execution_queue_after_1991_2030.md` | `release` | Next Execution Queue After APPROVAL-EVID-001 / code_1991_2030 | 493 | False |
+| `docs/release/next_execution_queue_after_2031_2070.md` | `release` | Next Execution Queue After ROUTE-TX-IMPL-001 / code_2031_2070 | 565 | False |
 | `docs/release/next_execution_queue_after_831_870.md` | `release` | Next Execution Queue After code_831_870 | 434 | False |
 | `docs/release/next_execution_queue_after_871_910.md` | `release` | Next Execution Queue After code_871_910 | 622 | False |
 | `docs/release/next_execution_queue_after_911_950.md` | `release` | Next Execution Queue After code_911_950 | 610 | False |
@@ -719,6 +720,7 @@ Commit: `ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1`
 | `docs/release/no_false_closure_status_after_1911_1950.md` | `release` | No False-Closure Status After STAGING-PROOF-001 / code_1911_1950 | 517 | False |
 | `docs/release/no_false_closure_status_after_1951_1990.md` | `release` | No False-Closure Status After CI-RUN-001 / code_1951_1990 | 541 | False |
 | `docs/release/no_false_closure_status_after_1991_2030.md` | `release` | No False-Closure Status After APPROVAL-EVID-001 / code_1991_2030 | 555 | False |
+| `docs/release/no_false_closure_status_after_2031_2070.md` | `release` | No False-Closure Status After ROUTE-TX-IMPL-001 / code_2031_2070 | 645 | False |
 | `docs/release/no_false_closure_status_after_831_870.md` | `release` | No False-Closure Status After code_831_870 | 509 | False |
 | `docs/release/no_false_closure_status_after_871_910.md` | `release` | No False-Closure Status After code_871_910 | 645 | False |
 | `docs/release/no_false_closure_status_after_911_950.md` | `release` | No False-Closure Status After code_911_950 | 673 | False |
@@ -740,7 +742,7 @@ Commit: `ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1`
 | `docs/release/real_audit_runtime_integration_report.md` | `release` | Real Audit Runtime Integration Report | 166 | False |
 | `docs/release/real_consent_runtime_repair_report.md` | `release` | Real Consent Runtime Repair Report | 158 | False |
 | `docs/release/release_decision_log.md` | `release` | Release Decision Log | 591 | False |
-| `docs/release/release_go_no_go_status.json` | `release` | release_go_no_go_status.json | 14254 | False |
+| `docs/release/release_go_no_go_status.json` | `release` | release_go_no_go_status.json | 14781 | False |
 | `docs/release/release_go_no_go_status.md` | `release` | Release Go/No-Go Status | 2818 | False |
 | `docs/release/release_owner_beta_go_no_go_memo.md` | `release` | Release-Owner Beta Go/No-Go Memo | 556 | False |
 | `docs/release/release_owner_runtime_wiring_signoff_template.md` | `release` | Release Owner Runtime Wiring Signoff Template | 468 | False |
@@ -751,6 +753,8 @@ Commit: `ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1`
 | `docs/release/rollback_drill_evidence.md` | `release` | Rollback Drill Evidence | 325 | False |
 | `docs/release/route_alias_matrix.md` | `release` | EduBoost V2 Route Alias Matrix | 8744 | False |
 | `docs/release/route_alias_policy.md` | `release` | EduBoost V2 Route Alias Policy | 754 | False |
+| `docs/release/route_transaction_implementation_plan.json` | `release` | route_transaction_implementation_plan.json | 13056 | False |
+| `docs/release/route_transaction_implementation_plan.md` | `release` | Route Transaction Implementation Plan | 10909 | False |
 | `docs/release/runtime_blocker_repair_after_followup_audit.md` | `release` | Runtime Blocker Repair After Follow-up Audit | 393 | False |
 | `docs/release/runtime_integration_boundary_policy.md` | `release` | Runtime Integration Boundary Policy | 369 | False |
 | `docs/release/runtime_integration_rollback_checklist.md` | `release` | Runtime Integration Rollback Checklist | 296 | False |

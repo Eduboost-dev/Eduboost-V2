@@ -1996,3 +1996,45 @@ backend-implementation-1991-2030-full-check: approval-evidence-templates approva
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/approval_evidence.py scripts/patch_approval_evidence_registry.py scripts/check_approval_evidence.py tests/unit/test_approval_evidence.py --select F821,F401,F811,E402
 
+.PHONY: route-tx-impl-plan route-tx-impl-registry-patch route-tx-impl-plan-check route-tx-impl-plan-release-check route-tx-impl-plan-test backend-implementation-2031-2070-full-check
+
+route-tx-impl-plan:
+	PYTHONPATH=. python3 -c "from scripts.route_tx_impl_plan import write_plan; p = write_plan(); print(p.plan_status)"
+
+route-tx-impl-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_route_tx_impl_registry.py
+
+route-tx-impl-plan-check: route-tx-impl-registry-patch
+	PYTHONPATH=. python3 scripts/check_route_tx_impl_plan.py
+
+route-tx-impl-plan-release-check:
+	PYTHONPATH=. python3 scripts/check_route_tx_impl_plan.py --release
+
+route-tx-impl-plan-test:
+	pytest -c pytest.ini tests/unit/test_route_tx_impl_plan.py -q --no-cov --tb=short
+
+backend-implementation-2031-2070-full-check: route-tx-impl-plan route-tx-impl-plan-check route-tx-impl-plan-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/route_tx_impl_plan.py scripts/patch_route_tx_impl_registry.py scripts/check_route_tx_impl_plan.py tests/unit/test_route_tx_impl_plan.py --select F821,F401,F811,E402
+
+.PHONY: route-tx-auth-slice-report route-tx-auth-slice-registry-patch route-tx-auth-slice-check route-tx-auth-slice-release-check route-tx-auth-slice-test backend-implementation-2071-2110-full-check
+
+route-tx-auth-slice-report:
+	PYTHONPATH=. python3 -c "from scripts.route_tx_auth_slice import write_report; r = write_report(); print(r.local_status)"
+
+route-tx-auth-slice-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_route_tx_auth_slice_registry.py
+
+route-tx-auth-slice-check: route-tx-auth-slice-registry-patch
+	PYTHONPATH=. python3 scripts/check_route_tx_auth_slice.py
+
+route-tx-auth-slice-release-check:
+	PYTHONPATH=. python3 scripts/check_route_tx_auth_slice.py --release
+
+route-tx-auth-slice-test:
+	pytest -c pytest.ini tests/unit/test_route_tx_auth_slice.py -q --no-cov --tb=short
+
+backend-implementation-2071-2110-full-check: route-tx-auth-slice-report route-tx-auth-slice-check route-tx-auth-slice-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/route_tx_auth_slice.py scripts/patch_route_tx_auth_slice_registry.py scripts/check_route_tx_auth_slice.py tests/unit/test_route_tx_auth_slice.py --select F821,F401,F811,E402
+

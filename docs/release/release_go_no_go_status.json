@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-19T16:31:07Z",
-  "current_commit": "ea02aa2d11d82ff86a7cf80f2defd4b57c3004f1",
+  "generated_at": "2026-05-19T16:48:23Z",
+  "current_commit": "5487eeab0a9accf09d52ccf127fffcdbc2a2e002",
   "decision": "NO-GO",
   "beta_blocker_count": 6,
   "engineering_blocker_count": 0,
@@ -229,6 +229,19 @@
       "reason": "non-beta-blocking item"
     },
     {
+      "id": "ROUTE-TX-IMPL-001",
+      "title": "Production transaction route wiring implementation plan",
+      "severity": "P1",
+      "gate": "4",
+      "proof_status": "runtime-passing",
+      "blocks_beta": false,
+      "external_dependency": false,
+      "evidence_file": "docs/release/route_transaction_implementation_plan.md",
+      "closure_blocker": "plan only; 15 route transaction wiring actions remain until implemented and proven",
+      "go_eligible": true,
+      "reason": "non-beta-blocking item"
+    },
+    {
       "id": "TX-001",
       "title": "Transaction boundary audit and rollback proof",
       "severity": "P1",
@@ -301,8 +314,8 @@
       "proof_status": "runtime-passing",
       "blocks_beta": false,
       "external_dependency": false,
-      "evidence_file": "docs/architecture/tx_route_wiring_inventory.md",
-      "closure_blocker": "production route transactional rewiring and live database proof still pending",
+      "evidence_file": "docs/release/route_transaction_implementation_plan.md",
+      "closure_blocker": "15 production mutation route transaction wiring actions remain pending",
       "go_eligible": true,
       "reason": "non-beta-blocking item"
     },

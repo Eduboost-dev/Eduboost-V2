@@ -1098,3 +1098,39 @@ APPROVAL_SCOPE="beta release security review" \
 make approval-evidence-attach
 ```
 
+## ROUTE-TX-IMPL-001 / Backend implementation 2031-2070 — Production transaction route wiring implementation plan
+
+Audit drivers:
+
+- TX-ROUTE-001 identified production mutation routes whose transaction wiring remains not proven.
+- A concrete ordered implementation plan is needed before modifying production route handlers.
+- Static route markers and isolated rollback tests are not sufficient closure evidence.
+
+Commands:
+
+```bash
+make route-tx-impl-plan
+make route-tx-impl-plan-check
+make route-tx-impl-plan-release-check
+make route-tx-impl-plan-test
+make backend-implementation-2031-2070-full-check
+```
+
+## ROUTE-TX-AUTH-001 / Backend implementation 2071-2110 — First auth route transaction slice
+
+Audit drivers:
+
+- Auth routes were prioritized in the route transaction implementation plan.
+- Route-source proof must show selected auth mutation routes delegate to the auth application service.
+- Live DB rollback proof remains separate and cannot be replaced by static markers.
+
+Commands:
+
+```bash
+make route-tx-auth-slice-report
+make route-tx-auth-slice-check
+make route-tx-auth-slice-release-check
+make route-tx-auth-slice-test
+make backend-implementation-2071-2110-full-check
+```
+
