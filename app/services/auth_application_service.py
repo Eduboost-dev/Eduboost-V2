@@ -11,20 +11,21 @@ REPOSITORY_CANDIDATES: dict[str, tuple[str, ...]] = {
         "app.repositories.repositories.UserRepository",
     ),
     "guardian_repo": (
-        "app.repositories.guardian_repository.GuardianRepository",
         "app.repositories.repositories.GuardianRepository",
+        "app.repositories.auth_repository.GuardianRepository",
+        "app.repositories.guardian_repository.GuardianRepository",
     ),
     "learner_repo": (
-        "app.repositories.learner_repository.LearnerRepository",
         "app.repositories.repositories.LearnerRepository",
+        "app.repositories.learner_repository.LearnerRepository",
     ),
     "consent_repo": (
-        "app.repositories.consent_repository.ConsentRepository",
         "app.repositories.repositories.ConsentRepository",
+        "app.repositories.consent_repository.ConsentRepository",
     ),
     "audit_repo": (
-        "app.repositories.audit_repository.AuditRepository",
         "app.repositories.repositories.AuditRepository",
+        "app.repositories.audit_repository.AuditRepository",
     ),
     "refresh_token_repo": (
         "app.repositories.refresh_token_repository.RefreshTokenRepository",

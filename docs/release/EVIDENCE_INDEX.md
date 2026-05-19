@@ -745,3 +745,20 @@ make diagnostics-session-binding-check
 make backend-implementation-1231-1270-full-check
 ```
 
+## AUTH-REPO-001 / Backend implementation 1271-1310 — Production repository auth fixture proof
+
+Audit drivers:
+
+- Controlled auth HTTP overrides and isolated SQLite proof stores were insufficient to prove production repository compatibility.
+- AuthApplicationService must resolve real session-bound ORM repositories.
+- Register/login/refresh must be exercised against actual project ORM models in an AsyncSession fixture.
+
+Commands:
+
+```bash
+make auth-repository-fixture-repair
+make auth-repository-fixture-proof-test
+make auth-repository-fixture-proof-check
+make backend-implementation-1271-1310-full-check
+```
+

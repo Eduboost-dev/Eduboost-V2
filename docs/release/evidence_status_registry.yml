@@ -92,11 +92,11 @@ findings:
     gate: 4
     owner: backend
     implementation_batch: code_1271_1310
-    proof_status: not-started
-    proof_command: make auth-repository-fixture-proof-check
-    evidence_file: null
+    proof_status: integration-passing
+    proof_command: make backend-implementation-1271-1310-full-check
+    evidence_file: docs/release/auth_repository_fixture_proof_report.md
     last_verified_commit: null
-    closure_blocker: production repository/model transactional proof not yet executed
+    closure_blocker: live Postgres, Redis token cache, and staging auth flow evidence still required for production-ready
     blocks_beta: false
     external_dependency: false
 

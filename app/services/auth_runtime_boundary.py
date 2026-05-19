@@ -85,17 +85,19 @@ class AuthRuntimeContext:
 
 
 def build_auth_runtime_context(db: Any) -> AuthRuntimeContext:
+    # code_1271_1310_auth_repository_fixture_candidate_order
     learner_repo_cls = (
-        _import_symbol("app.repositories.learner_repository.LearnerRepository")
-        or _import_symbol("app.repositories.repositories.LearnerRepository")
+        _import_symbol("app.repositories.repositories.LearnerRepository")
+        or _import_symbol("app.repositories.learner_repository.LearnerRepository")
     )
     consent_repo_cls = (
-        _import_symbol("app.repositories.consent_repository.ConsentRepository")
-        or _import_symbol("app.repositories.repositories.ConsentRepository")
+        _import_symbol("app.repositories.repositories.ConsentRepository")
+        or _import_symbol("app.repositories.consent_repository.ConsentRepository")
     )
     guardian_repo_cls = (
-        _import_symbol("app.repositories.guardian_repository.GuardianRepository")
-        or _import_symbol("app.repositories.repositories.GuardianRepository")
+        _import_symbol("app.repositories.repositories.GuardianRepository")
+        or _import_symbol("app.repositories.auth_repository.GuardianRepository")
+        or _import_symbol("app.repositories.guardian_repository.GuardianRepository")
     )
     learner_repo = _construct_repository(learner_repo_cls, db) if learner_repo_cls is not None else None
     consent_repo = _construct_repository(consent_repo_cls, db) if consent_repo_cls is not None else None

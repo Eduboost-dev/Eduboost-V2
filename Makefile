@@ -1640,3 +1640,18 @@ backend-implementation-1231-1270-full-check: diagnostics-session-binding-repair 
 	python3 -m compileall -q app/services app/api_v2_routers scripts tests
 	python3 -m ruff check app/services/diagnostic_route_integrity.py app/services/diagnostic_session_integrity.py app/api_v2_routers/diagnostics.py scripts/patch_diagnostics_session_binding.py scripts/check_diagnostics_session_binding.py tests/unit/test_diagnostic_route_integrity.py tests/integration/test_diagnostics_session_binding_routes.py --select F821,F401,F811,E402
 
+.PHONY: auth-repository-fixture-repair auth-repository-fixture-proof-test auth-repository-fixture-proof-check backend-implementation-1271-1310-full-check
+
+auth-repository-fixture-repair:
+	PYTHONPATH=. python3 scripts/repair_auth_repository_fixture_proof.py
+
+auth-repository-fixture-proof-test:
+	pytest -c pytest.ini tests/integration/test_auth_repository_fixture_proof.py tests/unit/test_auth_repository_fixture_proof_contracts.py -q --no-cov --tb=short
+
+auth-repository-fixture-proof-check:
+	PYTHONPATH=. python3 scripts/check_auth_repository_fixture_proof.py
+
+backend-implementation-1271-1310-full-check: auth-repository-fixture-repair auth-repository-fixture-proof-check
+	python3 -m compileall -q app/services scripts tests
+	python3 -m ruff check app/services/auth_application_service.py app/services/auth_runtime_boundary.py scripts/repair_auth_repository_fixture_proof.py scripts/check_auth_repository_fixture_proof.py tests/integration/test_auth_repository_fixture_proof.py tests/unit/test_auth_repository_fixture_proof_contracts.py --select F821,F401,F811,E402
+
