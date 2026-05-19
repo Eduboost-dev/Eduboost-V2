@@ -796,3 +796,20 @@ make diagnostics-dynamic-repository-boundary-check
 make backend-implementation-1351-1390R-full-check
 ```
 
+## TX-001 / Backend implementation 1391-1430 — Transaction boundary inventory and guardrails
+
+Audit drivers:
+
+- Multi-write operations must not be claimed atomic without rollback proof.
+- Auth, POPIA, diagnostics, lessons, and gamification flows require transaction-boundary evidence.
+- This batch creates an inventory and keeps TX-001 `not-proven` until targeted rollback tests exist.
+
+Commands:
+
+```bash
+make transaction-boundary-inventory
+make transaction-boundary-guardrail-check
+make transaction-boundary-guardrail-test
+make backend-implementation-1391-1430-full-check
+```
+

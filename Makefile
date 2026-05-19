@@ -1685,3 +1685,18 @@ backend-implementation-1351-1390R-full-check: diagnostics-dynamic-repository-bou
 	python3 -m compileall -q app/api_v2_deps app/api_v2_routers scripts tests
 	python3 -m ruff check app/api_v2_deps/diagnostic_repositories.py app/api_v2_routers/diagnostics.py scripts/patch_diagnostics_dynamic_repository_boundary.py scripts/check_diagnostics_dynamic_repository_boundary.py tests/unit/test_diagnostics_dynamic_repository_boundary.py --select F821,F401,F811,E402
 
+.PHONY: transaction-boundary-inventory transaction-boundary-guardrail-check transaction-boundary-guardrail-test backend-implementation-1391-1430-full-check
+
+transaction-boundary-inventory:
+	PYTHONPATH=. python3 scripts/transaction_boundary_inventory.py
+
+transaction-boundary-guardrail-check:
+	PYTHONPATH=. python3 scripts/check_transaction_boundary_guardrails.py
+
+transaction-boundary-guardrail-test:
+	pytest -c pytest.ini tests/unit/test_transaction_boundary_guardrails.py -q --no-cov --tb=short
+
+backend-implementation-1391-1430-full-check: transaction-boundary-inventory transaction-boundary-guardrail-check transaction-boundary-guardrail-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/transaction_boundary_inventory.py scripts/check_transaction_boundary_guardrails.py tests/unit/test_transaction_boundary_guardrails.py --select F821,F401,F811,E402
+

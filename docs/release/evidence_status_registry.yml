@@ -184,3 +184,16 @@ findings:
     blocks_beta: false
     external_dependency: false
 
+  - id: TX-001
+    title: Transaction boundary audit and rollback proof
+    severity: P1
+    gate: 4
+    owner: backend
+    implementation_batch: code_1391_1430
+    proof_status: not-proven
+    proof_command: make transaction-boundary-guardrail-check
+    evidence_file: docs/architecture/transaction_boundary_inventory.md
+    last_verified_commit: null
+    closure_blocker: multi-write candidates require targeted rollback and integration proof before atomicity can be claimed
+    blocks_beta: false
+    external_dependency: false
