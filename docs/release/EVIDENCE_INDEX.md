@@ -949,3 +949,20 @@ make docs-intelligence-test
 make backend-implementation-1711-1750-full-check
 ```
 
+## TX-ROUTE-001 / Backend implementation 1751-1790 — Production route transaction wiring inventory
+
+Audit drivers:
+
+- Isolated rollback proof must not be misread as live production route transaction proof.
+- Critical route files should be inventoried for transaction wiring status.
+- Production route wiring and live DB proof remain separate closure items.
+
+Commands:
+
+```bash
+make tx-route-wiring-inventory
+make tx-route-wiring-check
+make tx-route-wiring-test
+make backend-implementation-1751-1790-full-check
+```
+
