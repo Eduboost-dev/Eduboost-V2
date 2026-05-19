@@ -1860,3 +1860,69 @@ backend-implementation-1791-1830-full-check: external-approval-status external-a
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/external_approval_gate.py scripts/patch_external_approval_registry.py scripts/check_external_approval_gate.py tests/unit/test_external_approval_gate.py --select F821,F401,F811,E402
 
+.PHONY: release-go-no-go-registry-patch release-go-no-go-status release-go-no-go-local-check release-go-no-go-release-check release-go-no-go-test backend-implementation-1831-1870-full-check
+
+release-go-no-go-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_release_go_no_go_registry.py
+
+release-go-no-go-status:
+	PYTHONPATH=. python3 -c "from scripts.release_go_no_go import write_status; s = write_status(); print(s.decision)"
+
+release-go-no-go-local-check: release-go-no-go-registry-patch
+	PYTHONPATH=. python3 scripts/check_release_go_no_go.py
+
+release-go-no-go-release-check:
+	PYTHONPATH=. python3 scripts/check_release_go_no_go.py --release
+
+release-go-no-go-test:
+	pytest -c pytest.ini tests/unit/test_release_go_no_go.py -q --no-cov --tb=short
+
+backend-implementation-1831-1870-full-check: release-go-no-go-status release-go-no-go-local-check release-go-no-go-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/release_go_no_go.py scripts/patch_release_go_no_go_registry.py scripts/check_release_go_no_go.py tests/unit/test_release_go_no_go.py --select F821,F401,F811,E402
+
+.PHONY: beta-blocker-burndown-registry-patch beta-blocker-burndown-plan beta-blocker-burndown-check beta-blocker-burndown-release-check beta-blocker-burndown-test backend-implementation-1871-1910-full-check
+
+beta-blocker-burndown-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_beta_blocker_burndown_registry.py
+
+beta-blocker-burndown-plan:
+	PYTHONPATH=. python3 -c "from scripts.beta_blocker_burndown import write_plan; p = write_plan(); print(p.burn_down_status)"
+
+beta-blocker-burndown-check: beta-blocker-burndown-registry-patch
+	PYTHONPATH=. python3 scripts/check_beta_blocker_burndown.py
+
+beta-blocker-burndown-release-check:
+	PYTHONPATH=. python3 scripts/check_beta_blocker_burndown.py --release
+
+beta-blocker-burndown-test:
+	pytest -c pytest.ini tests/unit/test_beta_blocker_burndown.py -q --no-cov --tb=short
+
+backend-implementation-1871-1910-full-check: beta-blocker-burndown-plan beta-blocker-burndown-check beta-blocker-burndown-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/beta_blocker_burndown.py scripts/patch_beta_blocker_burndown_registry.py scripts/check_beta_blocker_burndown.py tests/unit/test_beta_blocker_burndown.py --select F821,F401,F811,E402
+
+.PHONY: staging-acceptance-registry-patch staging-acceptance-template staging-acceptance-status staging-acceptance-local-check staging-acceptance-release-check staging-acceptance-test backend-implementation-1911-1950-full-check
+
+staging-acceptance-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_staging_acceptance_registry.py
+
+staging-acceptance-template:
+	PYTHONPATH=. python3 -c "from scripts.staging_acceptance_evidence import write_template; write_template(); print('staging template ready')"
+
+staging-acceptance-status:
+	PYTHONPATH=. python3 -c "from scripts.staging_acceptance_evidence import write_status; s = write_status(); print(s.status)"
+
+staging-acceptance-local-check: staging-acceptance-registry-patch
+	PYTHONPATH=. python3 scripts/check_staging_acceptance.py
+
+staging-acceptance-release-check:
+	PYTHONPATH=. python3 scripts/check_staging_acceptance.py --release
+
+staging-acceptance-test:
+	pytest -c pytest.ini tests/unit/test_staging_acceptance_evidence.py -q --no-cov --tb=short
+
+backend-implementation-1911-1950-full-check: staging-acceptance-template staging-acceptance-status staging-acceptance-local-check staging-acceptance-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/staging_acceptance_evidence.py scripts/patch_staging_acceptance_registry.py scripts/check_staging_acceptance.py tests/unit/test_staging_acceptance_evidence.py --select F821,F401,F811,E402
+

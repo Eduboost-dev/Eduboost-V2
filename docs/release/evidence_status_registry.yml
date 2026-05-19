@@ -296,12 +296,12 @@ findings:
     severity: P1
     gate: 5
     owner: release
-    implementation_batch: code_1791_1830
+    implementation_batch: code_1911_1950
     proof_status: external-blocked
-    proof_command: make external-approval-release-check after approval metadata is attached
-    evidence_file: docs/release/external_approvals/staging_acceptance.md
+    proof_command: make staging-acceptance-release-check
+    evidence_file: docs/release/staging_smoke_evidence.md
     last_verified_commit: null
-    closure_blocker: external approval sign-off metadata required
+    closure_blocker: real staging smoke evidence and GitHub Actions run URL required
     blocks_beta: true
     external_dependency: true
   - id: EXT-GATE-001
@@ -317,3 +317,42 @@ findings:
     closure_blocker: required external approval items remain external-blocked until signed off
     blocks_beta: true
     external_dependency: true
+  - id: RELEASE-GO-001
+    title: Release-owner go/no-go status rollup
+    severity: P1
+    gate: 7
+    owner: release
+    implementation_batch: code_1831_1870
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-1831-1870-full-check
+    evidence_file: docs/release/release_go_no_go_status.md
+    last_verified_commit: c01648dd42d169b26a7bf6daa2295efa9a75c629
+    closure_blocker: generated status remains NO-GO until all beta-blocking gates clear
+    blocks_beta: false
+    external_dependency: false
+  - id: BLOCKER-BURN-001
+    title: Beta blocker burn-down planning
+    severity: P1
+    gate: 7
+    owner: release
+    implementation_batch: code_1871_1910
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-1871-1910-full-check
+    evidence_file: docs/release/beta_blocker_burndown_plan.md
+    last_verified_commit: c01648dd42d169b26a7bf6daa2295efa9a75c629
+    closure_blocker: plan only; blockers remain until their own evidence gates pass
+    blocks_beta: false
+    external_dependency: false
+  - id: STAGING-PROOF-001
+    title: Staging acceptance evidence capture scaffold
+    severity: P1
+    gate: 5
+    owner: release
+    implementation_batch: code_1911_1950
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-1911-1950-full-check
+    evidence_file: docs/release/staging_acceptance_status.md
+    last_verified_commit: c01648dd42d169b26a7bf6daa2295efa9a75c629
+    closure_blocker: scaffold only; STAGING-001 remains external-blocked until real staging evidence is attached
+    blocks_beta: false
+    external_dependency: false

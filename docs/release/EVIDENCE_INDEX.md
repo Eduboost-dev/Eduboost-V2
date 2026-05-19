@@ -984,3 +984,58 @@ make external-approval-test
 make backend-implementation-1791-1830-full-check
 ```
 
+## RELEASE-GO-001 / Backend implementation 1831-1870 — Release-owner go/no-go status rollup
+
+Audit drivers:
+
+- Release owners need one generated status surface.
+- CI and external approval blockers must influence the release decision.
+- Release-mode checks must fail while generated status is `NO-GO`.
+
+Commands:
+
+```bash
+make release-go-no-go-status
+make release-go-no-go-local-check
+make release-go-no-go-release-check
+make release-go-no-go-test
+make backend-implementation-1831-1870-full-check
+```
+
+## BLOCKER-BURN-001 / Backend implementation 1871-1910 — Beta blocker burn-down planning
+
+Audit drivers:
+
+- The release-owner NO-GO status must become an actionable burn-down queue.
+- CI and external approval blockers must not be closed by local scripts.
+- Release mode must remain blocked until the burn-down is clear.
+
+Commands:
+
+```bash
+make beta-blocker-burndown-plan
+make beta-blocker-burndown-check
+make beta-blocker-burndown-release-check
+make beta-blocker-burndown-test
+make backend-implementation-1871-1910-full-check
+```
+
+## STAGING-PROOF-001 / Backend implementation 1911-1950 — Staging acceptance evidence capture scaffold
+
+Audit drivers:
+
+- Staging acceptance is a beta blocker.
+- Local tests cannot prove staging acceptance.
+- Release-mode staging checks must fail until real staging evidence is attached.
+
+Commands:
+
+```bash
+make staging-acceptance-template
+make staging-acceptance-status
+make staging-acceptance-local-check
+make staging-acceptance-release-check
+make staging-acceptance-test
+make backend-implementation-1911-1950-full-check
+```
+
