@@ -727,3 +727,21 @@ make pytest-skip-inventory
 make backend-implementation-1191-1230-full-check
 ```
 
+## DIAG-001 / Backend implementation 1231-1270 — Diagnostics served-item/session/CAPS binding
+
+Audit drivers:
+
+- Adaptive diagnostic routes must reject responses for unserved items.
+- Adaptive diagnostic routes must reject CAPS context injection.
+- Route behavior must use recovered session state as the source of truth.
+- This is route-runtime proof, not final production DB proof.
+
+Commands:
+
+```bash
+make diagnostics-session-binding-repair
+make diagnostics-session-binding-test
+make diagnostics-session-binding-check
+make backend-implementation-1231-1270-full-check
+```
+
