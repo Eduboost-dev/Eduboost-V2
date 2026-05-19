@@ -1,0 +1,157 @@
+# EduBoost V2 Evidence Status Registry
+#
+# Status vocabulary:
+# - not-started
+# - static-passing
+# - runtime-passing
+# - integration-passing
+# - production-ready
+# - external-blocked
+# - contradicted
+# - not-proven
+#
+# Rule:
+# - skipped tests are not-proven
+# - P0/P1 items cannot be closed by static-passing evidence alone
+# - production-ready requires CI/staging/external evidence, not local tests alone
+
+findings:
+  - id: JWT-001
+    title: JWT fallback safety and production secret guard
+    severity: P0
+    gate: 1
+    owner: backend
+    implementation_batch: code_1071_1110
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-1071-1110-full-check
+    evidence_file: docs/release/jwt_production_guard_repair_report.md
+    last_verified_commit: null
+    closure_blocker: external production secret provisioning and rotation evidence
+    blocks_beta: true
+    external_dependency: false
+
+  - id: ARQ-001
+    title: ARQ dependency pin and worker import proof
+    severity: P0
+    gate: 1
+    owner: backend
+    implementation_batch: code_1111_1150
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-1111-1150-full-check
+    evidence_file: docs/release/arq_dependency_worker_import_repair_report.md
+    last_verified_commit: null
+    closure_blocker: live Redis worker enqueue/dequeue staging evidence
+    blocks_beta: true
+    external_dependency: false
+
+  - id: POPIA-001
+    title: POPIA lifecycle HTTP response-contract proof
+    severity: P0
+    gate: 3
+    owner: backend
+    implementation_batch: code_1151_1190
+    proof_status: not-proven
+    proof_command: make backend-implementation-1151-1190-full-check
+    evidence_file: docs/release/no_false_closure_status_after_1151_1190.md
+    last_verified_commit: null
+    closure_blocker: focused response-contract test output still includes skipped cases; skipped tests are not proof
+    blocks_beta: true
+    external_dependency: false
+
+  - id: EVID-001
+    title: Evidence registry and skipped-test governance
+    severity: P1
+    gate: 2
+    owner: release
+    implementation_batch: code_1191_1230
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-1191-1230-full-check
+    evidence_file: docs/release/evidence_status_registry.yml
+    last_verified_commit: null
+    closure_blocker: CI evidence URL still required before production-ready
+    blocks_beta: true
+    external_dependency: false
+
+  - id: DIAG-001
+    title: Diagnostics served-item session CAPS route binding
+    severity: P1
+    gate: 3
+    owner: backend
+    implementation_batch: code_1231_1270
+    proof_status: not-started
+    proof_command: make diagnostics-session-binding-check
+    evidence_file: null
+    last_verified_commit: null
+    closure_blocker: validate_session_served_item_binding not fully wired into adaptive routes
+    blocks_beta: true
+    external_dependency: false
+
+  - id: AUTH-REPO-001
+    title: Production repository auth fixture proof
+    severity: P1
+    gate: 4
+    owner: backend
+    implementation_batch: code_1271_1310
+    proof_status: not-started
+    proof_command: make auth-repository-fixture-proof-check
+    evidence_file: null
+    last_verified_commit: null
+    closure_blocker: production repository/model transactional proof not yet executed
+    blocks_beta: false
+    external_dependency: false
+
+  - id: CI-001
+    title: Authoritative CI on release repo and branch
+    severity: P1
+    gate: 2
+    owner: release
+    implementation_batch: external
+    proof_status: external-blocked
+    proof_command: capture passing GitHub Actions run URL for release branch
+    evidence_file: docs/release/ci_evidence.md
+    last_verified_commit: null
+    closure_blocker: CI run URL required
+    blocks_beta: true
+    external_dependency: true
+
+  - id: LEGAL-001
+    title: POPIA legal review
+    severity: release-blocker
+    gate: 6
+    owner: external-legal
+    implementation_batch: external
+    proof_status: external-blocked
+    proof_command: attach legal review sign-off
+    evidence_file: docs/release/legal_popia_review.md
+    last_verified_commit: null
+    closure_blocker: independent POPIA legal review not yet attached
+    blocks_beta: true
+    external_dependency: true
+
+  - id: SEC-001
+    title: Security review or scoped penetration test
+    severity: release-blocker
+    gate: 6
+    owner: external-security
+    implementation_batch: external
+    proof_status: external-blocked
+    proof_command: attach security review or pen-test report
+    evidence_file: docs/release/security_review.md
+    last_verified_commit: null
+    closure_blocker: external security review not yet attached
+    blocks_beta: true
+    external_dependency: true
+
+  - id: CONTENT-001
+    title: Educator item-bank approval
+    severity: release-blocker
+    gate: 6
+    owner: content
+    implementation_batch: external
+    proof_status: external-blocked
+    proof_command: attach educator sign-off and item-bank approval count
+    evidence_file: docs/release/item_bank_educator_signoff.md
+    last_verified_commit: null
+    closure_blocker: production item-bank approval target not yet met
+    blocks_beta: true
+    external_dependency: true
