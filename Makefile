@@ -1625,3 +1625,18 @@ backend-implementation-1191-1230-full-check: evidence-status-registry-check evid
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/evidence_registry.py scripts/check_evidence_status_registry.py scripts/record_pytest_skip_inventory.py tests/unit/test_evidence_status_registry.py --select F821,F401,F811,E402
 
+.PHONY: diagnostics-session-binding-repair diagnostics-session-binding-test diagnostics-session-binding-check backend-implementation-1231-1270-full-check
+
+diagnostics-session-binding-repair:
+	PYTHONPATH=. python3 scripts/patch_diagnostics_session_binding.py
+
+diagnostics-session-binding-test:
+	pytest -c pytest.ini tests/unit/test_diagnostic_route_integrity.py tests/integration/test_diagnostics_session_binding_routes.py -q --no-cov --tb=short
+
+diagnostics-session-binding-check:
+	PYTHONPATH=. python3 scripts/check_diagnostics_session_binding.py
+
+backend-implementation-1231-1270-full-check: diagnostics-session-binding-repair diagnostics-session-binding-check diagnostics-session-binding-test
+	python3 -m compileall -q app/services app/api_v2_routers scripts tests
+	python3 -m ruff check app/services/diagnostic_route_integrity.py app/services/diagnostic_session_integrity.py app/api_v2_routers/diagnostics.py scripts/patch_diagnostics_session_binding.py scripts/check_diagnostics_session_binding.py tests/unit/test_diagnostic_route_integrity.py tests/integration/test_diagnostics_session_binding_routes.py --select F821,F401,F811,E402
+

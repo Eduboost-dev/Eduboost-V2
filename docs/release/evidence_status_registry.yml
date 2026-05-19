@@ -78,11 +78,11 @@ findings:
     gate: 3
     owner: backend
     implementation_batch: code_1231_1270
-    proof_status: not-started
-    proof_command: make diagnostics-session-binding-check
-    evidence_file: null
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-1231-1270-full-check
+    evidence_file: docs/release/diagnostics_session_binding_repair_report.md
     last_verified_commit: null
-    closure_blocker: validate_session_served_item_binding not fully wired into adaptive routes
+    closure_blocker: full HTTP plus production DB diagnostic session proof still required
     blocks_beta: true
     external_dependency: false
 
