@@ -6,15 +6,20 @@ from __future__ import annotations
 
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
+from app.core.envelope_route import EnvelopedRoute
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.dependencies import get_current_guardian_id
+from app.core.security import get_current_user
+from app.repositories.repositories import LearnerRepository
 from app.modules.consent.service import ConsentService
+from app.security.dependencies import require_learner_write_for_current_user
+from app.security.dependencies import require_learner_read_for_current_user
 
-router = APIRouter(prefix="/consent", tags=["POPIA Consent"])
+router = APIRouter(route_class=EnvelopedRoute, prefix="/consent", tags=["POPIA Consent"])
 
 
 class ConsentGrantRequest(BaseModel):
@@ -31,12 +36,17 @@ class ConsentRevokeRequest(BaseModel):
 async def grant_consent(
     body: ConsentGrantRequest,
     request: Request,
-    guardian_id: UUID = Depends(get_current_guardian_id),
+    current_user: dict = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ) -> dict:
+    learner_id = str(body.learner_id)
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_write_for_current_user(current_user, learner_id)
     # AuditLog emission is handled inside ConsentService.grant().
     consent = await ConsentService(db).grant(
-        str(guardian_id),
+        str(current_user["sub"]),
         str(body.learner_id),
         body.consent_version,
         ip_hash=_get_ip(request),
@@ -59,13 +69,18 @@ async def grant_consent(
 async def revoke_consent(
     body: ConsentRevokeRequest,
     request: Request,
-    guardian_id: UUID = Depends(get_current_guardian_id),
+    current_user: dict = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ) -> dict:
+    learner_id = str(body.learner_id)
+    learner = await LearnerRepository(db).get_by_id(learner_id)
+    if learner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_write_for_current_user(current_user, learner_id)
     # AuditLog emission is handled inside ConsentService.revoke().
     await ConsentService(db).revoke(
         str(body.learner_id),
-        guardian_id=str(guardian_id),
+        guardian_id=str(current_user["sub"]),
         reason=body.reason,
     )
     request.state.analytics = {
@@ -79,9 +94,13 @@ async def revoke_consent(
 @router.get("/status/{learner_id}")
 async def consent_status(
     learner_id: UUID,
-    guardian_id: UUID = Depends(get_current_guardian_id),
+    current_user: dict = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ) -> dict:
+    learner = await LearnerRepository(db).get_by_id(str(learner_id))
+    if learner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+    require_learner_read_for_current_user(current_user, learner)
     consent = await ConsentService(db).get_status(str(learner_id))
     if consent is None:
         return {"active": False, "learner_id": str(learner_id)}

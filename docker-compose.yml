@@ -1,13 +1,25 @@
-name: eduboost-v2
+version: "3.8"
 
 services:
   api:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
     build:
       context: .
       dockerfile: docker/Dockerfile.v2
       target: production
     ports:
       - "8000:8000"
+    command: >
+      uvicorn app.api_v2:app
+      --host 0.0.0.0
+      --port 8000
     environment:
       - APP_ENV=development
       - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
@@ -26,6 +38,14 @@ services:
       start_period: 40s
 
   docs:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
     build:
       context: .
       dockerfile: docker/Dockerfile.v2
@@ -38,10 +58,18 @@ services:
       - ./mkdocs.yml:/workspace/mkdocs.yml
 
   frontend:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
     build:
       context: ./app/frontend
       dockerfile: ../../docker/Dockerfile.frontend
-      target: development
+      target: builder
     command: npm run dev
     ports:
       - "3050:3050"
@@ -54,6 +82,14 @@ services:
       - /app/node_modules
 
   prometheus:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
     image: prom/prometheus:v2.53.0
     command:
       - --config.file=/etc/prometheus/prometheus.yml
@@ -66,6 +102,14 @@ services:
       - api
 
   alertmanager:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
     image: prom/alertmanager:v0.27.0
     command:
       - --config.file=/etc/alertmanager/alertmanager.yml
@@ -77,6 +121,14 @@ services:
       - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
 
   postgres:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
     image: postgres:16-alpine
     ports:
       - "5432:5432"
@@ -91,6 +143,14 @@ services:
       retries: 5
 
   redis:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
     image: redis:7-alpine
     ports:
       - "6379:6379"
@@ -99,3 +159,34 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  grafana:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
+    image: grafana/grafana:11.1.0
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:?GRAFANA_ADMIN_PASSWORD must be set}
+    depends_on:
+      - prometheus
+
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+    environment:
+      - DATA_SOURCE_NAME=postgresql://${POSTGRES_USER:-eduboost_user}:${POSTGRES_PASSWORD:-devpassword}@postgres:5432/${POSTGRES_DB:-eduboost}?sslmode=disable
+    depends_on:
+      - postgres
+
+  redis-exporter:
+    image: oliver006/redis_exporter:v1.61.0
+    environment:
+      - REDIS_ADDR=redis://redis:6379
+    depends_on:
+      - redis

@@ -1,9 +1,21 @@
-"""POPIA consent service for EduBoost V2.
+"""POPIA parental consent lifecycle service.
 
-This service enforces active parental consent before learner data or
-lesson generation can proceed. All operations are audited for South African
-POPIA compliance using either a provided audit repository or the
-FourthEstate audit service fallback.
+Enforces active parental consent before learner data or lesson generation
+can proceed.  All operations are audited for South African POPIA
+compliance using either a provided
+:class:`~app.repositories.audit_repository.AuditRepository` or the
+:class:`~app.core.audit.FourthEstateService` fallback.
+
+Every consent state change (grant, revoke, renew, erasure) is recorded
+in the audit trail for compliance and investigation.
+
+Example:
+    Check and enforce consent before accessing learner data::
+
+        from app.modules.consent.service import ConsentService
+
+        svc = ConsentService(db)
+        await svc.require_active_consent("learner-uuid", actor_id="user-uuid")
 """
 
 from __future__ import annotations
@@ -11,17 +23,29 @@ from __future__ import annotations
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.audit import FourthEstateService
-from app.core.exceptions import ConsentRequiredError
+from app.core.consent_policy import ConsentPolicyDecision, derive_consent_state
+from app.core.exceptions import ConsentExpiredError, ConsentRequiredError
 from app.repositories.audit_repository import AuditRepository
-from app.repositories.consent_repository import ConsentRepository
+from app.repositories.repositories import ConsentRepository
 
 
 class ConsentService:
     """Async POPIA consent lifecycle service.
 
-    The service exposes operations to grant, revoke, renew, and query
-    parental consent records. Every consent state change is recorded in the
-    audit trail for compliance and investigation.
+    Exposes operations to grant, revoke, renew, and query parental
+    consent records.  Every consent state change is recorded in the
+    audit trail via :class:`~app.repositories.audit_repository.AuditRepository`
+    or :class:`~app.core.audit.FourthEstateService`.
+
+    Example:
+        ::
+
+            svc = ConsentService(db)
+            consent = await svc.grant(
+                guardian_id="g-001", learner_id="l-001",
+                consent_version="1.2",
+            )
+            assert consent is not None
     """
 
     def __init__(
@@ -31,17 +55,25 @@ class ConsentService:
         consent_repo: ConsentRepository | None = None,
         audit_repo: AuditRepository | None = None,
     ) -> None:
-        """Initialize the consent service.
+        """Initialise the consent service with repository dependencies.
 
         Args:
-            db: Optional async database session. Required when explicit
+            db: Optional async database session.  Required when explicit
                 repositories are not provided.
-            consent_repo: Optional consent repository instance.
-            audit_repo: Optional audit repository instance.
+            consent_repo: Optional :class:`~app.repositories.consent_repository.ConsentRepository`
+                instance.  Created from ``db`` if not supplied.
+            audit_repo: Optional :class:`~app.repositories.audit_repository.AuditRepository`
+                instance.  Created from ``db`` if not supplied.
 
         Raises:
-            ValueError: If neither a database session nor a consent repository
-                is provided.
+            ValueError: If neither a database session nor a consent
+                repository is provided.
+
+        Example:
+            ::
+
+                svc = ConsentService(db)  # auto-creates repos
+                svc = ConsentService(consent_repo=repo)  # explicit repo
         """
         if consent_repo is None:
             if db is None:
@@ -54,28 +86,29 @@ class ConsentService:
         self._repo = consent_repo
         self._audit_repo = audit_repo
 
-    async def require_active_consent(self, learner_id: str, actor_id: str | None = None) -> None:
-        """Require an active consent record for a learner.
+    async def consent_decision(self, learner_id: str) -> ConsentPolicyDecision:
+        """Return the canonical consent-state decision for a learner."""
+        consent = await self._repo.get_latest_for_learner(str(learner_id))
+        return derive_consent_state(consent, learner_id=str(learner_id))
 
-        If no active consent exists for the learner, an audit event is
-        appended and a :class:`app.core.exceptions.ConsentRequiredError` is raised.
+    async def require_active_consent(self, learner_id: str, actor_id: str | None = None) -> ConsentPolicyDecision:
+        """Enforce active consent for a learner.
 
-        Args:
-            learner_id: Learner identifier to validate consent for.
-            actor_id: Optional actor identifier to attribute the audit event.
-
-        Raises:
-            ConsentRequiredError: When the learner does not have active consent.
+        Returns the policy decision when processing may proceed. Pending,
+        expired, denied, or withdrawn states are audited and blocked.
         """
-        consent = await self._repo.get_active(str(learner_id))
-        if consent is None:
+        decision = await self.consent_decision(str(learner_id))
+        if not decision.active:
             await self._append_audit(
                 "consent.access_rejected",
                 actor_id=actor_id,
                 resource_id=learner_id,
-                payload={"learner_id": str(learner_id), "reason": "missing_or_expired"},
+                payload={"learner_id": str(learner_id), "reason": decision.reason, "state": decision.state.value},
             )
+            if decision.state.value == "expired":
+                raise ConsentExpiredError("Guardian consent has expired")
             raise ConsentRequiredError("Active parental consent required")
+        return decision
 
     async def grant(
         self,
@@ -88,16 +121,27 @@ class ConsentService:
     ):
         """Grant a new parental consent record.
 
+        Creates a consent record via
+        :meth:`~app.repositories.consent_repository.ConsentRepository.grant`
+        and records a ``consent.granted`` audit event.
+
         Args:
             guardian_id: Guardian identifier granting consent.
             learner_id: Learner identifier covered by the consent.
             consent_version: Version of the consent policy agreed to.
             ip_address: Optional IP address from the guardian's session.
             user_agent: Optional browser user agent string.
-            ip_hash: Optional hashed IP address for privacy-preserving audit.
+            ip_hash: Optional hashed IP for privacy-preserving audit.
 
         Returns:
             The newly created consent record.
+
+        Example:
+            ::
+
+                consent = await svc.grant(
+                    "g-001", "l-001", "1.2", ip_address="127.0.0.1",
+                )
         """
         # AuditLog / fourth_estate coverage is written via _append_audit below.
         consent = await self._repo.grant(
@@ -106,26 +150,36 @@ class ConsentService:
             consent_version=consent_version,
             ip_address=ip_address or ip_hash,
             user_agent=user_agent,
+            state="granted",
         )
         await self._append_audit(
             "consent.granted",
             actor_id=guardian_id,
             resource_id=consent.id,
-            payload={"learner_id": str(learner_id), "consent_version": consent_version},
+            payload={"learner_id": str(learner_id), "consent_version": consent_version, "state": "granted"},
         )
         return consent
 
     async def revoke(self, learner_id: str, guardian_id: str | None = None, reason: str = "revoked") -> int:
         """Revoke existing active consent for a learner.
 
+        Sets consent status to revoked and records a ``consent.revoked``
+        audit event.
+
         Args:
-            learner_id: Learner identifier whose consent should be revoked.
+            learner_id: Learner identifier whose consent is revoked.
             guardian_id: Optional guardian identifier for the audit event.
-            reason: Reason for revocation, such as ``"revoked"`` or
-                ``"erasure_requested"``.
+            reason: Revocation reason (e.g. ``"revoked"``,
+                ``"erasure_requested"``).
 
         Returns:
             int: Number of consent records revoked.
+
+        Example:
+            ::
+
+                count = await svc.revoke("l-001", guardian_id="g-001")
+                assert count >= 1
         """
         # AuditLog / fourth_estate coverage is written via _append_audit below.
         active = await self._repo.get_active(str(learner_id))
@@ -135,12 +189,16 @@ class ConsentService:
                 "consent.revoked",
                 actor_id=guardian_id,
                 resource_id=active.id,
-                payload={"learner_id": str(learner_id), "reason": reason},
+                payload={"learner_id": str(learner_id), "reason": reason, "state": "withdrawn"},
             )
         return count
 
     async def renew(self, guardian_id: str, learner_id: str, consent_version: str):
         """Renew an existing consent record with a new policy version.
+
+        Revokes the previous consent and creates a fresh record with
+        the updated ``consent_version``.  Records a ``consent.renewed``
+        audit event.
 
         Args:
             guardian_id: Guardian identifier renewing consent.
@@ -149,6 +207,11 @@ class ConsentService:
 
         Returns:
             The renewed consent record.
+
+        Example:
+            ::
+
+                renewed = await svc.renew("g-001", "l-001", "2.0")
         """
         previous, renewed = await self._repo.renew(
             learner_id=str(learner_id),
@@ -168,14 +231,21 @@ class ConsentService:
         return renewed
 
     async def execute_erasure(self, guardian_id: str, learner_id: str) -> None:
-        """Execute a right-to-erasure workflow for a learner.
+        """Execute a POPIA right-to-erasure workflow for a learner.
 
-        This revokes active consent and records a dedicated erasure request
-        audit event for compliance purposes.
+        Revokes active consent via :meth:`revoke` and records a
+        dedicated ``consent.erasure_requested`` audit event for
+        compliance purposes.
 
         Args:
             guardian_id: Guardian identifier requesting erasure.
-            learner_id: Learner identifier whose data erasure is requested.
+            learner_id: Learner identifier whose data erasure is
+                requested.
+
+        Example:
+            ::
+
+                await svc.execute_erasure("g-001", "l-001")
         """
         # AuditLog / fourth_estate coverage is written via _append_audit below.
         await self.revoke(str(learner_id), guardian_id=guardian_id, reason="erasure_requested")
@@ -193,20 +263,31 @@ class ConsentService:
             learner_id: Learner identifier to query.
 
         Returns:
-            Optional active consent record, or ``None`` if no active consent exists.
+            Optional consent record, or ``None`` if no active consent
+            exists.
+
+        Example:
+            ::
+
+                consent = await svc.get_status("l-001")
+                if consent is None:
+                    print("No active consent")
         """
-        return await self._repo.get_active(str(learner_id))
+        return await self._repo.get_latest_for_learner(str(learner_id))
 
     async def get_expiring_consents(self, db: AsyncSession | None = None, days: int = 30):
-        """Return consent records that will expire within a given window.
+        """Return consent records expiring within a given window.
+
+        Used by the ARQ consent-renewal reminder background job
+        (:func:`~app.modules.jobs.send_consent_renewal_reminders`).
 
         Args:
-            db: Optional database session. If not provided, the service's
-                configured session is used by the repository.
-            days: Number of days until expiry to include.
+            db: Optional database session.  Falls back to the service's
+                configured session via the repository.
+            days: Number of days until expiry to include (default ``30``).
 
         Returns:
-            A list of consent records expiring soon.
+            A list of consent records expiring within the window.
         """
         return await self._repo.get_expiring_soon(db, days=days)
 
@@ -218,13 +299,18 @@ class ConsentService:
         resource_id: str | None,
         payload: dict,
     ) -> None:
-        """Persist an audit event for consent lifecycle operations.
+        """Persist an audit event for a consent lifecycle operation.
+
+        Tries :class:`~app.repositories.audit_repository.AuditRepository`
+        first; falls back to :class:`~app.core.audit.FourthEstateService`
+        if no audit repository was configured.
 
         Args:
-            event_type: Event type string, such as ``"consent.granted"``.
+            event_type: Event type string (e.g. ``"consent.granted"``,
+                ``"consent.revoked"``).
             actor_id: Optional actor identifier to attribute the event.
             resource_id: Optional resource identifier for the event.
-            payload: Event payload metadata.
+            payload: Event payload metadata dictionary.
         """
         if self._audit_repo is not None:
             await self._audit_repo.append(

@@ -56,10 +56,19 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = "HS256"
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
     JWT_REFRESH_TOKEN_EXPIRE_DAYS: int = 7
+    PASSWORD_BCRYPT_ROUNDS: int = 12
+    PASSWORD_MIN_LENGTH: int = 12
+    PASSWORD_PASSPHRASE_MIN_LENGTH: int = 16
 
     # ── Encryption ───────────────────────────────────────────────────────────
     ENCRYPTION_KEY: str = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="  # dev-only 32-byte base64 placeholder
     ENCRYPTION_SALT: str = "test-encryption-salt"
+    BACKUP_ENCRYPTION_KEY: str = ""
+    BACKUP_RETENTION_DAYS: int = 30
+    # Audit HMAC secret used by audit repository (dev default)
+    AUDIT_HMAC_SECRET: str = "dev-audit-secret"
+    # Compatibility alias expected by some legacy modules/tests
+    JWT_SECRET_KEY: str = "CHANGE_ME_IN_PRODUCTION_AT_LEAST_32_CHARS"
 
     # ── LLM Providers ────────────────────────────────────────────────────────
     ANTHROPIC_API_KEY: str = ""
@@ -106,6 +115,8 @@ class Settings(BaseSettings):
     GRAFANA_CLOUD_API_KEY: str = ""
     PROMETHEUS_METRICS_PATH: str = "/metrics"
     LOG_LEVEL: str = "INFO"
+    # Threshold (seconds) above which a SQL query is considered "slow". Set to 0 to disable.
+    SLOW_QUERY_SECONDS: float = 0.5
     SENTRY_DSN: str = ""
     KEY_VAULT_REFRESH_INTERVAL_HOURS: int = 6
 
@@ -117,7 +128,16 @@ class Settings(BaseSettings):
     ARQ_JOB_TIMEOUT: int = 300
 
     # ── CORS ──────────────────────────────────────────────────────────────────
-    ALLOWED_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:3002", "http://localhost:3050"]
+    ALLOWED_ORIGINS: Any = ["http://localhost:3000", "http://localhost:3002", "http://localhost:3050"]
+
+    @field_validator("ALLOWED_ORIGINS", mode="before")
+    @classmethod
+    def parse_allowed_origins(cls, v: Any) -> list[str]:
+        if isinstance(v, str):
+            return [origin.strip() for origin in v.split(",") if origin.strip()]
+        if isinstance(v, list):
+            return [str(origin).strip() for origin in v if str(origin).strip()]
+        raise TypeError("ALLOWED_ORIGINS must be a string or list of strings")
 
     # ── Validation ───────────────────────────────────────────────────────────
     @field_validator("JWT_SECRET")
@@ -170,3 +190,10 @@ def get_settings() -> Settings:
 
 # Exported singleton
 settings = get_settings()
+
+# code_1071_1110_jwt_production_secret_guard
+def validate_production_secrets() -> None:
+    """Validate security-sensitive production secrets."""
+    from app.services.jwt_keyring import validate_jwt_keyring_environment
+
+    validate_jwt_keyring_environment()

@@ -1,9 +1,12 @@
+from __future__ import annotations
+import pytest
+pytestmark = pytest.mark.integration
+
 """
 Integration Tests — POPIA Annual Consent Renewal Reminder  (Task #24)
 ======================================================================
 Run: pytest tests/integration/test_consent_renewal.py -v
 """
-from __future__ import annotations
 
 import asyncio
 from datetime import datetime, timedelta, timezone

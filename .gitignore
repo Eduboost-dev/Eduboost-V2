@@ -11,6 +11,7 @@ __pycache__/
 coverage_html/
 node_modules/
 .next/
+*.tsbuildinfo
 *.db
 *.sqlite
 .env
@@ -23,7 +24,23 @@ app/api/celerybeat-schedule*
 .venv/
 site/
 app/frontend/coverage/
-data/caps/
+data/caps/*
+!data/caps/caps_topic_map_grade4_maths.json
+!data/caps/grade4_maths_item_bank.json
 artifacts/llm/
 # Sensitive keys
 *.pem
+coverage.xml
+.hypothesis/
+htmlcov/
+playwright-report/
+test-results/
+temp/
+.mypy_cache/
+docker-compose.override.yml
+
+# NextJS static export output
+app/frontend/out/
+
+# Cloudflare Wrangler Cache
+.wrangler/

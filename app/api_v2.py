@@ -7,30 +7,29 @@ from __future__ import annotations
 import asyncio
 from contextlib import asynccontextmanager
 
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
-from starlette.middleware.base import BaseHTTPMiddleware
-from app.middleware.security_headers import SecurityHeadersMiddleware
-
-from slowapi.errors import RateLimitExceeded
 
 from app.core.analytics import analytics_middleware
 from app.core.config import settings
-from app.core.health import gather_deep_health
 from app.core.exceptions import register_exception_handlers
+from app.core.health import gather_deep_health
 from app.core.logging import configure_logging, get_logger
 from app.core.metrics import REGISTRY
 from app.core.middleware import RequestIDMiddleware, StructuredLoggingMiddleware, TimingMiddleware
 from app.core.rate_limit import limiter
 from app.core.secret_rotation import key_vault_rotation_loop
+from app.middleware.security_headers import SecurityHeadersMiddleware
 from app.services.consent_expiry_service import consent_expiry_loop
-from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
+from app.services.jwt_keyring import validate_jwt_keyring_environment
+
+validate_jwt_keyring_environment()
 
 configure_logging()
 log = get_logger(__name__)
 
-# SecurityHeadersMiddleware moved to app/middleware/security_headers.py
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -49,9 +48,27 @@ async def lifespan(app: FastAPI):
     log.info("eduboost_v2_shutdown")
 
 
+OPENAPI_TAGS = [
+    {"name": "ops", "description": "Health, readiness, and system status"},
+    {"name": "auth", "description": "Authentication and token management"},
+    {"name": "learners", "description": "Learner profiles and progress"},
+    {"name": "lessons", "description": "CAPS-aligned lesson content"},
+    {"name": "study_plans", "description": "Personalised study plans"},
+    {"name": "diagnostics", "description": "Diagnostic assessments"},
+    {"name": "practice", "description": "Practice activities and attempts"},
+    {"name": "gamification", "description": "Points, badges, and streaks"},
+    {"name": "onboarding", "description": "New learner and parent onboarding"},
+    {"name": "parents", "description": "Parent/guardian management"},
+    {"name": "billing", "description": "Subscription and payment"},
+    {"name": "consent", "description": "POPIA consent collection"},
+    {"name": "popia", "description": "POPIA data subject rights"},
+    {"name": "jobs", "description": "Background job status"},
+]
+
 app = FastAPI(
     title="EduBoost SA V2",
     version=settings.APP_VERSION,
+    openapi_tags=OPENAPI_TAGS,
     description="AI-powered adaptive learning platform — Grade R to 7. CAPS-aligned. POPIA-compliant.",
     lifespan=lifespan,
     docs_url="/docs",
@@ -77,48 +94,69 @@ app.add_middleware(TimingMiddleware)
 app.add_middleware(RequestIDMiddleware)
 app.middleware("http")(analytics_middleware)
 
+
 # ── Routers ───────────────────────────────────────────────────────────────────
-from app.api_v2_routers import auth, billing, consent, consent_renewal, diagnostics, gamification, jobs, learners, lessons, onboarding, parents, popia, study_plans  # noqa: E402
+from app.modules.practice import router as practice_router  # noqa: E402
+from app.api_v2_routers import (  # noqa: E402
+    auth,
+    audit,
+    billing,
+    consent,
+    consent_renewal,
+    diagnostics,
+    gamification,
+    jobs,
+    learners,
+    lessons,
+    onboarding,
+    parents,
+    popia,
+    study_plans,
+    system,
+)
 
 API_V2 = "/api/v2"
-for prefix in (API_V2, "/v2"):
-    app.include_router(auth.router, prefix=prefix)
-    app.include_router(learners.router, prefix=prefix)
-    app.include_router(lessons.router, prefix=prefix)
-    app.include_router(study_plans.router, prefix=prefix)
-    app.include_router(diagnostics.router, prefix=prefix)
-    app.include_router(gamification.router, prefix=prefix)
-    app.include_router(onboarding.router, prefix=prefix)
-    app.include_router(parents.router, prefix=prefix)
-    app.include_router(billing.router, prefix=prefix)
-    app.include_router(consent.router, prefix=prefix)
-    app.include_router(consent_renewal.router, prefix=prefix)
-    app.include_router(popia.router, prefix=prefix)
-    app.include_router(jobs.router, prefix=prefix)
+API_PREFIXES = (API_V2, "/v2")
+ROUTER_REGISTRY = (
+    ("auth", auth.router),
+    ("audit", audit.router),
+    ("learners", learners.router),
+    ("lessons", lessons.router),
+    ("study_plans", study_plans.router),
+    ("diagnostics", diagnostics.router),
+    ("practice", practice_router.router),
+    ("gamification", gamification.router),
+    ("onboarding", onboarding.router),
+    ("parents", parents.router),
+    ("billing", billing.router),
+    ("consent", consent.router),
+    ("consent_renewal", consent_renewal.router),
+    ("popia", popia.router),
+    ("jobs", jobs.router),
+    ("system", system.router),
+)
 
+# ── Operational Routes ─────────────────────────────────────────────────────────
 
-# ── Health & meta ─────────────────────────────────────────────────────────────
 @app.get("/health", tags=["ops"])
 async def health():
-    return {"status": "ok", "version": settings.APP_VERSION, "environment": settings.ENVIRONMENT, "mode": "v2-baseline"}
+    return {
+        "status": "ok",
+        "version": settings.APP_VERSION,
+        "environment": settings.ENVIRONMENT,
+        "mode": "v2-baseline",
+    }
 
 
 @app.get("/ready", tags=["ops"])
+@app.get("/v2/health/deep", tags=["ops"])
+@app.get("/api/v2/health/deep", tags=["ops"])
 async def ready():
-    # Perform deep health checks and return appropriate status
-    # 'ok' or 'degraded' returns 200, 'error' returns 503
+    # Perform deep health checks and return appropriate status.
+    # 'ok' or 'degraded' returns 200, 'error' returns 503.
     health_data = await gather_deep_health()
     status_code = 200 if health_data["status"] in ("ok", "degraded") else 503
     return JSONResponse(status_code=status_code, content=health_data)
-
-
-
-@app.get("/api/v2/health/deep", tags=["ops"])
-@app.get("/v2/health/deep", tags=["ops"])
-async def deep_health():
-    payload = await gather_deep_health()
-    status_code = 200 if payload["status"] in ("ok", "degraded") else 503
-    return JSONResponse(status_code=status_code, content=payload)
 
 
 @app.get("/metrics", tags=["ops"])
@@ -129,3 +167,28 @@ async def metrics():
 @app.get("/", tags=["ops"])
 async def root():
     return JSONResponse({"message": "EduBoost SA V2 — Ngiyabonga! 🦁", "docs": "/docs"})
+
+
+# ── Router Registration ───────────────────────────────────────────────────────
+
+for prefix in API_PREFIXES:
+    for _router_name, router in ROUTER_REGISTRY:
+        app.include_router(router, prefix=prefix)
+
+
+# Dev-only helper to simulate a slow DB query for testing slow-query logging.
+# Executes `pg_sleep(0.02)` via an AsyncSession; only enabled outside production.
+@app.get("/__dev/slow_query", tags=["dev"])
+async def dev_slow_query():
+    if settings.is_production():
+        return JSONResponse(status_code=404, content={"detail": "not found"})
+    try:
+        from app.core.database import AsyncSessionLocal
+        from sqlalchemy import text
+
+        async with AsyncSessionLocal() as session:
+            # 0.02s sleep should exceed low thresholds like 0.01s
+            await session.execute(text("SELECT pg_sleep(0.02)"))
+        return JSONResponse({"status": "ok", "note": "executed pg_sleep(0.02)"})
+    except Exception as exc:  # pragma: no cover - dev helper
+        return JSONResponse(status_code=500, content={"status": "error", "detail": str(exc)})

@@ -1,0 +1,196 @@
+{
+  "generated_at": "2026-05-19T23:01:51Z",
+  "rows": [
+    {
+      "router": "app/api_v2_routers/0005_irt_seed.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/__init__.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/api_v2.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/assessments.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/audit.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/auth.py",
+      "p0_router": true,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/billing.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/consent.py",
+      "p0_router": false,
+      "repository_imports": [
+        "app.repositories.repositories"
+      ],
+      "transition_allowed": [],
+      "violations": [
+        "app.repositories.repositories"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/consent_renewal.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/diagnostics.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/ether.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/gamification.py",
+      "p0_router": false,
+      "repository_imports": [
+        "app.repositories.gamification_repository",
+        "app.repositories.repositories"
+      ],
+      "transition_allowed": [],
+      "violations": [
+        "app.repositories.gamification_repository",
+        "app.repositories.repositories"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/jobs.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/judiciary.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/learners.py",
+      "p0_router": false,
+      "repository_imports": [
+        "app.repositories.mastery_repository",
+        "app.repositories.repositories"
+      ],
+      "transition_allowed": [],
+      "violations": [
+        "app.repositories.mastery_repository",
+        "app.repositories.repositories"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/lessons.py",
+      "p0_router": true,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/onboarding.py",
+      "p0_router": false,
+      "repository_imports": [
+        "app.repositories.repositories"
+      ],
+      "transition_allowed": [],
+      "violations": [
+        "app.repositories.repositories"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/parents.py",
+      "p0_router": false,
+      "repository_imports": [
+        "app.repositories.repositories"
+      ],
+      "transition_allowed": [],
+      "violations": [
+        "app.repositories.repositories"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/popia.py",
+      "p0_router": true,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/study_plans.py",
+      "p0_router": false,
+      "repository_imports": [
+        "app.repositories.repositories",
+        "app.repositories.study_plan_repository"
+      ],
+      "transition_allowed": [],
+      "violations": [
+        "app.repositories.repositories",
+        "app.repositories.study_plan_repository"
+      ]
+    },
+    {
+      "router": "app/api_v2_routers/system.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/test_api.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    },
+    {
+      "router": "app/api_v2_routers/test_services.py",
+      "p0_router": false,
+      "repository_imports": [],
+      "transition_allowed": [],
+      "violations": []
+    }
+  ]
+}

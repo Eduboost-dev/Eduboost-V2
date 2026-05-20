@@ -1,9 +1,25 @@
 from __future__ import annotations
 
-"""Lesson generation service for EduBoost V2.
+"""CAPS-aligned lesson generation service.
 
-This module handles consent validation, learner context construction, AI lesson
-generation, persistence, and audit logging for CAPS-aligned lesson delivery.
+Orchestrates the end-to-end lesson lifecycle: POPIA consent validation,
+learner context construction (knowledge gaps + recent lessons), AI
+lesson generation via the :class:`~app.services.executive.ExecutiveService`,
+persistence, and audit logging.
+
+All lesson requests are consent-gated via
+:meth:`~app.modules.consent.service.ConsentService.require_active_consent`
+before any learner data is accessed or sent to an external LLM provider.
+
+Example:
+    Generate a lesson for a learner::
+
+        from app.modules.lessons.service import LessonService
+
+        svc = LessonService(db)
+        response, cached, provider = await svc.generate_lesson_for_learner(
+            body=request, current_user_id=user_id,
+        )
 """
 
 from datetime import UTC, datetime
@@ -32,15 +48,31 @@ if TYPE_CHECKING:
 class LessonService:
     """Service responsible for lesson generation and learner context orchestration.
 
-    The class ensures that learners have active parental consent before generating
-    CAPS-aligned lesson content and records the event in the audit trail.
+    Ensures that learners have active parental consent before generating
+    CAPS-aligned lesson content via the
+    :class:`~app.services.executive.ExecutiveService` and records every
+    generation event in the :class:`~app.services.fourth_estate.FourthEstateService`
+    audit trail.
+
+    Example:
+        ::
+
+            svc = LessonService(db)
+            response, cached, provider = await svc.generate_lesson_for_learner(
+                body=request, current_user_id=user_id,
+            )
     """
 
     def __init__(self, db: AsyncSession):
         """Create a lesson service with repository and audit dependencies.
 
         Args:
-            db: Async database session used for repository operations.
+            db: Async database session used for all repository operations.
+
+        Example:
+            ::
+
+                svc = LessonService(db)
         """
         self.db = db
         self._executive = ExecutiveService()
@@ -55,20 +87,35 @@ class LessonService:
     ) -> tuple[LessonResponse, bool, str]:
         """Generate, persist, and audit a lesson for a learner.
 
-        This method validates active parental consent, builds learner context,
-        invokes the executive AI lesson generator, persists the resulting lesson,
-        and returns the rendered response together with cache metadata.
+        Pipeline:
+
+        1. Validate active parental consent via
+           :meth:`~app.modules.consent.service.ConsentService.require_active_consent`.
+        2. Build learner context (knowledge gaps + recent lessons).
+        3. Invoke the :class:`~app.services.executive.ExecutiveService`
+           AI lesson generator.
+        4. Persist the lesson and record an audit event.
 
         Args:
-            body: Lesson request payload containing learner and topic details.
-            current_user_id: Identifier of the currently authenticated user.
+            body: :class:`~app.domain.schemas.LessonRequest` payload
+                containing learner and topic details.
+            current_user_id: UUID of the currently authenticated user.
 
         Returns:
-            Tuple containing the lesson response, a cache hit boolean, and the
-            LLM provider label.
+            tuple[LessonResponse, bool, str]: The lesson response, a
+            cache-hit boolean, and the LLM provider label.
 
         Raises:
-            HTTPException: If the learner is not found or AI quota is exceeded.
+            HTTPException: If the learner is not found (404) or the AI
+                quota is exceeded (429).
+
+        Example:
+            ::
+
+                response, cached, provider = await svc.generate_lesson_for_learner(
+                    body=request, current_user_id=user_id,
+                )
+                assert response.caps_aligned is True
         """
         # 1. Consent Gate
         await self._consent_service.require_active_consent(
@@ -116,6 +163,10 @@ class LessonService:
             language=body.language,
             archetype=learner.archetype,
             content=self._render_lesson_content(payload),
+            caps_reference=getattr(payload, "caps_reference", None),
+            alignment_confidence=getattr(payload, "alignment_confidence", 0.0),
+            quality_score=getattr(payload, "quality_score", 0.0),
+            trust_label=(getattr(payload, "trust_label", None).model_dump() if getattr(payload, "trust_label", None) else {}),
             llm_provider=provider,
             served_from_cache=from_cache,
         )
@@ -135,16 +186,51 @@ class LessonService:
             from_cache,
             provider,
         )
+    async def complete_lesson(self, lesson_id: str) -> None:
+        """Mark a lesson as completed.
+
+        Args:
+            lesson_id: UUID of the lesson to complete.
+        """
+        await self._lesson_repo.mark_completed(lesson_id)
+        await self.db.commit()
+
+    async def record_feedback(self, lesson_id: str, score: int) -> None:
+        """Record learner feedback score for a lesson.
+
+        Args:
+            lesson_id: UUID of the lesson.
+            score: Feedback score (1-5).
+        """
+        await self._lesson_repo.record_feedback(lesson_id, score)
+        await self.db.commit()
+
+    async def get_lesson_by_id(self, lesson_id: str) -> Lesson | None:
+        """Fetch a single lesson by its UUID.
+
+        Args:
+            lesson_id: UUID of the lesson to fetch.
+
+        Returns:
+            Lesson | None: The lesson model if found, else None.
+        """
+        result = await self.db.execute(select(Lesson).where(Lesson.id == lesson_id))
+        return result.scalar_one_or_none()
 
     async def _build_learner_context(self, learner_id: str, subject: str) -> dict:
         """Build learner context from recent lessons and unresolved knowledge gaps.
 
+        Queries :class:`~app.models.KnowledgeGap` for the top-3 unresolved
+        gaps and the most recent 3 lessons for the given subject.
+
         Args:
             learner_id: Learner identifier used to fetch context.
-            subject: CAPS subject code for the lesson.
+            subject: CAPS subject code (e.g. ``"MATH"``, ``"ENG"``).
 
         Returns:
-            Context dictionary with knowledge gaps and recent lessons.
+            dict: Context dictionary with keys ``knowledge_gaps``
+            (list of ``{topic, severity}``) and ``recent_lessons``
+            (list of ``{subject, topic, completed}``).
         """
         gaps_result = await self.db.execute(
             select(KnowledgeGap.topic, KnowledgeGap.severity)
@@ -173,14 +259,20 @@ class LessonService:
         }
 
     def _render_lesson_content(self, payload) -> str:
-        """Render lesson payload into the stored lesson content format.
+        """Render AI lesson payload into the stored content format.
+
+        Assembles a Markdown document from the structured payload fields:
+        title, introduction, main content, worked example, practice
+        question, answer, and cultural hook.
 
         Args:
-            payload: AI lesson payload containing title, introduction, content,
-                worked example, practice question, answer, and cultural hook.
+            payload: AI lesson payload object with attributes ``title``,
+                ``introduction``, ``main_content``, ``worked_example``,
+                ``practice_question``, ``answer``, and ``cultural_hook``.
 
         Returns:
-            Rendered lesson content string for persistence and learner delivery.
+            str: Rendered Markdown lesson string for persistence and
+            learner delivery.
         """
         return (
             f"# {payload.title}\n\n{payload.introduction}\n\n{payload.main_content}\n\n"

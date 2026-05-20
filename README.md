@@ -1,7 +1,6 @@
 # EduBoost SA
 
-[![CI/CD](https://github.com/NkgoloL/Eduboost-V2/actions/workflows/ci-cd.yml/badge.svg?branch=master)](https://github.com/NkgoloL/Eduboost-V2/actions/workflows/ci-cd.yml)
-[![Coverage](https://img.shields.io/badge/Coverage-80%25%2B-brightgreen)](/app/frontend/coverage/index.html)
+[![CI/CD](https://github.com/nkgolomatjila-svg/Eduboost_V.2/actions/workflows/ci-cd.yml/badge.svg?branch=master)](https://github.com/nkgolomatjila-svg/Eduboost_V.2/actions/workflows/ci-cd.yml)
 [![Security Scans](https://img.shields.io/badge/Security-Scanned-blue)](/SECURITY.md)
 [![POPIA](https://img.shields.io/badge/POPIA-Tracked-success)](/docs/POPIA_COMPLIANCE.md)
 [![CAPS](https://img.shields.io/badge/CAPS-Aligned-00897B)](https://www.education.gov.za)
@@ -16,19 +15,32 @@ imports and controlled migration behavior.
 - `app/api_v2.py` is the active backend entrypoint for new work.
 - `docker compose up --build` is the default local stack and points at the V2
   runtime.
-- The platform has reached the **v0.1.0-beta** milestone, representing a fully hardened, production-ready baseline for pilot deployment.
+- The merged PR-002R and production-readiness evidence work establishes the V2
+  runtime and API contract baseline; production readiness still depends on
+  fresh security, POPIA, CI/CD, backup/restore, AI-safety, frontend, staging,
+  and release-evidence verification.
 - Legacy code has been archived behind compatibility shims under
-  [`app/legacy`](/app/legacy/DEPRECATED.md) and [`app/api/main.py`](/app/api/main.py).
+  [`app/legacy`](/app/legacy/DEPRECATED.md) and [`app/legacy/api/main.py`](/app/legacy/api/main.py).
 - Redis is used for caching, token revocation, and background job status.
 - Sensitive audit events are persisted through the V2 append-only PostgreSQL
   audit repository.
+- The Grade 4 Mathematics CAPS item-bank implementation is integrated across
+  schema, services, seed data, validation scripts, CI gates, and observability
+  assets. The current seed file has 14 approved starter items against a
+  120-item production target; use `make validate-items`, `make seed-items`, and
+  `make coverage-matrix` as the operational workflow.
 - The repository still carries migration-era artifacts, so documentation should
   be read as "current master state", not as a promise that every legacy surface
   is already retired.
 
 For the current documentation sync status, see
-[`docs/project_status.md`](/docs/project_status.md) and the root
-[`TODO.md`](/TODO.md).
+[`docs/current_state.md`](/docs/current_state.md), [`docs/project_status.md`](/docs/project_status.md), and the root
+[`TODO.md`](/TODO.md) live tracker.
+
+Item-bank coverage details live in
+[`docs/caps/grade4_maths_coverage_matrix.md`](/docs/caps/grade4_maths_coverage_matrix.md).
+The remaining 106-item content plan lives in
+[`docs/caps/grade4_maths_120_item_production_plan.md`](/docs/caps/grade4_maths_120_item_production_plan.md).
 
 ## Quick Start
 
@@ -43,6 +55,12 @@ For the current documentation sync status, see
 ```bash
 cp .env.example .env
 docker compose up --build
+```
+
+If the local PostgreSQL migration fails with a missing role error like `role "eduboost_app" does not exist`, create the role before re-running migrations:
+
+```bash
+docker exec -it eduboost-v2-postgres-1 psql -U eduboost_user -d eduboost -c "CREATE ROLE eduboost_app NOLOGIN;"
 ```
 
 Useful URLs:
@@ -94,7 +112,7 @@ The codebase is organized as a modular monolith:
 
 Legacy compatibility notes:
 
-- [`app/api/main.py`](/app/api/main.py) remains as an import shim.
+- [`app/legacy/api/main.py`](/app/legacy/api/main.py) remains as an import shim.
 - Archived legacy runtime code lives under [`app/legacy`](/app/legacy/DEPRECATED.md).
 - V1 behavior that should no longer be used is intentionally narrowed rather
   than silently preserved.
@@ -141,7 +159,8 @@ The editable inputs for those lockfiles are:
 
 ## Documentation
 
-- Status snapshot: [`docs/project_status.md`](/docs/project_status.md)
+- Current state: [`docs/current_state.md`](/docs/current_state.md)
+- Status index: [`docs/project_status.md`](/docs/project_status.md)
 - Architecture: [`docs/architecture/V2_ARCHITECTURE.md`](/docs/architecture/V2_ARCHITECTURE.md)
 - Migration guide: [`docs/v2_migration.md`](/docs/v2_migration.md)
 - POPIA notes: [`docs/POPIA_COMPLIANCE.md`](/docs/POPIA_COMPLIANCE.md)
