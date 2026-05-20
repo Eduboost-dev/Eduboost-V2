@@ -564,3 +564,16 @@ findings:
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
+  - id: AUTH-LIFECYCLE-HTTP-PROOF-001
+    title: Auth lifecycle HTTP route service-backed proof
+    severity: P1
+    gate: 3
+    owner: backend
+    implementation_batch: code_2591_2630
+    proof_status: not-proven
+    proof_command: make backend-implementation-2591-2630-full-check
+    evidence_file: docs/release/auth_lifecycle_http_proof_status.md
+    last_verified_commit: null
+    closure_blocker: refresh HTTP route/service proof incomplete
+    blocks_beta: false
+    external_dependency: false

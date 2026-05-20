@@ -2336,3 +2336,24 @@ backend-implementation-2551-2590R3-full-check: auth-route-service-dependencies-r
 	python3 -m compileall -q app/services app/api_v2_routers scripts tests
 	python3 -m ruff check scripts/auth_route_service_dependency_repair.py scripts/repair_auth_route_service_dependencies.py scripts/check_auth_route_service_dependencies.py tests/unit/test_auth_route_service_dependency_repair.py tests/unit/test_auth_route_logout_delegate.py app/api_v2_routers/auth.py --select F821,F401,F811,E402
 
+.PHONY: auth-lifecycle-http-proof-status auth-lifecycle-http-proof-registry-patch auth-lifecycle-http-proof-check auth-lifecycle-http-proof-release-check auth-lifecycle-http-proof-test backend-implementation-2591-2630-full-check
+
+auth-lifecycle-http-proof-status:
+	PYTHONPATH=. python3 -c "from scripts.auth_lifecycle_http_proof import write_status; s = write_status(); print(s.status)"
+
+auth-lifecycle-http-proof-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_auth_lifecycle_http_proof_registry.py
+
+auth-lifecycle-http-proof-check: auth-lifecycle-http-proof-registry-patch
+	PYTHONPATH=. python3 scripts/check_auth_lifecycle_http_proof.py
+
+auth-lifecycle-http-proof-release-check:
+	PYTHONPATH=. python3 scripts/check_auth_lifecycle_http_proof.py --release
+
+auth-lifecycle-http-proof-test:
+	pytest -c pytest.ini tests/unit/test_auth_lifecycle_http_proof.py -q --no-cov --tb=short
+
+backend-implementation-2591-2630-full-check: auth-lifecycle-http-proof-status auth-lifecycle-http-proof-check auth-lifecycle-http-proof-test
+	python3 -m compileall -q app/services app/api_v2_routers scripts tests
+	python3 -m ruff check scripts/auth_lifecycle_http_proof.py scripts/check_auth_lifecycle_http_proof.py scripts/patch_auth_lifecycle_http_proof_registry.py tests/unit/test_auth_lifecycle_http_proof.py app/api_v2_routers/auth.py app/services/auth_application_service.py --select F821,F401,F811,E402
+
