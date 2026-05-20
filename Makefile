@@ -2306,3 +2306,9 @@ backend-implementation-2551-2590-full-check: auth-route-logout-delegate-repair a
 	python3 -m compileall -q app/services app/api_v2_routers scripts tests
 	python3 -m ruff check scripts/auth_route_logout_delegate.py scripts/repair_auth_route_logout_delegate.py scripts/check_auth_route_logout_delegate.py scripts/patch_auth_route_logout_delegate_registry.py tests/unit/test_auth_route_logout_delegate.py app/api_v2_routers/auth.py --select F821,F401,F811,E402
 
+.PHONY: backend-implementation-2551-2590R-full-check
+
+backend-implementation-2551-2590R-full-check: auth-route-logout-delegate-repair auth-route-logout-delegate-status auth-route-logout-delegate-check auth-route-logout-delegate-test
+	python3 -m compileall -q app/services app/api_v2_routers scripts tests
+	python3 -m ruff check scripts/auth_route_logout_delegate.py scripts/repair_auth_route_logout_delegate.py scripts/check_auth_route_logout_delegate.py scripts/patch_auth_route_logout_delegate_registry.py tests/unit/test_auth_route_logout_delegate.py app/api_v2_routers/auth.py --select F821,F401,F811,E402
+

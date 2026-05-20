@@ -92,7 +92,6 @@ async def register(
     response: Response,
     db: AsyncSession = Depends(get_db),
     auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context),
-    auth_service: AuthApplicationService = Depends(get_auth_application_service),
 ):
     # code_911_950_auth_lifecycle_delegate
     return await auth_service.register(
@@ -111,7 +110,6 @@ async def login(
     response: Response,
     db: AsyncSession = Depends(get_db),
     auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context),
-    auth_service: AuthApplicationService = Depends(get_auth_application_service),
 ):
     # code_911_950_auth_lifecycle_delegate
     return await auth_service.login(
@@ -127,7 +125,6 @@ async def create_dev_session(
     response: Response,
     db: AsyncSession = Depends(get_db),
     auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context),
-    auth_service: AuthApplicationService = Depends(get_auth_application_service),
 ):
     """
     Non-production bootstrap endpoint for the local learner flow.
@@ -154,7 +151,6 @@ async def refresh_token(
     db: AsyncSession = Depends(get_db),
     cookie_refresh: str | None = Cookie(default=None, alias=REFRESH_COOKIE),
     auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context),
-    auth_service: AuthApplicationService = Depends(get_auth_application_service),
 ):
     # code_911_950_auth_lifecycle_delegate
     return await auth_service.refresh(
@@ -191,27 +187,9 @@ async def logout(
     current_user: dict = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
     cookie_refresh: str | None = Cookie(default=None, alias=REFRESH_COOKIE),
+    auth_service: AuthApplicationService = Depends(get_auth_application_service),
 ):
-    """
-    Revoke the current access token and clear the refresh token cookie.
-    """
-    # Revoke this specific access token (by JTI)
-    jti = current_user.get("jti")
-    exp = current_user.get("exp")
-    if jti and exp:
-        await revoke_token(jti, exp)
-    await revoke_refresh_token_jti(current_user.get("refresh_jti"), current_user.get("sub"), current_user.get("refresh_family"))
-    if cookie_refresh:
-        await revoke_refresh_token(cookie_refresh)
-    
-    # Clear refresh cookie
-    response.delete_cookie(REFRESH_COOKIE, path="/api/v2/auth")
-    
-    # Audit the logout
-    audit = FourthEstateService(db)
-    await audit.auth_event("USER_LOGOUT", current_user.get("sub"))
-    
-    return None
+    return await auth_service.logout(response=response, current_user=current_user, db=db, cookie_refresh=cookie_refresh)
 
 
 @router.post("/revoke-all", status_code=status.HTTP_204_NO_CONTENT)
@@ -220,23 +198,6 @@ async def revoke_all_tokens(
     current_user: dict = Depends(require_parent_or_admin),
     db: AsyncSession = Depends(get_db),
     cookie_refresh: str | None = Cookie(default=None, alias=REFRESH_COOKIE),
+    auth_service: AuthApplicationService = Depends(get_auth_application_service),
 ):
-    """
-    Revoke ALL tokens for the current user (logout from all devices).
-    Useful for security incidents or password changes.
-    """
-    user_id = current_user.get("sub")
-    await revoke_user_tokens(user_id)
-    if user_id:
-        await revoke_all_refresh_tokens_for_user(user_id)
-    if cookie_refresh:
-        await revoke_refresh_token(cookie_refresh)
-    
-    # Clear refresh cookie
-    response.delete_cookie(REFRESH_COOKIE, path="/api/v2/auth")
-    
-    # Audit the revocation
-    audit = FourthEstateService(db)
-    await audit.auth_event("USER_TOKENS_REVOKED_ALL", user_id)
-    
-    return None
+    return await auth_service.revoke_all_tokens(response=response, current_user=current_user, db=db, cookie_refresh=cookie_refresh)

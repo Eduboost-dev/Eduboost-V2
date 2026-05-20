@@ -13,6 +13,7 @@ AUTH_ROUTER = ROOT / "app/api_v2_routers/auth.py"
 OUT_JSON = ROOT / "docs/release/auth_route_logout_delegate_status.json"
 OUT_MD = ROOT / "docs/release/auth_route_logout_delegate_status.md"
 TARGETS = ("logout", "revoke_all_tokens")
+PARAM = "auth_service: AuthApplicationService = Depends(get_auth_application_service)"
 
 
 @dataclass(frozen=True)
@@ -43,8 +44,14 @@ def read(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore") if path.exists() else ""
 
 
-def parse_auth() -> ast.AST:
-    return ast.parse(read(AUTH_ROUTER) or "\n")
+def strip_malformed_auth_service_param_lines(source: str) -> str:
+    bad = re.compile(r"^\s*,?\s*auth_service:\s*AuthApplicationService\s*=\s*Depends\(get_auth_application_service\)\s*,?\s*$")
+    lines = [line for line in source.splitlines() if not bad.match(line)]
+    return "\n".join(lines) + ("\n" if source.endswith("\n") else "")
+
+
+def parse_source(source: str | None = None) -> ast.AST:
+    return ast.parse(source if source is not None else strip_malformed_auth_service_param_lines(read(AUTH_ROUTER)) or "\n")
 
 
 def find_func(tree: ast.AST, name: str) -> ast.AsyncFunctionDef | ast.FunctionDef | None:
@@ -70,13 +77,14 @@ def call_name(call: ast.Call) -> str:
     return ""
 
 
-def route_has_auth_service_param(node: ast.AsyncFunctionDef | ast.FunctionDef | None) -> bool:
+def has_auth_service_param(node: ast.AsyncFunctionDef | ast.FunctionDef | None) -> bool:
     if node is None:
         return False
-    return any(arg.arg == "auth_service" for arg in list(node.args.args) + list(node.args.kwonlyargs))
+    args = list(node.args.args) + list(node.args.kwonlyargs)
+    return any(arg.arg == "auth_service" for arg in args)
 
 
-def route_delegates(node: ast.AsyncFunctionDef | ast.FunctionDef | None, route: str) -> bool:
+def delegates(node: ast.AsyncFunctionDef | ast.FunctionDef | None, route: str) -> bool:
     if node is None:
         return False
     return any(isinstance(child, ast.Call) and call_name(child) == f"auth_service.{route}" for child in ast.walk(node))
@@ -96,111 +104,122 @@ def direct_logic(node: ast.AsyncFunctionDef | ast.FunctionDef | None) -> list[st
     return sorted(found)
 
 
-def _find_provider_import() -> str:
-    for path in (ROOT / "app/api_v2_deps").rglob("*.py"):
-        if "get_auth_application_service" in read(path):
-            module = path.relative_to(ROOT).with_suffix("").as_posix().replace("/", ".")
-            return f"from {module} import get_auth_application_service"
+def insert_import(source: str, line: str) -> str:
+    if line in source:
+        return source
+    lines = source.splitlines()
+    i = 0
+    if lines and (lines[0].startswith('"""') or lines[0].startswith("'''")):
+        quote = lines[0][:3]
+        i = 1
+        while i < len(lines) and not lines[i].endswith(quote):
+            i += 1
+        i = min(i + 1, len(lines))
+    while i < len(lines) and (lines[i].strip() == "" or lines[i].startswith("from __future__")):
+        i += 1
+    lines.insert(i, line)
+    return "\n".join(lines) + "\n"
+
+
+def provider_import() -> str:
+    deps = ROOT / "app/api_v2_deps"
+    if deps.exists():
+        for path in deps.rglob("*.py"):
+            text = read(path)
+            if "get_auth_application_service" in text:
+                module = path.relative_to(ROOT).with_suffix("").as_posix().replace("/", ".")
+                return f"from {module} import get_auth_application_service"
     return "from app.api_v2_deps.auth_service import get_auth_application_service"
 
 
-def _ensure_imports(source: str) -> str:
-    changed = source
-    if "AuthApplicationService" not in changed:
-        changed = "from app.services.auth_application_service import AuthApplicationService\n" + changed
-    if "get_auth_application_service" not in changed:
-        changed = _find_provider_import() + "\n" + changed
-    if re.search(r"(?m)^from fastapi import .*$", changed):
-        def repl(match: re.Match[str]) -> str:
-            line = match.group(0)
-            names = line.split("import", 1)[1]
-            needed = []
-            if "Depends" not in names:
-                needed.append("Depends")
-            if "Response" not in names:
-                needed.append("Response")
-            return line + (", " + ", ".join(needed) if needed else "")
-        changed = re.sub(r"(?m)^from fastapi import .*$", repl, changed, count=1)
-    else:
-        changed = "from fastapi import Depends, Response\n" + changed
-    return changed
+def ensure_imports(source: str) -> str:
+    if "from app.services.auth_application_service import AuthApplicationService" not in source:
+        source = insert_import(source, "from app.services.auth_application_service import AuthApplicationService")
+    if "import get_auth_application_service" not in source and "def get_auth_application_service" not in source:
+        source = insert_import(source, provider_import())
+    if not re.search(r"(?m)^from fastapi import .*\bDepends\b", source):
+        source = insert_import(source, "from fastapi import Depends")
+    return source
 
 
-def _signature_end(lines: list[str], start: int) -> int:
+def signature_end(lines: list[str], start: int) -> int:
     depth = 0
-    for index in range(start, len(lines)):
-        line = lines[index]
+    started = False
+    for i in range(start, len(lines)):
+        line = lines[i]
+        if "def " in line:
+            started = True
         depth += line.count("(") - line.count(")")
-        if depth <= 0 and line.rstrip().endswith(":"):
-            return index
+        if started and depth <= 0 and line.rstrip().endswith(":"):
+            return i
     return start
 
 
-def _ensure_auth_service_param(lines: list[str], node: ast.AsyncFunctionDef | ast.FunctionDef) -> list[str]:
-    if route_has_auth_service_param(node):
-        return lines
+def ensure_param(source: str, route: str) -> str:
+    tree = parse_source(source)
+    node = find_func(tree, route)
+    if node is None or has_auth_service_param(node):
+        return source
+    lines = source.splitlines()
     start = node.lineno - 1
-    end = _signature_end(lines, start)
-    signature = "\n".join(lines[start:end + 1])
-    param = "auth_service: AuthApplicationService = Depends(get_auth_application_service)"
-    close = signature.rfind(")")
-    if close < 0:
-        return lines
-    signature = signature[:close] + ", " + param + signature[close:]
-    return lines[:start] + signature.splitlines() + lines[end + 1:]
+    end = signature_end(lines, start)
+    if start == end:
+        idx = lines[start].rfind(")")
+        if idx >= 0:
+            lines[start] = lines[start][:idx] + f", {PARAM}" + lines[start][idx:]
+    else:
+        base_indent = re.match(r"^(\s*)", lines[start]).group(1)
+        lines.insert(end, f"{base_indent}    {PARAM},")
+    return "\n".join(lines) + "\n"
 
 
-def _body_kwargs(node: ast.AsyncFunctionDef | ast.FunctionDef) -> str:
-    args = {arg.arg for arg in list(node.args.args) + list(node.args.kwonlyargs)}
-    names = [name for name in ["response", "request", "current_user", "db", "refresh_token"] if name in args]
+def body_kwargs(node: ast.AsyncFunctionDef | ast.FunctionDef) -> str:
+    args = list(node.args.args) + list(node.args.kwonlyargs)
+    names = [arg.arg for arg in args if arg.arg != "auth_service"]
     return ", ".join(f"{name}={name}" for name in names)
 
 
-def _replace_body(lines: list[str], node: ast.AsyncFunctionDef | ast.FunctionDef, route: str) -> list[str]:
-    body_start = node.body[0].lineno - 1 if node.body else node.lineno
-    end = node.end_lineno or body_start + 1
-    indent = re.match(r"^(\s*)", lines[body_start]).group(1) if body_start < len(lines) else "    "
-    kwargs = _body_kwargs(node)
+def replace_body(source: str, route: str) -> str:
+    tree = parse_source(source)
+    node = find_func(tree, route)
+    if node is None or delegates(node, route):
+        return source
+    lines = source.splitlines()
+    start = node.body[0].lineno - 1 if node.body else node.lineno
+    end = node.end_lineno or start + 1
+    indent = re.match(r"^(\s*)", lines[start]).group(1) if start < len(lines) else "    "
+    kwargs = body_kwargs(node)
     call = f"return await auth_service.{route}({kwargs})" if kwargs else f"return await auth_service.{route}()"
-    return lines[:body_start] + [indent + call] + lines[end:]
+    return "\n".join(lines[:start] + [indent + call] + lines[end:]) + "\n"
 
 
 def repair() -> Status:
-    if not AUTH_ROUTER.exists():
-        return write_status()
-    source = _ensure_imports(read(AUTH_ROUTER))
+    source = strip_malformed_auth_service_param_lines(read(AUTH_ROUTER))
+    source = ensure_imports(source)
+    parse_source(source)
     for route in TARGETS:
-        tree = ast.parse(source)
-        node = find_func(tree, route)
-        if node is None:
-            continue
-        lines = source.splitlines()
-        lines = _ensure_auth_service_param(lines, node)
-        source = "\n".join(lines) + "\n"
-        tree = ast.parse(source)
-        node = find_func(tree, route)
-        if node is not None and (not route_delegates(node, route) or direct_logic(node)):
-            lines = source.splitlines()
-            lines = _replace_body(lines, node, route)
-            source = "\n".join(lines) + "\n"
+        source = ensure_param(source, route)
+        parse_source(source)
+        source = replace_body(source, route)
+        parse_source(source)
     AUTH_ROUTER.write_text(source, encoding="utf-8")
     return write_status()
 
 
 def build_status() -> Status:
-    tree = parse_auth()
+    tree = parse_source()
     targets: list[TargetStatus] = []
     blockers: list[str] = []
     for route in TARGETS:
         node = find_func(tree, route)
         exists = node is not None
-        has_param = route_has_auth_service_param(node)
-        delegates = route_delegates(node, route)
+        has_param = has_auth_service_param(node)
+        has_delegate = delegates(node, route)
         direct = direct_logic(node)
-        passed = exists and has_param and delegates and not direct
+        passed = exists and has_param and has_delegate and not direct
         if not passed:
             blockers.append(f"{route} route is not fully delegated to auth service")
-        targets.append(TargetStatus(route, exists, has_param, delegates, direct, passed))
+        targets.append(TargetStatus(route, exists, has_param, has_delegate, direct, passed))
     return Status(
         generated_at=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         current_commit=current_commit(),
@@ -214,17 +233,22 @@ def write_status() -> Status:
     status = build_status()
     OUT_JSON.write_text(json.dumps(asdict(status), indent=2), encoding="utf-8")
     lines = [
-        "# Auth Route Logout/Revoke Delegation Status", "", f"Generated at: `{status.generated_at}`", f"Commit: `{status.current_commit}`", "",
-        f"**Status:** `{status.status}`", "",
+        "# Auth Route Logout/Revoke Delegation Status",
+        "",
+        f"Generated at: `{status.generated_at}`",
+        f"Commit: `{status.current_commit}`",
+        "",
+        f"**Status:** `{status.status}`",
+        "",
         "| Route | Exists | Auth service param | Delegates | Direct route logic | Passed |",
         "|---|---:|---:|---:|---|---:|",
     ]
-    for target in status.targets:
-        lines.append(f"| `{target.route}` | {target.exists} | {target.has_auth_service_param} | {target.delegates_to_service} | `{', '.join(target.direct_cookie_or_token_logic) or '-'}` | {target.passed} |")
+    for t in status.targets:
+        lines.append(f"| `{t.route}` | {t.exists} | {t.has_auth_service_param} | {t.delegates_to_service} | `{', '.join(t.direct_cookie_or_token_logic) or '-'}` | {t.passed} |")
     lines.extend(["", "## Blockers", ""])
-    lines.extend(f"- {blocker}" for blocker in status.blockers)
+    lines.extend(f"- {b}" for b in status.blockers)
     if not status.blockers:
         lines.append("- None")
-    lines.extend(["", "## No false-closure rules", "", "- Route body delegation does not prove HTTP behavior.", "- Logout/revoke HTTP proof remains a separate batch.", "- This cleanup does not approve beta release.", ""])
+    lines.extend(["", "## No false-closure rules", "", "- Route body delegation does not prove HTTP behavior.", "- Logout/revoke HTTP proof remains separate.", "- This cleanup does not approve beta release.", ""])
     OUT_MD.write_text("\n".join(lines), encoding="utf-8")
     return status

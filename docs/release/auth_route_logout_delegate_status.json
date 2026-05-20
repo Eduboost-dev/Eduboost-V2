@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-05-20T17:05:03Z",
+  "current_commit": "02ce769ddc0e49936eb829e87676ad4ed2fd2340",
+  "status": "auth-route-logout-delegation-not-proven",
+  "targets": [
+    {
+      "route": "logout",
+      "exists": true,
+      "has_auth_service_param": false,
+      "delegates_to_service": true,
+      "direct_cookie_or_token_logic": [],
+      "passed": false
+    },
+    {
+      "route": "revoke_all_tokens",
+      "exists": true,
+      "has_auth_service_param": false,
+      "delegates_to_service": true,
+      "direct_cookie_or_token_logic": [],
+      "passed": false
+    }
+  ],
+  "blockers": [
+    "logout route is not fully delegated to auth service",
+    "revoke_all_tokens route is not fully delegated to auth service"
+  ]
+}
