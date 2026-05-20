@@ -577,3 +577,29 @@ findings:
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
+  - id: AUTH-LIFECYCLE-SEMANTIC-PROOF-001
+    title: Auth lifecycle controlled semantic proof
+    severity: P1
+    gate: 3
+    owner: backend
+    implementation_batch: code_2631_2670
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-2631-2670-full-check
+    evidence_file: docs/release/auth_lifecycle_semantic_proof_status.md
+    last_verified_commit: 226b34239a7f5bbcb9d261b1711bde9b8a021662
+    closure_blocker: none
+    blocks_beta: false
+    external_dependency: false
+  - id: AUTH-REFRESH-DB-PROOF-001
+    title: Auth refresh-token DB persistence and revocation proof
+    severity: P1
+    gate: 3
+    owner: backend
+    implementation_batch: code_2671_2710
+    proof_status: external-blocked
+    proof_command: make auth-refresh-db-proof-release-check
+    evidence_file: docs/release/auth_refresh_db_proof_status.md
+    last_verified_commit: null
+    closure_blocker: AUTH_REFRESH_DB_PROOF_DSN is not set; evidence field Database DSN label: pending; evidence field Test command: pending; evidence field Test result: pending; evidence field Refresh persistence result: pending; evidence field Logout revocation result: pending
+    blocks_beta: true
+    external_dependency: true
