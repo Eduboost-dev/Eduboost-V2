@@ -557,10 +557,10 @@ findings:
     gate: 3
     owner: backend
     implementation_batch: code_2551_2590
-    proof_status: not-proven
+    proof_status: runtime-passing
     proof_command: make backend-implementation-2551-2590-full-check
     evidence_file: docs/release/auth_route_logout_delegate_status.md
-    last_verified_commit: null
-    closure_blocker: logout route is not fully delegated to auth service; revoke_all_tokens route is not fully delegated to auth service
+    last_verified_commit: 56452bfa2efa7e8fc8f0d59d4523a6c9ceba8b7c
+    closure_blocker: none
     blocks_beta: false
     external_dependency: false
