@@ -1399,3 +1399,27 @@ make auth-lifecycle-http-proof-test
 make backend-implementation-2591-2630-full-check
 ```
 
+## AUTH-LIFECYCLE-SEMANTIC-PROOF-001 / Backend implementation 2631-2670 — Controlled auth lifecycle semantic proof
+
+Commands:
+
+```bash
+make auth-lifecycle-semantic-proof-status
+make auth-lifecycle-semantic-proof-check
+make auth-lifecycle-semantic-proof-release-check
+make auth-lifecycle-semantic-proof-test
+make backend-implementation-2631-2670-full-check
+```
+
+## AUTH-REFRESH-DB-PROOF-001 / Backend implementation 2671-2710 — Auth refresh DB proof scaffold
+
+Commands:
+
+```bash
+make auth-refresh-db-proof-status
+make auth-refresh-db-proof-check
+make auth-refresh-db-proof-release-check
+make auth-refresh-db-proof-test
+make backend-implementation-2671-2710-full-check
+```
+

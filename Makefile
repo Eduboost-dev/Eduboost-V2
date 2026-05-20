@@ -2357,3 +2357,45 @@ backend-implementation-2591-2630-full-check: auth-lifecycle-http-proof-status au
 	python3 -m compileall -q app/services app/api_v2_routers scripts tests
 	python3 -m ruff check scripts/auth_lifecycle_http_proof.py scripts/check_auth_lifecycle_http_proof.py scripts/patch_auth_lifecycle_http_proof_registry.py tests/unit/test_auth_lifecycle_http_proof.py app/api_v2_routers/auth.py app/services/auth_application_service.py --select F821,F401,F811,E402
 
+.PHONY: auth-lifecycle-semantic-proof-status auth-lifecycle-semantic-proof-registry-patch auth-lifecycle-semantic-proof-check auth-lifecycle-semantic-proof-release-check auth-lifecycle-semantic-proof-test backend-implementation-2631-2670-full-check
+
+auth-lifecycle-semantic-proof-status:
+	PYTHONPATH=. python3 -c "from scripts.auth_lifecycle_semantic_proof import write_status; s = write_status(); print(s.status)"
+
+auth-lifecycle-semantic-proof-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_auth_lifecycle_semantic_proof_registry.py
+
+auth-lifecycle-semantic-proof-check: auth-lifecycle-semantic-proof-registry-patch
+	PYTHONPATH=. python3 scripts/check_auth_lifecycle_semantic_proof.py
+
+auth-lifecycle-semantic-proof-release-check:
+	PYTHONPATH=. python3 scripts/check_auth_lifecycle_semantic_proof.py --release
+
+auth-lifecycle-semantic-proof-test:
+	pytest -c pytest.ini tests/unit/test_auth_lifecycle_semantic_proof.py -q --no-cov --tb=short
+
+backend-implementation-2631-2670-full-check: auth-lifecycle-semantic-proof-status auth-lifecycle-semantic-proof-check auth-lifecycle-semantic-proof-test
+	python3 -m compileall -q app/services app/api_v2_routers scripts tests
+	python3 -m ruff check scripts/auth_lifecycle_semantic_proof.py scripts/check_auth_lifecycle_semantic_proof.py scripts/patch_auth_lifecycle_semantic_proof_registry.py tests/unit/test_auth_lifecycle_semantic_proof.py app/api_v2_routers/auth.py app/services/auth_application_service.py --select F821,F401,F811,E402
+
+.PHONY: auth-refresh-db-proof-status auth-refresh-db-proof-registry-patch auth-refresh-db-proof-check auth-refresh-db-proof-release-check auth-refresh-db-proof-test backend-implementation-2671-2710-full-check
+
+auth-refresh-db-proof-status:
+	PYTHONPATH=. python3 -c "from scripts.auth_refresh_db_proof import write_status; s = write_status(); print(s.status)"
+
+auth-refresh-db-proof-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_auth_refresh_db_proof_registry.py
+
+auth-refresh-db-proof-check: auth-refresh-db-proof-registry-patch
+	PYTHONPATH=. python3 scripts/check_auth_refresh_db_proof.py
+
+auth-refresh-db-proof-release-check:
+	PYTHONPATH=. python3 scripts/check_auth_refresh_db_proof.py --release
+
+auth-refresh-db-proof-test:
+	pytest -c pytest.ini tests/unit/test_auth_refresh_db_proof.py -q --no-cov --tb=short
+
+backend-implementation-2671-2710-full-check: auth-refresh-db-proof-status auth-refresh-db-proof-check auth-refresh-db-proof-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/auth_refresh_db_proof.py scripts/check_auth_refresh_db_proof.py scripts/patch_auth_refresh_db_proof_registry.py tests/unit/test_auth_refresh_db_proof.py tests/integration/test_auth_refresh_db_proof.py --select F821,F401,F811,E402
+
