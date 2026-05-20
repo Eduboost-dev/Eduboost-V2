@@ -1363,3 +1363,15 @@ make auth-route-logout-delegate-test
 make backend-implementation-2551-2590R-full-check
 ```
 
+## AUTH-ROUTE-LOGOUT-DELEGATE-001R2 / Backend implementation 2551-2590R2 — auth_service parameter repair for logout/revoke delegation
+
+Commands:
+
+```bash
+make auth-route-logout-delegate-repair
+make auth-route-logout-delegate-status
+make auth-route-logout-delegate-check
+make auth-route-logout-delegate-test
+make backend-implementation-2551-2590R2-full-check
+```
+

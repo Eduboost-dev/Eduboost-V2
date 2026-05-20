@@ -1,27 +1,24 @@
 {
-  "generated_at": "2026-05-20T17:05:03Z",
-  "current_commit": "02ce769ddc0e49936eb829e87676ad4ed2fd2340",
-  "status": "auth-route-logout-delegation-not-proven",
+  "generated_at": "2026-05-20T17:28:00Z",
+  "current_commit": "56452bfa2efa7e8fc8f0d59d4523a6c9ceba8b7c",
+  "status": "auth-route-logout-delegation-passing",
   "targets": [
     {
       "route": "logout",
       "exists": true,
-      "has_auth_service_param": false,
+      "has_auth_service_param": true,
       "delegates_to_service": true,
       "direct_cookie_or_token_logic": [],
-      "passed": false
+      "passed": true
     },
     {
       "route": "revoke_all_tokens",
       "exists": true,
-      "has_auth_service_param": false,
+      "has_auth_service_param": true,
       "delegates_to_service": true,
       "direct_cookie_or_token_logic": [],
-      "passed": false
+      "passed": true
     }
   ],
-  "blockers": [
-    "logout route is not fully delegated to auth service",
-    "revoke_all_tokens route is not fully delegated to auth service"
-  ]
+  "blockers": []
 }

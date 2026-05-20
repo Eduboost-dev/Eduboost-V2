@@ -1,22 +1,21 @@
 # Auth Route Logout/Revoke Delegation Status
 
-Generated at: `2026-05-20T17:05:03Z`
-Commit: `02ce769ddc0e49936eb829e87676ad4ed2fd2340`
+Generated at: `2026-05-20T17:28:00Z`
+Commit: `56452bfa2efa7e8fc8f0d59d4523a6c9ceba8b7c`
 
-**Status:** `auth-route-logout-delegation-not-proven`
+**Status:** `auth-route-logout-delegation-passing`
 
 | Route | Exists | Auth service param | Delegates | Direct route logic | Passed |
 |---|---:|---:|---:|---|---:|
-| `logout` | True | False | True | `-` | False |
-| `revoke_all_tokens` | True | False | True | `-` | False |
+| `logout` | True | True | True | `-` | True |
+| `revoke_all_tokens` | True | True | True | `-` | True |
 
 ## Blockers
 
-- logout route is not fully delegated to auth service
-- revoke_all_tokens route is not fully delegated to auth service
+- None
 
 ## No false-closure rules
 
 - Route body delegation does not prove HTTP behavior.
-- Logout/revoke HTTP proof remains separate.
+- Logout/revoke HTTP proof remains a separate batch.
 - This cleanup does not approve beta release.
