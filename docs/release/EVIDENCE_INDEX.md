@@ -1270,3 +1270,20 @@ make evidence-attachment-runbook-test
 make backend-implementation-2311-2350-full-check
 ```
 
+## BETA-NO-GO-HANDOFF-001 / Backend implementation 2351-2390 — Beta NO-GO handoff packet
+
+Audit drivers:
+
+- Evidence scaffolds and operator runbook are complete enough to switch from local scaffold work to real evidence capture.
+- Release owners need a compact NO-GO packet showing what remains.
+- Required external/live evidence items must not be locally closeable.
+
+Commands:
+
+```bash
+make beta-no-go-handoff-packet
+make beta-no-go-handoff-check
+make beta-no-go-handoff-test
+make backend-implementation-2351-2390-full-check
+```
+

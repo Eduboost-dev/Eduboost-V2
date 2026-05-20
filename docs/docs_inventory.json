@@ -4,11 +4,11 @@
     "api": 6,
     "architecture": 37,
     "general": 483,
-    "release": 317,
+    "release": 321,
     "security": 98
   },
-  "commit": "407e7b2bb821606b24f9ee3c2f42ff6f54312da0",
-  "document_count": 966,
+  "commit": "9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4",
+  "document_count": 970,
   "documents": [
     {
       "category": "general",
@@ -6516,7 +6516,9 @@
         "scripts/check_popia_consent_audit_evidence.py",
         "scripts/check_privacy_legal_release_evidence.py",
         "scripts/check_release_candidate_evidence_sweep.py",
+        "scripts/evidence_attachment_runbook.py",
         "scripts/generate_backend_consolidation_evidence_manifest.py",
+        "scripts/live_db_tx_evidence.py",
         "scripts/staging_acceptance_evidence.py"
       ],
       "generated": false,
@@ -6543,14 +6545,14 @@
         },
         {
           "level": 2,
-          "line": 241,
+          "line": 248,
           "text": "Command"
         }
       ],
       "links": [],
       "path": "docs/ai/ai_prompt_surface_inventory.md",
-      "sha256": "c7a47bde6164f5af7a3cefcb318e9be85de36cc4463eb9f0b90ca6517b3c79df",
-      "size_bytes": 14995,
+      "sha256": "68d7b771b49db89319bcea55a35b6b12386bc85ce91b050ee6969e2447688027",
+      "size_bytes": 15429,
       "statuses": [],
       "title": "AI Prompt Surface Inventory"
     },
@@ -7733,7 +7735,7 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/auth_boundary_debt_report.json",
-      "sha256": "9179d1cfdb04fab0703c45e95347a416ba9c25b8a4f91893c91845188f59cb44",
+      "sha256": "5a0552a41a5aaabbce4cf44e9dd3222cf8ab4382546ec81ee0b800b20bd98284",
       "size_bytes": 453,
       "statuses": [],
       "title": "Auth Boundary Debt Report"
@@ -7757,7 +7759,7 @@
       ],
       "links": [],
       "path": "docs/architecture/auth_boundary_debt_report.md",
-      "sha256": "30192398473c14a07f4d776d80b3530cfc6722f6f4b5a5eb8c7221d461e63ddb",
+      "sha256": "d9e3e39d4fe61181a026ca16582b51a5f68dd55df814df52feb836ccc08948eb",
       "size_bytes": 433,
       "statuses": [],
       "title": "Auth Boundary Debt Report"
@@ -7812,7 +7814,7 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/auth_service_extraction_followup.json",
-      "sha256": "f91940b01d954542f4984a87770c8eba51849e2e262562542b544ce41a646bdd",
+      "sha256": "7adf34cbed7f541c324d382c67f55afb8db1a19f4b130576c3608548ad47c4c7",
       "size_bytes": 371,
       "statuses": [],
       "title": "Auth Service Extraction Followup"
@@ -7841,7 +7843,7 @@
       ],
       "links": [],
       "path": "docs/architecture/auth_service_extraction_followup.md",
-      "sha256": "d7c9f5e3bf6ad6f7f4941e9ed40f22e7642dd67a6ec8e5fafbc308fe3f0444ba",
+      "sha256": "af3c52a017b210005f6baf0e8536f942433de62cfdb21fb7d060b5aef72f14c5",
       "size_bytes": 369,
       "statuses": [],
       "title": "Auth Service Extraction Follow-up"
@@ -7854,7 +7856,7 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/auth_service_extraction_report.json",
-      "sha256": "86f4a452dccd2babaef520826a3ecaf10601d64ecc86ff62f916a7585c4581c3",
+      "sha256": "ef72c9fda5491300f8003f1478a716a6ce1a5c7c98b989f9975663aade1cd665",
       "size_bytes": 1277,
       "statuses": [],
       "title": "Auth Service Extraction Report"
@@ -7883,7 +7885,7 @@
       ],
       "links": [],
       "path": "docs/architecture/auth_service_extraction_report.md",
-      "sha256": "6472314582f7b7a18fa8f57addb86d57e07b4944b191b763b9f4082be1871236",
+      "sha256": "30a9c795bc902080a8baf4a063bb3d438947182595c9346003e76e227d444134",
       "size_bytes": 538,
       "statuses": [],
       "title": "Auth Service Extraction Report"
@@ -8062,8 +8064,8 @@
       ],
       "links": [],
       "path": "docs/architecture/import_linter_availability.md",
-      "sha256": "586857f6d7a898c3ff2120cc7d1b1af1186d47b1957b006929aca870af4f95c4",
-      "size_bytes": 122,
+      "sha256": "a8c0498ba9fa8d1fdca6f0ee479cbd4b15465497493fb654ec994e1fec99b294",
+      "size_bytes": 227,
       "statuses": [],
       "title": "Import-Linter Availability"
     },
@@ -8081,8 +8083,8 @@
       ],
       "links": [],
       "path": "docs/architecture/import_linter_contract_run.md",
-      "sha256": "d13ee115e364d711811b90c1fba121fc75668f4c5edfe3d949c75259a5e2acfb",
-      "size_bytes": 1130,
+      "sha256": "e6eb49536c497ac20e9b419fb28ff331f7b60a8c8f6292f04f5dec1a48903451",
+      "size_bytes": 499,
       "statuses": [
         "pass"
       ],
@@ -8096,7 +8098,7 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/legacy_learner_access_guard_report.json",
-      "sha256": "2fa4c612968649bfb5928756335279a86a881df195b2203725ec6ea6ee4fe202",
+      "sha256": "9657059e4cfd4ae15cde8b5651bddb62813ea507b3055d09fd7963eb542f1dea",
       "size_bytes": 312,
       "statuses": [],
       "title": "Legacy Learner Access Guard Report"
@@ -8115,7 +8117,7 @@
       ],
       "links": [],
       "path": "docs/architecture/legacy_learner_access_guard_report.md",
-      "sha256": "b9b9236a3aa97e6bc824ee4a23695bd82fbf7661ac9d6201b44ab5e20777b1e4",
+      "sha256": "db206d8686625c0bfa2a3e28d08a858c9ba72e2c94172ba09588ee87bd089b34",
       "size_bytes": 326,
       "statuses": [],
       "title": "Legacy Learner Access Guard Report"
@@ -8200,7 +8202,7 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/router_repository_boundary_matrix.json",
-      "sha256": "1eb2262d89115da4ce70e68c96d0eb6192c3e23c13ec8d800d992ae91dc272d6",
+      "sha256": "4eb1a7e8373757132d6d7465865a1f9a6b386840d54c1bd9a80fc4c257669f97",
       "size_bytes": 4975,
       "statuses": [],
       "title": "Router Repository Boundary Matrix"
@@ -8219,7 +8221,7 @@
       ],
       "links": [],
       "path": "docs/architecture/router_repository_boundary_matrix.md",
-      "sha256": "bc8d7c37539c41fe7b9bc58c7a30bd587a4bcbad28fbfa08073c24cb52703729",
+      "sha256": "a94942abd2c826031ee889179c40685ac99682602d6476193e980ebab9866cc1",
       "size_bytes": 2095,
       "statuses": [],
       "title": "Router Repository Boundary Matrix"
@@ -8232,7 +8234,7 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/router_service_dependency_map.json",
-      "sha256": "f5cf7eb9595b12318f5b60e3d080168acfeb80f85825fc8eaa9681880481d038",
+      "sha256": "5e7cc3031cf3ef92528a4c5ab14ffb15d36ab26bed95d0457274a054718acc97",
       "size_bytes": 7507,
       "statuses": [],
       "title": "Router Service Dependency Map"
@@ -8251,7 +8253,7 @@
       ],
       "links": [],
       "path": "docs/architecture/router_service_dependency_map.md",
-      "sha256": "eecd7d126558ac1f76f0e9592f24d5b2d48e72a8b765a6d4454d4d52f4fd04be",
+      "sha256": "ca333a102780c4c78ce93547dcb9df3b0b134a3d445b5b16870c93f6462fc3b1",
       "size_bytes": 3607,
       "statuses": [],
       "title": "Router Service Dependency Map"
@@ -8313,7 +8315,7 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/service_boundary_inventory.json",
-      "sha256": "46ca01840cde760470a1ab9ba1b0477b4530971e348fb6dc39c92d19658aa829",
+      "sha256": "d8e08b85f9610e4dc7386672ebed116cd8b280a45a0ee21e66dd2db63ae2c043",
       "size_bytes": 15745,
       "statuses": [],
       "title": "Service Boundary Inventory"
@@ -8332,7 +8334,7 @@
       ],
       "links": [],
       "path": "docs/architecture/service_boundary_inventory.md",
-      "sha256": "eef0f18b43b96b657342dca4c80b228b157e52cdcf6c36267ab3b3460d50e021",
+      "sha256": "d904a4044e2735de9117287dd0e378bd0d84f8fcc54d15353970ed98161c2771",
       "size_bytes": 9357,
       "statuses": [],
       "title": "Service Boundary Inventory"
@@ -8345,7 +8347,7 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/service_family_map.json",
-      "sha256": "f6084730b4ffef76f43f32199dd55f971142513decc479d29cacf1a252fdabaf",
+      "sha256": "49c174c64c311a2fd400cb64601bdc1f2e2b35774597f657d02737c15b3712c8",
       "size_bytes": 72353,
       "statuses": [],
       "title": "Service Family Map"
@@ -8364,7 +8366,7 @@
       ],
       "links": [],
       "path": "docs/architecture/service_family_map.md",
-      "sha256": "90daab8f20d22259ebd48c972b61dee0beb547c942dd22ddf3d63cae9b6d5216",
+      "sha256": "54e7669345bb732183c20e52b16ad49d73152d48dff44cf4480dc3b366096083",
       "size_bytes": 19472,
       "statuses": [],
       "title": "Service Family Map"
@@ -8377,7 +8379,7 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/transaction_boundary_inventory.json",
-      "sha256": "20669a3cd63e6ee47ee29cfa43b176ba93fb2e3bca9aed9b90ec9b6cd29d46c7",
+      "sha256": "f878d55a8c24189fa69d0af475018e84c383f31f5016b34bf4dc70d9f41dc20c",
       "size_bytes": 31676,
       "statuses": [
         "not-proven"
@@ -8398,7 +8400,7 @@
       ],
       "links": [],
       "path": "docs/architecture/transaction_boundary_inventory.md",
-      "sha256": "b5f4c6021360bc41e77786db235fa3b29b2e2a251af14acd8b91e632013889d7",
+      "sha256": "5f2775619abb140305f19732d6daafcae25b72ef89b985c6f2eabeb69f35cc1c",
       "size_bytes": 14023,
       "statuses": [
         "not-proven"
@@ -8413,7 +8415,7 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/tx_route_wiring_inventory.json",
-      "sha256": "3cefde86559c2d5ae40a0a97bec3d5cd1813cb5430ea7b1db364b17e08b68c40",
+      "sha256": "3c36626d4845a4dbe2fa286697c80565c1599ca16a93fabb7215744af54a7daa",
       "size_bytes": 9753,
       "statuses": [
         "not-proven"
@@ -8444,7 +8446,7 @@
       ],
       "links": [],
       "path": "docs/architecture/tx_route_wiring_inventory.md",
-      "sha256": "4dbcc14904c1ae3a4a008ab103ef67f9db532313aa869f07ba363af30bd36627",
+      "sha256": "37d1d08582efce6fbb9371af42f185d61361ac4b41f2a0c09f0ae0aef04cacb1",
       "size_bytes": 4529,
       "statuses": [
         "not-proven"
@@ -11229,7 +11231,7 @@
       "headings": [],
       "links": [],
       "path": "docs/beta/beta_content_hard_gate.json",
-      "sha256": "7df27d96c16cc0f37495594cc0c728f06e1d8e9521adf1c9c3a5b0917dd84eb6",
+      "sha256": "b2b5e65ef514b5e80cc7d095bee98eb9b466467482ead59d842bb57dbc7f8e56",
       "size_bytes": 227,
       "statuses": [
         "blocked"
@@ -11250,7 +11252,7 @@
       ],
       "links": [],
       "path": "docs/beta/beta_content_hard_gate.md",
-      "sha256": "f5175d16d03611a416a3b3acd326d4dabd37dff9101e43431d7411e899d89196",
+      "sha256": "1787ec93d3ceb8b38e44cc166d59fbabbff543237bf9a6debc02709d4ff78fd7",
       "size_bytes": 247,
       "statuses": [
         "blocked"
@@ -25096,7 +25098,7 @@
       ],
       "links": [],
       "path": "docs/operations/beta_release_evidence_bundle.md",
-      "sha256": "86cb13cbb1e01d20e503090945b8a4636d6642a9577a27e26b218f476e7166fa",
+      "sha256": "c1a18898fa7bcd612030dbabdadd24b5b749cc66827c69fd206c24c662d5f8e3",
       "size_bytes": 1704,
       "statuses": [],
       "title": "Beta Release Evidence Bundle"
@@ -25415,7 +25417,7 @@
       ],
       "links": [],
       "path": "docs/operations/beta_release_pr_body.md",
-      "sha256": "e9df34fc6d8e37409fd8aed877330e9e98399b17985f2bfaf3eca4861d13a7aa",
+      "sha256": "890a0e65384fb7d9722aa62f4dc8176ff03f02655cb5d0699ad8e2fb5e9812da",
       "size_bytes": 1386,
       "statuses": [],
       "title": "Beta Release PR Body"
@@ -25629,7 +25631,7 @@
       ],
       "links": [],
       "path": "docs/operations/beta_signoff_manifest.md",
-      "sha256": "24dcd40f343c1be9cb74e6c633e65529d118eccc358f2e43beb684bcabc8036a",
+      "sha256": "f70cf81707fac36ce06b3d9f5d29240a2061e6d228ce0e6e2b4d33c7dd4c6999",
       "size_bytes": 1626,
       "statuses": [],
       "title": "Beta Sign-Off Manifest"
@@ -26143,7 +26145,7 @@
       ],
       "links": [],
       "path": "docs/operations/database_backup_manifest.md",
-      "sha256": "77da3f496bf523a953b9665ad1c9bf2421b1ccc2e47bfba6af064193e482569b",
+      "sha256": "e54a3e3d58977fb0aa9742f7182288ee1e8a47fe17c0d02d1cc2aba782c68439",
       "size_bytes": 692,
       "statuses": [
         "pending"
@@ -26357,7 +26359,7 @@
       ],
       "links": [],
       "path": "docs/operations/database_restore_evidence.md",
-      "sha256": "1baafabb1642c46a55a08ff5913225b5c7a7239a5a05a6a494c6c8358370b02c",
+      "sha256": "a143789fef732d87106ccbcbd297a00fd04a23ba1a3a9220e5bc1302f9640200",
       "size_bytes": 745,
       "statuses": [
         "pending",
@@ -29431,7 +29433,7 @@
       ],
       "links": [],
       "path": "docs/operations/release_candidate_tag_manifest.md",
-      "sha256": "03bda4e3cb72d89276883f7b3661574db3ccdccf3b0efbabad8343cd03680fa9",
+      "sha256": "e39370102e84a6b005926fc636c176848b5a9741fac48268603cc25eac5b0ac4",
       "size_bytes": 1185,
       "statuses": [
         "pass"
@@ -29618,7 +29620,7 @@
       ],
       "links": [],
       "path": "docs/operations/release_evidence_manifest.md",
-      "sha256": "33c8cc2aa5551f0debada9a487e5f72e13616f2c87b8130c34a4a83c1a3b99c5",
+      "sha256": "e44bda3792aca3846856a07421e1c1fa7bae0a74bc079aa45b6765f23400ab63",
       "size_bytes": 1267,
       "statuses": [
         "pending"
@@ -29957,14 +29959,13 @@
         "docs/release/alertmanager_drill_evidence.json",
         "docs/release/approval_evidence_status.json",
         "docs/release/approval_evidence_status.md",
-        "docs/release/arq_dependency_worker_import_repair_report.md",
         "docs/release/audit_callsite_inventory.md",
         "docs/release/auth_db_lifecycle_proof_report.json",
         "docs/release/auth_db_lifecycle_proof_report.md",
         "docs/release/auth_http_success_scope_report.json",
         "docs/release/auth_http_success_scope_report.md",
-        "docs/release/auth_repository_fixture_proof_report.json",
-        "docs/release/auth_repository_fixture_proof_report.md",
+        "docs/release/auth_route_transaction_slice_report.json",
+        "docs/release/auth_route_transaction_slice_report.md",
         "docs/release/auth_router_boundary_introspection.json",
         "docs/release/auth_router_boundary_introspection.md",
         "docs/release/auth_service_extraction_repair_report.md",
@@ -29996,27 +29997,45 @@
         "docs/release/ci_authority_status.json",
         "docs/release/ci_authority_status.md",
         "docs/release/ci_evidence.json",
-        "docs/release/ci_evidence.md",
         "docs/release/ci_run_evidence_status.json",
         "docs/release/ci_run_evidence_status.md",
-        "docs/release/diagnostics_dynamic_repository_boundary_repair_report.md",
-        "docs/release/diagnostics_session_binding_repair_report.md",
+        "docs/release/diagnostics_db_integrity_proof.json",
+        "docs/release/diagnostics_db_integrity_proof.md",
+        "docs/release/diagnostics_route_transaction_gap_plan.json",
+        "docs/release/diagnostics_route_transaction_gap_plan.md",
+        "docs/release/diagnostics_route_transaction_slice_report.json",
+        "docs/release/diagnostics_route_transaction_slice_report.md",
         "docs/release/disposable_db_schema_proof_execution_report.md",
+        "docs/release/evidence_attachment_runbook.md",
+        "docs/release/evidence_attachment_runbook_manifest.json",
         "docs/release/evidence_status_registry.yml",
         "docs/release/external_approval_status.json",
         "docs/release/external_approval_status.md",
+        "docs/release/final_beta_gate_refresh.json",
+        "docs/release/final_beta_gate_refresh.md",
         "docs/release/first_audit_runtime_wiring_report.md",
-        "docs/release/jwt_production_guard_repair_report.md",
+        "docs/release/live_db_transaction_evidence_status.json",
+        "docs/release/live_db_transaction_evidence_status.md",
+        "docs/release/popia_lifecycle_runtime_proof.json",
+        "docs/release/popia_lifecycle_runtime_proof.md",
         "docs/release/popia_route_transaction_gap_plan.json",
         "docs/release/popia_route_transaction_gap_plan.md",
+        "docs/release/popia_route_transaction_slice_report.json",
+        "docs/release/popia_route_transaction_slice_report.md",
         "docs/release/release_go_no_go_status.json",
         "docs/release/release_go_no_go_status.md",
         "docs/release/release_owner_beta_go_no_go_memo.md",
         "docs/release/restore_drill_evidence.json",
         "docs/release/rollback_drill_evidence.json",
+        "docs/release/route_transaction_implementation_plan.json",
+        "docs/release/route_transaction_implementation_plan.md",
+        "docs/release/route_transaction_slice_rollup.json",
+        "docs/release/route_transaction_slice_rollup.md",
         "docs/release/runtime_wiring_431_450_report.md",
         "docs/release/schema_drift_disposable_latest.json",
         "docs/release/schema_drift_disposable_latest.md",
+        "docs/release/staging_acceptance_status.json",
+        "docs/release/staging_acceptance_status.md",
         "docs/release/staging_smoke_final_evidence.json",
         "docs/release/staging_smoke_final_evidence.md",
         "docs/release/transaction_rollback_rollup_report.json",
@@ -30041,24 +30060,24 @@
         },
         {
           "level": 2,
-          "line": 121,
+          "line": 2176,
           "text": "State Artifacts"
         },
         {
           "level": 2,
-          "line": 136,
+          "line": 2191,
           "text": "Snapshot Boundary"
         },
         {
           "level": 2,
-          "line": 141,
+          "line": 2196,
           "text": "Command"
         }
       ],
       "links": [],
       "path": "docs/operations/release_state_snapshot.md",
-      "sha256": "4c83ed7cb3d4487da097f2ce15215ed6a66f5fdb1fb0408d7638d6fa0e32eb6d",
-      "size_bytes": 6437,
+      "sha256": "f9f2a77ca5919ec827e9b0263a1db5f3998e29dbe24ce6ff5639774d777af024",
+      "size_bytes": 131629,
       "statuses": [],
       "title": "Release State Snapshot"
     },
@@ -30394,7 +30413,7 @@
       ],
       "links": [],
       "path": "docs/operations/staging_smoke_evidence_manifest.md",
-      "sha256": "18a2a81e6b8d5b46c40cda5e2c3611811c1f061c5075873350af2277923bb234",
+      "sha256": "e21d2e4d6bfd92956f87f6dcf0ace5da2bbf9e06a0ee0d9452046f58ed606d2b",
       "size_bytes": 1042,
       "statuses": [],
       "title": "Staging Smoke Evidence Manifest"
@@ -34103,6 +34122,11 @@
           "level": 2,
           "line": 1256,
           "text": "EVIDENCE-ATTACHMENT-RUNBOOK-001 / Backend implementation 2311-2350 \u2014 Operator runbook for attaching real release evidence"
+        },
+        {
+          "level": 2,
+          "line": 1273,
+          "text": "BETA-NO-GO-HANDOFF-001 / Backend implementation 2351-2390 \u2014 Beta NO-GO handoff packet"
         }
       ],
       "links": [
@@ -34128,8 +34152,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "8d9f9eb80ca6e8c1282b5a21504a98417787ea76a27ad655ce9387389ab78412",
-      "size_bytes": 40136,
+      "sha256": "95f640205da1fa1a175fe7d89521eca0ac7cb033e020e1f1c6e49b1d14376fea",
+      "size_bytes": 40669,
       "statuses": [
         "todo",
         "passed",
@@ -35603,7 +35627,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/alertmanager_drill_evidence.json",
-      "sha256": "fc2ee3e5afc7b0626508d0411c6b33b5b92316a9e6a17b6559387abf8da3d095",
+      "sha256": "9de8ec2839817fc67879121bf5015bfda25bf8c3760d36d8be3ddaf215b05b96",
       "size_bytes": 534,
       "statuses": [
         "passed",
@@ -35648,7 +35672,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/approval_evidence_status.json",
-      "sha256": "bb4d27833972f22eac27383d7e470bc4a78c7c247d8a8c911e6b5b7a218b9cac",
+      "sha256": "0d5fbfce7ee22652b07aa613ce7d851855b76ceba57a11da5a7a224fea2afa45",
       "size_bytes": 2800,
       "statuses": [
         "external-blocked",
@@ -35681,7 +35705,7 @@
       ],
       "links": [],
       "path": "docs/release/approval_evidence_status.md",
-      "sha256": "c5e205bf864dbefcd49aedffb650f8f08847ab2387e4b3e3204a234a61c56023",
+      "sha256": "4995233e6d23183cf2d39e618bed9388b2bffc43d717a8c0ebca9eb916c7f3a7",
       "size_bytes": 1296,
       "statuses": [
         "external-blocked",
@@ -35768,6 +35792,7 @@
         "scripts/check_cluster_g_frontend_evidence.py",
         "scripts/check_cluster_h_release_evidence_checksum_index.py",
         "scripts/check_evidence_archive_completeness_guard.py",
+        "scripts/check_evidence_attachment_runbook.py",
         "scripts/check_evidence_freeze_confirmation_record.py",
         "scripts/check_evidence_registry_commit_provenance.py",
         "scripts/check_evidence_status_registry.py",
@@ -35775,6 +35800,7 @@
         "scripts/check_final_release_evidence_ledger.py",
         "scripts/check_final_release_evidence_toc.py",
         "scripts/check_learning_evidence.py",
+        "scripts/check_live_db_tx_evidence.py",
         "scripts/check_merge_control_evidence_gate.py",
         "scripts/check_persistence_resilience_evidence.py",
         "scripts/check_phase2_authorization_evidence.py",
@@ -35798,11 +35824,13 @@
         "scripts/check_terminal_pr_evidence_index.py",
         "docs/release/ci_evidence.md",
         "scripts/ci_run_evidence.py",
+        "scripts/evidence_attachment_runbook.py",
         "scripts/evidence_registry.py",
         "scripts/generate_backend_consolidation_evidence_manifest.py",
         "scripts/generate_beta_release_evidence_bundle.py",
         "scripts/generate_release_evidence_manifest.py",
         "scripts/generate_staging_smoke_evidence_manifest.py",
+        "scripts/live_db_tx_evidence.py",
         "scripts/repair_beta_evidence_integrity.py",
         "scripts/staging_acceptance_evidence.py",
         "scripts/stamp_evidence_registry_commit.py"
@@ -35816,7 +35844,7 @@
         },
         {
           "level": 2,
-          "line": 2274,
+          "line": 2351,
           "text": "Review checklist"
         }
       ],
@@ -35828,8 +35856,8 @@
         }
       ],
       "path": "docs/release/audit_callsite_inventory.md",
-      "sha256": "8e5e156dd1ee91cffc134a12c5f41cc8e636aaca2dc29b45de4a904e38edf120",
-      "size_bytes": 302132,
+      "sha256": "4a8def2f9d66cad407fe43d6820919d691f589ecb29f1459676fc927ce0135c3",
+      "size_bytes": 311814,
       "statuses": [
         "pending",
         "fail",
@@ -36078,7 +36106,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/auth_db_lifecycle_proof_report.json",
-      "sha256": "9a7cbf533a06bdcc40f09a5622319ed26a3d5343b3a3c87e14327cb90d6d93c1",
+      "sha256": "fd88be9df042265ba47ff11a0a468bd205031dc9d2dd4446cb508bd368da9e42",
       "size_bytes": 706,
       "statuses": [],
       "title": "Auth Db Lifecycle Proof Report"
@@ -36107,7 +36135,7 @@
       ],
       "links": [],
       "path": "docs/release/auth_db_lifecycle_proof_report.md",
-      "sha256": "e4f8a590edba70776fafcdda8b8e3b2368c74a3e5ee45ebd56a053f4d192dac7",
+      "sha256": "2aa2d54c63321c92ee631b6f63d2ec41f3db13c22dc2747c8439bd059e6d23c8",
       "size_bytes": 842,
       "statuses": [],
       "title": "Auth DB Lifecycle Proof Report"
@@ -36154,7 +36182,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/auth_http_success_scope_report.json",
-      "sha256": "4e89757e9fec43a7a6bafb1bb0201a370385320103a7afec07ef116586f01f04",
+      "sha256": "b6d9acca6cf39162d5a609782877daff3fa9603d5490a4c7f034ce0c833931fc",
       "size_bytes": 2185,
       "statuses": [],
       "title": "Auth Http Success Scope Report"
@@ -36188,7 +36216,7 @@
       ],
       "links": [],
       "path": "docs/release/auth_http_success_scope_report.md",
-      "sha256": "4f7752630f6e12d345c7e8c1316c87a3504ea628861e12f77a959734c71a240b",
+      "sha256": "67f0367e3120770aa0ca5b949f6367aa6ee73d0ae23288ac6dc2cf3b352dca61",
       "size_bytes": 1330,
       "statuses": [],
       "title": "Auth HTTP Success Scope Report"
@@ -36328,7 +36356,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/auth_route_transaction_slice_report.json",
-      "sha256": "e04091553314eb2947ace498da096b20c3af827710a0ea2ee13eed37cdccb5e8",
+      "sha256": "469a6f46b158ac5c8d3c8d05945f772dc4d3290d8cb2781695580c65816b35df",
       "size_bytes": 1944,
       "statuses": [
         "external-blocked",
@@ -36377,7 +36405,7 @@
       ],
       "links": [],
       "path": "docs/release/auth_route_transaction_slice_report.md",
-      "sha256": "d4725910547444fd45a6d5f828460dc10aaf4c246257330a6b04f753af9f0f08",
+      "sha256": "55ae8f2e2bd32690fdb670001fea3390eefb76fa6977e8d09f73e5a2cc1386ac",
       "size_bytes": 1572,
       "statuses": [
         "external-blocked",
@@ -36395,7 +36423,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/auth_router_boundary_introspection.json",
-      "sha256": "ce5bf2fae954adac913f876e9972d3ff9b5e4681c3808f14a0d8862c66f8ffbd",
+      "sha256": "ac1437cfaffdb1e3fa859034d9f0a201e6c4a237ebfea80aa92f8ab3f9c2fdf5",
       "size_bytes": 2710,
       "statuses": [],
       "title": "Auth Router Boundary Introspection"
@@ -36419,7 +36447,7 @@
       ],
       "links": [],
       "path": "docs/release/auth_router_boundary_introspection.md",
-      "sha256": "6e52a0fb4ec1e73a7bb99068318dd59cd7beffbeb09552da614f41506163c1e5",
+      "sha256": "af511b329773de82ad6aed1612b14c5b37bb6eb9c9d3f8d923d2cea7b6fa1e66",
       "size_bytes": 1150,
       "statuses": [],
       "title": "Auth Router Boundary Introspection"
@@ -36477,7 +36505,7 @@
       ],
       "links": [],
       "path": "docs/release/auth_service_extraction_repair_report.md",
-      "sha256": "1bbc2021f2606fa09fb131e6e5e22001e4dc974e9893976875b174d6d2b3f7db",
+      "sha256": "daf814566d1f4a1bcc806bfc57adf29cad0d1e8912862df9de8a4694ac287c27",
       "size_bytes": 724,
       "statuses": [],
       "title": "Auth Service Extraction Repair Report"
@@ -36674,8 +36702,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_consolidation_diagnostic_report.md",
-      "sha256": "da0e3d1222928e9248a68e3ebd13ee79c34dd5cf27bcaff9463119e33011795e",
-      "size_bytes": 7921,
+      "sha256": "ab1b2771775d695962e93a45ad4523ed68c00c2f81650f9c5621065de702a164",
+      "size_bytes": 8341,
       "statuses": [
         "fail",
         "pass"
@@ -36777,7 +36805,7 @@
       ],
       "links": [],
       "path": "docs/release/backend_consolidation_evidence_manifest.md",
-      "sha256": "16629fa595bb54ea6a002ff91e0a39a139fd186fdd39ecd5af633188e55ed05d",
+      "sha256": "78ee4cdb842580da1bbc02a3366ca57895fe9dde1250b3a1451bb2adbbaf55f0",
       "size_bytes": 3639,
       "statuses": [],
       "title": "Backend Consolidation Evidence Manifest"
@@ -36872,8 +36900,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_consolidation_execution_report.md",
-      "sha256": "53609d24ab4caf9538dc4eba883ca23b552bbbda0447a5cde5f1005dd1aa0c47",
-      "size_bytes": 6604,
+      "sha256": "42705320f5880534c2c60dcb5408e85b8ffa836d190aa56ce010b5a31713b747",
+      "size_bytes": 7024,
       "statuses": [
         "pass",
         "pending"
@@ -36973,8 +37001,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_consolidation_implementation_foundation_report.md",
-      "sha256": "3a97e9f8650c58003265b083a956c5176881ef54ce13e7154d1e0f3ad7b54003",
-      "size_bytes": 12552,
+      "sha256": "98694c49e5953693d873d2075723b335dc1fbe92ce2d51e741523f36a4c7c381",
+      "size_bytes": 12888,
       "statuses": [
         "pass",
         "pending"
@@ -37059,8 +37087,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_consolidation_progress_report.md",
-      "sha256": "e815ece7de14d5728dfb34909a6c065c66273fb1b27868c0afb8005efc342397",
-      "size_bytes": 3557,
+      "sha256": "9a9f11011cb5cdb1229d04186cb5471f916e38212b3b30bbbfd7429cebec9060",
+      "size_bytes": 3893,
       "statuses": [
         "pass"
       ],
@@ -37158,8 +37186,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_consolidation_readiness_report.md",
-      "sha256": "58875e8f0a324d652a4bb7665917bb8560ddcacf60fcfc78a0913c60dafc431f",
-      "size_bytes": 2514,
+      "sha256": "508d0e66091117934d0d747139479187a014021ad26154766db174cde1f7a743",
+      "size_bytes": 2850,
       "statuses": [
         "fail",
         "pass",
@@ -37276,8 +37304,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_consolidation_terminal_report.md",
-      "sha256": "213e71e36ef17df8af12a0c143416060563d6c90f6a2521b7a544f85765ed27b",
-      "size_bytes": 8736,
+      "sha256": "e5d4dcca648b4ad86f85e0fc8a909c4e7b4ee2638f4251eb442d170bc752182a",
+      "size_bytes": 9156,
       "statuses": [
         "pass",
         "pending"
@@ -37565,7 +37593,7 @@
         },
         {
           "level": 2,
-          "line": 238532,
+          "line": 248618,
           "text": "Deletion criteria"
         }
       ],
@@ -38347,8 +38375,8 @@
         }
       ],
       "path": "docs/release/backend_deletion_candidate_inventory.md",
-      "sha256": "7277bca9a4ffa523d3772f946bede467c472ae0e892fac699ffe731dae3d8fb3",
-      "size_bytes": 78450594,
+      "sha256": "30dad9aac6407eb2cd78dcfd3bdf867f5114d3c551325e4b6d24573c17a47c32",
+      "size_bytes": 81790110,
       "statuses": [
         "todo",
         "passed",
@@ -38435,8 +38463,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_first_wiring_candidates_report.md",
-      "sha256": "b0151beea95f8940385bc6dde76550254b9bba68f63182d359f9ff57606a2a76",
-      "size_bytes": 5695,
+      "sha256": "8fc3e905e7b01e47af7328c07531d43778543b7b82f0e0f4f0bd5fbfdeb5e054",
+      "size_bytes": 5947,
       "statuses": [
         "pass",
         "blocked"
@@ -38488,8 +38516,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_implementation_371_375_report.md",
-      "sha256": "543665a5f2cbd45f5c7c9013854772a023a2e4b3771aca143d283eea4f3f003e",
-      "size_bytes": 3072,
+      "sha256": "e82b6efa513ecc082a573a93371401a7c0f599f331b35f8d6f492f6420eec40d",
+      "size_bytes": 3408,
       "statuses": [
         "pass"
       ],
@@ -38751,8 +38779,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_runtime_compatibility_report.md",
-      "sha256": "4b2d8cc3acd4b8de0a3d817b50fb29fc1d4f8764afff23e0f907433cb3b1e0a6",
-      "size_bytes": 3663,
+      "sha256": "311fa8d2056c4109e6d3b562cae178e7317c5276ec429d7151bc68300cdb9655",
+      "size_bytes": 3999,
       "statuses": [
         "fail",
         "pass"
@@ -38911,8 +38939,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_runtime_enablement_report.md",
-      "sha256": "479b44ed26de3022569cd579cae5a487772a2ddaa600ebb0ede4ea8d3ba80931",
-      "size_bytes": 6545,
+      "sha256": "c5d51338d0f98e93f642d8c480d6e3cdd2e5b2303a17db916c784ee99ff6de67",
+      "size_bytes": 6881,
       "statuses": [
         "pass",
         "blocked"
@@ -39060,8 +39088,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_runtime_integration_readiness_report.md",
-      "sha256": "08eda573f211de776e38adb58799beda467ecfeadcbb84a36106bb1caa66b418",
-      "size_bytes": 5424,
+      "sha256": "e8bb2e4a9034edec60e53b6998ab197ea390c8a49966f90e83c59e035cfea713",
+      "size_bytes": 5760,
       "statuses": [
         "pass",
         "blocked"
@@ -39182,8 +39210,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_runtime_probe_report.md",
-      "sha256": "90f2102167ffb84759392fa1527e3afc92c5b2c84a0bcd4c1052ba66de103afb",
-      "size_bytes": 6188,
+      "sha256": "89a7f7d2a243cf47ee4f5e4946b32751ae8e788bc1869f40b8c030f73e80b36b",
+      "size_bytes": 6524,
       "statuses": [
         "pass",
         "pending"
@@ -39232,8 +39260,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_runtime_wiring_cases_report.md",
-      "sha256": "ca933d6f4bc56166d57f6651a6cfe83764038b1f762c64b4eaf771f94a4ddace",
-      "size_bytes": 5122,
+      "sha256": "551967703ce2054bdbe97262f470c1d6ee99e39859845fc7f657a5d1b3b00b98",
+      "size_bytes": 5374,
       "statuses": [
         "pass",
         "blocked"
@@ -39359,8 +39387,8 @@
       ],
       "links": [],
       "path": "docs/release/backend_runtime_wiring_preflight_report.md",
-      "sha256": "87c347a215470c4b90117f70ccb89ca8127ec2a4c1da574d8d3c8771cc29d5d5",
-      "size_bytes": 4682,
+      "sha256": "9e306b5818f3df7ab8793fb6a9237ba515b0b2f9ef91299119893fefa4fb69dc",
+      "size_bytes": 5144,
       "statuses": [
         "pass",
         "blocked",
@@ -39439,7 +39467,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/backup_drill_evidence.json",
-      "sha256": "a4daf267bee043156f4a337fe1ce7e06b06676014eaaf906308fefa0d849df84",
+      "sha256": "d053534dfa4fd48d630e41174c96ef20e78e6be7775f9bd74561fa1d50483882",
       "size_bytes": 194,
       "statuses": [],
       "title": "Backup Drill Evidence"
@@ -39458,7 +39486,7 @@
       ],
       "links": [],
       "path": "docs/release/backup_drill_evidence.md",
-      "sha256": "f2b84f5a3a1a84ed979a7505b04e91e1fefbc9e0ecd6568c5a6af6045f7109b8",
+      "sha256": "aef8be06517d3926e47c9556c703104712e6ca6c9f2ecdaa77ddfe92772bc571",
       "size_bytes": 225,
       "statuses": [
         "pending"
@@ -39481,7 +39509,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/beta_blocker_burndown_plan.json",
-      "sha256": "55b3290317e108c3fe70eb5ab10abacae91319a384a6ac7087131418ee6387a5",
+      "sha256": "90e09e50e3cfda5d3546818d265eb17ea907d590f4ebfa5ae3f9c069b079a39a",
       "size_bytes": 4049,
       "statuses": [
         "blocked",
@@ -39520,7 +39548,7 @@
       ],
       "links": [],
       "path": "docs/release/beta_blocker_burndown_plan.md",
-      "sha256": "d30720b7a1356a2fabbd0bca77e444b61bb70bf1206609f26739d0a09ee1deee",
+      "sha256": "c0e95746953929fd1f2899019dc6d9b914845190b2343c1177af06971d563410",
       "size_bytes": 2225,
       "statuses": [
         "blocked",
@@ -39546,7 +39574,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/beta_evidence_integrity_repair_report.json",
-      "sha256": "7d53537a1efdde27593efbba5eda35b32fe156a9963d38ae0597e954f1b73b25",
+      "sha256": "8ea2c7571f712c871db81e543be06ed2055e8a7faa67f029d971e6aac8ef3d2d",
       "size_bytes": 2863,
       "statuses": [
         "blocked"
@@ -39577,7 +39605,7 @@
       ],
       "links": [],
       "path": "docs/release/beta_evidence_integrity_repair_report.md",
-      "sha256": "44b6e0bce9ddc376405d4acf4d74bd57c68eb4b8abc2c99fa1d373994abb4926",
+      "sha256": "844ebc3b85eb8cc770dfe32b51c12338ec99db1ea9d723f7c7f74cef4e25d90e",
       "size_bytes": 1232,
       "statuses": [
         "blocked"
@@ -39624,6 +39652,88 @@
       "category": "release",
       "dates": [],
       "evidence_references": [
+        "docs/release/final_beta_gate_refresh.json",
+        "docs/release/release_go_no_go_status.json",
+        "docs/release/beta_blocker_burndown_plan.json",
+        "docs/release/evidence_attachment_runbook.md"
+      ],
+      "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/release/beta_no_go_handoff_packet.json",
+      "sha256": "0b25f9e5514c557f5c3c9722209175510c788bb0a1645caed88fd45186ad65b2",
+      "size_bytes": 4122,
+      "statuses": [
+        "blocked",
+        "external-blocked",
+        "pending",
+        "pass"
+      ],
+      "title": "Beta No Go Handoff Packet"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [
+        "docs/release/final_beta_gate_refresh.json",
+        "docs/release/release_go_no_go_status.json",
+        "docs/release/beta_blocker_burndown_plan.json",
+        "docs/release/evidence_attachment_runbook.md"
+      ],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Beta NO-GO Handoff Packet"
+        },
+        {
+          "level": 2,
+          "line": 10,
+          "text": "Source surfaces"
+        },
+        {
+          "level": 2,
+          "line": 19,
+          "text": "Required evidence items"
+        },
+        {
+          "level": 2,
+          "line": 32,
+          "text": "Operator next steps"
+        },
+        {
+          "level": 2,
+          "line": 40,
+          "text": "Freeze rules"
+        },
+        {
+          "level": 2,
+          "line": 46,
+          "text": "No false-closure rules"
+        },
+        {
+          "level": 2,
+          "line": 54,
+          "text": "Interpretation"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/beta_no_go_handoff_packet.md",
+      "sha256": "c61b2c1b08c7039d7d8177d0df24da3684aec6719453d6369cb0ee11d1ae720c",
+      "size_bytes": 3179,
+      "statuses": [
+        "blocked",
+        "external-blocked",
+        "pending",
+        "pass"
+      ],
+      "title": "Beta NO-GO Handoff Packet"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [
         "docs/release/staging_smoke_latest.json",
         "docs/release/placeholder_restore.log",
         "docs/release/placeholder_rollback.log"
@@ -39638,7 +39748,7 @@
         }
       ],
       "path": "docs/release/beta_readiness_status.json",
-      "sha256": "0b1aad138ce1a616510c82b66c45c36a6009ba7dbe559fc23828aef3f4cf29a9",
+      "sha256": "d69d02607b7d976d8c1a86e2e14b2050bdff7968eb9f40adc15937d97d39caf2",
       "size_bytes": 2931,
       "statuses": [
         "blocked",
@@ -39706,7 +39816,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/branch_protection_evidence.json",
-      "sha256": "4a1b70277d8e263266fa7c2fef5f9ecedce22f9754f60fd097c6b4ce591f272e",
+      "sha256": "213031f29e40722559aca86b7ec304b65066721075ab16ac7d4ba741a0aba032",
       "size_bytes": 301,
       "statuses": [],
       "title": "Branch Protection Evidence"
@@ -39730,7 +39840,7 @@
       ],
       "links": [],
       "path": "docs/release/branch_protection_evidence.md",
-      "sha256": "8191ff98abe83c9b1520e392f3b36064fa9fb19e6b171fb628bdc3471ae599df",
+      "sha256": "acc6da280cbaa7118d540e710471f5a25eb249be2ae1003a8f6fa90b09533590",
       "size_bytes": 584,
       "statuses": [
         "pending"
@@ -39747,7 +39857,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/ci_authority_status.json",
-      "sha256": "757e2ebec9375c9f8ee7e4960da411704a6e4ca123eef078410027f1405a11a9",
+      "sha256": "1acabadb912e59363771c4b991a001b9c540d004651df6792bdb4e8d2bc601b3",
       "size_bytes": 2319,
       "statuses": [
         "external-blocked"
@@ -39785,7 +39895,7 @@
       ],
       "links": [],
       "path": "docs/release/ci_authority_status.md",
-      "sha256": "393adfab9d6545a22331eb9655b8f334799d35f3485a7834d988822694658c98",
+      "sha256": "c69c8dd4ba686dcca3df1763cd15d52b6b09e0ca70f51d4f98fe13687103fa73",
       "size_bytes": 2326,
       "statuses": [
         "external-blocked",
@@ -39801,7 +39911,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/ci_evidence.json",
-      "sha256": "78ad55991dfaf1d38a6cc672e443ab74a6fe53a8ae836bb49467d11e371d5aa1",
+      "sha256": "c37ff0e48a4d3ee73156212ccfbf771c529b4264fbf930b7f3a6347cf706fe80",
       "size_bytes": 196,
       "statuses": [],
       "title": "Ci Evidence"
@@ -39858,7 +39968,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/ci_run_evidence_status.json",
-      "sha256": "ce0a7acc5620902986b6f8993f33bbe539dd12e4c97a1e90b137eaf560061aa1",
+      "sha256": "7e77c8bf69e8ad2fea90a512266abd7284fd068b4c4ca9be00d4dfe67e3a1fbc",
       "size_bytes": 766,
       "statuses": [
         "external-blocked",
@@ -39892,7 +40002,7 @@
       ],
       "links": [],
       "path": "docs/release/ci_run_evidence_status.md",
-      "sha256": "1a18de453b20c5c7ae23612a5199c99a656fbb7961380f671ff056e0d1c62c80",
+      "sha256": "94839e001deb9c0cec602fe33a9dca3a3b72df8f9c2a34bdd2025948b6d34411",
       "size_bytes": 801,
       "statuses": [
         "external-blocked",
@@ -40371,7 +40481,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/diagnostics_db_integrity_proof.json",
-      "sha256": "e00608d82b89fdb6210385268de646da9f3f714d0ad714d7a4365b81c8603f89",
+      "sha256": "cb36d3a2cec62cbe57b29ded95950a0d060e970cbb858b6bc0f1f9571519f5ac",
       "size_bytes": 377,
       "statuses": [],
       "title": "Diagnostics Db Integrity Proof"
@@ -40395,7 +40505,7 @@
       ],
       "links": [],
       "path": "docs/release/diagnostics_db_integrity_proof.md",
-      "sha256": "13abf399933454a3a31911e17f52d7fd2710b4e9f48123320e0055f19ff2da17",
+      "sha256": "b354074522d861c7db571b85aad8f4cafa80ef529ee4f06738dda95eabae573f",
       "size_bytes": 206,
       "statuses": [],
       "title": "Diagnostics DB Integrity Proof"
@@ -40500,7 +40610,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/diagnostics_route_transaction_gap_plan.json",
-      "sha256": "aecbd57cfcc13e8d53fd31bd5ca1777906921e540773035ef8223b96c99881d8",
+      "sha256": "e5e93d17b369fbc999e35e7aed6f243c93a5e5247b26c1de5a8dde18fda0a1b9",
       "size_bytes": 1223,
       "statuses": [
         "not-proven",
@@ -40540,7 +40650,7 @@
       ],
       "links": [],
       "path": "docs/release/diagnostics_route_transaction_gap_plan.md",
-      "sha256": "de4276e834e32aa02233068121ace7935933c05161ae13f1dee325831c90d9df",
+      "sha256": "6061acd026cad77907101873fbb3e28c9f7e54c5cce00575ff0dce0e3e71d13b",
       "size_bytes": 948,
       "statuses": [
         "not-proven",
@@ -40589,7 +40699,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/diagnostics_route_transaction_slice_report.json",
-      "sha256": "bd9505aaca49f1deaa81f0e278925b6b48f91ff4e950f36c44c538b5f37b3d09",
+      "sha256": "c0aa2f58db2231c0d43b6334aa50d6800391148740c3ec9b212886bbe79d2ffa",
       "size_bytes": 2453,
       "statuses": [
         "not-proven",
@@ -40639,7 +40749,7 @@
       ],
       "links": [],
       "path": "docs/release/diagnostics_route_transaction_slice_report.md",
-      "sha256": "ff520c13777976245e7221beb0be1695d14649d36ea9c280d01650bf005aa404",
+      "sha256": "bb6decf6e13bc96eae210595e4a8d5fb63b62d005e81ba0258161be1f9b989a4",
       "size_bytes": 1826,
       "statuses": [
         "not-proven",
@@ -40702,7 +40812,7 @@
       ],
       "links": [],
       "path": "docs/release/disposable_db_schema_proof_execution_report.md",
-      "sha256": "458e6615fa4ac6e96831a94aca718e8c88088c91548012c317784da7c96da5c8",
+      "sha256": "bb8488a02327468e8c447fc1bcdee818535b6b99d731cbd506e0fec9d958f835",
       "size_bytes": 168,
       "statuses": [
         "pending"
@@ -40815,7 +40925,7 @@
         }
       ],
       "path": "docs/release/evidence_attachment_runbook.md",
-      "sha256": "8f0e830dc8b2e1d029a81eb33ef943202b759bbf8432213bbc8b9f519883c2c5",
+      "sha256": "982f256429c03773c986f583aa2fbc898c817ae41f1a63b4e7a4f8bb322d9d88",
       "size_bytes": 5177,
       "statuses": [
         "passed",
@@ -40870,7 +40980,7 @@
         }
       ],
       "path": "docs/release/evidence_attachment_runbook_manifest.json",
-      "sha256": "32bc137f79152435f5bc3439405f4b1f8eca635f985492a9e3605cf96c118140",
+      "sha256": "93f07ec47f43bf2f66a090ccd2d76d354959227285d158074d54ba65f77c0f2d",
       "size_bytes": 4984,
       "statuses": [
         "passed",
@@ -40908,13 +41018,14 @@
         "docs/release/ci_run_evidence_status.md",
         "docs/release/approval_evidence_status.md",
         "docs/release/route_transaction_implementation_plan.md",
-        "docs/release/auth_route_transaction_live_db_evidence.md",
-        "docs/release/popia_route_transaction_live_db_evidence.md",
+        "docs/release/auth_route_transaction_slice_report.md",
+        "docs/release/popia_route_transaction_slice_report.md",
         "docs/release/popia_route_transaction_gap_plan.md",
-        "docs/release/diagnostics_route_transaction_live_db_evidence.md",
+        "docs/release/diagnostics_route_transaction_slice_report.md",
         "docs/release/live_db_transaction_evidence_status.md",
         "docs/release/final_beta_gate_refresh.md",
-        "docs/release/evidence_attachment_runbook.md"
+        "docs/release/evidence_attachment_runbook.md",
+        "docs/release/beta_no_go_handoff_packet.md"
       ],
       "generated": false,
       "headings": [
@@ -40991,8 +41102,8 @@
       ],
       "links": [],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "5a6f1894d3dc8c87f04dd365d58c28654c9c8ff155bf667889c7d70b649f41e3",
-      "size_bytes": 19401,
+      "sha256": "abf5d8be694b257043342d0b75ac3c3c2d809aa41edebe9d8461b500139896e9",
+      "size_bytes": 20044,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -41015,7 +41126,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/external_approval_status.json",
-      "sha256": "9a017432bed45dac67e9272952e94b684fd2c6b35dd9e78bf37980c3c18fb4b8",
+      "sha256": "55ba6dbe783055fbd9e36b68c2208fff67801be8c23b975b15bc53c879b6081c",
       "size_bytes": 3030,
       "statuses": [
         "external-blocked",
@@ -41047,7 +41158,7 @@
       ],
       "links": [],
       "path": "docs/release/external_approval_status.md",
-      "sha256": "f59c1ff2affbe84215a53624b6b4aded29e0088f483184b9d4923494d0eababf",
+      "sha256": "7e3dc300ccb8506cd947c1cbf9d3852b511cc51e78e3bdd2b27f2433d15c78ad",
       "size_bytes": 1584,
       "statuses": [
         "external-blocked",
@@ -41201,7 +41312,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "36f80b4e85f50b4c0db34242cbbf0b387a5d117384f5ab504a302b2b29e16c6f",
+      "sha256": "7b64a5c5ad76cb0d4cc70fcfd220d74bcceddfba0bf33642f6c425d1ebd2de96",
       "size_bytes": 10261,
       "statuses": [
         "external-blocked",
@@ -41264,7 +41375,7 @@
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "e329bcb438887f8fa8e08be87f0edd62a8a7e0ee30a7eb00c39b98ba94a10b7c",
+      "sha256": "4265ab1872571895a9202677b6dae874470df76033b9241fe714911d44eded30",
       "size_bytes": 3578,
       "statuses": [
         "external-blocked",
@@ -41439,8 +41550,8 @@
       ],
       "links": [],
       "path": "docs/release/first_audit_runtime_wiring_report.md",
-      "sha256": "ef1cfc79ff60ee69ad4a8b314958e1ec63f410d93e39edd05d77151bfc5fd35b",
-      "size_bytes": 4393,
+      "sha256": "dcc0a2c7ae29dfd5b7f1bd36cdac7706f94e9d7c641326277f7eb55fa9dfb18e",
+      "size_bytes": 4729,
       "statuses": [
         "pass",
         "blocked"
@@ -41729,7 +41840,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/live_db_transaction_evidence_status.json",
-      "sha256": "c9b3340c9097c7e4a8fe38fba851677789d25ea89989772c698aa2682f8c1823",
+      "sha256": "fd754f4e6918a6f607170ca4bd8455279d83ffd54a72f9fbe2bee1caf8805a4b",
       "size_bytes": 3527,
       "statuses": [
         "external-blocked",
@@ -41763,7 +41874,7 @@
       ],
       "links": [],
       "path": "docs/release/live_db_transaction_evidence_status.md",
-      "sha256": "7d5635b1efb65495665d1a136a1be060fb53bd5f11f8b7518b1c250b7ebace00",
+      "sha256": "5ddae6f04676d4b4c125ae4e8849c8f791b35e9a381593b7365a78adfe36f952",
       "size_bytes": 1534,
       "statuses": [
         "external-blocked",
@@ -43037,6 +43148,42 @@
     {
       "category": "release",
       "dates": [],
+      "evidence_references": [
+        "docs/release/evidence_attachment_runbook.md"
+      ],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Next Execution Queue After BETA-NO-GO-HANDOFF-001 / code_2351_2390"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next action"
+        },
+        {
+          "level": 2,
+          "line": 7,
+          "text": "Operational mode"
+        },
+        {
+          "level": 2,
+          "line": 18,
+          "text": "Current expected posture"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2351_2390.md",
+      "sha256": "837b8cf59538b7bf790902e83773bac78dd723c00ed4b315cd4281fcd652453a",
+      "size_bytes": 626,
+      "statuses": [],
+      "title": "Next Execution Queue After BETA-NO-GO-HANDOFF-001 / code_2351_2390"
+    },
+    {
+      "category": "release",
+      "dates": [],
       "evidence_references": [],
       "generated": false,
       "headings": [
@@ -44262,6 +44409,35 @@
         {
           "level": 1,
           "line": 1,
+          "text": "No False-Closure Status After BETA-NO-GO-HANDOFF-001 / code_2351_2390"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 12,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2351_2390.md",
+      "sha256": "01a761d0dd24d6c17025a5b60cf452bbfb89b0cfccce46d353ad6f7e6afc0fd2",
+      "size_bytes": 579,
+      "statuses": [],
+      "title": "No False-Closure Status After BETA-NO-GO-HANDOFF-001 / code_2351_2390"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "No False-Closure Status After code_831_870"
         },
         {
@@ -44566,7 +44742,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/popia_lifecycle_runtime_proof.json",
-      "sha256": "9be35119c8580b261b837cf6756ee490bd11f552ab67454220be8c3d7dedf149",
+      "sha256": "10ef3e0d50ecceb2d429c0680dd08d1f28574d6f3921f8adf22b5d3aad643c61",
       "size_bytes": 379,
       "statuses": [],
       "title": "Popia Lifecycle Runtime Proof"
@@ -44590,7 +44766,7 @@
       ],
       "links": [],
       "path": "docs/release/popia_lifecycle_runtime_proof.md",
-      "sha256": "011eab128965fd1fe9e66f1f1e4c4facc618a428cbc4e009efa1d4809a951240",
+      "sha256": "588b5ac9085890d710f6cbfd3b2a1e24a5910d50165a4f5e0b96669120fe9837",
       "size_bytes": 405,
       "statuses": [],
       "title": "POPIA Lifecycle Runtime Proof"
@@ -44605,7 +44781,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/popia_route_transaction_gap_plan.json",
-      "sha256": "8f32b877a12659e3c688e7ee33e0eb329ce2f96986bd4f2501d745712cf99906",
+      "sha256": "042391965ecb633e0945a44cc876dae61f6db12287cbd908d6eb5c7619a5d56d",
       "size_bytes": 741,
       "statuses": [
         "external-blocked",
@@ -44649,7 +44825,7 @@
       ],
       "links": [],
       "path": "docs/release/popia_route_transaction_gap_plan.md",
-      "sha256": "63ce720532b57ab7e8d824d56eab04e049dc0d5b4afee53f5975873a7b1ba0c3",
+      "sha256": "bb679d3957727dfe5ba92507d4111a8b5e99a1828bd253f4e0848b2162348558",
       "size_bytes": 1105,
       "statuses": [
         "external-blocked",
@@ -44697,7 +44873,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/popia_route_transaction_slice_report.json",
-      "sha256": "1334097d424e03f1c8f22aee3d4061cd0222426d3370c3eea5d7904d7a8fc911",
+      "sha256": "b94ccac6e78476bc9c412e5a339b95ea8cb1cd0d68f3b8bd3f316632032f4e44",
       "size_bytes": 3079,
       "statuses": [
         "external-blocked",
@@ -44746,7 +44922,7 @@
       ],
       "links": [],
       "path": "docs/release/popia_route_transaction_slice_report.md",
-      "sha256": "39378032aadf00871b840e14511d0be2ccb602b60f44c23a1916ba2ad42fa8b9",
+      "sha256": "7482bcd7737804d1d4776de985d613b38b56e58646fbfc1eb984ee2a373c7ada",
       "size_bytes": 1821,
       "statuses": [
         "external-blocked",
@@ -44936,10 +45112,10 @@
         "docs/release/diagnostics_dynamic_repository_boundary_repair_report.md",
         "docs/release/auth_repository_fixture_proof_report.md",
         "docs/release/live_db_transaction_evidence_status.md",
-        "docs/release/auth_route_transaction_live_db_evidence.md",
-        "docs/release/diagnostics_route_transaction_live_db_evidence.md",
+        "docs/release/auth_route_transaction_slice_report.md",
+        "docs/release/diagnostics_route_transaction_slice_report.md",
         "docs/release/route_transaction_implementation_plan.md",
-        "docs/release/popia_route_transaction_live_db_evidence.md",
+        "docs/release/popia_route_transaction_slice_report.md",
         "docs/release/popia_route_transaction_gap_plan.md",
         "docs/release/route_transaction_slice_rollup.md",
         "docs/release/no_false_closure_status_after_1471_1510.md",
@@ -44948,6 +45124,7 @@
         "docs/release/no_false_closure_status_after_1431_1470.md",
         "docs/release/approval_evidence_status.md",
         "docs/release/staging_acceptance_status.md",
+        "docs/release/beta_no_go_handoff_packet.md",
         "docs/release/beta_blocker_burndown_plan.md",
         "docs/release/evidence_attachment_runbook.md",
         "docs/release/final_beta_gate_refresh.md",
@@ -44957,8 +45134,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/release_go_no_go_status.json",
-      "sha256": "b5ead518b622a43c20aef4005c0fce4a001c824c9e2a401dbec5014290c20796",
-      "size_bytes": 18830,
+      "sha256": "a1b020530efb1454486a6703bf79abb47cd4ff0831b8e7afbe986923c90928e4",
+      "size_bytes": 19324,
       "statuses": [
         "external-blocked",
         "pending",
@@ -45016,7 +45193,7 @@
       ],
       "links": [],
       "path": "docs/release/release_go_no_go_status.md",
-      "sha256": "e897d8d65653a9434e287f4c258a94ab468a462213b2baf159a135e8c9f01bbc",
+      "sha256": "6c7ff963721896b11b7ea89c0342a88492bb6b2d7a73ebbb3a500d7bcb9d2811",
       "size_bytes": 2905,
       "statuses": [
         "external-blocked",
@@ -45063,7 +45240,7 @@
       ],
       "links": [],
       "path": "docs/release/release_owner_beta_go_no_go_memo.md",
-      "sha256": "d71f410cedf117e933e1f2572592385354bbceba6def80721bb028a53584fc7c",
+      "sha256": "68c5841bda589d0d89d456edf134b08a75446bad3c6b5d57f6b0c3c8c8849238",
       "size_bytes": 556,
       "statuses": [
         "blocked"
@@ -45141,7 +45318,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/restore_drill_evidence.json",
-      "sha256": "99d2c57fe1f1b24930611bf1270d4d21281072f772d7f26251237e8002f3e570",
+      "sha256": "8d4c362d594cbc6639871d7ff20c650d22272a2e05f353bc852d1d1eddecec8d",
       "size_bytes": 519,
       "statuses": [
         "passed",
@@ -45186,7 +45363,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/rollback_drill_evidence.json",
-      "sha256": "6b9aba8a1c2dbe3eb7d8629e4394ead6884088bc7adcf837457daddca0103075",
+      "sha256": "7327fff46a902412752a4afb8ee208f78833a4c45b5f85ebb3fc0ec926d5eba5",
       "size_bytes": 522,
       "statuses": [
         "passed",
@@ -45284,7 +45461,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/route_transaction_implementation_plan.json",
-      "sha256": "c30eb99d0773a6b2702355fa624a53675642ffa20006818fa30b560a35ecf331",
+      "sha256": "3dbf0550c733589c897276edc1a6c1480323f5bcb7fc99164c0abbdb70959f86",
       "size_bytes": 13056,
       "statuses": [
         "not-proven",
@@ -45402,7 +45579,7 @@
       ],
       "links": [],
       "path": "docs/release/route_transaction_implementation_plan.md",
-      "sha256": "52872759ddea6f5471d2904ad7b0f4d89bb2c9f810ccb86e91007e01feb53647",
+      "sha256": "8d379fdd8a4bff5a19e4be227c2e963164f58ddfc131a7941f5427d8e3ae8c63",
       "size_bytes": 10909,
       "statuses": [
         "not-proven",
@@ -45423,7 +45600,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/route_transaction_slice_rollup.json",
-      "sha256": "ea0b758c4b9169a06a00d657b28a7964ec9cedbfc31a2cfdda0232c28dc2677b",
+      "sha256": "4afb34a37268e036055b5bf432f198fe9201079d180a33e66ba0d03a413a167e",
       "size_bytes": 3628,
       "statuses": [
         "blocked",
@@ -45469,7 +45646,7 @@
       ],
       "links": [],
       "path": "docs/release/route_transaction_slice_rollup.md",
-      "sha256": "42a4b22eacc92d649ad3463b056d15d2604bb7e762ddf5c32976b1df068dd984",
+      "sha256": "9e9eebbcc83368d9663b4ea812117a57324312c8553e6f5cff96a7941ab7b30e",
       "size_bytes": 1403,
       "statuses": [
         "blocked",
@@ -45648,8 +45825,8 @@
       ],
       "links": [],
       "path": "docs/release/runtime_wiring_431_450_report.md",
-      "sha256": "63165c3b4fd841a79a2b7e12a23c178a2760570c91ad25b8c082972d31d146a5",
-      "size_bytes": 5363,
+      "sha256": "6bde3709ed978bad3fd48c6a469dbf4f77da9e0e4d850f5597d95231c956e0d2",
+      "size_bytes": 5699,
       "statuses": [
         "pass",
         "blocked"
@@ -45759,8 +45936,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/schema_drift_disposable_latest.json",
-      "sha256": "0cc2f9555982153853153f11896e92e16b39c3267143c1cb161999b80c42b525",
-      "size_bytes": 983,
+      "sha256": "fd6e41a35d238ad1d0e80dd36efe834875faa307d51d03494674e9360831793e",
+      "size_bytes": 1109,
       "statuses": [
         "passed",
         "pass",
@@ -45782,7 +45959,7 @@
       ],
       "links": [],
       "path": "docs/release/schema_drift_disposable_latest.md",
-      "sha256": "3bb585de01a486bb1d13857f920ff50a666f7016125f7f18844f9f52f4e548ec",
+      "sha256": "acadde1d01d3001f680d70411e8bb35002c4359c59703617e1eb450a325bde31",
       "size_bytes": 341,
       "statuses": [
         "passed"
@@ -45985,7 +46162,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/staging_acceptance_status.json",
-      "sha256": "b498ec9b90ca243974548f259319162eecdce96023c89fd9f53a79dda41c868b",
+      "sha256": "e55986c1474a2b0807a32ef907703929204e8da33e040600db6529da9b1b08d6",
       "size_bytes": 1913,
       "statuses": [
         "external-blocked",
@@ -46017,7 +46194,7 @@
       ],
       "links": [],
       "path": "docs/release/staging_acceptance_status.md",
-      "sha256": "74a8183297a011190083705e42ab75bfcd1ba8be22dc923ba390c403b6ddcf3b",
+      "sha256": "4fc93d90decead002f9e6850b12d88fde879b2bb2aa19cde3674b0abb645034c",
       "size_bytes": 1227,
       "statuses": [
         "external-blocked",
@@ -46079,7 +46256,7 @@
         }
       ],
       "path": "docs/release/staging_smoke_final_evidence.json",
-      "sha256": "682fbe73cd4f4b1d1c5ddff405b285dd9199c3bdc4c109d94a3b32dad20d6057",
+      "sha256": "1e66ef4b52ad342477aad334854820fb26317069f32eaed83ae1d15ddae7075b",
       "size_bytes": 221,
       "statuses": [
         "pass",
@@ -46109,7 +46286,7 @@
         }
       ],
       "path": "docs/release/staging_smoke_final_evidence.md",
-      "sha256": "42bf3864fe8c8cf995a17e0e671a0d8729ca1ec3c0d76706a52dfd78a8817b0f",
+      "sha256": "fbe50f8f41a02876f1c010ca8cdff4a886fe91a7e81537d78ffb0444eab8e67f",
       "size_bytes": 348,
       "statuses": [
         "pass",
@@ -46281,7 +46458,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/transaction_rollback_rollup_report.json",
-      "sha256": "a11319d43122947a22ea6a9c69520d4e9a524beb042afc6d7cf2f3addbb756a5",
+      "sha256": "405292bef6147773c37a82c83c30a0f35a157c6e21f0bbdf32a9a75f767e3b8c",
       "size_bytes": 1522,
       "statuses": [
         "not-proven"
@@ -46322,7 +46499,7 @@
       ],
       "links": [],
       "path": "docs/release/transaction_rollback_rollup_report.md",
-      "sha256": "85381f77ce76d0f7d52d0375f74fba2340e2b224a44615f31c3223c6c3166f74",
+      "sha256": "edcefd91ceb156902d58860a3151ad1914466e064d657063afd8b3ba586e6b67",
       "size_bytes": 1291,
       "statuses": [
         "not-proven"
@@ -48933,7 +49110,7 @@
       "headings": [],
       "links": [],
       "path": "docs/security/dependency_pin_report.json",
-      "sha256": "e4a7f3f4864d95adf091e4897635658d72d6b5f091068ff36af489fbeb639ead",
+      "sha256": "8904fc4f0e44acc903898aa08207f25648f2ab0752d511b8a8235cca93519be5",
       "size_bytes": 122186,
       "statuses": [],
       "title": "Dependency Pin Report"
@@ -48957,7 +49134,7 @@
       ],
       "links": [],
       "path": "docs/security/dependency_pin_report.md",
-      "sha256": "2bea349afea6286f4e9b5266b4e871bed1da34fd3ef7a55b2a7f4d302663c682",
+      "sha256": "502d8426909d035f3a96522eb37c7835ffdc2f945eb3f1599caf379fde72c904",
       "size_bytes": 240,
       "statuses": [],
       "title": "Dependency Pin Report"
@@ -49419,7 +49596,7 @@
       "headings": [],
       "links": [],
       "path": "docs/security/jwt_rotation_introspection.json",
-      "sha256": "6428ba7eee2c87ecb6284722fe65fe32fe86c5dc31121a43eda090d1ade79992",
+      "sha256": "78f14ec7aa50ed2164d7765c19a6e35efc5f31d30f7134a8fcc63366fe330e2c",
       "size_bytes": 638,
       "statuses": [],
       "title": "Jwt Rotation Introspection"
@@ -49438,7 +49615,7 @@
       ],
       "links": [],
       "path": "docs/security/jwt_rotation_introspection.md",
-      "sha256": "cba1f7341123681ee57b466e3aca8f84aa170ee77f55e79aef2073e519d941bf",
+      "sha256": "8c814413dee2e471d25f04231ee9f2a4af43f8e813069194bc1205ca7da13ac5",
       "size_bytes": 343,
       "statuses": [],
       "title": "JWT Rotation Introspection"
@@ -49493,7 +49670,7 @@
       ],
       "links": [],
       "path": "docs/security/jwt_rotation_repair_report.md",
-      "sha256": "3f4e383375aafce551a8dbf9733a6d15a235f952c1d0542315f1b95a73462937",
+      "sha256": "abdbb803008f60bef95ecba935dbb5a3af7a10e6504d8fadb5ea6541cdc3ef7f",
       "size_bytes": 255,
       "statuses": [],
       "title": "JWT Rotation Repair Report"
@@ -52359,8 +52536,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 966,
-  "generated_at": "2026-05-19T22:16:14Z",
+  "files_scanned": 970,
+  "generated_at": "2026-05-20T07:01:30Z",
   "generated_count": 4,
   "missing_important_docs": []
 }

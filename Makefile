@@ -2188,3 +2188,21 @@ backend-implementation-2311-2350-full-check: evidence-attachment-runbook evidenc
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/evidence_attachment_runbook.py scripts/check_evidence_attachment_runbook.py scripts/patch_evidence_attachment_runbook_registry.py tests/unit/test_evidence_attachment_runbook.py --select F821,F401,F811,E402
 
+.PHONY: beta-no-go-handoff-packet beta-no-go-handoff-registry-patch beta-no-go-handoff-check beta-no-go-handoff-test backend-implementation-2351-2390-full-check
+
+beta-no-go-handoff-packet:
+	PYTHONPATH=. python3 -c "from scripts.beta_no_go_handoff_packet import write_packet; p = write_packet(); print(p.handoff_status)"
+
+beta-no-go-handoff-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_beta_no_go_handoff_registry.py
+
+beta-no-go-handoff-check: beta-no-go-handoff-registry-patch
+	PYTHONPATH=. python3 scripts/check_beta_no_go_handoff_packet.py
+
+beta-no-go-handoff-test:
+	pytest -c pytest.ini tests/unit/test_beta_no_go_handoff_packet.py -q --no-cov --tb=short
+
+backend-implementation-2351-2390-full-check: beta-no-go-handoff-packet beta-no-go-handoff-check beta-no-go-handoff-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/beta_no_go_handoff_packet.py scripts/check_beta_no_go_handoff_packet.py scripts/patch_beta_no_go_handoff_registry.py tests/unit/test_beta_no_go_handoff_packet.py --select F821,F401,F811,E402
+
