@@ -90,6 +90,7 @@ async def register(
     response: Response,
     db: AsyncSession = Depends(get_db),
     auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context),
+    auth_service: AuthApplicationService = Depends(get_auth_application_service),
 ):
     # code_911_950_auth_lifecycle_delegate
     return await auth_service.register(
@@ -108,6 +109,7 @@ async def login(
     response: Response,
     db: AsyncSession = Depends(get_db),
     auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context),
+    auth_service: AuthApplicationService = Depends(get_auth_application_service),
 ):
     # code_911_950_auth_lifecycle_delegate
     return await auth_service.login(
@@ -123,6 +125,7 @@ async def create_dev_session(
     response: Response,
     db: AsyncSession = Depends(get_db),
     auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context),
+    auth_service: AuthApplicationService = Depends(get_auth_application_service),
 ):
     """
     Non-production bootstrap endpoint for the local learner flow.
@@ -149,6 +152,7 @@ async def refresh_token(
     db: AsyncSession = Depends(get_db),
     cookie_refresh: str | None = Cookie(default=None, alias=REFRESH_COOKIE),
     auth_runtime: AuthRuntimeContext = Depends(get_auth_runtime_context),
+    auth_service: AuthApplicationService = Depends(get_auth_application_service),
 ):
     # code_911_950_auth_lifecycle_delegate
     return await auth_service.refresh(
