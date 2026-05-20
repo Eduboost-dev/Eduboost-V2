@@ -32,8 +32,6 @@ from app.core.security import (  # noqa: F401
     require_parent_or_admin,
     verify_password,
 )
-from app.core.token_revocation import revoke_token, revoke_user_tokens
-from app.services.fourth_estate import FourthEstateService
 from app.services.auth_token_claims import build_access_token_claims, merge_refresh_claims
 from app.domain.schemas import LoginRequest, RefreshRequest, RegisterRequest, TokenResponse
 from app.models import UserRole  # noqa: F401
@@ -191,27 +189,9 @@ async def logout(
     current_user: dict = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
     cookie_refresh: str | None = Cookie(default=None, alias=REFRESH_COOKIE),
+    auth_service: AuthApplicationService = Depends(get_auth_application_service),
 ):
-    """
-    Revoke the current access token and clear the refresh token cookie.
-    """
-    # Revoke this specific access token (by JTI)
-    jti = current_user.get("jti")
-    exp = current_user.get("exp")
-    if jti and exp:
-        await revoke_token(jti, exp)
-    await revoke_refresh_token_jti(current_user.get("refresh_jti"), current_user.get("sub"), current_user.get("refresh_family"))
-    if cookie_refresh:
-        await revoke_refresh_token(cookie_refresh)
-    
-    # Clear refresh cookie
-    response.delete_cookie(REFRESH_COOKIE, path="/api/v2/auth")
-    
-    # Audit the logout
-    audit = FourthEstateService(db)
-    await audit.auth_event("USER_LOGOUT", current_user.get("sub"))
-    
-    return None
+    return await auth_service.logout(response=response, current_user=current_user, db=db, cookie_refresh=cookie_refresh)
 
 
 @router.post("/revoke-all", status_code=status.HTTP_204_NO_CONTENT)
@@ -220,23 +200,6 @@ async def revoke_all_tokens(
     current_user: dict = Depends(require_parent_or_admin),
     db: AsyncSession = Depends(get_db),
     cookie_refresh: str | None = Cookie(default=None, alias=REFRESH_COOKIE),
+    auth_service: AuthApplicationService = Depends(get_auth_application_service),
 ):
-    """
-    Revoke ALL tokens for the current user (logout from all devices).
-    Useful for security incidents or password changes.
-    """
-    user_id = current_user.get("sub")
-    await revoke_user_tokens(user_id)
-    if user_id:
-        await revoke_all_refresh_tokens_for_user(user_id)
-    if cookie_refresh:
-        await revoke_refresh_token(cookie_refresh)
-    
-    # Clear refresh cookie
-    response.delete_cookie(REFRESH_COOKIE, path="/api/v2/auth")
-    
-    # Audit the revocation
-    audit = FourthEstateService(db)
-    await audit.auth_event("USER_TOKENS_REVOKED_ALL", user_id)
-    
-    return None
+    return await auth_service.revoke_all_tokens(response=response, current_user=current_user, db=db, cookie_refresh=cookie_refresh)

@@ -1287,3 +1287,103 @@ make beta-no-go-handoff-test
 make backend-implementation-2351-2390-full-check
 ```
 
+## DEPLOY-FE-001 / Backend implementation 2431-2470 — Production frontend container and E2E port alignment
+
+Audit drivers:
+
+- `docker-compose.prod.yml` omitted the frontend service.
+- Nginx already proxies to `frontend:3050`, so production compose must actually define that service.
+- Playwright default URL pointed at Vite port `5173` instead of Next.js port `3050`.
+- SSL certificate mounts should align with Certbot's `/etc/letsencrypt` path.
+
+Commands:
+
+```bash
+make prod-frontend-deployment-repair
+make prod-frontend-deployment-status
+make prod-frontend-deployment-check
+make prod-frontend-deployment-test
+make backend-implementation-2431-2470-full-check
+```
+
+## DEPLOY-FE-RUNTIME-001 / Backend implementation 2471-2510 — Production frontend runtime proof guardrails
+
+Audit drivers:
+
+- Static compose wiring is not enough to prove frontend runtime viability.
+- Dockerfile production target and Next.js standalone output must be aligned.
+- Nginx proxy/cert paths must match runtime container expectations.
+- Runtime smoke evidence remains separate from local config checks.
+
+Commands:
+
+```bash
+make prod-frontend-runtime-repair
+make prod-frontend-runtime-status
+make prod-frontend-runtime-check
+make prod-frontend-runtime-release-check
+make prod-frontend-runtime-test
+make backend-implementation-2471-2510-full-check
+```
+
+## AUTH-SERVICE-CLEANUP-001 / Backend implementation 2511-2550 — Auth service monkey-patch cleanup and route ownership guardrails
+
+Commands:
+
+```bash
+make auth-service-cleanup-repair
+make auth-service-cleanup-status
+make auth-service-cleanup-check
+make auth-service-cleanup-release-check
+make auth-service-cleanup-test
+make backend-implementation-2511-2550-full-check
+```
+
+## AUTH-ROUTE-LOGOUT-DELEGATE-001 / Backend implementation 2551-2590 — Auth logout/revoke route delegation
+
+Commands:
+
+```bash
+make auth-route-logout-delegate-repair
+make auth-route-logout-delegate-status
+make auth-route-logout-delegate-check
+make auth-route-logout-delegate-test
+make backend-implementation-2551-2590-full-check
+```
+
+## AUTH-ROUTE-LOGOUT-DELEGATE-001R / Backend implementation 2551-2590R — Syntax-safe auth logout/revoke route delegation repair
+
+Commands:
+
+```bash
+make auth-route-logout-delegate-repair
+make auth-route-logout-delegate-status
+make auth-route-logout-delegate-check
+make auth-route-logout-delegate-test
+make backend-implementation-2551-2590R-full-check
+```
+
+## AUTH-ROUTE-LOGOUT-DELEGATE-001R2 / Backend implementation 2551-2590R2 — auth_service parameter repair for logout/revoke delegation
+
+Commands:
+
+```bash
+make auth-route-logout-delegate-repair
+make auth-route-logout-delegate-status
+make auth-route-logout-delegate-check
+make auth-route-logout-delegate-test
+make backend-implementation-2551-2590R2-full-check
+```
+
+## AUTH-ROUTE-LOGOUT-DELEGATE-001R3 / Backend implementation 2551-2590R3 — Auth route service dependency repair
+
+Commands:
+
+```bash
+make auth-route-service-dependencies-repair
+make auth-route-service-dependencies-status
+make auth-route-service-dependencies-check
+make auth-route-service-dependencies-test
+make backend-implementation-2551-2590R3-full-check
+```
+
