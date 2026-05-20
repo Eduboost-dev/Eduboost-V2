@@ -38,3 +38,9 @@ test-results/
 temp/
 .mypy_cache/
 docker-compose.override.yml
+
+# NextJS static export output
+app/frontend/out/
+
+# Cloudflare Wrangler Cache
+.wrangler/
