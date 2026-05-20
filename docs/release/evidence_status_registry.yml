@@ -560,7 +560,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2551-2590-full-check
     evidence_file: docs/release/auth_route_logout_delegate_status.md
-    last_verified_commit: 56452bfa2efa7e8fc8f0d59d4523a6c9ceba8b7c
+    last_verified_commit: b66c03d8d158d1f6eb107592f807599ac8f199a9
     closure_blocker: none
     blocks_beta: false
     external_dependency: false

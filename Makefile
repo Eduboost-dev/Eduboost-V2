@@ -2318,3 +2318,21 @@ backend-implementation-2551-2590R2-full-check: auth-route-logout-delegate-repair
 	python3 -m compileall -q app/services app/api_v2_routers scripts tests
 	python3 -m ruff check scripts/auth_route_logout_delegate.py scripts/repair_auth_route_logout_delegate.py scripts/check_auth_route_logout_delegate.py scripts/patch_auth_route_logout_delegate_registry.py tests/unit/test_auth_route_logout_delegate.py app/api_v2_routers/auth.py --select F821,F401,F811,E402
 
+.PHONY: auth-route-service-dependencies-repair auth-route-service-dependencies-status auth-route-service-dependencies-check auth-route-service-dependencies-test backend-implementation-2551-2590R3-full-check
+
+auth-route-service-dependencies-repair:
+	PYTHONPATH=. python3 scripts/repair_auth_route_service_dependencies.py
+
+auth-route-service-dependencies-status:
+	PYTHONPATH=. python3 -c "from scripts.auth_route_service_dependency_repair import write_status; s = write_status(); print(s.status)"
+
+auth-route-service-dependencies-check: auth-route-service-dependencies-repair
+	PYTHONPATH=. python3 scripts/check_auth_route_service_dependencies.py
+
+auth-route-service-dependencies-test:
+	pytest -c pytest.ini tests/unit/test_auth_route_service_dependency_repair.py tests/unit/test_auth_route_logout_delegate.py -q --no-cov --tb=short
+
+backend-implementation-2551-2590R3-full-check: auth-route-service-dependencies-repair auth-route-service-dependencies-status auth-route-service-dependencies-check auth-route-service-dependencies-test
+	python3 -m compileall -q app/services app/api_v2_routers scripts tests
+	python3 -m ruff check scripts/auth_route_service_dependency_repair.py scripts/repair_auth_route_service_dependencies.py scripts/check_auth_route_service_dependencies.py tests/unit/test_auth_route_service_dependency_repair.py tests/unit/test_auth_route_logout_delegate.py app/api_v2_routers/auth.py --select F821,F401,F811,E402
+

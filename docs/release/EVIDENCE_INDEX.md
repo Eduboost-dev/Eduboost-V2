@@ -1375,3 +1375,15 @@ make auth-route-logout-delegate-test
 make backend-implementation-2551-2590R2-full-check
 ```
 
+## AUTH-ROUTE-LOGOUT-DELEGATE-001R3 / Backend implementation 2551-2590R3 — Auth route service dependency repair
+
+Commands:
+
+```bash
+make auth-route-service-dependencies-repair
+make auth-route-service-dependencies-status
+make auth-route-service-dependencies-check
+make auth-route-service-dependencies-test
+make backend-implementation-2551-2590R3-full-check
+```
+

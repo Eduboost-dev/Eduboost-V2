@@ -4,11 +4,11 @@
     "api": 6,
     "architecture": 37,
     "general": 483,
-    "release": 336,
+    "release": 348,
     "security": 98
   },
-  "commit": "629906580bd58863ec4a55ab9cdbe93f600f3951",
-  "document_count": 985,
+  "commit": "b66c03d8d158d1f6eb107592f807599ac8f199a9",
+  "document_count": 997,
   "documents": [
     {
       "category": "general",
@@ -34142,6 +34142,26 @@
           "level": 2,
           "line": 1329,
           "text": "AUTH-SERVICE-CLEANUP-001 / Backend implementation 2511-2550 \u2014 Auth service monkey-patch cleanup and route ownership guardrails"
+        },
+        {
+          "level": 2,
+          "line": 1342,
+          "text": "AUTH-ROUTE-LOGOUT-DELEGATE-001 / Backend implementation 2551-2590 \u2014 Auth logout/revoke route delegation"
+        },
+        {
+          "level": 2,
+          "line": 1354,
+          "text": "AUTH-ROUTE-LOGOUT-DELEGATE-001R / Backend implementation 2551-2590R \u2014 Syntax-safe auth logout/revoke route delegation repair"
+        },
+        {
+          "level": 2,
+          "line": 1366,
+          "text": "AUTH-ROUTE-LOGOUT-DELEGATE-001R2 / Backend implementation 2551-2590R2 \u2014 auth_service parameter repair for logout/revoke delegation"
+        },
+        {
+          "level": 2,
+          "line": 1378,
+          "text": "AUTH-ROUTE-LOGOUT-DELEGATE-001R3 / Backend implementation 2551-2590R3 \u2014 Auth route service dependency repair"
         }
       ],
       "links": [
@@ -34167,8 +34187,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "47132e13fbb8ba407a392c686ed949ea3125888887cc396147f0409a8949eda7",
-      "size_bytes": 42374,
+      "sha256": "b8a23cf09339592f26ad2698f8bfe06e263554e521ac79de21a046066a359462",
+      "size_bytes": 43796,
       "statuses": [
         "todo",
         "passed",
@@ -35687,7 +35707,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/approval_evidence_status.json",
-      "sha256": "715b693a1c59aa9748ef22e6d702186f9f11649df3cb79fc4fad659b004169d8",
+      "sha256": "1d097c80f21e1239c4eb36907a917b2d5e55b2c743640260af226d819a35e233",
       "size_bytes": 2800,
       "statuses": [
         "external-blocked",
@@ -35720,7 +35740,7 @@
       ],
       "links": [],
       "path": "docs/release/approval_evidence_status.md",
-      "sha256": "576ab73465614d7dee500d0fbbf199207792641b78780ea4a40ca906bc49fe1d",
+      "sha256": "b5772f758bf45284fea0f3c42f5e5f62ff230bade524285d318eb398199ca2be",
       "size_bytes": 1296,
       "statuses": [
         "external-blocked",
@@ -36330,6 +36350,98 @@
       "size_bytes": 631,
       "statuses": [],
       "title": "Auth Repository Fixture Proof Report"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/release/auth_route_logout_delegate_status.json",
+      "sha256": "56c31a068f02bb1e82ec52de3faec9d8ebe5805956ef6c0f767fee3645755824",
+      "size_bytes": 602,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Auth Route Logout Delegate Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Auth Route Logout/Revoke Delegation Status"
+        },
+        {
+          "level": 2,
+          "line": 13,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 17,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/auth_route_logout_delegate_status.md",
+      "sha256": "36d8817c0cbcf82c93bb44a35b0991fe884d1f807359311e6aad462b28f1b7ad",
+      "size_bytes": 606,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Auth Route Logout/Revoke Delegation Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/release/auth_route_service_dependency_repair_status.json",
+      "sha256": "f46002a7b1f186d920a7909d712a9de0b95f09306d613dc289a9a9606c09c15c",
+      "size_bytes": 1502,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Auth Route Service Dependency Repair Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Auth Route Service Dependency Repair Status"
+        },
+        {
+          "level": 2,
+          "line": 19,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 23,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/auth_route_service_dependency_repair_status.md",
+      "sha256": "b8e43802d82e085081aedc1aa56af3897c29374aa97ba8977f1671a493e76eae",
+      "size_bytes": 851,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Auth Route Service Dependency Repair Status"
     },
     {
       "category": "release",
@@ -39585,7 +39697,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/beta_blocker_burndown_plan.json",
-      "sha256": "6d2c5654e6188f5fda553393aac7dd297aab87922869340913b1d6190c683b19",
+      "sha256": "8afce969923ee319cf0d0a2727889bae9cd2764f7d65f526703f93907562d724",
       "size_bytes": 4049,
       "statuses": [
         "blocked",
@@ -39624,7 +39736,7 @@
       ],
       "links": [],
       "path": "docs/release/beta_blocker_burndown_plan.md",
-      "sha256": "56417cf1e5870830190a229235a57720c536a5950e9ec07c9b06d8ca581c05c1",
+      "sha256": "0c31da5bc3fe7117204ab9b7264e41a1bc6b7b4de93dbec947b3176766fad69e",
       "size_bytes": 2225,
       "statuses": [
         "blocked",
@@ -40044,7 +40156,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/ci_run_evidence_status.json",
-      "sha256": "b2aaaaaa3e689d07c29c59f57e7f90ee891969a5713c185a8a8024a33287d830",
+      "sha256": "43e5f2bb6eb512830aa60ec199aca96b198afb6637bbad0e7b3f99aa0cd3c451",
       "size_bytes": 766,
       "statuses": [
         "external-blocked",
@@ -40078,7 +40190,7 @@
       ],
       "links": [],
       "path": "docs/release/ci_run_evidence_status.md",
-      "sha256": "6128b14bc5843931c3d6e3ec82a287dd4eefb5fe81b2adb8be6a384bd2d6cc62",
+      "sha256": "0f3edf77efff71212722570accede79e31718bb7895af5f637d8aeb79233ff31",
       "size_bytes": 801,
       "statuses": [
         "external-blocked",
@@ -41104,7 +41216,8 @@
         "docs/release/beta_no_go_handoff_packet.md",
         "docs/release/production_frontend_deployment_status.md",
         "docs/release/production_frontend_runtime_status.md",
-        "docs/release/auth_service_cleanup_status.md"
+        "docs/release/auth_service_cleanup_status.md",
+        "docs/release/auth_route_logout_delegate_status.md"
       ],
       "generated": false,
       "headings": [
@@ -41181,8 +41294,8 @@
       ],
       "links": [],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "57c96a952e6c8af1e93bdd06afcccf72c8a3783128520e932a8311ff62714890",
-      "size_bytes": 21798,
+      "sha256": "83f9af687c9fc9b2b4c8ebd3200ddf76fd12a2b2a3bce3736942bc9f6b3f25d4",
+      "size_bytes": 22310,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -41205,7 +41318,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/external_approval_status.json",
-      "sha256": "c137bc4adc031debf7523ae305a93692c76a715676a1ab6987cd04b24a8f25d4",
+      "sha256": "6a4758ca023272f0a9a5e907ab186164d85c06c2f46dcf3c173f1a6067877b83",
       "size_bytes": 3030,
       "statuses": [
         "external-blocked",
@@ -41237,7 +41350,7 @@
       ],
       "links": [],
       "path": "docs/release/external_approval_status.md",
-      "sha256": "d2b5a0391a3a7cddd829afd8bc754f433e834e9476c5417f5f99b424dd45cbb8",
+      "sha256": "07d40d0ef63956e120174ea9b9da8fd36973e5a0770bc19ed74c0376b6f07353",
       "size_bytes": 1584,
       "statuses": [
         "external-blocked",
@@ -41391,7 +41504,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "510bd6d80a1be3e6519385aad03d7a08f95157cd1d7a4a7960d4d0d02212abe5",
+      "sha256": "05a6b678b781e473623e604b5f58aea745e9496ea7f387b43f4f33ca3fffad4b",
       "size_bytes": 10261,
       "statuses": [
         "external-blocked",
@@ -41454,7 +41567,7 @@
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "b0a7802146976b77036b99399f08c79fdbf04ae3c3d81cd914c0f531edc4373f",
+      "sha256": "ff33cff9fb21becafc0afebc5369d3cbd1ea6585f9476baaf159b182f73de1c1",
       "size_bytes": 3578,
       "statuses": [
         "external-blocked",
@@ -41919,7 +42032,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/live_db_transaction_evidence_status.json",
-      "sha256": "804b84596124a583e4d8711343f342c7a4870fffaa75b252e6acf06cbb302c2f",
+      "sha256": "3bbcec38722a71003a8d895a0c0c4efefe120569447fc680939c3c9b84b0990c",
       "size_bytes": 3527,
       "statuses": [
         "external-blocked",
@@ -41953,7 +42066,7 @@
       ],
       "links": [],
       "path": "docs/release/live_db_transaction_evidence_status.md",
-      "sha256": "6381822c6f2773f2038fa8f52723046e6b335bb8a3fe0c85b268069584f99706",
+      "sha256": "4a37ce260fecf3b41ed05fb3ce38e2472c1c46e425e5267b65f871f554a34f1c",
       "size_bytes": 1534,
       "statuses": [
         "external-blocked",
@@ -43380,6 +43493,102 @@
         {
           "level": 1,
           "line": 1,
+          "text": "Next Execution Queue After AUTH-ROUTE-LOGOUT-DELEGATE-001 / code_2551_2590"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next batch"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2551_2590.md",
+      "sha256": "b4334877a863e3fe843014ffb6729f731dbe767ca233fdcbc3bb595de86d2882",
+      "size_bytes": 253,
+      "statuses": [],
+      "title": "Next Execution Queue After AUTH-ROUTE-LOGOUT-DELEGATE-001 / code_2551_2590"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Next Execution Queue After AUTH-ROUTE-LOGOUT-DELEGATE-001R / code_2551_2590R"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next batch"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2551_2590R.md",
+      "sha256": "38079490367157eef938abacd9d51f74ee4dc85f0c47d7bdb50e17858208e67f",
+      "size_bytes": 255,
+      "statuses": [],
+      "title": "Next Execution Queue After AUTH-ROUTE-LOGOUT-DELEGATE-001R / code_2551_2590R"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Next Execution Queue After AUTH-ROUTE-LOGOUT-DELEGATE-001R2 / code_2551_2590R2"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next batch"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2551_2590R2.md",
+      "sha256": "27d2e766c3356fbcfb79d0857ef83171f2f9d31fcd73e212203f9b678b8bd95f",
+      "size_bytes": 257,
+      "statuses": [],
+      "title": "Next Execution Queue After AUTH-ROUTE-LOGOUT-DELEGATE-001R2 / code_2551_2590R2"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Next Execution Queue After AUTH-ROUTE-LOGOUT-DELEGATE-001R3 / code_2551_2590R3"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next batch"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2551_2590R3.md",
+      "sha256": "5b8452cb587d5abfc97ac2ea9f07eb43ffb5af15ec0ba7ae1902264fb8efbc1a",
+      "size_bytes": 257,
+      "statuses": [],
+      "title": "Next Execution Queue After AUTH-ROUTE-LOGOUT-DELEGATE-001R3 / code_2551_2590R3"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "Next Execution Queue After code_831_870"
         },
         {
@@ -44751,6 +44960,124 @@
         {
           "level": 1,
           "line": 1,
+          "text": "No False-Closure Status After AUTH-ROUTE-LOGOUT-DELEGATE-001 / code_2551_2590"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 11,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2551_2590.md",
+      "sha256": "320bb454657936d897e381892b1154bf6c296dd74a8bd88c0be176df37fcdf4e",
+      "size_bytes": 500,
+      "statuses": [],
+      "title": "No False-Closure Status After AUTH-ROUTE-LOGOUT-DELEGATE-001 / code_2551_2590"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After AUTH-ROUTE-LOGOUT-DELEGATE-001R / code_2551_2590R"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 12,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2551_2590R.md",
+      "sha256": "6a627888bfef96077c7f923337bbabaff73365e7600eb38c9ad54f4a1580ecdd",
+      "size_bytes": 582,
+      "statuses": [],
+      "title": "No False-Closure Status After AUTH-ROUTE-LOGOUT-DELEGATE-001R / code_2551_2590R"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After AUTH-ROUTE-LOGOUT-DELEGATE-001R2 / code_2551_2590R2"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 12,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2551_2590R2.md",
+      "sha256": "2392910537f5d2feff3f1214d0ad08f58e3469b2a30d5751fc61e4cbb440d46d",
+      "size_bytes": 586,
+      "statuses": [],
+      "title": "No False-Closure Status After AUTH-ROUTE-LOGOUT-DELEGATE-001R2 / code_2551_2590R2"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After AUTH-ROUTE-LOGOUT-DELEGATE-001R3 / code_2551_2590R3"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 11,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2551_2590R3.md",
+      "sha256": "84d8bd2012e578092b58e8fa894b935d21c79190a34a826bfbc364294888d482",
+      "size_bytes": 546,
+      "statuses": [
+        "pass"
+      ],
+      "title": "No False-Closure Status After AUTH-ROUTE-LOGOUT-DELEGATE-001R3 / code_2551_2590R3"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "No False-Closure Status After code_831_870"
         },
         {
@@ -45570,6 +45897,7 @@
         "docs/release/external_approvals/security_approval.md",
         "docs/release/staging_smoke_evidence.md",
         "docs/release/ci_run_evidence_status.md",
+        "docs/release/auth_route_logout_delegate_status.md",
         "docs/release/auth_service_cleanup_status.md",
         "docs/release/diagnostics_dynamic_repository_boundary_repair_report.md",
         "docs/release/auth_repository_fixture_proof_report.md",
@@ -45598,8 +45926,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/release_go_no_go_status.json",
-      "sha256": "c7415f8e6353e225e268493d9c80e6f6390282d787c1e694247170152a9ac36a",
-      "size_bytes": 20911,
+      "sha256": "9a34bc6d0666c2efdc2304ac9794fe50f041128d5c974e1e23cbcd08aa057fd9",
+      "size_bytes": 21368,
       "statuses": [
         "external-blocked",
         "pending",
@@ -45657,7 +45985,7 @@
       ],
       "links": [],
       "path": "docs/release/release_go_no_go_status.md",
-      "sha256": "2133653939bbcd7dc1639d44ab31f91230d448b23cb6c93bf173d5a3816217f5",
+      "sha256": "16ecb95602dbbce1d9af7075df63d8fe4a92d7f2d98619df8459b74d9d4da703",
       "size_bytes": 2905,
       "statuses": [
         "external-blocked",
@@ -46064,7 +46392,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/route_transaction_slice_rollup.json",
-      "sha256": "c9d333a31cd074fd03d70961e84e563e1c2c836f204778d58504988fcd134bd8",
+      "sha256": "2bd728cb9d432a2247d38a5fd3c59e48fa570d94324d46f3a70da245813d5fb1",
       "size_bytes": 3628,
       "statuses": [
         "blocked",
@@ -46110,7 +46438,7 @@
       ],
       "links": [],
       "path": "docs/release/route_transaction_slice_rollup.md",
-      "sha256": "ec9c452ec7debea1cca432bac67ba83ecca74c49c1d9e2992dd01ff9d1de6d1b",
+      "sha256": "78efcb55d320abb54b1876298e7df3324abb2f2265ce2f27f38d59a895100d59",
       "size_bytes": 1403,
       "statuses": [
         "blocked",
@@ -46626,7 +46954,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/staging_acceptance_status.json",
-      "sha256": "dc001b03861323f84515c0e0cb88dc2b89f46bc595df8134997c2d3e2e32c23e",
+      "sha256": "303b76d5b2d9281058553a7246098c4566d27e488aa47aa34c9482c19dce5e3d",
       "size_bytes": 1913,
       "statuses": [
         "external-blocked",
@@ -46658,7 +46986,7 @@
       ],
       "links": [],
       "path": "docs/release/staging_acceptance_status.md",
-      "sha256": "e8b6b60de6e48b78e6bcedb6dd7b8013e84be012e292b3a1fbd10bd22cbb06a5",
+      "sha256": "9827bbfe0b0a2d42f8edfcf64dc8617533b94da44b97c823e6188052ea26d8b7",
       "size_bytes": 1227,
       "statuses": [
         "external-blocked",
@@ -53000,8 +53328,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 985,
-  "generated_at": "2026-05-20T15:13:50Z",
+  "files_scanned": 997,
+  "generated_at": "2026-05-20T17:47:57Z",
   "generated_count": 4,
   "missing_important_docs": []
 }
