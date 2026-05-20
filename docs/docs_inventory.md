@@ -1,9 +1,9 @@
 # Documentation Inventory
 
-Generated at: `2026-05-20T07:01:30Z`
-Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
+Generated at: `2026-05-20T17:47:57Z`
+Commit: `b66c03d8d158d1f6eb107592f807599ac8f199a9`
 
-- Documents: `970`
+- Documents: `997`
 - Generated docs: `4`
 
 ## Categories
@@ -14,7 +14,7 @@ Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
 | `api` | 6 |
 | `architecture` | 37 |
 | `general` | 483 |
-| `release` | 321 |
+| `release` | 348 |
 | `security` | 98 |
 
 ## Documents
@@ -514,7 +514,7 @@ Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
 | `docs/reference/modules.md` | `general` | Learning Engines | 436 | False |
 | `docs/reference/repositories.md` | `general` | Repositories | 488 | False |
 | `docs/reference/services.md` | `general` | Services | 807 | False |
-| `docs/release/EVIDENCE_INDEX.md` | `release` | EduBoost V2 Release Evidence Index | 40669 | False |
+| `docs/release/EVIDENCE_INDEX.md` | `release` | EduBoost V2 Release Evidence Index | 43796 | False |
 | `docs/release/EduBoost_V2_Comparative_Audit_Report.md` | `release` | EduBoost SA V2 — Comparative Technical Audit Report | 18013 | False |
 | `docs/release/EduBoost_V2_Final_Technical_Assessment.md` | `release` | EduBoost V2 Final Technical Assessment | 2216 | False |
 | `docs/release/EduBoost_V2_North_Star_TODO.md` | `release` | EduBoost V2 North-Star TODO | 2540 | False |
@@ -549,12 +549,18 @@ Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
 | `docs/release/auth_lifecycle_service_ownership_report.md` | `release` | Auth Lifecycle Service Ownership Report | 110 | False |
 | `docs/release/auth_repository_fixture_proof_report.json` | `release` | Auth Repository Fixture Proof Report | 524 | False |
 | `docs/release/auth_repository_fixture_proof_report.md` | `release` | Auth Repository Fixture Proof Report | 631 | False |
+| `docs/release/auth_route_logout_delegate_status.json` | `release` | Auth Route Logout Delegate Status | 602 | False |
+| `docs/release/auth_route_logout_delegate_status.md` | `release` | Auth Route Logout/Revoke Delegation Status | 606 | False |
+| `docs/release/auth_route_service_dependency_repair_status.json` | `release` | Auth Route Service Dependency Repair Status | 1502 | False |
+| `docs/release/auth_route_service_dependency_repair_status.md` | `release` | Auth Route Service Dependency Repair Status | 851 | False |
 | `docs/release/auth_route_transaction_live_db_evidence.md` | `release` | Auth Route Transaction Live DB Evidence | 623 | False |
 | `docs/release/auth_route_transaction_slice_report.json` | `release` | Auth Route Transaction Slice Report | 1944 | False |
 | `docs/release/auth_route_transaction_slice_report.md` | `release` | Auth Route Transaction Slice Report | 1572 | False |
 | `docs/release/auth_router_boundary_introspection.json` | `release` | Auth Router Boundary Introspection | 2710 | False |
 | `docs/release/auth_router_boundary_introspection.md` | `release` | Auth Router Boundary Introspection | 1150 | False |
 | `docs/release/auth_router_boundary_repair_report.md` | `release` | Auth Router Boundary Repair Report | 577 | False |
+| `docs/release/auth_service_cleanup_status.json` | `release` | Auth Service Cleanup Status | 636 | False |
+| `docs/release/auth_service_cleanup_status.md` | `release` | Auth Service Cleanup Status | 867 | False |
 | `docs/release/auth_service_extraction_repair_report.md` | `release` | Auth Service Extraction Repair Report | 724 | False |
 | `docs/release/auth_token_claims_introspection.json` | `release` | Auth Token Claims Introspection | 970 | False |
 | `docs/release/auth_token_claims_introspection.md` | `release` | Auth Token Claims Introspection | 526 | False |
@@ -657,7 +663,7 @@ Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
 | `docs/release/docker_hardening_status.md` | `release` | Docker Hardening Status | 122 | False |
 | `docs/release/evidence_attachment_runbook.md` | `release` | Evidence Attachment Runbook | 5177 | False |
 | `docs/release/evidence_attachment_runbook_manifest.json` | `release` | Evidence Attachment Runbook Manifest | 4984 | False |
-| `docs/release/evidence_status_registry.yml` | `release` | EduBoost V2 Evidence Status Registry | 20044 | False |
+| `docs/release/evidence_status_registry.yml` | `release` | EduBoost V2 Evidence Status Registry | 22310 | False |
 | `docs/release/external_approval_status.json` | `release` | External Approval Status | 3030 | False |
 | `docs/release/external_approval_status.md` | `release` | External Approval Status | 1584 | False |
 | `docs/release/external_approvals/content_approval.md` | `release` | Educator/content release approval | 522 | False |
@@ -723,6 +729,14 @@ Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
 | `docs/release/next_execution_queue_after_2271_2310.md` | `release` | Next Execution Queue After FINAL-GATE-REFRESH-001 / code_2271_2310 | 512 | False |
 | `docs/release/next_execution_queue_after_2311_2350.md` | `release` | Next Execution Queue After EVIDENCE-ATTACHMENT-RUNBOOK-001 / code_2311_2350 | 522 | False |
 | `docs/release/next_execution_queue_after_2351_2390.md` | `release` | Next Execution Queue After BETA-NO-GO-HANDOFF-001 / code_2351_2390 | 626 | False |
+| `docs/release/next_execution_queue_after_2431_2470.md` | `release` | Next Execution Queue After DEPLOY-FE-001 / code_2431_2470 | 510 | False |
+| `docs/release/next_execution_queue_after_2471_2510.md` | `release` | Next Execution Queue After DEPLOY-FE-RUNTIME-001 / code_2471_2510 | 472 | False |
+| `docs/release/next_execution_queue_after_2471_2510R.md` | `release` | Next Execution Queue After DEPLOY-FE-RUNTIME-001R / code_2471_2510R | 410 | False |
+| `docs/release/next_execution_queue_after_2511_2550.md` | `release` | Next Execution Queue After AUTH-SERVICE-CLEANUP-001 / code_2511_2550 | 255 | False |
+| `docs/release/next_execution_queue_after_2551_2590.md` | `release` | Next Execution Queue After AUTH-ROUTE-LOGOUT-DELEGATE-001 / code_2551_2590 | 253 | False |
+| `docs/release/next_execution_queue_after_2551_2590R.md` | `release` | Next Execution Queue After AUTH-ROUTE-LOGOUT-DELEGATE-001R / code_2551_2590R | 255 | False |
+| `docs/release/next_execution_queue_after_2551_2590R2.md` | `release` | Next Execution Queue After AUTH-ROUTE-LOGOUT-DELEGATE-001R2 / code_2551_2590R2 | 257 | False |
+| `docs/release/next_execution_queue_after_2551_2590R3.md` | `release` | Next Execution Queue After AUTH-ROUTE-LOGOUT-DELEGATE-001R3 / code_2551_2590R3 | 257 | False |
 | `docs/release/next_execution_queue_after_831_870.md` | `release` | Next Execution Queue After code_831_870 | 434 | False |
 | `docs/release/next_execution_queue_after_871_910.md` | `release` | Next Execution Queue After code_871_910 | 622 | False |
 | `docs/release/next_execution_queue_after_911_950.md` | `release` | Next Execution Queue After code_911_950 | 610 | False |
@@ -764,6 +778,14 @@ Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
 | `docs/release/no_false_closure_status_after_2271_2310.md` | `release` | No False-Closure Status After FINAL-GATE-REFRESH-001 / code_2271_2310 | 546 | False |
 | `docs/release/no_false_closure_status_after_2311_2350.md` | `release` | No False-Closure Status After EVIDENCE-ATTACHMENT-RUNBOOK-001 / code_2311_2350 | 569 | False |
 | `docs/release/no_false_closure_status_after_2351_2390.md` | `release` | No False-Closure Status After BETA-NO-GO-HANDOFF-001 / code_2351_2390 | 579 | False |
+| `docs/release/no_false_closure_status_after_2431_2470.md` | `release` | No False-Closure Status After DEPLOY-FE-001 / code_2431_2470 | 678 | False |
+| `docs/release/no_false_closure_status_after_2471_2510.md` | `release` | No False-Closure Status After DEPLOY-FE-RUNTIME-001 / code_2471_2510 | 690 | False |
+| `docs/release/no_false_closure_status_after_2471_2510R.md` | `release` | No False-Closure Status After DEPLOY-FE-RUNTIME-001R / code_2471_2510R | 573 | False |
+| `docs/release/no_false_closure_status_after_2511_2550.md` | `release` | No False-Closure Status After AUTH-SERVICE-CLEANUP-001 / code_2511_2550 | 517 | False |
+| `docs/release/no_false_closure_status_after_2551_2590.md` | `release` | No False-Closure Status After AUTH-ROUTE-LOGOUT-DELEGATE-001 / code_2551_2590 | 500 | False |
+| `docs/release/no_false_closure_status_after_2551_2590R.md` | `release` | No False-Closure Status After AUTH-ROUTE-LOGOUT-DELEGATE-001R / code_2551_2590R | 582 | False |
+| `docs/release/no_false_closure_status_after_2551_2590R2.md` | `release` | No False-Closure Status After AUTH-ROUTE-LOGOUT-DELEGATE-001R2 / code_2551_2590R2 | 586 | False |
+| `docs/release/no_false_closure_status_after_2551_2590R3.md` | `release` | No False-Closure Status After AUTH-ROUTE-LOGOUT-DELEGATE-001R3 / code_2551_2590R3 | 546 | False |
 | `docs/release/no_false_closure_status_after_831_870.md` | `release` | No False-Closure Status After code_831_870 | 509 | False |
 | `docs/release/no_false_closure_status_after_871_910.md` | `release` | No False-Closure Status After code_871_910 | 645 | False |
 | `docs/release/no_false_closure_status_after_911_950.md` | `release` | No False-Closure Status After code_911_950 | 673 | False |
@@ -786,11 +808,16 @@ Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
 | `docs/release/popia_router_boundary_repair_report.md` | `release` | POPIA Router Boundary Repair Report | 368 | False |
 | `docs/release/popia_sweep_evidence.md` | `release` | POPIA Sweep Evidence | 848 | False |
 | `docs/release/post_migration_cleanup_report.md` | `release` | Post-Migration Cleanup Report | 119 | False |
+| `docs/release/production_frontend_deployment_status.json` | `release` | Production Frontend Deployment Status | 1249 | False |
+| `docs/release/production_frontend_deployment_status.md` | `release` | Production Frontend Deployment Status | 999 | False |
+| `docs/release/production_frontend_runtime_evidence.md` | `release` | Production Frontend Runtime Evidence | 799 | False |
+| `docs/release/production_frontend_runtime_status.json` | `release` | Production Frontend Runtime Status | 3914 | False |
+| `docs/release/production_frontend_runtime_status.md` | `release` | Production Frontend Runtime Status | 2779 | False |
 | `docs/release/readonly_deep_readiness_implementation_report.md` | `release` | Read-Only Deep Readiness Implementation Report | 178 | False |
 | `docs/release/real_audit_runtime_integration_report.md` | `release` | Real Audit Runtime Integration Report | 166 | False |
 | `docs/release/real_consent_runtime_repair_report.md` | `release` | Real Consent Runtime Repair Report | 158 | False |
 | `docs/release/release_decision_log.md` | `release` | Release Decision Log | 591 | False |
-| `docs/release/release_go_no_go_status.json` | `release` | Release Go No Go Status | 19324 | False |
+| `docs/release/release_go_no_go_status.json` | `release` | Release Go No Go Status | 21368 | False |
 | `docs/release/release_go_no_go_status.md` | `release` | Release Go/No-Go Status | 2905 | False |
 | `docs/release/release_owner_beta_go_no_go_memo.md` | `release` | Release-Owner Beta Go/No-Go Memo | 556 | False |
 | `docs/release/release_owner_runtime_wiring_signoff_template.md` | `release` | Release Owner Runtime Wiring Signoff Template | 468 | False |
