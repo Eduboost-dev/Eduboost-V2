@@ -26,7 +26,7 @@ set -Eeuo pipefail
 # ============================================================
 
 APP_NAME="${APP_NAME:-eduboost}"
-ENVIRONMENT="${ENVIRONMENT:-alpha}"
+ENVIRONMENT="${ENVIRONMENT:-development}"
 
 FRONTEND_DIR="${FRONTEND_DIR:-app/frontend}"
 FRONTEND_PROJECT_NAME="${FRONTEND_PROJECT_NAME:-eduboost-demo}"
