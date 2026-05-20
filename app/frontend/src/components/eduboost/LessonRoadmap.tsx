@@ -297,50 +297,50 @@ const TAG_CONFIG: Record<OwnerTag, { label: string; classes: string }> = {
   eng: {
     label: "Engineering",
     classes:
-      "bg-blue-50 text-blue-700 ring-1 ring-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:ring-blue-800",
+      "bg-blue-900 text-blue-300 ring-1 ring-blue-700",
   },
   content: {
-    label: "Content",
+    label: "Content / curriculum",
     classes:
-      "bg-amber-50 text-amber-700 ring-1 ring-amber-200 dark:bg-amber-950 dark:text-amber-300 dark:ring-amber-800",
+      "bg-amber-900 text-amber-300 ring-1 ring-amber-700",
   },
   review: {
     label: "Educator review",
     classes:
-      "bg-green-50 text-green-700 ring-1 ring-green-200 dark:bg-green-950 dark:text-green-300 dark:ring-green-800",
+      "bg-green-900 text-green-300 ring-1 ring-green-700",
   },
   ops: {
     label: "Ops / CI",
     classes:
-      "bg-red-50 text-red-700 ring-1 ring-red-200 dark:bg-red-950 dark:text-red-300 dark:ring-red-800",
+      "bg-red-900 text-red-300 ring-1 ring-red-700",
   },
 };
 
 const PHASE_ACCENT: Record<string, { dot: string; bar: string; ring: string }> = {
   ph0: {
-    dot: "bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300",
+    dot: "bg-red-900 text-red-300",
     bar: "bg-red-500",
-    ring: "ring-red-200 dark:ring-red-800",
+    ring: "ring-red-700",
   },
   ph1: {
-    dot: "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300",
+    dot: "bg-amber-900 text-amber-300",
     bar: "bg-amber-400",
-    ring: "ring-amber-200 dark:ring-amber-800",
+    ring: "ring-amber-700",
   },
   ph2: {
-    dot: "bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300",
+    dot: "bg-blue-900 text-blue-300",
     bar: "bg-blue-500",
-    ring: "ring-blue-200 dark:ring-blue-800",
+    ring: "ring-blue-700",
   },
   ph3: {
-    dot: "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-300",
+    dot: "bg-green-900 text-green-300",
     bar: "bg-green-500",
-    ring: "ring-green-200 dark:ring-green-800",
+    ring: "ring-green-700",
   },
   ph4: {
-    dot: "bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-400",
-    bar: "bg-stone-400",
-    ring: "ring-stone-200 dark:ring-stone-700",
+    dot: "bg-gray-700 text-gray-300",
+    bar: "bg-gray-400",
+    ring: "ring-gray-700",
   },
 };
 
@@ -379,7 +379,7 @@ function ChevronIcon({ open }: { open: boolean }) {
     <svg
       viewBox="0 0 16 16"
       fill="none"
-      className={`h-4 w-4 text-stone-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+      className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
       aria-hidden="true"
     >
       <path
@@ -410,13 +410,16 @@ function PhaseCard({ phase, taskState, onToggleTask }: PhaseCardProps) {
   const accent = PHASE_ACCENT[phase.id];
 
   return (
-    <div className="rounded-xl border border-stone-200 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-950">
+    <div className="rounded-lg border border-gray-700 shadow-sm" style={{ backgroundColor: '#252525' }}>
       {/* Header */}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:bg-stone-50 dark:hover:bg-stone-900 rounded-xl"
+        className="flex w-full items-center gap-3 px-4 py-4 text-left transition-colors rounded-lg"
+        style={{ backgroundColor: '#252525' }}
+        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#2a2a2a')}
+        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#252525')}
       >
         {/* Phase index dot */}
         <span
@@ -428,20 +431,20 @@ function PhaseCard({ phase, taskState, onToggleTask }: PhaseCardProps) {
 
         {/* Title block */}
         <span className="min-w-0 flex-1">
-          <span className="block text-sm font-medium text-stone-900 dark:text-stone-100">
+          <span className="block text-sm font-semibold text-gray-100">
             {phase.title}
           </span>
-          <span className="block text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+          <span className="block text-xs text-gray-400 mt-0.5">
             {phase.sub}
           </span>
         </span>
 
         {/* Badges */}
         <span className="hidden sm:flex items-center gap-2 flex-shrink-0">
-          <span className="rounded-full border border-stone-200 dark:border-stone-700 px-2.5 py-0.5 text-xs text-stone-500 dark:text-stone-400">
+          <span className="rounded-full border border-gray-600 px-2.5 py-0.5 text-xs text-gray-400">
             {phase.timeEstimate}
           </span>
-          <span className="rounded-full border border-stone-200 dark:border-stone-700 px-2.5 py-0.5 text-xs text-stone-500 dark:text-stone-400">
+          <span className="rounded-full border border-gray-600 px-2.5 py-0.5 text-xs text-gray-400">
             {doneTasks}/{totalTasks}
           </span>
         </span>
@@ -450,7 +453,7 @@ function PhaseCard({ phase, taskState, onToggleTask }: PhaseCardProps) {
       </button>
 
       {/* Progress bar — always visible */}
-      <div className="mx-4 mb-0 h-1 overflow-hidden rounded-full bg-stone-100 dark:bg-stone-800">
+      <div className="mx-4 mb-0 h-2 overflow-hidden rounded-full bg-gray-700">
         <div
           className={`h-full rounded-full transition-[width] duration-500 ${accent.bar}`}
           style={{ width: `${pct}%` }}
@@ -464,7 +467,7 @@ function PhaseCard({ phase, taskState, onToggleTask }: PhaseCardProps) {
 
       {/* Task list */}
       {open && (
-        <ul className="mt-0 divide-y divide-stone-100 dark:divide-stone-800 border-t border-stone-100 dark:border-stone-800 mt-2">
+        <ul className="mt-0 divide-y divide-gray-700 border-t border-gray-700 mt-2">
           {phase.tasks.map((task) => {
             const done = taskState[task.id] ?? false;
             return (
@@ -472,15 +475,18 @@ function PhaseCard({ phase, taskState, onToggleTask }: PhaseCardProps) {
                 <button
                   type="button"
                   onClick={() => onToggleTask(task.id)}
-                  className="flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-stone-50 dark:hover:bg-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                  className="flex w-full items-start gap-3 px-4 py-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                  style={{ backgroundColor: '#252525' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#2a2a2a')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#252525')}
                   aria-pressed={done}
                 >
                   {/* Checkbox */}
                   <span
                     className={`mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded border transition-colors ${
                       done
-                        ? "border-green-500 bg-green-500 text-white dark:border-green-400 dark:bg-green-400"
-                        : "border-stone-300 bg-white dark:border-stone-600 dark:bg-stone-900"
+                        ? "border-green-500 bg-green-500 text-white"
+                        : "border-gray-600 bg-gray-700"
                     }`}
                     aria-hidden="true"
                   >
@@ -492,8 +498,8 @@ function PhaseCard({ phase, taskState, onToggleTask }: PhaseCardProps) {
                     <span
                       className={`block text-sm leading-snug ${
                         done
-                          ? "text-stone-400 line-through dark:text-stone-600"
-                          : "text-stone-800 dark:text-stone-200"
+                          ? "text-gray-500 line-through"
+                          : "text-gray-200"
                       }`}
                     >
                       {task.name}
@@ -525,17 +531,22 @@ function StatCard({
   label: string;
   variant?: "neutral" | "danger" | "warn" | "ok";
 }) {
-  const valueColor = {
-    neutral: "text-stone-900 dark:text-stone-100",
-    danger: "text-red-600 dark:text-red-400",
-    warn: "text-amber-600 dark:text-amber-400",
-    ok: "text-green-600 dark:text-green-400",
-  }[variant];
+  const colorMap = {
+    neutral: { text: "text-gray-400", bg: "#2a2a2a" },
+    danger: { text: "text-red-400", bg: "#2a2a2a" },
+    warn: { text: "text-amber-400", bg: "#2a2a2a" },
+    ok: { text: "text-green-400", bg: "#2a2a2a" },
+  };
+
+  const { text: valueColor, bg: bgColor } = colorMap[variant];
 
   return (
-    <div className="rounded-lg bg-stone-50 dark:bg-stone-900 px-4 py-3 border border-stone-200 dark:border-stone-800">
-      <p className={`text-2xl font-semibold tabular-nums ${valueColor}`}>{value}</p>
-      <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">{label}</p>
+    <div 
+      className={`rounded-lg px-4 py-4 border border-gray-700 ${valueColor}`}
+      style={{ backgroundColor: bgColor }}
+    >
+      <p className={`text-3xl font-bold tabular-nums ${valueColor}`}>{value}</p>
+      <p className="mt-2 text-sm text-gray-400">{label}</p>
     </div>
   );
 }
@@ -544,7 +555,7 @@ function StatCard({
 
 function Legend() {
   return (
-    <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-stone-500 dark:text-stone-400">
+    <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-gray-400">
       {(Object.entries(TAG_CONFIG) as [OwnerTag, (typeof TAG_CONFIG)[OwnerTag]][]).map(
         ([key, { label, classes }]) => (
           <span key={key} className="flex items-center gap-1.5">
@@ -602,36 +613,38 @@ export default function LessonRoadmap() {
   const taskPctFloat = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
 
   return (
-    <section aria-labelledby="roadmap-heading" className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+    <div style={{ backgroundColor: '#1a1a1a', color: '#e5e7eb', minHeight: '100vh', padding: '64px 24px' }}>
+      <section aria-labelledby="roadmap-heading" className="mx-auto max-w-5xl">
       {/* Heading */}
-      <div className="mb-6">
+      <div className="mb-12">
         <h1
           id="roadmap-heading"
-          className="text-xl font-semibold text-stone-900 dark:text-stone-100"
+          className="text-4xl font-bold mb-3"
+          style={{ color: '#ffffff' }}
         >
           Lesson generation roadmap
         </h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+        <p className="text-base max-w-2xl" style={{ color: '#9ca3af' }}>
           Tracks the path from 14 approved items to a production-grade item bank across all CAPS
           topics. Check off tasks as they are completed — progress is saved locally.
         </p>
       </div>
 
       {/* Summary stats */}
-      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="mb-10 gap-6" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
         <StatCard value={APPROVED_ITEMS} label="Approved items" variant="danger" />
         <StatCard value={106} label="AI candidates (unreviewed)" variant="warn" />
-        <StatCard value={0} label="Topics at ≥ 40 approved" variant="danger" />
+        <StatCard value={0} label="Topics at ≥ 40 approved" variant="neutral" />
         <StatCard value={PRODUCTION_TARGET} label="Production target" variant="ok" />
       </div>
 
       {/* Overall approval progress (single concise bar) */}
-      <div className="mb-6 rounded-xl border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900 px-4 py-4">
-        <div className="flex items-center justify-between text-xs text-stone-500 dark:text-stone-400 mb-3">
+      <div className="mb-10 rounded-lg border border-gray-700 px-6 py-5" style={{ backgroundColor: '#252525' }}>
+        <div className="flex items-center justify-between text-sm text-gray-300 mb-3">
           <div>Overall approval progress</div>
           <div>{taskPctFloat.toFixed(1)}% ({completedTasks} / {totalTasks} tasks)</div>
         </div>
-        <div className="h-2 overflow-hidden rounded-full bg-stone-200 dark:bg-stone-700">
+        <div className="h-3 overflow-hidden rounded-full bg-gray-700">
           <div
             className="h-full rounded-full bg-blue-500 transition-[width] duration-500"
             style={{ width: `${taskPct}%` }}
@@ -645,12 +658,12 @@ export default function LessonRoadmap() {
       </div>
 
       {/* Tag legend */}
-      <div className="mb-4">
+      <div className="mb-8">
         <Legend />
       </div>
 
       {/* Phase list */}
-      <div className="space-y-3" role="list" aria-label="Roadmap phases">
+      <div className="space-y-5" role="list" aria-label="Roadmap phases">
         {PHASES.map((phase) => (
           <div key={phase.id} role="listitem">
             <PhaseCard
@@ -663,11 +676,12 @@ export default function LessonRoadmap() {
       </div>
 
       {/* Footer note */}
-      <p className="mt-6 text-xs text-stone-400 dark:text-stone-600">
-        Task state is stored in <code className="font-mono">localStorage</code> under the key{" "}
-        <code className="font-mono">{STORAGE_KEY}</code>. For team-wide persistence, replace the
+      <p className="mt-10 text-xs text-gray-500">
+        Task state is stored in <code className="font-mono px-1.5 py-0.5 rounded" style={{ backgroundColor: '#2a2a2a', color: '#9ca3af' }}>localStorage</code> under the key{" "}
+        <code className="font-mono px-1.5 py-0.5 rounded" style={{ backgroundColor: '#2a2a2a', color: '#9ca3af' }}>{STORAGE_KEY}</code>. For team-wide persistence, replace the
         localStorage calls with an API write to your admin settings endpoint.
       </p>
-    </section>
+      </section>
+    </div>
   );
 }
