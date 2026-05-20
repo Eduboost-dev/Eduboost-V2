@@ -179,6 +179,8 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `scripts/check_privacy_legal_release_evidence.py` | `diagnostic` |
 | `scripts/check_release_candidate_evidence_sweep.py` | `diagnostic` |
 | `scripts/check_remediation_safety_contract.py` | `remediation` |
+| `scripts/check_route_tx_diagnostics_slice.py` | `diagnostic` |
+| `scripts/check_route_tx_slice_rollup.py` | `diagnostic` |
 | `scripts/check_runtime_blockers_after_followup_audit.py` | `diagnostic` |
 | `scripts/check_runtime_integration_proof.py` | `diagnostic` |
 | `scripts/check_security_posture_threat_modeling_production_readiness.py` | `prompt, remediation` |
@@ -186,6 +188,7 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `scripts/ci/check_diagnostics_assessment.py` | `diagnostic` |
 | `scripts/compare_orm_tables_to_database.py` | `diagnostic` |
 | `scripts/evaluate_pedagogy.py` | `prompt, llm` |
+| `scripts/evidence_attachment_runbook.py` | `diagnostic` |
 | `scripts/generate_ai_prompt_surface_inventory.py` | `prompt, system_message, user_message, llm, anthropic, groq, generate_lesson, diagnostic, remediation` |
 | `scripts/generate_audit_callsite_inventory.py` | `diagnostic` |
 | `scripts/generate_backend_consolidation_evidence_manifest.py` | `diagnostic` |
@@ -208,11 +211,13 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `scripts/inventory_services.py` | `diagnostic` |
 | `scripts/lessons/generate_lessons.py` | `llm, generate_lesson, remediation` |
 | `scripts/lessons/validate_lessons.py` | `prompt, llm, groq` |
+| `scripts/live_db_tx_evidence.py` | `llm, diagnostic` |
 | `scripts/maintenance/audit_todo_backlog.py` | `prompt, llm, diagnostic, remediation` |
 | `scripts/merge_lora.py` | `llm` |
 | `scripts/patch_diagnostics_dynamic_repository_boundary.py` | `diagnostic` |
 | `scripts/patch_diagnostics_scoring_snapshot.py` | `diagnostic` |
 | `scripts/patch_diagnostics_session_binding.py` | `diagnostic` |
+| `scripts/patch_route_tx_diagnostics_slice_registry.py` | `diagnostic` |
 | `scripts/popia_route_tx_gap_plan.py` | `diagnostic` |
 | `scripts/popia_sweep.py` | `prompt, llm, anthropic, groq, diagnostic` |
 | `scripts/prepare_training_data.py` | `llm` |
@@ -221,8 +226,10 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `scripts/repair_diagnostics_data_integrity.py` | `diagnostic` |
 | `scripts/repair_runtime_blockers_after_followup_audit.py` | `diagnostic` |
 | `scripts/route_tx_auth_slice.py` | `llm` |
+| `scripts/route_tx_diagnostics_slice.py` | `llm, diagnostic` |
 | `scripts/route_tx_impl_plan.py` | `diagnostic` |
 | `scripts/route_tx_popia_slice.py` | `llm` |
+| `scripts/route_tx_slice_rollup.py` | `diagnostic` |
 | `scripts/seed_irt_items.py` | `diagnostic` |
 | `scripts/seed_item_bank.py` | `diagnostic` |
 | `scripts/staging_acceptance_evidence.py` | `llm` |

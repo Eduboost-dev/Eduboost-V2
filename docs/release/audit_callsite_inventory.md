@@ -1380,6 +1380,11 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_documentation_adrs_claim_discipline_production_readiness.py` | 131 | audit_append_call | `results.append(DocumentationGovernanceReadinessResult("documentation_governance_contracts", False, f"contract check failed: {exc}"))` |
 | `scripts/check_environment_security_contract.py` | 41 | audit_append_call | `results.append(` |
 | `scripts/check_evidence_archive_completeness_guard.py` | 58 | audit_append_call | `results.append(EvidenceArchiveCompletenessGuardResult(snippet in text, f"contains {snippet!r}" if snippet in text else f"missing {snippet!r}"))` |
+| `scripts/check_evidence_attachment_runbook.py` | 35 | audit_append_call | `failures.append("too few evidence attachment commands")` |
+| `scripts/check_evidence_attachment_runbook.py` | 42 | audit_append_call | `failures.append(f"runbook missing {item}")` |
+| `scripts/check_evidence_attachment_runbook.py` | 48 | audit_append_call | `failures.append(f"release sequence missing {command}")` |
+| `scripts/check_evidence_attachment_runbook.py` | 64 | audit_append_call | `failures.append("evidence attachment runbook tests failed")` |
+| `scripts/check_evidence_attachment_runbook.py` | 70 | audit_append_call | `failures.append("focused Ruff failed")` |
 | `scripts/check_evidence_freeze_confirmation_record.py` | 55 | audit_append_call | `results.append(` |
 | `scripts/check_evidence_registry_commit_provenance.py` | 39 | audit_append_call | `failures.append(f"{finding.id} missing last_verified_commit")` |
 | `scripts/check_evidence_registry_commit_provenance.py` | 66 | audit_append_call | `failures.append("evidence registry commit provenance tests failed")` |
@@ -1399,6 +1404,11 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_final_beta_operator_packet.py` | 51 | audit_append_call | `results.append(` |
 | `scripts/check_final_closure_manifest.py` | 55 | audit_append_call | `results.append(` |
 | `scripts/check_final_evidence_noop_execution_assertion.py` | 51 | audit_append_call | `results.append(` |
+| `scripts/check_final_gate_refresh.py` | 40 | audit_append_call | `failures.append("no status surfaces refreshed")` |
+| `scripts/check_final_gate_refresh.py` | 47 | audit_append_call | `failures.append(f"unexpected beta decision: {refresh.beta_decision}")` |
+| `scripts/check_final_gate_refresh.py` | 50 | audit_append_call | `failures.append("release mode requires final beta gate decision GO")` |
+| `scripts/check_final_gate_refresh.py` | 81 | audit_append_call | `failures.append("final gate refresh tests failed")` |
+| `scripts/check_final_gate_refresh.py` | 102 | audit_append_call | `failures.append("focused Ruff failed")` |
 | `scripts/check_final_merge_signoff_lock.py` | 53 | audit_append_call | `results.append(` |
 | `scripts/check_final_pr_handoff_summary.py` | 55 | audit_append_call | `results.append(` |
 | `scripts/check_final_pr_merge_readiness.py` | 48 | audit_append_call | `results.append(` |
@@ -1507,6 +1517,11 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_lesson_object_authorization_repair.py` | 51 | audit_append_call | `failures.append(f"{node.name} write")` |
 | `scripts/check_lesson_object_authorization_repair.py` | 57 | audit_append_call | `failures.append(f"{node.name} sync")` |
 | `scripts/check_lesson_object_authorization_repair.py` | 65 | audit_append_call | `failures.append("report")` |
+| `scripts/check_live_db_tx_evidence.py` | 39 | audit_append_call | `failures.append("not all route transaction slices evaluated")` |
+| `scripts/check_live_db_tx_evidence.py` | 46 | audit_append_call | `failures.append(f"unexpected live DB evidence status: {status.status}")` |
+| `scripts/check_live_db_tx_evidence.py` | 49 | audit_append_call | `failures.append("release mode requires complete live DB transaction evidence")` |
+| `scripts/check_live_db_tx_evidence.py` | 80 | audit_append_call | `failures.append("live DB transaction evidence tests failed")` |
+| `scripts/check_live_db_tx_evidence.py` | 101 | audit_append_call | `failures.append("focused Ruff failed")` |
 | `scripts/check_llm_provider_fallback_contract.py` | 47 | audit_append_call | `results.append(` |
 | `scripts/check_llm_provider_fallback_contract.py` | 56 | audit_append_call | `results.append(` |
 | `scripts/check_llm_provider_fallback_contract.py` | 65 | audit_append_call | `results.append(` |
@@ -1613,6 +1628,11 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_route_tx_auth_slice.py` | 50 | audit_append_call | `failures.append("release mode requires live DB auth route transaction evidence")` |
 | `scripts/check_route_tx_auth_slice.py` | 81 | audit_append_call | `failures.append("auth route transaction slice tests failed")` |
 | `scripts/check_route_tx_auth_slice.py` | 102 | audit_append_call | `failures.append("focused Ruff failed")` |
+| `scripts/check_route_tx_diagnostics_slice.py` | 43 | audit_append_call | `failures.append("gap plan with actions must remain blocked")` |
+| `scripts/check_route_tx_diagnostics_slice.py` | 51 | audit_append_call | `failures.append(f"unexpected live DB status: {report.live_db_status}")` |
+| `scripts/check_route_tx_diagnostics_slice.py` | 53 | audit_append_call | `failures.append("release mode requires local diagnostics route source passing and live DB evidence")` |
+| `scripts/check_route_tx_diagnostics_slice.py` | 64 | audit_append_call | `failures.append("diagnostics route transaction slice tests failed")` |
+| `scripts/check_route_tx_diagnostics_slice.py` | 69 | audit_append_call | `failures.append("focused Ruff failed")` |
 | `scripts/check_route_tx_impl_plan.py` | 38 | audit_append_call | `failures.append("TX route inventory is missing")` |
 | `scripts/check_route_tx_impl_plan.py` | 50 | audit_append_call | `failures.append("route transaction actions must not be closable by static marker")` |
 | `scripts/check_route_tx_impl_plan.py` | 55 | audit_append_call | `failures.append("release mode requires route transaction implementation actions to be zero")` |
@@ -1624,6 +1644,11 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_route_tx_popia_slice.py` | 56 | audit_append_call | `failures.append("release mode requires live DB POPIA route transaction evidence")` |
 | `scripts/check_route_tx_popia_slice.py` | 87 | audit_append_call | `failures.append("POPIA route transaction slice tests failed")` |
 | `scripts/check_route_tx_popia_slice.py` | 108 | audit_append_call | `failures.append("focused Ruff failed")` |
+| `scripts/check_route_tx_slice_rollup.py` | 40 | audit_append_call | `failures.append("expected three route transaction slices in rollup")` |
+| `scripts/check_route_tx_slice_rollup.py` | 47 | audit_append_call | `failures.append(f"unexpected rollup status: {rollup.status}")` |
+| `scripts/check_route_tx_slice_rollup.py` | 50 | audit_append_call | `failures.append("release mode requires route transaction slice rollup release-ready")` |
+| `scripts/check_route_tx_slice_rollup.py` | 81 | audit_append_call | `failures.append("route transaction slice rollup tests failed")` |
+| `scripts/check_route_tx_slice_rollup.py` | 102 | audit_append_call | `failures.append("focused Ruff failed")` |
 | `scripts/check_router_boundary_enforcement.py` | 24 | audit_append_call | `failures.append(f"{router}: {violations}")` |
 | `scripts/check_runtime_blockers_after_followup_audit.py` | 23 | audit_append_call | `failures.append(f"POPIA adapter missing {method}")` |
 | `scripts/check_runtime_blockers_after_followup_audit.py` | 26 | audit_append_call | `failures.append("consent dependency missing POPIA adapter")` |
@@ -1740,6 +1765,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/docs_inventory.py` | 417 | audit_append_call | `errors.append("Missing important docs: " + ", ".join(expected.missing_important_docs))` |
 | `scripts/evaluate_pedagogy.py` | 88 | audit_append_call | `cases.append(BenchmarkCase(**record))` |
 | `scripts/evaluate_pedagogy.py` | 171 | audit_append_call | `case_results.append(result)` |
+| `scripts/evidence_attachment_runbook.py` | 84 | audit_append_call | `lines.append(f"\| `{command.id}` \| `{command.category}` \| {command.purpose} \| `{command.command}` \| {command.expected_until_evidence} \|")` |
 | `scripts/evidence_registry.py` | 64 | audit_append_call | `findings.append(current)` |
 | `scripts/evidence_registry.py` | 76 | audit_append_call | `findings.append(current)` |
 | `scripts/evidence_registry.py` | 86 | audit_append_call | `errors.append(f"duplicate finding id: {finding.id}")` |
@@ -1757,6 +1783,18 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/external_approval_gate.py` | 173 | audit_append_call | `blockers.append("date verified is pending")` |
 | `scripts/external_approval_gate.py` | 222 | audit_append_call | `lines.append(` |
 | `scripts/external_approval_gate.py` | 231 | audit_append_call | `lines.append("- None")` |
+| `scripts/final_gate_refresh.py` | 104 | audit_append_call | `results.append(` |
+| `scripts/final_gate_refresh.py` | 114 | audit_append_call | `results.append(` |
+| `scripts/final_gate_refresh.py` | 151 | audit_append_call | `items.append(current)` |
+| `scripts/final_gate_refresh.py` | 162 | audit_append_call | `items.append(current)` |
+| `scripts/final_gate_refresh.py` | 203 | audit_append_call | `actions.append("Attach accepted GitHub Actions run metadata for CI-001.")` |
+| `scripts/final_gate_refresh.py` | 205 | audit_append_call | `actions.append("Attach complete legal/security/content approval metadata.")` |
+| `scripts/final_gate_refresh.py` | 207 | audit_append_call | `actions.append("Attach accepted staging smoke evidence.")` |
+| `scripts/final_gate_refresh.py` | 209 | audit_append_call | `actions.append("Attach live DB route transaction evidence and rerun route transaction rollup.")` |
+| `scripts/final_gate_refresh.py` | 211 | audit_append_call | `actions.append("Repair refresh errors before evaluating release readiness.")` |
+| `scripts/final_gate_refresh.py` | 213 | audit_append_call | `actions.append("Review release_decision_log.md and obtain explicit release-owner sign-off.")` |
+| `scripts/final_gate_refresh.py` | 253 | audit_append_call | `lines.append(f"\| `{result.name}` \| `{result.status}` \| `{result.detail}` \|")` |
+| `scripts/final_gate_refresh.py` | 265 | audit_append_call | `lines.append(` |
 | `scripts/generate_ai_prompt_surface_inventory.py` | 49 | audit_append_call | `surfaces.append(PromptSurface(str(path.relative_to(REPO_ROOT)), markers))` |
 | `scripts/generate_ai_prompt_surface_inventory.py` | 76 | audit_append_call | `lines.append("\| _none found_ \| _none_ \|")` |
 | `scripts/generate_ai_prompt_surface_inventory.py` | 79 | audit_append_call | `lines.append(f"\| `{surface.path}` \| `{', '.join(surface.markers)}` \|")` |
@@ -1918,6 +1956,15 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/lessons/generate_lessons.py` | 164 | audit_append_call | `result.errors.append(msg)` |
 | `scripts/lessons/generate_lessons.py` | 227 | audit_append_call | `results.append(result)` |
 | `scripts/lessons/validate_lessons.py` | 185 | audit_append_call | `failed_lessons.append((lesson_id, caps_ref, result))` |
+| `scripts/live_db_tx_evidence.py` | 181 | audit_append_call | `blockers.append("route slice is pending")` |
+| `scripts/live_db_tx_evidence.py` | 183 | audit_append_call | `blockers.append("live DB evidence URL is pending or invalid")` |
+| `scripts/live_db_tx_evidence.py` | 185 | audit_append_call | `blockers.append("test result must be pass/passed/success/successful/green/ok")` |
+| `scripts/live_db_tx_evidence.py` | 187 | audit_append_call | `blockers.append("database is pending")` |
+| `scripts/live_db_tx_evidence.py` | 189 | audit_append_call | `blockers.append("commit SHA is pending or invalid")` |
+| `scripts/live_db_tx_evidence.py` | 191 | audit_append_call | `blockers.append("verified by is pending")` |
+| `scripts/live_db_tx_evidence.py` | 193 | audit_append_call | `blockers.append("date verified is pending")` |
+| `scripts/live_db_tx_evidence.py` | 328 | audit_append_call | `lines.append(` |
+| `scripts/live_db_tx_evidence.py` | 337 | audit_append_call | `lines.append("- None")` |
 | `scripts/maintenance/audit_todo_backlog.py` | 17 | audit_append_call | `paths.append(str(rel))` |
 | `scripts/maintenance/audit_todo_backlog.py` | 34 | audit_append_call | `hits.append(rel)` |
 | `scripts/maintenance/audit_todo_backlog.py` | 52 | audit_append_call | `tasks.append({'id':f'TODO-{idx:03d}','line':lineno,'section':section,'subsection':subsection,'todo_checked':'x' if m.group(1)=='x' else '', 'priority':m.group(2),'task':m.group(3).strip()})` |
@@ -2049,6 +2096,30 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/route_tx_auth_slice.py` | 334 | audit_append_call | `lines.append(` |
 | `scripts/route_tx_auth_slice.py` | 344 | audit_append_call | `lines.append("- None")` |
 | `scripts/route_tx_auth_slice.py` | 350 | audit_append_call | `lines.append("- None")` |
+| `scripts/route_tx_diagnostics_slice.py` | 140 | audit_append_call | `chunks.append("\n".join(lines[start:end]))` |
+| `scripts/route_tx_diagnostics_slice.py` | 154 | audit_append_call | `parts.append(value.attr)` |
+| `scripts/route_tx_diagnostics_slice.py` | 157 | audit_append_call | `parts.append(value.id)` |
+| `scripts/route_tx_diagnostics_slice.py` | 170 | audit_append_call | `mutations.append(name)` |
+| `scripts/route_tx_diagnostics_slice.py` | 181 | audit_append_call | `calls.append(name)` |
+| `scripts/route_tx_diagnostics_slice.py` | 195 | audit_append_call | `chunks.append(path.read_text(encoding="utf-8", errors="ignore"))` |
+| `scripts/route_tx_diagnostics_slice.py` | 270 | audit_append_call | `blockers.append(f"{name} is pending")` |
+| `scripts/route_tx_diagnostics_slice.py` | 272 | audit_append_call | `blockers.append("Live DB evidence URL must be a URL")` |
+| `scripts/route_tx_diagnostics_slice.py` | 274 | audit_append_call | `blockers.append("Test result must be passed/pass/green/ok")` |
+| `scripts/route_tx_diagnostics_slice.py` | 276 | audit_append_call | `blockers.append("Commit SHA must look like a git SHA")` |
+| `scripts/route_tx_diagnostics_slice.py` | 284 | audit_append_call | `funcs.append(node)` |
+| `scripts/route_tx_diagnostics_slice.py` | 294 | audit_append_call | `blockers.append("diagnostics router file missing")` |
+| `scripts/route_tx_diagnostics_slice.py` | 318 | audit_append_call | `reasons.append("no diagnostics service delegate call found")` |
+| `scripts/route_tx_diagnostics_slice.py` | 320 | audit_append_call | `reasons.append("direct db mutations present: " + ", ".join(mutations))` |
+| `scripts/route_tx_diagnostics_slice.py` | 322 | audit_append_call | `blockers.append(f"{node.name}: {reason}")` |
+| `scripts/route_tx_diagnostics_slice.py` | 323 | audit_append_call | `findings.append(DiagnosticsRouteSliceFinding(` |
+| `scripts/route_tx_diagnostics_slice.py` | 334 | audit_append_call | `blockers.append("selected diagnostics routes were not found in router source")` |
+| `scripts/route_tx_diagnostics_slice.py` | 338 | audit_append_call | `blockers.append("no diagnostics transactional service markers found")` |
+| `scripts/route_tx_diagnostics_slice.py` | 382 | audit_append_call | `lines.append(` |
+| `scripts/route_tx_diagnostics_slice.py` | 391 | audit_append_call | `lines.append("- None")` |
+| `scripts/route_tx_diagnostics_slice.py` | 396 | audit_append_call | `lines.append("- None")` |
+| `scripts/route_tx_diagnostics_slice.py` | 410 | audit_append_call | `actions.append(DiagnosticsRouteTxGapAction(` |
+| `scripts/route_tx_diagnostics_slice.py` | 465 | audit_append_call | `lines.append(f"\| `{action.route_function}` \| {action.line} \| `{action.current_status}` \| {action.blocker_reason} \| {action.can_be_closed_by_current_report} \|")` |
+| `scripts/route_tx_diagnostics_slice.py` | 467 | audit_append_call | `lines.append("\| `-` \| 0 \| `none` \| No local source gaps detected \| False \|")` |
 | `scripts/route_tx_impl_plan.py` | 143 | audit_append_call | `actions.append(` |
 | `scripts/route_tx_impl_plan.py` | 206 | audit_append_call | `lines.append(` |
 | `scripts/route_tx_impl_plan.py` | 226 | audit_append_call | `lines.append("- No unproven mutation routes detected by the current inventory.")` |
@@ -2073,6 +2144,12 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/route_tx_popia_slice.py` | 385 | audit_append_call | `lines.append(` |
 | `scripts/route_tx_popia_slice.py` | 395 | audit_append_call | `lines.append("- None")` |
 | `scripts/route_tx_popia_slice.py` | 401 | audit_append_call | `lines.append("- None")` |
+| `scripts/route_tx_slice_rollup.py` | 144 | audit_append_call | `slice_blockers.append("slice report missing")` |
+| `scripts/route_tx_slice_rollup.py` | 146 | audit_append_call | `slice_blockers.append(f"{local_gaps} local route-source gap(s) remain")` |
+| `scripts/route_tx_slice_rollup.py` | 148 | audit_append_call | `slice_blockers.append("live DB rollback evidence missing")` |
+| `scripts/route_tx_slice_rollup.py` | 151 | audit_append_call | `blockers.append(f"{slice_id}: not release-ready")` |
+| `scripts/route_tx_slice_rollup.py` | 152 | audit_append_call | `slices.append(` |
+| `scripts/route_tx_slice_rollup.py` | 217 | audit_append_call | `lines.append(` |
 | `scripts/run_database_backup.py` | 37 | audit_append_call | `results.append(` |
 | `scripts/run_database_backup.py` | 60 | audit_append_call | `lines.append(f"- `{name}`")` |
 | `scripts/run_database_restore.py` | 36 | audit_append_call | `results.append(` |

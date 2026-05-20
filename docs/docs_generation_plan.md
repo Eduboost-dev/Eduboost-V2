@@ -2,7 +2,7 @@
 
 ## Inputs
 
-- Files scanned: `966`
+- Files scanned: `970`
 - Generated docs: `4`
 
 ## Next Artifacts
