@@ -1387,3 +1387,15 @@ make auth-route-service-dependencies-test
 make backend-implementation-2551-2590R3-full-check
 ```
 
+## AUTH-LIFECYCLE-HTTP-PROOF-001 / Backend implementation 2591-2630 — Auth lifecycle HTTP route proof
+
+Commands:
+
+```bash
+make auth-lifecycle-http-proof-status
+make auth-lifecycle-http-proof-check
+make auth-lifecycle-http-proof-release-check
+make auth-lifecycle-http-proof-test
+make backend-implementation-2591-2630-full-check
+```
+
