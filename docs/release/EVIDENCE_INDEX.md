@@ -1457,3 +1457,15 @@ make ci-auth-refresh-db-proof-workflow-test
 make backend-implementation-2751-2790-full-check
 ```
 
+## FINAL-GATE-REFRESH-001R / Backend implementation 2791-2830 — Final gate release-ready classifier repair
+
+Commands:
+
+```bash
+make final-gate-refresh-classifier-patch
+make final-gate-refresh-classifier-status
+make final-gate-refresh-classifier-check
+make final-gate-refresh-classifier-test
+make backend-implementation-2791-2830-full-check
+```
+

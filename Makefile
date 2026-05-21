@@ -2451,3 +2451,21 @@ backend-implementation-2751-2790-full-check: ci-auth-refresh-db-proof-workflow-s
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/ci_auth_refresh_db_proof_workflow.py scripts/check_ci_auth_refresh_db_proof_workflow.py scripts/patch_ci_auth_refresh_db_proof_workflow_registry.py tests/unit/test_ci_auth_refresh_db_proof_workflow.py --select F821,F401,F811,E402
 
+.PHONY: final-gate-refresh-classifier-patch final-gate-refresh-classifier-status final-gate-refresh-classifier-check final-gate-refresh-classifier-test backend-implementation-2791-2830-full-check
+
+final-gate-refresh-classifier-patch:
+	PYTHONPATH=. python3 scripts/patch_final_gate_refresh_classifier_registry.py
+
+final-gate-refresh-classifier-status:
+	PYTHONPATH=. python3 -c "from scripts.final_gate_classifier import write_refresh; r = write_refresh(); print(r.beta_decision); print(r.beta_blocker_count)"
+
+final-gate-refresh-classifier-check: final-gate-refresh-classifier-patch
+	PYTHONPATH=. python3 scripts/check_final_gate_refresh_classifier.py
+
+final-gate-refresh-classifier-test:
+	pytest -c pytest.ini tests/unit/test_final_gate_refresh_classifier.py -q --no-cov --tb=short
+
+backend-implementation-2791-2830-full-check: final-gate-refresh-classifier-status final-gate-refresh-classifier-check final-gate-refresh-classifier-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/final_gate_classifier.py scripts/final_gate_refresh.py scripts/patch_final_gate_refresh_classifier_registry.py scripts/check_final_gate_refresh_classifier.py tests/unit/test_final_gate_refresh_classifier.py --select F821,F401,F811,E402
+

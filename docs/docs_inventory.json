@@ -4,11 +4,11 @@
     "api": 6,
     "architecture": 37,
     "general": 483,
-    "release": 371,
+    "release": 373,
     "security": 98
   },
-  "commit": "84ace987e1f577fcf647fbe105f78680003c5aaa",
-  "document_count": 1020,
+  "commit": "47d690a3b3128b55e111bcabba8b2474620dd6ab",
+  "document_count": 1022,
   "documents": [
     {
       "category": "general",
@@ -34192,6 +34192,11 @@
           "level": 2,
           "line": 1449,
           "text": "CI-AUTH-REFRESH-DB-PROOF-001 / Backend implementation 2751-2790 \u2014 GitHub Actions auth refresh DB proof workflow"
+        },
+        {
+          "level": 2,
+          "line": 1460,
+          "text": "FINAL-GATE-REFRESH-001R / Backend implementation 2791-2830 \u2014 Final gate release-ready classifier repair"
         }
       ],
       "links": [
@@ -34217,8 +34222,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "56be0c1627c39beeab8361bb953e43064f7fbcde5a9d21abe4d186b350927eb1",
-      "size_bytes": 45789,
+      "sha256": "b47fe1775a38fbf745ecc0c8b66c24d8d4dc7a5bff6d90131aa82f7749953c76",
+      "size_bytes": 46136,
       "statuses": [
         "todo",
         "passed",
@@ -41656,8 +41661,8 @@
       ],
       "links": [],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "5d729202fd769988420ccc92f76c1b173f58e780b8af55e49620b7c8546eb73c",
-      "size_bytes": 24883,
+      "sha256": "f4d5ca3e26602ef01f669036f2a8f6487e4c46c9256f69174176a2abd6a58ef6",
+      "size_bytes": 24885,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -41867,11 +41872,10 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "c86cffa37d2f91371a687722318f71b53800e166e582fdaa3a4d93f6b755485f",
-      "size_bytes": 11731,
+      "sha256": "d1910a442a90ddae85f8c4c35fb75340a519556895696f18b784de6bfe05c44b",
+      "size_bytes": 8916,
       "statuses": [
         "external-blocked",
-        "blocked",
         "not-proven",
         "pending"
       ],
@@ -41893,8 +41897,7 @@
         "docs/release/lesson_authorization_hardening_report.md",
         "docs/release/diagnostics_scoring_snapshot_repair_report.md",
         "docs/release/staging_smoke_evidence.md",
-        "docs/release/external_approval_status.md",
-        "docs/release/auth_refresh_db_evidence_status.md"
+        "docs/release/external_approval_status.md"
       ],
       "generated": false,
       "headings": [
@@ -41910,32 +41913,36 @@
         },
         {
           "level": 2,
-          "line": 24,
+          "line": 25,
           "text": "Beta-critical findings"
         },
         {
           "level": 2,
-          "line": 44,
-          "text": "Required next actions"
+          "line": 43,
+          "text": "Resolved non-blocking accepted findings"
         },
         {
           "level": 2,
           "line": 50,
+          "text": "Required next actions"
+        },
+        {
+          "level": 2,
+          "line": 66,
           "text": "No false-closure rules"
         },
         {
           "level": 2,
-          "line": 57,
+          "line": 72,
           "text": "Interpretation"
         }
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "254ee71dd71396bf3addb0b85321cc9db2431016106f4ea65daa7391af2e7397",
-      "size_bytes": 3841,
+      "sha256": "25730d533aaed368377534f182a8ddf72c3f38191ae2622def92c79737a5c5b5",
+      "size_bytes": 5005,
       "statuses": [
         "external-blocked",
-        "blocked",
         "not-proven",
         "pending"
       ],
@@ -44129,6 +44136,35 @@
         {
           "level": 1,
           "line": 1,
+          "text": "Next Execution Queue After FINAL-GATE-REFRESH-001R / code_2791_2830"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next batch"
+        },
+        {
+          "level": 2,
+          "line": 7,
+          "text": "Remaining blocker themes"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2791_2830.md",
+      "sha256": "53f125fdc3eac332ba6d0594d1017afe86e3648e1a292d9b00a8496c89db5f34",
+      "size_bytes": 471,
+      "statuses": [],
+      "title": "Next Execution Queue After FINAL-GATE-REFRESH-001R / code_2791_2830"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "Next Execution Queue After code_831_870"
         },
         {
@@ -45792,6 +45828,38 @@
       "size_bytes": 595,
       "statuses": [],
       "title": "No False-Closure Status After CI-AUTH-REFRESH-DB-PROOF-001 / code_2751_2790"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After FINAL-GATE-REFRESH-001R / code_2791_2830"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 12,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2791_2830.md",
+      "sha256": "45d579efee13039ae51aefbb4c1e7a87028ced296199d24cc39e4871d3a8e45f",
+      "size_bytes": 657,
+      "statuses": [
+        "external-blocked",
+        "not-proven"
+      ],
+      "title": "No False-Closure Status After FINAL-GATE-REFRESH-001R / code_2791_2830"
     },
     {
       "category": "release",
@@ -54057,8 +54125,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 1020,
-  "generated_at": "2026-05-21T12:42:05Z",
+  "files_scanned": 1022,
+  "generated_at": "2026-05-21T13:08:01Z",
   "generated_count": 4,
   "missing_important_docs": []
 }
