@@ -599,7 +599,7 @@ findings:
     proof_status: integration-passing
     proof_command: make auth-refresh-db-evidence-release-check
     evidence_file: docs/release/auth_refresh_db_evidence_status.md
-    last_verified_commit: 31a94986af396c246291dbe721db20ddbae7ffc6
+    last_verified_commit: 84ace987e1f577fcf647fbe105f78680003c5aaa
     closure_blocker: none
     blocks_beta: true
     external_dependency: true
@@ -612,7 +612,7 @@ findings:
     proof_status: integration-passing
     proof_command: make auth-refresh-db-evidence-release-check
     evidence_file: docs/release/auth_refresh_db_evidence_status.md
-    last_verified_commit: 31a94986af396c246291dbe721db20ddbae7ffc6
+    last_verified_commit: 84ace987e1f577fcf647fbe105f78680003c5aaa
     closure_blocker: none
     blocks_beta: true
     external_dependency: true

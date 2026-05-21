@@ -1,7 +1,7 @@
 # Documentation Inventory
 
-Generated at: `2026-05-21T10:23:57Z`
-Commit: `e6ca4c15909251f4b68976ee573c5d49f09aac70`
+Generated at: `2026-05-21T12:42:05Z`
+Commit: `84ace987e1f577fcf647fbe105f78680003c5aaa`
 
 - Documents: `1020`
 - Generated docs: `4`
@@ -551,9 +551,9 @@ Commit: `e6ca4c15909251f4b68976ee573c5d49f09aac70`
 | `docs/release/auth_lifecycle_semantic_proof_status.json` | `release` | Auth Lifecycle Semantic Proof Status | 2289 | False |
 | `docs/release/auth_lifecycle_semantic_proof_status.md` | `release` | Auth Lifecycle Controlled Semantic Proof Status | 1485 | False |
 | `docs/release/auth_lifecycle_service_ownership_report.md` | `release` | Auth Lifecycle Service Ownership Report | 110 | False |
-| `docs/release/auth_refresh_db_evidence_status.json` | `release` | Auth Refresh Db Evidence Status | 1912 | False |
-| `docs/release/auth_refresh_db_evidence_status.md` | `release` | Auth Refresh DB Evidence Status | 1487 | False |
-| `docs/release/auth_refresh_db_proof_evidence.md` | `release` | Auth Refresh DB Proof Evidence | 1016 | False |
+| `docs/release/auth_refresh_db_evidence_status.json` | `release` | Auth Refresh Db Evidence Status | 1694 | False |
+| `docs/release/auth_refresh_db_evidence_status.md` | `release` | Auth Refresh DB Evidence Status | 1290 | False |
+| `docs/release/auth_refresh_db_proof_evidence.md` | `release` | Auth Refresh DB Proof Evidence | 1037 | False |
 | `docs/release/auth_refresh_db_proof_status.json` | `release` | Auth Refresh Db Proof Status | 2101 | False |
 | `docs/release/auth_refresh_db_proof_status.md` | `release` | Auth Refresh DB Proof Status | 1380 | False |
 | `docs/release/auth_repository_fixture_proof_report.json` | `release` | Auth Repository Fixture Proof Report | 524 | False |
@@ -622,8 +622,8 @@ Commit: `e6ca4c15909251f4b68976ee573c5d49f09aac70`
 | `docs/release/backend_runtime_wiring_test_pack.md` | `release` | Backend Runtime Wiring Test Pack | 713 | False |
 | `docs/release/backup_drill_evidence.json` | `release` | Backup Drill Evidence | 194 | False |
 | `docs/release/backup_drill_evidence.md` | `release` | Backup Drill Evidence | 225 | False |
-| `docs/release/beta_blocker_burndown_plan.json` | `release` | Beta Blocker Burndown Plan | 5040 | False |
-| `docs/release/beta_blocker_burndown_plan.md` | `release` | Beta Blocker Burn-Down Plan | 2626 | False |
+| `docs/release/beta_blocker_burndown_plan.json` | `release` | Beta Blocker Burndown Plan | 5046 | False |
+| `docs/release/beta_blocker_burndown_plan.md` | `release` | Beta Blocker Burn-Down Plan | 2632 | False |
 | `docs/release/beta_evidence_integrity_repair_report.json` | `release` | Beta Evidence Integrity Repair Report | 2863 | False |
 | `docs/release/beta_evidence_integrity_repair_report.md` | `release` | Beta Evidence Integrity Repair Report | 1232 | False |
 | `docs/release/beta_evidence_source_policy.md` | `release` | Beta Evidence Source Policy | 1417 | False |
@@ -674,15 +674,15 @@ Commit: `e6ca4c15909251f4b68976ee573c5d49f09aac70`
 | `docs/release/docker_hardening_status.md` | `release` | Docker Hardening Status | 122 | False |
 | `docs/release/evidence_attachment_runbook.md` | `release` | Evidence Attachment Runbook | 5177 | False |
 | `docs/release/evidence_attachment_runbook_manifest.json` | `release` | Evidence Attachment Runbook Manifest | 4984 | False |
-| `docs/release/evidence_status_registry.yml` | `release` | EduBoost V2 Evidence Status Registry | 25041 | False |
+| `docs/release/evidence_status_registry.yml` | `release` | EduBoost V2 Evidence Status Registry | 24883 | False |
 | `docs/release/external_approval_status.json` | `release` | External Approval Status | 3030 | False |
 | `docs/release/external_approval_status.md` | `release` | External Approval Status | 1584 | False |
 | `docs/release/external_approvals/content_approval.md` | `release` | Educator/content release approval | 522 | False |
 | `docs/release/external_approvals/legal_approval.md` | `release` | POPIA/legal release approval | 515 | False |
 | `docs/release/external_approvals/security_approval.md` | `release` | Security release approval | 510 | False |
 | `docs/release/external_approvals/staging_acceptance.md` | `release` | Staging acceptance approval | 516 | False |
-| `docs/release/final_beta_gate_refresh.json` | `release` | Final Beta Gate Refresh | 12191 | False |
-| `docs/release/final_beta_gate_refresh.md` | `release` | Final Beta Gate Refresh | 4071 | False |
+| `docs/release/final_beta_gate_refresh.json` | `release` | Final Beta Gate Refresh | 11731 | False |
+| `docs/release/final_beta_gate_refresh.md` | `release` | Final Beta Gate Refresh | 3841 | False |
 | `docs/release/final_go_no_go_evidence.md` | `release` | Final Go/No-Go Evidence | 1358 | False |
 | `docs/release/first_audit_runtime_wiring_evidence.md` | `release` | First Audit Runtime Wiring Evidence | 465 | False |
 | `docs/release/first_audit_runtime_wiring_pr.md` | `release` | First Audit Runtime Wiring PR | 677 | False |
@@ -840,8 +840,8 @@ Commit: `e6ca4c15909251f4b68976ee573c5d49f09aac70`
 | `docs/release/real_audit_runtime_integration_report.md` | `release` | Real Audit Runtime Integration Report | 166 | False |
 | `docs/release/real_consent_runtime_repair_report.md` | `release` | Real Consent Runtime Repair Report | 158 | False |
 | `docs/release/release_decision_log.md` | `release` | Release Decision Log | 591 | False |
-| `docs/release/release_go_no_go_status.json` | `release` | Release Go No Go Status | 24080 | False |
-| `docs/release/release_go_no_go_status.md` | `release` | Release Go/No-Go Status | 3361 | False |
+| `docs/release/release_go_no_go_status.json` | `release` | Release Go No Go Status | 23850 | False |
+| `docs/release/release_go_no_go_status.md` | `release` | Release Go/No-Go Status | 3367 | False |
 | `docs/release/release_owner_beta_go_no_go_memo.md` | `release` | Release-Owner Beta Go/No-Go Memo | 556 | False |
 | `docs/release/release_owner_runtime_wiring_signoff_template.md` | `release` | Release Owner Runtime Wiring Signoff Template | 468 | False |
 | `docs/release/remote_ci_blocker_status.md` | `release` | Remote CI Blocker Status | 231 | False |
