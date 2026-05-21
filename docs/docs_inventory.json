@@ -4,11 +4,11 @@
     "api": 6,
     "architecture": 37,
     "general": 483,
-    "release": 361,
+    "release": 371,
     "security": 98
   },
-  "commit": "fe6b92247e119405439128bb45930e18779b3c32",
-  "document_count": 1010,
+  "commit": "aa1e1e883fe9ea07116238229dca4694c7216d3a",
+  "document_count": 1020,
   "documents": [
     {
       "category": "general",
@@ -34177,6 +34177,21 @@
           "level": 2,
           "line": 1414,
           "text": "AUTH-REFRESH-DB-PROOF-001 / Backend implementation 2671-2710 \u2014 Auth refresh DB proof scaffold"
+        },
+        {
+          "level": 2,
+          "line": 1426,
+          "text": "AUTH-REFRESH-DB-EVIDENCE-001 / Backend implementation 2711-2750 \u2014 Auth refresh DB evidence attachment gate"
+        },
+        {
+          "level": 2,
+          "line": 1438,
+          "text": "AUTH-REFRESH-DB-EVIDENCE-001R / Backend implementation 2711-2750R \u2014 Auth refresh DB evidence placeholder repair"
+        },
+        {
+          "level": 2,
+          "line": 1449,
+          "text": "CI-AUTH-REFRESH-DB-PROOF-001 / Backend implementation 2751-2790 \u2014 GitHub Actions auth refresh DB proof workflow"
         }
       ],
       "links": [
@@ -34202,8 +34217,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "987864c15a4ce0573f7a88f45437f3ee7da34e741f7e1f8dacfad0c90119cf89",
-      "size_bytes": 44806,
+      "sha256": "56be0c1627c39beeab8361bb953e43064f7fbcde5a9d21abe4d186b350927eb1",
+      "size_bytes": 45789,
       "statuses": [
         "todo",
         "passed",
@@ -35722,7 +35737,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/approval_evidence_status.json",
-      "sha256": "5c1d13a9c3f2cf7d2eef22f09297f45084d08a0e74f1048d49c2f500750fc2ee",
+      "sha256": "4e3aad0ac49caecab605fc5856012f6f7d1c378654670513ff2d19145526b13f",
       "size_bytes": 2800,
       "statuses": [
         "external-blocked",
@@ -35755,7 +35770,7 @@
       ],
       "links": [],
       "path": "docs/release/approval_evidence_status.md",
-      "sha256": "316653bbb7c132dff588396faf0cb453220c7611ea5d3d45c639b82fdb87ac7c",
+      "sha256": "cd361a6d481d5e919c8648d4eb2a3658970e462773f695abe0c7fff08b7f3232",
       "size_bytes": 1296,
       "statuses": [
         "external-blocked",
@@ -36428,7 +36443,73 @@
     },
     {
       "category": "release",
-      "dates": [],
+      "dates": [
+        "2026-05-21"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/REAL_RUN_ID\",",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/REAL_RUN_ID\","
+        }
+      ],
+      "path": "docs/release/auth_refresh_db_evidence_status.json",
+      "sha256": "11ff90e8db7fefe8701ce08dd56ccbda645987443227a5c9384dbe27a57aab0d",
+      "size_bytes": 1912,
+      "statuses": [
+        "external-blocked",
+        "passed"
+      ],
+      "title": "Auth Refresh Db Evidence Status"
+    },
+    {
+      "category": "release",
+      "dates": [
+        "2026-05-21"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Auth Refresh DB Evidence Status"
+        },
+        {
+          "level": 2,
+          "line": 23,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 28,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/REAL_RUN_ID`",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/REAL_RUN_ID`"
+        }
+      ],
+      "path": "docs/release/auth_refresh_db_evidence_status.md",
+      "sha256": "3bc05898d2b4a3192d03a2de5cc4cc0643724856530d6bd2e2728aea9def1225",
+      "size_bytes": 1487,
+      "statuses": [
+        "external-blocked",
+        "passed"
+      ],
+      "title": "Auth Refresh DB Evidence Status"
+    },
+    {
+      "category": "release",
+      "dates": [
+        "2026-05-21"
+      ],
       "evidence_references": [],
       "generated": false,
       "headings": [
@@ -36448,35 +36529,52 @@
           "text": "No false-closure rule"
         }
       ],
-      "links": [],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/REAL_RUN_ID",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/REAL_RUN_ID"
+        }
+      ],
       "path": "docs/release/auth_refresh_db_proof_evidence.md",
-      "sha256": "f918c4dc6d100ef80b16ca1e3fa0b9adda618eaebc59ecfbac331d1b494cd1e5",
-      "size_bytes": 842,
+      "sha256": "573d7c76dcec06625f9f601ffec95edf455e7ef191e5f9c82c1e0ec21223a795",
+      "size_bytes": 1016,
       "statuses": [
-        "pending",
-        "passed"
+        "passed",
+        "pending"
       ],
       "title": "Auth Refresh DB Proof Evidence"
     },
     {
       "category": "release",
-      "dates": [],
+      "dates": [
+        "2026-05-21"
+      ],
       "evidence_references": [],
       "generated": false,
       "headings": [],
-      "links": [],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/REAL_RUN_ID\",",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/REAL_RUN_ID\","
+        }
+      ],
       "path": "docs/release/auth_refresh_db_proof_status.json",
-      "sha256": "349227aaac6ed17bd63e71c8c51558748a923abaf466520d846e0a05fec8f34d",
-      "size_bytes": 2435,
+      "sha256": "3b84bf4a4b4f1579933df1290ee507f1719f23282411146915afc0566142840f",
+      "size_bytes": 2101,
       "statuses": [
         "external-blocked",
-        "pending"
+        "passed",
+        "pass"
       ],
       "title": "Auth Refresh Db Proof Status"
     },
     {
       "category": "release",
-      "dates": [],
+      "dates": [
+        "2026-05-21"
+      ],
       "evidence_references": [],
       "generated": false,
       "headings": [
@@ -36502,17 +36600,24 @@
         },
         {
           "level": 2,
-          "line": 47,
+          "line": 37,
           "text": "No false-closure rules"
         }
       ],
-      "links": [],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/REAL_RUN_ID`",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/REAL_RUN_ID`"
+        }
+      ],
       "path": "docs/release/auth_refresh_db_proof_status.md",
-      "sha256": "43e99558bc4f24725ecce64239dd332e7f364fc798de8670803934ba209b7e56",
-      "size_bytes": 1666,
+      "sha256": "d680c7e508cdb194b75b05d542039b8b1523b6a5ff6b150dfda5a125a9d5c51d",
+      "size_bytes": 1380,
       "statuses": [
         "external-blocked",
-        "pending"
+        "passed",
+        "pass"
       ],
       "title": "Auth Refresh DB Proof Status"
     },
@@ -39894,7 +39999,7 @@
       "evidence_references": [
         "docs/release/ci_evidence.md",
         "docs/release/external_approvals/content_approval.md",
-        "docs/release/auth_refresh_db_proof_status.md",
+        "docs/release/auth_refresh_db_evidence_status.md",
         "docs/release/external_approval_status.md",
         "docs/release/external_approvals/legal_approval.md",
         "docs/release/external_approvals/security_approval.md",
@@ -39905,8 +40010,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/beta_blocker_burndown_plan.json",
-      "sha256": "8531b8211705bf8b405ea7e9af567f584420dcf0c5b1c7b97e9ca8b900b3c768",
-      "size_bytes": 4540,
+      "sha256": "ef01eb06f13fdd09fc4615556ac88f768b3225eedfd1eed7cc17244d09177864",
+      "size_bytes": 5040,
       "statuses": [
         "blocked",
         "external-blocked",
@@ -39933,19 +40038,19 @@
         },
         {
           "level": 2,
-          "line": 24,
+          "line": 25,
           "text": "No false-closure rules"
         },
         {
           "level": 2,
-          "line": 31,
+          "line": 32,
           "text": "Interpretation"
         }
       ],
       "links": [],
       "path": "docs/release/beta_blocker_burndown_plan.md",
-      "sha256": "6a2587eb5a322ebb80f9ed238062882fd78a797f94a3e811c0a1d080737ba19b",
-      "size_bytes": 2424,
+      "sha256": "a34d0003a6ef5f9854026d5e9ccfff1ac54a0cb30978a9e1e66435dc88bb2dca",
+      "size_bytes": 2626,
       "statuses": [
         "blocked",
         "external-blocked",
@@ -40246,6 +40351,52 @@
     {
       "category": "release",
       "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/release/ci_auth_refresh_db_proof_workflow_status.json",
+      "sha256": "5b9c90a36d428c92be20cfb992ad473f9d661499969d9306311b0f12b661322c",
+      "size_bytes": 1662,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Ci Auth Refresh Db Proof Workflow Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "CI Auth Refresh DB Proof Workflow Status"
+        },
+        {
+          "level": 2,
+          "line": 23,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 27,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/ci_auth_refresh_db_proof_workflow_status.md",
+      "sha256": "8419d762e4b0e2dfca077d85292dbe8674b49ad26cf31765395b9ba7bfc2bdb5",
+      "size_bytes": 1261,
+      "statuses": [
+        "passed"
+      ],
+      "title": "CI Auth Refresh DB Proof Workflow Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
       "evidence_references": [
         "docs/release/ci_evidence.md"
       ],
@@ -40364,7 +40515,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/ci_run_evidence_status.json",
-      "sha256": "1db075713d04a65412d0a2878f6abeb9621033f646bb276ec8a8b3d8aaf71f19",
+      "sha256": "eee797d2a8c757f8d1e19633801ce5c2c5760813174a816ca7c6342b6ab8a1ef",
       "size_bytes": 766,
       "statuses": [
         "external-blocked",
@@ -40398,7 +40549,7 @@
       ],
       "links": [],
       "path": "docs/release/ci_run_evidence_status.md",
-      "sha256": "121e7a65c4b28bb2a858f825a4b988c710f06d54e592ac4302941e472a2c1c5d",
+      "sha256": "f52ac6fb41ccc56c0803f39c2ec441dfa9296c27c0470c6b4294b9973232f6be",
       "size_bytes": 801,
       "statuses": [
         "external-blocked",
@@ -41428,7 +41579,8 @@
         "docs/release/auth_route_logout_delegate_status.md",
         "docs/release/auth_lifecycle_http_proof_status.md",
         "docs/release/auth_lifecycle_semantic_proof_status.md",
-        "docs/release/auth_refresh_db_proof_status.md"
+        "docs/release/auth_refresh_db_evidence_status.md",
+        "docs/release/ci_auth_refresh_db_proof_workflow_status.md"
       ],
       "generated": false,
       "headings": [
@@ -41505,8 +41657,8 @@
       ],
       "links": [],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "4e437263ae41946b481c52c0611a6517f5c2ff5e6c7fbcabcacf75aaf90f50ae",
-      "size_bytes": 24026,
+      "sha256": "5054ac99e41ed20a279254f50d899684ccd8e08bee9c9a69a6134a8877ee95ad",
+      "size_bytes": 25041,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -41529,7 +41681,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/external_approval_status.json",
-      "sha256": "cee68e7a594a9d7fa07ed01e441e33e6cc98e0e6fa5e2f71ba4088ceb0941557",
+      "sha256": "06385a709c51ad0f8b0ddb6b8bc633fce464bbca4da80bc749d3d79227b0cc21",
       "size_bytes": 3030,
       "statuses": [
         "external-blocked",
@@ -41561,7 +41713,7 @@
       ],
       "links": [],
       "path": "docs/release/external_approval_status.md",
-      "sha256": "ef8852cbdd782c09ada9c1f4249ec75264f53e91cd14dbc24cb10967b0d49704",
+      "sha256": "4be1dac5ef482262dec5e749ec1a2fdd8f28181d182ab9fd363c119e73502ca0",
       "size_bytes": 1584,
       "statuses": [
         "external-blocked",
@@ -41710,14 +41862,14 @@
         "docs/release/diagnostics_scoring_snapshot_repair_report.md",
         "docs/release/staging_smoke_evidence.md",
         "docs/release/external_approval_status.md",
-        "docs/release/auth_refresh_db_proof_status.md"
+        "docs/release/auth_refresh_db_evidence_status.md"
       ],
       "generated": false,
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "5ef11a3ef681ce39cf4bb552331e834174b24312539790808cc4380eef4cbb1d",
-      "size_bytes": 11495,
+      "sha256": "26711634a773197eadbb30cdec3215acb24acded47ae0892b3bcc82b465caf46",
+      "size_bytes": 12191,
       "statuses": [
         "external-blocked",
         "blocked",
@@ -41743,7 +41895,7 @@
         "docs/release/diagnostics_scoring_snapshot_repair_report.md",
         "docs/release/staging_smoke_evidence.md",
         "docs/release/external_approval_status.md",
-        "docs/release/auth_refresh_db_proof_status.md"
+        "docs/release/auth_refresh_db_evidence_status.md"
       ],
       "generated": false,
       "headings": [
@@ -41764,24 +41916,24 @@
         },
         {
           "level": 2,
-          "line": 43,
+          "line": 44,
           "text": "Required next actions"
         },
         {
           "level": 2,
-          "line": 49,
+          "line": 50,
           "text": "No false-closure rules"
         },
         {
           "level": 2,
-          "line": 56,
+          "line": 57,
           "text": "Interpretation"
         }
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "eac909ed2dedb663cb6d217e2a5dcd955274b0d5574bdfb02171cdd08487ef01",
-      "size_bytes": 3955,
+      "sha256": "5dfc5d63e14a796fa5285cec3e16e975c890f33293bb2f3afb96372e6dde665c",
+      "size_bytes": 4071,
       "statuses": [
         "external-blocked",
         "blocked",
@@ -42245,7 +42397,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/live_db_transaction_evidence_status.json",
-      "sha256": "22095d01eb54d3bfb2bbe53a4f098e0fb2e3f4e4b41dada8d2097e83ef5bc8f9",
+      "sha256": "e0e46f672c375332fed4f6fcf7d8e73d8cf1a585e3ac83d10bbdca1c84834927",
       "size_bytes": 3527,
       "statuses": [
         "external-blocked",
@@ -42279,7 +42431,7 @@
       ],
       "links": [],
       "path": "docs/release/live_db_transaction_evidence_status.md",
-      "sha256": "1647347e6f0b3ac0b53e713167303bf3cc4e10a40135144fcd3b885a688dc5c0",
+      "sha256": "36f67c1defe874a44b0d8573b9b42b35b3ccb455f7ea979c9cca99fe09d5a04e",
       "size_bytes": 1534,
       "statuses": [
         "external-blocked",
@@ -43889,6 +44041,95 @@
         {
           "level": 1,
           "line": 1,
+          "text": "Next Execution Queue After AUTH-REFRESH-DB-EVIDENCE-001 / code_2711_2750"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next action"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/<run_id>\"",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/<run_id>\""
+        }
+      ],
+      "path": "docs/release/next_execution_queue_after_2711_2750.md",
+      "sha256": "1bd80f4fc6dd5e8743efebca29416dd9119dcf64ff7ebefdb6fe49d39166ea1a",
+      "size_bytes": 897,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Next Execution Queue After AUTH-REFRESH-DB-EVIDENCE-001 / code_2711_2750"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Next Execution Queue After AUTH-REFRESH-DB-EVIDENCE-001R / code_2711_2750R"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Next action"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2711_2750R.md",
+      "sha256": "f3cb5e3bc714f6a466a13d0cca314eb2dad6d5edba327000971ac253b089541f",
+      "size_bytes": 483,
+      "statuses": [
+        "external-blocked"
+      ],
+      "title": "Next Execution Queue After AUTH-REFRESH-DB-EVIDENCE-001R / code_2711_2750R"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Next Execution Queue After CI-AUTH-REFRESH-DB-PROOF-001 / code_2751_2790"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Required external action"
+        },
+        {
+          "level": 2,
+          "line": 13,
+          "text": "Expected release state"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2751_2790.md",
+      "sha256": "4b31761841637d0a95eba1d7a3bcbda853981d318f65543d2392c63521fccd6b",
+      "size_bytes": 461,
+      "statuses": [
+        "external-blocked"
+      ],
+      "title": "Next Execution Queue After CI-AUTH-REFRESH-DB-PROOF-001 / code_2751_2790"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "Next Execution Queue After code_831_870"
         },
         {
@@ -45468,6 +45709,100 @@
         {
           "level": 1,
           "line": 1,
+          "text": "No False-Closure Status After AUTH-REFRESH-DB-EVIDENCE-001 / code_2711_2750"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 12,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2711_2750.md",
+      "sha256": "0bafde772aa41c62497a877ba6120d4d053337dcffa5f12760d4499712089567",
+      "size_bytes": 616,
+      "statuses": [
+        "blocked",
+        "external-blocked",
+        "pending"
+      ],
+      "title": "No False-Closure Status After AUTH-REFRESH-DB-EVIDENCE-001 / code_2711_2750"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After AUTH-REFRESH-DB-EVIDENCE-001R / code_2711_2750R"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 12,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2711_2750R.md",
+      "sha256": "66ad8e369331f52aa2121c289c2c09e7fd26d11b4775ea3b1b2c48edd8b27fcd",
+      "size_bytes": 693,
+      "statuses": [
+        "external-blocked",
+        "blocked"
+      ],
+      "title": "No False-Closure Status After AUTH-REFRESH-DB-EVIDENCE-001R / code_2711_2750R"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After CI-AUTH-REFRESH-DB-PROOF-001 / code_2751_2790"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 13,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2751_2790.md",
+      "sha256": "1d3dd6e3b9352075700173171e1256a3218f42f528002d6c65fbdacbc3bd9332",
+      "size_bytes": 595,
+      "statuses": [],
+      "title": "No False-Closure Status After CI-AUTH-REFRESH-DB-PROOF-001 / code_2751_2790"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "No False-Closure Status After code_831_870"
         },
         {
@@ -46277,7 +46612,7 @@
         "docs/release/jwt_production_guard_repair_report.md",
         "docs/release/ci_evidence.md",
         "docs/release/evidence_status_registry.yml",
-        "docs/release/auth_refresh_db_proof_status.md",
+        "docs/release/auth_refresh_db_evidence_status.md",
         "docs/release/diagnostics_session_binding_repair_report.md",
         "docs/release/diagnostics_scoring_snapshot_repair_report.md",
         "docs/release/lesson_authorization_hardening_report.md",
@@ -46292,6 +46627,7 @@
         "docs/release/auth_lifecycle_semantic_proof_status.md",
         "docs/release/auth_route_logout_delegate_status.md",
         "docs/release/auth_service_cleanup_status.md",
+        "docs/release/ci_auth_refresh_db_proof_workflow_status.md",
         "docs/release/diagnostics_dynamic_repository_boundary_repair_report.md",
         "docs/release/auth_repository_fixture_proof_report.md",
         "docs/release/live_db_transaction_evidence_status.md",
@@ -46319,8 +46655,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/release_go_no_go_status.json",
-      "sha256": "1838060bb1d12463ce52a7641f0899bb189be60fa502fb9d0dfb6b30b0ccda9b",
-      "size_bytes": 23049,
+      "sha256": "c3aadbae1003bee3c147a4f7c53f2455c78433528d892b7788e3e7533a06167f",
+      "size_bytes": 24080,
       "statuses": [
         "external-blocked",
         "pending",
@@ -46338,7 +46674,7 @@
         "docs/release/jwt_production_guard_repair_report.md",
         "docs/release/ci_evidence.md",
         "docs/release/evidence_status_registry.yml",
-        "docs/release/auth_refresh_db_proof_status.md",
+        "docs/release/auth_refresh_db_evidence_status.md",
         "docs/release/diagnostics_session_binding_repair_report.md",
         "docs/release/diagnostics_scoring_snapshot_repair_report.md",
         "docs/release/lesson_authorization_hardening_report.md",
@@ -46363,24 +46699,24 @@
         },
         {
           "level": 2,
-          "line": 34,
+          "line": 35,
           "text": "Blockers"
         },
         {
           "level": 2,
-          "line": 45,
+          "line": 47,
           "text": "Required next actions"
         },
         {
           "level": 2,
-          "line": 51,
+          "line": 53,
           "text": "Interpretation"
         }
       ],
       "links": [],
       "path": "docs/release/release_go_no_go_status.md",
-      "sha256": "9cbb5374bb7bce2f093b41f1129ef8ff81fdc38e34ab59fad919c3b39db62106",
-      "size_bytes": 3127,
+      "sha256": "cb549294f54fbc75ab9710b8cae87489db8481334c22e48e9eb046fc5e0189fd",
+      "size_bytes": 3361,
       "statuses": [
         "external-blocked",
         "not-proven"
@@ -46786,7 +47122,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/route_transaction_slice_rollup.json",
-      "sha256": "d969ebe65cf95eb7234255ac2458db2284843974707518ac653d8ad798acbce4",
+      "sha256": "aa4e181e10b70cb9e46cb80b4e46495b8d6e48e6dc187502eba88de6be621898",
       "size_bytes": 3628,
       "statuses": [
         "blocked",
@@ -46832,7 +47168,7 @@
       ],
       "links": [],
       "path": "docs/release/route_transaction_slice_rollup.md",
-      "sha256": "68bc670674972b7bdd8c1a136b3bebfd3a7a5644a222bc56ec5621b7a3631fca",
+      "sha256": "a934522a8310c3cac39665108f4342d6c335e843783fa0a525e1696e2bdd5b9a",
       "size_bytes": 1403,
       "statuses": [
         "blocked",
@@ -47348,7 +47684,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/staging_acceptance_status.json",
-      "sha256": "a0f7f6b552972f38e0260d10a54744d9f568a4aced97c5ac91d1526d25440595",
+      "sha256": "5ea1b2b209b7fcce7c11c87d3c30db1d2e102c805c673d8a6d0abd17bd302937",
       "size_bytes": 1913,
       "statuses": [
         "external-blocked",
@@ -47380,7 +47716,7 @@
       ],
       "links": [],
       "path": "docs/release/staging_acceptance_status.md",
-      "sha256": "1c45c765a62d23a243929cc5d0a332c9025fa2f848d354d711de9a205ef027db",
+      "sha256": "5e7d46a61a5b2bbbba4536b5ef68292bb98c6fe80cb42c1c3fdcf052b45c177d",
       "size_bytes": 1227,
       "statuses": [
         "external-blocked",
@@ -53722,8 +54058,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 1010,
-  "generated_at": "2026-05-20T22:13:36Z",
+  "files_scanned": 1020,
+  "generated_at": "2026-05-21T08:35:56Z",
   "generated_count": 4,
   "missing_important_docs": []
 }

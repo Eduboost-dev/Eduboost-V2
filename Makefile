@@ -2399,3 +2399,55 @@ backend-implementation-2671-2710-full-check: auth-refresh-db-proof-status auth-r
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/auth_refresh_db_proof.py scripts/check_auth_refresh_db_proof.py scripts/patch_auth_refresh_db_proof_registry.py tests/unit/test_auth_refresh_db_proof.py tests/integration/test_auth_refresh_db_proof.py --select F821,F401,F811,E402
 
+.PHONY: auth-refresh-db-evidence-status auth-refresh-db-evidence-attach auth-refresh-db-evidence-registry-patch auth-refresh-db-evidence-check auth-refresh-db-evidence-release-check auth-refresh-db-evidence-test backend-implementation-2711-2750-full-check
+
+auth-refresh-db-evidence-status:
+	PYTHONPATH=. python3 -c "from scripts.auth_refresh_db_evidence_gate import write_status; s = write_status(); print(s.status)"
+
+auth-refresh-db-evidence-attach:
+	PYTHONPATH=. python3 scripts/attach_auth_refresh_db_evidence.py
+	PYTHONPATH=. python3 scripts/patch_auth_refresh_db_evidence_registry.py
+
+auth-refresh-db-evidence-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_auth_refresh_db_evidence_registry.py
+
+auth-refresh-db-evidence-check: auth-refresh-db-evidence-registry-patch
+	PYTHONPATH=. python3 scripts/check_auth_refresh_db_evidence_gate.py
+
+auth-refresh-db-evidence-release-check:
+	PYTHONPATH=. python3 scripts/check_auth_refresh_db_evidence_gate.py --release
+
+auth-refresh-db-evidence-test:
+	pytest -c pytest.ini tests/unit/test_auth_refresh_db_evidence_gate.py -q --no-cov --tb=short
+
+backend-implementation-2711-2750-full-check: auth-refresh-db-evidence-status auth-refresh-db-evidence-check auth-refresh-db-evidence-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/auth_refresh_db_evidence_gate.py scripts/attach_auth_refresh_db_evidence.py scripts/check_auth_refresh_db_evidence_gate.py scripts/patch_auth_refresh_db_evidence_registry.py tests/unit/test_auth_refresh_db_evidence_gate.py --select F821,F401,F811,E402
+
+.PHONY: auth-refresh-db-evidence-placeholder-repair-test backend-implementation-2711-2750R-full-check
+
+auth-refresh-db-evidence-placeholder-repair-test:
+	pytest -c pytest.ini tests/unit/test_auth_refresh_db_evidence_placeholder_repair.py tests/unit/test_auth_refresh_db_evidence_gate.py -q --no-cov --tb=short
+
+backend-implementation-2711-2750R-full-check: auth-refresh-db-evidence-status auth-refresh-db-evidence-check auth-refresh-db-evidence-placeholder-repair-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/auth_refresh_db_evidence_gate.py scripts/attach_auth_refresh_db_evidence.py scripts/check_auth_refresh_db_evidence_gate.py scripts/patch_auth_refresh_db_evidence_registry.py tests/unit/test_auth_refresh_db_evidence_gate.py tests/unit/test_auth_refresh_db_evidence_placeholder_repair.py --select F821,F401,F811,E402
+
+.PHONY: ci-auth-refresh-db-proof-workflow-status ci-auth-refresh-db-proof-workflow-registry-patch ci-auth-refresh-db-proof-workflow-check ci-auth-refresh-db-proof-workflow-test backend-implementation-2751-2790-full-check
+
+ci-auth-refresh-db-proof-workflow-status:
+	PYTHONPATH=. python3 -c "from scripts.ci_auth_refresh_db_proof_workflow import write_status; s = write_status(); print(s.status)"
+
+ci-auth-refresh-db-proof-workflow-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_ci_auth_refresh_db_proof_workflow_registry.py
+
+ci-auth-refresh-db-proof-workflow-check: ci-auth-refresh-db-proof-workflow-registry-patch
+	PYTHONPATH=. python3 scripts/check_ci_auth_refresh_db_proof_workflow.py
+
+ci-auth-refresh-db-proof-workflow-test:
+	pytest -c pytest.ini tests/unit/test_ci_auth_refresh_db_proof_workflow.py -q --no-cov --tb=short
+
+backend-implementation-2751-2790-full-check: ci-auth-refresh-db-proof-workflow-status ci-auth-refresh-db-proof-workflow-check ci-auth-refresh-db-proof-workflow-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/ci_auth_refresh_db_proof_workflow.py scripts/check_ci_auth_refresh_db_proof_workflow.py scripts/patch_ci_auth_refresh_db_proof_workflow_registry.py tests/unit/test_ci_auth_refresh_db_proof_workflow.py --select F821,F401,F811,E402
+

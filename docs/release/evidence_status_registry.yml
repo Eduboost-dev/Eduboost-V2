@@ -597,9 +597,35 @@ findings:
     owner: backend
     implementation_batch: code_2671_2710
     proof_status: external-blocked
-    proof_command: make auth-refresh-db-proof-release-check
-    evidence_file: docs/release/auth_refresh_db_proof_status.md
+    proof_command: make auth-refresh-db-evidence-release-check
+    evidence_file: docs/release/auth_refresh_db_evidence_status.md
     last_verified_commit: null
-    closure_blocker: AUTH_REFRESH_DB_PROOF_DSN is not set; evidence field Database DSN label: pending; evidence field Test command: pending; evidence field Test result: pending; evidence field Refresh persistence result: pending; evidence field Logout revocation result: pending
+    closure_blocker: Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id
     blocks_beta: true
     external_dependency: true
+  - id: AUTH-REFRESH-DB-EVIDENCE-001
+    title: Auth refresh DB proof evidence attachment gate
+    severity: P1
+    gate: 3
+    owner: backend
+    implementation_batch: code_2711_2750
+    proof_status: external-blocked
+    proof_command: make auth-refresh-db-evidence-release-check
+    evidence_file: docs/release/auth_refresh_db_evidence_status.md
+    last_verified_commit: null
+    closure_blocker: Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id
+    blocks_beta: true
+    external_dependency: true
+  - id: CI-AUTH-REFRESH-DB-PROOF-001
+    title: GitHub Actions auth refresh DB proof workflow
+    severity: P1
+    gate: 3
+    owner: platform
+    implementation_batch: code_2751_2790
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-2751-2790-full-check
+    evidence_file: docs/release/ci_auth_refresh_db_proof_workflow_status.md
+    last_verified_commit: aa1e1e883fe9ea07116238229dca4694c7216d3a
+    closure_blocker: none; real workflow run URL still required for release evidence
+    blocks_beta: false
+    external_dependency: false
