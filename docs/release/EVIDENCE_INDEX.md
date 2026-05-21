@@ -1399,3 +1399,61 @@ make auth-lifecycle-http-proof-test
 make backend-implementation-2591-2630-full-check
 ```
 
+## AUTH-LIFECYCLE-SEMANTIC-PROOF-001 / Backend implementation 2631-2670 — Controlled auth lifecycle semantic proof
+
+Commands:
+
+```bash
+make auth-lifecycle-semantic-proof-status
+make auth-lifecycle-semantic-proof-check
+make auth-lifecycle-semantic-proof-release-check
+make auth-lifecycle-semantic-proof-test
+make backend-implementation-2631-2670-full-check
+```
+
+## AUTH-REFRESH-DB-PROOF-001 / Backend implementation 2671-2710 — Auth refresh DB proof scaffold
+
+Commands:
+
+```bash
+make auth-refresh-db-proof-status
+make auth-refresh-db-proof-check
+make auth-refresh-db-proof-release-check
+make auth-refresh-db-proof-test
+make backend-implementation-2671-2710-full-check
+```
+
+## AUTH-REFRESH-DB-EVIDENCE-001 / Backend implementation 2711-2750 — Auth refresh DB evidence attachment gate
+
+Commands:
+
+```bash
+make auth-refresh-db-evidence-status
+make auth-refresh-db-evidence-check
+make auth-refresh-db-evidence-release-check
+make auth-refresh-db-evidence-test
+make backend-implementation-2711-2750-full-check
+```
+
+## AUTH-REFRESH-DB-EVIDENCE-001R / Backend implementation 2711-2750R — Auth refresh DB evidence placeholder repair
+
+Commands:
+
+```bash
+make auth-refresh-db-evidence-status
+make auth-refresh-db-evidence-check
+make auth-refresh-db-evidence-placeholder-repair-test
+make backend-implementation-2711-2750R-full-check
+```
+
+## CI-AUTH-REFRESH-DB-PROOF-001 / Backend implementation 2751-2790 — GitHub Actions auth refresh DB proof workflow
+
+Commands:
+
+```bash
+make ci-auth-refresh-db-proof-workflow-status
+make ci-auth-refresh-db-proof-workflow-check
+make ci-auth-refresh-db-proof-workflow-test
+make backend-implementation-2751-2790-full-check
+```
+

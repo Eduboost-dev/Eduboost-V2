@@ -1,0 +1,68 @@
+{
+  "generated_at": "2026-05-21T10:25:24Z",
+  "current_commit": "88f821d4a8a02727398884d65cfc2ccec4945c5b",
+  "status": "ci-auth-refresh-db-proof-workflow-configured",
+  "checks": [
+    {
+      "name": "workflow exists",
+      "passed": true,
+      "detail": ".github/workflows/auth-refresh-db-proof.yml"
+    },
+    {
+      "name": "workflow_dispatch enabled",
+      "passed": true,
+      "detail": "manual run supported"
+    },
+    {
+      "name": "postgres service configured",
+      "passed": true,
+      "detail": "disposable Postgres service"
+    },
+    {
+      "name": "proof DSN configured",
+      "passed": true,
+      "detail": "local service DSN"
+    },
+    {
+      "name": "integration proof test executed",
+      "passed": true,
+      "detail": "DB proof test path"
+    },
+    {
+      "name": "evidence attach executed",
+      "passed": true,
+      "detail": "evidence attach target"
+    },
+    {
+      "name": "evidence release check executed",
+      "passed": true,
+      "detail": "release evidence target"
+    },
+    {
+      "name": "concrete run URL uses github.run_id",
+      "passed": true,
+      "detail": "numeric run id at runtime"
+    },
+    {
+      "name": "commit SHA uses github.sha",
+      "passed": true,
+      "detail": "concrete commit SHA"
+    },
+    {
+      "name": "artifact upload configured",
+      "passed": true,
+      "detail": "proof artifacts uploaded"
+    },
+    {
+      "name": "no placeholder REAL_RUN_ID",
+      "passed": true,
+      "detail": "placeholder rejected"
+    },
+    {
+      "name": "no symbolic REAL_DSN",
+      "passed": true,
+      "detail": "no REAL_* evidence placeholder"
+    }
+  ],
+  "blockers": []
+}

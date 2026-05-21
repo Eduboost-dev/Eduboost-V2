@@ -1,0 +1,97 @@
+{
+  "generated_at": "2026-05-20T22:14:17Z",
+  "current_commit": "fe6b92247e119405439128bb45930e18779b3c32",
+  "status": "auth-refresh-db-proof-external-blocked",
+  "dsn_present": false,
+  "pytest_return_code": null,
+  "pytest_summary": "AUTH_REFRESH_DB_PROOF_DSN not set; DB proof not executed",
+  "evidence_fields": [
+    {
+      "name": "Database DSN label",
+      "value": "pending",
+      "valid": false,
+      "reason": "pending"
+    },
+    {
+      "name": "Test command",
+      "value": "pending",
+      "valid": false,
+      "reason": "pending"
+    },
+    {
+      "name": "Test result",
+      "value": "pending",
+      "valid": false,
+      "reason": "pending"
+    },
+    {
+      "name": "Refresh persistence result",
+      "value": "pending",
+      "valid": false,
+      "reason": "pending"
+    },
+    {
+      "name": "Logout revocation result",
+      "value": "pending",
+      "valid": false,
+      "reason": "pending"
+    },
+    {
+      "name": "Revoke-all result",
+      "value": "pending",
+      "valid": false,
+      "reason": "pending"
+    },
+    {
+      "name": "Reuse detection result",
+      "value": "pending",
+      "valid": false,
+      "reason": "pending"
+    },
+    {
+      "name": "Evidence URL",
+      "value": "pending",
+      "valid": false,
+      "reason": "pending"
+    },
+    {
+      "name": "Commit SHA",
+      "value": "pending",
+      "valid": false,
+      "reason": "pending"
+    },
+    {
+      "name": "Verified by",
+      "value": "pending",
+      "valid": false,
+      "reason": "pending"
+    },
+    {
+      "name": "Date verified",
+      "value": "pending",
+      "valid": false,
+      "reason": "pending"
+    }
+  ],
+  "blockers": [
+    "AUTH_REFRESH_DB_PROOF_DSN is not set",
+    "DB pytest did not pass",
+    "evidence field Database DSN label: pending",
+    "evidence field Test command: pending",
+    "evidence field Test result: pending",
+    "evidence field Refresh persistence result: pending",
+    "evidence field Logout revocation result: pending",
+    "evidence field Revoke-all result: pending",
+    "evidence field Reuse detection result: pending",
+    "evidence field Evidence URL: pending",
+    "evidence field Commit SHA: pending",
+    "evidence field Verified by: pending",
+    "evidence field Date verified: pending"
+  ],
+  "no_false_closure_rules": [
+    "Skipped DB tests are not proof.",
+    "Mock-only tests are not DB proof.",
+    "AUTH_REFRESH_DB_PROOF_DSN must be explicit.",
+    "Release mode requires accepted DB proof evidence."
+  ]
+}
