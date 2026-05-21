@@ -77,19 +77,25 @@ findings:
     blocks_beta: false
     external_dependency: true
   - id: DIAG-001
-    title: Diagnostics served-item session CAPS route binding
-    severity: P1
-    gate: 3
+    title: Diagnostic deep-health full HTTP and DB runtime proof
+    severity: P0
+    gate: 5
     owner: backend
-    implementation_batch: code_1231_1270
+    implementation_batch: code_2951_2990
     proof_status: runtime-passing
-    proof_command: make backend-implementation-1231-1270-full-check
-    evidence_file: docs/release/diagnostics_session_binding_repair_report.md
-    last_verified_commit: 1ec9acd
-    closure_blocker: full HTTP plus production DB diagnostic session proof still required
-    blocks_beta: true
-    external_dependency: false
-
+    proof_command: make diag-deep-health-runtime-release-check
+    evidence_file: docs/release/diag_deep_health_runtime_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487
+    workflow_name: Staging Smoke
+    run_id: 26257276487
+    deep_health_url: https://eduboost-api.onrender.com/api/v2/health/deep
+    last_verified_commit: ecaab870ed5e171a5d8c5d58393ae80e64917ee5
+    verified_by: github-actions
+    date_verified: 2026-05-21
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
+    external_dependency: true
   - id: AUTH-REPO-001
     title: Production repository auth fixture proof
     severity: P1
@@ -302,17 +308,24 @@ findings:
     blocks_beta: false
     external_dependency: false
   - id: STAGING-001
-    title: Staging acceptance approval
-    severity: P1
-    gate: 5
+    title: Accepted staging smoke evidence
+    severity: P0
+    gate: 8
     owner: release
-    implementation_batch: code_1911_1950
-    proof_status: external-blocked
-    proof_command: make staging-acceptance-release-check
-    evidence_file: docs/release/staging_smoke_evidence.md
-    last_verified_commit: null
-    closure_blocker: real staging smoke evidence and GitHub Actions run URL required
-    blocks_beta: true
+    implementation_batch: code_2911_2950
+    proof_status: integration-passing
+    proof_command: make backend-implementation-2911-2950-full-check
+    evidence_file: docs/release/staging_smoke_evidence_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077
+    workflow_name: Staging Smoke
+    run_id: 26247145077
+    staging_base_url: https://eduboost-api.onrender.com
+    last_verified_commit: a195b5eea80d648d8b748ebf48885caf42f77a58
+    verified_by: github-actions
+    date_verified: 2026-05-21
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
     external_dependency: true
   - id: EXT-GATE-001
     title: External approval tracking gate
@@ -704,3 +717,43 @@ findings:
     release_ready: false
     blocks_beta: false
     external_dependency: false
+  - id: STAGING-001R
+    title: Staging smoke evidence acceptance repair
+    severity: P0
+    gate: 8
+    owner: release
+    implementation_batch: code_2911_2950
+    proof_status: integration-passing
+    proof_command: make backend-implementation-2911-2950-full-check
+    evidence_file: docs/release/staging_smoke_evidence_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077
+    workflow_name: Staging Smoke
+    run_id: 26247145077
+    staging_base_url: https://eduboost-api.onrender.com
+    last_verified_commit: a195b5eea80d648d8b748ebf48885caf42f77a58
+    verified_by: github-actions
+    date_verified: 2026-05-21
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
+    external_dependency: true
+  - id: DIAG-001R
+    title: Diagnostic deep-health runtime evidence repair
+    severity: P0
+    gate: 5
+    owner: backend
+    implementation_batch: code_2951_2990
+    proof_status: runtime-passing
+    proof_command: make diag-deep-health-runtime-release-check
+    evidence_file: docs/release/diag_deep_health_runtime_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487
+    workflow_name: Staging Smoke
+    run_id: 26257276487
+    deep_health_url: https://eduboost-api.onrender.com/api/v2/health/deep
+    last_verified_commit: ecaab870ed5e171a5d8c5d58393ae80e64917ee5
+    verified_by: github-actions
+    date_verified: 2026-05-21
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
+    external_dependency: true

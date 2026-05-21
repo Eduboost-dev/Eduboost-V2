@@ -1526,3 +1526,32 @@ make staging-smoke-workflow-test
 make backend-implementation-2911-2950-workflow-check
 ```
 
+## STAGING-001R / Backend implementation 2911-2950 — accepted staging smoke evidence repair
+
+Commands:
+
+```bash
+make staging-smoke-evidence-status
+make staging-smoke-evidence-registry-patch
+make staging-smoke-evidence-check
+make staging-smoke-evidence-test
+make backend-implementation-2911-2950-full-check
+```
+
+## DIAG-001R / Backend implementation 2951-2990 — diagnostic deep-health runtime evidence tooling
+
+Commands:
+
+```bash
+make diag-deep-health-runtime-status
+make diag-deep-health-runtime-check
+make diag-deep-health-runtime-test
+make backend-implementation-2951-2990-full-check
+```
+
+Accepted-evidence closure command:
+
+```bash
+DIAG_DEEP_HEALTH_ACCEPT=1 make diag-deep-health-runtime-registry-patch
+```
+
