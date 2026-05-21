@@ -5,7 +5,7 @@ Commit: `ecaab870ed5e171a5d8c5d58393ae80e64917ee5`
 
 **Beta decision:** `NO-GO`
 
-- Beta blocker count: `8`
+- Beta blocker count: `7`
 
 ## Refreshed status surfaces
 
@@ -41,6 +41,8 @@ Commit: `ecaab870ed5e171a5d8c5d58393ae80e64917ee5`
 |---|---|---:|---:|---:|---:|---|
 | `AUTH-REFRESH-DB-PROOF-001` | `integration-passing` | True | True | False | False | none |
 | `AUTH-REFRESH-DB-EVIDENCE-001` | `integration-passing` | True | True | False | False | none |
+| `DIAG-001` | `runtime-passing` | False | True | False | False | none |
+| `DIAG-001R` | `runtime-passing` | False | True | False | False | none |
 
 ## Required next actions
 
