@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-20T17:47:42Z",
-  "current_commit": "b66c03d8d158d1f6eb107592f807599ac8f199a9",
+  "generated_at": "2026-05-21T10:23:37Z",
+  "current_commit": "e6ca4c15909251f4b68976ee573c5d49f09aac70",
   "decision": "NO-GO",
-  "beta_blocker_count": 7,
+  "beta_blocker_count": 9,
   "engineering_blocker_count": 1,
-  "external_blocker_count": 6,
+  "external_blocker_count": 8,
   "ci_blocker_count": 1,
   "findings": [
     {
@@ -58,6 +58,32 @@
       "closure_blocker": "CI evidence URL still required before production-ready",
       "go_eligible": true,
       "reason": "beta-blocking evidence is present"
+    },
+    {
+      "id": "AUTH-REFRESH-DB-EVIDENCE-001",
+      "title": "Auth refresh DB proof evidence attachment gate",
+      "severity": "P1",
+      "gate": "3",
+      "proof_status": "external-blocked",
+      "blocks_beta": true,
+      "external_dependency": true,
+      "evidence_file": "docs/release/auth_refresh_db_evidence_status.md",
+      "closure_blocker": "Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id",
+      "go_eligible": false,
+      "reason": "external approval remains incomplete"
+    },
+    {
+      "id": "AUTH-REFRESH-DB-PROOF-001",
+      "title": "Auth refresh-token DB persistence and revocation proof",
+      "severity": "P1",
+      "gate": "3",
+      "proof_status": "external-blocked",
+      "blocks_beta": true,
+      "external_dependency": true,
+      "evidence_file": "docs/release/auth_refresh_db_evidence_status.md",
+      "closure_blocker": "Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id",
+      "go_eligible": false,
+      "reason": "external approval remains incomplete"
     },
     {
       "id": "DIAG-001",
@@ -203,6 +229,32 @@
       "reason": "non-beta-blocking item"
     },
     {
+      "id": "AUTH-LIFECYCLE-HTTP-PROOF-001",
+      "title": "Auth lifecycle HTTP route service-backed proof",
+      "severity": "P1",
+      "gate": "3",
+      "proof_status": "runtime-passing",
+      "blocks_beta": false,
+      "external_dependency": false,
+      "evidence_file": "docs/release/auth_lifecycle_http_proof_status.md",
+      "closure_blocker": "none",
+      "go_eligible": true,
+      "reason": "non-beta-blocking item"
+    },
+    {
+      "id": "AUTH-LIFECYCLE-SEMANTIC-PROOF-001",
+      "title": "Auth lifecycle controlled semantic proof",
+      "severity": "P1",
+      "gate": "3",
+      "proof_status": "runtime-passing",
+      "blocks_beta": false,
+      "external_dependency": false,
+      "evidence_file": "docs/release/auth_lifecycle_semantic_proof_status.md",
+      "closure_blocker": "none",
+      "go_eligible": true,
+      "reason": "non-beta-blocking item"
+    },
+    {
       "id": "AUTH-ROUTE-LOGOUT-DELEGATE-001",
       "title": "Auth logout and revoke-all route delegation to service",
       "severity": "P1",
@@ -225,6 +277,19 @@
       "external_dependency": false,
       "evidence_file": "docs/release/auth_service_cleanup_status.md",
       "closure_blocker": "auth router does not delegate logout to auth_service.logout; auth router does not delegate revoke_all_tokens to auth_service.revoke_all_tokens",
+      "go_eligible": true,
+      "reason": "non-beta-blocking item"
+    },
+    {
+      "id": "CI-AUTH-REFRESH-DB-PROOF-001",
+      "title": "GitHub Actions auth refresh DB proof workflow",
+      "severity": "P1",
+      "gate": "3",
+      "proof_status": "runtime-passing",
+      "blocks_beta": false,
+      "external_dependency": false,
+      "evidence_file": "docs/release/ci_auth_refresh_db_proof_workflow_status.md",
+      "closure_blocker": "none; real workflow run URL still required for release evidence",
       "go_eligible": true,
       "reason": "non-beta-blocking item"
     },
@@ -548,7 +613,9 @@
     "SEC-001: external approval remains incomplete",
     "CONTENT-001: external approval remains incomplete",
     "STAGING-001: external approval remains incomplete",
-    "EXT-GATE-001: external approval remains incomplete"
+    "EXT-GATE-001: external approval remains incomplete",
+    "AUTH-REFRESH-DB-PROOF-001: external approval remains incomplete",
+    "AUTH-REFRESH-DB-EVIDENCE-001: external approval remains incomplete"
   ],
   "required_next_actions": [
     "Attach a passing GitHub Actions run URL for CI-001.",

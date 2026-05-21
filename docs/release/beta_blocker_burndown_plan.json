@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-20T17:47:42Z",
-  "current_commit": "b66c03d8d158d1f6eb107592f807599ac8f199a9",
+  "generated_at": "2026-05-21T10:23:37Z",
+  "current_commit": "e6ca4c15909251f4b68976ee573c5d49f09aac70",
   "source_decision": "NO-GO",
-  "source_beta_blocker_count": 7,
+  "source_beta_blocker_count": 9,
   "burn_down_status": "blocked",
   "actions": [
     {
@@ -25,6 +25,30 @@
       "owner": "content",
       "evidence_file": "docs/release/external_approvals/content_approval.md",
       "next_action": "Obtain educator/content approval for beta scope and replace pending metadata in content_approval.md.",
+      "verification_command": "make external-approval-release-check",
+      "priority": "P0",
+      "can_be_closed_locally": false
+    },
+    {
+      "id": "AUTH-REFRESH-DB-EVIDENCE-001",
+      "category": "external",
+      "status": "external-blocked",
+      "reason": "external approval remains incomplete",
+      "owner": "backend",
+      "evidence_file": "docs/release/auth_refresh_db_evidence_status.md",
+      "next_action": "Resolve registry blocker: external approval remains incomplete",
+      "verification_command": "make external-approval-release-check",
+      "priority": "P0",
+      "can_be_closed_locally": false
+    },
+    {
+      "id": "AUTH-REFRESH-DB-PROOF-001",
+      "category": "external",
+      "status": "external-blocked",
+      "reason": "external approval remains incomplete",
+      "owner": "backend",
+      "evidence_file": "docs/release/auth_refresh_db_evidence_status.md",
+      "next_action": "Resolve registry blocker: external approval remains incomplete",
       "verification_command": "make external-approval-release-check",
       "priority": "P0",
       "can_be_closed_locally": false

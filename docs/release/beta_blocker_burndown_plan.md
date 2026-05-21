@@ -1,10 +1,10 @@
 # Beta Blocker Burn-Down Plan
 
-Generated at: `2026-05-20T17:47:42Z`
-Commit: `b66c03d8d158d1f6eb107592f807599ac8f199a9`
+Generated at: `2026-05-21T10:23:37Z`
+Commit: `e6ca4c15909251f4b68976ee573c5d49f09aac70`
 
 - Source decision: `NO-GO`
-- Source beta blocker count: `7`
+- Source beta blocker count: `9`
 - Burn-down status: `blocked`
 - Release mode allowed: `False`
 
@@ -14,6 +14,8 @@ Commit: `b66c03d8d158d1f6eb107592f807599ac8f199a9`
 |---|---|---|---|---|---:|---|---|
 | `P0` | `CI-001` | `ci-authority` | `release` | `external-blocked` | False | Attach a passing GitHub Actions run URL for codex/production_readiness, then rerun CI authority release check. | `make ci-authority-release-check` |
 | `P0` | `CONTENT-001` | `content` | `content` | `external-blocked` | False | Obtain educator/content approval for beta scope and replace pending metadata in content_approval.md. | `make external-approval-release-check` |
+| `P0` | `AUTH-REFRESH-DB-EVIDENCE-001` | `external` | `backend` | `external-blocked` | False | Resolve registry blocker: external approval remains incomplete | `make external-approval-release-check` |
+| `P0` | `AUTH-REFRESH-DB-PROOF-001` | `external` | `backend` | `external-blocked` | False | Resolve registry blocker: external approval remains incomplete | `make external-approval-release-check` |
 | `P0` | `EXT-GATE-001` | `external` | `release` | `runtime-passing` | False | Resolve registry blocker: external approval remains incomplete | `make external-approval-release-check` |
 | `P0` | `LEGAL-001` | `legal` | `legal` | `external-blocked` | False | Obtain POPIA/legal approval and replace pending metadata in legal_approval.md. | `make external-approval-release-check` |
 | `P0` | `SEC-001` | `security` | `security` | `external-blocked` | False | Obtain security approval or pen-test sign-off and replace pending metadata in security_approval.md. | `make external-approval-release-check` |
