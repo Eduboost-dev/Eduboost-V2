@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-21T13:08:15Z",
-  "current_commit": "47d690a3b3128b55e111bcabba8b2474620dd6ab",
+  "generated_at": "2026-05-21T13:44:24Z",
+  "current_commit": "a1102688171240d9afcdb4efbb3099f97a9958be",
   "beta_decision": "NO-GO",
-  "beta_blocker_count": 13,
+  "beta_blocker_count": 12,
   "surfaces": [
     {
       "name": "ci_run_evidence",
@@ -73,17 +73,6 @@
       "proof_status": "runtime-passing",
       "closure_blocker": "live Redis worker enqueue/dequeue staging evidence",
       "evidence_file": "docs/release/arq_dependency_worker_import_repair_report.md",
-      "external_dependency": false,
-      "registry_blocks_beta": true,
-      "release_ready": false,
-      "effective_blocks_beta": true
-    },
-    {
-      "id": "POPIA-001",
-      "title": "POPIA lifecycle HTTP response-contract proof",
-      "proof_status": "not-proven",
-      "closure_blocker": "focused response-contract test output still includes skipped cases; skipped tests are not proof",
-      "evidence_file": "docs/release/no_false_closure_status_after_1151_1190.md",
       "external_dependency": false,
       "registry_blocks_beta": true,
       "release_ready": false,
@@ -227,7 +216,6 @@
   "required_next_actions": [
     "Resolve JWT-001: external production secret provisioning and rotation evidence.",
     "Resolve ARQ-001: live Redis worker enqueue/dequeue staging evidence.",
-    "Repair POPIA-001 skipped response-contract proof so no skipped tests are counted.",
     "Resolve EVID-001: CI evidence URL still required before production-ready.",
     "Resolve DIAG-001: full HTTP plus production DB diagnostic session proof still required.",
     "Attach accepted GitHub Actions CI evidence for CI-001.",

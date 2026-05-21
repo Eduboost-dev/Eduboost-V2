@@ -2469,3 +2469,27 @@ backend-implementation-2791-2830-full-check: final-gate-refresh-classifier-statu
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/final_gate_classifier.py scripts/final_gate_refresh.py scripts/patch_final_gate_refresh_classifier_registry.py scripts/check_final_gate_refresh_classifier.py tests/unit/test_final_gate_refresh_classifier.py --select F821,F401,F811,E402
 
+.PHONY: popia-response-contract-no-skip-status popia-response-contract-no-skip-registry-patch popia-response-contract-no-skip-check popia-response-contract-no-skip-test backend-implementation-2831-2870-full-check
+
+popia-response-contract-no-skip-status:
+	PYTHONPATH=. python3 -c "from scripts.popia_response_contract_no_skips import write_status; s = write_status(run_tests=True); print(s.status)"
+
+popia-response-contract-no-skip-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_popia_response_contract_no_skip_registry.py
+
+popia-response-contract-no-skip-check: popia-response-contract-no-skip-registry-patch
+	PYTHONPATH=. python3 scripts/check_popia_response_contract_no_skips.py
+
+popia-response-contract-no-skip-test:
+	pytest -c pytest.ini tests/unit/test_popia_lifecycle_response_no_skip_proof.py -q --no-cov --tb=short -rs
+
+backend-implementation-2831-2870-full-check: popia-response-contract-no-skip-status popia-response-contract-no-skip-check popia-response-contract-no-skip-test
+	python3 -m compileall -q app/api_v2_routers app/services scripts tests
+	python3 -m ruff check scripts/popia_response_contract_no_skips.py scripts/check_popia_response_contract_no_skips.py scripts/check_popia_lifecycle_response_contract.py scripts/patch_popia_response_contract_no_skip_registry.py tests/unit/test_popia_lifecycle_response_no_skip_proof.py app/api_v2_routers/popia.py app/services/popia_consent_lifecycle_adapter.py --select F821,F401,F811,E402
+
+.PHONY: backend-implementation-2831-2870R-full-check
+
+backend-implementation-2831-2870R-full-check: popia-response-contract-no-skip-status popia-response-contract-no-skip-check popia-response-contract-no-skip-test
+	python3 -m compileall -q app/api_v2_routers app/services scripts tests
+	python3 -m ruff check scripts/popia_response_contract_no_skips.py scripts/check_popia_response_contract_no_skips.py scripts/check_popia_lifecycle_response_contract.py scripts/patch_popia_response_contract_no_skip_registry.py tests/unit/test_popia_lifecycle_response_no_skip_proof.py app/api_v2_routers/popia.py app/services/popia_consent_lifecycle_adapter.py --select F821,F401,F811,E402
+

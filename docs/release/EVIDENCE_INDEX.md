@@ -1469,3 +1469,25 @@ make final-gate-refresh-classifier-test
 make backend-implementation-2791-2830-full-check
 ```
 
+## POPIA-001R / Backend implementation 2831-2870 — POPIA no-skip response-contract proof repair
+
+Commands:
+
+```bash
+make popia-response-contract-no-skip-status
+make popia-response-contract-no-skip-check
+make popia-response-contract-no-skip-test
+make backend-implementation-2831-2870-full-check
+```
+
+## POPIA-001R2 / Backend implementation 2831-2870R — POPIA no-skip checker plumbing repair
+
+Commands:
+
+```bash
+make popia-response-contract-no-skip-status
+make popia-response-contract-no-skip-check
+make popia-response-contract-no-skip-test
+make backend-implementation-2831-2870R-full-check
+```
+
