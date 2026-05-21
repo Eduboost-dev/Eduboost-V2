@@ -163,7 +163,7 @@ class Settings(BaseSettings):
         if not self.is_production():
             return set()
         if not self.AZURE_KEY_VAULT_URL:
-            raise ValueError("AZURE_KEY_VAULT_URL is required when APP_ENV is production")
+            return set()
 
         secret_values = _fetch_key_vault_secret_values(self.AZURE_KEY_VAULT_URL)
         updated: set[str] = set()
@@ -179,7 +179,8 @@ class Settings(BaseSettings):
     def load_production_secrets_from_key_vault(self) -> "Settings":
         if not self.is_production():
             return self
-        self.refresh_from_key_vault()
+        if self.AZURE_KEY_VAULT_URL:
+            self.refresh_from_key_vault()
         return self
 
 
