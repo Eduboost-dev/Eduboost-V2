@@ -95,3 +95,13 @@ def test_database_url_keeps_async_and_non_postgres_schemes() -> None:
 
     assert async_settings.DATABASE_URL == "postgresql+asyncpg://user:pass@localhost:5432/eduboost"
     assert sqlite_settings.DATABASE_URL == "sqlite+aiosqlite:///./test.db"
+
+
+def test_database_url_normalizes_sslmode_for_asyncpg() -> None:
+    settings = config_module.Settings(
+        DATABASE_URL="postgresql://user:pass@db.example.com:5432/eduboost?sslmode=require",
+        JWT_SECRET="x" * 32,
+        ENCRYPTION_KEY="A" * 44,
+    )
+
+    assert settings.DATABASE_URL == "postgresql+asyncpg://user:pass@db.example.com:5432/eduboost?ssl=require"

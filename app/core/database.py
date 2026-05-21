@@ -18,6 +18,9 @@ engine_kwargs = {
     "pool_pre_ping": True,
 }
 
+if settings.DATABASE_URL.startswith("postgresql"):
+    engine_kwargs["connect_args"] = {"timeout": 5}
+
 # PostgreSQL-specific settings
 if settings.DATABASE_URL.startswith("postgresql") and settings.APP_ENV in {"development", "test"}:
     engine_kwargs["poolclass"] = NullPool
