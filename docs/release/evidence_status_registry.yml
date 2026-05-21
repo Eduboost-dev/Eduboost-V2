@@ -53,7 +53,7 @@ findings:
     proof_status: integration-passing
     proof_command: make backend-implementation-2831-2870R-full-check
     evidence_file: docs/release/popia_response_contract_no_skip_status.md
-    last_verified_commit: a1102688171240d9afcdb4efbb3099f97a9958be
+    last_verified_commit: 4465f8bfad448c16e78b03153d58ca9678ef732b
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
@@ -637,7 +637,7 @@ findings:
     proof_status: integration-passing
     proof_command: make backend-implementation-2831-2870R-full-check
     evidence_file: docs/release/popia_response_contract_no_skip_status.md
-    last_verified_commit: a1102688171240d9afcdb4efbb3099f97a9958be
+    last_verified_commit: 4465f8bfad448c16e78b03153d58ca9678ef732b
     closure_blocker: none
     blocks_beta: false
     external_dependency: false

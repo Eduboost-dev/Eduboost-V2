@@ -1491,3 +1491,14 @@ make popia-response-contract-no-skip-test
 make backend-implementation-2831-2870R-full-check
 ```
 
+## POPIA-001R4 / Backend implementation 2831-2870R3 — POPIA no-skip literal guard repair
+
+Commands:
+
+```bash
+make popia-response-contract-no-skip-status
+make popia-response-contract-no-skip-check
+make popia-response-contract-no-skip-test
+make backend-implementation-2831-2870R3-full-check
+```
+

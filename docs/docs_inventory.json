@@ -7,7 +7,7 @@
     "release": 379,
     "security": 98
   },
-  "commit": "a1102688171240d9afcdb4efbb3099f97a9958be",
+  "commit": "4465f8bfad448c16e78b03153d58ca9678ef732b",
   "document_count": 1028,
   "documents": [
     {
@@ -34207,6 +34207,11 @@
           "level": 2,
           "line": 1483,
           "text": "POPIA-001R2 / Backend implementation 2831-2870R \u2014 POPIA no-skip checker plumbing repair"
+        },
+        {
+          "level": 2,
+          "line": 1494,
+          "text": "POPIA-001R4 / Backend implementation 2831-2870R3 \u2014 POPIA no-skip literal guard repair"
         }
       ],
       "links": [
@@ -34232,8 +34237,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "453a99cc4f98ac48bf9095b5c5f0d9b93a16c33792c70b62aec0a88af2ffd2d5",
-      "size_bytes": 46734,
+      "sha256": "29ccedec1f6fd02403d8a0df3c1c60718c3777d3aa6e4407c0c1130242d9d14e",
+      "size_bytes": 47030,
       "statuses": [
         "todo",
         "passed",
@@ -41671,7 +41676,7 @@
       ],
       "links": [],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "be18661cc08096ef0ffa8687ddf98833ea959f790d1490dca2f73f726944aae4",
+      "sha256": "ea267d6b56224f26c071845937a5f424d3de8393b031458680aa911d26e651a0",
       "size_bytes": 25333,
       "statuses": [
         "external-blocked",
@@ -41881,7 +41886,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "b8a61f7366960a0aa1eae6bc9fa1b4fb3f8203db2ac067b29289ac5cd13b1b03",
+      "sha256": "375df65cbe52ca0bd4b1d4c7469a7b839c93488260b948e3baeabd021e617c19",
       "size_bytes": 8346,
       "statuses": [
         "external-blocked",
@@ -41946,7 +41951,7 @@
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "f7c552db3f2d3e78647b25fba91b33925e6d6a08fec06e43523b0bd4a262045a",
+      "sha256": "8dfe47be89feb72983b8c31b87313487bd58ac48857b0a69dfa21aa8e210bcd1",
       "size_bytes": 4709,
       "statuses": [
         "external-blocked",
@@ -44203,7 +44208,7 @@
         {
           "level": 1,
           "line": 1,
-          "text": "Next Execution Queue After POPIA-001R2 / code_2831_2870R"
+          "text": "Next Execution Queue After POPIA-001R4 / code_2831_2870R3"
         },
         {
           "level": 2,
@@ -44217,13 +44222,13 @@
         }
       ],
       "links": [],
-      "path": "docs/release/next_execution_queue_after_2831_2870R.md",
-      "sha256": "731a21563e5a0c1bc846de9df3ff310f761603c746e913e10ff4b19c98bf0aff",
-      "size_bytes": 444,
+      "path": "docs/release/next_execution_queue_after_2831_2870R3.md",
+      "sha256": "f168d71778bc5cc4179f63788eaf33961c09be7e2ffd8502c3cc80c9b07e9e6a",
+      "size_bytes": 445,
       "statuses": [
         "external-blocked"
       ],
-      "title": "Next Execution Queue After POPIA-001R2 / code_2831_2870R"
+      "title": "Next Execution Queue After POPIA-001R4 / code_2831_2870R3"
     },
     {
       "category": "release",
@@ -45968,7 +45973,7 @@
         {
           "level": 1,
           "line": 1,
-          "text": "No False-Closure Status After POPIA-001R2 / code_2831_2870R"
+          "text": "No False-Closure Status After POPIA-001R4 / code_2831_2870R3"
         },
         {
           "level": 2,
@@ -45982,14 +45987,11 @@
         }
       ],
       "links": [],
-      "path": "docs/release/no_false_closure_status_after_2831_2870R.md",
-      "sha256": "8866e70fa544c365e69e4c02dd455533ca5d6929bab724b1054a6ae81a8dad35",
-      "size_bytes": 547,
-      "statuses": [
-        "pass",
-        "failed"
-      ],
-      "title": "No False-Closure Status After POPIA-001R2 / code_2831_2870R"
+      "path": "docs/release/no_false_closure_status_after_2831_2870R3.md",
+      "sha256": "9624ce583656c906bdd8843dbc4fc8f7c5b6465077cf77ae0ec9b252b0327a31",
+      "size_bytes": 565,
+      "statuses": [],
+      "title": "No False-Closure Status After POPIA-001R4 / code_2831_2870R3"
     },
     {
       "category": "release",
@@ -46341,7 +46343,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/popia_response_contract_no_skip_status.json",
-      "sha256": "164cf8e1a9db07ac61576e10c61b44c425c2b4055f2c8ea1e8b8754eddfb7bac",
+      "sha256": "71079245837e17fdd88349c6dd802231e519c1755771af01fb61cab9756ed3e9",
       "size_bytes": 1167,
       "statuses": [
         "passed"
@@ -46387,7 +46389,7 @@
       ],
       "links": [],
       "path": "docs/release/popia_response_contract_no_skip_status.md",
-      "sha256": "163cf312ec874a02c8356b2bcf28e967fe68a6893cb2702b4c510ba59503dc7a",
+      "sha256": "6f97f26c17addffb4e0c462fe2f52435c236b8dd7671922811766dcd88bdc546",
       "size_bytes": 1154,
       "statuses": [
         "passed"
@@ -54317,7 +54319,7 @@
     }
   ],
   "files_scanned": 1028,
-  "generated_at": "2026-05-21T13:44:35Z",
+  "generated_at": "2026-05-21T13:58:36Z",
   "generated_count": 4,
   "missing_important_docs": []
 }
