@@ -4,11 +4,11 @@
     "api": 6,
     "architecture": 37,
     "general": 483,
-    "release": 373,
+    "release": 379,
     "security": 98
   },
-  "commit": "47d690a3b3128b55e111bcabba8b2474620dd6ab",
-  "document_count": 1022,
+  "commit": "a1102688171240d9afcdb4efbb3099f97a9958be",
+  "document_count": 1028,
   "documents": [
     {
       "category": "general",
@@ -34197,6 +34197,16 @@
           "level": 2,
           "line": 1460,
           "text": "FINAL-GATE-REFRESH-001R / Backend implementation 2791-2830 \u2014 Final gate release-ready classifier repair"
+        },
+        {
+          "level": 2,
+          "line": 1472,
+          "text": "POPIA-001R / Backend implementation 2831-2870 \u2014 POPIA no-skip response-contract proof repair"
+        },
+        {
+          "level": 2,
+          "line": 1483,
+          "text": "POPIA-001R2 / Backend implementation 2831-2870R \u2014 POPIA no-skip checker plumbing repair"
         }
       ],
       "links": [
@@ -34222,8 +34232,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "b47fe1775a38fbf745ecc0c8b66c24d8d4dc7a5bff6d90131aa82f7749953c76",
-      "size_bytes": 46136,
+      "sha256": "453a99cc4f98ac48bf9095b5c5f0d9b93a16c33792c70b62aec0a88af2ffd2d5",
+      "size_bytes": 46734,
       "statuses": [
         "todo",
         "passed",
@@ -41545,7 +41555,7 @@
       "evidence_references": [
         "docs/release/jwt_production_guard_repair_report.md",
         "docs/release/arq_dependency_worker_import_repair_report.md",
-        "docs/release/no_false_closure_status_after_1151_1190.md",
+        "docs/release/popia_response_contract_no_skip_status.md",
         "docs/release/evidence_status_registry.yml",
         "docs/release/diagnostics_session_binding_repair_report.md",
         "docs/release/auth_repository_fixture_proof_report.md",
@@ -41661,8 +41671,8 @@
       ],
       "links": [],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "f4d5ca3e26602ef01f669036f2a8f6487e4c46c9256f69174176a2abd6a58ef6",
-      "size_bytes": 24885,
+      "sha256": "be18661cc08096ef0ffa8687ddf98833ea959f790d1490dca2f73f726944aae4",
+      "size_bytes": 25333,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -41855,7 +41865,6 @@
       "evidence_references": [
         "docs/release/jwt_production_guard_repair_report.md",
         "docs/release/arq_dependency_worker_import_repair_report.md",
-        "docs/release/no_false_closure_status_after_1151_1190.md",
         "docs/release/evidence_status_registry.yml",
         "docs/release/diagnostics_session_binding_repair_report.md",
         "docs/release/ci_evidence.md",
@@ -41872,11 +41881,10 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "d1910a442a90ddae85f8c4c35fb75340a519556895696f18b784de6bfe05c44b",
-      "size_bytes": 8916,
+      "sha256": "b8a61f7366960a0aa1eae6bc9fa1b4fb3f8203db2ac067b29289ac5cd13b1b03",
+      "size_bytes": 8346,
       "statuses": [
         "external-blocked",
-        "not-proven",
         "pending"
       ],
       "title": "Final Beta Gate Refresh"
@@ -41887,7 +41895,6 @@
       "evidence_references": [
         "docs/release/jwt_production_guard_repair_report.md",
         "docs/release/arq_dependency_worker_import_repair_report.md",
-        "docs/release/no_false_closure_status_after_1151_1190.md",
         "docs/release/evidence_status_registry.yml",
         "docs/release/diagnostics_session_binding_repair_report.md",
         "docs/release/ci_evidence.md",
@@ -41918,33 +41925,33 @@
         },
         {
           "level": 2,
-          "line": 43,
+          "line": 42,
           "text": "Resolved non-blocking accepted findings"
         },
         {
           "level": 2,
-          "line": 50,
+          "line": 49,
           "text": "Required next actions"
         },
         {
           "level": 2,
-          "line": 66,
+          "line": 64,
           "text": "No false-closure rules"
         },
         {
           "level": 2,
-          "line": 72,
+          "line": 70,
           "text": "Interpretation"
         }
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "25730d533aaed368377534f182a8ddf72c3f38191ae2622def92c79737a5c5b5",
-      "size_bytes": 5005,
+      "sha256": "f7c552db3f2d3e78647b25fba91b33925e6d6a08fec06e43523b0bd4a262045a",
+      "size_bytes": 4709,
       "statuses": [
         "external-blocked",
-        "not-proven",
-        "pending"
+        "pending",
+        "not-proven"
       ],
       "title": "Final Beta Gate Refresh"
     },
@@ -44165,6 +44172,68 @@
         {
           "level": 1,
           "line": 1,
+          "text": "Next Execution Queue After POPIA-001R / code_2831_2870"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next batch"
+        },
+        {
+          "level": 2,
+          "line": 7,
+          "text": "Remaining blocker themes"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2831_2870.md",
+      "sha256": "c93fda9b0d7bcbd80b0264581e81408e76e9293eb271b43ffbc1a0261d3f4a83",
+      "size_bytes": 442,
+      "statuses": [
+        "external-blocked"
+      ],
+      "title": "Next Execution Queue After POPIA-001R / code_2831_2870"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Next Execution Queue After POPIA-001R2 / code_2831_2870R"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next batch"
+        },
+        {
+          "level": 2,
+          "line": 7,
+          "text": "Remaining blocker themes"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2831_2870R.md",
+      "sha256": "731a21563e5a0c1bc846de9df3ff310f761603c746e913e10ff4b19c98bf0aff",
+      "size_bytes": 444,
+      "statuses": [
+        "external-blocked"
+      ],
+      "title": "Next Execution Queue After POPIA-001R2 / code_2831_2870R"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "Next Execution Queue After code_831_870"
         },
         {
@@ -45870,6 +45939,67 @@
         {
           "level": 1,
           "line": 1,
+          "text": "No False-Closure Status After POPIA-001R / code_2831_2870"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 12,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2831_2870.md",
+      "sha256": "7909884916725db89d864cc927d952b48c842722402504ec9addadfe7656193a",
+      "size_bytes": 598,
+      "statuses": [],
+      "title": "No False-Closure Status After POPIA-001R / code_2831_2870"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After POPIA-001R2 / code_2831_2870R"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 12,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2831_2870R.md",
+      "sha256": "8866e70fa544c365e69e4c02dd455533ca5d6929bab724b1054a6ae81a8dad35",
+      "size_bytes": 547,
+      "statuses": [
+        "pass",
+        "failed"
+      ],
+      "title": "No False-Closure Status After POPIA-001R2 / code_2831_2870R"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "No False-Closure Status After code_831_870"
         },
         {
@@ -46202,6 +46332,67 @@
       "size_bytes": 405,
       "statuses": [],
       "title": "POPIA Lifecycle Runtime Proof"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/release/popia_response_contract_no_skip_status.json",
+      "sha256": "164cf8e1a9db07ac61576e10c61b44c425c2b4055f2c8ea1e8b8754eddfb7bac",
+      "size_bytes": 1167,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Popia Response Contract No Skip Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "POPIA Response Contract No-Skip Proof Status"
+        },
+        {
+          "level": 2,
+          "line": 10,
+          "text": "Route contracts"
+        },
+        {
+          "level": 2,
+          "line": 19,
+          "text": "Adapter contracts"
+        },
+        {
+          "level": 2,
+          "line": 29,
+          "text": "Pytest output"
+        },
+        {
+          "level": 2,
+          "line": 35,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 39,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/popia_response_contract_no_skip_status.md",
+      "sha256": "163cf312ec874a02c8356b2bcf28e967fe68a6893cb2702b4c510ba59503dc7a",
+      "size_bytes": 1154,
+      "statuses": [
+        "passed"
+      ],
+      "title": "POPIA Response Contract No-Skip Proof Status"
     },
     {
       "category": "release",
@@ -54125,8 +54316,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 1022,
-  "generated_at": "2026-05-21T13:08:01Z",
+  "files_scanned": 1028,
+  "generated_at": "2026-05-21T13:44:35Z",
   "generated_count": 4,
   "missing_important_docs": []
 }

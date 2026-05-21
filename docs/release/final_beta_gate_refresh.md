@@ -1,11 +1,11 @@
 # Final Beta Gate Refresh
 
-Generated at: `2026-05-21T13:08:15Z`
-Commit: `47d690a3b3128b55e111bcabba8b2474620dd6ab`
+Generated at: `2026-05-21T13:44:24Z`
+Commit: `a1102688171240d9afcdb4efbb3099f97a9958be`
 
 **Beta decision:** `NO-GO`
 
-- Beta blocker count: `13`
+- Beta blocker count: `12`
 
 ## Refreshed status surfaces
 
@@ -28,7 +28,6 @@ Commit: `47d690a3b3128b55e111bcabba8b2474620dd6ab`
 |---|---|---:|---|---:|---:|---|
 | `JWT-001` | `runtime-passing` | False | `docs/release/jwt_production_guard_repair_report.md` | False | True | external production secret provisioning and rotation evidence |
 | `ARQ-001` | `runtime-passing` | False | `docs/release/arq_dependency_worker_import_repair_report.md` | False | True | live Redis worker enqueue/dequeue staging evidence |
-| `POPIA-001` | `not-proven` | False | `docs/release/no_false_closure_status_after_1151_1190.md` | False | True | focused response-contract test output still includes skipped cases; skipped tests are not proof |
 | `EVID-001` | `runtime-passing` | False | `docs/release/evidence_status_registry.yml` | False | True | CI evidence URL still required before production-ready |
 | `DIAG-001` | `runtime-passing` | False | `docs/release/diagnostics_session_binding_repair_report.md` | False | True | full HTTP plus production DB diagnostic session proof still required |
 | `CI-001` | `external-blocked` | True | `docs/release/ci_evidence.md` | False | True | valid GitHub Actions run URL and passing result metadata required |
@@ -51,7 +50,6 @@ Commit: `47d690a3b3128b55e111bcabba8b2474620dd6ab`
 
 - Resolve JWT-001: external production secret provisioning and rotation evidence.
 - Resolve ARQ-001: live Redis worker enqueue/dequeue staging evidence.
-- Repair POPIA-001 skipped response-contract proof so no skipped tests are counted.
 - Resolve EVID-001: CI evidence URL still required before production-ready.
 - Resolve DIAG-001: full HTTP plus production DB diagnostic session proof still required.
 - Attach accepted GitHub Actions CI evidence for CI-001.

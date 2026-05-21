@@ -46,18 +46,17 @@ findings:
 
   - id: POPIA-001
     title: POPIA lifecycle HTTP response-contract proof
-    severity: P0
+    severity: P1
     gate: 3
     owner: backend
-    implementation_batch: code_1151_1190
-    proof_status: not-proven
-    proof_command: make backend-implementation-1151-1190-full-check
-    evidence_file: docs/release/no_false_closure_status_after_1151_1190.md
-    last_verified_commit: null
-    closure_blocker: focused response-contract test output still includes skipped cases; skipped tests are not proof
-    blocks_beta: true
+    implementation_batch: code_2831_2870R
+    proof_status: integration-passing
+    proof_command: make backend-implementation-2831-2870R-full-check
+    evidence_file: docs/release/popia_response_contract_no_skip_status.md
+    last_verified_commit: a1102688171240d9afcdb4efbb3099f97a9958be
+    closure_blocker: none
+    blocks_beta: false
     external_dependency: false
-
   - id: EVID-001
     title: Evidence registry and skipped-test governance
     severity: P1
@@ -627,5 +626,18 @@ findings:
     evidence_file: docs/release/ci_auth_refresh_db_proof_workflow_status.md
     last_verified_commit: 88f821d4a8a02727398884d65cfc2ccec4945c5b
     closure_blocker: none; real workflow run URL still required for release evidence
+    blocks_beta: false
+    external_dependency: false
+  - id: POPIA-001R
+    title: POPIA no-skip response-contract proof repair
+    severity: P1
+    gate: 3
+    owner: backend
+    implementation_batch: code_2831_2870R
+    proof_status: integration-passing
+    proof_command: make backend-implementation-2831-2870R-full-check
+    evidence_file: docs/release/popia_response_contract_no_skip_status.md
+    last_verified_commit: a1102688171240d9afcdb4efbb3099f97a9958be
+    closure_blocker: none
     blocks_beta: false
     external_dependency: false
