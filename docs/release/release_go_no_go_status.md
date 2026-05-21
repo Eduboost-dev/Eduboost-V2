@@ -1,7 +1,7 @@
 # Release Go/No-Go Status
 
-Generated at: `2026-05-21T10:23:37Z`
-Commit: `e6ca4c15909251f4b68976ee573c5d49f09aac70`
+Generated at: `2026-05-21T12:41:58Z`
+Commit: `84ace987e1f577fcf647fbe105f78680003c5aaa`
 
 **Decision:** `NO-GO`
 
@@ -20,8 +20,8 @@ Commit: `e6ca4c15909251f4b68976ee573c5d49f09aac70`
 | `JWT-001` | `runtime-passing` | False | True | beta-blocking evidence is present | `docs/release/jwt_production_guard_repair_report.md` |
 | `CI-001` | `external-blocked` | True | False | remote CI run URL not attached | `docs/release/ci_evidence.md` |
 | `EVID-001` | `runtime-passing` | False | True | beta-blocking evidence is present | `docs/release/evidence_status_registry.yml` |
-| `AUTH-REFRESH-DB-EVIDENCE-001` | `external-blocked` | True | False | external approval remains incomplete | `docs/release/auth_refresh_db_evidence_status.md` |
-| `AUTH-REFRESH-DB-PROOF-001` | `external-blocked` | True | False | external approval remains incomplete | `docs/release/auth_refresh_db_evidence_status.md` |
+| `AUTH-REFRESH-DB-EVIDENCE-001` | `integration-passing` | True | False | external approval remains incomplete | `docs/release/auth_refresh_db_evidence_status.md` |
+| `AUTH-REFRESH-DB-PROOF-001` | `integration-passing` | True | False | external approval remains incomplete | `docs/release/auth_refresh_db_evidence_status.md` |
 | `DIAG-001` | `runtime-passing` | False | True | beta-blocking evidence is present | `docs/release/diagnostics_session_binding_repair_report.md` |
 | `DIAG-SCORE-001` | `integration-passing` | False | True | beta-blocking evidence is present | `docs/release/diagnostics_scoring_snapshot_repair_report.md` |
 | `LESSON-AUTH-001` | `runtime-passing` | False | True | beta-blocking evidence is present | `docs/release/lesson_authorization_hardening_report.md` |

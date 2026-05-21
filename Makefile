@@ -2535,3 +2535,42 @@ backend-implementation-2911-2950-workflow-check: staging-smoke-workflow-status s
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/staging_smoke_probe.py scripts/check_staging_smoke_workflow_config.py scripts/patch_staging_smoke_workflow_registry.py tests/unit/test_staging_smoke_workflow_config.py --select F821,F401,F811,E402
 
+.PHONY: staging-smoke-evidence-status staging-smoke-evidence-registry-patch staging-smoke-evidence-check staging-smoke-evidence-test backend-implementation-2911-2950-full-check
+
+staging-smoke-evidence-status:
+	PYTHONPATH=. python3 -c "from scripts.staging_smoke_evidence_acceptance import write_status; s = write_status(); print(s.status)"
+
+staging-smoke-evidence-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_staging_smoke_evidence_registry.py
+
+staging-smoke-evidence-check: staging-smoke-evidence-registry-patch
+	PYTHONPATH=. python3 scripts/check_staging_smoke_evidence_acceptance.py
+
+staging-smoke-evidence-test:
+	pytest -c pytest.ini tests/unit/test_staging_smoke_evidence_acceptance.py -q --no-cov --tb=short
+
+backend-implementation-2911-2950-full-check: staging-smoke-evidence-status staging-smoke-evidence-check staging-smoke-evidence-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/staging_smoke_evidence_acceptance.py scripts/patch_staging_smoke_evidence_registry.py scripts/check_staging_smoke_evidence_acceptance.py tests/unit/test_staging_smoke_evidence_acceptance.py --select F821,F401,F811,E402
+
+.PHONY: diag-deep-health-runtime-status diag-deep-health-runtime-registry-patch diag-deep-health-runtime-check diag-deep-health-runtime-test diag-deep-health-runtime-release-check backend-implementation-2951-2990-full-check
+
+diag-deep-health-runtime-status:
+	PYTHONPATH=. python3 -c "from scripts.diag_deep_health_runtime_evidence import write_status; s = write_status(run_http=bool(__import__('os').getenv('DIAG_DEEP_HEALTH_URL') or __import__('os').getenv('STAGING_DEEP_HEALTH_URL'))); print(s.status)"
+
+diag-deep-health-runtime-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_diag_deep_health_runtime_registry.py
+
+diag-deep-health-runtime-check:
+	PYTHONPATH=. python3 scripts/check_diag_deep_health_runtime.py
+
+diag-deep-health-runtime-test:
+	pytest -c pytest.ini tests/unit/test_diag_deep_health_runtime_evidence.py -q --no-cov --tb=short
+
+diag-deep-health-runtime-release-check: diag-deep-health-runtime-registry-patch
+	DIAG_DEEP_HEALTH_ACCEPT=1 PYTHONPATH=. python3 scripts/check_diag_deep_health_runtime.py
+
+backend-implementation-2951-2990-full-check: diag-deep-health-runtime-status diag-deep-health-runtime-check diag-deep-health-runtime-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/diag_deep_health_runtime_evidence.py scripts/patch_diag_deep_health_runtime_registry.py scripts/check_diag_deep_health_runtime.py tests/unit/test_diag_deep_health_runtime_evidence.py --select F821,F401,F811,E402
+

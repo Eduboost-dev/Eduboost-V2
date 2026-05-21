@@ -4,11 +4,11 @@
     "api": 6,
     "architecture": 37,
     "general": 483,
-    "release": 383,
+    "release": 395,
     "security": 98
   },
-  "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
-  "document_count": 1032,
+  "commit": "ecaab870ed5e171a5d8c5d58393ae80e64917ee5",
+  "document_count": 1044,
   "documents": [
     {
       "category": "general",
@@ -34217,6 +34217,21 @@
           "level": 2,
           "line": 1505,
           "text": "CI-001 + EVID-001 / Backend implementation 2871-2910 \u2014 accepted CI evidence repair"
+        },
+        {
+          "level": 2,
+          "line": 1517,
+          "text": "STAGING-SMOKE-WORKFLOW-001 / Backend implementation 2911-2950 \u2014 staging smoke workflow configuration"
+        },
+        {
+          "level": 2,
+          "line": 1529,
+          "text": "STAGING-001R / Backend implementation 2911-2950 \u2014 accepted staging smoke evidence repair"
+        },
+        {
+          "level": 2,
+          "line": 1541,
+          "text": "DIAG-001R / Backend implementation 2951-2990 \u2014 diagnostic deep-health runtime evidence tooling"
         }
       ],
       "links": [
@@ -34242,8 +34257,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "c79e8887fc163610f2393e2984a802b9818fdbcd78245f3448fa8307d568ce12",
-      "size_bytes": 47337,
+      "sha256": "0ca920a9cda648030420aa48a98989a6bc060d4945f06f34fb32b2efb8b39325",
+      "size_bytes": 48381,
       "statuses": [
         "todo",
         "passed",
@@ -40519,7 +40534,7 @@
         }
       ],
       "path": "docs/release/ci_evidence.md",
-      "sha256": "e6c24e23b695f1d63cbfe10ef83e4bac855d69fd0c2c12bedbbd3d307a1f53ce",
+      "sha256": "5f07937f92556d7c3be17ffef90cc3cba2659abd49edb49fad2cc0f8f0ddaa09",
       "size_bytes": 979,
       "statuses": [],
       "title": "CI Evidence Status"
@@ -40540,7 +40555,7 @@
         }
       ],
       "path": "docs/release/ci_evidence_status.json",
-      "sha256": "1fb70832eabc4d5abe84a267d840972f4fc5eb64574b6e0b65300c4e9cf4e8ae",
+      "sha256": "c3a4219def227e8c1c6643c86f405245fb386af906605cd744ee93a9ffca377f",
       "size_bytes": 537,
       "statuses": [],
       "title": "Ci Evidence Status"
@@ -40577,7 +40592,7 @@
         }
       ],
       "path": "docs/release/ci_evidence_status.md",
-      "sha256": "e6c24e23b695f1d63cbfe10ef83e4bac855d69fd0c2c12bedbbd3d307a1f53ce",
+      "sha256": "5f07937f92556d7c3be17ffef90cc3cba2659abd49edb49fad2cc0f8f0ddaa09",
       "size_bytes": 979,
       "statuses": [],
       "title": "CI Evidence Status"
@@ -41077,6 +41092,103 @@
         "blocked"
       ],
       "title": "Deep-Readiness Runtime Integration Target Map"
+    },
+    {
+      "category": "release",
+      "dates": [
+        "2026-05-21"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/api/v2/health/deep\",",
+          "text": "https://eduboost-api.onrender.com/api/v2/health/deep\","
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/api/v2/health/deep\",",
+          "text": "https://eduboost-api.onrender.com/api/v2/health/deep\","
+        },
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487\",",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487\","
+        }
+      ],
+      "path": "docs/release/diag_deep_health_runtime_status.json",
+      "sha256": "de9aea11b5f80324009d90df2a2ff6bf86100a87a3c35bfd901ea482cb21be25",
+      "size_bytes": 1030,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Diag Deep Health Runtime Status"
+    },
+    {
+      "category": "release",
+      "dates": [
+        "2026-05-21"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Diagnostic Deep Health Runtime Evidence Status"
+        },
+        {
+          "level": 2,
+          "line": 20,
+          "text": "Required component results"
+        },
+        {
+          "level": 2,
+          "line": 29,
+          "text": "Inferred response signals"
+        },
+        {
+          "level": 2,
+          "line": 35,
+          "text": "HTTP body excerpt"
+        },
+        {
+          "level": 2,
+          "line": 41,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 45,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/api/v2/health/deep`",
+          "text": "https://eduboost-api.onrender.com/api/v2/health/deep`"
+        },
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487`",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487`"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/api/v2/health/deep`",
+          "text": "https://eduboost-api.onrender.com/api/v2/health/deep`"
+        }
+      ],
+      "path": "docs/release/diag_deep_health_runtime_status.md",
+      "sha256": "4e9ef235ffb059148e3739f693e538ee5eb15063df82b0b35b076ead6632ab03",
+      "size_bytes": 1486,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Diagnostic Deep Health Runtime Evidence Status"
     },
     {
       "category": "release",
@@ -41622,7 +41734,7 @@
         "docs/release/arq_dependency_worker_import_repair_report.md",
         "docs/release/popia_response_contract_no_skip_status.md",
         "docs/release/ci_evidence_status.md",
-        "docs/release/diagnostics_session_binding_repair_report.md",
+        "docs/release/diag_deep_health_runtime_status.md",
         "docs/release/auth_repository_fixture_proof_report.md",
         "docs/release/external_approvals/legal_approval.md",
         "docs/release/external_approvals/security_approval.md",
@@ -41635,7 +41747,7 @@
         "docs/release/no_false_closure_status_after_1551_1590.md",
         "docs/release/diagnostics_scoring_snapshot_repair_report.md",
         "docs/release/route_transaction_slice_rollup.md",
-        "docs/release/staging_smoke_evidence.md",
+        "docs/release/staging_smoke_evidence_status.md",
         "docs/release/external_approval_status.md",
         "docs/release/release_go_no_go_status.md",
         "docs/release/beta_blocker_burndown_plan.md",
@@ -41658,7 +41770,8 @@
         "docs/release/auth_lifecycle_http_proof_status.md",
         "docs/release/auth_lifecycle_semantic_proof_status.md",
         "docs/release/auth_refresh_db_evidence_status.md",
-        "docs/release/ci_auth_refresh_db_proof_workflow_status.md"
+        "docs/release/ci_auth_refresh_db_proof_workflow_status.md",
+        "docs/release/staging_smoke_workflow_status.md"
       ],
       "generated": false,
       "headings": [
@@ -41741,8 +41854,28 @@
         },
         {
           "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/api/v2/health/deep",
+          "text": "https://eduboost-api.onrender.com/api/v2/health/deep"
+        },
+        {
+          "kind": "external",
           "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521",
           "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521"
+        },
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com",
+          "text": "https://eduboost-api.onrender.com"
         },
         {
           "kind": "external",
@@ -41753,11 +41886,31 @@
           "kind": "external",
           "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521",
           "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521"
+        },
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com",
+          "text": "https://eduboost-api.onrender.com"
+        },
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/api/v2/health/deep",
+          "text": "https://eduboost-api.onrender.com/api/v2/health/deep"
         }
       ],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "c6ffaa5fc9ef75d4910313b54915b6fbe8527803325ff27cab90ece44277fbf1",
-      "size_bytes": 26862,
+      "sha256": "b9fcf20e346258edf93705022663bb0770dd716bbffbdfd2b130db62d8a04133",
+      "size_bytes": 29545,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -41950,13 +42103,11 @@
       "evidence_references": [
         "docs/release/jwt_production_guard_repair_report.md",
         "docs/release/arq_dependency_worker_import_repair_report.md",
-        "docs/release/diagnostics_session_binding_repair_report.md",
         "docs/release/external_approvals/legal_approval.md",
         "docs/release/external_approvals/security_approval.md",
         "docs/release/external_approvals/content_approval.md",
         "docs/release/lesson_authorization_hardening_report.md",
         "docs/release/diagnostics_scoring_snapshot_repair_report.md",
-        "docs/release/staging_smoke_evidence.md",
         "docs/release/external_approval_status.md",
         "docs/release/auth_refresh_db_evidence_status.md"
       ],
@@ -41964,8 +42115,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "48b135e4e35c26447e2692786553944c98f4e5c764ea56da059f0d99c95cfd53",
-      "size_bytes": 7345,
+      "sha256": "5c2dd320c9b8406051ea6b307d0d30abaf8375c82738f288a7798eafb0e4c098",
+      "size_bytes": 6286,
       "statuses": [
         "external-blocked",
         "pending"
@@ -41978,13 +42129,11 @@
       "evidence_references": [
         "docs/release/jwt_production_guard_repair_report.md",
         "docs/release/arq_dependency_worker_import_repair_report.md",
-        "docs/release/diagnostics_session_binding_repair_report.md",
         "docs/release/external_approvals/legal_approval.md",
         "docs/release/external_approvals/security_approval.md",
         "docs/release/external_approvals/content_approval.md",
         "docs/release/lesson_authorization_hardening_report.md",
         "docs/release/diagnostics_scoring_snapshot_repair_report.md",
-        "docs/release/staging_smoke_evidence.md",
         "docs/release/external_approval_status.md"
       ],
       "generated": false,
@@ -42006,29 +42155,29 @@
         },
         {
           "level": 2,
-          "line": 40,
+          "line": 38,
           "text": "Resolved non-blocking accepted findings"
         },
         {
           "level": 2,
-          "line": 47,
+          "line": 45,
           "text": "Required next actions"
         },
         {
           "level": 2,
-          "line": 60,
+          "line": 56,
           "text": "No false-closure rules"
         },
         {
           "level": 2,
-          "line": 66,
+          "line": 62,
           "text": "Interpretation"
         }
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "4b7f04b394196c3fa7221a274136cb6ad46bcefff4116aaef22376912d010bef",
-      "size_bytes": 4256,
+      "sha256": "5c795bf6589074e03722e7896305758f669594d504e41e426c8f85df56c2d98a",
+      "size_bytes": 3734,
       "statuses": [
         "external-blocked",
         "pending",
@@ -44344,6 +44493,110 @@
         {
           "level": 1,
           "line": 1,
+          "text": "Next Execution Queue After STAGING-001R / code_2911_2950"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next batch"
+        },
+        {
+          "level": 2,
+          "line": 7,
+          "text": "Remaining blocker themes after staging evidence is accepted"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2911_2950.md",
+      "sha256": "96e6219d226aba3a8832cee955d4d08daf1364356d3fe7965c3ea3ad121c76c7",
+      "size_bytes": 657,
+      "statuses": [],
+      "title": "Next Execution Queue After STAGING-001R / code_2911_2950"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Next Execution Queue After STAGING-SMOKE-WORKFLOW-001 / code_2911_2950"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Required external action"
+        },
+        {
+          "level": 2,
+          "line": 19,
+          "text": "Remaining blocker themes"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://<real-staging-host>",
+          "text": "https://<real-staging-host>"
+        }
+      ],
+      "path": "docs/release/next_execution_queue_after_2911_2950_workflow.md",
+      "sha256": "7130c7daee4c551368c72fbdda04eaa6127fff4e869442d5006ea6dda6292f0e",
+      "size_bytes": 854,
+      "statuses": [
+        "passed",
+        "external-blocked"
+      ],
+      "title": "Next Execution Queue After STAGING-SMOKE-WORKFLOW-001 / code_2911_2950"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Next Execution Queue After DIAG-001R / code_2951_2990"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Required before closing DIAG-001"
+        },
+        {
+          "level": 2,
+          "line": 19,
+          "text": "Remaining blocker themes"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://<real-staging-host>/api/v2/health/deep",
+          "text": "https://<real-staging-host>/api/v2/health/deep"
+        }
+      ],
+      "path": "docs/release/next_execution_queue_after_2951_2990.md",
+      "sha256": "1d3b20bb4a64583599f277eaf8afcbaa86d7149d59909048f391e804cdd8c56d",
+      "size_bytes": 984,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Next Execution Queue After DIAG-001R / code_2951_2990"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "Next Execution Queue After code_831_870"
         },
         {
@@ -46126,6 +46379,97 @@
       "size_bytes": 871,
       "statuses": [],
       "title": "No False-Closure Status After CI-001 + EVID-001 / code_2871_2910"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After STAGING-001R / code_2911_2950"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven only when accepted"
+        },
+        {
+          "level": 2,
+          "line": 15,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2911_2950.md",
+      "sha256": "002d9b1950047883a0e9819d3a5c1923b64474e5e70cc76a423793cd8ae12bae",
+      "size_bytes": 850,
+      "statuses": [
+        "passed"
+      ],
+      "title": "No False-Closure Status After STAGING-001R / code_2911_2950"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After STAGING-SMOKE-WORKFLOW-001 / code_2911_2950"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 12,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2911_2950_workflow.md",
+      "sha256": "946428338e5927c932ed59567bddadc2e7d464622833d9208e2f8e2420956df6",
+      "size_bytes": 621,
+      "statuses": [],
+      "title": "No False-Closure Status After STAGING-SMOKE-WORKFLOW-001 / code_2911_2950"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After DIAG-001R / code_2951_2990"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven by default"
+        },
+        {
+          "level": 2,
+          "line": 13,
+          "text": "Not claimed by default"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2951_2990.md",
+      "sha256": "d59b695b71c73ba1783e01124fcd97fac953bb468ea676ecc2974dbe0bb87421",
+      "size_bytes": 689,
+      "statuses": [
+        "pass"
+      ],
+      "title": "No False-Closure Status After DIAG-001R / code_2951_2990"
     },
     {
       "category": "release",
@@ -48120,41 +48464,134 @@
     },
     {
       "category": "release",
-      "dates": [],
+      "dates": [
+        "2026-05-21"
+      ],
       "evidence_references": [],
       "generated": false,
       "headings": [
         {
           "level": 1,
           "line": 1,
-          "text": "Staging Smoke Evidence"
+          "text": "Staging Smoke Evidence Status"
         },
         {
           "level": 2,
-          "line": 29,
-          "text": "Required attachments or links"
+          "line": 23,
+          "text": "Blockers"
         },
         {
           "level": 2,
-          "line": 38,
-          "text": "Required smoke coverage"
-        },
-        {
-          "level": 2,
-          "line": 44,
-          "text": "No false-closure rule"
+          "line": 27,
+          "text": "No false-closure rules"
         }
       ],
-      "links": [],
-      "path": "docs/release/staging_smoke_evidence.md",
-      "sha256": "173aa50464ec9275a0478edaaa41e945ea100d1acd26d72e8a677e6a400d2e15",
-      "size_bytes": 947,
-      "statuses": [
-        "pending",
-        "todo",
-        "pass"
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077`",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077`"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com`",
+          "text": "https://eduboost-api.onrender.com`"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com",
+          "text": "https://eduboost-api.onrender.com"
+        }
       ],
-      "title": "Staging Smoke Evidence"
+      "path": "docs/release/staging_smoke_evidence.md",
+      "sha256": "cdba0f665be4cdbacd253b4e1cc38bbb1d323805467641ae388390d46756d392",
+      "size_bytes": 1410,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Staging Smoke Evidence Status"
+    },
+    {
+      "category": "release",
+      "dates": [
+        "2026-05-21"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077\",",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077\","
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com\",",
+          "text": "https://eduboost-api.onrender.com\","
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com",
+          "text": "https://eduboost-api.onrender.com"
+        }
+      ],
+      "path": "docs/release/staging_smoke_evidence_status.json",
+      "sha256": "14b83dd0e3c445aacc3f8b4a3c446549e1428400599b2bca47a417ac9ab52f8b",
+      "size_bytes": 904,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Staging Smoke Evidence Status"
+    },
+    {
+      "category": "release",
+      "dates": [
+        "2026-05-21"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Staging Smoke Evidence Status"
+        },
+        {
+          "level": 2,
+          "line": 23,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 27,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077`",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077`"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com`",
+          "text": "https://eduboost-api.onrender.com`"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com",
+          "text": "https://eduboost-api.onrender.com"
+        }
+      ],
+      "path": "docs/release/staging_smoke_evidence_status.md",
+      "sha256": "cdba0f665be4cdbacd253b4e1cc38bbb1d323805467641ae388390d46756d392",
+      "size_bytes": 1410,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Staging Smoke Evidence Status"
     },
     {
       "category": "release",
@@ -48331,6 +48768,51 @@
         "failed"
       ],
       "title": "Staging Smoke Runbook"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/release/staging_smoke_workflow_status.json",
+      "sha256": "d2d79937ee035f9ecb926c63fbcdbdaf1f93a33c4edc097a95389f291c907f85",
+      "size_bytes": 355,
+      "statuses": [],
+      "title": "Staging Smoke Workflow Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Staging Smoke Workflow Status"
+        },
+        {
+          "level": 2,
+          "line": 17,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 21,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/staging_smoke_workflow_status.md",
+      "sha256": "77f1f2ff61ec99191e4094e0f2fe3fe7a9e0f47ab7df61467daf3d8fed920bd8",
+      "size_bytes": 646,
+      "statuses": [
+        "passed",
+        "external-blocked"
+      ],
+      "title": "Staging Smoke Workflow Status"
     },
     {
       "category": "release",
@@ -54452,8 +54934,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 1032,
-  "generated_at": "2026-05-21T14:38:54Z",
+  "files_scanned": 1044,
+  "generated_at": "2026-05-21T22:44:57Z",
   "generated_count": 4,
   "missing_important_docs": []
 }
