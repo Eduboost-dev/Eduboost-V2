@@ -625,7 +625,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2751-2790-full-check
     evidence_file: docs/release/ci_auth_refresh_db_proof_workflow_status.md
-    last_verified_commit: aa1e1e883fe9ea07116238229dca4694c7216d3a
+    last_verified_commit: e6ca4c15909251f4b68976ee573c5d49f09aac70
     closure_blocker: none; real workflow run URL still required for release evidence
     blocks_beta: false
     external_dependency: false

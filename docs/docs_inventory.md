@@ -1,7 +1,7 @@
 # Documentation Inventory
 
-Generated at: `2026-05-21T08:35:56Z`
-Commit: `aa1e1e883fe9ea07116238229dca4694c7216d3a`
+Generated at: `2026-05-21T10:23:57Z`
+Commit: `e6ca4c15909251f4b68976ee573c5d49f09aac70`
 
 - Documents: `1020`
 - Generated docs: `4`
