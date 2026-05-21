@@ -2574,3 +2574,21 @@ backend-implementation-2951-2990-full-check: diag-deep-health-runtime-status dia
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/diag_deep_health_runtime_evidence.py scripts/patch_diag_deep_health_runtime_registry.py scripts/check_diag_deep_health_runtime.py tests/unit/test_diag_deep_health_runtime_evidence.py --select F821,F401,F811,E402
 
+.PHONY: audit-baseline-refresh-status audit-baseline-refresh-registry-patch audit-baseline-refresh-check audit-baseline-refresh-test backend-implementation-2991-3030-full-check
+
+audit-baseline-refresh-status:
+	PYTHONPATH=. python3 -c "from scripts.audit_baseline_refresh import write_status; s = write_status(); print(s.status); print(s.beta_decision); print(s.beta_blocker_count)"
+
+audit-baseline-refresh-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_audit_baseline_refresh_registry.py
+
+audit-baseline-refresh-check: audit-baseline-refresh-registry-patch
+	PYTHONPATH=. python3 scripts/check_audit_baseline_refresh.py
+
+audit-baseline-refresh-test:
+	pytest -c pytest.ini tests/unit/test_audit_baseline_refresh.py -q --no-cov --tb=short
+
+backend-implementation-2991-3030-full-check: audit-baseline-refresh-status audit-baseline-refresh-check audit-baseline-refresh-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/audit_baseline_refresh.py scripts/patch_audit_baseline_refresh_registry.py scripts/check_audit_baseline_refresh.py tests/unit/test_audit_baseline_refresh.py --select F821,F401,F811,E402
+

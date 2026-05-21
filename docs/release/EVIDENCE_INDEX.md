@@ -1555,3 +1555,15 @@ Accepted-evidence closure command:
 DIAG_DEEP_HEALTH_ACCEPT=1 make diag-deep-health-runtime-registry-patch
 ```
 
+## AUDIT-BASELINE-REFRESH / Backend implementation 2991-3030 — release gate truth refresh
+
+Commands:
+
+```bash
+make audit-baseline-refresh-status
+make audit-baseline-refresh-registry-patch
+make audit-baseline-refresh-check
+make audit-baseline-refresh-test
+make backend-implementation-2991-3030-full-check
+```
+
