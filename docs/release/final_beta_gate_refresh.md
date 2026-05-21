@@ -1,11 +1,11 @@
 # Final Beta Gate Refresh
 
-Generated at: `2026-05-21T13:44:24Z`
-Commit: `a1102688171240d9afcdb4efbb3099f97a9958be`
+Generated at: `2026-05-21T14:38:46Z`
+Commit: `8638400aaa53cf737aa4eb11ddab55cc97ebb02f`
 
 **Beta decision:** `NO-GO`
 
-- Beta blocker count: `12`
+- Beta blocker count: `10`
 
 ## Refreshed status surfaces
 
@@ -28,12 +28,10 @@ Commit: `a1102688171240d9afcdb4efbb3099f97a9958be`
 |---|---|---:|---|---:|---:|---|
 | `JWT-001` | `runtime-passing` | False | `docs/release/jwt_production_guard_repair_report.md` | False | True | external production secret provisioning and rotation evidence |
 | `ARQ-001` | `runtime-passing` | False | `docs/release/arq_dependency_worker_import_repair_report.md` | False | True | live Redis worker enqueue/dequeue staging evidence |
-| `EVID-001` | `runtime-passing` | False | `docs/release/evidence_status_registry.yml` | False | True | CI evidence URL still required before production-ready |
 | `DIAG-001` | `runtime-passing` | False | `docs/release/diagnostics_session_binding_repair_report.md` | False | True | full HTTP plus production DB diagnostic session proof still required |
-| `CI-001` | `external-blocked` | True | `docs/release/ci_evidence.md` | False | True | valid GitHub Actions run URL and passing result metadata required |
-| `LEGAL-001` | `external-blocked` | True | `docs/release/external_approvals/legal_approval.md` | False | True | external approval sign-off metadata required |
-| `SEC-001` | `external-blocked` | True | `docs/release/external_approvals/security_approval.md` | False | True | external approval sign-off metadata required |
-| `CONTENT-001` | `external-blocked` | True | `docs/release/external_approvals/content_approval.md` | False | True | external approval sign-off metadata required |
+| `LEGAL-001` | `external-blocked` | True | `docs/release/external_approvals/legal_approval.md` | False | True | approval metadata and evidence URL required |
+| `SEC-001` | `external-blocked` | True | `docs/release/external_approvals/security_approval.md` | False | True | approval metadata and evidence URL required |
+| `CONTENT-001` | `external-blocked` | True | `docs/release/external_approvals/content_approval.md` | False | True | approval metadata and evidence URL required |
 | `LESSON-AUTH-001` | `runtime-passing` | False | `docs/release/lesson_authorization_hardening_report.md` | False | True | full HTTP and staging proof for all lesson routes remains pending |
 | `DIAG-SCORE-001` | `integration-passing` | False | `docs/release/diagnostics_scoring_snapshot_repair_report.md` | False | True | live DB and full scoring audit still pending |
 | `STAGING-001` | `external-blocked` | True | `docs/release/staging_smoke_evidence.md` | False | True | real staging smoke evidence and GitHub Actions run URL required |
@@ -50,9 +48,7 @@ Commit: `a1102688171240d9afcdb4efbb3099f97a9958be`
 
 - Resolve JWT-001: external production secret provisioning and rotation evidence.
 - Resolve ARQ-001: live Redis worker enqueue/dequeue staging evidence.
-- Resolve EVID-001: CI evidence URL still required before production-ready.
 - Resolve DIAG-001: full HTTP plus production DB diagnostic session proof still required.
-- Attach accepted GitHub Actions CI evidence for CI-001.
 - Attach complete external approval metadata for LEGAL-001.
 - Attach complete external approval metadata for SEC-001.
 - Attach complete external approval metadata for CONTENT-001.

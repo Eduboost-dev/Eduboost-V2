@@ -4,11 +4,11 @@
     "api": 6,
     "architecture": 37,
     "general": 483,
-    "release": 379,
+    "release": 383,
     "security": 98
   },
-  "commit": "4465f8bfad448c16e78b03153d58ca9678ef732b",
-  "document_count": 1028,
+  "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
+  "document_count": 1032,
   "documents": [
     {
       "category": "general",
@@ -34212,6 +34212,11 @@
           "level": 2,
           "line": 1494,
           "text": "POPIA-001R4 / Backend implementation 2831-2870R3 \u2014 POPIA no-skip literal guard repair"
+        },
+        {
+          "level": 2,
+          "line": 1505,
+          "text": "CI-001 + EVID-001 / Backend implementation 2871-2910 \u2014 accepted CI evidence repair"
         }
       ],
       "links": [
@@ -34237,8 +34242,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "29ccedec1f6fd02403d8a0df3c1c60718c3777d3aa6e4407c0c1130242d9d14e",
-      "size_bytes": 47030,
+      "sha256": "c79e8887fc163610f2393e2984a802b9818fdbcd78245f3448fa8307d568ce12",
+      "size_bytes": 47337,
       "statuses": [
         "todo",
         "passed",
@@ -35757,7 +35762,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/approval_evidence_status.json",
-      "sha256": "5fad88abad91e5fc2cf064fbf108a4f3b15e5bd0be965fcfa808eccafbb47ab1",
+      "sha256": "f3a67e817c106110b2298f534bd5cdfde44aca38c32abacf60bc3ba49f91e7c2",
       "size_bytes": 2800,
       "statuses": [
         "external-blocked",
@@ -35790,7 +35795,7 @@
       ],
       "links": [],
       "path": "docs/release/approval_evidence_status.md",
-      "sha256": "9f5e5a93cf1014aa2712a63e26679fd8482490f00334688c271b81e0b5016f7c",
+      "sha256": "3df09b7d4602bd76197c7ea14b423867e5766c5c215977ee9abe291b827f3b8e",
       "size_bytes": 1296,
       "statuses": [
         "external-blocked",
@@ -36477,7 +36482,7 @@
         }
       ],
       "path": "docs/release/auth_refresh_db_evidence_status.json",
-      "sha256": "7f5116a69cf818a1bc3612b0ff7dacdcfdaf64ecd96c0a0f495f56fc30bdf177",
+      "sha256": "e0a0971f3fadaad566022e645d91f6ba87127809edf5f2a4d4363b3d91a19bdc",
       "size_bytes": 1694,
       "statuses": [
         "passed"
@@ -36516,7 +36521,7 @@
         }
       ],
       "path": "docs/release/auth_refresh_db_evidence_status.md",
-      "sha256": "cc46981dc8547b77da438a6aa7f0c8b605963141d9813fc60c6951414755ff43",
+      "sha256": "65d84b9594aefee2937e5fc69c3f1d92b6078aac281679b174d0bf887c1c6834",
       "size_bytes": 1290,
       "statuses": [
         "passed",
@@ -40484,45 +40489,98 @@
     },
     {
       "category": "release",
-      "dates": [],
+      "dates": [
+        "2026-05-21"
+      ],
       "evidence_references": [],
       "generated": false,
       "headings": [
         {
           "level": 1,
           "line": 1,
-          "text": "CI Authority Evidence"
+          "text": "CI Evidence Status"
         },
         {
           "level": 2,
-          "line": 11,
-          "text": "Required evidence"
+          "line": 17,
+          "text": "Blockers"
         },
         {
           "level": 2,
           "line": 21,
-          "text": "Local CI-equivalent commands"
-        },
-        {
-          "level": 2,
-          "line": 35,
-          "text": "No false closure rule"
-        },
-        {
-          "level": 2,
-          "line": 39,
-          "text": "CI-RUN-001 metadata extension"
+          "text": "No false-closure rules"
         }
       ],
-      "links": [],
-      "path": "docs/release/ci_evidence.md",
-      "sha256": "031d7f1fd503cd27f0c99998efd71700c1779214466e8bf943907180c43732db",
-      "size_bytes": 1390,
-      "statuses": [
-        "pending",
-        "external-blocked"
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521`",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521`"
+        }
       ],
-      "title": "CI Authority Evidence"
+      "path": "docs/release/ci_evidence.md",
+      "sha256": "e6c24e23b695f1d63cbfe10ef83e4bac855d69fd0c2c12bedbbd3d307a1f53ce",
+      "size_bytes": 979,
+      "statuses": [],
+      "title": "CI Evidence Status"
+    },
+    {
+      "category": "release",
+      "dates": [
+        "2026-05-21"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521\",",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521\","
+        }
+      ],
+      "path": "docs/release/ci_evidence_status.json",
+      "sha256": "1fb70832eabc4d5abe84a267d840972f4fc5eb64574b6e0b65300c4e9cf4e8ae",
+      "size_bytes": 537,
+      "statuses": [],
+      "title": "Ci Evidence Status"
+    },
+    {
+      "category": "release",
+      "dates": [
+        "2026-05-21"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "CI Evidence Status"
+        },
+        {
+          "level": 2,
+          "line": 17,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 21,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521`",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521`"
+        }
+      ],
+      "path": "docs/release/ci_evidence_status.md",
+      "sha256": "e6c24e23b695f1d63cbfe10ef83e4bac855d69fd0c2c12bedbbd3d307a1f53ce",
+      "size_bytes": 979,
+      "statuses": [],
+      "title": "CI Evidence Status"
     },
     {
       "category": "release",
@@ -40534,7 +40592,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/ci_run_evidence_status.json",
-      "sha256": "a31dbe002fd3365a429f1f18233e33e898e86c1b28cb710e0f95010a4dc99121",
+      "sha256": "524f6b154ec415fd9105ee83c851b5dfd1901ea9fa1fddb0e3f63b818605aebc",
       "size_bytes": 766,
       "statuses": [
         "external-blocked",
@@ -40568,7 +40626,7 @@
       ],
       "links": [],
       "path": "docs/release/ci_run_evidence_status.md",
-      "sha256": "6b89b2056adc056c5225846aff775c3418f88d722d6df69ba68f16b0d12f9308",
+      "sha256": "f09664dd31fd098e8d6a0116a80ae5e6d18bda8fcecfd06b05ddfb93c5e4fac7",
       "size_bytes": 801,
       "statuses": [
         "external-blocked",
@@ -41556,15 +41614,16 @@
     },
     {
       "category": "release",
-      "dates": [],
+      "dates": [
+        "2026-05-21"
+      ],
       "evidence_references": [
         "docs/release/jwt_production_guard_repair_report.md",
         "docs/release/arq_dependency_worker_import_repair_report.md",
         "docs/release/popia_response_contract_no_skip_status.md",
-        "docs/release/evidence_status_registry.yml",
+        "docs/release/ci_evidence_status.md",
         "docs/release/diagnostics_session_binding_repair_report.md",
         "docs/release/auth_repository_fixture_proof_report.md",
-        "docs/release/ci_evidence.md",
         "docs/release/external_approvals/legal_approval.md",
         "docs/release/external_approvals/security_approval.md",
         "docs/release/external_approvals/content_approval.md",
@@ -41584,10 +41643,10 @@
         "docs/release/ci_run_evidence_status.md",
         "docs/release/approval_evidence_status.md",
         "docs/release/route_transaction_implementation_plan.md",
-        "docs/release/auth_route_transaction_slice_report.md",
-        "docs/release/popia_route_transaction_slice_report.md",
+        "docs/release/auth_route_transaction_live_db_evidence.md",
+        "docs/release/popia_route_transaction_live_db_evidence.md",
         "docs/release/popia_route_transaction_gap_plan.md",
-        "docs/release/diagnostics_route_transaction_slice_report.md",
+        "docs/release/diagnostics_route_transaction_live_db_evidence.md",
         "docs/release/live_db_transaction_evidence_status.md",
         "docs/release/final_beta_gate_refresh.md",
         "docs/release/evidence_attachment_runbook.md",
@@ -41674,10 +41733,31 @@
           "text": "- production-ready requires CI/staging/external evidence, not local tests alone"
         }
       ],
-      "links": [],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521"
+        },
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521"
+        },
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521"
+        },
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521"
+        }
+      ],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "ea267d6b56224f26c071845937a5f424d3de8393b031458680aa911d26e651a0",
-      "size_bytes": 25333,
+      "sha256": "c6ffaa5fc9ef75d4910313b54915b6fbe8527803325ff27cab90ece44277fbf1",
+      "size_bytes": 26862,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -41870,9 +41950,7 @@
       "evidence_references": [
         "docs/release/jwt_production_guard_repair_report.md",
         "docs/release/arq_dependency_worker_import_repair_report.md",
-        "docs/release/evidence_status_registry.yml",
         "docs/release/diagnostics_session_binding_repair_report.md",
-        "docs/release/ci_evidence.md",
         "docs/release/external_approvals/legal_approval.md",
         "docs/release/external_approvals/security_approval.md",
         "docs/release/external_approvals/content_approval.md",
@@ -41886,8 +41964,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "375df65cbe52ca0bd4b1d4c7469a7b839c93488260b948e3baeabd021e617c19",
-      "size_bytes": 8346,
+      "sha256": "48b135e4e35c26447e2692786553944c98f4e5c764ea56da059f0d99c95cfd53",
+      "size_bytes": 7345,
       "statuses": [
         "external-blocked",
         "pending"
@@ -41900,9 +41978,7 @@
       "evidence_references": [
         "docs/release/jwt_production_guard_repair_report.md",
         "docs/release/arq_dependency_worker_import_repair_report.md",
-        "docs/release/evidence_status_registry.yml",
         "docs/release/diagnostics_session_binding_repair_report.md",
-        "docs/release/ci_evidence.md",
         "docs/release/external_approvals/legal_approval.md",
         "docs/release/external_approvals/security_approval.md",
         "docs/release/external_approvals/content_approval.md",
@@ -41930,29 +42006,29 @@
         },
         {
           "level": 2,
-          "line": 42,
+          "line": 40,
           "text": "Resolved non-blocking accepted findings"
         },
         {
           "level": 2,
-          "line": 49,
+          "line": 47,
           "text": "Required next actions"
         },
         {
           "level": 2,
-          "line": 64,
+          "line": 60,
           "text": "No false-closure rules"
         },
         {
           "level": 2,
-          "line": 70,
+          "line": 66,
           "text": "Interpretation"
         }
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "8dfe47be89feb72983b8c31b87313487bd58ac48857b0a69dfa21aa8e210bcd1",
-      "size_bytes": 4709,
+      "sha256": "4b7f04b394196c3fa7221a274136cb6ad46bcefff4116aaef22376912d010bef",
+      "size_bytes": 4256,
       "statuses": [
         "external-blocked",
         "pending",
@@ -42415,7 +42491,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/live_db_transaction_evidence_status.json",
-      "sha256": "f7d4bd5d6f5b90c82b5819197efdea882151140f0fac80431adc3026b345b3ba",
+      "sha256": "3d0863dbd67ec7f9c897bca247a500cd5f6e535e1984d0efa6fba06c8c9d17fd",
       "size_bytes": 3527,
       "statuses": [
         "external-blocked",
@@ -42449,7 +42525,7 @@
       ],
       "links": [],
       "path": "docs/release/live_db_transaction_evidence_status.md",
-      "sha256": "755e26f86f5a98b8b58df700649d191d4185c370463568158092eedc95141098",
+      "sha256": "45dfe86474b4eee826ab6b41864040befa7b40fa9555267ad8cc61f9ea6daae4",
       "size_bytes": 1534,
       "statuses": [
         "external-blocked",
@@ -44239,6 +44315,35 @@
         {
           "level": 1,
           "line": 1,
+          "text": "Next Execution Queue After CI-001 + EVID-001 / code_2871_2910"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next batch"
+        },
+        {
+          "level": 2,
+          "line": 7,
+          "text": "Remaining blocker themes after CI/EVID evidence is accepted"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_2871_2910.md",
+      "sha256": "eefd42a07cd6000ac94ba0aa08fea316bcd9d5bbdb33bc0f14d507c72ff2efcf",
+      "size_bytes": 664,
+      "statuses": [],
+      "title": "Next Execution Queue After CI-001 + EVID-001 / code_2871_2910"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "Next Execution Queue After code_831_870"
         },
         {
@@ -46002,6 +46107,35 @@
         {
           "level": 1,
           "line": 1,
+          "text": "No False-Closure Status After CI-001 + EVID-001 / code_2871_2910"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven only when accepted"
+        },
+        {
+          "level": 2,
+          "line": 14,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_2871_2910.md",
+      "sha256": "f1392127a494b6283ad86fc030c203cb169ccafc4c61838cefe309d67929a5c5",
+      "size_bytes": 871,
+      "statuses": [],
+      "title": "No False-Closure Status After CI-001 + EVID-001 / code_2871_2910"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "No False-Closure Status After code_831_870"
         },
         {
@@ -46343,7 +46477,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/popia_response_contract_no_skip_status.json",
-      "sha256": "71079245837e17fdd88349c6dd802231e519c1755771af01fb61cab9756ed3e9",
+      "sha256": "2baf95e353a40360a949b3e647f1b36a1b9d34a4bc71535defa490602c1478db",
       "size_bytes": 1167,
       "statuses": [
         "passed"
@@ -46389,7 +46523,7 @@
       ],
       "links": [],
       "path": "docs/release/popia_response_contract_no_skip_status.md",
-      "sha256": "6f97f26c17addffb4e0c462fe2f52435c236b8dd7671922811766dcd88bdc546",
+      "sha256": "5ac5885b7d4883cae8635427ca0c95095366c5e1ec900ec7e23333cd8d8776a9",
       "size_bytes": 1154,
       "statuses": [
         "passed"
@@ -47944,7 +48078,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/staging_acceptance_status.json",
-      "sha256": "c7cad009c723d21bab943bd368dd26acf297fb19010779c1096b761734759dd1",
+      "sha256": "e994a5761385c43f022e1951984f026794a2f849066a4baf82d4c9ca40ca3012",
       "size_bytes": 1913,
       "statuses": [
         "external-blocked",
@@ -47976,7 +48110,7 @@
       ],
       "links": [],
       "path": "docs/release/staging_acceptance_status.md",
-      "sha256": "65f89050baaf9c6d02f93164e25e354f7e4d17f35f69754f5d562e88230c24af",
+      "sha256": "13f75b1d6dc8e9d69ef3d11e0e750b9c495d8962280a0a2f1c62ca0f302d32e0",
       "size_bytes": 1227,
       "statuses": [
         "external-blocked",
@@ -54318,8 +54452,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 1028,
-  "generated_at": "2026-05-21T13:58:36Z",
+  "files_scanned": 1032,
+  "generated_at": "2026-05-21T14:38:54Z",
   "generated_count": 4,
   "missing_important_docs": []
 }
