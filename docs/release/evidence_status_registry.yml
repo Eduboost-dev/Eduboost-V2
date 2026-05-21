@@ -690,3 +690,17 @@ findings:
     release_ready: true
     blocks_beta: false
     external_dependency: true
+  - id: STAGING-SMOKE-WORKFLOW-001
+    title: Staging smoke evidence workflow configuration
+    severity: P1
+    gate: 8
+    owner: release
+    implementation_batch: code_2911_2950
+    proof_status: config-passing
+    proof_command: make backend-implementation-2911-2950-workflow-check
+    evidence_file: docs/release/staging_smoke_workflow_status.md
+    last_verified_commit: 1d8a3ae080435187f4b47ede0dccbe892575c055
+    closure_blocker: workflow only; STAGING-001 remains external-blocked until real staging evidence is attached
+    release_ready: false
+    blocks_beta: false
+    external_dependency: false

@@ -2517,3 +2517,21 @@ backend-implementation-2871-2910-full-check: ci-evidence-acceptance-status ci-ev
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/ci_evidence_acceptance.py scripts/patch_ci_evidence_registry.py scripts/check_ci_evidence_acceptance.py tests/unit/test_ci_evidence_acceptance.py --select F821,F401,F811,E402
 
+.PHONY: staging-smoke-workflow-status staging-smoke-workflow-registry-patch staging-smoke-workflow-check staging-smoke-workflow-test backend-implementation-2911-2950-workflow-check
+
+staging-smoke-workflow-status:
+	PYTHONPATH=. python3 -c "from scripts.check_staging_smoke_workflow_config import write_status; s = write_status(); print(s.status)"
+
+staging-smoke-workflow-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_staging_smoke_workflow_registry.py
+
+staging-smoke-workflow-check: staging-smoke-workflow-registry-patch
+	PYTHONPATH=. python3 scripts/check_staging_smoke_workflow_config.py
+
+staging-smoke-workflow-test:
+	pytest -c pytest.ini tests/unit/test_staging_smoke_workflow_config.py -q --no-cov --tb=short
+
+backend-implementation-2911-2950-workflow-check: staging-smoke-workflow-status staging-smoke-workflow-check staging-smoke-workflow-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/staging_smoke_probe.py scripts/check_staging_smoke_workflow_config.py scripts/patch_staging_smoke_workflow_registry.py tests/unit/test_staging_smoke_workflow_config.py --select F821,F401,F811,E402
+

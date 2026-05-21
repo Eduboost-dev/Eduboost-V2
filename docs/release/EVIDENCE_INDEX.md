@@ -1514,3 +1514,15 @@ make ci-evidence-acceptance-test
 make backend-implementation-2871-2910-full-check
 ```
 
+## STAGING-SMOKE-WORKFLOW-001 / Backend implementation 2911-2950 — staging smoke workflow configuration
+
+Commands:
+
+```bash
+make staging-smoke-workflow-status
+make staging-smoke-workflow-registry-patch
+make staging-smoke-workflow-check
+make staging-smoke-workflow-test
+make backend-implementation-2911-2950-workflow-check
+```
+
