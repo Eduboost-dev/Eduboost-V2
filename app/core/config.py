@@ -5,6 +5,7 @@ Pydantic BaseSettings with environment-variable loading and validation.
 from functools import lru_cache
 from typing import Any
 from typing import Literal
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from pydantic import field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -21,10 +22,19 @@ KEY_VAULT_SECRET_NAMES = {
 
 def normalize_async_database_url(value: str) -> str:
     if value.startswith("postgres://"):
-        return value.replace("postgres://", "postgresql+asyncpg://", 1)
-    if value.startswith("postgresql://"):
-        return value.replace("postgresql://", "postgresql+asyncpg://", 1)
-    return value
+        value = value.replace("postgres://", "postgresql+asyncpg://", 1)
+    elif value.startswith("postgresql://"):
+        value = value.replace("postgresql://", "postgresql+asyncpg://", 1)
+
+    if not value.startswith("postgresql+asyncpg://"):
+        return value
+
+    parsed = urlsplit(value)
+    query = dict(parse_qsl(parsed.query, keep_blank_values=True))
+    sslmode = query.pop("sslmode", "")
+    if sslmode and "ssl" not in query:
+        query["ssl"] = sslmode
+    return urlunsplit((parsed.scheme, parsed.netloc, parsed.path, urlencode(query), parsed.fragment))
 
 
 def _fetch_key_vault_secret_values(vault_url: str) -> dict[str, str]:
