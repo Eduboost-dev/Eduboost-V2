@@ -1,7 +1,7 @@
 # Auth Refresh DB Evidence Status
 
-Generated at: `2026-05-21T10:50:09Z`
-Commit: `31a94986af396c246291dbe721db20ddbae7ffc6`
+Generated at: `2026-05-21T12:41:57Z`
+Commit: `84ace987e1f577fcf647fbe105f78680003c5aaa`
 
 **Status:** `auth-refresh-db-evidence-accepted`
 **Accepted:** `True`
@@ -15,8 +15,8 @@ Commit: `31a94986af396c246291dbe721db20ddbae7ffc6`
 | `Logout revocation result` | `passed` | True | ok |
 | `Revoke-all result` | `passed` | True | ok |
 | `Reuse detection result` | `passed` | True | ok |
-| `Evidence URL` | `https://github.com/NkgoloL/Eduboost-V2/actions/runs/26221253788` | True | ok |
-| `Commit SHA` | `31a94986af396c246291dbe721db20ddbae7ffc6` | True | ok |
+| `Evidence URL` | `https://github.com/NkgoloL/Eduboost-V2/actions/runs/26226114014` | True | ok |
+| `Commit SHA` | `84ace987e1f577fcf647fbe105f78680003c5aaa` | True | ok |
 | `Verified by` | `github-actions` | True | ok |
 | `Date verified` | `2026-05-21` | True | ok |
 
