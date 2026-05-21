@@ -1,11 +1,11 @@
 # Final Beta Gate Refresh
 
-Generated at: `2026-05-20T17:47:50Z`
-Commit: `b66c03d8d158d1f6eb107592f807599ac8f199a9`
+Generated at: `2026-05-21T10:23:47Z`
+Commit: `e6ca4c15909251f4b68976ee573c5d49f09aac70`
 
 **Beta decision:** `NO-GO`
 
-- Beta blocker count: `7`
+- Beta blocker count: `9`
 
 ## Refreshed status surfaces
 
@@ -38,6 +38,8 @@ Commit: `b66c03d8d158d1f6eb107592f807599ac8f199a9`
 | `DIAG-SCORE-001` | `integration-passing` | False | `docs/release/diagnostics_scoring_snapshot_repair_report.md` | True | live DB and full scoring audit still pending |
 | `STAGING-001` | `external-blocked` | True | `docs/release/staging_smoke_evidence.md` | False | real staging smoke evidence and GitHub Actions run URL required |
 | `EXT-GATE-001` | `runtime-passing` | True | `docs/release/external_approval_status.md` | False | required external approval items remain external-blocked until signed off |
+| `AUTH-REFRESH-DB-PROOF-001` | `external-blocked` | True | `docs/release/auth_refresh_db_evidence_status.md` | False | Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id |
+| `AUTH-REFRESH-DB-EVIDENCE-001` | `external-blocked` | True | `docs/release/auth_refresh_db_evidence_status.md` | False | Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id |
 
 ## Required next actions
 

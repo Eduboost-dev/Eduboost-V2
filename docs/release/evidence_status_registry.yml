@@ -596,11 +596,11 @@ findings:
     gate: 3
     owner: backend
     implementation_batch: code_2671_2710
-    proof_status: external-blocked
+    proof_status: integration-passing
     proof_command: make auth-refresh-db-evidence-release-check
     evidence_file: docs/release/auth_refresh_db_evidence_status.md
-    last_verified_commit: null
-    closure_blocker: Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id
+    last_verified_commit: 31a94986af396c246291dbe721db20ddbae7ffc6
+    closure_blocker: none
     blocks_beta: true
     external_dependency: true
   - id: AUTH-REFRESH-DB-EVIDENCE-001
@@ -609,11 +609,11 @@ findings:
     gate: 3
     owner: backend
     implementation_batch: code_2711_2750
-    proof_status: external-blocked
+    proof_status: integration-passing
     proof_command: make auth-refresh-db-evidence-release-check
     evidence_file: docs/release/auth_refresh_db_evidence_status.md
-    last_verified_commit: null
-    closure_blocker: Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id
+    last_verified_commit: 31a94986af396c246291dbe721db20ddbae7ffc6
+    closure_blocker: none
     blocks_beta: true
     external_dependency: true
   - id: CI-AUTH-REFRESH-DB-PROOF-001

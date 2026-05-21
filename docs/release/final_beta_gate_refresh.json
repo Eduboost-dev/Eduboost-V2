@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-20T17:47:50Z",
-  "current_commit": "b66c03d8d158d1f6eb107592f807599ac8f199a9",
+  "generated_at": "2026-05-21T10:23:47Z",
+  "current_commit": "e6ca4c15909251f4b68976ee573c5d49f09aac70",
   "beta_decision": "NO-GO",
-  "beta_blocker_count": 7,
+  "beta_blocker_count": 9,
   "refresh_results": [
     {
       "name": "ci_run_evidence",
@@ -198,6 +198,26 @@
       "evidence_file": "docs/release/external_approval_status.md",
       "closure_blocker": "required external approval items remain external-blocked until signed off",
       "release_ready": false
+    },
+    {
+      "id": "AUTH-REFRESH-DB-PROOF-001",
+      "title": "Auth refresh-token DB persistence and revocation proof",
+      "proof_status": "external-blocked",
+      "blocks_beta": true,
+      "external_dependency": true,
+      "evidence_file": "docs/release/auth_refresh_db_evidence_status.md",
+      "closure_blocker": "Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id",
+      "release_ready": false
+    },
+    {
+      "id": "AUTH-REFRESH-DB-EVIDENCE-001",
+      "title": "Auth refresh DB proof evidence attachment gate",
+      "proof_status": "external-blocked",
+      "blocks_beta": true,
+      "external_dependency": true,
+      "evidence_file": "docs/release/auth_refresh_db_evidence_status.md",
+      "closure_blocker": "Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id",
+      "release_ready": false
     }
   ],
   "non_ready_beta_findings": [
@@ -269,6 +289,26 @@
       "external_dependency": true,
       "evidence_file": "docs/release/external_approval_status.md",
       "closure_blocker": "required external approval items remain external-blocked until signed off",
+      "release_ready": false
+    },
+    {
+      "id": "AUTH-REFRESH-DB-PROOF-001",
+      "title": "Auth refresh-token DB persistence and revocation proof",
+      "proof_status": "external-blocked",
+      "blocks_beta": true,
+      "external_dependency": true,
+      "evidence_file": "docs/release/auth_refresh_db_evidence_status.md",
+      "closure_blocker": "Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id",
+      "release_ready": false
+    },
+    {
+      "id": "AUTH-REFRESH-DB-EVIDENCE-001",
+      "title": "Auth refresh DB proof evidence attachment gate",
+      "proof_status": "external-blocked",
+      "blocks_beta": true,
+      "external_dependency": true,
+      "evidence_file": "docs/release/auth_refresh_db_evidence_status.md",
+      "closure_blocker": "Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id",
       "release_ready": false
     }
   ],

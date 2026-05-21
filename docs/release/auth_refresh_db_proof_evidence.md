@@ -2,27 +2,27 @@
 
 **Item:** AUTH-REFRESH-DB-PROOF-001
 
-**Database DSN label:** pending
+**Database DSN label:** github-actions-postgres-service
 
-**Test command:** pending
+**Test command:** python -m pytest -c pytest.ini tests/integration/test_auth_refresh_db_proof.py -q --no-cov --tb=short -rs
 
-**Test result:** pending
+**Test result:** passed
 
-**Refresh persistence result:** pending
+**Refresh persistence result:** passed
 
-**Logout revocation result:** pending
+**Logout revocation result:** passed
 
-**Revoke-all result:** pending
+**Revoke-all result:** passed
 
-**Reuse detection result:** pending
+**Reuse detection result:** passed
 
-**Evidence URL:** pending
+**Evidence URL:** https://github.com/NkgoloL/Eduboost-V2/actions/runs/26221253788
 
-**Commit SHA:** pending
+**Commit SHA:** 31a94986af396c246291dbe721db20ddbae7ffc6
 
-**Verified by:** pending
+**Verified by:** github-actions
 
-**Date verified:** pending
+**Date verified:** 2026-05-21
 
 ## Required proof
 
@@ -30,8 +30,8 @@
 - Logout invalidates the active refresh token.
 - Revoke-all invalidates all user refresh tokens.
 - Reuse of an already-consumed refresh token is rejected.
-- Tests execute against a disposable real DB target, not a mock-only harness.
+- Evidence URL points to CI/staging logs or an auditable proof artifact.
 
 ## No false-closure rule
 
-This file is not proof while any required field is pending or any result field is not `passed`.
+This file is not proof while any required field is pending or placeholder-like.

@@ -1,16 +1,16 @@
 # Release Go/No-Go Status
 
-Generated at: `2026-05-20T17:47:42Z`
-Commit: `b66c03d8d158d1f6eb107592f807599ac8f199a9`
+Generated at: `2026-05-21T10:23:37Z`
+Commit: `e6ca4c15909251f4b68976ee573c5d49f09aac70`
 
 **Decision:** `NO-GO`
 
 | Metric | Count |
 |---|---:|
-| Beta blockers | 7 |
+| Beta blockers | 9 |
 | Engineering blockers | 1 |
 | CI blockers | 1 |
-| External blockers | 6 |
+| External blockers | 8 |
 
 ## Beta-blocking findings
 
@@ -20,6 +20,8 @@ Commit: `b66c03d8d158d1f6eb107592f807599ac8f199a9`
 | `JWT-001` | `runtime-passing` | False | True | beta-blocking evidence is present | `docs/release/jwt_production_guard_repair_report.md` |
 | `CI-001` | `external-blocked` | True | False | remote CI run URL not attached | `docs/release/ci_evidence.md` |
 | `EVID-001` | `runtime-passing` | False | True | beta-blocking evidence is present | `docs/release/evidence_status_registry.yml` |
+| `AUTH-REFRESH-DB-EVIDENCE-001` | `external-blocked` | True | False | external approval remains incomplete | `docs/release/auth_refresh_db_evidence_status.md` |
+| `AUTH-REFRESH-DB-PROOF-001` | `external-blocked` | True | False | external approval remains incomplete | `docs/release/auth_refresh_db_evidence_status.md` |
 | `DIAG-001` | `runtime-passing` | False | True | beta-blocking evidence is present | `docs/release/diagnostics_session_binding_repair_report.md` |
 | `DIAG-SCORE-001` | `integration-passing` | False | True | beta-blocking evidence is present | `docs/release/diagnostics_scoring_snapshot_repair_report.md` |
 | `LESSON-AUTH-001` | `runtime-passing` | False | True | beta-blocking evidence is present | `docs/release/lesson_authorization_hardening_report.md` |
@@ -39,6 +41,8 @@ Commit: `b66c03d8d158d1f6eb107592f807599ac8f199a9`
 - CONTENT-001: external approval remains incomplete
 - STAGING-001: external approval remains incomplete
 - EXT-GATE-001: external approval remains incomplete
+- AUTH-REFRESH-DB-PROOF-001: external approval remains incomplete
+- AUTH-REFRESH-DB-EVIDENCE-001: external approval remains incomplete
 
 ## Required next actions
 
