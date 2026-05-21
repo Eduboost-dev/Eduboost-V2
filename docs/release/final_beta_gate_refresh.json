@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-21T13:44:24Z",
-  "current_commit": "a1102688171240d9afcdb4efbb3099f97a9958be",
+  "generated_at": "2026-05-21T14:38:46Z",
+  "current_commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
   "beta_decision": "NO-GO",
-  "beta_blocker_count": 12,
+  "beta_blocker_count": 10,
   "surfaces": [
     {
       "name": "ci_run_evidence",
@@ -79,17 +79,6 @@
       "effective_blocks_beta": true
     },
     {
-      "id": "EVID-001",
-      "title": "Evidence registry and skipped-test governance",
-      "proof_status": "runtime-passing",
-      "closure_blocker": "CI evidence URL still required before production-ready",
-      "evidence_file": "docs/release/evidence_status_registry.yml",
-      "external_dependency": false,
-      "registry_blocks_beta": true,
-      "release_ready": false,
-      "effective_blocks_beta": true
-    },
-    {
       "id": "DIAG-001",
       "title": "Diagnostics served-item session CAPS route binding",
       "proof_status": "runtime-passing",
@@ -101,21 +90,10 @@
       "effective_blocks_beta": true
     },
     {
-      "id": "CI-001",
-      "title": "Authoritative CI on release repo and branch",
-      "proof_status": "external-blocked",
-      "closure_blocker": "valid GitHub Actions run URL and passing result metadata required",
-      "evidence_file": "docs/release/ci_evidence.md",
-      "external_dependency": true,
-      "registry_blocks_beta": true,
-      "release_ready": false,
-      "effective_blocks_beta": true
-    },
-    {
       "id": "LEGAL-001",
       "title": "POPIA/legal release approval",
       "proof_status": "external-blocked",
-      "closure_blocker": "external approval sign-off metadata required",
+      "closure_blocker": "approval metadata and evidence URL required",
       "evidence_file": "docs/release/external_approvals/legal_approval.md",
       "external_dependency": true,
       "registry_blocks_beta": true,
@@ -126,7 +104,7 @@
       "id": "SEC-001",
       "title": "Security release approval",
       "proof_status": "external-blocked",
-      "closure_blocker": "external approval sign-off metadata required",
+      "closure_blocker": "approval metadata and evidence URL required",
       "evidence_file": "docs/release/external_approvals/security_approval.md",
       "external_dependency": true,
       "registry_blocks_beta": true,
@@ -137,7 +115,7 @@
       "id": "CONTENT-001",
       "title": "Educator/content release approval",
       "proof_status": "external-blocked",
-      "closure_blocker": "external approval sign-off metadata required",
+      "closure_blocker": "approval metadata and evidence URL required",
       "evidence_file": "docs/release/external_approvals/content_approval.md",
       "external_dependency": true,
       "registry_blocks_beta": true,
@@ -216,9 +194,7 @@
   "required_next_actions": [
     "Resolve JWT-001: external production secret provisioning and rotation evidence.",
     "Resolve ARQ-001: live Redis worker enqueue/dequeue staging evidence.",
-    "Resolve EVID-001: CI evidence URL still required before production-ready.",
     "Resolve DIAG-001: full HTTP plus production DB diagnostic session proof still required.",
-    "Attach accepted GitHub Actions CI evidence for CI-001.",
     "Attach complete external approval metadata for LEGAL-001.",
     "Attach complete external approval metadata for SEC-001.",
     "Attach complete external approval metadata for CONTENT-001.",

@@ -2499,3 +2499,21 @@ backend-implementation-2831-2870R3-full-check: popia-response-contract-no-skip-s
 	python3 -m compileall -q app/api_v2_routers app/services scripts tests
 	python3 -m ruff check scripts/popia_response_contract_no_skips.py scripts/check_popia_response_contract_no_skips.py scripts/check_popia_lifecycle_response_contract.py scripts/patch_popia_response_contract_no_skip_registry.py tests/unit/test_popia_lifecycle_response_no_skip_proof.py app/api_v2_routers/popia.py app/services/popia_consent_lifecycle_adapter.py --select F821,F401,F811,E402
 
+.PHONY: ci-evidence-acceptance-status ci-evidence-acceptance-registry-patch ci-evidence-acceptance-check ci-evidence-acceptance-test backend-implementation-2871-2910-full-check
+
+ci-evidence-acceptance-status:
+	PYTHONPATH=. python3 -c "from scripts.ci_evidence_acceptance import write_status; s = write_status(); print(s.status)"
+
+ci-evidence-acceptance-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_ci_evidence_registry.py
+
+ci-evidence-acceptance-check: ci-evidence-acceptance-registry-patch
+	PYTHONPATH=. python3 scripts/check_ci_evidence_acceptance.py
+
+ci-evidence-acceptance-test:
+	pytest -c pytest.ini tests/unit/test_ci_evidence_acceptance.py -q --no-cov --tb=short
+
+backend-implementation-2871-2910-full-check: ci-evidence-acceptance-status ci-evidence-acceptance-check ci-evidence-acceptance-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/ci_evidence_acceptance.py scripts/patch_ci_evidence_registry.py scripts/check_ci_evidence_acceptance.py tests/unit/test_ci_evidence_acceptance.py --select F821,F401,F811,E402
+

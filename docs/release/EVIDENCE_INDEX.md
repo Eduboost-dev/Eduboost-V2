@@ -1502,3 +1502,15 @@ make popia-response-contract-no-skip-test
 make backend-implementation-2831-2870R3-full-check
 ```
 
+## CI-001 + EVID-001 / Backend implementation 2871-2910 — accepted CI evidence repair
+
+Commands:
+
+```bash
+make ci-evidence-acceptance-status
+make ci-evidence-acceptance-registry-patch
+make ci-evidence-acceptance-check
+make ci-evidence-acceptance-test
+make backend-implementation-2871-2910-full-check
+```
+

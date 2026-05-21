@@ -1,9 +1,9 @@
 # Documentation Inventory
 
-Generated at: `2026-05-21T13:58:36Z`
-Commit: `4465f8bfad448c16e78b03153d58ca9678ef732b`
+Generated at: `2026-05-21T14:38:54Z`
+Commit: `8638400aaa53cf737aa4eb11ddab55cc97ebb02f`
 
-- Documents: `1028`
+- Documents: `1032`
 - Generated docs: `4`
 
 ## Categories
@@ -14,7 +14,7 @@ Commit: `4465f8bfad448c16e78b03153d58ca9678ef732b`
 | `api` | 6 |
 | `architecture` | 37 |
 | `general` | 483 |
-| `release` | 379 |
+| `release` | 383 |
 | `security` | 98 |
 
 ## Documents
@@ -514,7 +514,7 @@ Commit: `4465f8bfad448c16e78b03153d58ca9678ef732b`
 | `docs/reference/modules.md` | `general` | Learning Engines | 436 | False |
 | `docs/reference/repositories.md` | `general` | Repositories | 488 | False |
 | `docs/reference/services.md` | `general` | Services | 807 | False |
-| `docs/release/EVIDENCE_INDEX.md` | `release` | EduBoost V2 Release Evidence Index | 47030 | False |
+| `docs/release/EVIDENCE_INDEX.md` | `release` | EduBoost V2 Release Evidence Index | 47337 | False |
 | `docs/release/EduBoost_V2_Comparative_Audit_Report.md` | `release` | EduBoost SA V2 — Comparative Technical Audit Report | 18013 | False |
 | `docs/release/EduBoost_V2_Final_Technical_Assessment.md` | `release` | EduBoost V2 Final Technical Assessment | 2216 | False |
 | `docs/release/EduBoost_V2_North_Star_TODO.md` | `release` | EduBoost V2 North-Star TODO | 2540 | False |
@@ -639,7 +639,9 @@ Commit: `4465f8bfad448c16e78b03153d58ca9678ef732b`
 | `docs/release/ci_authority_status.json` | `release` | Ci Authority Status | 2319 | False |
 | `docs/release/ci_authority_status.md` | `release` | CI Authority Status | 2326 | False |
 | `docs/release/ci_evidence.json` | `release` | Ci Evidence | 196 | False |
-| `docs/release/ci_evidence.md` | `release` | CI Authority Evidence | 1390 | False |
+| `docs/release/ci_evidence.md` | `release` | CI Evidence Status | 979 | False |
+| `docs/release/ci_evidence_status.json` | `release` | Ci Evidence Status | 537 | False |
+| `docs/release/ci_evidence_status.md` | `release` | CI Evidence Status | 979 | False |
 | `docs/release/ci_run_evidence_status.json` | `release` | Ci Run Evidence Status | 766 | False |
 | `docs/release/ci_run_evidence_status.md` | `release` | CI Run Evidence Status | 801 | False |
 | `docs/release/ci_workflow_consolidation.md` | `release` | EduBoost V2 CI Workflow Consolidation Plan | 1293 | False |
@@ -674,15 +676,15 @@ Commit: `4465f8bfad448c16e78b03153d58ca9678ef732b`
 | `docs/release/docker_hardening_status.md` | `release` | Docker Hardening Status | 122 | False |
 | `docs/release/evidence_attachment_runbook.md` | `release` | Evidence Attachment Runbook | 5177 | False |
 | `docs/release/evidence_attachment_runbook_manifest.json` | `release` | Evidence Attachment Runbook Manifest | 4984 | False |
-| `docs/release/evidence_status_registry.yml` | `release` | EduBoost V2 Evidence Status Registry | 25333 | False |
+| `docs/release/evidence_status_registry.yml` | `release` | EduBoost V2 Evidence Status Registry | 26862 | False |
 | `docs/release/external_approval_status.json` | `release` | External Approval Status | 3030 | False |
 | `docs/release/external_approval_status.md` | `release` | External Approval Status | 1584 | False |
 | `docs/release/external_approvals/content_approval.md` | `release` | Educator/content release approval | 522 | False |
 | `docs/release/external_approvals/legal_approval.md` | `release` | POPIA/legal release approval | 515 | False |
 | `docs/release/external_approvals/security_approval.md` | `release` | Security release approval | 510 | False |
 | `docs/release/external_approvals/staging_acceptance.md` | `release` | Staging acceptance approval | 516 | False |
-| `docs/release/final_beta_gate_refresh.json` | `release` | Final Beta Gate Refresh | 8346 | False |
-| `docs/release/final_beta_gate_refresh.md` | `release` | Final Beta Gate Refresh | 4709 | False |
+| `docs/release/final_beta_gate_refresh.json` | `release` | Final Beta Gate Refresh | 7345 | False |
+| `docs/release/final_beta_gate_refresh.md` | `release` | Final Beta Gate Refresh | 4256 | False |
 | `docs/release/final_go_no_go_evidence.md` | `release` | Final Go/No-Go Evidence | 1358 | False |
 | `docs/release/first_audit_runtime_wiring_evidence.md` | `release` | First Audit Runtime Wiring Evidence | 465 | False |
 | `docs/release/first_audit_runtime_wiring_pr.md` | `release` | First Audit Runtime Wiring PR | 677 | False |
@@ -757,6 +759,7 @@ Commit: `4465f8bfad448c16e78b03153d58ca9678ef732b`
 | `docs/release/next_execution_queue_after_2791_2830.md` | `release` | Next Execution Queue After FINAL-GATE-REFRESH-001R / code_2791_2830 | 471 | False |
 | `docs/release/next_execution_queue_after_2831_2870.md` | `release` | Next Execution Queue After POPIA-001R / code_2831_2870 | 442 | False |
 | `docs/release/next_execution_queue_after_2831_2870R3.md` | `release` | Next Execution Queue After POPIA-001R4 / code_2831_2870R3 | 445 | False |
+| `docs/release/next_execution_queue_after_2871_2910.md` | `release` | Next Execution Queue After CI-001 + EVID-001 / code_2871_2910 | 664 | False |
 | `docs/release/next_execution_queue_after_831_870.md` | `release` | Next Execution Queue After code_831_870 | 434 | False |
 | `docs/release/next_execution_queue_after_871_910.md` | `release` | Next Execution Queue After code_871_910 | 622 | False |
 | `docs/release/next_execution_queue_after_911_950.md` | `release` | Next Execution Queue After code_911_950 | 610 | False |
@@ -815,6 +818,7 @@ Commit: `4465f8bfad448c16e78b03153d58ca9678ef732b`
 | `docs/release/no_false_closure_status_after_2791_2830.md` | `release` | No False-Closure Status After FINAL-GATE-REFRESH-001R / code_2791_2830 | 657 | False |
 | `docs/release/no_false_closure_status_after_2831_2870.md` | `release` | No False-Closure Status After POPIA-001R / code_2831_2870 | 598 | False |
 | `docs/release/no_false_closure_status_after_2831_2870R3.md` | `release` | No False-Closure Status After POPIA-001R4 / code_2831_2870R3 | 565 | False |
+| `docs/release/no_false_closure_status_after_2871_2910.md` | `release` | No False-Closure Status After CI-001 + EVID-001 / code_2871_2910 | 871 | False |
 | `docs/release/no_false_closure_status_after_831_870.md` | `release` | No False-Closure Status After code_831_870 | 509 | False |
 | `docs/release/no_false_closure_status_after_871_910.md` | `release` | No False-Closure Status After code_871_910 | 645 | False |
 | `docs/release/no_false_closure_status_after_911_950.md` | `release` | No False-Closure Status After code_911_950 | 673 | False |
