@@ -19,6 +19,14 @@ KEY_VAULT_SECRET_NAMES = {
 }
 
 
+def normalize_async_database_url(value: str) -> str:
+    if value.startswith("postgres://"):
+        return value.replace("postgres://", "postgresql+asyncpg://", 1)
+    if value.startswith("postgresql://"):
+        return value.replace("postgresql://", "postgresql+asyncpg://", 1)
+    return value
+
+
 def _fetch_key_vault_secret_values(vault_url: str) -> dict[str, str]:
     from azure.identity import DefaultAzureCredential
     from azure.keyvault.secrets import SecretClient
@@ -129,6 +137,11 @@ class Settings(BaseSettings):
 
     # ── CORS ──────────────────────────────────────────────────────────────────
     ALLOWED_ORIGINS: Any = ["http://localhost:3000", "http://localhost:3002", "http://localhost:3050"]
+
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def normalize_database_url(cls, v: Any) -> str:
+        return normalize_async_database_url(str(v).strip())
 
     @field_validator("ALLOWED_ORIGINS", mode="before")
     @classmethod
