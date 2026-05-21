@@ -766,7 +766,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2991-3030-full-check
     evidence_file: docs/release/audit_baseline_refresh_status.md
-    last_verified_commit: db14a6821eb14de532434360265a7370119b04ac
+    last_verified_commit: 9b11cd7f8e1a64e1a9f83cd7f5125f5612633343
     closure_blocker: refresh only; beta decision remains governed by remaining blockers
     release_ready: false
     blocks_beta: false

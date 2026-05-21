@@ -206,7 +206,7 @@ def _surface_status(name: str, path: Path, current_sha: str) -> SurfaceStatus:
 
     return SurfaceStatus(
         name=name,
-        path=str(path.relative_to(ROOT)),
+        path=(str(path.relative_to(ROOT)) if str(path).startswith(str(ROOT)) else str(path)),
         exists=path.exists(),
         status=status,
         decision=decision,
@@ -223,7 +223,7 @@ def _evidence_marker_status(
     text = path.read_text(encoding="utf-8") if path.exists() else ""
     return EvidenceMarkerStatus(
         id=item_id,
-        path=str(path.relative_to(ROOT)),
+        path=(str(path.relative_to(ROOT)) if str(path).startswith(str(ROOT)) else str(path)),
         expected_marker=expected_marker,
         exists=path.exists(),
         accepted=expected_marker in text,
