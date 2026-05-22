@@ -4,11 +4,11 @@
     "api": 6,
     "architecture": 37,
     "general": 483,
-    "release": 400,
+    "release": 404,
     "security": 98
   },
-  "commit": "9b11cd7f8e1a64e1a9f83cd7f5125f5612633343",
-  "document_count": 1049,
+  "commit": "95d322bf5f8392b7dc3037e168e561e0f390a1a9",
+  "document_count": 1053,
   "documents": [
     {
       "category": "general",
@@ -34237,6 +34237,11 @@
           "level": 2,
           "line": 1558,
           "text": "AUDIT-BASELINE-REFRESH / Backend implementation 2991-3030 \u2014 release gate truth refresh"
+        },
+        {
+          "level": 2,
+          "line": 1570,
+          "text": "DB-REPEATABILITY-001R / Backend implementation 3071-3110 \u2014 repeatable Supabase migration and IRT seed generation"
         }
       ],
       "links": [
@@ -34262,8 +34267,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "e8c6349bfd94cc142191f582235acc15c90e64adb4dfef39ac78bae2ec7e1807",
-      "size_bytes": 48692,
+      "sha256": "f5f0c2e8bc988dee20d15f5a30abb44cf2efa62a2e74a9cfebf432a6f88cd1a4",
+      "size_bytes": 49065,
       "statuses": [
         "todo",
         "passed",
@@ -36024,7 +36029,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/audit_baseline_refresh_status.json",
-      "sha256": "0ef0a3e53aef49199c008047e70560f1e5ecf4504978535ec535b8efb4559086",
+      "sha256": "3510c1bf1f952e5cbbfc4dd3d56522c7de35f172c0a595ae5f632ff81e3d8106",
       "size_bytes": 6510,
       "statuses": [
         "external-blocked"
@@ -36081,7 +36086,7 @@
       ],
       "links": [],
       "path": "docs/release/audit_baseline_refresh_status.md",
-      "sha256": "6d38a4e9c5133a70a3a4bde80200f1a46126d13e1edbfaa6e21ed52a60a1a678",
+      "sha256": "79617a8ef0f12ebfe584308803a00b07b253194ae331633f7fc1cbefaea16c5e",
       "size_bytes": 3577,
       "statuses": [
         "external-blocked"
@@ -41162,6 +41167,73 @@
       "dates": [],
       "evidence_references": [],
       "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/release/db_migration_seed_repeatability_status.json",
+      "sha256": "9f059476cad3f0cbc37291fa673141eb1a452895e99dc22536a6448c3f5a0117",
+      "size_bytes": 1271,
+      "statuses": [],
+      "title": "Db Migration Seed Repeatability Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "DB Migration + Seed Repeatability Status"
+        },
+        {
+          "level": 2,
+          "line": 11,
+          "text": "Summary"
+        },
+        {
+          "level": 2,
+          "line": 22,
+          "text": "Required runtime tables"
+        },
+        {
+          "level": 2,
+          "line": 47,
+          "text": "Apply commands"
+        },
+        {
+          "level": 1,
+          "line": 50,
+          "text": "Generate checked SQL artifacts"
+        },
+        {
+          "level": 1,
+          "line": 53,
+          "text": "Apply manually to linked Supabase after review"
+        },
+        {
+          "level": 2,
+          "line": 58,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 62,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/db_migration_seed_repeatability_status.md",
+      "sha256": "9cb71f9b84f4697b9ac5a159bdef38effb848df05dbe78146411420d1efde162",
+      "size_bytes": 2082,
+      "statuses": [],
+      "title": "DB Migration + Seed Repeatability Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
       "headings": [
         {
           "level": 1,
@@ -41983,7 +42055,8 @@
         "docs/release/auth_refresh_db_evidence_status.md",
         "docs/release/ci_auth_refresh_db_proof_workflow_status.md",
         "docs/release/staging_smoke_workflow_status.md",
-        "docs/release/audit_baseline_refresh_status.md"
+        "docs/release/audit_baseline_refresh_status.md",
+        "docs/release/db_migration_seed_repeatability_status.md"
       ],
       "generated": false,
       "headings": [
@@ -42121,8 +42194,8 @@
         }
       ],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "e1b60a21c1e883b318aa6facbccd38ef61df4c0ca06fcaf626775dd12022c683",
-      "size_bytes": 30122,
+      "sha256": "6fe5e907cfe88eb97fc266905edc07791389fe721c0523d9fce1cefd62eb3ce4",
+      "size_bytes": 30832,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -42327,7 +42400,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "2aeeee78d92c106fb4b2ef3e283d64bd1772224e2e2f250f6bb1613676e2e7cb",
+      "sha256": "e90f7a6a506b74360f1f8430d1299ad78fa9a12bac1a49b1f7fb3ad5dda8438b",
       "size_bytes": 6286,
       "statuses": [
         "external-blocked",
@@ -42388,7 +42461,7 @@
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "42ca90c697a65e72a4d3f6b16efe79f8aff442c992787db4bc66067347842d38",
+      "sha256": "b89cf3b642402736031812d249ec1b9890f46f04268c6e019779916eea0fed44",
       "size_bytes": 3734,
       "statuses": [
         "external-blocked",
@@ -44838,6 +44911,35 @@
         {
           "level": 1,
           "line": 1,
+          "text": "Next Execution Queue After DB-REPEATABILITY-001R / code_3071_3110"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next DB batches"
+        },
+        {
+          "level": 2,
+          "line": 10,
+          "text": "Manual apply reference"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_3071_3110.md",
+      "sha256": "ab456b3fe05b66607caddb64a48672522ab2c616cce62ff0536774e286eb43ac",
+      "size_bytes": 932,
+      "statuses": [],
+      "title": "Next Execution Queue After DB-REPEATABILITY-001R / code_3071_3110"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "Next Execution Queue After code_831_870"
         },
         {
@@ -46740,6 +46842,35 @@
       "size_bytes": 713,
       "statuses": [],
       "title": "No False-Closure Status After AUDIT-BASELINE-REFRESH / code_2991_3030"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After DB-REPEATABILITY-001R / code_3071_3110"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 12,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_3071_3110.md",
+      "sha256": "4894ea1063636cbeedc4b490df4b9efb240c143d0efa1cdd69490c5b6b77deb8",
+      "size_bytes": 830,
+      "statuses": [],
+      "title": "No False-Closure Status After DB-REPEATABILITY-001R / code_3071_3110"
     },
     {
       "category": "release",
@@ -55129,8 +55260,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 1049,
-  "generated_at": "2026-05-21T23:49:56Z",
+  "files_scanned": 1053,
+  "generated_at": "2026-05-22T00:41:17Z",
   "generated_count": 4,
   "missing_important_docs": []
 }

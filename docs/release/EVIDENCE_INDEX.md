@@ -1567,3 +1567,15 @@ make audit-baseline-refresh-test
 make backend-implementation-2991-3030-full-check
 ```
 
+## DB-REPEATABILITY-001R / Backend implementation 3071-3110 — repeatable Supabase migration and IRT seed generation
+
+Commands:
+
+```bash
+make db-migration-seed-repeatability-status
+make db-migration-seed-repeatability-registry-patch
+make db-migration-seed-repeatability-check
+make db-migration-seed-repeatability-test
+make backend-implementation-3071-3110-full-check
+```
+

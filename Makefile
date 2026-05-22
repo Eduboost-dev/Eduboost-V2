@@ -2592,3 +2592,21 @@ backend-implementation-2991-3030-full-check: audit-baseline-refresh-status audit
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/audit_baseline_refresh.py scripts/patch_audit_baseline_refresh_registry.py scripts/check_audit_baseline_refresh.py tests/unit/test_audit_baseline_refresh.py --select F821,F401,F811,E402
 
+.PHONY: db-migration-seed-repeatability-status db-migration-seed-repeatability-registry-patch db-migration-seed-repeatability-check db-migration-seed-repeatability-test backend-implementation-3071-3110-full-check
+
+db-migration-seed-repeatability-status:
+	PYTHONPATH=. python3 -c "from scripts.db_migration_seed_repeatability import write_status; s = write_status(); print(s.status); print(s.unique_irt_seed_rows)"
+
+db-migration-seed-repeatability-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_db_migration_seed_repeatability_registry.py
+
+db-migration-seed-repeatability-check:
+	PYTHONPATH=. python3 scripts/check_db_migration_seed_repeatability.py
+
+db-migration-seed-repeatability-test:
+	pytest -c pytest.ini tests/unit/test_db_migration_seed_repeatability.py -q --no-cov --tb=short
+
+backend-implementation-3071-3110-full-check: db-migration-seed-repeatability-status db-migration-seed-repeatability-registry-patch db-migration-seed-repeatability-check db-migration-seed-repeatability-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/db_migration_seed_repeatability.py scripts/patch_db_migration_seed_repeatability_registry.py scripts/check_db_migration_seed_repeatability.py tests/unit/test_db_migration_seed_repeatability.py --select F821,F401,F811,E402
+

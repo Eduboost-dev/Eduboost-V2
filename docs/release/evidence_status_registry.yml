@@ -771,3 +771,20 @@ findings:
     release_ready: false
     blocks_beta: false
     external_dependency: false
+  - id: DB-REPEATABILITY-001R
+    title: Repeatable Supabase migration and IRT seed generation
+    severity: P0
+    gate: 2
+    owner: backend
+    implementation_batch: code_3071_3110
+    proof_status: config-passing
+    proof_command: make backend-implementation-3071-3110-full-check
+    evidence_file: docs/release/db_migration_seed_repeatability_status.md
+    generated_supabase_sql: temp/db_repeatability/alembic_upgrade_head.supabase.sql
+    generated_seed_sql: temp/db_repeatability/seed_irt_items.sql
+    unique_irt_seed_rows: 1600
+    last_verified_commit: 95d322bf5f8392b7dc3037e168e561e0f390a1a9
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
+    external_dependency: false
