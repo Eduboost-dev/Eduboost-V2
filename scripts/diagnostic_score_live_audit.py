@@ -217,11 +217,16 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
     if name in irt_columns:
         # Some IRT columns need casting when inserted into diagnostic schema
         if name == "subject":
-            # Map legacy IRT subject labels to the diagnostic `subjectcode`
-            # enum where necessary (e.g., 'Literacy' -> 'English').
+            # Normalize common IRT subject labels to the diagnostic `subjectcode`
+            # enum. Handle variants like 'English Home Language', 'Literacy', and
+            # common abbreviations to avoid invalid-enum errors when casting.
             return (
-                "CASE WHEN i.""subject"" = 'Literacy' THEN 'English'::subjectcode "
-                "ELSE i.""subject""::subjectcode END"
+                "CASE "
+                "WHEN i.""subject"" ILIKE 'english%' THEN 'English'::subjectcode "
+                "WHEN i.""subject"" = 'Literacy' THEN 'English'::subjectcode "
+                "WHEN i.""subject"" ILIKE '%math%' THEN 'Mathematics'::subjectcode "
+                "WHEN i.""subject"" ILIKE '%life%' THEN 'Life Skills'::subjectcode "
+                "ELSE 'English'::subjectcode END"
             )
         if name == "language":
             return f"i.{_quote_ident(name)}::language"
