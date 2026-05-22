@@ -5,7 +5,6 @@ import asyncio
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 import json
-import os
 from pathlib import Path
 import re
 import subprocess
