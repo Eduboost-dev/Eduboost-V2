@@ -1,9 +1,9 @@
 # Documentation Inventory
 
-Generated at: `2026-05-22T01:43:29Z`
-Commit: `197640872a84b950721cf6c3f46350bc7c855240`
+Generated at: `2026-05-22T01:56:51Z`
+Commit: `690371a5b1da4146991b941164136c6960110e1c`
 
-- Documents: `1063`
+- Documents: `1067`
 - Generated docs: `4`
 
 ## Categories
@@ -14,7 +14,7 @@ Commit: `197640872a84b950721cf6c3f46350bc7c855240`
 | `api` | 6 |
 | `architecture` | 39 |
 | `general` | 483 |
-| `release` | 412 |
+| `release` | 416 |
 | `security` | 98 |
 
 ## Documents
@@ -516,7 +516,7 @@ Commit: `197640872a84b950721cf6c3f46350bc7c855240`
 | `docs/reference/modules.md` | `general` | Learning Engines | 436 | False |
 | `docs/reference/repositories.md` | `general` | Repositories | 488 | False |
 | `docs/reference/services.md` | `general` | Services | 807 | False |
-| `docs/release/EVIDENCE_INDEX.md` | `release` | EduBoost V2 Release Evidence Index | 49759 | False |
+| `docs/release/EVIDENCE_INDEX.md` | `release` | EduBoost V2 Release Evidence Index | 50185 | False |
 | `docs/release/EduBoost_V2_Comparative_Audit_Report.md` | `release` | EduBoost SA V2 — Comparative Technical Audit Report | 18013 | False |
 | `docs/release/EduBoost_V2_Final_Technical_Assessment.md` | `release` | EduBoost V2 Final Technical Assessment | 2216 | False |
 | `docs/release/EduBoost_V2_North_Star_TODO.md` | `release` | EduBoost V2 North-Star TODO | 2540 | False |
@@ -669,8 +669,10 @@ Commit: `197640872a84b950721cf6c3f46350bc7c855240`
 | `docs/release/deep_readiness_runtime_integration_target_map.md` | `release` | Deep-Readiness Runtime Integration Target Map | 371 | False |
 | `docs/release/diag_deep_health_runtime_status.json` | `release` | Diag Deep Health Runtime Status | 1470 | False |
 | `docs/release/diag_deep_health_runtime_status.md` | `release` | Diagnostic Deep Health Runtime Evidence Status | 1850 | False |
-| `docs/release/diagnostic_item_bank_canonicality_status.json` | `release` | Diagnostic Item Bank Canonicality Status | 25922 | False |
+| `docs/release/diagnostic_item_bank_canonicality_status.json` | `release` | Diagnostic Item Bank Canonicality Status | 26606 | False |
 | `docs/release/diagnostic_item_bank_canonicality_status.md` | `release` | Diagnostic Item-Bank Policy Status | 1944 | False |
+| `docs/release/diagnostic_score_live_audit_status.json` | `release` | Diagnostic Score Live Audit Status | 873 | False |
+| `docs/release/diagnostic_score_live_audit_status.md` | `release` | Diagnostic Score Live Audit Status | 1223 | False |
 | `docs/release/diagnostics_data_integrity_repair_report.md` | `release` | Diagnostics Data Integrity Repair Report | 355 | False |
 | `docs/release/diagnostics_db_integrity_proof.json` | `release` | Diagnostics Db Integrity Proof | 377 | False |
 | `docs/release/diagnostics_db_integrity_proof.md` | `release` | Diagnostics DB Integrity Proof | 206 | False |
@@ -780,6 +782,7 @@ Commit: `197640872a84b950721cf6c3f46350bc7c855240`
 | `docs/release/next_execution_queue_after_3071_3110.md` | `release` | Next Execution Queue After DB-REPEATABILITY-001R / code_3071_3110 | 932 | False |
 | `docs/release/next_execution_queue_after_3111_3150.md` | `release` | Next Execution Queue After DB-OWNERSHIP-001R / code_3111_3150 | 798 | False |
 | `docs/release/next_execution_queue_after_3151_3190.md` | `release` | Next Execution Queue After DIAG-ITEMS-001R / code_3151_3190 | 793 | False |
+| `docs/release/next_execution_queue_after_3191_3230.md` | `release` | Next Execution Queue After DIAG-SCORE-001R / code_3191_3230 | 930 | False |
 | `docs/release/next_execution_queue_after_831_870.md` | `release` | Next Execution Queue After code_831_870 | 434 | False |
 | `docs/release/next_execution_queue_after_871_910.md` | `release` | Next Execution Queue After code_871_910 | 622 | False |
 | `docs/release/next_execution_queue_after_911_950.md` | `release` | Next Execution Queue After code_911_950 | 610 | False |
@@ -846,6 +849,7 @@ Commit: `197640872a84b950721cf6c3f46350bc7c855240`
 | `docs/release/no_false_closure_status_after_3071_3110.md` | `release` | No False-Closure Status After DB-REPEATABILITY-001R / code_3071_3110 | 830 | False |
 | `docs/release/no_false_closure_status_after_3111_3150.md` | `release` | No False-Closure Status After DB-OWNERSHIP-001R / code_3111_3150 | 745 | False |
 | `docs/release/no_false_closure_status_after_3151_3190.md` | `release` | No False-Closure Status After DIAG-ITEMS-001R / code_3151_3190 | 666 | False |
+| `docs/release/no_false_closure_status_after_3191_3230.md` | `release` | No False-Closure Status After DIAG-SCORE-001R / code_3191_3230 | 887 | False |
 | `docs/release/no_false_closure_status_after_831_870.md` | `release` | No False-Closure Status After code_831_870 | 509 | False |
 | `docs/release/no_false_closure_status_after_871_910.md` | `release` | No False-Closure Status After code_871_910 | 645 | False |
 | `docs/release/no_false_closure_status_after_911_950.md` | `release` | No False-Closure Status After code_911_950 | 673 | False |

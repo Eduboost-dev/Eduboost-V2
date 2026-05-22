@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-22T01:08:06Z",
-  "current_commit": "dffd990de5f9b2b61a236965cc6c6c1c340b5729",
+  "generated_at": "2026-05-22T01:14:13Z",
+  "current_commit": "197640872a84b950721cf6c3f46350bc7c855240",
   "status": "db-live-only-table-ownership-accepted",
   "policy_path": "docs/architecture/db_live_only_table_ownership.yml",
   "expected_tables": [

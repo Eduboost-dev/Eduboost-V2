@@ -4,11 +4,11 @@
     "api": 6,
     "architecture": 39,
     "general": 483,
-    "release": 412,
+    "release": 416,
     "security": 98
   },
-  "commit": "197640872a84b950721cf6c3f46350bc7c855240",
-  "document_count": 1063,
+  "commit": "690371a5b1da4146991b941164136c6960110e1c",
+  "document_count": 1067,
   "documents": [
     {
       "category": "general",
@@ -34278,6 +34278,11 @@
           "level": 2,
           "line": 1594,
           "text": "DIAG-ITEMS-001R / Backend implementation 3151-3190 \u2014 diagnostic item-bank canonicality"
+        },
+        {
+          "level": 2,
+          "line": 1606,
+          "text": "DIAG-SCORE-001R / Backend implementation 3191-3230 \u2014 diagnostic scoring live DB audit gate"
         }
       ],
       "links": [
@@ -34303,8 +34308,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "8389a38c360ad0a74cff9dd73b0c8d0a09cb59b09b511b26bd16e4e8872dd63d",
-      "size_bytes": 49759,
+      "sha256": "affe122d0b43d8f705b942ed1c8775628acf037bebd5072d127e071d514418eb",
+      "size_bytes": 50185,
       "statuses": [
         "todo",
         "passed",
@@ -41565,6 +41570,7 @@
         "docs/release/db_migration_seed_repeatability_status.md",
         "docs/release/diagnostic_item_bank_canonicality_status.md",
         "docs/release/evidence_status_registry.yml",
+        "docs/release/final_beta_gate_refresh.md",
         "docs/release/next_execution_queue_after_3071_3110.md",
         "docs/release/next_execution_queue_after_3111_3150.md",
         "docs/release/next_execution_queue_after_3151_3190.md",
@@ -41575,9 +41581,11 @@
       "headings": [],
       "links": [],
       "path": "docs/release/diagnostic_item_bank_canonicality_status.json",
-      "sha256": "e04190bc1960dadf7995db40643eb7ec37b225241a4abcd98b1b3c35556ba555",
-      "size_bytes": 25922,
-      "statuses": [],
+      "sha256": "0735d609bc68e89bfda622f82bf896a187da3824239ddea7b212b60a48bd6f72",
+      "size_bytes": 26606,
+      "statuses": [
+        "not-proven"
+      ],
       "title": "Diagnostic Item Bank Canonicality Status"
     },
     {
@@ -41614,10 +41622,69 @@
       ],
       "links": [],
       "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
-      "sha256": "9f65dbc3eeac1911f2ebcd4b31b57f2d325e436fa9444bb8002accf0fc53dd58",
+      "sha256": "82d039f1a811af0857377192c18f0d1b82f8ee3b9b57a7ab2a580f24c8947c1f",
       "size_bytes": 1944,
       "statuses": [],
       "title": "Diagnostic Item-Bank Policy Status"
+    },
+    {
+      "category": "release",
+      "dates": [
+        "2026-05-22"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/release/diagnostic_score_live_audit_status.json",
+      "sha256": "0c8b62d29e0fdb11599421c95167c0e7d5e25208f5f4c83b2597773a2ccf6b9c",
+      "size_bytes": 873,
+      "statuses": [],
+      "title": "Diagnostic Score Live Audit Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Diagnostic Score Live Audit Status"
+        },
+        {
+          "level": 2,
+          "line": 21,
+          "text": "Bridge seed columns"
+        },
+        {
+          "level": 2,
+          "line": 25,
+          "text": "Unsupported required columns"
+        },
+        {
+          "level": 2,
+          "line": 29,
+          "text": "diagnostic_items columns"
+        },
+        {
+          "level": 2,
+          "line": 34,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 38,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/diagnostic_score_live_audit_status.md",
+      "sha256": "4e97ef182f158b6e5b96cee2b69b2b44e445c905ad6b81c97fc59643538fdef1",
+      "size_bytes": 1223,
+      "statuses": [],
+      "title": "Diagnostic Score Live Audit Status"
     },
     {
       "category": "release",
@@ -42547,7 +42614,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "b7a3ed2187d00257bb4bb9b0de76fce9525e80c47c8b9d63ece97a948440a537",
+      "sha256": "6be118bd23254481fd6765fbcdb6b9ecb64e8b692d1b18258596e226b3745e5f",
       "size_bytes": 6409,
       "statuses": [
         "external-blocked",
@@ -42609,7 +42676,7 @@
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "175713752aaa1d25a3feb54a01e512df9477f67f709ff4b406c52f19252a2433",
+      "sha256": "be8a4c22bd571f41e7d6d12441f8fe28c802404a011ed7c005cce3305840f1aa",
       "size_bytes": 3866,
       "statuses": [
         "external-blocked",
@@ -45146,6 +45213,37 @@
         {
           "level": 1,
           "line": 1,
+          "text": "Next Execution Queue After DIAG-SCORE-001R / code_3191_3230"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next backend/database batches"
+        },
+        {
+          "level": 2,
+          "line": 10,
+          "text": "Acceptance reference"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_3191_3230.md",
+      "sha256": "10e2429aa7265490f7e49e61f24947aa7909914aeacfc14cb2ed86cffd460d77",
+      "size_bytes": 930,
+      "statuses": [
+        "passed"
+      ],
+      "title": "Next Execution Queue After DIAG-SCORE-001R / code_3191_3230"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "Next Execution Queue After code_831_870"
         },
         {
@@ -47135,6 +47233,42 @@
       "size_bytes": 666,
       "statuses": [],
       "title": "No False-Closure Status After DIAG-ITEMS-001R / code_3151_3190"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After DIAG-SCORE-001R / code_3191_3230"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven by default"
+        },
+        {
+          "level": 2,
+          "line": 11,
+          "text": "Proven only in accepted mode"
+        },
+        {
+          "level": 2,
+          "line": 21,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_3191_3230.md",
+      "sha256": "c2fcb718217b6dc6e9fd2a98901e5b3af962d4c55a5fe20c9fceb4f879bd3354",
+      "size_bytes": 887,
+      "statuses": [
+        "passed"
+      ],
+      "title": "No False-Closure Status After DIAG-SCORE-001R / code_3191_3230"
     },
     {
       "category": "release",
@@ -55524,8 +55658,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 1063,
-  "generated_at": "2026-05-22T01:43:29Z",
+  "files_scanned": 1067,
+  "generated_at": "2026-05-22T01:56:51Z",
   "generated_count": 4,
   "missing_important_docs": []
 }

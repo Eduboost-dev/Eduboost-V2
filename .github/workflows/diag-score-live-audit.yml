@@ -1,0 +1,96 @@
+name: DIAG Score Live Audit Gate
+
+on:
+  workflow_run:
+    workflows:
+      - "Backend Consolidation Evidence"
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Optional GitHub Actions run id to attach as evidence'
+        required: false
+      use_database_url:
+        description: 'Use preconfigured DIAG_SCORE_DATABASE_URL secret (true/false)'
+        required: false
+        default: 'true'
+
+jobs:
+  diag-score-gate:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || true
+          pip install -r requirements-dev.txt || true
+
+      - name: Determine DB URL
+        id: db
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            RUN_ID=${{ github.event.workflow_run.id }}
+          else
+            RUN_ID=${{ github.event.inputs.run_id || '' }}
+          fi
+
+          echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
+
+          if [ "${{ github.event.inputs.use_database_url }}" = "true" ] && [ -n "${{ secrets.DIAG_SCORE_DATABASE_URL }}" ]; then
+            echo "db_url=${{ secrets.DIAG_SCORE_DATABASE_URL }}" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          if [ -n "${{ secrets.SUPABASE_SERVICE_KEY }}" ] && [ -n "${{ secrets.SUPABASE_HOST }}" ]; then
+            # URL-encode the service key
+            ENC=$(python - <<'PY'
+import urllib.parse,sys
+print(urllib.parse.quote_plus(sys.stdin.read().strip()))
+PY
+<<<"${{ secrets.SUPABASE_SERVICE_KEY }}")
+            echo "db_url=postgresql+asyncpg://postgres:${ENC}@${{ secrets.SUPABASE_HOST }}:5432/postgres" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "db_url=" >> $GITHUB_OUTPUT
+
+      - name: Run DIAG score live audit gate
+        env:
+          DIAG_SCORE_ACCEPT: '1'
+          DIAG_SCORE_DATABASE_URL: ${{ steps.db.outputs.db_url }}
+          DIAG_SCORE_ALLOW_BRIDGE_SEED: '1'
+          DIAG_SCORE_RUN_ID: ${{ steps.db.outputs.run_id }}
+          DIAG_SCORE_TEST_COMMAND: 'python scripts/diagnostic_score_live_audit.py --apply-seed'
+          DIAG_SCORE_SEED_RESULT: 'passed'
+          DIAG_SCORE_SCORING_RESULT: 'passed'
+          DIAG_SCORE_AUDIT_RESULT: 'passed'
+        run: |
+          set -euo pipefail
+          echo "DB URL: ${DIAG_SCORE_DATABASE_URL:+(provided)}"
+          if [ -z "${DIAG_SCORE_DATABASE_URL}" ]; then
+            echo "ERROR: DIAG_SCORE_DATABASE_URL not provided. Set secret DIAG_SCORE_DATABASE_URL or SUPABASE_SERVICE_KEY and SUPABASE_HOST."
+            exit 1
+          fi
+          bash temp/code_3191_3230/code_3191_3230_diag_score_live_audit_gate.sh
+
+      - name: Upload audit status
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagnostic_score_live_audit_status
+          path: |
+            docs/release/diagnostic_score_live_audit_status.json
+            docs/release/diagnostic_score_live_audit_status.md
