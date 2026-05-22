@@ -19,6 +19,10 @@ imports and controlled migration behavior.
   runtime and API contract baseline; production readiness still depends on
   fresh security, POPIA, CI/CD, backup/restore, AI-safety, frontend, staging,
   and release-evidence verification.
+- The Recommended Operating Model and Project Assistance Status controls are
+  now documented under `docs/operations/` and wired into Makefile/CI checks so
+  triage, verification, release evidence, hardening, and staging readiness work
+  have an executable command surface.
 - Legacy code has been archived behind compatibility shims under
   [`app/legacy`](/app/legacy/DEPRECATED.md) and [`app/legacy/api/main.py`](/app/legacy/api/main.py).
 - Redis is used for caching, token revocation, and background job status.
@@ -161,6 +165,9 @@ The editable inputs for those lockfiles are:
 
 - Current state: [`docs/current_state.md`](/docs/current_state.md)
 - Status index: [`docs/project_status.md`](/docs/project_status.md)
+- Operating model: [`docs/operations/recommended_operating_model.md`](/docs/operations/recommended_operating_model.md)
+- Project assistance lanes: [`docs/operations/project_assistance_status.md`](/docs/operations/project_assistance_status.md)
+- TODO implementation plan: [`docs/operations/todo_implementation_plan.md`](/docs/operations/todo_implementation_plan.md)
 - Architecture: [`docs/architecture/V2_ARCHITECTURE.md`](/docs/architecture/V2_ARCHITECTURE.md)
 - Migration guide: [`docs/v2_migration.md`](/docs/v2_migration.md)
 - POPIA notes: [`docs/POPIA_COMPLIANCE.md`](/docs/POPIA_COMPLIANCE.md)
