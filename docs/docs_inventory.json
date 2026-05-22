@@ -3,12 +3,12 @@
     "adr": 25,
     "api": 6,
     "architecture": 39,
-    "general": 483,
+    "general": 486,
     "release": 416,
     "security": 98
   },
-  "commit": "690371a5b1da4146991b941164136c6960110e1c",
-  "document_count": 1067,
+  "commit": "7f16b079bacfb08ff139314a42bf0abf37488c45",
+  "document_count": 1070,
   "documents": [
     {
       "category": "general",
@@ -23020,6 +23020,21 @@
         },
         {
           "kind": "local",
+          "target": "operations/recommended_operating_model.md",
+          "text": "`operations/recommended_operating_model.md`"
+        },
+        {
+          "kind": "local",
+          "target": "operations/project_assistance_status.md",
+          "text": "`operations/project_assistance_status.md`"
+        },
+        {
+          "kind": "local",
+          "target": "operations/todo_implementation_plan.md",
+          "text": "`operations/todo_implementation_plan.md`"
+        },
+        {
+          "kind": "local",
           "target": "architecture.md",
           "text": "`architecture.md`"
         },
@@ -23040,8 +23055,8 @@
         }
       ],
       "path": "docs/index.md",
-      "sha256": "8d2b4989bd318e17080eaba8c0f41a67c3f92d667b04af3380d94cc0a5670ef2",
-      "size_bytes": 916,
+      "sha256": "aa4cc7cb7ab9146587d99a4a5d2ba5561a3d94339762edcdaa39108131a1e11e",
+      "size_bytes": 1408,
       "statuses": [
         "todo"
       ],
@@ -28975,6 +28990,78 @@
     },
     {
       "category": "general",
+      "dates": [
+        "2026-05-17"
+      ],
+      "evidence_references": [
+        "docs/release/",
+        "docs/release/EVIDENCE_INDEX.md"
+      ],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Project Assistance Status"
+        },
+        {
+          "level": 2,
+          "line": 6,
+          "text": "Current Gate Snapshot"
+        },
+        {
+          "level": 2,
+          "line": 12,
+          "text": "Source Coverage"
+        },
+        {
+          "level": 2,
+          "line": 31,
+          "text": "Assistance Lanes"
+        },
+        {
+          "level": 2,
+          "line": 41,
+          "text": "1. Current-state triage"
+        },
+        {
+          "level": 2,
+          "line": 56,
+          "text": "2. Verification and repair"
+        },
+        {
+          "level": 2,
+          "line": 72,
+          "text": "3. Release evidence and governance"
+        },
+        {
+          "level": 2,
+          "line": 88,
+          "text": "4. Architecture, security, and compliance hardening"
+        },
+        {
+          "level": 2,
+          "line": 104,
+          "text": "5. Staging, beta, and operational readiness"
+        },
+        {
+          "level": 2,
+          "line": 120,
+          "text": "Maintenance"
+        }
+      ],
+      "links": [],
+      "path": "docs/operations/project_assistance_status.md",
+      "sha256": "1856939551566ab7f83e69a8aceb212a762a2bef2cfde0664f75d2f0428ca3af",
+      "size_bytes": 4091,
+      "statuses": [
+        "todo",
+        "blocked"
+      ],
+      "title": "Project Assistance Status"
+    },
+    {
+      "category": "general",
       "dates": [],
       "evidence_references": [
         "docs/operations/release_evidence_manifest.md",
@@ -29174,6 +29261,68 @@
       "size_bytes": 3864,
       "statuses": [],
       "title": "Project Release Closure Index"
+    },
+    {
+      "category": "general",
+      "dates": [],
+      "evidence_references": [
+        "docs/release/EVIDENCE_INDEX.md"
+      ],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Recommended Operating Model"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Purpose"
+        },
+        {
+          "level": 2,
+          "line": 13,
+          "text": "1. Single Source Of Truth"
+        },
+        {
+          "level": 2,
+          "line": 35,
+          "text": "2. Evidence-First Delivery"
+        },
+        {
+          "level": 2,
+          "line": 68,
+          "text": "3. Protected Change Flow"
+        },
+        {
+          "level": 2,
+          "line": 91,
+          "text": "4. Release Control"
+        },
+        {
+          "level": 2,
+          "line": 115,
+          "text": "5. Operating Cadence And Accountability"
+        },
+        {
+          "level": 2,
+          "line": 136,
+          "text": "Command"
+        }
+      ],
+      "links": [],
+      "path": "docs/operations/recommended_operating_model.md",
+      "sha256": "9ada76d4312f49a8af0f18125e765d25bb3a6f7cc71174347f8353ecb4fae753",
+      "size_bytes": 6000,
+      "statuses": [
+        "todo",
+        "pending",
+        "blocked",
+        "pass",
+        "failed"
+      ],
+      "title": "Recommended Operating Model"
     },
     {
       "category": "general",
@@ -30787,6 +30936,142 @@
     },
     {
       "category": "general",
+      "dates": [
+        "2026-05-22"
+      ],
+      "evidence_references": [
+        "docs/release/unit_test_evidence.md",
+        "docs/release/known_issues.md",
+        "docs/release/ci_evidence.md",
+        "docs/release/branch_protection_evidence.md",
+        "docs/release/sign_off_manifest.md",
+        "docs/release/rollback_runbook.md",
+        "docs/release/post_deploy_smoke_checklist.md",
+        "docs/release/release_bundle_v1.0.0-rc2.md",
+        "docs/release/release_hygiene_checklist.md",
+        "docs/release/release_state_snapshot.md",
+        "docs/release/audit_trail_index.md",
+        "docs/release/final_closure_certificate.md",
+        "docs/release/migration_evidence.md",
+        "docs/release/frontend_test_evidence.md",
+        "docs/release/operator_runbook.md",
+        "docs/release/monitoring_evidence.md",
+        "docs/release/alertmanager_evidence.md",
+        "docs/release/change_control_policy.md",
+        "docs/release/incident_tabletop_evidence.md",
+        "docs/release/popia_sweep_evidence.md",
+        "docs/release/release_decision_log.md",
+        "docs/release/beta_acceptance_criteria.md",
+        "docs/release/beta_outcome_report.md"
+      ],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "TODO Implementation Plan"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Purpose"
+        },
+        {
+          "level": 2,
+          "line": 14,
+          "text": "Operating Rules"
+        },
+        {
+          "level": 2,
+          "line": 25,
+          "text": "Critical Path Summary"
+        },
+        {
+          "level": 2,
+          "line": 37,
+          "text": "Wave 1: Baseline Freeze And Local Evidence"
+        },
+        {
+          "level": 2,
+          "line": 58,
+          "text": "Wave 2: CI Authority And Branch Governance"
+        },
+        {
+          "level": 2,
+          "line": 80,
+          "text": "Wave 3: Release Governance And Cluster H Cleanup"
+        },
+        {
+          "level": 2,
+          "line": 106,
+          "text": "Wave 4: Database Migration Runtime Proof"
+        },
+        {
+          "level": 2,
+          "line": 125,
+          "text": "Wave 5: Frontend And Browser Runtime Proof"
+        },
+        {
+          "level": 2,
+          "line": 146,
+          "text": "Wave 6: Operations, Observability, Backup, Restore, And Rollback"
+        },
+        {
+          "level": 2,
+          "line": 171,
+          "text": "Wave 7: POPIA, Legal, Security, And Governance Approvals"
+        },
+        {
+          "level": 2,
+          "line": 192,
+          "text": "Wave 8: CAPS Content And Product Readiness"
+        },
+        {
+          "level": 2,
+          "line": 215,
+          "text": "Wave 9: Monetization And Communications Decisions"
+        },
+        {
+          "level": 2,
+          "line": 234,
+          "text": "Wave 10: Staging, Beta Go/No-Go, And Release Closure"
+        },
+        {
+          "level": 2,
+          "line": 257,
+          "text": "Dependency Order"
+        },
+        {
+          "level": 2,
+          "line": 270,
+          "text": "External Work Register"
+        },
+        {
+          "level": 2,
+          "line": 285,
+          "text": "Working Cadence"
+        },
+        {
+          "level": 2,
+          "line": 296,
+          "text": "Plan Coverage"
+        }
+      ],
+      "links": [],
+      "path": "docs/operations/todo_implementation_plan.md",
+      "sha256": "3da49e12eadc7bb802e18d809a8f6fe14e5d3086eeed6c6d1158614fd7024691",
+      "size_bytes": 20686,
+      "statuses": [
+        "todo",
+        "blocked",
+        "pass",
+        "pending",
+        "fail"
+      ],
+      "title": "TODO Implementation Plan"
+    },
+    {
+      "category": "general",
       "dates": [],
       "evidence_references": [],
       "generated": false,
@@ -32206,7 +32491,8 @@
     {
       "category": "general",
       "dates": [
-        "2026-05-17"
+        "2026-05-17",
+        "2026-05-22"
       ],
       "evidence_references": [
         "testing/pr002r_evidence_check.md",
@@ -32230,617 +32516,617 @@
         },
         {
           "level": 2,
-          "line": 22,
+          "line": 28,
           "text": "Release Readiness"
         },
         {
           "level": 2,
-          "line": 28,
+          "line": 34,
           "text": "Claim Discipline"
         },
         {
           "level": 2,
-          "line": 44,
+          "line": 50,
           "text": "Compatibility Boundary"
         },
         {
           "level": 2,
-          "line": 54,
+          "line": 60,
           "text": "Remaining Release Blockers"
         },
         {
           "level": 2,
-          "line": 67,
+          "line": 73,
           "text": "Evidence Documents"
         },
         {
           "level": 2,
-          "line": 85,
+          "line": 91,
           "text": "Audit Tracker"
         },
         {
           "level": 2,
-          "line": 89,
+          "line": 95,
           "text": "Lesson Generation Authorization"
         },
         {
           "level": 2,
-          "line": 93,
+          "line": 99,
           "text": "Diagnostic Items Authorization"
         },
         {
           "level": 2,
-          "line": 97,
+          "line": 103,
           "text": "Phase 2 Authorization Evidence"
         },
         {
           "level": 2,
-          "line": 101,
+          "line": 107,
           "text": "Diagnostic Submit Authorization"
         },
         {
           "level": 2,
-          "line": 105,
+          "line": 111,
           "text": "POPIA Data Export Authorization"
         },
         {
           "level": 2,
-          "line": 109,
+          "line": 115,
           "text": "Parent Progress Authorization"
         },
         {
           "level": 2,
-          "line": 113,
+          "line": 119,
           "text": "POPIA Deletion Request Authorization"
         },
         {
           "level": 2,
-          "line": 117,
+          "line": 123,
           "text": "POPIA Deletion Cancel Authorization"
         },
         {
           "level": 2,
-          "line": 121,
+          "line": 127,
           "text": "POPIA Correction Request Authorization"
         },
         {
           "level": 2,
-          "line": 125,
+          "line": 131,
           "text": "POPIA Restriction Request Authorization"
         },
         {
           "level": 2,
-          "line": 129,
+          "line": 135,
           "text": "POPIA Deletion Status Authorization"
         },
         {
           "level": 2,
-          "line": 133,
+          "line": 139,
           "text": "Parent Erasure Authorization"
         },
         {
           "level": 2,
-          "line": 137,
+          "line": 143,
           "text": "POPIA Deletion Execute Authorization"
         },
         {
           "level": 2,
-          "line": 141,
+          "line": 147,
           "text": "Parent Export Authorization"
         },
         {
           "level": 2,
-          "line": 145,
+          "line": 151,
           "text": "Consent Status Authorization"
         },
         {
           "level": 2,
-          "line": 149,
+          "line": 155,
           "text": "Parent Trust Dashboard Authorization"
         },
         {
           "level": 2,
-          "line": 153,
+          "line": 159,
           "text": "Parent Dashboard Authorization"
         },
         {
           "level": 2,
-          "line": 157,
+          "line": 163,
           "text": "Consent Grant Authorization"
         },
         {
           "level": 2,
-          "line": 161,
+          "line": 167,
           "text": "Consent Revoke Authorization"
         },
         {
           "level": 2,
-          "line": 165,
+          "line": 171,
           "text": "Gamification Profile Authorization"
         },
         {
           "level": 2,
-          "line": 169,
+          "line": 175,
           "text": "Gamification Award XP Authorization"
         },
         {
           "level": 2,
-          "line": 173,
+          "line": 179,
           "text": "Lesson Stream Authorization"
         },
         {
           "level": 2,
-          "line": 177,
+          "line": 183,
           "text": "Assessment Attempt Authorization"
         },
         {
           "level": 2,
-          "line": 181,
+          "line": 187,
           "text": "Onboarding Authorization"
         },
         {
           "level": 2,
-          "line": 185,
+          "line": 191,
           "text": "Assessment List Authentication Boundary"
         },
         {
           "level": 2,
-          "line": 189,
+          "line": 195,
           "text": "Onboarding Questions Authentication Boundary"
         },
         {
           "level": 2,
-          "line": 193,
+          "line": 199,
           "text": "Assessment Attempt Model Contract"
         },
         {
           "level": 2,
-          "line": 197,
+          "line": 203,
           "text": "Phase 2 Router Import Smoke"
         },
         {
           "level": 2,
-          "line": 201,
+          "line": 207,
           "text": "Learner Authorization Matrix"
         },
         {
           "level": 2,
-          "line": 205,
+          "line": 211,
           "text": "Learner Authorization Coverage Check"
         },
         {
           "level": 2,
-          "line": 209,
+          "line": 215,
           "text": "Learner Authorization Coverage CI"
         },
         {
           "level": 2,
-          "line": 213,
+          "line": 219,
           "text": "Phase 2 Authorization Closure Report"
         },
         {
           "level": 2,
-          "line": 217,
+          "line": 223,
           "text": "Phase 2 Authorization Closure Check"
         },
         {
           "level": 2,
-          "line": 221,
+          "line": 227,
           "text": "Dev Session Environment Gate"
         },
         {
           "level": 2,
-          "line": 225,
+          "line": 231,
           "text": "Consent Renewal Admin Authorization Boundary"
         },
         {
           "level": 2,
-          "line": 229,
+          "line": 235,
           "text": "Ether Onboarding Questions Authentication Boundary"
         },
         {
           "level": 2,
-          "line": 233,
+          "line": 239,
           "text": "Operational Auth Boundaries"
         },
         {
           "level": 2,
-          "line": 237,
+          "line": 243,
           "text": "POPIA Consent and Audit Baseline"
         },
         {
           "level": 2,
-          "line": 241,
+          "line": 247,
           "text": "POPIA Consent Gate Check"
         },
         {
           "level": 2,
-          "line": 245,
+          "line": 251,
           "text": "POPIA Consent Audit CI"
         },
         {
           "level": 2,
-          "line": 249,
+          "line": 255,
           "text": "POPIA Consent Dependency Adapter"
         },
         {
           "level": 2,
-          "line": 253,
+          "line": 259,
           "text": "Study Plan Consent Gate"
         },
         {
           "level": 2,
-          "line": 257,
+          "line": 263,
           "text": "Learner Read Consent Gate"
         },
         {
           "level": 2,
-          "line": 261,
+          "line": 267,
           "text": "Gamification Consent Gate"
         },
         {
           "level": 2,
-          "line": 265,
+          "line": 271,
           "text": "Parent Routes Consent Gate"
         },
         {
           "level": 2,
-          "line": 269,
+          "line": 275,
           "text": "POPIA Data-Rights Consent Boundary"
         },
         {
           "level": 2,
-          "line": 273,
+          "line": 279,
           "text": "Assessment Consent Gate"
         },
         {
           "level": 2,
-          "line": 277,
+          "line": 283,
           "text": "Onboarding Consent Gate"
         },
         {
           "level": 2,
-          "line": 281,
+          "line": 287,
           "text": "Ether Onboarding Consent Gate"
         },
         {
           "level": 2,
-          "line": 285,
+          "line": 291,
           "text": "Ether Onboarding Consent Boundary"
         },
         {
           "level": 2,
-          "line": 289,
+          "line": 295,
           "text": "POPIA Consent Gate Closure"
         },
         {
           "level": 2,
-          "line": 293,
+          "line": 299,
           "text": "Ether Onboarding Consent Boundary"
         },
         {
           "level": 2,
-          "line": 297,
+          "line": 303,
           "text": "POPIA Consent CI Closure"
         },
         {
           "level": 2,
-          "line": 301,
+          "line": 307,
           "text": "Diagnostics Central Consent Source"
         },
         {
           "level": 2,
-          "line": 305,
+          "line": 311,
           "text": "POPIA Negative Consent Evidence"
         },
         {
           "level": 2,
-          "line": 309,
+          "line": 315,
           "text": "Cluster C Closure Stamp"
         },
         {
           "level": 2,
-          "line": 313,
+          "line": 319,
           "text": "Cluster D CI Deployment Evidence"
         },
         {
           "level": 2,
-          "line": 317,
+          "line": 323,
           "text": "Cluster D Runtime Environment Gates"
         },
         {
           "level": 2,
-          "line": 321,
+          "line": 327,
           "text": "Production Key Vault Behavior"
         },
         {
           "level": 2,
-          "line": 325,
+          "line": 331,
           "text": "Cluster D Closure"
         },
         {
           "level": 2,
-          "line": 329,
+          "line": 335,
           "text": "Cluster D Release Evidence"
         },
         {
           "level": 2,
-          "line": 333,
+          "line": 339,
           "text": "Project Evidence Index"
         },
         {
           "level": 2,
-          "line": 337,
+          "line": 343,
           "text": "Cluster E Data Resilience"
         },
         {
           "level": 2,
-          "line": 341,
+          "line": 347,
           "text": "Cluster E Backup Restore Commands"
         },
         {
           "level": 2,
-          "line": 345,
+          "line": 351,
           "text": "Cluster E Backup Restore Evidence Records"
         },
         {
           "level": 2,
-          "line": 349,
+          "line": 355,
           "text": "Cluster E Backup Restore Integrity"
         },
         {
           "level": 2,
-          "line": 353,
+          "line": 359,
           "text": "Cluster E Closure"
         },
         {
           "level": 2,
-          "line": 357,
+          "line": 363,
           "text": "Cluster E Restore Readiness"
         },
         {
           "level": 2,
-          "line": 361,
+          "line": 367,
           "text": "Cluster E Release Evidence Wiring"
         },
         {
           "level": 2,
-          "line": 365,
+          "line": 371,
           "text": "Cluster F AI Safety"
         },
         {
           "level": 2,
-          "line": 369,
+          "line": 375,
           "text": "Cluster F Prompt Diagnostic Safety"
         },
         {
           "level": 2,
-          "line": 373,
+          "line": 379,
           "text": "Cluster F Provider Output Safety"
         },
         {
           "level": 2,
-          "line": 377,
+          "line": 383,
           "text": "Cluster F Closure"
         },
         {
           "level": 2,
-          "line": 381,
+          "line": 387,
           "text": "Cluster F Release Evidence Wiring"
         },
         {
           "level": 2,
-          "line": 385,
+          "line": 391,
           "text": "Cluster F Fixture Validation"
         },
         {
           "level": 2,
-          "line": 389,
+          "line": 395,
           "text": "Cluster F Prompt Refusal Evidence"
         },
         {
           "level": 2,
-          "line": 393,
+          "line": 399,
           "text": "Cluster F Secret Fixture Coverage"
         },
         {
           "level": 2,
-          "line": 397,
+          "line": 403,
           "text": "Cluster G Frontend Journey"
         },
         {
           "level": 2,
-          "line": 401,
+          "line": 407,
           "text": "Cluster G Parent Denial UX"
         },
         {
           "level": 2,
-          "line": 405,
+          "line": 411,
           "text": "Cluster G API Fixture Evidence"
         },
         {
           "level": 2,
-          "line": 409,
+          "line": 415,
           "text": "Cluster G Playwright Evidence"
         },
         {
           "level": 2,
-          "line": 413,
+          "line": 419,
           "text": "Cluster G Accessibility Evidence"
         },
         {
           "level": 2,
-          "line": 417,
+          "line": 423,
           "text": "Cluster G Runtime Mock Evidence"
         },
         {
           "level": 2,
-          "line": 421,
+          "line": 427,
           "text": "Cluster G Mocked Playwright Evidence"
         },
         {
           "level": 2,
-          "line": 425,
+          "line": 431,
           "text": "Cluster G E2E Runtime Evidence"
         },
         {
           "level": 2,
-          "line": 429,
+          "line": 435,
           "text": "Cluster G Build E2E Workflow Evidence"
         },
         {
           "level": 2,
-          "line": 433,
+          "line": 439,
           "text": "Cluster G Closure Release Evidence"
         },
         {
           "level": 2,
-          "line": 437,
+          "line": 443,
           "text": "Cluster H Release Readiness Baseline"
         },
         {
           "level": 2,
-          "line": 441,
+          "line": 447,
           "text": "Cluster H Operational Release Controls"
         },
         {
           "level": 2,
-          "line": 445,
+          "line": 451,
           "text": "Cluster H Release Bundle Approval Closure"
         },
         {
           "level": 2,
-          "line": 449,
+          "line": 455,
           "text": "Cluster H Final Project Release Closure"
         },
         {
           "level": 2,
-          "line": 453,
+          "line": 459,
           "text": "Cluster H Release Hygiene and PR Closeout"
         },
         {
           "level": 2,
-          "line": 457,
+          "line": 463,
           "text": "Cluster H Execution PR Verification"
         },
         {
           "level": 2,
-          "line": 461,
+          "line": 467,
           "text": "Cluster H Release State Consistency Merge Readiness"
         },
         {
           "level": 2,
-          "line": 465,
+          "line": 471,
           "text": "Cluster H Post-Merge Governance Handoff"
         },
         {
           "level": 2,
-          "line": 469,
+          "line": 475,
           "text": "Cluster H Audit Attestation Rollup"
         },
         {
           "level": 2,
-          "line": 473,
+          "line": 479,
           "text": "Cluster H Freeze Change-Control Operator Packet"
         },
         {
           "level": 2,
-          "line": 477,
+          "line": 483,
           "text": "Cluster H Communications Monitoring Support"
         },
         {
           "level": 2,
-          "line": 481,
+          "line": 487,
           "text": "Cluster H Feedback Issues Acceptance"
         },
         {
           "level": 2,
-          "line": 485,
+          "line": 491,
           "text": "Cluster H Outcome Retrospective Archive"
         },
         {
           "level": 2,
-          "line": 489,
+          "line": 495,
           "text": "Cluster H Governance Seal Terminal Closure"
         },
         {
           "level": 2,
-          "line": 493,
+          "line": 499,
           "text": "Cluster H Post-Terminal Handoff Archive Audit"
         },
         {
           "level": 2,
-          "line": 497,
+          "line": 503,
           "text": "Cluster H Execution Guardrail Closeout Checksum"
         },
         {
           "level": 2,
-          "line": 501,
+          "line": 507,
           "text": "Cluster H Merge Signoff Post-Closeout No-Op"
         },
         {
           "level": 2,
-          "line": 505,
+          "line": 511,
           "text": "Cluster H Ledger Variance Maintenance"
         },
         {
           "level": 2,
-          "line": 509,
+          "line": 515,
           "text": "Cluster H Acceptance Packet Handoff Freeze Access Policy"
         },
         {
           "level": 2,
-          "line": 513,
+          "line": 519,
           "text": "Cluster H Archival Lock PR-Ready TOC"
         },
         {
           "level": 2,
-          "line": 517,
+          "line": 523,
           "text": "Cluster H Reviewer Pack Merge-Control Retention"
         },
         {
           "level": 2,
-          "line": 521,
+          "line": 527,
           "text": "Cluster H Readiness Rollup Freeze Merge Summary"
         },
         {
           "level": 2,
-          "line": 525,
+          "line": 531,
           "text": "Cluster H Acceptance Memo Record Closure Continuity"
         },
         {
           "level": 2,
-          "line": 529,
+          "line": 535,
           "text": "Cluster H Closure Manifest Branch Handoff Reviewer Decision"
         },
         {
           "level": 2,
-          "line": 533,
+          "line": 539,
           "text": "Cluster H Reviewer Disposition Terminal Seal PR Handoff"
         },
         {
           "level": 2,
-          "line": 537,
+          "line": 543,
           "text": "Cluster H Operator Brief Terminal Review Sealed Access"
         },
         {
           "level": 2,
-          "line": 541,
+          "line": 547,
           "text": "Cluster H Reviewer Closeout Audit Handoff Terminal PR Index"
         },
         {
           "level": 2,
-          "line": 545,
+          "line": 551,
           "text": "Cluster H Sealed Package Audit Review Terminal Handoff"
         },
         {
           "level": 2,
-          "line": 549,
+          "line": 555,
           "text": "Cluster H Archive Accession Custody Retrieval"
         },
         {
           "level": 2,
-          "line": 554,
+          "line": 560,
           "text": "Production-readiness implementation phase"
         }
       ],
@@ -32927,6 +33213,21 @@
         },
         {
           "kind": "local",
+          "target": "operations/recommended_operating_model.md",
+          "text": "`docs/operations/recommended_operating_model.md`"
+        },
+        {
+          "kind": "local",
+          "target": "operations/project_assistance_status.md",
+          "text": "`docs/operations/project_assistance_status.md`"
+        },
+        {
+          "kind": "local",
+          "target": "operations/todo_implementation_plan.md",
+          "text": "`docs/operations/todo_implementation_plan.md`"
+        },
+        {
+          "kind": "local",
           "target": "security/lesson_generation_authorization_wiring.md",
           "text": "`docs/security/lesson_generation_authorization_wiring.md`"
         },
@@ -32977,18 +33278,8 @@
         },
         {
           "kind": "local",
-          "target": "security/popia_deletion_status_authorization_wiring.md",
-          "text": "`docs/security/popia_deletion_status_authorization_wiring.md`"
-        },
-        {
-          "kind": "local",
           "target": "security/parent_erasure_authorization_wiring.md",
           "text": "`docs/security/parent_erasure_authorization_wiring.md`"
-        },
-        {
-          "kind": "local",
-          "target": "security/popia_deletion_execute_authorization_wiring.md",
-          "text": "`docs/security/popia_deletion_execute_authorization_wiring.md`"
         },
         {
           "kind": "local",
@@ -33192,14 +33483,15 @@
         }
       ],
       "path": "docs/project_status.md",
-      "sha256": "8d5cb360d9c9e186d2bb8649341cdb71ab04a89b8e6c377b7be1f679046f351a",
-      "size_bytes": 20730,
+      "sha256": "c04d3e9887d4437b1adb5fa1e57ce755e06dfe0837d913f077ce42e75f933602",
+      "size_bytes": 21673,
       "statuses": [
         "passed",
         "pass",
         "fail",
         "blocked",
-        "todo"
+        "todo",
+        "pending"
       ],
       "title": "Project Status"
     },
@@ -34660,8 +34952,8 @@
       ],
       "links": [],
       "path": "docs/release/EduBoost_V2_North_Star_TODO_2026-05-22.md",
-      "sha256": "a0b8ae072656f0188934a3d917474ae6366f0baeb25ba47c8e6e64002c4564d8",
-      "size_bytes": 12745,
+      "sha256": "743c705b19101c43ed1c5597a8913410ebd2f90294bcb6c7f0b707d580673720",
+      "size_bytes": 12744,
       "statuses": [
         "todo",
         "passed",
@@ -41637,8 +41929,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/diagnostic_score_live_audit_status.json",
-      "sha256": "0c8b62d29e0fdb11599421c95167c0e7d5e25208f5f4c83b2597773a2ccf6b9c",
-      "size_bytes": 873,
+      "sha256": "3c6eb159a16aa195f126be012f01df853ce62f94633648be978ca314bed9e57d",
+      "size_bytes": 5820,
       "statuses": [],
       "title": "Diagnostic Score Live Audit Status"
     },
@@ -41660,29 +41952,29 @@
         },
         {
           "level": 2,
-          "line": 25,
+          "line": 42,
           "text": "Unsupported required columns"
         },
         {
           "level": 2,
-          "line": 29,
+          "line": 46,
           "text": "diagnostic_items columns"
         },
         {
           "level": 2,
-          "line": 34,
+          "line": 81,
           "text": "Blockers"
         },
         {
           "level": 2,
-          "line": 38,
+          "line": 85,
           "text": "No false-closure rules"
         }
       ],
       "links": [],
       "path": "docs/release/diagnostic_score_live_audit_status.md",
-      "sha256": "4e97ef182f158b6e5b96cee2b69b2b44e445c905ad6b81c97fc59643538fdef1",
-      "size_bytes": 1223,
+      "sha256": "8e45a13b4cf6858101afaa2ec322a68818503d1a5c9633db60fb2e5acadf6ca9",
+      "size_bytes": 3179,
       "statuses": [],
       "title": "Diagnostic Score Live Audit Status"
     },
@@ -42614,7 +42906,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "6be118bd23254481fd6765fbcdb6b9ecb64e8b692d1b18258596e226b3745e5f",
+      "sha256": "40b1e77cf950179ca437905ec62062cc4102dfe83159990d9fe3ad084d6bb1a7",
       "size_bytes": 6409,
       "statuses": [
         "external-blocked",
@@ -42676,7 +42968,7 @@
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "be8a4c22bd571f41e7d6d12441f8fe28c802404a011ed7c005cce3305840f1aa",
+      "sha256": "99394c8305c2e3d77e4a6d5ac5afb71af233b39530390e8b785e0442ec629f2c",
       "size_bytes": 3866,
       "statuses": [
         "external-blocked",
@@ -55658,8 +55950,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 1067,
-  "generated_at": "2026-05-22T01:56:51Z",
+  "files_scanned": 1070,
+  "generated_at": "2026-05-22T22:46:22Z",
   "generated_count": 4,
   "missing_important_docs": []
 }

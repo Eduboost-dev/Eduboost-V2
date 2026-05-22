@@ -2676,7 +2676,7 @@ diagnostic-score-live-audit-check:
 	PYTHONPATH=. python3 scripts/check_diagnostic_score_live_audit.py
 
 diagnostic-score-live-audit-test:
-	pytest -c pytest.ini tests/unit/test_diagnostic_score_live_audit.py -q --no-cov --tb=short
+	python3 -m pytest -c pytest.ini tests/unit/test_diagnostic_score_live_audit.py -q --no-cov --tb=short
 
 diagnostic-score-live-audit-release-check: diagnostic-score-live-audit-registry-patch
 	DIAG_SCORE_ACCEPT=1 PYTHONPATH=. python3 scripts/check_diagnostic_score_live_audit.py

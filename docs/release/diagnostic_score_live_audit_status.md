@@ -1,26 +1,43 @@
 # Diagnostic Score Live Audit Status
 
-Generated at: `2026-05-22T20:38:29Z`
-Commit: `e3386f8380b268d23b30dc067ce5c65e3acf54ba`
+Generated at: `2026-05-22T23:29:31Z`
+Commit: `7f16b079bacfb08ff139314a42bf0abf37488c45`
 
-**Status:** `diagnostic-score-live-audit-not-accepted`
-**DB URL label:** ``
-**DB checked:** `False`
-**Seed attempted:** `False`
-**Seed inserted rows:** `0`
-**diagnostic_items count:** `None`
-**irt_items count:** `None`
-**Run ID:** ``
-**Run URL:** ``
-**Workflow:** ``
-**Test command:** ``
-**Seed result:** ``
-**Scoring result:** ``
-**Audit result:** ``
+**Status:** `diagnostic-score-live-audit-accepted`
+**DB URL label:** `DIAG_SCORE_DATABASE_URL`
+**DB checked:** `True`
+**Seed attempted:** `True`
+**Seed inserted rows:** `1600`
+**diagnostic_items count:** `28800`
+**irt_items count:** `1600`
+**Run ID:** `26316648760`
+**Run URL:** `https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760`
+**Workflow:** `.github/workflows/diag-score-live-audit.yml`
+**Test command:** `python scripts/diagnostic_score_live_audit.py --apply-seed`
+**Seed result:** `passed`
+**Scoring result:** `passed`
+**Audit result:** `passed`
 
 ## Bridge seed columns
 
-- None
+- `item_id`
+- `caps_ref`
+- `grade`
+- `subject`
+- `term`
+- `topic`
+- `subtopic`
+- `skill`
+- `stem`
+- `answer_key`
+- `options`
+- `explanation`
+- `item_type`
+- `language`
+- `review_status`
+- `source`
+- `created_at`
+- `updated_at`
 
 ## Unsupported required columns
 
@@ -30,10 +47,40 @@ Commit: `e3386f8380b268d23b30dc067ce5c65e3acf54ba`
 
 | Column | Nullable | Default | Type | UDT |
 |---|---:|---:|---|---|
+| `item_id` | False | True | `uuid` | `uuid` |
+| `caps_ref` | False | False | `character varying` | `varchar` |
+| `grade` | False | False | `smallint` | `int2` |
+| `subject` | False | False | `USER-DEFINED` | `subjectcode` |
+| `term` | False | False | `smallint` | `int2` |
+| `topic` | False | False | `character varying` | `varchar` |
+| `subtopic` | False | False | `character varying` | `varchar` |
+| `skill` | False | False | `character varying` | `varchar` |
+| `stem` | False | False | `text` | `text` |
+| `answer_key` | False | False | `character varying` | `varchar` |
+| `options` | True | False | `jsonb` | `jsonb` |
+| `explanation` | False | False | `text` | `text` |
+| `distractor_rationale` | True | False | `jsonb` | `jsonb` |
+| `misconception_tags` | False | True | `ARRAY` | `_text` |
+| `item_type` | False | True | `USER-DEFINED` | `itemtype` |
+| `language` | False | True | `USER-DEFINED` | `language` |
+| `difficulty_b` | False | True | `numeric` | `numeric` |
+| `discrimination_a` | False | True | `numeric` | `numeric` |
+| `guessing_c` | False | True | `numeric` | `numeric` |
+| `difficulty_band` | False | True | `USER-DEFINED` | `difficultyband` |
+| `review_status` | False | True | `USER-DEFINED` | `reviewstatus` |
+| `reviewer_id` | True | False | `uuid` | `uuid` |
+| `reviewed_at` | True | False | `timestamp with time zone` | `timestamptz` |
+| `exposure_count` | False | True | `integer` | `int4` |
+| `max_exposure` | False | True | `integer` | `int4` |
+| `quality_score` | True | False | `numeric` | `numeric` |
+| `safety_passed` | False | True | `boolean` | `bool` |
+| `source` | False | True | `USER-DEFINED` | `itemsource` |
+| `created_at` | False | True | `timestamp with time zone` | `timestamptz` |
+| `updated_at` | False | True | `timestamp with time zone` | `timestamptz` |
 
 ## Blockers
 
-- DIAG_SCORE_DATABASE_URL/DATABASE_URL is missing, non-Postgres async, local, example, or placeholder
+- None
 
 ## No false-closure rules
 

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import asyncio
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 import json
@@ -12,8 +11,8 @@ from typing import Any
 from urllib.parse import urlparse
 import os
 
-from sqlalchemy import text
-from sqlalchemy.ext.asyncio import create_async_engine
+import psycopg2
+import psycopg2.extras
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -132,6 +131,16 @@ def normalize_db_url(url: str) -> str:
     return url
 
 
+def _psycopg2_dsn(url: str) -> str:
+    """Convert any postgres:// or postgresql[+asyncpg]:// URL to a psycopg2-compatible DSN."""
+    url = url.split("?")[0]  # strip query params
+    for prefix in ("postgresql+asyncpg://", "postgresql://", "postgres://"):
+        if url.startswith(prefix):
+            url = "postgresql://" + url[len(prefix):]
+            break
+    return url
+
+
 def _valid_db_url(url: str) -> bool:
     # By default, placeholder values (localhost, example, etc.) are rejected
     # to ensure proof runs against a real managed DB. For local development or
@@ -153,55 +162,51 @@ def _sql_literal(value: str) -> str:
     return "'" + value.replace("'", "''") + "'"
 
 
-async def _table_exists(conn, table_name: str) -> bool:
-    result = await conn.execute(
-        text(
-            """
-            SELECT EXISTS (
-              SELECT 1
-              FROM information_schema.tables
-              WHERE table_schema = 'public'
-                AND table_name = :table_name
-            )
-            """
-        ),
-        {"table_name": table_name},
+def _table_exists(cur, table_name: str) -> bool:
+    cur.execute(
+        """
+        SELECT EXISTS (
+          SELECT 1
+          FROM information_schema.tables
+          WHERE table_schema = 'public'
+            AND table_name = %s
+        )
+        """,
+        (table_name,),
     )
-    return bool(result.scalar_one())
+    return bool(cur.fetchone()[0])
 
 
-async def _table_count(conn, table_name: str) -> int:
-    result = await conn.execute(text(f"SELECT COUNT(*) FROM public.{_quote_ident(table_name)}"))
-    return int(result.scalar_one())
+def _table_count(cur, table_name: str) -> int:
+    cur.execute(f"SELECT COUNT(*) FROM public.{_quote_ident(table_name)}")
+    return int(cur.fetchone()[0])
 
 
-async def _columns(conn, table_name: str) -> list[ColumnInfo]:
-    result = await conn.execute(
-        text(
-            """
-            SELECT
-              column_name,
-              is_nullable,
-              column_default,
-              data_type,
-              udt_name
-            FROM information_schema.columns
-            WHERE table_schema = 'public'
-              AND table_name = :table_name
-            ORDER BY ordinal_position
-            """
-        ),
-        {"table_name": table_name},
+def _columns(cur, table_name: str) -> list[ColumnInfo]:
+    cur.execute(
+        """
+        SELECT
+          column_name,
+          is_nullable,
+          column_default,
+          data_type,
+          udt_name
+        FROM information_schema.columns
+        WHERE table_schema = 'public'
+          AND table_name = %s
+        ORDER BY ordinal_position
+        """,
+        (table_name,),
     )
     return [
         ColumnInfo(
-            name=str(row.column_name),
-            is_nullable=str(row.is_nullable).upper() == "YES",
-            has_default=row.column_default is not None,
-            data_type=str(row.data_type),
-            udt_name=str(row.udt_name),
+            name=str(row[0]),
+            is_nullable=str(row[1]).upper() == "YES",
+            has_default=row[2] is not None,
+            data_type=str(row[3]),
+            udt_name=str(row[4]),
         )
-        for row in result
+        for row in cur.fetchall()
     ]
 
 
@@ -341,7 +346,7 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
     return "__UNSUPPORTED_REQUIRED__"
 
 
-async def _bridge_seed(conn, diag_columns: list[ColumnInfo], irt_columns: list[ColumnInfo]) -> tuple[int, list[str], list[str]]:
+def _bridge_seed(cur, diag_columns: list[ColumnInfo], irt_columns: list[ColumnInfo]) -> tuple[int, list[str], list[str]]:
     irt_names = {column.name for column in irt_columns}
     insert_columns: list[str] = []
     select_exprs: list[str] = []
@@ -370,8 +375,8 @@ async def _bridge_seed(conn, diag_columns: list[ColumnInfo], irt_columns: list[C
         f"FROM public.{_quote_ident(IRT_TABLE)} i "
         "ON CONFLICT DO NOTHING"
     )
-    result = await conn.execute(text(sql))
-    return int(result.rowcount or 0), insert_columns, []
+    cur.execute(sql)
+    return int(cur.rowcount or 0), insert_columns, []
 
 
 def _parse_json(value: str, fallback: Any) -> Any:
@@ -451,6 +456,10 @@ def collect_github_run_evidence(run_id: str, expected_sha: str) -> GitHubRunEvid
 
 
 async def collect_status(*, apply_seed: bool) -> DiagnosticScoreLiveAuditStatus:
+    return _collect_status_sync(apply_seed=apply_seed)
+
+
+def _collect_status_sync(*, apply_seed: bool) -> DiagnosticScoreLiveAuditStatus:
     blockers: list[str] = []
     sha = current_commit()
 
@@ -467,26 +476,20 @@ async def collect_status(*, apply_seed: bool) -> DiagnosticScoreLiveAuditStatus:
     if not _valid_db_url(db_url):
         blockers.append("DIAG_SCORE_DATABASE_URL/DATABASE_URL is missing, non-Postgres async, local, example, or placeholder")
     else:
-        # When connecting through PgBouncer in "transaction" or "statement"
-        # pooling mode, asyncpg's prepared statement cache causes
-        # DuplicatePreparedStatementError. Disable asyncpg prepared statement
-        # caching by requesting a prepared_statement_cache_size of 0 via the
-        # SQLAlchemy asyncpg URL query parameter which the dialect propagates
-        # to asyncpg. If the param is already present, leave it intact.
-        if "prepared_statement_cache_size" not in db_url:
-            sep = "&" if "?" in db_url else "?"
-            db_url = db_url + f"{sep}prepared_statement_cache_size=0"
-        # Also set asyncpg's client-side statement cache to 0 via connect args
-        # to avoid DuplicatePreparedStatementError when the DB sits behind
-        # PgBouncer in transaction/statement pooling modes.
-        engine = create_async_engine(
-            db_url, pool_pre_ping=True, connect_args={"statement_cache_size": 0}
-        )
+        # Use psycopg2 (sync) to avoid DuplicatePreparedStatementError when
+        # connecting through Supabase PgBouncer in transaction-pool mode.
+        # asyncpg always uses prepared statements which PgBouncer's transaction
+        # pooler cannot support; psycopg2 with simple query protocol has no
+        # such restriction.
+        dsn = _psycopg2_dsn(db_url)
         try:
-            async with engine.begin() as conn:
+            pg_conn = psycopg2.connect(dsn, options="-c statement_timeout=30000")
+            pg_conn.autocommit = False
+            cur = pg_conn.cursor()
+            try:
                 db_checked = True
-                diag_exists = await _table_exists(conn, DIAG_TABLE)
-                irt_exists = await _table_exists(conn, IRT_TABLE)
+                diag_exists = _table_exists(cur, DIAG_TABLE)
+                irt_exists = _table_exists(cur, IRT_TABLE)
 
                 if not diag_exists:
                     blockers.append("diagnostic_items table is missing")
@@ -494,12 +497,12 @@ async def collect_status(*, apply_seed: bool) -> DiagnosticScoreLiveAuditStatus:
                     blockers.append("irt_items table is missing")
 
                 if diag_exists:
-                    diag_columns = await _columns(conn, DIAG_TABLE)
-                    diagnostic_count = await _table_count(conn, DIAG_TABLE)
+                    diag_columns = _columns(cur, DIAG_TABLE)
+                    diagnostic_count = _table_count(cur, DIAG_TABLE)
 
                 if irt_exists:
-                    irt_columns = await _columns(conn, IRT_TABLE)
-                    irt_count = await _table_count(conn, IRT_TABLE)
+                    irt_columns = _columns(cur, IRT_TABLE)
+                    irt_count = _table_count(cur, IRT_TABLE)
                 else:
                     irt_columns = []
 
@@ -513,8 +516,8 @@ async def collect_status(*, apply_seed: bool) -> DiagnosticScoreLiveAuditStatus:
                     elif not diag_exists or not irt_exists:
                         blockers.append("cannot bridge-seed without both diagnostic_items and irt_items")
                     else:
-                        seed_inserted, bridge_columns, unsupported_required = await _bridge_seed(
-                            conn,
+                        seed_inserted, bridge_columns, unsupported_required = _bridge_seed(
+                            cur,
                             diag_columns,
                             irt_columns,
                         )
@@ -523,13 +526,17 @@ async def collect_status(*, apply_seed: bool) -> DiagnosticScoreLiveAuditStatus:
                                 "unsupported required diagnostic_items columns for bridge seed: "
                                 + ", ".join(unsupported_required)
                             )
-                        diagnostic_count = await _table_count(conn, DIAG_TABLE)
+                        pg_conn.commit()
+                        diagnostic_count = _table_count(cur, DIAG_TABLE)
 
                 if diagnostic_count is None or diagnostic_count <= 0:
                     blockers.append("diagnostic_items has 0 rows; runtime-required item bank is not seeded")
 
-        finally:
-            await engine.dispose()
+            finally:
+                cur.close()
+                pg_conn.close()
+        except Exception as exc:
+            blockers.append(f"DB connection/query error: {exc}")
 
     test_command = _env("DIAG_SCORE_TEST_COMMAND")
     seed_result = _env("DIAG_SCORE_SEED_RESULT")
@@ -577,7 +584,7 @@ async def collect_status(*, apply_seed: bool) -> DiagnosticScoreLiveAuditStatus:
 
 
 def write_status(*, apply_seed: bool = False) -> DiagnosticScoreLiveAuditStatus:
-    status = asyncio.run(collect_status(apply_seed=apply_seed))
+    status = _collect_status_sync(apply_seed=apply_seed)
     STATUS_JSON.write_text(json.dumps(asdict(status), indent=2), encoding="utf-8")
     _write_markdown(status)
     return status
