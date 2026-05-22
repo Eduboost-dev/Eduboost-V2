@@ -11,6 +11,7 @@ import re
 import subprocess
 from typing import Any
 from urllib.parse import urlparse
+import os
 
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import create_async_engine
@@ -133,7 +134,13 @@ def normalize_db_url(url: str) -> str:
 
 
 def _valid_db_url(url: str) -> bool:
+    # By default, placeholder values (localhost, example, etc.) are rejected
+    # to ensure proof runs against a real managed DB. For local development or
+    # when the operator explicitly allows it, set `DIAG_SCORE_ALLOW_LOCAL=1`
+    # in the environment to bypass this guard.
     if not url or _has_placeholder(url):
+        if os.getenv("DIAG_SCORE_ALLOW_LOCAL") == "1":
+            return True
         return False
     parsed = urlparse(url)
     return parsed.scheme == "postgresql+asyncpg" and bool(parsed.hostname)
