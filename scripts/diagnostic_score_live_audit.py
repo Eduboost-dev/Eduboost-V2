@@ -320,7 +320,8 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
         return _sql_literal("mcq")
 
     if name in {"source", "origin"}:
-        return _sql_literal("irt_items_bridge")
+        # Use an allowed itemsource enum value for bridged items.
+        return _sql_literal("imported")
 
     if column.is_nullable or column.has_default:
         return None
