@@ -2,13 +2,13 @@
   "categories": {
     "adr": 25,
     "api": 6,
-    "architecture": 37,
+    "architecture": 38,
     "general": 483,
-    "release": 404,
+    "release": 408,
     "security": 98
   },
-  "commit": "95d322bf5f8392b7dc3037e168e561e0f390a1a9",
-  "document_count": 1053,
+  "commit": "dffd990de5f9b2b61a236965cc6c6c1c340b5729",
+  "document_count": 1058,
   "documents": [
     {
       "category": "general",
@@ -7999,6 +7999,19 @@
       "size_bytes": 639,
       "statuses": [],
       "title": "Boundary Enforcement Policy"
+    },
+    {
+      "category": "architecture",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/architecture/db_live_only_table_ownership.yml",
+      "sha256": "386248562a90a818fbed3135a08c80954771dab54a82ed5b7f05b88236648994",
+      "size_bytes": 1566,
+      "statuses": [],
+      "title": "Db Live Only Table Ownership"
     },
     {
       "category": "architecture",
@@ -34242,6 +34255,11 @@
           "level": 2,
           "line": 1570,
           "text": "DB-REPEATABILITY-001R / Backend implementation 3071-3110 \u2014 repeatable Supabase migration and IRT seed generation"
+        },
+        {
+          "level": 2,
+          "line": 1582,
+          "text": "DB-OWNERSHIP-001R / Backend implementation 3111-3150 \u2014 live-only POPIA/DSR table ownership"
         }
       ],
       "links": [
@@ -34267,8 +34285,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "f5f0c2e8bc988dee20d15f5a30abb44cf2efa62a2e74a9cfebf432a6f88cd1a4",
-      "size_bytes": 49065,
+      "sha256": "3d8c818d48be4e422ab293cf4006b2260ee13abd147d71104d4fdc63bc2c4aa7",
+      "size_bytes": 49404,
       "statuses": [
         "todo",
         "passed",
@@ -41169,8 +41187,55 @@
       "generated": false,
       "headings": [],
       "links": [],
+      "path": "docs/release/db_live_only_table_ownership_status.json",
+      "sha256": "9dcb2fa27283246623e9ccae1eb4563b85f75f5c4227898daa63239e57e4d9c1",
+      "size_bytes": 2689,
+      "statuses": [],
+      "title": "Db Live Only Table Ownership Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "DB Live-Only Table Ownership Status"
+        },
+        {
+          "level": 2,
+          "line": 10,
+          "text": "Records"
+        },
+        {
+          "level": 2,
+          "line": 20,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 24,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/db_live_only_table_ownership_status.md",
+      "sha256": "ddb480f4d20809ffbdf0e9e50781dd9f0cb7829db485f6fc95f03e902338c186",
+      "size_bytes": 1468,
+      "statuses": [],
+      "title": "DB Live-Only Table Ownership Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [],
       "path": "docs/release/db_migration_seed_repeatability_status.json",
-      "sha256": "9f059476cad3f0cbc37291fa673141eb1a452895e99dc22536a6448c3f5a0117",
+      "sha256": "5ea3f2478390d8e583811cb3be3f99681a7f291c87aa7805b9aa95984c135d7f",
       "size_bytes": 1271,
       "statuses": [],
       "title": "Db Migration Seed Repeatability Status"
@@ -41224,7 +41289,7 @@
       ],
       "links": [],
       "path": "docs/release/db_migration_seed_repeatability_status.md",
-      "sha256": "9cb71f9b84f4697b9ac5a159bdef38effb848df05dbe78146411420d1efde162",
+      "sha256": "6c30b531acbdf45600d3edd0055136799cacc8463177e61da2a19d5dc7a9445b",
       "size_bytes": 2082,
       "statuses": [],
       "title": "DB Migration + Seed Repeatability Status"
@@ -42056,7 +42121,8 @@
         "docs/release/ci_auth_refresh_db_proof_workflow_status.md",
         "docs/release/staging_smoke_workflow_status.md",
         "docs/release/audit_baseline_refresh_status.md",
-        "docs/release/db_migration_seed_repeatability_status.md"
+        "docs/release/db_migration_seed_repeatability_status.md",
+        "docs/release/db_live_only_table_ownership_status.md"
       ],
       "generated": false,
       "headings": [
@@ -42194,8 +42260,8 @@
         }
       ],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "6fe5e907cfe88eb97fc266905edc07791389fe721c0523d9fce1cefd62eb3ce4",
-      "size_bytes": 30832,
+      "sha256": "b51c86791126ab7cde0c15e48e034b887c2a0e6aec1356e67148ddf487d02a8c",
+      "size_bytes": 31447,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -42400,7 +42466,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "e90f7a6a506b74360f1f8430d1299ad78fa9a12bac1a49b1f7fb3ad5dda8438b",
+      "sha256": "6f0dc1c737f8d418967b76d2453fd90761353ad98592341cedf33c2114cc106d",
       "size_bytes": 6286,
       "statuses": [
         "external-blocked",
@@ -42461,7 +42527,7 @@
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "b89cf3b642402736031812d249ec1b9890f46f04268c6e019779916eea0fed44",
+      "sha256": "cd5b24a4aad48bb1bacad400fe9c95830f833e64b96cb52c6c8037a78a6f8359",
       "size_bytes": 3734,
       "statuses": [
         "external-blocked",
@@ -44940,6 +45006,35 @@
         {
           "level": 1,
           "line": 1,
+          "text": "Next Execution Queue After DB-OWNERSHIP-001R / code_3111_3150"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next backend/database batches"
+        },
+        {
+          "level": 2,
+          "line": 11,
+          "text": "Discipline"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_3111_3150.md",
+      "sha256": "c2672cb3d77e031d573446db6aa1446d9c6b7d7d4bef25feef16c825e368ef90",
+      "size_bytes": 798,
+      "statuses": [],
+      "title": "Next Execution Queue After DB-OWNERSHIP-001R / code_3111_3150"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "Next Execution Queue After code_831_870"
         },
         {
@@ -46871,6 +46966,35 @@
       "size_bytes": 830,
       "statuses": [],
       "title": "No False-Closure Status After DB-REPEATABILITY-001R / code_3071_3110"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After DB-OWNERSHIP-001R / code_3111_3150"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 17,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_3111_3150.md",
+      "sha256": "bb986d24885df4a0a1142060b65f76fbe86ef8bf886ad5a438d42dbd8079090e",
+      "size_bytes": 745,
+      "statuses": [],
+      "title": "No False-Closure Status After DB-OWNERSHIP-001R / code_3111_3150"
     },
     {
       "category": "release",
@@ -55260,8 +55384,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 1053,
-  "generated_at": "2026-05-22T00:41:17Z",
+  "files_scanned": 1058,
+  "generated_at": "2026-05-22T01:08:17Z",
   "generated_count": 4,
   "missing_important_docs": []
 }

@@ -788,3 +788,19 @@ findings:
     release_ready: true
     blocks_beta: false
     external_dependency: false
+  - id: DB-OWNERSHIP-001R
+    title: Live-only POPIA/DSR table ownership classification
+    severity: P1
+    gate: 2
+    owner: backend
+    implementation_batch: code_3111_3150
+    proof_status: policy-accepted
+    proof_command: make backend-implementation-3111-3150-full-check
+    evidence_file: docs/release/db_live_only_table_ownership_status.md
+    policy_file: docs/architecture/db_live_only_table_ownership.yml
+    accepted_records: 5/5
+    last_verified_commit: dffd990de5f9b2b61a236965cc6c6c1c340b5729
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
+    external_dependency: false

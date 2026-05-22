@@ -1,9 +1,9 @@
 # Documentation Inventory
 
-Generated at: `2026-05-22T00:41:17Z`
-Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
+Generated at: `2026-05-22T01:08:17Z`
+Commit: `dffd990de5f9b2b61a236965cc6c6c1c340b5729`
 
-- Documents: `1053`
+- Documents: `1058`
 - Generated docs: `4`
 
 ## Categories
@@ -12,9 +12,9 @@ Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
 |---|---:|
 | `adr` | 25 |
 | `api` | 6 |
-| `architecture` | 37 |
+| `architecture` | 38 |
 | `general` | 483 |
-| `release` | 404 |
+| `release` | 408 |
 | `security` | 98 |
 
 ## Documents
@@ -131,6 +131,7 @@ Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
 | `docs/architecture/auth_service_ownership_report.md` | `architecture` | Auth Service Ownership Report | 542 | False |
 | `docs/architecture/boundary_debt_queue.md` | `architecture` | Boundary Debt Queue | 688 | False |
 | `docs/architecture/boundary_enforcement_policy.md` | `architecture` | Boundary Enforcement Policy | 639 | False |
+| `docs/architecture/db_live_only_table_ownership.yml` | `architecture` | Db Live Only Table Ownership | 1566 | False |
 | `docs/architecture/import_boundaries.md` | `architecture` | Import Boundaries | 2362 | False |
 | `docs/architecture/import_linter_availability.md` | `architecture` | Import-Linter Availability | 227 | False |
 | `docs/architecture/import_linter_contract_run.md` | `architecture` | Import-Linter Contract Run | 499 | False |
@@ -514,7 +515,7 @@ Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
 | `docs/reference/modules.md` | `general` | Learning Engines | 436 | False |
 | `docs/reference/repositories.md` | `general` | Repositories | 488 | False |
 | `docs/reference/services.md` | `general` | Services | 807 | False |
-| `docs/release/EVIDENCE_INDEX.md` | `release` | EduBoost V2 Release Evidence Index | 49065 | False |
+| `docs/release/EVIDENCE_INDEX.md` | `release` | EduBoost V2 Release Evidence Index | 49404 | False |
 | `docs/release/EduBoost_V2_Comparative_Audit_Report.md` | `release` | EduBoost SA V2 — Comparative Technical Audit Report | 18013 | False |
 | `docs/release/EduBoost_V2_Final_Technical_Assessment.md` | `release` | EduBoost V2 Final Technical Assessment | 2216 | False |
 | `docs/release/EduBoost_V2_North_Star_TODO.md` | `release` | EduBoost V2 North-Star TODO | 2540 | False |
@@ -656,6 +657,8 @@ Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
 | `docs/release/consent_runtime_repair_slice_002.md` | `release` | Consent Runtime Repair Slice 002 | 440 | False |
 | `docs/release/consent_service_compatibility_contract.md` | `release` | Consent Service Compatibility Contract | 1416 | False |
 | `docs/release/content_readiness_status.md` | `release` | Content Readiness Status | 90 | False |
+| `docs/release/db_live_only_table_ownership_status.json` | `release` | Db Live Only Table Ownership Status | 2689 | False |
+| `docs/release/db_live_only_table_ownership_status.md` | `release` | DB Live-Only Table Ownership Status | 1468 | False |
 | `docs/release/db_migration_seed_repeatability_status.json` | `release` | Db Migration Seed Repeatability Status | 1271 | False |
 | `docs/release/db_migration_seed_repeatability_status.md` | `release` | DB Migration + Seed Repeatability Status | 2082 | False |
 | `docs/release/deep_readiness_implementation_blueprint.md` | `release` | Deep Readiness Implementation Blueprint | 665 | False |
@@ -683,7 +686,7 @@ Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
 | `docs/release/docker_hardening_status.md` | `release` | Docker Hardening Status | 122 | False |
 | `docs/release/evidence_attachment_runbook.md` | `release` | Evidence Attachment Runbook | 5177 | False |
 | `docs/release/evidence_attachment_runbook_manifest.json` | `release` | Evidence Attachment Runbook Manifest | 4984 | False |
-| `docs/release/evidence_status_registry.yml` | `release` | EduBoost V2 Evidence Status Registry | 30832 | False |
+| `docs/release/evidence_status_registry.yml` | `release` | EduBoost V2 Evidence Status Registry | 31447 | False |
 | `docs/release/external_approval_status.json` | `release` | External Approval Status | 3030 | False |
 | `docs/release/external_approval_status.md` | `release` | External Approval Status | 1584 | False |
 | `docs/release/external_approvals/content_approval.md` | `release` | Educator/content release approval | 522 | False |
@@ -772,6 +775,7 @@ Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
 | `docs/release/next_execution_queue_after_2951_2990.md` | `release` | Next Execution Queue After DIAG-001R / code_2951_2990 | 984 | False |
 | `docs/release/next_execution_queue_after_2991_3030.md` | `release` | Next Execution Queue After AUDIT-BASELINE-REFRESH / code_2991_3030 | 871 | False |
 | `docs/release/next_execution_queue_after_3071_3110.md` | `release` | Next Execution Queue After DB-REPEATABILITY-001R / code_3071_3110 | 932 | False |
+| `docs/release/next_execution_queue_after_3111_3150.md` | `release` | Next Execution Queue After DB-OWNERSHIP-001R / code_3111_3150 | 798 | False |
 | `docs/release/next_execution_queue_after_831_870.md` | `release` | Next Execution Queue After code_831_870 | 434 | False |
 | `docs/release/next_execution_queue_after_871_910.md` | `release` | Next Execution Queue After code_871_910 | 622 | False |
 | `docs/release/next_execution_queue_after_911_950.md` | `release` | Next Execution Queue After code_911_950 | 610 | False |
@@ -836,6 +840,7 @@ Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
 | `docs/release/no_false_closure_status_after_2951_2990.md` | `release` | No False-Closure Status After DIAG-001R / code_2951_2990 | 689 | False |
 | `docs/release/no_false_closure_status_after_2991_3030.md` | `release` | No False-Closure Status After AUDIT-BASELINE-REFRESH / code_2991_3030 | 713 | False |
 | `docs/release/no_false_closure_status_after_3071_3110.md` | `release` | No False-Closure Status After DB-REPEATABILITY-001R / code_3071_3110 | 830 | False |
+| `docs/release/no_false_closure_status_after_3111_3150.md` | `release` | No False-Closure Status After DB-OWNERSHIP-001R / code_3111_3150 | 745 | False |
 | `docs/release/no_false_closure_status_after_831_870.md` | `release` | No False-Closure Status After code_831_870 | 509 | False |
 | `docs/release/no_false_closure_status_after_871_910.md` | `release` | No False-Closure Status After code_871_910 | 645 | False |
 | `docs/release/no_false_closure_status_after_911_950.md` | `release` | No False-Closure Status After code_911_950 | 673 | False |

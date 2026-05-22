@@ -1579,3 +1579,15 @@ make db-migration-seed-repeatability-test
 make backend-implementation-3071-3110-full-check
 ```
 
+## DB-OWNERSHIP-001R / Backend implementation 3111-3150 — live-only POPIA/DSR table ownership
+
+Commands:
+
+```bash
+make db-live-only-table-ownership-status
+make db-live-only-table-ownership-registry-patch
+make db-live-only-table-ownership-check
+make db-live-only-table-ownership-test
+make backend-implementation-3111-3150-full-check
+```
+

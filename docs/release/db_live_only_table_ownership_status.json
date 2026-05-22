@@ -1,0 +1,78 @@
+{
+  "generated_at": "2026-05-22T01:08:06Z",
+  "current_commit": "dffd990de5f9b2b61a236965cc6c6c1c340b5729",
+  "status": "db-live-only-table-ownership-accepted",
+  "policy_path": "docs/architecture/db_live_only_table_ownership.yml",
+  "expected_tables": [
+    "consent_records",
+    "data_export_requests",
+    "erasure_requests",
+    "correction_requests",
+    "restriction_requests"
+  ],
+  "records": [
+    {
+      "table": "consent_records",
+      "domain": "popia-consent",
+      "ownership": "sql-owned",
+      "reason": "Present in live Supabase as a POPIA/DSR persistence surface but not declared in current ORM metadata.",
+      "orm_model_required": false,
+      "migration_action": "document-and-monitor",
+      "beta_blocking": false,
+      "orm_model_detected": false,
+      "accepted": true,
+      "blockers": []
+    },
+    {
+      "table": "data_export_requests",
+      "domain": "data-subject-rights",
+      "ownership": "sql-owned",
+      "reason": "Present in live Supabase as a POPIA/DSR data export request surface but not declared in current ORM metadata.",
+      "orm_model_required": false,
+      "migration_action": "document-and-monitor",
+      "beta_blocking": false,
+      "orm_model_detected": false,
+      "accepted": true,
+      "blockers": []
+    },
+    {
+      "table": "erasure_requests",
+      "domain": "data-subject-rights",
+      "ownership": "sql-owned",
+      "reason": "Present in live Supabase as a POPIA/DSR erasure request surface but not declared in current ORM metadata.",
+      "orm_model_required": false,
+      "migration_action": "document-and-monitor",
+      "beta_blocking": false,
+      "orm_model_detected": false,
+      "accepted": true,
+      "blockers": []
+    },
+    {
+      "table": "correction_requests",
+      "domain": "data-subject-rights",
+      "ownership": "sql-owned",
+      "reason": "Present in live Supabase as a POPIA/DSR correction request surface but not declared in current ORM metadata.",
+      "orm_model_required": false,
+      "migration_action": "document-and-monitor",
+      "beta_blocking": false,
+      "orm_model_detected": false,
+      "accepted": true,
+      "blockers": []
+    },
+    {
+      "table": "restriction_requests",
+      "domain": "data-subject-rights",
+      "ownership": "sql-owned",
+      "reason": "Present in live Supabase as a POPIA/DSR processing restriction request surface but not declared in current ORM metadata.",
+      "orm_model_required": false,
+      "migration_action": "document-and-monitor",
+      "beta_blocking": false,
+      "orm_model_detected": false,
+      "accepted": true,
+      "blockers": []
+    }
+  ],
+  "accepted_count": 5,
+  "required_count": 5,
+  "blockers": []
+}

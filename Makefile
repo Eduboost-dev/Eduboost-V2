@@ -2610,3 +2610,21 @@ backend-implementation-3071-3110-full-check: db-migration-seed-repeatability-sta
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/db_migration_seed_repeatability.py scripts/patch_db_migration_seed_repeatability_registry.py scripts/check_db_migration_seed_repeatability.py tests/unit/test_db_migration_seed_repeatability.py --select F821,F401,F811,E402
 
+.PHONY: db-live-only-table-ownership-status db-live-only-table-ownership-registry-patch db-live-only-table-ownership-check db-live-only-table-ownership-test backend-implementation-3111-3150-full-check
+
+db-live-only-table-ownership-status:
+	PYTHONPATH=. python3 -c "from scripts.db_live_only_table_ownership import write_status; s = write_status(); print(s.status); print(f'{s.accepted_count}/{s.required_count}')"
+
+db-live-only-table-ownership-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_db_live_only_table_ownership_registry.py
+
+db-live-only-table-ownership-check:
+	PYTHONPATH=. python3 scripts/check_db_live_only_table_ownership.py
+
+db-live-only-table-ownership-test:
+	pytest -c pytest.ini tests/unit/test_db_live_only_table_ownership.py -q --no-cov --tb=short
+
+backend-implementation-3111-3150-full-check: db-live-only-table-ownership-status db-live-only-table-ownership-registry-patch db-live-only-table-ownership-check db-live-only-table-ownership-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/db_live_only_table_ownership.py scripts/patch_db_live_only_table_ownership_registry.py scripts/check_db_live_only_table_ownership.py tests/unit/test_db_live_only_table_ownership.py --select F821,F401,F811,E402
+
