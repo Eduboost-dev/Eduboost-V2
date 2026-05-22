@@ -22,6 +22,8 @@ help:
 	@echo "  runtime-check   - Verify FastAPI runtime entrypoints"
 	@echo "  verify-repo-state - Verify repository provenance and release branch expectations"
 	@echo "  recommended-operating-model-check - Verify operating-model contract wording"
+	@echo "  project-assistance-status - Refresh the five-lane project assistance report"
+	@echo "  project-assistance-status-check - Verify the five-lane project assistance report"
 	@echo "  pr002r-check   - Verify PR-002R evidence bundle"
 	@echo "  beta-release-readiness-contract-check - Verify release-readiness docs contract wording"
 	@echo "  release-candidate-evidence-sweep-check - Verify release-candidate evidence sweep"
@@ -70,6 +72,13 @@ verify-repo-state:
 
 recommended-operating-model-check:
 	$(PYTHON) scripts/check_recommended_operating_model.py
+
+.PHONY: project-assistance-status project-assistance-status-check
+project-assistance-status:
+	$(PYTHON) scripts/project_assistance_status.py
+
+project-assistance-status-check:
+	$(PYTHON) scripts/project_assistance_status.py --check
 
 pr002r-check:
 	$(PYTHON) scripts/check_pr002r_evidence.py

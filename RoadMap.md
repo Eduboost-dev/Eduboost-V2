@@ -1,6 +1,6 @@
 # Frontend-Backend Recovery Roadmap
 
-Updated: 2026-05-05
+Updated: 2026-05-22
 Source: user-reported frontend failures plus screenshots from the learner flow
 
 Status legend:
@@ -128,6 +128,9 @@ The screenshots and current code suggest these areas deserve first attention:
 
 This roadmap is complete when:
 
+- the project assistance report stays current through `make project-assistance-status-check`
+- the recommended operating model stays current through `make recommended-operating-model-check`
+
 - dashboard data loads without the current error banner
 - study plans load real learner data
 - badges load real progress and earned badge data
@@ -160,3 +163,6 @@ This roadmap is complete when:
   learner screens.
 - Published the pre-release frontend-backend validation checklist at
   `docs/release/frontend_backend_validation.md`.
+- Added the Recommended Operating Model and five-lane Project Assistance Status
+  docs so recovery, release evidence, and staging-readiness work can be planned
+  through checkable Make targets instead of loose notes.
