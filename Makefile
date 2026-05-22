@@ -2628,3 +2628,21 @@ backend-implementation-3111-3150-full-check: db-live-only-table-ownership-status
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/db_live_only_table_ownership.py scripts/patch_db_live_only_table_ownership_registry.py scripts/check_db_live_only_table_ownership.py tests/unit/test_db_live_only_table_ownership.py --select F821,F401,F811,E402
 
+.PHONY: diagnostic-item-bank-canonicality-status diagnostic-item-bank-canonicality-registry-patch diagnostic-item-bank-canonicality-check diagnostic-item-bank-canonicality-test backend-implementation-3151-3190-full-check
+
+diagnostic-item-bank-canonicality-status:
+	PYTHONPATH=. python3 -c "from scripts.diagnostic_item_bank_canonicality import write_status; s = write_status(); print(s.status)"
+
+diagnostic-item-bank-canonicality-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_diagnostic_item_bank_canonicality_registry.py
+
+diagnostic-item-bank-canonicality-check:
+	PYTHONPATH=. python3 scripts/check_diagnostic_item_bank_canonicality.py
+
+diagnostic-item-bank-canonicality-test:
+	pytest -c pytest.ini tests/unit/test_diagnostic_item_bank_canonicality.py -q --no-cov --tb=short
+
+backend-implementation-3151-3190-full-check: diagnostic-item-bank-canonicality-status diagnostic-item-bank-canonicality-registry-patch diagnostic-item-bank-canonicality-check diagnostic-item-bank-canonicality-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/diagnostic_item_bank_canonicality.py scripts/patch_diagnostic_item_bank_canonicality_registry.py scripts/check_diagnostic_item_bank_canonicality.py tests/unit/test_diagnostic_item_bank_canonicality.py --select F821,F401,F811,E402
+

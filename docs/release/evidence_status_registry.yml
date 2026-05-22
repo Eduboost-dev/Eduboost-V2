@@ -267,19 +267,21 @@ findings:
     external_dependency: false
 
   - id: DIAG-SCORE-001
-    title: Diagnostics historical response scoring snapshot repair
-    severity: P1
-    gate: 3
+    title: Diagnostic scoring live DB and item-bank audit
+    severity: P0
+    gate: 5
     owner: backend
-    implementation_batch: code_1631_1670
-    proof_status: integration-passing
-    proof_command: make backend-implementation-1631-1670-full-check
-    evidence_file: docs/release/diagnostics_scoring_snapshot_repair_report.md
-    last_verified_commit: 1ec9acd
-    closure_blocker: live DB and full scoring audit still pending
+    implementation_batch: pending
+    proof_status: not-proven
+    proof_command: pending DIAG-SCORE-001R live scoring audit
+    evidence_file: docs/release/diagnostic_item_bank_canonicality_status.md
+    canonical_table: diagnostic_items
+    supporting_table: irt_items
+    last_verified_commit: null
+    closure_blocker: diagnostic_items is runtime-required and must be seeded or runtime references removed before scoring audit can close
+    release_ready: false
     blocks_beta: true
-    external_dependency: false
-
+    external_dependency: true
   - id: DOCS-INTEL-001
     title: Documentation intelligence refresh
     severity: P2
@@ -799,7 +801,26 @@ findings:
     evidence_file: docs/release/db_live_only_table_ownership_status.md
     policy_file: docs/architecture/db_live_only_table_ownership.yml
     accepted_records: 5/5
-    last_verified_commit: dffd990de5f9b2b61a236965cc6c6c1c340b5729
+    last_verified_commit: 197640872a84b950721cf6c3f46350bc7c855240
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
+    external_dependency: false
+  - id: DIAG-ITEMS-001R
+    title: Diagnostic item-bank runtime-required policy
+    severity: P1
+    gate: 5
+    owner: backend
+    implementation_batch: code_3151_3190
+    proof_status: policy-accepted
+    proof_command: make backend-implementation-3151-3190-full-check
+    evidence_file: docs/release/diagnostic_item_bank_canonicality_status.md
+    policy_file: docs/architecture/diagnostic_item_bank_canonicality.yml
+    decision: diagnostic_items-runtime-required
+    canonical_table: diagnostic_items
+    supporting_table: irt_items
+    unresolved_blocker: DIAG-SCORE-001
+    last_verified_commit: 197640872a84b950721cf6c3f46350bc7c855240
     closure_blocker: none
     release_ready: true
     blocks_beta: false

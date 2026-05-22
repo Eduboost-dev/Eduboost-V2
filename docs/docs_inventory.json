@@ -2,13 +2,13 @@
   "categories": {
     "adr": 25,
     "api": 6,
-    "architecture": 38,
+    "architecture": 39,
     "general": 483,
-    "release": 408,
+    "release": 412,
     "security": 98
   },
-  "commit": "dffd990de5f9b2b61a236965cc6c6c1c340b5729",
-  "document_count": 1058,
+  "commit": "197640872a84b950721cf6c3f46350bc7c855240",
+  "document_count": 1063,
   "documents": [
     {
       "category": "general",
@@ -8012,6 +8012,19 @@
       "size_bytes": 1566,
       "statuses": [],
       "title": "Db Live Only Table Ownership"
+    },
+    {
+      "category": "architecture",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
+      "sha256": "1669f4ebda83cfb3924617ca9d8c90a9d983ff3b960efbf72754b3034154a2a0",
+      "size_bytes": 1289,
+      "statuses": [],
+      "title": "Diagnostic Item Bank Canonicality"
     },
     {
       "category": "architecture",
@@ -34260,6 +34273,11 @@
           "level": 2,
           "line": 1582,
           "text": "DB-OWNERSHIP-001R / Backend implementation 3111-3150 \u2014 live-only POPIA/DSR table ownership"
+        },
+        {
+          "level": 2,
+          "line": 1594,
+          "text": "DIAG-ITEMS-001R / Backend implementation 3151-3190 \u2014 diagnostic item-bank canonicality"
         }
       ],
       "links": [
@@ -34285,8 +34303,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "3d8c818d48be4e422ab293cf4006b2260ee13abd147d71104d4fdc63bc2c4aa7",
-      "size_bytes": 49404,
+      "sha256": "8389a38c360ad0a74cff9dd73b0c8d0a09cb59b09b511b26bd16e4e8872dd63d",
+      "size_bytes": 49759,
       "statuses": [
         "todo",
         "passed",
@@ -41188,7 +41206,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/db_live_only_table_ownership_status.json",
-      "sha256": "9dcb2fa27283246623e9ccae1eb4563b85f75f5c4227898daa63239e57e4d9c1",
+      "sha256": "234d95b099b07cdb79c2c60cff52726caca7d3100fd7c13d38e44c9d622e07a5",
       "size_bytes": 2689,
       "statuses": [],
       "title": "Db Live Only Table Ownership Status"
@@ -41222,7 +41240,7 @@
       ],
       "links": [],
       "path": "docs/release/db_live_only_table_ownership_status.md",
-      "sha256": "ddb480f4d20809ffbdf0e9e50781dd9f0cb7829db485f6fc95f03e902338c186",
+      "sha256": "32b7396b4ba10e6e0290adfee59b4e98603e1144f4f679396fcccaee8f8dd6b4",
       "size_bytes": 1468,
       "statuses": [],
       "title": "DB Live-Only Table Ownership Status"
@@ -41537,6 +41555,69 @@
         "passed"
       ],
       "title": "Diagnostic Deep Health Runtime Evidence Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [
+        "docs/release/EduBoost_V2_North_Star_TODO_2026-05-22.md",
+        "docs/release/backend_consolidation_diagnostic_report.md",
+        "docs/release/db_migration_seed_repeatability_status.md",
+        "docs/release/diagnostic_item_bank_canonicality_status.md",
+        "docs/release/evidence_status_registry.yml",
+        "docs/release/next_execution_queue_after_3071_3110.md",
+        "docs/release/next_execution_queue_after_3111_3150.md",
+        "docs/release/next_execution_queue_after_3151_3190.md",
+        "docs/release/no_false_closure_status_after_3071_3110.md",
+        "docs/release/no_false_closure_status_after_3151_3190.md"
+      ],
+      "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.json",
+      "sha256": "e04190bc1960dadf7995db40643eb7ec37b225241a4abcd98b1b3c35556ba555",
+      "size_bytes": 25922,
+      "statuses": [],
+      "title": "Diagnostic Item Bank Canonicality Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Diagnostic Item-Bank Policy Status"
+        },
+        {
+          "level": 2,
+          "line": 13,
+          "text": "Policy markers"
+        },
+        {
+          "level": 2,
+          "line": 26,
+          "text": "Runtime diagnostic_items references"
+        },
+        {
+          "level": 2,
+          "line": 36,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 40,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
+      "sha256": "9f65dbc3eeac1911f2ebcd4b31b57f2d325e436fa9444bb8002accf0fc53dd58",
+      "size_bytes": 1944,
+      "statuses": [],
+      "title": "Diagnostic Item-Bank Policy Status"
     },
     {
       "category": "release",
@@ -42093,7 +42174,7 @@
         "docs/release/no_false_closure_status_after_1471_1510.md",
         "docs/release/no_false_closure_status_after_1511_1550.md",
         "docs/release/no_false_closure_status_after_1551_1590.md",
-        "docs/release/diagnostics_scoring_snapshot_repair_report.md",
+        "docs/release/diagnostic_item_bank_canonicality_status.md",
         "docs/release/route_transaction_slice_rollup.md",
         "docs/release/staging_smoke_evidence_status.md",
         "docs/release/external_approval_status.md",
@@ -42260,8 +42341,8 @@
         }
       ],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "b51c86791126ab7cde0c15e48e034b887c2a0e6aec1356e67148ddf487d02a8c",
-      "size_bytes": 31447,
+      "sha256": "94853ec974e8faabe5344ecf3f83a25e90000f5676936942d55f5282f3b8e55f",
+      "size_bytes": 32324,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -42458,7 +42539,7 @@
         "docs/release/external_approvals/security_approval.md",
         "docs/release/external_approvals/content_approval.md",
         "docs/release/lesson_authorization_hardening_report.md",
-        "docs/release/diagnostics_scoring_snapshot_repair_report.md",
+        "docs/release/diagnostic_item_bank_canonicality_status.md",
         "docs/release/external_approval_status.md",
         "docs/release/auth_refresh_db_evidence_status.md"
       ],
@@ -42466,11 +42547,12 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "6f0dc1c737f8d418967b76d2453fd90761353ad98592341cedf33c2114cc106d",
-      "size_bytes": 6286,
+      "sha256": "b7a3ed2187d00257bb4bb9b0de76fce9525e80c47c8b9d63ece97a948440a537",
+      "size_bytes": 6409,
       "statuses": [
         "external-blocked",
-        "pending"
+        "pending",
+        "not-proven"
       ],
       "title": "Final Beta Gate Refresh"
     },
@@ -42484,7 +42566,7 @@
         "docs/release/external_approvals/security_approval.md",
         "docs/release/external_approvals/content_approval.md",
         "docs/release/lesson_authorization_hardening_report.md",
-        "docs/release/diagnostics_scoring_snapshot_repair_report.md",
+        "docs/release/diagnostic_item_bank_canonicality_status.md",
         "docs/release/external_approval_status.md"
       ],
       "generated": false,
@@ -42527,8 +42609,8 @@
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "cd5b24a4aad48bb1bacad400fe9c95830f833e64b96cb52c6c8037a78a6f8359",
-      "size_bytes": 3734,
+      "sha256": "175713752aaa1d25a3feb54a01e512df9477f67f709ff4b406c52f19252a2433",
+      "size_bytes": 3866,
       "statuses": [
         "external-blocked",
         "pending",
@@ -45035,6 +45117,35 @@
         {
           "level": 1,
           "line": 1,
+          "text": "Next Execution Queue After DIAG-ITEMS-001R / code_3151_3190"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next backend/database batches"
+        },
+        {
+          "level": 2,
+          "line": 11,
+          "text": "Discipline"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_3151_3190.md",
+      "sha256": "dc46981d5d4726f771e788a91b1553f7c6ee2e31555e15765fea825c864c6ce7",
+      "size_bytes": 793,
+      "statuses": [],
+      "title": "Next Execution Queue After DIAG-ITEMS-001R / code_3151_3190"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "Next Execution Queue After code_831_870"
         },
         {
@@ -46995,6 +47106,35 @@
       "size_bytes": 745,
       "statuses": [],
       "title": "No False-Closure Status After DB-OWNERSHIP-001R / code_3111_3150"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "No False-Closure Status After DIAG-ITEMS-001R / code_3151_3190"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven"
+        },
+        {
+          "level": 2,
+          "line": 13,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_3151_3190.md",
+      "sha256": "34fac94cfd01ea4180f8abc0c22d477b0ebd6d1fa0bb08c50febfc17599f737e",
+      "size_bytes": 666,
+      "statuses": [],
+      "title": "No False-Closure Status After DIAG-ITEMS-001R / code_3151_3190"
     },
     {
       "category": "release",
@@ -55384,8 +55524,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 1058,
-  "generated_at": "2026-05-22T01:08:17Z",
+  "files_scanned": 1063,
+  "generated_at": "2026-05-22T01:43:29Z",
   "generated_count": 4,
   "missing_important_docs": []
 }

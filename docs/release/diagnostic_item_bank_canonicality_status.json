@@ -1,0 +1,721 @@
+{
+  "generated_at": "2026-05-22T01:47:04Z",
+  "current_commit": "197640872a84b950721cf6c3f46350bc7c855240",
+  "status": "diagnostic-item-bank-policy-accepted",
+  "policy_path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
+  "decision": "diagnostic_items-runtime-required",
+  "canonical_table": "diagnostic_items",
+  "supporting_table": "irt_items",
+  "unresolved_blocker": "DIAG-SCORE-001",
+  "policy_markers_present": {
+    "decision: diagnostic_items-runtime-required": true,
+    "canonical_item_bank: diagnostic_items": true,
+    "supporting_item_bank: irt_items": true,
+    "classification: runtime-required": true,
+    "expected_min_rows: 1": true,
+    "beta_blocking_when_empty: true": true,
+    "migration_action: seed-required": true,
+    "unresolved_blocker: DIAG-SCORE-001": true
+  },
+  "diagnostic_items_references": [
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 2,
+      "line_excerpt": "P1-02 \u2014 Alembic migration 0009: diagnostic_items table",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 94,
+      "line_excerpt": "# 2. diagnostic_items \u2014 the canonical item bank table",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 97,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 277,
+      "line_excerpt": "# 3. Constraints on diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 282,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 287,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 292,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 297,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 302,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 307,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 312,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 317,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 323,
+      "line_excerpt": "# 4. Indexes on diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 328,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 333,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 339,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 345,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 351,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 358,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 374,
+      "line_excerpt": "op.drop_index(idx, table_name=\"diagnostic_items\")",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 387,
+      "line_excerpt": "op.drop_constraint(ck, \"diagnostic_items\")",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0100_diagnostic_items.py",
+      "line_number": 389,
+      "line_excerpt": "op.drop_table(\"diagnostic_items\")",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0200_item_exposures.py",
+      "line_number": 7,
+      "line_excerpt": "Depends on: 0009 (diagnostic_items table \u2014 must already exist).",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0200_item_exposures.py",
+      "line_number": 14,
+      "line_excerpt": "\u2022 Per-item exposure count (mirrors diagnostic_items.exposure_count for fast queries)",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0200_item_exposures.py",
+      "line_number": 52,
+      "line_excerpt": "comment=\"FK \u2192 diagnostic_items.item_id\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0200_item_exposures.py",
+      "line_number": 103,
+      "line_excerpt": "[\"diagnostic_items.item_id\"],",
+      "runtime_surface": false
+    },
+    {
+      "path": "alembic/versions/20260509_0200_item_exposures.py",
+      "line_number": 138,
+      "line_excerpt": "# Per-item usage stats (used when updating diagnostic_items.exposure_count)",
+      "runtime_surface": false
+    },
+    {
+      "path": "app/models/diagnostic_item.py",
+      "line_number": 108,
+      "line_excerpt": "ORM representation of the diagnostic_items table.",
+      "runtime_surface": true
+    },
+    {
+      "path": "app/models/diagnostic_item.py",
+      "line_number": 114,
+      "line_excerpt": "__tablename__ = \"diagnostic_items\"",
+      "runtime_surface": true
+    },
+    {
+      "path": "app/models/item_exposure.py",
+      "line_number": 54,
+      "line_excerpt": "ForeignKey(\"diagnostic_items.item_id\", ondelete=\"RESTRICT\"),",
+      "runtime_surface": true
+    },
+    {
+      "path": "app/services/curriculum/coverage.py",
+      "line_number": 24,
+      "line_excerpt": "def detect_gaps(self, *, lessons: Iterable[Mapping[str, Any]], diagnostic_items: Iterable[Mapping[str, Any]]) -> list[CurriculumGap]:",
+      "runtime_surface": true
+    },
+    {
+      "path": "app/services/curriculum/coverage.py",
+      "line_number": 27,
+      "line_excerpt": "item_refs = {row.get(\"caps_reference\") for row in diagnostic_items if row.get(\"caps_reference\")}",
+      "runtime_surface": true
+    },
+    {
+      "path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
+      "line_number": 3,
+      "line_excerpt": "decision: diagnostic_items-runtime-required",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
+      "line_number": 4,
+      "line_excerpt": "canonical_item_bank: diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
+      "line_number": 7,
+      "line_excerpt": "diagnostic_items:",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
+      "line_number": 28,
+      "line_excerpt": "- Live Supabase contains diagnostic_items but currently has 0 rows.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
+      "line_number": 29,
+      "line_excerpt": "- Runtime code references diagnostic_items through ORM/table declarations and foreign-key relationships.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
+      "line_number": 30,
+      "line_excerpt": "- Therefore empty diagnostic_items cannot be accepted as beta-ready merely by documenting irt_items as canonical.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
+      "line_number": 32,
+      "line_excerpt": "- DIAG-SCORE-001 remains open until diagnostic_items is seeded or runtime references are removed and full scoring evidence passes.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/caps/grade4_maths_coverage_matrix.md",
+      "line_number": 213,
+      "line_excerpt": "The script queries `diagnostic_items` and `item_exposures` live and replaces",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/EduBoost_V2_North_Star_TODO_2026-05-22.md",
+      "line_number": 15,
+      "line_excerpt": "- No ORM-declared runtime table is currently missing from live Supabase. The live database includes the runtime tables expected by the application metadata, including `audit_events`, `audit_logs`, `calibration_audits`, `diagnostic_items`, `",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/EduBoost_V2_North_Star_TODO_2026-05-22.md",
+      "line_number": 19,
+      "line_excerpt": "- `diagnostic_items` exists but has 0 rows. This may be acceptable if diagnostics are fully backed by `irt_items`; otherwise it is a functional data gap.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/EduBoost_V2_North_Star_TODO_2026-05-22.md",
+      "line_number": 57,
+      "line_excerpt": "- [ ] Decide whether `diagnostic_items` should be populated. If yes, seed it and add verification counts. If no, document that `irt_items` is canonical and update health/evidence expectations accordingly.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/EduBoost_V2_North_Star_TODO_2026-05-22.md",
+      "line_number": 117,
+      "line_excerpt": "3. Resolve `diagnostic_items` row-count ambiguity.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/backend_consolidation_diagnostic_report.md",
+      "line_number": 183,
+      "line_excerpt": "- diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/db_migration_seed_repeatability_status.md",
+      "line_number": 29,
+      "line_excerpt": "| `diagnostic_items` | True |",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/db_migration_seed_repeatability_status.md",
+      "line_number": 66,
+      "line_excerpt": "- It does not decide whether `diagnostic_items` should be populated.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
+      "line_number": 8,
+      "line_excerpt": "**Decision:** `diagnostic_items-runtime-required`",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
+      "line_number": 9,
+      "line_excerpt": "**Canonical table:** `diagnostic_items`",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
+      "line_number": 17,
+      "line_excerpt": "| `decision: diagnostic_items-runtime-required` | True |",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
+      "line_number": 18,
+      "line_excerpt": "| `canonical_item_bank: diagnostic_items` | True |",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
+      "line_number": 26,
+      "line_excerpt": "## Runtime diagnostic_items references",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
+      "line_number": 30,
+      "line_excerpt": "| `app/models/diagnostic_item.py` | 108 | `ORM representation of the diagnostic_items table.` |",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
+      "line_number": 31,
+      "line_excerpt": "| `app/models/diagnostic_item.py` | 114 | `__tablename__ = \"diagnostic_items\"` |",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
+      "line_number": 32,
+      "line_excerpt": "| `app/models/item_exposure.py` | 54 | `ForeignKey(\"diagnostic_items.item_id\", ondelete=\"RESTRICT\"),` |",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
+      "line_number": 33,
+      "line_excerpt": "| `app/services/curriculum/coverage.py` | 24 | `def detect_gaps(self, *, lessons: Iterable[Mapping[str, Any]], diagnostic_items: Iterable[Mapping[str, Any]]) -> list[CurriculumGap]:` |",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
+      "line_number": 34,
+      "line_excerpt": "| `app/services/curriculum/coverage.py` | 27 | `item_refs = {row.get(\"caps_reference\") for row in diagnostic_items if row.get(\"caps_reference\")}` |",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
+      "line_number": 43,
+      "line_excerpt": "- Empty `diagnostic_items` remains beta-blocking under DIAG-SCORE-001.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
+      "line_number": 44,
+      "line_excerpt": "- This policy does not seed `diagnostic_items`.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/evidence_status_registry.yml",
+      "line_number": 278,
+      "line_excerpt": "canonical_table: diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/evidence_status_registry.yml",
+      "line_number": 281,
+      "line_excerpt": "closure_blocker: diagnostic_items is runtime-required and must be seeded or runtime references removed before scoring audit can close",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/evidence_status_registry.yml",
+      "line_number": 819,
+      "line_excerpt": "decision: diagnostic_items-runtime-required",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/evidence_status_registry.yml",
+      "line_number": 820,
+      "line_excerpt": "canonical_table: diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/final_beta_gate_refresh.md",
+      "line_number": 35,
+      "line_excerpt": "| `DIAG-SCORE-001` | `not-proven` | True | `docs/release/diagnostic_item_bank_canonicality_status.md` | False | True | diagnostic_items is runtime-required and must be seeded or runtime references removed before scoring audit can close |",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/final_beta_gate_refresh.md",
+      "line_number": 53,
+      "line_excerpt": "- Resolve DIAG-SCORE-001: diagnostic_items is runtime-required and must be seeded or runtime references removed before scoring audit can close.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/next_execution_queue_after_3071_3110.md",
+      "line_number": 6,
+      "line_excerpt": "2. `DIAG-ITEMS-001R / code_3111_3150` \u2014 decide whether `diagnostic_items` should be populated or formally document `irt_items` as canonical.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/next_execution_queue_after_3111_3150.md",
+      "line_number": 5,
+      "line_excerpt": "1. `DIAG-ITEMS-001R / code_3151_3190` \u2014 decide whether `diagnostic_items` should be populated or formally document `irt_items` as canonical.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/next_execution_queue_after_3151_3190.md",
+      "line_number": 5,
+      "line_excerpt": "1. `DIAG-SCORE-001R / code_3191_3230` \u2014 seed or bridge `diagnostic_items`, then run live DB diagnostic scoring audit.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/next_execution_queue_after_3151_3190.md",
+      "line_number": 13,
+      "line_excerpt": "This batch resolves policy only. Since runtime references exist, `diagnostic_items` must be seeded or the references must be removed before scoring can close.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/no_false_closure_status_after_3071_3110.md",
+      "line_number": 15,
+      "line_excerpt": "- `diagnostic_items` row-count policy is resolved.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/no_false_closure_status_after_3151_3190.md",
+      "line_number": 7,
+      "line_excerpt": "- Runtime code references `diagnostic_items`.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/no_false_closure_status_after_3151_3190.md",
+      "line_number": 8,
+      "line_excerpt": "- `diagnostic_items` cannot be treated as safely empty for beta.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/no_false_closure_status_after_3151_3190.md",
+      "line_number": 9,
+      "line_excerpt": "- `diagnostic_items` is classified as runtime-required/migration-required.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/no_false_closure_status_after_3151_3190.md",
+      "line_number": 15,
+      "line_excerpt": "- `diagnostic_items` was seeded.",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/check_diagnostic_item_bank_canonicality.py",
+      "line_number": 45,
+      "line_excerpt": "print(f\"- INFO runtime diagnostic_items refs: {len(status.runtime_diagnostic_items_references)}\")",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/db_migration_seed_repeatability.py",
+      "line_number": 29,
+      "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/db_migration_seed_repeatability.py",
+      "line_number": 309,
+      "line_excerpt": "\"- It does not decide whether `diagnostic_items` should be populated.\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_item_bank_canonicality.py",
+      "line_number": 16,
+      "line_excerpt": "CANONICAL_TABLE = \"diagnostic_items\"",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_item_bank_canonicality.py",
+      "line_number": 21,
+      "line_excerpt": "\"decision: diagnostic_items-runtime-required\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_item_bank_canonicality.py",
+      "line_number": 22,
+      "line_excerpt": "\"canonical_item_bank: diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_item_bank_canonicality.py",
+      "line_number": 142,
+      "line_excerpt": "blockers.append(\"no diagnostic_items references found; runtime-required policy is unsupported\")",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_item_bank_canonicality.py",
+      "line_number": 146,
+      "line_excerpt": "\"no runtime diagnostic_items references found; policy should be reconsidered before marking runtime-required\"",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_item_bank_canonicality.py",
+      "line_number": 160,
+      "line_excerpt": "decision=\"diagnostic_items-runtime-required\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_item_bank_canonicality.py",
+      "line_number": 201,
+      "line_excerpt": "\"## Runtime diagnostic_items references\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_item_bank_canonicality.py",
+      "line_number": 228,
+      "line_excerpt": "\"- Empty `diagnostic_items` remains beta-blocking under DIAG-SCORE-001.\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_item_bank_canonicality.py",
+      "line_number": 229,
+      "line_excerpt": "\"- This policy does not seed `diagnostic_items`.\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/generate_coverage_matrix.py",
+      "line_number": 59,
+      "line_excerpt": "FROM   diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/generate_coverage_matrix.py",
+      "line_number": 81,
+      "line_excerpt": "FROM   diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/generate_coverage_matrix.py",
+      "line_number": 98,
+      "line_excerpt": "FROM diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/generate_coverage_matrix.py",
+      "line_number": 119,
+      "line_excerpt": "FROM diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/generate_coverage_matrix.py",
+      "line_number": 134,
+      "line_excerpt": "FROM   diagnostic_items di",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/generate_coverage_matrix.py",
+      "line_number": 149,
+      "line_excerpt": "FROM diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/generate_coverage_matrix.py",
+      "line_number": 167,
+      "line_excerpt": "FROM   diagnostic_items,",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/patch_diagnostic_item_bank_canonicality_registry.py",
+      "line_number": 44,
+      "line_excerpt": "closure_blocker: diagnostic_items is runtime-required and must be seeded or runtime references removed before scoring audit can close",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/seed_item_bank.py",
+      "line_number": 8,
+      "line_excerpt": "diagnostic_items table via SQLAlchemy, and prints a coverage summary.",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/seed_item_bank.py",
+      "line_number": 135,
+      "line_excerpt": "Upserts items into the diagnostic_items table.",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/seed_item_bank.py",
+      "line_number": 167,
+      "line_excerpt": "logger.info(\"Upserted %d items into diagnostic_items.\", count)",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/ci/test_item_bank_ci_jobs.py",
+      "line_number": 325,
+      "line_excerpt": "\"Check DB indexes on diagnostic_items (caps_ref, review_status, exposure_count). \"",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/ci/test_item_bank_ci_jobs.py",
+      "line_number": 340,
+      "line_excerpt": "FROM   diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/ci/test_item_bank_coverage.py",
+      "line_number": 67,
+      "line_excerpt": "FROM   diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/ci/test_item_bank_coverage.py",
+      "line_number": 95,
+      "line_excerpt": "FROM  diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/ci/test_item_bank_coverage.py",
+      "line_number": 153,
+      "line_excerpt": "FROM   diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/ci/test_item_bank_coverage.py",
+      "line_number": 190,
+      "line_excerpt": "FROM diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/ci/test_item_bank_coverage.py",
+      "line_number": 228,
+      "line_excerpt": "FROM   diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/ci/test_item_bank_coverage.py",
+      "line_number": 251,
+      "line_excerpt": "FROM   diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/ci/test_item_bank_coverage.py",
+      "line_number": 273,
+      "line_excerpt": "FROM   diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/unit/modules/diagnostics/test_item_bank_models.py",
+      "line_number": 102,
+      "line_excerpt": "assert DiagnosticItem.__tablename__ == \"diagnostic_items\"",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/unit/test_curriculum_coverage.py",
+      "line_number": 12,
+      "line_excerpt": "diagnostic_items=[],",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/unit/test_diagnostic_item_bank_canonicality.py",
+      "line_number": 13,
+      "line_excerpt": "assert status.decision == \"diagnostic_items-runtime-required\"",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/unit/test_diagnostic_item_bank_canonicality.py",
+      "line_number": 14,
+      "line_excerpt": "assert CANONICAL_TABLE == \"diagnostic_items\"",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/unit/test_diagnostic_item_bank_canonicality.py",
+      "line_number": 33,
+      "line_excerpt": "assert status.policy_markers_present[\"decision: diagnostic_items-runtime-required\"]",
+      "runtime_surface": false
+    }
+  ],
+  "runtime_diagnostic_items_references": [
+    {
+      "path": "app/models/diagnostic_item.py",
+      "line_number": 108,
+      "line_excerpt": "ORM representation of the diagnostic_items table.",
+      "runtime_surface": true
+    },
+    {
+      "path": "app/models/diagnostic_item.py",
+      "line_number": 114,
+      "line_excerpt": "__tablename__ = \"diagnostic_items\"",
+      "runtime_surface": true
+    },
+    {
+      "path": "app/models/item_exposure.py",
+      "line_number": 54,
+      "line_excerpt": "ForeignKey(\"diagnostic_items.item_id\", ondelete=\"RESTRICT\"),",
+      "runtime_surface": true
+    },
+    {
+      "path": "app/services/curriculum/coverage.py",
+      "line_number": 24,
+      "line_excerpt": "def detect_gaps(self, *, lessons: Iterable[Mapping[str, Any]], diagnostic_items: Iterable[Mapping[str, Any]]) -> list[CurriculumGap]:",
+      "runtime_surface": true
+    },
+    {
+      "path": "app/services/curriculum/coverage.py",
+      "line_number": 27,
+      "line_excerpt": "item_refs = {row.get(\"caps_reference\") for row in diagnostic_items if row.get(\"caps_reference\")}",
+      "runtime_surface": true
+    }
+  ],
+  "blockers": []
+}

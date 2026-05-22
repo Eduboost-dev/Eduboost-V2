@@ -1,7 +1,7 @@
 # Final Beta Gate Refresh
 
-Generated at: `2026-05-22T01:08:07Z`
-Commit: `dffd990de5f9b2b61a236965cc6c6c1c340b5729`
+Generated at: `2026-05-22T01:43:23Z`
+Commit: `197640872a84b950721cf6c3f46350bc7c855240`
 
 **Beta decision:** `NO-GO`
 
@@ -32,7 +32,7 @@ Commit: `dffd990de5f9b2b61a236965cc6c6c1c340b5729`
 | `SEC-001` | `external-blocked` | True | `docs/release/external_approvals/security_approval.md` | False | True | approval metadata and evidence URL required |
 | `CONTENT-001` | `external-blocked` | True | `docs/release/external_approvals/content_approval.md` | False | True | approval metadata and evidence URL required |
 | `LESSON-AUTH-001` | `runtime-passing` | False | `docs/release/lesson_authorization_hardening_report.md` | False | True | full HTTP and staging proof for all lesson routes remains pending |
-| `DIAG-SCORE-001` | `integration-passing` | False | `docs/release/diagnostics_scoring_snapshot_repair_report.md` | False | True | live DB and full scoring audit still pending |
+| `DIAG-SCORE-001` | `not-proven` | True | `docs/release/diagnostic_item_bank_canonicality_status.md` | False | True | diagnostic_items is runtime-required and must be seeded or runtime references removed before scoring audit can close |
 | `EXT-GATE-001` | `runtime-passing` | True | `docs/release/external_approval_status.md` | False | True | required external approval items remain external-blocked until signed off |
 
 ## Resolved non-blocking accepted findings
@@ -50,7 +50,7 @@ Commit: `dffd990de5f9b2b61a236965cc6c6c1c340b5729`
 - Attach complete external approval metadata for SEC-001.
 - Attach complete external approval metadata for CONTENT-001.
 - Resolve LESSON-AUTH-001: full HTTP and staging proof for all lesson routes remains pending.
-- Resolve DIAG-SCORE-001: live DB and full scoring audit still pending.
+- Resolve DIAG-SCORE-001: diagnostic_items is runtime-required and must be seeded or runtime references removed before scoring audit can close.
 - Complete all external approval items tracked by EXT-GATE-001.
 
 ## No false-closure rules

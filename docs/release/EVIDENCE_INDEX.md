@@ -1591,3 +1591,15 @@ make db-live-only-table-ownership-test
 make backend-implementation-3111-3150-full-check
 ```
 
+## DIAG-ITEMS-001R / Backend implementation 3151-3190 — diagnostic item-bank canonicality
+
+Commands:
+
+```bash
+make diagnostic-item-bank-canonicality-status
+make diagnostic-item-bank-canonicality-registry-patch
+make diagnostic-item-bank-canonicality-check
+make diagnostic-item-bank-canonicality-test
+make backend-implementation-3151-3190-full-check
+```
+
