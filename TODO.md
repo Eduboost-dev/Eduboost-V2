@@ -28,6 +28,7 @@
 - [x] Documentation claim discipline established: repository evidence must not be represented as legal, runtime, deployment, or launch approval.
 - [x] Recommended Operating Model documented and enforced by `make recommended-operating-model-check`.
 - [x] Five-lane project assistance status documented and enforced by `make project-assistance-status-check`.
+- [x] Outstanding TODO implementation plan compiled at `docs/operations/todo_implementation_plan.md` and checked by `make todo-implementation-plan-check`.
 - [ ] EduBoost is **not public-beta-ready** with real learner data.
 - [ ] EduBoost is **not production-launch-ready**.
 - [ ] Next milestone: **CI green -> staging execution evidence -> controlled beta go/no-go**.
@@ -185,6 +186,7 @@ Current warnings to track:
 |---|---|
 | Repository-side production-readiness baseline | [x] complete |
 | Operating-model and assistance controls | [x] documented and checkable |
+| Outstanding TODO implementation plan | [x] documented and checkable |
 | Full local backend test baseline | [x] green: `1702 passed, 29 skipped` |
 | CI on this fork | [ ] open |
 | Branch protection | [external] open |

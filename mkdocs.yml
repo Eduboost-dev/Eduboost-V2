@@ -18,6 +18,7 @@ nav:
   - Operations:
       - Recommended Operating Model: operations/recommended_operating_model.md
       - Project Assistance Status: operations/project_assistance_status.md
+      - TODO Implementation Plan: operations/todo_implementation_plan.md
       - API Overview: api_v2.md
       - POPIA Compliance: POPIA_COMPLIANCE.md
       - Right to Erasure: popia_erasure.md
