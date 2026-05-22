@@ -238,6 +238,37 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
             return 'COALESCE(i."topic", i."id")'
         return 'i."id"'
 
+    # Map diagnostic schema's shortened CAPS reference and other runtime-required
+    # fields to reasonable defaults or IRT equivalents when possible.
+    if name == "caps_ref":
+        # Use the longer caps_reference from the IRT table, truncated to 40 chars
+        if "caps_reference" in irt_columns:
+            return 'LEFT(i."caps_reference", 40)'
+        if "topic" in irt_columns:
+            return 'LEFT(i."topic", 40)'
+        return 'LEFT(i."id", 40)'
+
+    if name == "term":
+        # No term in IRT; default to term 1 for seeding
+        return '1'
+
+    if name == "subtopic":
+        # Use the IRT topic as a fallback for subtopic
+        if "topic" in irt_columns:
+            return 'i."topic"'
+        return _sql_literal("")
+
+    if name == "stem":
+        if "question_text" in irt_columns:
+            return 'i."question_text"'
+        return _sql_literal("")
+
+    if name == "answer_key":
+        # Use the single-letter correct_option as the answer key
+        if "correct_option" in irt_columns:
+            return 'i."correct_option"'
+        return _sql_literal("")
+
     if name in {"difficulty", "bloom_level"} and "b_param" in irt_columns:
         return 'i."b_param"'
 
