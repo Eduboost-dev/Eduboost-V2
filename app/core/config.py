@@ -3,6 +3,8 @@ EduBoost V2 — Core Configuration
 Pydantic BaseSettings with environment-variable loading and validation.
 """
 from functools import lru_cache
+import logging
+import os
 from typing import Any
 from typing import Literal
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
@@ -185,8 +187,20 @@ class Settings(BaseSettings):
     def refresh_from_key_vault(self) -> set[str]:
         if not self.is_production():
             return set()
+        # In production we prefer to source secrets from Azure Key Vault.
+        # However, some hosting environments (for example Render) may not
+        # provide an Azure Key Vault URL at deploy time. Allow an explicit
+        # override via `AZURE_KEY_VAULT_OPTIONAL=1` or detect common Render
+        # environment variables to skip the hard fail and continue startup.
         if not self.AZURE_KEY_VAULT_URL:
-            return set()
+            allow_missing = os.environ.get("AZURE_KEY_VAULT_OPTIONAL") == "1"
+            render_detected = bool(os.environ.get("RENDER_SERVICE_ID") or os.environ.get("RENDER"))
+            if allow_missing or render_detected:
+                logging.getLogger(__name__).warning(
+                    "AZURE_KEY_VAULT_URL not set in production; skipping Key Vault refresh"
+                )
+                return set()
+            raise ValueError("AZURE_KEY_VAULT_URL is required when APP_ENV is production")
 
         secret_values = _fetch_key_vault_secret_values(self.AZURE_KEY_VAULT_URL)
         updated: set[str] = set()
@@ -202,8 +216,7 @@ class Settings(BaseSettings):
     def load_production_secrets_from_key_vault(self) -> "Settings":
         if not self.is_production():
             return self
-        if self.AZURE_KEY_VAULT_URL:
-            self.refresh_from_key_vault()
+        self.refresh_from_key_vault()
         return self
 
 
