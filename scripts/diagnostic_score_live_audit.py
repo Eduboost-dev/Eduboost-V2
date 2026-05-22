@@ -265,6 +265,15 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
             return 'i."topic"'
         return _sql_literal("")
 
+    if name == "skill":
+        # Prefer IRT `skill` if present, otherwise fall back to topic or a
+        # sensible default.
+        if "skill" in irt_columns:
+            return 'i."skill"'
+        if "topic" in irt_columns:
+            return 'i."topic"'
+        return _sql_literal("general")
+
     if name == "stem":
         if "question_text" in irt_columns:
             return 'i."question_text"'
@@ -275,6 +284,13 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
         if "correct_option" in irt_columns:
             return 'i."correct_option"'
         return _sql_literal("")
+
+    if name == "explanation":
+        # Use the IRT explanation when available, otherwise provide a
+        # reasonable default explanation text used elsewhere in migrations.
+        if "explanation" in irt_columns:
+            return 'i."explanation"'
+        return _sql_literal("Review the worked solution and compare it with the selected option.")
 
     if name == "subject":
         # Cast IRT subject string into the diagnostic subjectcode enum when
