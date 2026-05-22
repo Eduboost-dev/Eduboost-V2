@@ -134,7 +134,7 @@ The root [`TODO.md`](/TODO.md) is the live production-readiness tracker and curr
 
 ## POPIA Deletion Status Authorization
 
-- [`docs/security/popia_deletion_status_authorization_wiring.md`](security/popia_deletion_status_authorization_wiring.md)
+- Evidence pending: `docs/security/popia_deletion_status_authorization_wiring.md`
 
 ## Parent Erasure Authorization
 
@@ -142,7 +142,7 @@ The root [`TODO.md`](/TODO.md) is the live production-readiness tracker and curr
 
 ## POPIA Deletion Execute Authorization
 
-- [`docs/security/popia_deletion_execute_authorization_wiring.md`](security/popia_deletion_execute_authorization_wiring.md)
+- Evidence pending: `docs/security/popia_deletion_execute_authorization_wiring.md`
 
 ## Parent Export Authorization
 
