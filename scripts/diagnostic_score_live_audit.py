@@ -226,7 +226,10 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
         if name == "language":
             return f"i.{_quote_ident(name)}::language"
         if name == "review_status":
-            return f"i.{_quote_ident(name)}::reviewstatus"
+            # Some IRT banks use a differently-named enum type (e.g. itemreviewstatus)
+            # which cannot be cast directly to the diagnostic `reviewstatus` enum.
+            # Cast via text first to avoid CannotCoerceError: e.g. i.col::text::reviewstatus
+            return f"i.{_quote_ident(name)}::text::reviewstatus"
         return f"i.{_quote_ident(name)}"
 
     if name == "item_id" and "id" in irt_columns:
@@ -459,6 +462,15 @@ async def collect_status(*, apply_seed: bool) -> DiagnosticScoreLiveAuditStatus:
     if not _valid_db_url(db_url):
         blockers.append("DIAG_SCORE_DATABASE_URL/DATABASE_URL is missing, non-Postgres async, local, example, or placeholder")
     else:
+        # When connecting through PgBouncer in "transaction" or "statement"
+        # pooling mode, asyncpg's prepared statement cache causes
+        # DuplicatePreparedStatementError. Disable asyncpg prepared statement
+        # caching by requesting a prepared_statement_cache_size of 0 via the
+        # SQLAlchemy asyncpg URL query parameter which the dialect propagates
+        # to asyncpg. If the param is already present, leave it intact.
+        if "prepared_statement_cache_size" not in db_url:
+            sep = "&" if "?" in db_url else "?"
+            db_url = db_url + f"{sep}prepared_statement_cache_size=0"
         engine = create_async_engine(db_url, pool_pre_ping=True)
         try:
             async with engine.begin() as conn:
