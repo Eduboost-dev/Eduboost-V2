@@ -219,6 +219,8 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
         # Some IRT columns need casting when inserted into diagnostic schema
         if name == "subject":
             return f"i.{_quote_ident(name)}::subjectcode"
+        if name == "language":
+            return f"i.{_quote_ident(name)}::language"
         if name == "review_status":
             return f"i.{_quote_ident(name)}::reviewstatus"
         return f"i.{_quote_ident(name)}"
