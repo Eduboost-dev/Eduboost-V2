@@ -289,7 +289,8 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
         return 'i."b_param"'
 
     if name in {"item_type", "type"}:
-        return _sql_literal("diagnostic")
+        # Map to a valid `itemtype` enum value; IRT bank contains MCQ items.
+        return _sql_literal("mcq")
 
     if name in {"source", "origin"}:
         return _sql_literal("irt_items_bridge")
