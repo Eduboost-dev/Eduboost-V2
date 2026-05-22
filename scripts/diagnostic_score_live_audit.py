@@ -259,9 +259,9 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
     if name == "caps_ref":
         # Use the longer caps_reference from the IRT table, truncated to 40 chars
         if "caps_reference" in irt_columns:
-            return 'LEFT(i."caps_reference", 40)'
+            return 'COALESCE(LEFT(i."caps_reference", 40), LEFT(i."id", 40))'
         if "topic" in irt_columns:
-            return 'LEFT(i."topic", 40)'
+            return 'COALESCE(LEFT(i."topic", 40), LEFT(i."id", 40))'
         return 'LEFT(i."id", 40)'
 
     if name == "term":
