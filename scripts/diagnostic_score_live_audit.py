@@ -303,6 +303,13 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
         # Use a conservative default review status for seeded items
         return _sql_literal("draft")
 
+    if name == "language":
+        # Cast IRT language string into diagnostic `language` enum when
+        # possible, otherwise fall back to default.
+        if "language" in irt_columns:
+            return f"i.{_quote_ident('language')}::language"
+        return _sql_literal("en")
+
     if name in {"difficulty", "bloom_level"} and "b_param" in irt_columns:
         return 'i."b_param"'
 
