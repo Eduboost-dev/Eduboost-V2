@@ -271,6 +271,17 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
             return 'i."correct_option"'
         return _sql_literal("")
 
+    if name == "subject":
+        # Cast IRT subject string into the diagnostic subjectcode enum when
+        # possible, otherwise fall back to an explicit literal.
+        if "subject" in irt_columns:
+            return 'i."subject"::subjectcode'
+        return _sql_literal("unknown")
+
+    if name == "review_status":
+        # Use a conservative default review status for seeded items
+        return _sql_literal("draft")
+
     if name in {"difficulty", "bloom_level"} and "b_param" in irt_columns:
         return 'i."b_param"'
 
