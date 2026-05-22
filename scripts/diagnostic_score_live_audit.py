@@ -476,7 +476,12 @@ async def collect_status(*, apply_seed: bool) -> DiagnosticScoreLiveAuditStatus:
         if "prepared_statement_cache_size" not in db_url:
             sep = "&" if "?" in db_url else "?"
             db_url = db_url + f"{sep}prepared_statement_cache_size=0"
-        engine = create_async_engine(db_url, pool_pre_ping=True)
+        # Also set asyncpg's client-side statement cache to 0 via connect args
+        # to avoid DuplicatePreparedStatementError when the DB sits behind
+        # PgBouncer in transaction/statement pooling modes.
+        engine = create_async_engine(
+            db_url, pool_pre_ping=True, connect_args={"statement_cache_size": 0}
+        )
         try:
             async with engine.begin() as conn:
                 db_checked = True
