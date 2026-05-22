@@ -2451,3 +2451,162 @@ backend-implementation-2751-2790-full-check: ci-auth-refresh-db-proof-workflow-s
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/ci_auth_refresh_db_proof_workflow.py scripts/check_ci_auth_refresh_db_proof_workflow.py scripts/patch_ci_auth_refresh_db_proof_workflow_registry.py tests/unit/test_ci_auth_refresh_db_proof_workflow.py --select F821,F401,F811,E402
 
+.PHONY: final-gate-refresh-classifier-patch final-gate-refresh-classifier-status final-gate-refresh-classifier-check final-gate-refresh-classifier-test backend-implementation-2791-2830-full-check
+
+final-gate-refresh-classifier-patch:
+	PYTHONPATH=. python3 scripts/patch_final_gate_refresh_classifier_registry.py
+
+final-gate-refresh-classifier-status:
+	PYTHONPATH=. python3 -c "from scripts.final_gate_classifier import write_refresh; r = write_refresh(); print(r.beta_decision); print(r.beta_blocker_count)"
+
+final-gate-refresh-classifier-check: final-gate-refresh-classifier-patch
+	PYTHONPATH=. python3 scripts/check_final_gate_refresh_classifier.py
+
+final-gate-refresh-classifier-test:
+	pytest -c pytest.ini tests/unit/test_final_gate_refresh_classifier.py -q --no-cov --tb=short
+
+backend-implementation-2791-2830-full-check: final-gate-refresh-classifier-status final-gate-refresh-classifier-check final-gate-refresh-classifier-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/final_gate_classifier.py scripts/final_gate_refresh.py scripts/patch_final_gate_refresh_classifier_registry.py scripts/check_final_gate_refresh_classifier.py tests/unit/test_final_gate_refresh_classifier.py --select F821,F401,F811,E402
+
+.PHONY: popia-response-contract-no-skip-status popia-response-contract-no-skip-registry-patch popia-response-contract-no-skip-check popia-response-contract-no-skip-test backend-implementation-2831-2870-full-check
+
+popia-response-contract-no-skip-status:
+	PYTHONPATH=. python3 -c "from scripts.popia_response_contract_no_skips import write_status; s = write_status(run_tests=True); print(s.status)"
+
+popia-response-contract-no-skip-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_popia_response_contract_no_skip_registry.py
+
+popia-response-contract-no-skip-check: popia-response-contract-no-skip-registry-patch
+	PYTHONPATH=. python3 scripts/check_popia_response_contract_no_skips.py
+
+popia-response-contract-no-skip-test:
+	pytest -c pytest.ini tests/unit/test_popia_lifecycle_response_no_skip_proof.py -q --no-cov --tb=short -rs
+
+backend-implementation-2831-2870-full-check: popia-response-contract-no-skip-status popia-response-contract-no-skip-check popia-response-contract-no-skip-test
+	python3 -m compileall -q app/api_v2_routers app/services scripts tests
+	python3 -m ruff check scripts/popia_response_contract_no_skips.py scripts/check_popia_response_contract_no_skips.py scripts/check_popia_lifecycle_response_contract.py scripts/patch_popia_response_contract_no_skip_registry.py tests/unit/test_popia_lifecycle_response_no_skip_proof.py app/api_v2_routers/popia.py app/services/popia_consent_lifecycle_adapter.py --select F821,F401,F811,E402
+
+.PHONY: backend-implementation-2831-2870R-full-check
+
+backend-implementation-2831-2870R-full-check: popia-response-contract-no-skip-status popia-response-contract-no-skip-check popia-response-contract-no-skip-test
+	python3 -m compileall -q app/api_v2_routers app/services scripts tests
+	python3 -m ruff check scripts/popia_response_contract_no_skips.py scripts/check_popia_response_contract_no_skips.py scripts/check_popia_lifecycle_response_contract.py scripts/patch_popia_response_contract_no_skip_registry.py tests/unit/test_popia_lifecycle_response_no_skip_proof.py app/api_v2_routers/popia.py app/services/popia_consent_lifecycle_adapter.py --select F821,F401,F811,E402
+
+.PHONY: backend-implementation-2831-2870R3-full-check
+
+backend-implementation-2831-2870R3-full-check: popia-response-contract-no-skip-status popia-response-contract-no-skip-check popia-response-contract-no-skip-test
+	python3 -m compileall -q app/api_v2_routers app/services scripts tests
+	python3 -m ruff check scripts/popia_response_contract_no_skips.py scripts/check_popia_response_contract_no_skips.py scripts/check_popia_lifecycle_response_contract.py scripts/patch_popia_response_contract_no_skip_registry.py tests/unit/test_popia_lifecycle_response_no_skip_proof.py app/api_v2_routers/popia.py app/services/popia_consent_lifecycle_adapter.py --select F821,F401,F811,E402
+
+.PHONY: ci-evidence-acceptance-status ci-evidence-acceptance-registry-patch ci-evidence-acceptance-check ci-evidence-acceptance-test backend-implementation-2871-2910-full-check
+
+ci-evidence-acceptance-status:
+	PYTHONPATH=. python3 -c "from scripts.ci_evidence_acceptance import write_status; s = write_status(); print(s.status)"
+
+ci-evidence-acceptance-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_ci_evidence_registry.py
+
+ci-evidence-acceptance-check: ci-evidence-acceptance-registry-patch
+	PYTHONPATH=. python3 scripts/check_ci_evidence_acceptance.py
+
+ci-evidence-acceptance-test:
+	pytest -c pytest.ini tests/unit/test_ci_evidence_acceptance.py -q --no-cov --tb=short
+
+backend-implementation-2871-2910-full-check: ci-evidence-acceptance-status ci-evidence-acceptance-check ci-evidence-acceptance-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/ci_evidence_acceptance.py scripts/patch_ci_evidence_registry.py scripts/check_ci_evidence_acceptance.py tests/unit/test_ci_evidence_acceptance.py --select F821,F401,F811,E402
+
+.PHONY: staging-smoke-workflow-status staging-smoke-workflow-registry-patch staging-smoke-workflow-check staging-smoke-workflow-test backend-implementation-2911-2950-workflow-check
+
+staging-smoke-workflow-status:
+	PYTHONPATH=. python3 -c "from scripts.check_staging_smoke_workflow_config import write_status; s = write_status(); print(s.status)"
+
+staging-smoke-workflow-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_staging_smoke_workflow_registry.py
+
+staging-smoke-workflow-check: staging-smoke-workflow-registry-patch
+	PYTHONPATH=. python3 scripts/check_staging_smoke_workflow_config.py
+
+staging-smoke-workflow-test:
+	pytest -c pytest.ini tests/unit/test_staging_smoke_workflow_config.py -q --no-cov --tb=short
+
+backend-implementation-2911-2950-workflow-check: staging-smoke-workflow-status staging-smoke-workflow-check staging-smoke-workflow-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/staging_smoke_probe.py scripts/check_staging_smoke_workflow_config.py scripts/patch_staging_smoke_workflow_registry.py tests/unit/test_staging_smoke_workflow_config.py --select F821,F401,F811,E402
+
+.PHONY: staging-smoke-evidence-status staging-smoke-evidence-registry-patch staging-smoke-evidence-check staging-smoke-evidence-test backend-implementation-2911-2950-full-check
+
+staging-smoke-evidence-status:
+	PYTHONPATH=. python3 -c "from scripts.staging_smoke_evidence_acceptance import write_status; s = write_status(); print(s.status)"
+
+staging-smoke-evidence-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_staging_smoke_evidence_registry.py
+
+staging-smoke-evidence-check: staging-smoke-evidence-registry-patch
+	PYTHONPATH=. python3 scripts/check_staging_smoke_evidence_acceptance.py
+
+staging-smoke-evidence-test:
+	pytest -c pytest.ini tests/unit/test_staging_smoke_evidence_acceptance.py -q --no-cov --tb=short
+
+backend-implementation-2911-2950-full-check: staging-smoke-evidence-status staging-smoke-evidence-check staging-smoke-evidence-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/staging_smoke_evidence_acceptance.py scripts/patch_staging_smoke_evidence_registry.py scripts/check_staging_smoke_evidence_acceptance.py tests/unit/test_staging_smoke_evidence_acceptance.py --select F821,F401,F811,E402
+
+.PHONY: diag-deep-health-runtime-status diag-deep-health-runtime-registry-patch diag-deep-health-runtime-check diag-deep-health-runtime-test diag-deep-health-runtime-release-check backend-implementation-2951-2990-full-check
+
+diag-deep-health-runtime-status:
+	PYTHONPATH=. python3 -c "from scripts.diag_deep_health_runtime_evidence import write_status; s = write_status(run_http=bool(__import__('os').getenv('DIAG_DEEP_HEALTH_URL') or __import__('os').getenv('STAGING_DEEP_HEALTH_URL'))); print(s.status)"
+
+diag-deep-health-runtime-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_diag_deep_health_runtime_registry.py
+
+diag-deep-health-runtime-check:
+	PYTHONPATH=. python3 scripts/check_diag_deep_health_runtime.py
+
+diag-deep-health-runtime-test:
+	pytest -c pytest.ini tests/unit/test_diag_deep_health_runtime_evidence.py -q --no-cov --tb=short
+
+diag-deep-health-runtime-release-check: diag-deep-health-runtime-registry-patch
+	DIAG_DEEP_HEALTH_ACCEPT=1 PYTHONPATH=. python3 scripts/check_diag_deep_health_runtime.py
+
+backend-implementation-2951-2990-full-check: diag-deep-health-runtime-status diag-deep-health-runtime-check diag-deep-health-runtime-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/diag_deep_health_runtime_evidence.py scripts/patch_diag_deep_health_runtime_registry.py scripts/check_diag_deep_health_runtime.py tests/unit/test_diag_deep_health_runtime_evidence.py --select F821,F401,F811,E402
+
+.PHONY: audit-baseline-refresh-status audit-baseline-refresh-registry-patch audit-baseline-refresh-check audit-baseline-refresh-test backend-implementation-2991-3030-full-check
+
+audit-baseline-refresh-status:
+	PYTHONPATH=. python3 -c "from scripts.audit_baseline_refresh import write_status; s = write_status(); print(s.status); print(s.beta_decision); print(s.beta_blocker_count)"
+
+audit-baseline-refresh-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_audit_baseline_refresh_registry.py
+
+audit-baseline-refresh-check: audit-baseline-refresh-registry-patch
+	PYTHONPATH=. python3 scripts/check_audit_baseline_refresh.py
+
+audit-baseline-refresh-test:
+	pytest -c pytest.ini tests/unit/test_audit_baseline_refresh.py -q --no-cov --tb=short
+
+backend-implementation-2991-3030-full-check: audit-baseline-refresh-status audit-baseline-refresh-check audit-baseline-refresh-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/audit_baseline_refresh.py scripts/patch_audit_baseline_refresh_registry.py scripts/check_audit_baseline_refresh.py tests/unit/test_audit_baseline_refresh.py --select F821,F401,F811,E402
+
+.PHONY: db-migration-seed-repeatability-status db-migration-seed-repeatability-registry-patch db-migration-seed-repeatability-check db-migration-seed-repeatability-test backend-implementation-3071-3110-full-check
+
+db-migration-seed-repeatability-status:
+	PYTHONPATH=. python3 -c "from scripts.db_migration_seed_repeatability import write_status; s = write_status(); print(s.status); print(s.unique_irt_seed_rows)"
+
+db-migration-seed-repeatability-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_db_migration_seed_repeatability_registry.py
+
+db-migration-seed-repeatability-check:
+	PYTHONPATH=. python3 scripts/check_db_migration_seed_repeatability.py
+
+db-migration-seed-repeatability-test:
+	pytest -c pytest.ini tests/unit/test_db_migration_seed_repeatability.py -q --no-cov --tb=short
+
+backend-implementation-3071-3110-full-check: db-migration-seed-repeatability-status db-migration-seed-repeatability-registry-patch db-migration-seed-repeatability-check db-migration-seed-repeatability-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/db_migration_seed_repeatability.py scripts/patch_db_migration_seed_repeatability_registry.py scripts/check_db_migration_seed_repeatability.py tests/unit/test_db_migration_seed_repeatability.py --select F821,F401,F811,E402
+

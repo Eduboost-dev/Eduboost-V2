@@ -46,46 +46,56 @@ findings:
 
   - id: POPIA-001
     title: POPIA lifecycle HTTP response-contract proof
-    severity: P0
+    severity: P1
     gate: 3
     owner: backend
-    implementation_batch: code_1151_1190
-    proof_status: not-proven
-    proof_command: make backend-implementation-1151-1190-full-check
-    evidence_file: docs/release/no_false_closure_status_after_1151_1190.md
-    last_verified_commit: null
-    closure_blocker: focused response-contract test output still includes skipped cases; skipped tests are not proof
-    blocks_beta: true
+    implementation_batch: code_2831_2870R
+    proof_status: integration-passing
+    proof_command: make backend-implementation-2831-2870R-full-check
+    evidence_file: docs/release/popia_response_contract_no_skip_status.md
+    last_verified_commit: 8638400aaa53cf737aa4eb11ddab55cc97ebb02f
+    closure_blocker: none
+    blocks_beta: false
     external_dependency: false
-
   - id: EVID-001
-    title: Evidence registry and skipped-test governance
+    title: Accepted evidence registry CI authority
     severity: P1
-    gate: 2
+    gate: 7
     owner: release
-    implementation_batch: code_1191_1230
-    proof_status: runtime-passing
-    proof_command: make backend-implementation-1191-1230-full-check
-    evidence_file: docs/release/evidence_status_registry.yml
-    last_verified_commit: 1ec9acd
-    closure_blocker: CI evidence URL still required before production-ready
-    blocks_beta: true
-    external_dependency: false
-
+    implementation_batch: code_2871_2910
+    proof_status: integration-passing
+    proof_command: make backend-implementation-2871-2910-full-check
+    evidence_file: docs/release/ci_evidence_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521
+    workflow_name: Auth Boundary
+    run_id: 26230855521
+    last_verified_commit: 8638400aaa53cf737aa4eb11ddab55cc97ebb02f
+    verified_by: github-actions
+    date_verified: 2026-05-21
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
+    external_dependency: true
   - id: DIAG-001
-    title: Diagnostics served-item session CAPS route binding
-    severity: P1
-    gate: 3
+    title: Diagnostic deep-health full HTTP and DB runtime proof
+    severity: P0
+    gate: 5
     owner: backend
-    implementation_batch: code_1231_1270
+    implementation_batch: code_2951_2990
     proof_status: runtime-passing
-    proof_command: make backend-implementation-1231-1270-full-check
-    evidence_file: docs/release/diagnostics_session_binding_repair_report.md
-    last_verified_commit: 1ec9acd
-    closure_blocker: full HTTP plus production DB diagnostic session proof still required
-    blocks_beta: true
-    external_dependency: false
-
+    proof_command: make diag-deep-health-runtime-release-check
+    evidence_file: docs/release/diag_deep_health_runtime_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487
+    workflow_name: Staging Smoke
+    run_id: 26257276487
+    deep_health_url: https://eduboost-api.onrender.com/api/v2/health/deep
+    last_verified_commit: ecaab870ed5e171a5d8c5d58393ae80e64917ee5
+    verified_by: github-actions
+    date_verified: 2026-05-21
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
+    external_dependency: true
   - id: AUTH-REPO-001
     title: Production repository auth fixture proof
     severity: P1
@@ -101,29 +111,35 @@ findings:
     external_dependency: false
 
   - id: CI-001
-    title: Authoritative CI on release repo and branch
-    severity: P1
-    gate: 2
+    title: Accepted GitHub Actions CI evidence
+    severity: P0
+    gate: 7
     owner: release
-    implementation_batch: code_1951_1990
-    proof_status: external-blocked
-    proof_command: make ci-run-evidence-release-check
-    evidence_file: docs/release/ci_evidence.md
-    last_verified_commit: null
-    closure_blocker: valid GitHub Actions run URL and passing result metadata required
-    blocks_beta: true
+    implementation_batch: code_2871_2910
+    proof_status: integration-passing
+    proof_command: make backend-implementation-2871-2910-full-check
+    evidence_file: docs/release/ci_evidence_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521
+    workflow_name: Auth Boundary
+    run_id: 26230855521
+    last_verified_commit: 8638400aaa53cf737aa4eb11ddab55cc97ebb02f
+    verified_by: github-actions
+    date_verified: 2026-05-21
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
     external_dependency: true
   - id: LEGAL-001
     title: POPIA/legal release approval
     severity: P1
     gate: 5
     owner: legal
-    implementation_batch: code_1791_1830
+    implementation_batch: code_1991_2030
     proof_status: external-blocked
-    proof_command: make external-approval-release-check after approval metadata is attached
+    proof_command: make approval-evidence-release-check
     evidence_file: docs/release/external_approvals/legal_approval.md
     last_verified_commit: null
-    closure_blocker: external approval sign-off metadata required
+    closure_blocker: approval metadata and evidence URL required
     blocks_beta: true
     external_dependency: true
   - id: SEC-001
@@ -131,12 +147,12 @@ findings:
     severity: P1
     gate: 5
     owner: security
-    implementation_batch: code_1791_1830
+    implementation_batch: code_1991_2030
     proof_status: external-blocked
-    proof_command: make external-approval-release-check after approval metadata is attached
+    proof_command: make approval-evidence-release-check
     evidence_file: docs/release/external_approvals/security_approval.md
     last_verified_commit: null
-    closure_blocker: external approval sign-off metadata required
+    closure_blocker: approval metadata and evidence URL required
     blocks_beta: true
     external_dependency: true
   - id: CONTENT-001
@@ -144,12 +160,12 @@ findings:
     severity: P1
     gate: 5
     owner: content
-    implementation_batch: code_1791_1830
+    implementation_batch: code_1991_2030
     proof_status: external-blocked
-    proof_command: make external-approval-release-check after approval metadata is attached
+    proof_command: make approval-evidence-release-check
     evidence_file: docs/release/external_approvals/content_approval.md
     last_verified_commit: null
-    closure_blocker: external approval sign-off metadata required
+    closure_blocker: approval metadata and evidence URL required
     blocks_beta: true
     external_dependency: true
   - id: LESSON-AUTH-001
@@ -292,17 +308,24 @@ findings:
     blocks_beta: false
     external_dependency: false
   - id: STAGING-001
-    title: Staging acceptance approval
-    severity: P1
-    gate: 5
+    title: Accepted staging smoke evidence
+    severity: P0
+    gate: 8
     owner: release
-    implementation_batch: code_1911_1950
-    proof_status: external-blocked
-    proof_command: make staging-acceptance-release-check
-    evidence_file: docs/release/staging_smoke_evidence.md
-    last_verified_commit: null
-    closure_blocker: real staging smoke evidence and GitHub Actions run URL required
-    blocks_beta: true
+    implementation_batch: code_2911_2950
+    proof_status: integration-passing
+    proof_command: make backend-implementation-2911-2950-full-check
+    evidence_file: docs/release/staging_smoke_evidence_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077
+    workflow_name: Staging Smoke
+    run_id: 26247145077
+    staging_base_url: https://eduboost-api.onrender.com
+    last_verified_commit: a195b5eea80d648d8b748ebf48885caf42f77a58
+    verified_by: github-actions
+    date_verified: 2026-05-21
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
     external_dependency: true
   - id: EXT-GATE-001
     title: External approval tracking gate
@@ -352,7 +375,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1911-1950-full-check
     evidence_file: docs/release/staging_acceptance_status.md
-    last_verified_commit: 9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4
+    last_verified_commit: 8638400aaa53cf737aa4eb11ddab55cc97ebb02f
     closure_blocker: scaffold only; STAGING-001 remains external-blocked until real staging evidence is attached
     blocks_beta: false
     external_dependency: false
@@ -378,7 +401,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1991-2030-full-check
     evidence_file: docs/release/approval_evidence_status.md
-    last_verified_commit: 9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4
+    last_verified_commit: 8638400aaa53cf737aa4eb11ddab55cc97ebb02f
     closure_blocker: scaffold only; individual approvals remain external-blocked until accepted metadata is attached
     blocks_beta: false
     external_dependency: false
@@ -396,29 +419,29 @@ findings:
     blocks_beta: false
     external_dependency: false
   - id: ROUTE-TX-AUTH-001
-    title: First production route transaction wiring slice for auth routes
+    title: Auth route transaction live DB evidence
     severity: P1
     gate: 4
     owner: backend
-    implementation_batch: code_2071_2110
-    proof_status: runtime-passing
-    proof_command: make backend-implementation-2071-2110-full-check
-    evidence_file: docs/release/auth_route_transaction_slice_report.md
-    last_verified_commit: 9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4
-    closure_blocker: live DB rollback proof remains external-blocked for this slice
+    implementation_batch: code_2231_2270
+    proof_status: external-blocked
+    proof_command: make route-tx-auth-slice-release-check
+    evidence_file: docs/release/auth_route_transaction_live_db_evidence.md
+    last_verified_commit: null
+    closure_blocker: live DB rollback evidence metadata required
     blocks_beta: false
     external_dependency: false
   - id: ROUTE-TX-POPIA-001
-    title: POPIA route transaction slice
+    title: POPIA route transaction live DB evidence
     severity: P1
     gate: 4
     owner: backend
-    implementation_batch: code_2111_2150
-    proof_status: runtime-passing
-    proof_command: make backend-implementation-2111-2150-full-check
-    evidence_file: docs/release/popia_route_transaction_slice_report.md
-    last_verified_commit: 9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4
-    closure_blocker: live DB rollback proof remains external-blocked for this slice
+    implementation_batch: code_2231_2270
+    proof_status: external-blocked
+    proof_command: make route-tx-popia-slice-release-check
+    evidence_file: docs/release/popia_route_transaction_live_db_evidence.md
+    last_verified_commit: null
+    closure_blocker: live DB rollback evidence metadata required
     blocks_beta: false
     external_dependency: false
   - id: ROUTE-TX-POPIA-001R
@@ -435,16 +458,16 @@ findings:
     blocks_beta: false
     external_dependency: false
   - id: ROUTE-TX-DIAG-001
-    title: Diagnostics route transaction slice
+    title: Diagnostics route transaction live DB evidence
     severity: P1
     gate: 4
     owner: backend
-    implementation_batch: code_2151_2190
-    proof_status: not-proven
-    proof_command: make backend-implementation-2151-2190-full-check
-    evidence_file: docs/release/diagnostics_route_transaction_slice_report.md
+    implementation_batch: code_2231_2270
+    proof_status: external-blocked
+    proof_command: make route-tx-diagnostics-slice-release-check
+    evidence_file: docs/release/diagnostics_route_transaction_live_db_evidence.md
     last_verified_commit: null
-    closure_blocker: diagnostics route source delegation not proven; 1 gap actions remain
+    closure_blocker: live DB rollback evidence metadata required
     blocks_beta: false
     external_dependency: false
   - id: ROUTE-TX-ROLLUP-001
@@ -469,7 +492,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2231-2270-full-check
     evidence_file: docs/release/live_db_transaction_evidence_status.md
-    last_verified_commit: 9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4
+    last_verified_commit: 8638400aaa53cf737aa4eb11ddab55cc97ebb02f
     closure_blocker: scaffold only; live DB evidence aggregate status is external-blocked
     blocks_beta: false
     external_dependency: false
@@ -596,12 +619,12 @@ findings:
     gate: 3
     owner: backend
     implementation_batch: code_2671_2710
-    proof_status: external-blocked
+    proof_status: integration-passing
     proof_command: make auth-refresh-db-evidence-release-check
     evidence_file: docs/release/auth_refresh_db_evidence_status.md
-    last_verified_commit: null
-    closure_blocker: Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id
-    blocks_beta: true
+    last_verified_commit: 84ace987e1f577fcf647fbe105f78680003c5aaa
+    closure_blocker: none
+    blocks_beta: false
     external_dependency: true
   - id: AUTH-REFRESH-DB-EVIDENCE-001
     title: Auth refresh DB proof evidence attachment gate
@@ -609,12 +632,12 @@ findings:
     gate: 3
     owner: backend
     implementation_batch: code_2711_2750
-    proof_status: external-blocked
+    proof_status: integration-passing
     proof_command: make auth-refresh-db-evidence-release-check
     evidence_file: docs/release/auth_refresh_db_evidence_status.md
-    last_verified_commit: null
-    closure_blocker: Test command: contains placeholder token: real_auth_refresh_db_proof_dsn; Evidence URL: contains placeholder token: run_id
-    blocks_beta: true
+    last_verified_commit: 84ace987e1f577fcf647fbe105f78680003c5aaa
+    closure_blocker: none
+    blocks_beta: false
     external_dependency: true
   - id: CI-AUTH-REFRESH-DB-PROOF-001
     title: GitHub Actions auth refresh DB proof workflow
@@ -627,5 +650,141 @@ findings:
     evidence_file: docs/release/ci_auth_refresh_db_proof_workflow_status.md
     last_verified_commit: 88f821d4a8a02727398884d65cfc2ccec4945c5b
     closure_blocker: none; real workflow run URL still required for release evidence
+    blocks_beta: false
+    external_dependency: false
+  - id: POPIA-001R
+    title: POPIA no-skip response-contract proof repair
+    severity: P1
+    gate: 3
+    owner: backend
+    implementation_batch: code_2831_2870R
+    proof_status: integration-passing
+    proof_command: make backend-implementation-2831-2870R-full-check
+    evidence_file: docs/release/popia_response_contract_no_skip_status.md
+    last_verified_commit: 8638400aaa53cf737aa4eb11ddab55cc97ebb02f
+    closure_blocker: none
+    blocks_beta: false
+    external_dependency: false
+  - id: CI-001R
+    title: CI evidence acceptance repair
+    severity: P1
+    gate: 7
+    owner: release
+    implementation_batch: code_2871_2910
+    proof_status: integration-passing
+    proof_command: make backend-implementation-2871-2910-full-check
+    evidence_file: docs/release/ci_evidence_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521
+    workflow_name: Auth Boundary
+    run_id: 26230855521
+    last_verified_commit: 8638400aaa53cf737aa4eb11ddab55cc97ebb02f
+    verified_by: github-actions
+    date_verified: 2026-05-21
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
+    external_dependency: true
+  - id: EVID-001R
+    title: Evidence registry CI authority repair
+    severity: P1
+    gate: 7
+    owner: release
+    implementation_batch: code_2871_2910
+    proof_status: integration-passing
+    proof_command: make backend-implementation-2871-2910-full-check
+    evidence_file: docs/release/ci_evidence_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521
+    workflow_name: Auth Boundary
+    run_id: 26230855521
+    last_verified_commit: 8638400aaa53cf737aa4eb11ddab55cc97ebb02f
+    verified_by: github-actions
+    date_verified: 2026-05-21
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
+    external_dependency: true
+  - id: STAGING-SMOKE-WORKFLOW-001
+    title: Staging smoke evidence workflow configuration
+    severity: P1
+    gate: 8
+    owner: release
+    implementation_batch: code_2911_2950
+    proof_status: config-passing
+    proof_command: make backend-implementation-2911-2950-workflow-check
+    evidence_file: docs/release/staging_smoke_workflow_status.md
+    last_verified_commit: 1d8a3ae080435187f4b47ede0dccbe892575c055
+    closure_blocker: workflow only; STAGING-001 remains external-blocked until real staging evidence is attached
+    release_ready: false
+    blocks_beta: false
+    external_dependency: false
+  - id: STAGING-001R
+    title: Staging smoke evidence acceptance repair
+    severity: P0
+    gate: 8
+    owner: release
+    implementation_batch: code_2911_2950
+    proof_status: integration-passing
+    proof_command: make backend-implementation-2911-2950-full-check
+    evidence_file: docs/release/staging_smoke_evidence_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077
+    workflow_name: Staging Smoke
+    run_id: 26247145077
+    staging_base_url: https://eduboost-api.onrender.com
+    last_verified_commit: a195b5eea80d648d8b748ebf48885caf42f77a58
+    verified_by: github-actions
+    date_verified: 2026-05-21
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
+    external_dependency: true
+  - id: DIAG-001R
+    title: Diagnostic deep-health runtime evidence repair
+    severity: P0
+    gate: 5
+    owner: backend
+    implementation_batch: code_2951_2990
+    proof_status: runtime-passing
+    proof_command: make diag-deep-health-runtime-release-check
+    evidence_file: docs/release/diag_deep_health_runtime_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487
+    workflow_name: Staging Smoke
+    run_id: 26257276487
+    deep_health_url: https://eduboost-api.onrender.com/api/v2/health/deep
+    last_verified_commit: ecaab870ed5e171a5d8c5d58393ae80e64917ee5
+    verified_by: github-actions
+    date_verified: 2026-05-21
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
+    external_dependency: true
+  - id: AUDIT-BASELINE-REFRESH-001
+    title: Audit baseline refresh from current HEAD
+    severity: P1
+    gate: 1
+    owner: release
+    implementation_batch: code_2991_3030
+    proof_status: runtime-passing
+    proof_command: make backend-implementation-2991-3030-full-check
+    evidence_file: docs/release/audit_baseline_refresh_status.md
+    last_verified_commit: 9b11cd7f8e1a64e1a9f83cd7f5125f5612633343
+    closure_blocker: refresh only; beta decision remains governed by remaining blockers
+    release_ready: false
+    blocks_beta: false
+    external_dependency: false
+  - id: DB-REPEATABILITY-001R
+    title: Repeatable Supabase migration and IRT seed generation
+    severity: P0
+    gate: 2
+    owner: backend
+    implementation_batch: code_3071_3110
+    proof_status: config-passing
+    proof_command: make backend-implementation-3071-3110-full-check
+    evidence_file: docs/release/db_migration_seed_repeatability_status.md
+    generated_supabase_sql: temp/db_repeatability/alembic_upgrade_head.supabase.sql
+    generated_seed_sql: temp/db_repeatability/seed_irt_items.sql
+    unique_irt_seed_rows: 1600
+    last_verified_commit: 95d322bf5f8392b7dc3037e168e561e0f390a1a9
+    closure_blocker: none
+    release_ready: true
     blocks_beta: false
     external_dependency: false

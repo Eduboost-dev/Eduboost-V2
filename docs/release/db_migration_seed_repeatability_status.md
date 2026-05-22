@@ -1,0 +1,68 @@
+# DB Migration + Seed Repeatability Status
+
+Generated at: `2026-05-22T00:42:58Z`
+Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
+
+**Status:** `db-migration-seed-repeatability-passing`
+**Raw Alembic SQL:** `temp/db_repeatability/alembic_upgrade_head.raw.sql`
+**Supabase SQL:** `temp/db_repeatability/alembic_upgrade_head.supabase.sql`
+**IRT seed SQL:** `temp/db_repeatability/seed_irt_items.sql`
+
+## Summary
+
+- Alembic head `20260516_0100` present: `True`
+- Raw SQL lines: `1078`
+- Supabase SQL lines: `1045`
+- Removed chatter lines: `16`
+- Removed broken null seed blocks: `2`
+- Removed Supabase role lines: `1`
+- Generated IRT seed rows: `1600`
+- Unique IRT seed rows: `1600`
+
+## Required runtime tables
+
+| Table | DDL present |
+|---|---:|
+| `audit_events` | True |
+| `audit_logs` | True |
+| `calibration_audits` | True |
+| `diagnostic_items` | True |
+| `diagnostic_sessions` | True |
+| `guardians` | True |
+| `irt_items` | True |
+| `item_exposures` | True |
+| `knowledge_gaps` | True |
+| `learner_profiles` | True |
+| `lesson_feedback` | True |
+| `lessons` | True |
+| `mastery_snapshots` | True |
+| `parental_consents` | True |
+| `practice_queue` | True |
+| `rlhf_exports` | True |
+| `spaced_review_schedule` | True |
+| `stripe_webhook_events` | True |
+| `subject_mastery` | True |
+| `topic_mastery` | True |
+
+## Apply commands
+
+```bash
+# Generate checked SQL artifacts
+make db-migration-seed-repeatability-status
+
+# Apply manually to linked Supabase after review
+npx --yes supabase db query --linked --file temp/db_repeatability/alembic_upgrade_head.supabase.sql
+npx --yes supabase db query --linked --file temp/db_repeatability/seed_irt_items.sql
+```
+
+## Blockers
+
+- None
+
+## No false-closure rules
+
+- This proves repeatable generation of Supabase-safe migration and IRT seed SQL.
+- It does not prove remote apply unless the generated SQL is applied and verified separately.
+- It does not decide whether `diagnostic_items` should be populated.
+- It does not decide ownership of live-only POPIA/DSR tables.
+- It does not prove audit writes or backup/restore/rollback posture.

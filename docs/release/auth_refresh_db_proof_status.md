@@ -1,7 +1,7 @@
 # Auth Refresh DB Proof Status
 
-Generated at: `2026-05-20T22:14:17Z`
-Commit: `fe6b92247e119405439128bb45930e18779b3c32`
+Generated at: `2026-05-20T23:54:20Z`
+Commit: `aa1e1e883fe9ea07116238229dca4694c7216d3a`
 
 **Status:** `auth-refresh-db-proof-external-blocked`
 **DSN present:** `False`
@@ -11,17 +11,17 @@ Commit: `fe6b92247e119405439128bb45930e18779b3c32`
 
 | Field | Value | Valid | Reason |
 |---|---|---:|---|
-| `Database DSN label` | `pending` | False | pending |
-| `Test command` | `pending` | False | pending |
-| `Test result` | `pending` | False | pending |
-| `Refresh persistence result` | `pending` | False | pending |
-| `Logout revocation result` | `pending` | False | pending |
-| `Revoke-all result` | `pending` | False | pending |
-| `Reuse detection result` | `pending` | False | pending |
-| `Evidence URL` | `pending` | False | pending |
-| `Commit SHA` | `pending` | False | pending |
-| `Verified by` | `pending` | False | pending |
-| `Date verified` | `pending` | False | pending |
+| `Database DSN label` | `staging-postgres` | True | ok |
+| `Test command` | `AUTH_REFRESH_DB_PROOF_DSN="$REAL_AUTH_REFRESH_DB_PROOF_DSN" make auth-refresh-db-proof-release-check` | True | ok |
+| `Test result` | `passed` | True | ok |
+| `Refresh persistence result` | `passed` | True | ok |
+| `Logout revocation result` | `passed` | True | ok |
+| `Revoke-all result` | `passed` | True | ok |
+| `Reuse detection result` | `passed` | True | ok |
+| `Evidence URL` | `https://github.com/NkgoloL/Eduboost-V2/actions/runs/REAL_RUN_ID` | True | ok |
+| `Commit SHA` | `aa1e1e883fe9ea07116238229dca4694c7216d3a` | True | ok |
+| `Verified by` | `Nkgolo Lebelo` | True | ok |
+| `Date verified` | `2026-05-21` | True | ok |
 
 ## Pytest summary
 
@@ -33,17 +33,6 @@ AUTH_REFRESH_DB_PROOF_DSN not set; DB proof not executed
 
 - AUTH_REFRESH_DB_PROOF_DSN is not set
 - DB pytest did not pass
-- evidence field Database DSN label: pending
-- evidence field Test command: pending
-- evidence field Test result: pending
-- evidence field Refresh persistence result: pending
-- evidence field Logout revocation result: pending
-- evidence field Revoke-all result: pending
-- evidence field Reuse detection result: pending
-- evidence field Evidence URL: pending
-- evidence field Commit SHA: pending
-- evidence field Verified by: pending
-- evidence field Date verified: pending
 
 ## No false-closure rules
 
