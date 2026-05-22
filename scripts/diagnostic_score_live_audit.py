@@ -216,6 +216,9 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
     name = column.name
 
     if name in irt_columns:
+        # Some IRT columns need casting when inserted into diagnostic schema
+        if name == "subject":
+            return f"i.{_quote_ident(name)}::subjectcode"
         return f"i.{_quote_ident(name)}"
 
     if name == "item_id" and "id" in irt_columns:
