@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-05-22T01:56:41Z",
+  "current_commit": "690371a5b1da4146991b941164136c6960110e1c",
+  "status": "diagnostic-score-live-audit-not-accepted",
+  "db_url_label": "",
+  "db_checked": false,
+  "seed_attempted": false,
+  "seed_inserted_rows": 0,
+  "diagnostic_items_count": null,
+  "irt_items_count": null,
+  "diagnostic_items_columns": [],
+  "bridge_seed_columns": [],
+  "unsupported_required_columns": [],
+  "github_run": {
+    "run_id": "",
+    "run_url": "",
+    "workflow_name": "",
+    "run_status": "",
+    "conclusion": "",
+    "head_sha": "",
+    "blockers": []
+  },
+  "test_command": "",
+  "seed_result": "",
+  "scoring_result": "",
+  "audit_result": "",
+  "verified_by": "unverified",
+  "date_verified": "2026-05-22",
+  "blockers": [
+    "DIAG_SCORE_DATABASE_URL/DATABASE_URL is missing, non-Postgres async, local, example, or placeholder"
+  ]
+}
