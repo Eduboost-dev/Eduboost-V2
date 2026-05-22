@@ -1603,3 +1603,20 @@ make diagnostic-item-bank-canonicality-test
 make backend-implementation-3151-3190-full-check
 ```
 
+## DIAG-SCORE-001R / Backend implementation 3191-3230 — diagnostic scoring live DB audit gate
+
+Commands:
+
+```bash
+make diagnostic-score-live-audit-status
+make diagnostic-score-live-audit-check
+make diagnostic-score-live-audit-test
+make backend-implementation-3191-3230-full-check
+```
+
+Accepted-evidence command:
+
+```bash
+DIAG_SCORE_ACCEPT=1 DIAG_SCORE_ALLOW_BRIDGE_SEED=1 make diagnostic-score-live-audit-release-check
+```
+

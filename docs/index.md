@@ -10,6 +10,8 @@ The most useful starting points are:
 
 - [`project_status.md`](project_status.md) for the current repository and docs
   sync snapshot
+- [`operations/recommended_operating_model.md`](operations/recommended_operating_model.md)
+  for the five-part operating model used to plan, review, and release work
 - [`architecture.md`](architecture.md) for the modular-monolith layout
 - [`api_v2.md`](api_v2.md) for the public runtime surface
 - [`reference/api_v2.md`](reference/api_v2.md) for generated API docs

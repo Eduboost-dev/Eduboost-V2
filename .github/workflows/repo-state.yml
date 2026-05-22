@@ -8,8 +8,11 @@ on:
       - "release/**"
     paths:
       - "docs/repository_governance.md"
+      - "docs/operations/recommended_operating_model.md"
       - "docs/current_state.md"
+      - "scripts/check_recommended_operating_model.py"
       - "scripts/verify_repo_state.py"
+      - "tests/unit/test_recommended_operating_model.py"
       - "tests/unit/test_verify_repo_state.py"
       - "Makefile"
       - ".github/workflows/repo-state.yml"
@@ -20,8 +23,11 @@ on:
       - "release/**"
     paths:
       - "docs/repository_governance.md"
+      - "docs/operations/recommended_operating_model.md"
       - "docs/current_state.md"
+      - "scripts/check_recommended_operating_model.py"
       - "scripts/verify_repo_state.py"
+      - "tests/unit/test_recommended_operating_model.py"
       - "tests/unit/test_verify_repo_state.py"
       - "Makefile"
       - ".github/workflows/repo-state.yml"
@@ -57,10 +63,15 @@ jobs:
           fi
 
       - name: Verify repo-state checker tests
-        run: pytest tests/unit/test_verify_repo_state.py -q --no-cov
+        run: |
+          pytest \
+            tests/unit/test_verify_repo_state.py \
+            tests/unit/test_recommended_operating_model.py \
+            -q --no-cov
 
       - name: Record repo state
         run: |
+          make recommended-operating-model-check
           make verify-repo-state \
             EXPECTED_RELEASE_BRANCH="${GITHUB_BASE_REF:-${GITHUB_REF_NAME}}" \
             VERIFY_REPO_STATE_ARGS="--allow-branch-mismatch --allow-dirty --freshness-marker HEAD"

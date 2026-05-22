@@ -16,6 +16,7 @@ nav:
       - Migration Guide: v2_migration.md
       - Agent Handoff: v2_handoff.md
   - Operations:
+      - Recommended Operating Model: operations/recommended_operating_model.md
       - API Overview: api_v2.md
       - POPIA Compliance: POPIA_COMPLIANCE.md
       - Right to Erasure: popia_erasure.md
