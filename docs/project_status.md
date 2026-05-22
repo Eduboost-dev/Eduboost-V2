@@ -90,7 +90,7 @@ Current blockers are evidence-backed, not inferred:
 
 ## Audit Tracker
 
-The root [`TODO.md`](/TODO.md) is the live production-readiness tracker and current North Star execution plan for the repository. Operational workflow is documented in [`docs/operations/recommended_operating_model.md`](operations/recommended_operating_model.md), and the five project assistance lanes are tracked in [`docs/operations/project_assistance_status.md`](operations/project_assistance_status.md).
+The root [`TODO.md`](/TODO.md) is the live production-readiness tracker and current North Star execution plan for the repository. Operational workflow is documented in [`docs/operations/recommended_operating_model.md`](operations/recommended_operating_model.md), the five project assistance lanes are tracked in [`docs/operations/project_assistance_status.md`](operations/project_assistance_status.md), and the outstanding TODO execution plan is compiled in [`docs/operations/todo_implementation_plan.md`](operations/todo_implementation_plan.md).
 
 ## Lesson Generation Authorization
 

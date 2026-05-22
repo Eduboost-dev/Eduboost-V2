@@ -167,6 +167,7 @@ The editable inputs for those lockfiles are:
 - Status index: [`docs/project_status.md`](/docs/project_status.md)
 - Operating model: [`docs/operations/recommended_operating_model.md`](/docs/operations/recommended_operating_model.md)
 - Project assistance lanes: [`docs/operations/project_assistance_status.md`](/docs/operations/project_assistance_status.md)
+- TODO implementation plan: [`docs/operations/todo_implementation_plan.md`](/docs/operations/todo_implementation_plan.md)
 - Architecture: [`docs/architecture/V2_ARCHITECTURE.md`](/docs/architecture/V2_ARCHITECTURE.md)
 - Migration guide: [`docs/v2_migration.md`](/docs/v2_migration.md)
 - POPIA notes: [`docs/POPIA_COMPLIANCE.md`](/docs/POPIA_COMPLIANCE.md)

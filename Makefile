@@ -22,6 +22,7 @@ help:
 	@echo "  runtime-check   - Verify FastAPI runtime entrypoints"
 	@echo "  verify-repo-state - Verify repository provenance and release branch expectations"
 	@echo "  recommended-operating-model-check - Verify operating-model contract wording"
+	@echo "  todo-implementation-plan-check - Verify outstanding TODO implementation plan coverage"
 	@echo "  project-assistance-status - Refresh the five-lane project assistance report"
 	@echo "  project-assistance-status-check - Verify the five-lane project assistance report"
 	@echo "  pr002r-check   - Verify PR-002R evidence bundle"
@@ -72,6 +73,10 @@ verify-repo-state:
 
 recommended-operating-model-check:
 	$(PYTHON) scripts/check_recommended_operating_model.py
+
+.PHONY: todo-implementation-plan-check
+todo-implementation-plan-check:
+	$(PYTHON) scripts/check_todo_implementation_plan.py
 
 .PHONY: project-assistance-status project-assistance-status-check
 project-assistance-status:
@@ -2679,4 +2684,3 @@ diagnostic-score-live-audit-release-check: diagnostic-score-live-audit-registry-
 backend-implementation-3191-3230-full-check: diagnostic-score-live-audit-status diagnostic-score-live-audit-check diagnostic-score-live-audit-test
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/diagnostic_score_live_audit.py scripts/patch_diagnostic_score_live_audit_registry.py scripts/check_diagnostic_score_live_audit.py tests/unit/test_diagnostic_score_live_audit.py --select F821,F401,F811,E402
-

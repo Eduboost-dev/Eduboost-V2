@@ -166,3 +166,5 @@ This roadmap is complete when:
 - Added the Recommended Operating Model and five-lane Project Assistance Status
   docs so recovery, release evidence, and staging-readiness work can be planned
   through checkable Make targets instead of loose notes.
+- Compiled `docs/operations/todo_implementation_plan.md` to turn the open
+  North Star TODO items into evidence-first implementation waves.
