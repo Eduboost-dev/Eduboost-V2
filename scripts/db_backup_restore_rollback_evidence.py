@@ -68,17 +68,8 @@ def normalize_db_url(url: str) -> str:
     return url
 
 
-def valid_db_url(url: str, *, allow_localhost: bool = False) -> bool:
-    if not url:
-        return False
-    # Allow localhost/127.0.0.1 for the restore target (service containers in CI)
-    if allow_localhost:
-        # Only block obvious template placeholders, not localhost
-        blocked = [t for t in PLACEHOLDER_TOKENS if t not in ("localhost", "127.0.0.1")]
-        lowered = url.lower()
-        if any(token.lower() in lowered for token in blocked):
-            return False
-    elif has_placeholder(url):
+def valid_db_url(url: str) -> bool:
+    if not url or has_placeholder(url):
         return False
     parsed = urlparse(url)
     return parsed.scheme in {"postgresql", "postgres"} and bool(parsed.hostname) and bool(parsed.path.strip("/"))
@@ -190,10 +181,13 @@ def sha256(path: Path) -> str:
 
 
 def command_evidence(label: str, result: subprocess.CompletedProcess[str]) -> dict:
+    excerpt = (result.stdout or "")[-5000:]
+    if excerpt.strip():
+        print(f"[{label}] output:\n{excerpt}", flush=True)
     return {
         "command_label": label,
         "return_code": result.returncode,
-        "output_excerpt": result.stdout[-5000:],
+        "output_excerpt": excerpt,
     }
 
 
@@ -261,6 +255,16 @@ def compare_counts(src: dict, dst: dict) -> dict:
     return mismatches
 
 
+def pg_url_for_tool(url: str) -> str:
+    """Add sslmode=require for Supabase/pooler URLs if not already set."""
+    parsed = urlparse(url)
+    if "sslmode" not in (parsed.query or ""):
+        host = parsed.hostname or ""
+        if "localhost" not in host and "127.0.0.1" not in host:
+            url = url + ("&" if parsed.query else "?") + "sslmode=require"
+    return url
+
+
 def write_status(run_drill: bool = False) -> dict:
     blockers: list[str] = []
     commit = current_commit()
@@ -300,7 +304,7 @@ def write_status(run_drill: bool = False) -> dict:
         dump_path = WORK_DIR / f"db_rollback_{commit[:12]}_{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}.dump"
         dump_label = dump_path.name
 
-        backup = run(["pg_dump", "--format=custom", "--no-owner", "--no-acl", "--file", str(dump_path), src_url])
+        backup = run(["pg_dump", "--format=custom", "--no-owner", "--no-acl", "--file", str(dump_path), pg_url_for_tool(src_url)])
         backup_cmd = command_evidence("pg_dump --format=custom --no-owner --no-acl --file <dump> <source-db>", backup)
         if backup.returncode != 0:
             blockers.append(f"backup command failed with exit code {backup.returncode}")
@@ -312,10 +316,8 @@ def write_status(run_drill: bool = False) -> dict:
             blockers.append("backup dump was not created or was empty")
 
         if not blockers:
-            import shlex as _shlex
-            _extra_args = _shlex.split(os.getenv("DB_ROLLBACK_PG_RESTORE_ARGS", ""))
-            restore = run(["pg_restore", "--clean", "--if-exists", "--no-owner", "--no-acl"] + _extra_args + ["--dbname", dst_url, str(dump_path)])
-            restore_cmd = command_evidence(f"pg_restore --clean --if-exists --no-owner --no-acl {' '.join(_extra_args)} --dbname <restore-db> <dump>", restore)
+            restore = run(["pg_restore", "--clean", "--if-exists", "--no-owner", "--no-acl", "--dbname", dst_url, str(dump_path)])
+            restore_cmd = command_evidence("pg_restore --clean --if-exists --no-owner --no-acl --dbname <restore-db> <dump>", restore)
             if restore.returncode != 0:
                 blockers.append(f"restore command failed with exit code {restore.returncode}")
 
