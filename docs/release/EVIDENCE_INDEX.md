@@ -1620,3 +1620,21 @@ Accepted-evidence command:
 DIAG_SCORE_ACCEPT=1 DIAG_SCORE_ALLOW_BRIDGE_SEED=1 make diagnostic-score-live-audit-release-check
 ```
 
+## AUDIT-WRITE-001R / Backend implementation 3271-3310 — runtime audit_events write evidence
+
+Commands:
+
+```bash
+make audit-write-runtime-status
+make audit-write-runtime-registry-patch
+make audit-write-runtime-check
+make audit-write-runtime-test
+make backend-implementation-3271-3310-full-check
+```
+
+Accepted-evidence command:
+
+```bash
+AUDIT_WRITE_ACCEPT=1 AUDIT_WRITE_RUN_FLOW=1 make audit-write-runtime-release-check
+```
+
