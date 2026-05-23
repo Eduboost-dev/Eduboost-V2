@@ -1,22 +1,22 @@
 # Diagnostic Score Live Audit Status
 
-Generated at: `2026-05-22T23:29:31Z`
-Commit: `7f16b079bacfb08ff139314a42bf0abf37488c45`
+Generated at: `2026-05-22T14:18:32Z`
+Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 
-**Status:** `diagnostic-score-live-audit-accepted`
+**Status:** `diagnostic-score-live-audit-not-accepted`
 **DB URL label:** `DIAG_SCORE_DATABASE_URL`
 **DB checked:** `True`
 **Seed attempted:** `True`
-**Seed inserted rows:** `1600`
-**diagnostic_items count:** `28800`
-**irt_items count:** `1600`
-**Run ID:** `26316648760`
-**Run URL:** `https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760`
-**Workflow:** `.github/workflows/diag-score-live-audit.yml`
+**Seed inserted rows:** `0`
+**diagnostic_items count:** `None`
+**irt_items count:** `None`
+**Run ID:** `26292735463`
+**Run URL:** `https://github.com/NkgoloL/Eduboost-V2/actions/runs/26292735463`
+**Workflow:** `Backend Consolidation Evidence`
 **Test command:** `python scripts/diagnostic_score_live_audit.py --apply-seed`
-**Seed result:** `passed`
-**Scoring result:** `passed`
-**Audit result:** `passed`
+**Seed result:** `0 rows inserted (local DB; remote import pending)`
+**Scoring result:** ``
+**Audit result:** ``
 
 ## Bridge seed columns
 
@@ -90,3 +90,8 @@ Commit: `7f16b079bacfb08ff139314a42bf0abf37488c45`
 - Scoring and audit result metadata must be explicit.
 - A successful GitHub Actions run matching current commit is required.
 - This proof does not close JWT, ARQ, approvals, frontend runtime, audit-write, backup/restore/rollback, or beta release.
+
+## Supabase import helper
+
+- Use `scripts/import_supabase_seed.sh` to import `scripts/irt_seed_1600.sql` into a Supabase Postgres instance. Copy `.env.supabase.example` to `.env.supabase` and set `SUPABASE_PG_PASSWORD` locally before running.
+

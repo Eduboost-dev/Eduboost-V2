@@ -2,8 +2,8 @@
 
 import React from "react";
 import { useLearner } from "../../../context/LearnerContext";
-import { Card } from "../../../components/ui/Card";
-import { Button } from "../../../components/ui/Button";
+import { Card } from "../../../components/ui/Card-legacy";
+import { Button } from "../../../components/ui/Button-legacy";
 
 export default function ParentPortalPage() {
   const { learner } = useLearner();

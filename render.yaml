@@ -1,0 +1,50 @@
+services:
+  - type: web
+    name: eduboost-api
+    runtime: python
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn app.api_v2:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+
+      - key: ENVIRONMENT
+        value: "production"
+
+      - key: APP_NAME
+        value: "eduboost"
+
+      - key: API_BASE_URL
+        value: "https://eduboost-api.onrender.com"
+
+      - key: FRONTEND_URL
+        value: "https://eduboost-demo.pages.dev"
+
+      - key: CORS_ORIGINS
+        value: "https://eduboost-demo.pages.dev,http://localhost:3000,http://127.0.0.1:3000"
+
+      # Supabase Postgres connection string.
+      # Paste this during Render Blueprint creation.
+      - key: DATABASE_URL
+        sync: false
+
+      # Secret key for JWT/session/signing.
+      # Render will generate one during initial Blueprint creation.
+      - key: SECRET_KEY
+        generateValue: true
+
+      # Use whichever Redis variables EduBoost currently reads.
+      # For Upstash REST SDK:
+      - key: UPSTASH_REDIS_REST_URL
+        sync: false
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false
+
+      # For normal Redis clients, if your backend uses redis:// or rediss://:
+      - key: REDIS_URL
+        sync: false
