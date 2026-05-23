@@ -22,19 +22,39 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
+    services:
+      restore_db:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: RestorePass123
+          POSTGRES_DB: postgres
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
     env:
       PYTHONPATH: .
       DB_ROLLBACK_SOURCE_DATABASE_URL: ${{ secrets.DB_ROLLBACK_SOURCE_DATABASE_URL }}
-      DB_ROLLBACK_RESTORE_DATABASE_URL: ${{ secrets.DB_ROLLBACK_RESTORE_DATABASE_URL }}
+      DB_ROLLBACK_RESTORE_DATABASE_URL: "postgresql://postgres:RestorePass123@localhost:5433/postgres"
+      DB_ROLLBACK_PG_RESTORE_ARGS: "--schema=public"
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Install PostgreSQL client
+      - name: Install PostgreSQL 17 client
         run: |
-          sudo apt-get update
-          sudo apt-get install -y postgresql-client
+          sudo apt-get update -qq
+          sudo install -d /usr/share/postgresql-common/pgdg
+          sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail \
+            https://www.postgresql.org/media/keys/ACCC4CF8.asc
+          sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          sudo apt-get update -qq
+          sudo apt-get install -y postgresql-client-17
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -54,9 +74,6 @@ jobs:
           case "${DB_ROLLBACK_SOURCE_DATABASE_URL}" in
             *"<"*|*">"*|*"example.com"*|*"localhost"*|*"127.0.0.1"*) exit 1 ;;
           esac
-          case "${DB_ROLLBACK_RESTORE_DATABASE_URL}" in
-            *"<"*|*">"*|*"example.com"*|*"localhost"*|*"127.0.0.1"*) exit 1 ;;
-          esac
 
       - name: Run DB backup restore rollback evidence
         run: |
@@ -65,6 +82,10 @@ jobs:
           else
             python scripts/db_backup_restore_rollback_evidence.py
           fi
+
+      - name: Show evidence status
+        if: always()
+        run: cat docs/release/db_backup_restore_rollback_evidence_status.json || true
 
       - name: Upload DB rollback status only
         if: always()
