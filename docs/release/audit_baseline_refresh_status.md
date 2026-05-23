@@ -1,12 +1,12 @@
 # Audit Baseline Refresh Status
 
-Generated at: `2026-05-21T23:49:56Z`
-Commit: `9b11cd7f8e1a64e1a9f83cd7f5125f5612633343`
+Generated at: `2026-05-23T06:06:48Z`
+Commit: `0bf52110a452701c80644433b5f821c077f3cb3c`
 Branch: `codex/production_readiness`
 
 **Status:** `audit-baseline-refresh-current`
 **Beta decision:** `NO-GO`
-**Beta blocker count:** `8`
+**Beta blocker count:** `7`
 
 ## Commands
 
@@ -20,8 +20,8 @@ Branch: `codex/production_readiness`
 
 | Surface | Exists | Status | Decision | Commit | Stale |
 |---|---:|---|---|---|---:|
-| `final_beta_gate_refresh` | True | `NO-GO` | `NO-GO` | `9b11cd7f8e1a64e1a9f83cd7f5125f5612633343` | False |
-| `release_go_no_go_status` | True | `NO-GO` | `NO-GO` | `9b11cd7f8e1a64e1a9f83cd7f5125f5612633343` | False |
+| `final_beta_gate_refresh` | True | `NO-GO` | `NO-GO` | `0bf52110a452701c80644433b5f821c077f3cb3c` | False |
+| `release_go_no_go_status` | True | `NO-GO` | `NO-GO` | `0bf52110a452701c80644433b5f821c077f3cb3c` | False |
 | `ci_evidence` | True | `ci-evidence-accepted` | `` | `8638400aaa53cf737aa4eb11ddab55cc97ebb02f` | True |
 | `ci_run_evidence` | True | `external-blocked` | `` | `8638400aaa53cf737aa4eb11ddab55cc97ebb02f` | True |
 | `external_approval` | True | `external-blocked` | `` | `84ace987e1f577fcf647fbe105f78680003c5aaa` | True |
@@ -33,7 +33,7 @@ Branch: `codex/production_readiness`
 | `diag_deep_health_runtime` | True | `diag-deep-health-runtime-accepted` | `` | `ecaab870ed5e171a5d8c5d58393ae80e64917ee5` | True |
 | `live_db_transaction_evidence` | True | `external-blocked` | `` | `8638400aaa53cf737aa4eb11ddab55cc97ebb02f` | True |
 | `beta_blocker_burndown` | True | `` | `` | `84ace987e1f577fcf647fbe105f78680003c5aaa` | True |
-| `docs_inventory` | True | `` | `` | `9b11cd7f8e1a64e1a9f83cd7f5125f5612633343` | False |
+| `docs_inventory` | True | `` | `` | `0bf52110a452701c80644433b5f821c077f3cb3c` | False |
 
 ## Accepted evidence marker preservation
 
@@ -54,7 +54,6 @@ Branch: `codex/production_readiness`
 - `SEC-001`
 - `CONTENT-001`
 - `LESSON-AUTH-001`
-- `DIAG-SCORE-001`
 - `EXT-GATE-001`
 
 ## Blockers
