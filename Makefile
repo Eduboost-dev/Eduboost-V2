@@ -2684,3 +2684,25 @@ diagnostic-score-live-audit-release-check: diagnostic-score-live-audit-registry-
 backend-implementation-3191-3230-full-check: diagnostic-score-live-audit-status diagnostic-score-live-audit-check diagnostic-score-live-audit-test
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/diagnostic_score_live_audit.py scripts/patch_diagnostic_score_live_audit_registry.py scripts/check_diagnostic_score_live_audit.py tests/unit/test_diagnostic_score_live_audit.py --select F821,F401,F811,E402
+
+.PHONY: audit-write-runtime-status audit-write-runtime-registry-patch audit-write-runtime-check audit-write-runtime-test audit-write-runtime-release-check backend-implementation-3271-3310-full-check
+
+audit-write-runtime-status:
+	PYTHONPATH=. python3 -c "from scripts.audit_write_runtime_evidence import write_status; s = write_status(run_flow=False); print(s.status); print(s.audit_events_count_after); print(s.audit_events_delta)"
+
+audit-write-runtime-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_audit_write_runtime_registry.py
+
+audit-write-runtime-check:
+	PYTHONPATH=. python3 scripts/check_audit_write_runtime_evidence.py
+
+audit-write-runtime-test:
+	pytest -c pytest.ini tests/unit/test_audit_write_runtime_evidence.py -q --no-cov --tb=short
+
+audit-write-runtime-release-check: audit-write-runtime-registry-patch
+	AUDIT_WRITE_ACCEPT=1 PYTHONPATH=. python3 scripts/check_audit_write_runtime_evidence.py
+
+backend-implementation-3271-3310-full-check: audit-write-runtime-status audit-write-runtime-registry-patch audit-write-runtime-check audit-write-runtime-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/audit_write_runtime_evidence.py scripts/patch_audit_write_runtime_registry.py scripts/check_audit_write_runtime_evidence.py tests/unit/test_audit_write_runtime_evidence.py --select F821,F401,F811,E402
+
