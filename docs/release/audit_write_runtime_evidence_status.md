@@ -1,33 +1,32 @@
 # Audit Write Runtime Evidence Status
 
-Generated at: `2026-05-23T13:29:02Z`
-Commit: `dad3dc7a0314578647ba2b0ae3ecfad33db73bd3`
+Generated at: `2026-05-23T19:33:50Z`
+Commit: `39e0b099894761975d5b65f4bb7e2f9b21577a8f`
 
-**Status:** `audit-write-runtime-accepted`
-**DB URL label:** `AUDIT_WRITE_DATABASE_URL`
-**DB checked:** `True`
-**audit_events exists:** `True`
-**audit_events before:** `5`
-**audit_events after:** `6`
-**audit_events delta:** `1`
-**Trace ID:** `audit-write-dad3dc7a0314-20260523132851`
-**Trace detected:** `True`
-**Flow command:** `PYTHONPATH=. python3 scripts/audit_write_flow_command.py`
-**Flow return code:** `0`
-**Run ID:** `26333923404`
-**Run URL:** `https://github.com/NkgoloL/Eduboost-V2/actions/runs/26333923404`
-**Workflow:** `audit-write-runtime-evidence`
+**Status:** `audit-write-runtime-not-accepted`
+**DB URL label:** ``
+**DB checked:** `False`
+**audit_events exists:** `False`
+**audit_events before:** `None`
+**audit_events after:** `None`
+**audit_events delta:** `None`
+**Trace ID:** `audit-write-39e0b0998947-20260523193350`
+**Trace detected:** `False`
+**Flow command:** ``
+**Flow return code:** `None`
+**Run ID:** ``
+**Run URL:** ``
+**Workflow:** ``
 
 ## Flow output excerpt
 
 ```text
-audit_write_flow: inserted event_id=7a45d527-269d-43fa-bd58-a62a072ad37b trace_id=audit-write-dad3dc7a0314-20260523132851
 
 ```
 
 ## Blockers
 
-- None
+- AUDIT_WRITE_DATABASE_URL/DATABASE_URL is missing, placeholder, local, or invalid
 
 ## No false-closure rules
 

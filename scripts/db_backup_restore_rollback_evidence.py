@@ -68,8 +68,17 @@ def normalize_db_url(url: str) -> str:
     return url
 
 
-def valid_db_url(url: str) -> bool:
-    if not url or has_placeholder(url):
+def valid_db_url(url: str, *, allow_localhost: bool = False) -> bool:
+    if not url:
+        return False
+    # Allow localhost/127.0.0.1 for the restore target (service containers in CI)
+    if allow_localhost:
+        # Only block obvious template placeholders, not localhost
+        blocked = [t for t in PLACEHOLDER_TOKENS if t not in ("localhost", "127.0.0.1")]
+        lowered = url.lower()
+        if any(token.lower() in lowered for token in blocked):
+            return False
+    elif has_placeholder(url):
         return False
     parsed = urlparse(url)
     return parsed.scheme in {"postgresql", "postgres"} and bool(parsed.hostname) and bool(parsed.path.strip("/"))
@@ -262,7 +271,7 @@ def write_status(run_drill: bool = False) -> dict:
 
     if not valid_db_url(src_url):
         blockers.append("DB_ROLLBACK_SOURCE_DATABASE_URL is missing, placeholder, local, or invalid")
-    if not valid_db_url(dst_url):
+    if not valid_db_url(dst_url, allow_localhost=True):
         blockers.append("DB_ROLLBACK_RESTORE_DATABASE_URL is missing, placeholder, local, or invalid")
     if src_url and dst_url and src_url == dst_url:
         blockers.append("source and restore database URLs must differ")
@@ -303,8 +312,10 @@ def write_status(run_drill: bool = False) -> dict:
             blockers.append("backup dump was not created or was empty")
 
         if not blockers:
-            restore = run(["pg_restore", "--clean", "--if-exists", "--no-owner", "--no-acl", "--dbname", dst_url, str(dump_path)])
-            restore_cmd = command_evidence("pg_restore --clean --if-exists --no-owner --no-acl --dbname <restore-db> <dump>", restore)
+            import shlex as _shlex
+            _extra_args = _shlex.split(os.getenv("DB_ROLLBACK_PG_RESTORE_ARGS", ""))
+            restore = run(["pg_restore", "--clean", "--if-exists", "--no-owner", "--no-acl"] + _extra_args + ["--dbname", dst_url, str(dump_path)])
+            restore_cmd = command_evidence(f"pg_restore --clean --if-exists --no-owner --no-acl {' '.join(_extra_args)} --dbname <restore-db> <dump>", restore)
             if restore.returncode != 0:
                 blockers.append(f"restore command failed with exit code {restore.returncode}")
 
