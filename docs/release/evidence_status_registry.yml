@@ -271,16 +271,22 @@ findings:
     severity: P0
     gate: 5
     owner: backend
-    implementation_batch: pending
-    proof_status: not-proven
-    proof_command: pending DIAG-SCORE-001R live scoring audit
-    evidence_file: docs/release/diagnostic_item_bank_canonicality_status.md
-    canonical_table: diagnostic_items
-    supporting_table: irt_items
-    last_verified_commit: null
-    closure_blocker: diagnostic_items is runtime-required and must be seeded or runtime references removed before scoring audit can close
-    release_ready: false
-    blocks_beta: true
+    implementation_batch: code_3191_3230
+    proof_status: runtime-passing
+    proof_command: make diagnostic-score-live-audit-release-check
+    evidence_file: docs/release/diagnostic_score_live_audit_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760
+    workflow_name: .github/workflows/diag-score-live-audit.yml
+    run_id: 26316648760
+    diagnostic_items_count: 25600
+    irt_items_count: 1600
+    seed_inserted_rows: 1600
+    last_verified_commit: 7f16b079bacfb08ff139314a42bf0abf37488c45
+    verified_by: github-actions
+    date_verified: 2026-05-22
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
     external_dependency: true
   - id: DOCS-INTEL-001
     title: Documentation intelligence refresh
@@ -825,3 +831,61 @@ findings:
     release_ready: true
     blocks_beta: false
     external_dependency: false
+  - id: DIAG-SCORE-001R
+    title: Diagnostic scoring live audit repair
+    severity: P0
+    gate: 5
+    owner: backend
+    implementation_batch: code_3191_3230
+    proof_status: runtime-passing
+    proof_command: make diagnostic-score-live-audit-release-check
+    evidence_file: docs/release/diagnostic_score_live_audit_status.md
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760
+    run_id: 26316648760
+    diagnostic_items_count: 25600
+    irt_items_count: 1600
+    last_verified_commit: 7f16b079bacfb08ff139314a42bf0abf37488c45
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
+    external_dependency: true
+  - id: AUDIT-WRITE-001
+    title: Runtime audit_events write proof
+    severity: P0
+    gate: 6
+    owner: backend
+    implementation_batch: code_3271_3310
+    proof_status: not-proven
+    proof_command: make audit-write-runtime-release-check
+    evidence_file: docs/release/audit_write_runtime_evidence_status.md
+    evidence_url: null
+    workflow_name: null
+    run_id: null
+    audit_events_count_before: None
+    audit_events_count_after: None
+    audit_events_delta: None
+    audit_trace_id: audit-write-4c8c299c236e-20260523120452
+    last_verified_commit: null
+    verified_by: null
+    date_verified: null
+    closure_blocker: real audit_events write proof required
+    release_ready: false
+    blocks_beta: true
+    external_dependency: true
+  - id: AUDIT-WRITE-001R
+    title: Runtime audit_events write evidence repair
+    severity: P0
+    gate: 6
+    owner: backend
+    implementation_batch: code_3271_3310
+    proof_status: not-proven
+    proof_command: make audit-write-runtime-release-check
+    evidence_file: docs/release/audit_write_runtime_evidence_status.md
+    evidence_url: null
+    run_id: null
+    audit_events_delta: None
+    last_verified_commit: null
+    closure_blocker: real audit_events write proof required
+    release_ready: false
+    blocks_beta: true
+    external_dependency: true

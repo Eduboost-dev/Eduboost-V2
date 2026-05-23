@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-22T01:56:44Z",
-  "current_commit": "690371a5b1da4146991b941164136c6960110e1c",
+  "generated_at": "2026-05-23T06:06:40Z",
+  "current_commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
   "beta_decision": "NO-GO",
-  "beta_blocker_count": 8,
+  "beta_blocker_count": 7,
   "surfaces": [
     {
       "name": "ci_run_evidence",
@@ -123,17 +123,6 @@
       "effective_blocks_beta": true
     },
     {
-      "id": "DIAG-SCORE-001",
-      "title": "Diagnostic scoring live DB and item-bank audit",
-      "proof_status": "not-proven",
-      "closure_blocker": "diagnostic_items is runtime-required and must be seeded or runtime references removed before scoring audit can close",
-      "evidence_file": "docs/release/diagnostic_item_bank_canonicality_status.md",
-      "external_dependency": true,
-      "registry_blocks_beta": true,
-      "release_ready": false,
-      "effective_blocks_beta": true
-    },
-    {
       "id": "EXT-GATE-001",
       "title": "External approval tracking gate",
       "proof_status": "runtime-passing",
@@ -176,7 +165,6 @@
     "Attach complete external approval metadata for SEC-001.",
     "Attach complete external approval metadata for CONTENT-001.",
     "Resolve LESSON-AUTH-001: full HTTP and staging proof for all lesson routes remains pending.",
-    "Resolve DIAG-SCORE-001: diagnostic_items is runtime-required and must be seeded or runtime references removed before scoring audit can close.",
     "Complete all external approval items tracked by EXT-GATE-001."
   ]
 }

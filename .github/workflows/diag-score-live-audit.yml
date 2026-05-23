@@ -1,96 +1,76 @@
-name: DIAG Score Live Audit Gate
+name: diag-score-live-audit
 
 on:
-  workflow_run:
-    workflows:
-      - "Backend Consolidation Evidence"
-    types:
-      - completed
   workflow_dispatch:
     inputs:
-      run_id:
-        description: 'Optional GitHub Actions run id to attach as evidence'
-        required: false
-      use_database_url:
-        description: 'Use preconfigured DIAG_SCORE_DATABASE_URL secret (true/false)'
-        required: false
-        default: 'true'
+      apply_seed:
+        description: "Apply guarded bridge seed from irt_items to diagnostic_items"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+permissions:
+  contents: read
+  actions: read
 
 jobs:
-  diag-score-gate:
+  diag-score-live-audit:
+    name: Diagnostic score live audit
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch'
-    permissions:
-      contents: read
-      actions: read
+    timeout-minutes: 20
+
+    env:
+      PYTHONPATH: .
+      DIAG_SCORE_DATABASE_URL: ${{ secrets.DIAG_SCORE_DATABASE_URL }}
+      DIAG_SCORE_ALLOW_BRIDGE_SEED: ${{ github.event.inputs.apply_seed == 'true' && '1' || '0' }}
+
     steps:
-      - name: Checkout
+      - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
-      - name: Install deps
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt || true
-          pip install -r requirements-dev.txt || true
+          if [ -f requirements.txt ]; then
+            python -m pip install -r requirements.txt
+          fi
+          if [ -f requirements-dev.txt ]; then
+            python -m pip install -r requirements-dev.txt
+          fi
+          python -m pip install sqlalchemy asyncpg
 
-      - name: Determine DB URL
-        id: db
+      - name: Verify required secret
         run: |
-          if [ "${{ github.event_name }}" = "workflow_run" ]; then
-            RUN_ID=${{ github.event.workflow_run.id }}
+          test -n "${DIAG_SCORE_DATABASE_URL}"
+          case "${DIAG_SCORE_DATABASE_URL}" in
+            *"<"*|*">"*|*"example.com"*|*"localhost"*|*"127.0.0.1"*)
+              echo "DIAG_SCORE_DATABASE_URL is placeholder/local and cannot be used"
+              exit 1
+              ;;
+          esac
+
+      - name: Run diagnostic score live audit
+        run: |
+          if [ "${DIAG_SCORE_ALLOW_BRIDGE_SEED}" = "1" ]; then
+            python scripts/diagnostic_score_live_audit.py --apply-seed
           else
-            RUN_ID=${{ github.event.inputs.run_id || '' }}
+            python scripts/diagnostic_score_live_audit.py
           fi
 
-          echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
-
-          if [ "${{ github.event.inputs.use_database_url }}" = "true" ] && [ -n "${{ secrets.DIAG_SCORE_DATABASE_URL }}" ]; then
-            echo "db_url=${{ secrets.DIAG_SCORE_DATABASE_URL }}" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-
-          if [ -n "${{ secrets.SUPABASE_SERVICE_KEY }}" ] && [ -n "${{ secrets.SUPABASE_HOST }}" ]; then
-            # URL-encode the service key
-            ENC=$(python - <<'PY'
-import urllib.parse,sys
-print(urllib.parse.quote_plus(sys.stdin.read().strip()))
-PY
-<<<"${{ secrets.SUPABASE_SERVICE_KEY }}")
-            echo "db_url=postgresql+asyncpg://postgres:${ENC}@${{ secrets.SUPABASE_HOST }}:5432/postgres" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-
-          echo "db_url=" >> $GITHUB_OUTPUT
-
-      - name: Run DIAG score live audit gate
-        env:
-          DIAG_SCORE_ACCEPT: '1'
-          DIAG_SCORE_DATABASE_URL: ${{ steps.db.outputs.db_url }}
-          DIAG_SCORE_ALLOW_BRIDGE_SEED: '1'
-          DIAG_SCORE_RUN_ID: ${{ steps.db.outputs.run_id }}
-          DIAG_SCORE_TEST_COMMAND: 'python scripts/diagnostic_score_live_audit.py --apply-seed'
-          DIAG_SCORE_SEED_RESULT: 'passed'
-          DIAG_SCORE_SCORING_RESULT: 'passed'
-          DIAG_SCORE_AUDIT_RESULT: 'passed'
-        run: |
-          set -euo pipefail
-          echo "DB URL: ${DIAG_SCORE_DATABASE_URL:+(provided)}"
-          if [ -z "${DIAG_SCORE_DATABASE_URL}" ]; then
-            echo "ERROR: DIAG_SCORE_DATABASE_URL not provided. Set secret DIAG_SCORE_DATABASE_URL or SUPABASE_SERVICE_KEY and SUPABASE_HOST."
-            exit 1
-          fi
-          bash temp/code_3191_3230/code_3191_3230_diag_score_live_audit_gate.sh
-
-      - name: Upload audit status
+      - name: Upload diagnostic score evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: diagnostic_score_live_audit_status
+          name: diagnostic-score-live-audit-evidence
           path: |
             docs/release/diagnostic_score_live_audit_status.json
             docs/release/diagnostic_score_live_audit_status.md
+          if-no-files-found: warn

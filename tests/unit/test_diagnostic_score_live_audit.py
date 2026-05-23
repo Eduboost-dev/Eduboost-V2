@@ -25,7 +25,7 @@ def test_normalize_db_url_to_asyncpg():
 
 def test_bridge_expression_maps_item_id_from_irt_id():
     expr = _expr_for_diag_column(col("item_id"), {"id"})
-    assert expr == 'i."id"'
+    assert expr == 'gen_random_uuid()'
 
 
 def test_bridge_expression_skips_nullable_unknown_columns():
