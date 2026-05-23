@@ -181,10 +181,13 @@ def sha256(path: Path) -> str:
 
 
 def command_evidence(label: str, result: subprocess.CompletedProcess[str]) -> dict:
+    excerpt = (result.stdout or "")[-5000:]
+    if excerpt.strip():
+        print(f"[{label}] output:\n{excerpt}", flush=True)
     return {
         "command_label": label,
         "return_code": result.returncode,
-        "output_excerpt": result.stdout[-5000:],
+        "output_excerpt": excerpt,
     }
 
 
@@ -252,6 +255,16 @@ def compare_counts(src: dict, dst: dict) -> dict:
     return mismatches
 
 
+def pg_url_for_tool(url: str) -> str:
+    """Add sslmode=require for Supabase/pooler URLs if not already set."""
+    parsed = urlparse(url)
+    if "sslmode" not in (parsed.query or ""):
+        host = parsed.hostname or ""
+        if "localhost" not in host and "127.0.0.1" not in host:
+            url = url + ("&" if parsed.query else "?") + "sslmode=require"
+    return url
+
+
 def write_status(run_drill: bool = False) -> dict:
     blockers: list[str] = []
     commit = current_commit()
@@ -262,7 +275,7 @@ def write_status(run_drill: bool = False) -> dict:
 
     if not valid_db_url(src_url):
         blockers.append("DB_ROLLBACK_SOURCE_DATABASE_URL is missing, placeholder, local, or invalid")
-    if not valid_db_url(dst_url):
+    if not valid_db_url(dst_url, allow_localhost=True):
         blockers.append("DB_ROLLBACK_RESTORE_DATABASE_URL is missing, placeholder, local, or invalid")
     if src_url and dst_url and src_url == dst_url:
         blockers.append("source and restore database URLs must differ")
@@ -291,7 +304,7 @@ def write_status(run_drill: bool = False) -> dict:
         dump_path = WORK_DIR / f"db_rollback_{commit[:12]}_{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}.dump"
         dump_label = dump_path.name
 
-        backup = run(["pg_dump", "--format=custom", "--no-owner", "--no-acl", "--file", str(dump_path), src_url])
+        backup = run(["pg_dump", "--format=custom", "--no-owner", "--no-acl", "--file", str(dump_path), pg_url_for_tool(src_url)])
         backup_cmd = command_evidence("pg_dump --format=custom --no-owner --no-acl --file <dump> <source-db>", backup)
         if backup.returncode != 0:
             blockers.append(f"backup command failed with exit code {backup.returncode}")
