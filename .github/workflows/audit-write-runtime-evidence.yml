@@ -25,7 +25,6 @@ jobs:
     env:
       PYTHONPATH: .
       AUDIT_WRITE_DATABASE_URL: ${{ secrets.AUDIT_WRITE_DATABASE_URL }}
-      AUDIT_WRITE_FLOW_COMMAND: ${{ secrets.AUDIT_WRITE_FLOW_COMMAND }}
       AUDIT_WRITE_TRACE_ID: audit-write-${{ github.run_id }}-${{ github.sha }}
 
     steps:
@@ -50,7 +49,6 @@ jobs:
       - name: Verify required secrets
         run: |
           test -n "${AUDIT_WRITE_DATABASE_URL}"
-          test -n "${AUDIT_WRITE_FLOW_COMMAND}"
           case "${AUDIT_WRITE_DATABASE_URL}" in
             *"<"*|*">"*|*"example.com"*|*"localhost"*|*"127.0.0.1"*)
               echo "AUDIT_WRITE_DATABASE_URL is placeholder/local and cannot be used"
@@ -60,9 +58,12 @@ jobs:
 
       - name: Run audit write runtime evidence
         run: |
-          echo "=== Debug: Testing flow command directly ==="
-          eval "$AUDIT_WRITE_FLOW_COMMAND" || echo "Direct flow command exit: $?"
+          echo "=== Running flow command directly ==="
+          AUDIT_WRITE_FLOW_COMMAND="PYTHONPATH=. python scripts/audit_write_flow_command.py"
+          $AUDIT_WRITE_FLOW_COMMAND
           echo "=== Running evidence script ==="
+          AUDIT_WRITE_FLOW_COMMAND="PYTHONPATH=. python scripts/audit_write_flow_command.py"
+          export AUDIT_WRITE_FLOW_COMMAND
           if [ "${{ github.event.inputs.run_flow }}" = "true" ]; then
             python scripts/audit_write_runtime_evidence.py --run-flow
           else
