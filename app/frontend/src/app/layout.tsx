@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
+import { LearnerProvider } from "@/context/LearnerContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -56,10 +57,14 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground`}
+        suppressHydrationWarning
       >
-        {children}
+        <LearnerProvider>
+          {children}
+        </LearnerProvider>
         <Toaster position="bottom-right" theme="dark" />
       </body>
     </html>
   );
 }
+
