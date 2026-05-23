@@ -58,12 +58,10 @@ jobs:
 
       - name: Run audit write runtime evidence
         run: |
-          echo "=== Running flow command directly ==="
-          AUDIT_WRITE_FLOW_COMMAND="PYTHONPATH=. python scripts/audit_write_flow_command.py"
-          $AUDIT_WRITE_FLOW_COMMAND
+          echo "=== Running flow script directly ==="
+          PYTHONPATH=. python scripts/audit_write_flow_command.py
           echo "=== Running evidence script ==="
-          AUDIT_WRITE_FLOW_COMMAND="PYTHONPATH=. python scripts/audit_write_flow_command.py"
-          export AUDIT_WRITE_FLOW_COMMAND
+          export AUDIT_WRITE_FLOW_COMMAND="PYTHONPATH=. python scripts/audit_write_flow_command.py"
           if [ "${{ github.event.inputs.run_flow }}" = "true" ]; then
             python scripts/audit_write_runtime_evidence.py --run-flow
           else
