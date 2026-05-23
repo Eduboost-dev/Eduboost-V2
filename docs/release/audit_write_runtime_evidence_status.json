@@ -1,30 +1,32 @@
 {
-  "generated_at": "2026-05-23T13:29:02Z",
-  "current_commit": "dad3dc7a0314578647ba2b0ae3ecfad33db73bd3",
-  "status": "audit-write-runtime-accepted",
-  "db_url_label": "AUDIT_WRITE_DATABASE_URL",
-  "db_checked": true,
-  "audit_table_exists": true,
-  "audit_events_count_before": 5,
-  "audit_events_count_after": 6,
-  "audit_events_delta": 1,
-  "audit_trace_id": "audit-write-dad3dc7a0314-20260523132851",
-  "audit_trace_detected": true,
+  "generated_at": "2026-05-23T19:33:50Z",
+  "current_commit": "39e0b099894761975d5b65f4bb7e2f9b21577a8f",
+  "status": "audit-write-runtime-not-accepted",
+  "db_url_label": "",
+  "db_checked": false,
+  "audit_table_exists": false,
+  "audit_events_count_before": null,
+  "audit_events_count_after": null,
+  "audit_events_delta": null,
+  "audit_trace_id": "audit-write-39e0b0998947-20260523193350",
+  "audit_trace_detected": false,
   "flow_result": {
-    "command": "PYTHONPATH=. python3 scripts/audit_write_flow_command.py",
-    "return_code": 0,
-    "output_excerpt": "audit_write_flow: inserted event_id=7a45d527-269d-43fa-bd58-a62a072ad37b trace_id=audit-write-dad3dc7a0314-20260523132851\n"
+    "command": "",
+    "return_code": null,
+    "output_excerpt": ""
   },
   "github_run": {
-    "run_id": "26333923404",
-    "run_url": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26333923404",
-    "workflow_name": "audit-write-runtime-evidence",
-    "run_status": "completed",
-    "conclusion": "success",
-    "head_sha": "dad3dc7a0314578647ba2b0ae3ecfad33db73bd3",
+    "run_id": "",
+    "run_url": "",
+    "workflow_name": "",
+    "run_status": "",
+    "conclusion": "",
+    "head_sha": "",
     "blockers": []
   },
-  "verified_by": "github-actions",
+  "verified_by": "unverified",
   "date_verified": "2026-05-23",
-  "blockers": []
+  "blockers": [
+    "AUDIT_WRITE_DATABASE_URL/DATABASE_URL is missing, placeholder, local, or invalid"
+  ]
 }

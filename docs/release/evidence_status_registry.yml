@@ -855,22 +855,22 @@ findings:
     gate: 6
     owner: backend
     implementation_batch: code_3271_3310
-    proof_status: runtime-passing
+    proof_status: not-proven
     proof_command: make audit-write-runtime-release-check
     evidence_file: docs/release/audit_write_runtime_evidence_status.md
-    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26333923404
-    workflow_name: audit-write-runtime-evidence
-    run_id: 26333923404
-    audit_events_count_before: 4
-    audit_events_count_after: 5
-    audit_events_delta: 1
-    audit_trace_id: audit-write-dad3dc7a0314-20260523132837
-    last_verified_commit: dad3dc7a0314578647ba2b0ae3ecfad33db73bd3
-    verified_by: github-actions
-    date_verified: 2026-05-23
-    closure_blocker: none
-    release_ready: true
-    blocks_beta: false
+    evidence_url: null
+    workflow_name: null
+    run_id: null
+    audit_events_count_before: None
+    audit_events_count_after: None
+    audit_events_delta: None
+    audit_trace_id: audit-write-39e0b0998947-20260523193350
+    last_verified_commit: null
+    verified_by: null
+    date_verified: null
+    closure_blocker: real audit_events write proof required
+    release_ready: false
+    blocks_beta: true
     external_dependency: true
   - id: AUDIT-WRITE-001R
     title: Runtime audit_events write evidence repair
@@ -878,14 +878,55 @@ findings:
     gate: 6
     owner: backend
     implementation_batch: code_3271_3310
-    proof_status: runtime-passing
+    proof_status: not-proven
     proof_command: make audit-write-runtime-release-check
     evidence_file: docs/release/audit_write_runtime_evidence_status.md
-    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26333923404
-    run_id: 26333923404
-    audit_events_delta: 1
-    last_verified_commit: dad3dc7a0314578647ba2b0ae3ecfad33db73bd3
-    closure_blocker: none
-    release_ready: true
-    blocks_beta: false
+    evidence_url: null
+    run_id: null
+    audit_events_delta: None
+    last_verified_commit: null
+    closure_blocker: real audit_events write proof required
+    release_ready: false
+    blocks_beta: true
+    external_dependency: true
+  - id: DB-ROLLBACK-001
+    title: Backup restore rollback runtime evidence
+    severity: P0
+    gate: 6
+    owner: backend
+    implementation_batch: code_3311_3350
+    proof_status: not-proven
+    proof_command: make db-backup-restore-rollback-release-check
+    evidence_file: docs/release/db_backup_restore_rollback_evidence_status.md
+    evidence_url: null
+    run_id: null
+    source_table_count: None
+    restore_table_count: None
+    dump_sha256: null
+    dump_size_bytes: 0
+    last_verified_commit: null
+    verified_by: null
+    date_verified: null
+    closure_blocker: backup restore rollback drill proof required
+    release_ready: false
+    blocks_beta: true
+    external_dependency: true
+  - id: DB-ROLLBACK-001R
+    title: Backup restore rollback evidence repair
+    severity: P0
+    gate: 6
+    owner: backend
+    implementation_batch: code_3311_3350
+    proof_status: not-proven
+    proof_command: make db-backup-restore-rollback-release-check
+    evidence_file: docs/release/db_backup_restore_rollback_evidence_status.md
+    evidence_url: null
+    run_id: null
+    source_table_count: None
+    restore_table_count: None
+    dump_sha256: null
+    last_verified_commit: null
+    closure_blocker: backup restore rollback drill proof required
+    release_ready: false
+    blocks_beta: true
     external_dependency: true
