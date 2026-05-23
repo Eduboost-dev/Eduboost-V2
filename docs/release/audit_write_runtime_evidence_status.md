@@ -1,18 +1,18 @@
 # Audit Write Runtime Evidence Status
 
-Generated at: `2026-05-23T08:19:03Z`
-Commit: `83fe90e0b460d826c341939699ad5db5726d9c87`
+Generated at: `2026-05-23T12:05:02Z`
+Commit: `4c8c299c236ebc10d1211e3f0d9898c714365c37`
 
 **Status:** `audit-write-runtime-not-accepted`
-**DB URL label:** ``
+**DB URL label:** `AUDIT_WRITE_DATABASE_URL`
 **DB checked:** `False`
 **audit_events exists:** `False`
 **audit_events before:** `None`
 **audit_events after:** `None`
 **audit_events delta:** `None`
-**Trace ID:** `audit-write-83fe90e0b460-20260523081903`
+**Trace ID:** `audit-write-4c8c299c236e-20260523120457`
 **Trace detected:** `False`
-**Flow command:** ``
+**Flow command:** `curl -fsS https://eduboost-api.onrender.com/api/v2/health/deep`
 **Flow return code:** `None`
 **Run ID:** ``
 **Run URL:** ``
@@ -26,7 +26,9 @@ Commit: `83fe90e0b460d826c341939699ad5db5726d9c87`
 
 ## Blockers
 
-- AUDIT_WRITE_DATABASE_URL/DATABASE_URL is missing, placeholder, local, or invalid
+- database audit-write check failed: OperationalError: connection to server at "db.ezjzbvybbwynqpqnbrdt.supabase.co" (2a05:d018:48a:c900:b75d:cff7:aa83:c96d), port 5432 failed: Network is unreachable
+	Is the server running on that host and accepting TCP/IP connections?
+
 
 ## No false-closure rules
 

@@ -2697,7 +2697,7 @@ audit-write-runtime-check:
 	PYTHONPATH=. python3 scripts/check_audit_write_runtime_evidence.py
 
 audit-write-runtime-test:
-	pytest -c pytest.ini tests/unit/test_audit_write_runtime_evidence.py -q --no-cov --tb=short
+	python3 -m pytest -c pytest.ini tests/unit/test_audit_write_runtime_evidence.py -q --no-cov --tb=short
 
 audit-write-runtime-release-check: audit-write-runtime-registry-patch
 	AUDIT_WRITE_ACCEPT=1 PYTHONPATH=. python3 scripts/check_audit_write_runtime_evidence.py
