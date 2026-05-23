@@ -7,7 +7,7 @@
     "release": 416,
     "security": 98
   },
-  "commit": "7f16b079bacfb08ff139314a42bf0abf37488c45",
+  "commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
   "document_count": 1070,
   "documents": [
     {
@@ -41927,11 +41927,19 @@
       "evidence_references": [],
       "generated": false,
       "headings": [],
-      "links": [],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760\",",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760\","
+        }
+      ],
       "path": "docs/release/diagnostic_score_live_audit_status.json",
-      "sha256": "3c6eb159a16aa195f126be012f01df853ce62f94633648be978ca314bed9e57d",
-      "size_bytes": 5820,
-      "statuses": [],
+      "sha256": "99f1127a341faee0729100d4ae7cdf86c20362247c7e6387395c9400699daee4",
+      "size_bytes": 6070,
+      "statuses": [
+        "passed"
+      ],
       "title": "Diagnostic Score Live Audit Status"
     },
     {
@@ -41971,11 +41979,19 @@
           "text": "No false-closure rules"
         }
       ],
-      "links": [],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760`",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760`"
+        }
+      ],
       "path": "docs/release/diagnostic_score_live_audit_status.md",
-      "sha256": "8e45a13b4cf6858101afaa2ec322a68818503d1a5c9633db60fb2e5acadf6ca9",
-      "size_bytes": 3179,
-      "statuses": [],
+      "sha256": "296aaa194c1a6d57354831c472b3a2eed5ef8dd7c504a519361671a16f3c8de5",
+      "size_bytes": 3369,
+      "statuses": [
+        "passed"
+      ],
       "title": "Diagnostic Score Live Audit Status"
     },
     {
@@ -42515,7 +42531,8 @@
     {
       "category": "release",
       "dates": [
-        "2026-05-21"
+        "2026-05-21",
+        "2026-05-22"
       ],
       "evidence_references": [
         "docs/release/jwt_production_guard_repair_report.md",
@@ -42533,7 +42550,7 @@
         "docs/release/no_false_closure_status_after_1471_1510.md",
         "docs/release/no_false_closure_status_after_1511_1550.md",
         "docs/release/no_false_closure_status_after_1551_1590.md",
-        "docs/release/diagnostic_item_bank_canonicality_status.md",
+        "docs/release/diagnostic_score_live_audit_status.md",
         "docs/release/route_transaction_slice_rollup.md",
         "docs/release/staging_smoke_evidence_status.md",
         "docs/release/external_approval_status.md",
@@ -42562,7 +42579,8 @@
         "docs/release/staging_smoke_workflow_status.md",
         "docs/release/audit_baseline_refresh_status.md",
         "docs/release/db_migration_seed_repeatability_status.md",
-        "docs/release/db_live_only_table_ownership_status.md"
+        "docs/release/db_live_only_table_ownership_status.md",
+        "docs/release/diagnostic_item_bank_canonicality_status.md"
       ],
       "generated": false,
       "headings": [
@@ -42660,6 +42678,11 @@
         },
         {
           "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760"
+        },
+        {
+          "kind": "external",
           "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077",
           "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077"
         },
@@ -42697,11 +42720,16 @@
           "kind": "external",
           "target": "https://eduboost-api.onrender.com/api/v2/health/deep",
           "text": "https://eduboost-api.onrender.com/api/v2/health/deep"
+        },
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760"
         }
       ],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "94853ec974e8faabe5344ecf3f83a25e90000f5676936942d55f5282f3b8e55f",
-      "size_bytes": 32324,
+      "sha256": "22a8b511f35dae8fc6e5b32e20075fdac652fb91a15a0b40bf1d47e5c7e293d1",
+      "size_bytes": 33175,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -42898,7 +42926,6 @@
         "docs/release/external_approvals/security_approval.md",
         "docs/release/external_approvals/content_approval.md",
         "docs/release/lesson_authorization_hardening_report.md",
-        "docs/release/diagnostic_item_bank_canonicality_status.md",
         "docs/release/external_approval_status.md",
         "docs/release/auth_refresh_db_evidence_status.md"
       ],
@@ -42906,12 +42933,11 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "40b1e77cf950179ca437905ec62062cc4102dfe83159990d9fe3ad084d6bb1a7",
-      "size_bytes": 6409,
+      "sha256": "4f00a9e5a8acf56bf07718649465ed31ac80a68daabfe93e349dfebbe7af289f",
+      "size_bytes": 5751,
       "statuses": [
         "external-blocked",
-        "pending",
-        "not-proven"
+        "pending"
       ],
       "title": "Final Beta Gate Refresh"
     },
@@ -42925,7 +42951,6 @@
         "docs/release/external_approvals/security_approval.md",
         "docs/release/external_approvals/content_approval.md",
         "docs/release/lesson_authorization_hardening_report.md",
-        "docs/release/diagnostic_item_bank_canonicality_status.md",
         "docs/release/external_approval_status.md"
       ],
       "generated": false,
@@ -42947,29 +42972,29 @@
         },
         {
           "level": 2,
-          "line": 38,
+          "line": 37,
           "text": "Resolved non-blocking accepted findings"
         },
         {
           "level": 2,
-          "line": 45,
+          "line": 44,
           "text": "Required next actions"
         },
         {
           "level": 2,
-          "line": 56,
+          "line": 54,
           "text": "No false-closure rules"
         },
         {
           "level": 2,
-          "line": 62,
+          "line": 60,
           "text": "Interpretation"
         }
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "99394c8305c2e3d77e4a6d5ac5afb71af233b39530390e8b785e0442ec629f2c",
-      "size_bytes": 3866,
+      "sha256": "229c94a42fadd603b0777a7efe3e17acddb7b2b81de4743855932245294b2413",
+      "size_bytes": 3484,
       "statuses": [
         "external-blocked",
         "pending",
@@ -48443,8 +48468,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/release_go_no_go_status.json",
-      "sha256": "17e5e687ceb69039b4d482dbcc2276efe07b5a2708d74ddaee0358437b24be3f",
-      "size_bytes": 654,
+      "sha256": "8de3ce5695f4d01a04335d6ca327ca20bfb6e62618c45bff5df1cbd2ed62ad44",
+      "size_bytes": 632,
       "statuses": [],
       "title": "Release Go No Go Status"
     },
@@ -48466,14 +48491,14 @@
         },
         {
           "level": 2,
-          "line": 20,
+          "line": 19,
           "text": "No false-closure rules"
         }
       ],
       "links": [],
       "path": "docs/release/release_go_no_go_status.md",
-      "sha256": "80fa704ec453fc558d2fa7c9de5e3acad284f0936b541c63ce3ed0fec298af7c",
-      "size_bytes": 541,
+      "sha256": "1810acfaccd6656d291e7e8ae820e7b393fabd4b9435d7589666ea323df3d838",
+      "size_bytes": 522,
       "statuses": [],
       "title": "Release Go/No-Go Status"
     },
@@ -55951,7 +55976,7 @@
     }
   ],
   "files_scanned": 1070,
-  "generated_at": "2026-05-22T22:46:22Z",
+  "generated_at": "2026-05-23T06:06:48Z",
   "generated_count": 4,
   "missing_important_docs": []
 }
