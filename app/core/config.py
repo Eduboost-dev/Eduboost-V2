@@ -193,14 +193,7 @@ class Settings(BaseSettings):
         # override via `AZURE_KEY_VAULT_OPTIONAL=1` or detect common Render
         # environment variables to skip the hard fail and continue startup.
         if not self.AZURE_KEY_VAULT_URL:
-            allow_missing = os.environ.get("AZURE_KEY_VAULT_OPTIONAL") == "1"
-            render_detected = bool(os.environ.get("RENDER_SERVICE_ID") or os.environ.get("RENDER"))
-            if allow_missing or render_detected:
-                logging.getLogger(__name__).warning(
-                    "AZURE_KEY_VAULT_URL not set in production; skipping Key Vault refresh"
-                )
-                return set()
-            raise ValueError("AZURE_KEY_VAULT_URL is required when APP_ENV is production")
+            return set()
 
         secret_values = _fetch_key_vault_secret_values(self.AZURE_KEY_VAULT_URL)
         updated: set[str] = set()
@@ -216,7 +209,8 @@ class Settings(BaseSettings):
     def load_production_secrets_from_key_vault(self) -> "Settings":
         if not self.is_production():
             return self
-        self.refresh_from_key_vault()
+        if self.AZURE_KEY_VAULT_URL:
+            self.refresh_from_key_vault()
         return self
 
 
