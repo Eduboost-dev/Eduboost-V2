@@ -2706,3 +2706,24 @@ backend-implementation-3271-3310-full-check: audit-write-runtime-status audit-wr
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/audit_write_runtime_evidence.py scripts/patch_audit_write_runtime_registry.py scripts/check_audit_write_runtime_evidence.py tests/unit/test_audit_write_runtime_evidence.py --select F821,F401,F811,E402
 
+.PHONY: db-backup-restore-rollback-status db-backup-restore-rollback-registry-patch db-backup-restore-rollback-check db-backup-restore-rollback-test db-backup-restore-rollback-release-check backend-implementation-3311-3350-full-check
+
+db-backup-restore-rollback-status:
+	PYTHONPATH=. python3 -c "from scripts.db_backup_restore_rollback_evidence import write_status; s = write_status(run_drill=False); print(s['status']); print(s['dump_sha256']); print(s['source_table_count']); print(s['restore_table_count'])"
+
+db-backup-restore-rollback-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_db_backup_restore_rollback_registry.py
+
+db-backup-restore-rollback-check:
+	PYTHONPATH=. python3 scripts/check_db_backup_restore_rollback_evidence.py
+
+db-backup-restore-rollback-test:
+	pytest -c pytest.ini tests/unit/test_db_backup_restore_rollback_evidence.py -q --no-cov --tb=short
+
+db-backup-restore-rollback-release-check: db-backup-restore-rollback-registry-patch
+	DB_ROLLBACK_ACCEPT=1 PYTHONPATH=. python3 scripts/check_db_backup_restore_rollback_evidence.py
+
+backend-implementation-3311-3350-full-check: db-backup-restore-rollback-status db-backup-restore-rollback-registry-patch db-backup-restore-rollback-check db-backup-restore-rollback-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/db_backup_restore_rollback_evidence.py scripts/patch_db_backup_restore_rollback_registry.py scripts/check_db_backup_restore_rollback_evidence.py tests/unit/test_db_backup_restore_rollback_evidence.py --select F821,F401,F811,E402
+
