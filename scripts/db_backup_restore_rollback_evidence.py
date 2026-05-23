@@ -327,8 +327,12 @@ def write_status(run_drill: bool = False) -> dict:
         if not blockers:
             restore = run(["pg_restore", "--clean", "--if-exists", "--no-owner", "--no-acl", "--dbname", dst_url, str(dump_path)])
             restore_cmd = command_evidence("pg_restore --clean --if-exists --no-owner --no-acl --dbname <restore-db> <dump>", restore)
-            if restore.returncode != 0:
+            # pg_restore returns exit code 1 for extension errors (Supabase extensions not in vanilla Postgres)
+            # This is acceptable as long as tables are restored; we verify via smoke check below
+            if restore.returncode not in (0, 1):
                 blockers.append(f"restore command failed with exit code {restore.returncode}")
+            if restore.returncode == 1:
+                restore_cmd["note"] = "exit code 1 accepted; extension errors expected when restoring Supabase dump to vanilla Postgres"
 
         if not blockers:
             dst_smoke = smoke(dst_url)
