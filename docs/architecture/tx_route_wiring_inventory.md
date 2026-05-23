@@ -1,19 +1,19 @@
 # Transaction Route Wiring Inventory
 
-Generated at: `2026-05-19T23:09:42Z`
+Generated at: `2026-05-22T14:26:10Z`
 
 **Status:** `production-route-transaction-wiring-not-proven`
 
 | Domain | Route function | File | Line | Mutation candidate | Transaction marker | Status |
 |---|---|---|---:|---:|---:|---|
-| `auth` | `me` | `app/api_v2_routers/auth.py` | 83 | False | False | `read-or-nonmutation-route` |
-| `auth` | `register` | `app/api_v2_routers/auth.py` | 89 | True | False | `route-transaction-wiring-not-proven` |
-| `auth` | `login` | `app/api_v2_routers/auth.py` | 108 | False | False | `read-or-nonmutation-route` |
-| `auth` | `create_dev_session` | `app/api_v2_routers/auth.py` | 126 | True | False | `route-transaction-wiring-not-proven` |
-| `auth` | `refresh_token` | `app/api_v2_routers/auth.py` | 150 | False | False | `read-or-nonmutation-route` |
-| `auth` | `list_sessions` | `app/api_v2_routers/auth.py` | 181 | False | False | `read-or-nonmutation-route` |
-| `auth` | `logout` | `app/api_v2_routers/auth.py` | 189 | False | False | `read-or-nonmutation-route` |
-| `auth` | `revoke_all_tokens` | `app/api_v2_routers/auth.py` | 218 | False | False | `read-or-nonmutation-route` |
+| `auth` | `me` | `app/api_v2_routers/auth.py` | 81 | False | False | `read-or-nonmutation-route` |
+| `auth` | `register` | `app/api_v2_routers/auth.py` | 87 | True | False | `route-transaction-wiring-not-proven` |
+| `auth` | `login` | `app/api_v2_routers/auth.py` | 106 | False | False | `read-or-nonmutation-route` |
+| `auth` | `create_dev_session` | `app/api_v2_routers/auth.py` | 124 | True | False | `route-transaction-wiring-not-proven` |
+| `auth` | `refresh` | `app/api_v2_routers/auth.py` | 148 | False | False | `read-or-nonmutation-route` |
+| `auth` | `list_sessions` | `app/api_v2_routers/auth.py` | 179 | False | False | `read-or-nonmutation-route` |
+| `auth` | `logout` | `app/api_v2_routers/auth.py` | 187 | False | False | `read-or-nonmutation-route` |
+| `auth` | `revoke_all_tokens` | `app/api_v2_routers/auth.py` | 198 | False | False | `read-or-nonmutation-route` |
 | `popia` | `grant_consent` | `app/api_v2_routers/popia.py` | 102 | True | False | `route-transaction-wiring-not-proven` |
 | `popia` | `deny_consent` | `app/api_v2_routers/popia.py` | 120 | True | False | `route-transaction-wiring-not-proven` |
 | `popia` | `withdraw_consent` | `app/api_v2_routers/popia.py` | 138 | True | False | `route-transaction-wiring-not-proven` |

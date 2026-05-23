@@ -1,7 +1,7 @@
 # Auth Route Logout/Revoke Delegation Status
 
-Generated at: `2026-05-20T17:47:42Z`
-Commit: `b66c03d8d158d1f6eb107592f807599ac8f199a9`
+Generated at: `2026-05-22T14:17:20Z`
+Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 
 **Status:** `auth-route-logout-delegation-passing`
 

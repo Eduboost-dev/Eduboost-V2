@@ -68,8 +68,17 @@ def normalize_db_url(url: str) -> str:
     return url
 
 
-def valid_db_url(url: str) -> bool:
-    if not url or has_placeholder(url):
+def valid_db_url(url: str, *, allow_localhost: bool = False) -> bool:
+    if not url:
+        return False
+    # Allow localhost/127.0.0.1 for the restore target (service containers in CI)
+    if allow_localhost:
+        # Only block obvious template placeholders, not localhost
+        blocked = [t for t in PLACEHOLDER_TOKENS if t not in ("localhost", "127.0.0.1")]
+        lowered = url.lower()
+        if any(token.lower() in lowered for token in blocked):
+            return False
+    elif has_placeholder(url):
         return False
     parsed = urlparse(url)
     return parsed.scheme in {"postgresql", "postgres"} and bool(parsed.hostname) and bool(parsed.path.strip("/"))

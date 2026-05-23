@@ -34,23 +34,21 @@ def test_production_settings_load_secrets_from_key_vault(monkeypatch: pytest.Mon
     assert settings.ANTHROPIC_API_KEY == "anthropic-from-kv"
 
 
-def test_production_settings_allow_env_secrets_without_key_vault(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_production_settings_require_key_vault_url(monkeypatch: pytest.MonkeyPatch) -> None:
     def fail_if_called(_: str) -> dict[str, str]:
         raise AssertionError("Key Vault should not be used without AZURE_KEY_VAULT_URL")
 
     monkeypatch.setattr(config_module, "_fetch_key_vault_secret_values", fail_if_called)
 
-    settings = config_module.Settings(
-        APP_ENV="production",
-        ENVIRONMENT="production",
-        AZURE_KEY_VAULT_URL="",
-        JWT_SECRET="x" * 32,
-        ENCRYPTION_KEY="A" * 44,
-        ENCRYPTION_SALT="salt",
-    )
-
-    assert settings.JWT_SECRET == "x" * 32
-    assert settings.refresh_from_key_vault() == set()
+    with pytest.raises(ValueError, match="AZURE_KEY_VAULT_URL is required when APP_ENV is production"):
+        config_module.Settings(
+            APP_ENV="production",
+            ENVIRONMENT="production",
+            AZURE_KEY_VAULT_URL="",
+            JWT_SECRET="x" * 32,
+            ENCRYPTION_KEY="A" * 44,
+            ENCRYPTION_SALT="salt",
+        )
 
 
 def test_non_production_settings_do_not_call_key_vault(monkeypatch: pytest.MonkeyPatch) -> None:

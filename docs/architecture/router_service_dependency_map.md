@@ -1,6 +1,6 @@
 # Router Service Dependency Map
 
-Generated at: `2026-05-19T22:55:21Z`
+Generated at: `2026-05-22T14:16:05Z`
 
 | Router | Dependencies | Services/modules | Repositories | Database imports |
 |---|---|---|---|---|
@@ -9,7 +9,7 @@ Generated at: `2026-05-19T22:55:21Z`
 | `app/api_v2_routers/api_v2.py` | - | - | - | - |
 | `app/api_v2_routers/assessments.py` | - | `app.services.assessment_service_v2` | - | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/audit.py` | - | `app.services.audit_service` | - | - |
-| `app/api_v2_routers/auth.py` | `app.api_v2_deps.auth_runtime`, `app.api_v2_deps.auth_service` | `app.services.auth_application_service`, `app.services.auth_token_claims`, `app.services.fourth_estate` | - | `app.core.database`, `sqlalchemy.ext.asyncio` |
+| `app/api_v2_routers/auth.py` | `app.api_v2_deps.auth_runtime`, `app.api_v2_deps.auth_service` | `app.services.auth_application_service`, `app.services.auth_token_claims` | - | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/billing.py` | - | `app.services.fourth_estate`, `app.services.stripe_service` | - | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/consent.py` | - | `app.modules.consent.service` | `app.repositories.repositories` | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/consent_renewal.py` | - | `app.services.consent_renewal_service` | - | `app.core.database` |

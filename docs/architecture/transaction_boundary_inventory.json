@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T23:09:41Z",
+  "generated_at": "2026-05-22T14:26:10Z",
   "scan_roots": [
     "app/api_v2_routers",
     "app/services",
@@ -227,7 +227,7 @@
     {
       "file": "app/modules/consent/service.py",
       "function": "grant",
-      "lineno": 113,
+      "lineno": 114,
       "mutation_calls": [
         "grant"
       ],
@@ -240,7 +240,7 @@
     {
       "file": "app/modules/consent/service.py",
       "function": "revoke",
-      "lineno": 163,
+      "lineno": 164,
       "mutation_calls": [
         "revoke"
       ],
@@ -253,7 +253,7 @@
     {
       "file": "app/modules/consent/service.py",
       "function": "renew",
-      "lineno": 196,
+      "lineno": 197,
       "mutation_calls": [
         "renew"
       ],
@@ -266,7 +266,7 @@
     {
       "file": "app/modules/consent/service.py",
       "function": "execute_erasure",
-      "lineno": 233,
+      "lineno": 234,
       "mutation_calls": [
         "revoke"
       ],
@@ -1005,7 +1005,7 @@
     {
       "file": "app/services/diagnostic_data_integrity.py",
       "function": "validate_diagnostic_submission_payload",
-      "lineno": 63,
+      "lineno": 62,
       "mutation_calls": [
         "add"
       ],

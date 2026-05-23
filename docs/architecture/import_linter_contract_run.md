@@ -1,19 +1,26 @@
 # Import-Linter Contract Run
 
-Generated at: `2026-05-19T22:55:22Z`
+Generated at: `2026-05-22T14:16:06Z`
 
 **Status:** pass
 
 ```text
-=============
-Import Linter
-=============
+
+╔══╗─────────▶╔╗ ╔╗      ╔╗◀───┐
+╚╣╠╝◀─────┐  ╔╝╚╗║║────▶╔╝╚╗   │
+ ║║   ╔══╦══╦╩╗╔╝║║  ╔╦═╩╗╔╝╔═╦══╗
+ ║║╔══╣╔╗║╔╗║╔╣║ ║║ ╔╬╣╔╗║║ ║│║╔═╝
+╔╣╠╣║║║╚╝║╚╝║║║╚╗║╚═╝║║║║║╚╗║═╣║
+╚══╩╩╩╣╔═╩══╩╝╚═╝╚═══╩╩╝╚╩═╩╩═╩╝
+  └──▶║║                    ▲ 
+      ╚╝────────────────────┘
+
 
 ---------
 Contracts
 ---------
 
-Analyzed 328 files, 1468 dependencies.
+Analyzed 328 files, 1471 dependencies.
 --------------------------------------
 
 FastAPI v2 routers should not import repositories directly KEPT

@@ -1,48 +1,65 @@
-.................................................ss..................... [  4%]
-........................................................................ [  9%]
-........s............................................................... [ 14%]
-........................................................................ [ 19%]
-..........................ssssssssss.................................... [ 24%]
-........................................................................ [ 29%]
-........................................................................ [ 34%]
-........................................................................ [ 39%]
-........................................................................ [ 44%]
+# Unit Test Evidence
+
+Generated at: `2026-05-22T14:26:54Z`
+Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+Branch: `codex/production_readiness`
+Command: `pytest -c pytest.ini tests/unit -q --no-cov`
+Exit code: `0`
+Result: `2051 passed, 1 skipped, 1 warning in 616.67s (0:10:16)`
+Raw log: `temp/release_evidence/ns04_unit_tests_final.log`
+
+## Environment Notes
+
+- Redis was started with `docker compose up -d redis` because the auth HTTP proof scripts exercise routes that connect to `localhost:6379`.
+- The active virtualenv was missing the declared dev dependency `aiosqlite==0.22.1`; it was installed from the already-committed `requirements/dev.txt` declaration before rerunning the suite.
+
+## Warning Triage
+
+Status: accepted and tracked for follow-up.
+
+- Warning: `RuntimeWarning: coroutine AsyncMockMixin._execute_mock_call was never awaited` in `tests/unit/test_v2_services_full.py::TestLessonServiceV2::test_generate_enforces_quota`.
+- Impact: non-failing warning only; the full unit suite passed.
+- Follow-up: adjust the mocked collaborator in that test so async call expectations are awaited or replaced with a synchronous mock where appropriate.
+
+## Full Output
+
+```text
+........................................................................ [  3%]
+........................................................................ [  7%]
+......s................................................................. [ 10%]
+........................................................................ [ 14%]
+........................................................................ [ 17%]
+........................................................................ [ 21%]
+........................................................................ [ 24%]
+........................................................................ [ 28%]
+........................................................................ [ 31%]
+........................................................................ [ 35%]
+........................................................................ [ 38%]
+........................................................................ [ 42%]
+........................................................................ [ 45%]
 ........................................................................ [ 49%]
-........................................................................ [ 54%]
+........................................................................ [ 52%]
+........................................................................ [ 56%]
 ........................................................................ [ 59%]
-........................................................................ [ 64%]
-........................................................................ [ 69%]
+........................................................................ [ 63%]
+........................................................................ [ 66%]
+........................................................................ [ 70%]
 ........................................................................ [ 73%]
-........................................................................ [ 78%]
-........................................................................ [ 83%]
-........................................................................ [ 88%]
-........................................................................ [ 93%]
+........................................................................ [ 77%]
+........................................................................ [ 80%]
+........................................................................ [ 84%]
+........................................................................ [ 87%]
+........................................................................ [ 91%]
+........................................................................ [ 94%]
 ........................................................................ [ 98%]
-....................                                                     [100%]
+....................................                                     [100%]
 =============================== warnings summary ===============================
-.venv/lib/python3.12/site-packages/pydantic/_internal/_fields.py:160
-  /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/.venv/lib/python3.12/site-packages/pydantic/_internal/_fields.py:160: UserWarning: Field "model_version" has conflict with protected namespace "model_".
-  
-  You may be able to resolve this warning by setting `model_config['protected_namespaces'] = ()`.
-    warnings.warn(
-
-tests/unit/test_v2_repositories_full.py::TestLessonRepository::test_create_commits
-  /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/app/repositories/lesson_repository.py:31: RuntimeWarning: coroutine 'AsyncMockMixin._execute_mock_call' was never awaited
-    db.add(lesson)
-  Enable tracemalloc to get traceback where the object was allocated.
-  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
-
-tests/unit/test_v2_repositories_full.py::TestDiagnosticRepository::test_create_session_commits
-  /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/app/core/base.py:52: RuntimeWarning: coroutine 'AsyncMockMixin._execute_mock_call' was never awaited
-    db.add(instance)
-  Enable tracemalloc to get traceback where the object was allocated.
-  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
-
-tests/unit/test_v2_services_full.py::TestLessonServiceV2::test_get_lesson_from_redis
+tests/unit/test_v2_services_full.py::TestLessonServiceV2::test_generate_enforces_quota
   /usr/lib/python3.12/unittest/mock.py:2188: RuntimeWarning: coroutine 'AsyncMockMixin._execute_mock_call' was never awaited
     def __init__(self, name, parent):
   Enable tracemalloc to get traceback where the object was allocated.
   See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-1447 passed, 13 skipped, 4 warnings in 147.60s (0:02:27)
+2051 passed, 1 skipped, 1 warning in 616.67s (0:10:16)
+```

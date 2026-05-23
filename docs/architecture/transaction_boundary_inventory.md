@@ -1,6 +1,6 @@
 # Transaction Boundary Inventory
 
-Generated at: `2026-05-19T23:09:41Z`
+Generated at: `2026-05-22T14:26:10Z`
 
 Candidate count: `96`
 Critical candidate count: `47`
@@ -27,10 +27,10 @@ Policy: Multi-write candidates remain not-proven until rollback/integration test
 | `app/modules/auth/service.py` | `authenticate` | 136 | `multi-write-candidate-not-proven` | `auth_refresh` | `update` | `-` |
 | `app/modules/auth/service.py` | `verify_email` | 200 | `single-mutation-candidate` | `-` | `update` | `-` |
 | `app/modules/billing/production_readiness_contracts.py` | `process` | 239 | `single-mutation-candidate` | `-` | `add` | `-` |
-| `app/modules/consent/service.py` | `grant` | 113 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `grant` | `-` |
-| `app/modules/consent/service.py` | `revoke` | 163 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `revoke` | `-` |
-| `app/modules/consent/service.py` | `renew` | 196 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `renew` | `-` |
-| `app/modules/consent/service.py` | `execute_erasure` | 233 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `revoke` | `-` |
+| `app/modules/consent/service.py` | `grant` | 114 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `grant` | `-` |
+| `app/modules/consent/service.py` | `revoke` | 164 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `revoke` | `-` |
+| `app/modules/consent/service.py` | `renew` | 197 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `renew` | `-` |
+| `app/modules/consent/service.py` | `execute_erasure` | 234 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `revoke` | `-` |
 | `app/modules/diagnostics/irt_engine.py` | `record_response` | 595 | `multi-write-candidate-not-proven` | `diagnostics_response` | `add` | `-` |
 | `app/modules/diagnostics/item_generator.py` | `_call_llm_for_json` | 224 | `single-mutation-candidate` | `-` | `complete` | `-` |
 | `app/modules/diagnostics/item_validator.py` | `__init__` | 136 | `single-mutation-candidate` | `-` | `update` | `-` |
@@ -90,7 +90,7 @@ Policy: Multi-write candidates remain not-proven until rollback/integration test
 | `app/services/deep_readiness_runtime.py` | `_execute` | 19 | `single-mutation-candidate` | `-` | `execute` | `-` |
 | `app/services/diagnostic_data_integrity.py` | `extract_diagnostic_item_ids` | 20 | `single-mutation-candidate` | `-` | `add` | `-` |
 | `app/services/diagnostic_data_integrity.py` | `walk` | 25 | `single-mutation-candidate` | `-` | `add` | `-` |
-| `app/services/diagnostic_data_integrity.py` | `validate_diagnostic_submission_payload` | 63 | `single-mutation-candidate` | `-` | `add` | `-` |
+| `app/services/diagnostic_data_integrity.py` | `validate_diagnostic_submission_payload` | 62 | `single-mutation-candidate` | `-` | `add` | `-` |
 | `app/services/diagnostic_session_integrity.py` | `served_item_ids` | 42 | `single-mutation-candidate` | `-` | `add` | `-` |
 | `app/services/diagnostic_transactional_response.py` | `submit_response` | 60 | `transaction-marker-present` | `diagnostics_response` | `execute` | `begin, transaction` |
 | `app/services/job_runtime_integrity.py` | `assert_no_runtime_objects` | 29 | `single-mutation-candidate` | `-` | `add` | `-` |

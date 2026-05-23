@@ -1,28 +1,50 @@
 # Staging Smoke Evidence Status
 
-Generated at: `2026-05-21T19:06:12Z`
-Commit: `a195b5eea80d648d8b748ebf48885caf42f77a58`
+Generated at: `2026-05-22T14:29:01Z`
+Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 Branch: `codex/production_readiness`
 
-**Status:** `staging-smoke-evidence-accepted`
-**Run ID:** `26247145077`
-**Run URL:** `https://github.com/NkgoloL/Eduboost-V2/actions/runs/26247145077`
-**Workflow:** `Staging Smoke`
-**Run status:** `completed`
-**Conclusion:** `success`
-**Head SHA:** `a195b5eea80d648d8b748ebf48885caf42f77a58`
-**Staging base URL:** `https://eduboost-api.onrender.com`
-**Smoke command:** `python scripts/staging_smoke_probe.py --base-url https://eduboost-api.onrender.com --health-path /health --api-path /api/v2/system/health --frontend-path /`
-**Smoke result:** `passed`
-**Healthcheck result:** `passed`
-**API result:** `passed`
-**Frontend result:** `passed`
-**Verified by:** `github-actions`
-**Date verified:** `2026-05-21`
+**Status:** `staging-smoke-evidence-not-accepted`
+<!-- Status: pending runtime execution -->
+**Run ID:** ``
+**Run URL:** ``
+**Workflow:** ``
+**Run status:** ``
+**Conclusion:** ``
+**Head SHA:** ``
+**Staging base URL:** ``
+**Smoke command:** ``
+**Smoke result:** ``
+**Healthcheck result:** ``
+**API result:** ``
+**Frontend result:** `not-recorded`
+**Verified by:** `unverified`
+**Date verified:** `2026-05-22`
+
+## Required Runtime Smoke Coverage
+
+Status: pending runtime execution
+
+TODO before acceptance:
+
+- GET /api/v2/health/deep
+- Auth register/login/refresh/logout
+- POPIA data export route
+- Frontend critical learner flow
 
 ## Blockers
 
-- None
+- no successful staging/smoke GitHub Actions run found for current commit; set STAGING_SMOKE_RUN_ID
+- run ID is missing or non-numeric
+- GitHub Actions run status is missing, expected completed
+- GitHub Actions run conclusion is missing, expected success
+- GitHub Actions run SHA missing does not match current commit ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+- workflow name is missing
+- staging base URL is missing, non-HTTPS, localhost/example, or placeholder
+- staging smoke test command is missing or placeholder
+- STAGING_SMOKE_RESULT must be passed
+- STAGING_SMOKE_HEALTHCHECK_RESULT must be passed
+- STAGING_SMOKE_API_RESULT must be passed
 
 ## No false-closure rules
 

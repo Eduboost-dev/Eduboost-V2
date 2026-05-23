@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-22T01:47:04Z",
-  "current_commit": "197640872a84b950721cf6c3f46350bc7c855240",
+  "generated_at": "2026-05-22T14:23:23Z",
+  "current_commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
   "status": "diagnostic-item-bank-policy-accepted",
   "policy_path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
   "decision": "diagnostic_items-runtime-required",
@@ -283,8 +283,38 @@
       "runtime_surface": false
     },
     {
+      "path": "docs/release/audit_callsite_inventory.md",
+      "line_number": 1962,
+      "line_excerpt": "| `scripts/diagnostic_item_bank_canonicality.py` | 142 | audit_append_call | `blockers.append(\"no diagnostic_items references found; runtime-required policy is unsupported\")` |",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/audit_callsite_inventory.md",
+      "line_number": 1981,
+      "line_excerpt": "| `scripts/diagnostic_score_live_audit.py` | 469 | audit_append_call | `blockers.append(\"diagnostic_items table is missing\")` |",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/audit_callsite_inventory.md",
+      "line_number": 1984,
+      "line_excerpt": "| `scripts/diagnostic_score_live_audit.py` | 489 | audit_append_call | `blockers.append(\"DIAG_SCORE_ALLOW_BRIDGE_SEED must be 1 before mutating diagnostic_items\")` |",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/audit_callsite_inventory.md",
+      "line_number": 1985,
+      "line_excerpt": "| `scripts/diagnostic_score_live_audit.py` | 491 | audit_append_call | `blockers.append(\"cannot bridge-seed without both diagnostic_items and irt_items\")` |",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/audit_callsite_inventory.md",
+      "line_number": 1987,
+      "line_excerpt": "| `scripts/diagnostic_score_live_audit.py` | 506 | audit_append_call | `blockers.append(\"diagnostic_items has 0 rows; runtime-required item bank is not seeded\")` |",
+      "runtime_surface": false
+    },
+    {
       "path": "docs/release/backend_consolidation_diagnostic_report.md",
-      "line_number": 183,
+      "line_number": 185,
       "line_excerpt": "- diagnostic_items",
       "runtime_surface": false
     },
@@ -373,38 +403,74 @@
       "runtime_surface": false
     },
     {
+      "path": "docs/release/diagnostic_score_live_audit_status.md",
+      "line_number": 11,
+      "line_excerpt": "**diagnostic_items count:** `None`",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_score_live_audit_status.md",
+      "line_number": 29,
+      "line_excerpt": "## diagnostic_items columns",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_score_live_audit_status.md",
+      "line_number": 36,
+      "line_excerpt": "- diagnostic_items table is missing",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_score_live_audit_status.md",
+      "line_number": 38,
+      "line_excerpt": "- cannot bridge-seed without both diagnostic_items and irt_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_score_live_audit_status.md",
+      "line_number": 39,
+      "line_excerpt": "- diagnostic_items has 0 rows; runtime-required item bank is not seeded",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/diagnostic_score_live_audit_status.md",
+      "line_number": 45,
+      "line_excerpt": "- diagnostic_items must have rows after seed/audit.",
+      "runtime_surface": false
+    },
+    {
       "path": "docs/release/evidence_status_registry.yml",
-      "line_number": 278,
+      "line_number": 272,
       "line_excerpt": "canonical_table: diagnostic_items",
       "runtime_surface": false
     },
     {
       "path": "docs/release/evidence_status_registry.yml",
-      "line_number": 281,
+      "line_number": 275,
       "line_excerpt": "closure_blocker: diagnostic_items is runtime-required and must be seeded or runtime references removed before scoring audit can close",
       "runtime_surface": false
     },
     {
       "path": "docs/release/evidence_status_registry.yml",
-      "line_number": 819,
+      "line_number": 806,
       "line_excerpt": "decision: diagnostic_items-runtime-required",
       "runtime_surface": false
     },
     {
       "path": "docs/release/evidence_status_registry.yml",
-      "line_number": 820,
+      "line_number": 807,
       "line_excerpt": "canonical_table: diagnostic_items",
       "runtime_surface": false
     },
     {
       "path": "docs/release/final_beta_gate_refresh.md",
-      "line_number": 35,
+      "line_number": 37,
       "line_excerpt": "| `DIAG-SCORE-001` | `not-proven` | True | `docs/release/diagnostic_item_bank_canonicality_status.md` | False | True | diagnostic_items is runtime-required and must be seeded or runtime references removed before scoring audit can close |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/final_beta_gate_refresh.md",
-      "line_number": 53,
+      "line_number": 58,
       "line_excerpt": "- Resolve DIAG-SCORE-001: diagnostic_items is runtime-required and must be seeded or runtime references removed before scoring audit can close.",
       "runtime_surface": false
     },
@@ -463,9 +529,51 @@
       "runtime_surface": false
     },
     {
+      "path": "docs/release/no_false_closure_status_after_3191_3230.md",
+      "line_number": 14,
+      "line_excerpt": "- `diagnostic_items` has rows.",
+      "runtime_surface": false
+    },
+    {
       "path": "scripts/check_diagnostic_item_bank_canonicality.py",
       "line_number": 45,
       "line_excerpt": "print(f\"- INFO runtime diagnostic_items refs: {len(status.runtime_diagnostic_items_references)}\")",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/create_diagnostic_items.py",
+      "line_number": 29,
+      "line_excerpt": "CREATE TABLE IF NOT EXISTS diagnostic_items (",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/create_diagnostic_items.py",
+      "line_number": 62,
+      "line_excerpt": "CREATE INDEX IF NOT EXISTS ix_diagnostic_items_caps_ref ON diagnostic_items (caps_ref);",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/create_diagnostic_items.py",
+      "line_number": 63,
+      "line_excerpt": "CREATE INDEX IF NOT EXISTS ix_diagnostic_items_review_status ON diagnostic_items (review_status);",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/create_diagnostic_items.py",
+      "line_number": 64,
+      "line_excerpt": "CREATE INDEX IF NOT EXISTS ix_diagnostic_items_grade_subject_term ON diagnostic_items (grade, subject, term);",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/create_diagnostic_items.py",
+      "line_number": 65,
+      "line_excerpt": "CREATE INDEX IF NOT EXISTS ix_diagnostic_items_exposure_cap ON diagnostic_items (exposure_count, max_exposure);",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/create_diagnostic_items.py",
+      "line_number": 82,
+      "line_excerpt": "print('diagnostic_items schema ensured')",
       "runtime_surface": false
     },
     {
@@ -532,6 +640,66 @@
       "path": "scripts/diagnostic_item_bank_canonicality.py",
       "line_number": 229,
       "line_excerpt": "\"- This policy does not seed `diagnostic_items`.\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_score_live_audit.py",
+      "line_number": 28,
+      "line_excerpt": "DIAG_TABLE = \"diagnostic_items\"",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_score_live_audit.py",
+      "line_number": 355,
+      "line_excerpt": "return 0, insert_columns, [\"no insertable diagnostic_items columns found\"]",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_score_live_audit.py",
+      "line_number": 469,
+      "line_excerpt": "blockers.append(\"diagnostic_items table is missing\")",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_score_live_audit.py",
+      "line_number": 489,
+      "line_excerpt": "blockers.append(\"DIAG_SCORE_ALLOW_BRIDGE_SEED must be 1 before mutating diagnostic_items\")",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_score_live_audit.py",
+      "line_number": 491,
+      "line_excerpt": "blockers.append(\"cannot bridge-seed without both diagnostic_items and irt_items\")",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_score_live_audit.py",
+      "line_number": 500,
+      "line_excerpt": "\"unsupported required diagnostic_items columns for bridge seed: \"",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_score_live_audit.py",
+      "line_number": 506,
+      "line_excerpt": "blockers.append(\"diagnostic_items has 0 rows; runtime-required item bank is not seeded\")",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_score_live_audit.py",
+      "line_number": 575,
+      "line_excerpt": "f\"**diagnostic_items count:** `{status.diagnostic_items_count}`\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_score_live_audit.py",
+      "line_number": 600,
+      "line_excerpt": "lines.extend([\"\", \"## diagnostic_items columns\", \"\", \"| Column | Nullable | Default | Type | UDT |\", \"|---|---:|---:|---|---|\"])",
+      "runtime_surface": false
+    },
+    {
+      "path": "scripts/diagnostic_score_live_audit.py",
+      "line_number": 619,
+      "line_excerpt": "\"- diagnostic_items must have rows after seed/audit.\",",
       "runtime_surface": false
     },
     {

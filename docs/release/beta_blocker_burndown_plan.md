@@ -1,10 +1,10 @@
 # Beta Blocker Burn-Down Plan
 
-Generated at: `2026-05-21T12:41:58Z`
-Commit: `84ace987e1f577fcf647fbe105f78680003c5aaa`
+Generated at: `2026-05-22T14:21:44Z`
+Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 
 - Source decision: `NO-GO`
-- Source beta blocker count: `9`
+- Source beta blocker count: `8`
 - Burn-down status: `blocked`
 - Release mode allowed: `False`
 
@@ -14,8 +14,7 @@ Commit: `84ace987e1f577fcf647fbe105f78680003c5aaa`
 |---|---|---|---|---|---:|---|---|
 | `P0` | `CI-001` | `ci-authority` | `release` | `external-blocked` | False | Attach a passing GitHub Actions run URL for codex/production_readiness, then rerun CI authority release check. | `make ci-authority-release-check` |
 | `P0` | `CONTENT-001` | `content` | `content` | `external-blocked` | False | Obtain educator/content approval for beta scope and replace pending metadata in content_approval.md. | `make external-approval-release-check` |
-| `P0` | `AUTH-REFRESH-DB-EVIDENCE-001` | `external` | `backend` | `integration-passing` | False | Resolve registry blocker: external approval remains incomplete | `make external-approval-release-check` |
-| `P0` | `AUTH-REFRESH-DB-PROOF-001` | `external` | `backend` | `integration-passing` | False | Resolve registry blocker: external approval remains incomplete | `make external-approval-release-check` |
+| `P0` | `DIAG-SCORE-001` | `external` | `backend` | `not-proven` | False | Resolve registry blocker: external approval remains incomplete | `make external-approval-release-check` |
 | `P0` | `EXT-GATE-001` | `external` | `release` | `runtime-passing` | False | Resolve registry blocker: external approval remains incomplete | `make external-approval-release-check` |
 | `P0` | `LEGAL-001` | `legal` | `legal` | `external-blocked` | False | Obtain POPIA/legal approval and replace pending metadata in legal_approval.md. | `make external-approval-release-check` |
 | `P0` | `SEC-001` | `security` | `security` | `external-blocked` | False | Obtain security approval or pen-test sign-off and replace pending metadata in security_approval.md. | `make external-approval-release-check` |

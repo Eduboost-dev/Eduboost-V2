@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-05-20T07:01:10Z",
-  "current_commit": "9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4",
+  "generated_at": "2026-05-22T14:21:44Z",
+  "current_commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
   "handoff_status": "handoff-ready-no-go",
   "beta_decision": "NO-GO",
-  "blocker_count": 7,
+  "blocker_count": 11,
   "sources": [
     {
       "name": "final_beta_gate_refresh",

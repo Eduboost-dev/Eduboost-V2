@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T22:55:57Z",
+  "generated_at": "2026-05-22T14:17:20Z",
   "auth_router_exists": true,
   "imports": [
     "app.api_v2_deps.auth_runtime",
@@ -10,12 +10,10 @@
     "app.core.rate_limit",
     "app.core.refresh_tokens",
     "app.core.security",
-    "app.core.token_revocation",
     "app.domain.schemas",
     "app.models",
     "app.services.auth_application_service",
     "app.services.auth_token_claims",
-    "app.services.fourth_estate",
     "fastapi",
     "fastapi.responses",
     "sqlalchemy.ext.asyncio"
@@ -23,7 +21,7 @@
   "functions": [
     {
       "name": "_canonical_access_claims",
-      "lineno": 44,
+      "lineno": 42,
       "args": [
         "user",
         "existing_claims",
@@ -32,7 +30,7 @@
     },
     {
       "name": "_canonical_refresh_claims",
-      "lineno": 48,
+      "lineno": 46,
       "args": [
         "existing_claims",
         "user"
@@ -40,7 +38,7 @@
     },
     {
       "name": "_legacy_refresh_error_response",
-      "lineno": 51,
+      "lineno": 49,
       "args": [
         "message",
         "status_code"
@@ -48,14 +46,14 @@
     },
     {
       "name": "me",
-      "lineno": 83,
+      "lineno": 81,
       "args": [
         "current_user"
       ]
     },
     {
       "name": "register",
-      "lineno": 89,
+      "lineno": 87,
       "args": [
         "request",
         "body",
@@ -67,7 +65,7 @@
     },
     {
       "name": "login",
-      "lineno": 108,
+      "lineno": 106,
       "args": [
         "request",
         "body",
@@ -79,7 +77,7 @@
     },
     {
       "name": "create_dev_session",
-      "lineno": 126,
+      "lineno": 124,
       "args": [
         "response",
         "db",
@@ -88,8 +86,8 @@
       ]
     },
     {
-      "name": "refresh_token",
-      "lineno": 150,
+      "name": "refresh",
+      "lineno": 148,
       "args": [
         "request",
         "response",
@@ -102,7 +100,7 @@
     },
     {
       "name": "_set_refresh_cookie",
-      "lineno": 169,
+      "lineno": 167,
       "args": [
         "response",
         "token"
@@ -110,29 +108,31 @@
     },
     {
       "name": "list_sessions",
-      "lineno": 181,
+      "lineno": 179,
       "args": [
         "current_user"
       ]
     },
     {
       "name": "logout",
-      "lineno": 189,
+      "lineno": 187,
       "args": [
         "response",
         "current_user",
         "db",
-        "cookie_refresh"
+        "cookie_refresh",
+        "auth_service"
       ]
     },
     {
       "name": "revoke_all_tokens",
-      "lineno": 218,
+      "lineno": 198,
       "args": [
         "response",
         "current_user",
         "db",
-        "cookie_refresh"
+        "cookie_refresh",
+        "auth_service"
       ]
     }
   ],

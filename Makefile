@@ -104,7 +104,7 @@ privacy-legal-evidence-check:
 	$(PYTHON) scripts/check_privacy_legal_release_evidence.py
 
 caps-ai-safety-evidence-check:
-	$(PYTHON) scripts/check_caps_ai_safety_evidence.py
+	$(PYTHON) scripts/check_caps_ai_safety_release_evidence.py
 
 api-envelope-error-contract-check:
 	$(PYTHON) scripts/check_api_envelope_error_contract.py

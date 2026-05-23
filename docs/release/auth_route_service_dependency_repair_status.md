@@ -1,7 +1,7 @@
 # Auth Route Service Dependency Repair Status
 
-Generated at: `2026-05-20T17:47:41Z`
-Commit: `b66c03d8d158d1f6eb107592f807599ac8f199a9`
+Generated at: `2026-05-22T14:17:20Z`
+Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 
 **Status:** `auth-route-service-dependencies-passing`
 
@@ -11,7 +11,7 @@ Commit: `b66c03d8d158d1f6eb107592f807599ac8f199a9`
 | `register` | 87 | True | True | True |
 | `login` | 106 | True | True | True |
 | `create_dev_session` | 124 | True | True | True |
-| `refresh_token` | 148 | True | True | True |
+| `refresh` | 148 | True | True | True |
 | `list_sessions` | 179 | False | False | True |
 | `logout` | 187 | True | True | True |
 | `revoke_all_tokens` | 198 | True | True | True |

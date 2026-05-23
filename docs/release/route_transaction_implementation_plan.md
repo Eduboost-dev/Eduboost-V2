@@ -1,7 +1,7 @@
 # Route Transaction Implementation Plan
 
-Generated at: `2026-05-19T23:09:25Z`
-Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
+Generated at: `2026-05-22T14:25:56Z`
+Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 
 - Source inventory: `docs/architecture/tx_route_wiring_inventory.json`
 - Source status: `production-route-transaction-wiring-not-proven`
@@ -12,8 +12,8 @@ Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
 
 | Priority | ID | Domain | Route function | File | Line | Service hint | Live DB proof required |
 |---|---|---|---|---|---:|---|---:|
-| `P0` | `ROUTE-TX-001-auth-register` | `auth` | `register` | `app/api_v2_routers/auth.py` | 89 | `TransactionalAuthRegistrationService` | True |
-| `P0` | `ROUTE-TX-002-auth-create_dev_session` | `auth` | `create_dev_session` | `app/api_v2_routers/auth.py` | 126 | `TransactionalAuthRegistrationService` | True |
+| `P0` | `ROUTE-TX-001-auth-register` | `auth` | `register` | `app/api_v2_routers/auth.py` | 87 | `TransactionalAuthRegistrationService` | True |
+| `P0` | `ROUTE-TX-002-auth-create_dev_session` | `auth` | `create_dev_session` | `app/api_v2_routers/auth.py` | 124 | `TransactionalAuthRegistrationService` | True |
 | `P0` | `ROUTE-TX-003-popia-grant_consent` | `popia` | `grant_consent` | `app/api_v2_routers/popia.py` | 102 | `TransactionalPOPIAConsentLifecycleService` | True |
 | `P0` | `ROUTE-TX-004-popia-deny_consent` | `popia` | `deny_consent` | `app/api_v2_routers/popia.py` | 120 | `TransactionalPOPIAConsentLifecycleService` | True |
 | `P0` | `ROUTE-TX-005-popia-withdraw_consent` | `popia` | `withdraw_consent` | `app/api_v2_routers/popia.py` | 138 | `TransactionalPOPIAConsentLifecycleService` | True |
