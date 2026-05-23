@@ -1,34 +1,33 @@
 # Audit Write Runtime Evidence Status
 
-Generated at: `2026-05-23T12:05:02Z`
-Commit: `4c8c299c236ebc10d1211e3f0d9898c714365c37`
+Generated at: `2026-05-23T13:29:02Z`
+Commit: `dad3dc7a0314578647ba2b0ae3ecfad33db73bd3`
 
-**Status:** `audit-write-runtime-not-accepted`
+**Status:** `audit-write-runtime-accepted`
 **DB URL label:** `AUDIT_WRITE_DATABASE_URL`
-**DB checked:** `False`
-**audit_events exists:** `False`
-**audit_events before:** `None`
-**audit_events after:** `None`
-**audit_events delta:** `None`
-**Trace ID:** `audit-write-4c8c299c236e-20260523120457`
-**Trace detected:** `False`
-**Flow command:** `curl -fsS https://eduboost-api.onrender.com/api/v2/health/deep`
-**Flow return code:** `None`
-**Run ID:** ``
-**Run URL:** ``
-**Workflow:** ``
+**DB checked:** `True`
+**audit_events exists:** `True`
+**audit_events before:** `5`
+**audit_events after:** `6`
+**audit_events delta:** `1`
+**Trace ID:** `audit-write-dad3dc7a0314-20260523132851`
+**Trace detected:** `True`
+**Flow command:** `PYTHONPATH=. python3 scripts/audit_write_flow_command.py`
+**Flow return code:** `0`
+**Run ID:** `26333923404`
+**Run URL:** `https://github.com/NkgoloL/Eduboost-V2/actions/runs/26333923404`
+**Workflow:** `audit-write-runtime-evidence`
 
 ## Flow output excerpt
 
 ```text
+audit_write_flow: inserted event_id=7a45d527-269d-43fa-bd58-a62a072ad37b trace_id=audit-write-dad3dc7a0314-20260523132851
 
 ```
 
 ## Blockers
 
-- database audit-write check failed: OperationalError: connection to server at "db.ezjzbvybbwynqpqnbrdt.supabase.co" (2a05:d018:48a:c900:b75d:cff7:aa83:c96d), port 5432 failed: Network is unreachable
-	Is the server running on that host and accepting TCP/IP connections?
-
+- None
 
 ## No false-closure rules
 

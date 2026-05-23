@@ -855,22 +855,22 @@ findings:
     gate: 6
     owner: backend
     implementation_batch: code_3271_3310
-    proof_status: not-proven
+    proof_status: runtime-passing
     proof_command: make audit-write-runtime-release-check
     evidence_file: docs/release/audit_write_runtime_evidence_status.md
-    evidence_url: null
-    workflow_name: null
-    run_id: null
-    audit_events_count_before: None
-    audit_events_count_after: None
-    audit_events_delta: None
-    audit_trace_id: audit-write-4c8c299c236e-20260523120452
-    last_verified_commit: null
-    verified_by: null
-    date_verified: null
-    closure_blocker: real audit_events write proof required
-    release_ready: false
-    blocks_beta: true
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26333923404
+    workflow_name: audit-write-runtime-evidence
+    run_id: 26333923404
+    audit_events_count_before: 4
+    audit_events_count_after: 5
+    audit_events_delta: 1
+    audit_trace_id: audit-write-dad3dc7a0314-20260523132837
+    last_verified_commit: dad3dc7a0314578647ba2b0ae3ecfad33db73bd3
+    verified_by: github-actions
+    date_verified: 2026-05-23
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
     external_dependency: true
   - id: AUDIT-WRITE-001R
     title: Runtime audit_events write evidence repair
@@ -878,14 +878,14 @@ findings:
     gate: 6
     owner: backend
     implementation_batch: code_3271_3310
-    proof_status: not-proven
+    proof_status: runtime-passing
     proof_command: make audit-write-runtime-release-check
     evidence_file: docs/release/audit_write_runtime_evidence_status.md
-    evidence_url: null
-    run_id: null
-    audit_events_delta: None
-    last_verified_commit: null
-    closure_blocker: real audit_events write proof required
-    release_ready: false
-    blocks_beta: true
+    evidence_url: https://github.com/NkgoloL/Eduboost-V2/actions/runs/26333923404
+    run_id: 26333923404
+    audit_events_delta: 1
+    last_verified_commit: dad3dc7a0314578647ba2b0ae3ecfad33db73bd3
+    closure_blocker: none
+    release_ready: true
+    blocks_beta: false
     external_dependency: true
