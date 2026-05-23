@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-05-23T08:19:03Z",
-  "current_commit": "83fe90e0b460d826c341939699ad5db5726d9c87",
+  "generated_at": "2026-05-23T12:05:02Z",
+  "current_commit": "4c8c299c236ebc10d1211e3f0d9898c714365c37",
   "status": "audit-write-runtime-not-accepted",
-  "db_url_label": "",
+  "db_url_label": "AUDIT_WRITE_DATABASE_URL",
   "db_checked": false,
   "audit_table_exists": false,
   "audit_events_count_before": null,
   "audit_events_count_after": null,
   "audit_events_delta": null,
-  "audit_trace_id": "audit-write-83fe90e0b460-20260523081903",
+  "audit_trace_id": "audit-write-4c8c299c236e-20260523120457",
   "audit_trace_detected": false,
   "flow_result": {
-    "command": "",
+    "command": "curl -fsS https://eduboost-api.onrender.com/api/v2/health/deep",
     "return_code": null,
     "output_excerpt": ""
   },
@@ -27,6 +27,6 @@
   "verified_by": "unverified",
   "date_verified": "2026-05-23",
   "blockers": [
-    "AUDIT_WRITE_DATABASE_URL/DATABASE_URL is missing, placeholder, local, or invalid"
+    "database audit-write check failed: OperationalError: connection to server at \"db.ezjzbvybbwynqpqnbrdt.supabase.co\" (2a05:d018:48a:c900:b75d:cff7:aa83:c96d), port 5432 failed: Network is unreachable\n\tIs the server running on that host and accepting TCP/IP connections?\n"
   ]
 }
