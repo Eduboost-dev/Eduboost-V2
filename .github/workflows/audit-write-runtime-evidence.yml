@@ -60,6 +60,9 @@ jobs:
 
       - name: Run audit write runtime evidence
         run: |
+          echo "=== Debug: Testing flow command directly ==="
+          eval "$AUDIT_WRITE_FLOW_COMMAND" || echo "Direct flow command exit: $?"
+          echo "=== Running evidence script ==="
           if [ "${{ github.event.inputs.run_flow }}" = "true" ]; then
             python scripts/audit_write_runtime_evidence.py --run-flow
           else
