@@ -1,32 +1,30 @@
 {
-  "generated_at": "2026-05-23T12:05:02Z",
-  "current_commit": "4c8c299c236ebc10d1211e3f0d9898c714365c37",
-  "status": "audit-write-runtime-not-accepted",
+  "generated_at": "2026-05-23T13:29:02Z",
+  "current_commit": "dad3dc7a0314578647ba2b0ae3ecfad33db73bd3",
+  "status": "audit-write-runtime-accepted",
   "db_url_label": "AUDIT_WRITE_DATABASE_URL",
-  "db_checked": false,
-  "audit_table_exists": false,
-  "audit_events_count_before": null,
-  "audit_events_count_after": null,
-  "audit_events_delta": null,
-  "audit_trace_id": "audit-write-4c8c299c236e-20260523120457",
-  "audit_trace_detected": false,
+  "db_checked": true,
+  "audit_table_exists": true,
+  "audit_events_count_before": 5,
+  "audit_events_count_after": 6,
+  "audit_events_delta": 1,
+  "audit_trace_id": "audit-write-dad3dc7a0314-20260523132851",
+  "audit_trace_detected": true,
   "flow_result": {
-    "command": "curl -fsS https://eduboost-api.onrender.com/api/v2/health/deep",
-    "return_code": null,
-    "output_excerpt": ""
+    "command": "PYTHONPATH=. python3 scripts/audit_write_flow_command.py",
+    "return_code": 0,
+    "output_excerpt": "audit_write_flow: inserted event_id=7a45d527-269d-43fa-bd58-a62a072ad37b trace_id=audit-write-dad3dc7a0314-20260523132851\n"
   },
   "github_run": {
-    "run_id": "",
-    "run_url": "",
-    "workflow_name": "",
-    "run_status": "",
-    "conclusion": "",
-    "head_sha": "",
+    "run_id": "26333923404",
+    "run_url": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26333923404",
+    "workflow_name": "audit-write-runtime-evidence",
+    "run_status": "completed",
+    "conclusion": "success",
+    "head_sha": "dad3dc7a0314578647ba2b0ae3ecfad33db73bd3",
     "blockers": []
   },
-  "verified_by": "unverified",
+  "verified_by": "github-actions",
   "date_verified": "2026-05-23",
-  "blockers": [
-    "database audit-write check failed: OperationalError: connection to server at \"db.ezjzbvybbwynqpqnbrdt.supabase.co\" (2a05:d018:48a:c900:b75d:cff7:aa83:c96d), port 5432 failed: Network is unreachable\n\tIs the server running on that host and accepting TCP/IP connections?\n"
-  ]
+  "blockers": []
 }
