@@ -66,6 +66,14 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install psycopg2-binary
 
+      - name: Add PostgreSQL 17 to PATH
+        run: echo "/usr/lib/postgresql/17/bin" >> $GITHUB_PATH
+
+      - name: Verify pg_dump version
+        run: |
+          pg_dump --version
+          pg_restore --version
+
       - name: Verify required secrets
         run: |
           test -n "${DB_ROLLBACK_SOURCE_DATABASE_URL}"
