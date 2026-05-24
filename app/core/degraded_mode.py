@@ -29,7 +29,12 @@ class RuntimeCapability:
 
 
 def _has_llm_provider() -> bool:
-    return bool(settings.GROQ_API_KEY or settings.ANTHROPIC_API_KEY or settings.LLM_PROVIDER in {"mock", "local_hf"})
+    return bool(
+        settings.GOOGLE_API_KEY
+        or settings.GROQ_API_KEY
+        or settings.ANTHROPIC_API_KEY
+        or settings.LLM_PROVIDER in {"mock", "local_hf"}
+    )
 
 
 def _has_billing_provider() -> bool:

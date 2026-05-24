@@ -11,6 +11,10 @@ from app.core.database import AsyncSessionLocal
 from app.core.redis import get_redis
 
 
+def _google_model_name() -> str:
+    return settings.GOOGLE_MODEL.removeprefix("models/")
+
+
 async def check_postgres() -> dict[str, Any]:
     try:
         async with AsyncSessionLocal() as session:
@@ -46,8 +50,20 @@ async def check_redis() -> dict[str, Any]:
 
 
 async def check_llm_provider() -> dict[str, Any]:
-    if not settings.GROQ_API_KEY and not settings.ANTHROPIC_API_KEY:
+    if not settings.GOOGLE_API_KEY and not settings.GROQ_API_KEY and not settings.ANTHROPIC_API_KEY:
         return {"status": "skipped", "detail": "No LLM provider credentials configured"}
+
+    if settings.GOOGLE_API_KEY:
+        try:
+            async with httpx.AsyncClient(timeout=5.0) as client:
+                response = await client.get(
+                    f"https://generativelanguage.googleapis.com/v1beta/models/{_google_model_name()}",
+                    headers={"x-goog-api-key": settings.GOOGLE_API_KEY},
+                )
+            response.raise_for_status()
+            return {"status": "ok", "provider": "google", "model": _google_model_name()}
+        except Exception as exc:  # noqa: BLE001
+            return {"status": "error", "provider": "google", "detail": _safe_error(exc)}
 
     if settings.GROQ_API_KEY:
         try:
