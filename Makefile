@@ -2727,3 +2727,24 @@ backend-implementation-3311-3350-full-check: db-backup-restore-rollback-status d
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/db_backup_restore_rollback_evidence.py scripts/patch_db_backup_restore_rollback_registry.py scripts/check_db_backup_restore_rollback_evidence.py tests/unit/test_db_backup_restore_rollback_evidence.py --select F821,F401,F811,E402
 
+.PHONY: jwt-secret-rotation-status jwt-secret-rotation-registry-patch jwt-secret-rotation-check jwt-secret-rotation-test jwt-secret-rotation-release-check backend-implementation-3351-3390-full-check
+
+jwt-secret-rotation-status:
+	PYTHONPATH=. python3 -c "from scripts.jwt_secret_rotation_evidence import write_status; s = write_status(); print(s.status); print(s.access_current.fingerprint); print(s.refresh_current.fingerprint)"
+
+jwt-secret-rotation-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_jwt_secret_rotation_registry.py
+
+jwt-secret-rotation-check:
+	PYTHONPATH=. python3 scripts/check_jwt_secret_rotation_evidence.py
+
+jwt-secret-rotation-test:
+	pytest -c pytest.ini tests/unit/test_jwt_secret_rotation_evidence.py -q --no-cov --tb=short
+
+jwt-secret-rotation-release-check: jwt-secret-rotation-registry-patch
+	JWT_EVIDENCE_ACCEPT=1 PYTHONPATH=. python3 scripts/check_jwt_secret_rotation_evidence.py
+
+backend-implementation-3351-3390-full-check: jwt-secret-rotation-status jwt-secret-rotation-registry-patch jwt-secret-rotation-check jwt-secret-rotation-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/jwt_secret_rotation_evidence.py scripts/patch_jwt_secret_rotation_registry.py scripts/check_jwt_secret_rotation_evidence.py tests/unit/test_jwt_secret_rotation_evidence.py --select F821,F401,F811,E402
+
