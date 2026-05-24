@@ -264,7 +264,17 @@ class ExecutiveService:
                 topic=topic,
             )
             return payload, False
-        payload = self._judiciary.stamp_lesson(raw)
+        try:
+            payload = self._judiciary.stamp_lesson(raw)
+        except ConstitutionalViolation:
+            repair_prompt = (
+                f"{user_prompt}\n\n"
+                "Correction: the previous response failed JSON parsing or schema validation. "
+                "Return one complete, minified JSON object only. Do not truncate strings. "
+                "Use short but complete values for each required field."
+            )
+            raw = await self._call_with_fallback(repair_prompt, operation="lesson_generation_schema_retry")
+            payload = self._judiciary.stamp_lesson(raw)
         if not self._caps_validator.validate_generated_content(
             grade, subject, topic, f"{payload.introduction} {payload.main_content} {payload.worked_example}"
         ).caps_aligned:
@@ -468,7 +478,7 @@ class ExecutiveService:
                     "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
                     "generationConfig": {
                         "responseMimeType": "application/json",
-                        "maxOutputTokens": 1200,
+                        "maxOutputTokens": 4096,
                         "temperature": 0.7,
                     },
                 },
