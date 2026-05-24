@@ -179,7 +179,7 @@ export default function PrivacySettingsPage() {
           />
           <Toggle
             label="Show on leaderboard"
-            description="Allow the learner's name to appear on the classroom leaderboard."
+            description="Allow the learner&apos;s name to appear on the classroom leaderboard."
             checked={settings.show_leaderboard}
             onChange={() => toggle("show_leaderboard")}
             testId="toggle-leaderboard"
@@ -189,7 +189,7 @@ export default function PrivacySettingsPage() {
         {/* ── Data Retention ───────────────────────────────────────── */}
         <Section title="Data retention" icon="🗂️">
           <p style={s.sectionNote}>
-            Choose how long EduBoost SA keeps the learner's activity data.
+            Choose how long EduBoost SA keeps the learner&apos;s activity data.
             After this period, data is automatically deleted.
           </p>
           <div style={s.retentionGrid}>
@@ -357,7 +357,7 @@ function Toggle({
       </div>
       <button
         data-testid={testId}
-        aria-pressed={checked}
+        aria-checked={checked}
         style={{ ...s.toggleSwitch, background: checked ? "#0d6e4c" : "#d1d5db" }}
         onClick={onChange}
         role="switch"
