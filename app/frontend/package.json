@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "next dev -p 3050",
     "build": "next build",
-    "start": "next start -p 3050",
+    "start": "serve out -l ${PORT:-3050}",
     "lint": "next lint --no-cache",
     "type-check": "tsc --noEmit",
     "test": "vitest run",
@@ -43,6 +43,7 @@
     "react-dom": "18.3.1",
     "react-hook-form": "^7.76.1",
     "recharts": "2.12.7",
+    "serve": "^14.2.5",
     "sonner": "^2.0.7",
     "swr": "2.2.5",
     "tailwind-merge": "^3.6.0",

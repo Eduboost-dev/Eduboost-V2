@@ -31,9 +31,21 @@ configure_logging()
 log = get_logger(__name__)
 
 
+async def run_startup_migrations() -> None:
+    if not settings.is_production():
+        return
+    from alembic import command
+    from alembic.config import Config
+
+    log.info("startup_migrations_begin")
+    await asyncio.to_thread(command.upgrade, Config("alembic.ini"), "head")
+    log.info("startup_migrations_complete")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     log.info("eduboost_v2_starting", env=settings.ENVIRONMENT, version=settings.APP_VERSION)
+    await run_startup_migrations()
     consent_task = None
     secret_rotation_task = None
     if settings.ENVIRONMENT != "test":
