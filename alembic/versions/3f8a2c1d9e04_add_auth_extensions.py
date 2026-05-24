@@ -20,7 +20,9 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 revision      = "3f8a2c1d9e04"
-down_revision = None   # ← replace with your latest revision id (e.g. "1a2b3c4d5e06")
+# Set down_revision automatically to the current head at time of integration.
+# This links the migration to the most recent existing migration.
+down_revision = "20260516_0100"
 branch_labels = None
 depends_on    = None
 
