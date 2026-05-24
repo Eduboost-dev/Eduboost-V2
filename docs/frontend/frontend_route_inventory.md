@@ -18,6 +18,8 @@ This inventory records frontend route, page, and journey-related surfaces.
 
 | Path | Route markers | Journey markers |
 | --- | --- | --- |
+| `app/frontend/.next/server/interception-route-rewrite-manifest.js` | `Route` | `_none_` |
+| `app/frontend/.next/static/chunks/polyfills.js` | `path:, href=` | `parent` |
 | `app/frontend/__tests__/BetaAndFeedback.test.tsx` | `Link` | `_none_` |
 | `app/frontend/__tests__/EntryAndPortal.test.tsx` | `_none_` | `learner, parent, dashboard, lesson, progress, onboarding` |
 | `app/frontend/__tests__/EntryScreens.test.tsx` | `_none_` | `learner, parent, onboarding` |
@@ -33,13 +35,16 @@ This inventory records frontend route, page, and journey-related surfaces.
 | `app/frontend/__tests__/services.coverage.test.ts` | `_none_` | `learner, parent, dashboard, lesson, diagnostic, consent` |
 | `app/frontend/__tests__/services.smoke.test.ts` | `_none_` | `learner, lesson, diagnostic, consent` |
 | `app/frontend/__tests__/setup.ts` | `_none_` | `diagnostic, progress` |
+| `app/frontend/coverage/prettify.js` | `_none_` | `parent` |
+| `app/frontend/coverage/sorter.js` | `_none_` | `parent` |
+| `app/frontend/next-env.d.ts` | `Route, Routes` | `_none_` |
 | `app/frontend/public/service-worker.js` | `_none_` | `parent, dashboard, lesson, diagnostic` |
 | `app/frontend/src/__tests__/AccessibilityContracts.test.tsx` | `Route, Link` | `learner, parent, dashboard, diagnostic, progress, consent` |
 | `app/frontend/src/__tests__/ApiLayer.test.ts` | `_none_` | `learner, parent, dashboard, lesson, diagnostic` |
 | `app/frontend/src/__tests__/DiagnosticContract.test.ts` | `_none_` | `learner, diagnostic` |
 | `app/frontend/src/__tests__/LearnerJourneys.test.ts` | `_none_` | `learner, dashboard, lesson, progress` |
 | `app/frontend/src/__tests__/OfflineSync.test.ts` | `_none_` | `learner, lesson` |
-| `app/frontend/src/app/(auth)/login/page.tsx` | `Route` | `learner, parent, dashboard, consent` |
+| `app/frontend/src/app/(auth)/login/page.tsx` | `href=, Link` | `learner, parent, dashboard, lesson, progress` |
 | `app/frontend/src/app/(auth)/register/page.tsx` | `Route` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
 | `app/frontend/src/app/(learner)/badges/page.tsx` | `_none_` | `learner, lesson, diagnostic, progress` |
 | `app/frontend/src/app/(learner)/dashboard/page.tsx` | `Route` | `learner, parent, dashboard, lesson, diagnostic, assessment, progress` |
@@ -49,11 +54,12 @@ This inventory records frontend route, page, and journey-related surfaces.
 | `app/frontend/src/app/(learner)/parent/page.tsx` | `Link` | `learner, parent, progress` |
 | `app/frontend/src/app/(learner)/plan/page.tsx` | `Route` | `learner, lesson, diagnostic, assessment, progress` |
 | `app/frontend/src/app/(parent)/parent-dashboard/page.tsx` | `Route` | `parent, dashboard` |
-| `app/frontend/src/app/layout.tsx` | `Link` | `learner` |
 | `app/frontend/src/app/page.tsx` | `Route` | `learner, parent` |
 | `app/frontend/src/app/parent-portal/page.tsx` | `Route` | `parent, dashboard` |
 | `app/frontend/src/components/ServiceWorkerRegistration.tsx` | `_none_` | `lesson` |
 | `app/frontend/src/components/accessibility/A11y.tsx` | `href=, Link` | `_none_` |
+| `app/frontend/src/components/dashboard/course-card.tsx` | `href=, Link` | `parent, dashboard, lesson, progress` |
+| `app/frontend/src/components/dashboard/metric-card.tsx` | `_none_` | `parent` |
 | `app/frontend/src/components/eduboost/BetaAndFeedback.tsx` | `href=` | `_none_` |
 | `app/frontend/src/components/eduboost/EntryScreens.tsx` | `_none_` | `learner, parent, consent, onboarding` |
 | `app/frontend/src/components/eduboost/ErrorBoundary.tsx` | `Route` | `dashboard` |
@@ -66,13 +72,27 @@ This inventory records frontend route, page, and journey-related surfaces.
 | `app/frontend/src/components/eduboost/api.ts` | `_none_` | `learner, diagnostic` |
 | `app/frontend/src/components/eduboost/constants.ts` | `_none_` | `lesson` |
 | `app/frontend/src/components/eduboost/styles.ts` | `_none_` | `parent, consent, onboarding` |
+| `app/frontend/src/components/layout/dashboard-sidebar.tsx` | `href=, Link` | `parent, dashboard, assessment, progress` |
+| `app/frontend/src/components/layout/dashboard-topbar.tsx` | `href=, Link` | `parent, dashboard, lesson` |
+| `app/frontend/src/components/layout/marketing-footer.tsx` | `href=, Link` | `learner, parent` |
+| `app/frontend/src/components/layout/marketing-header.tsx` | `href=, Link` | `parent` |
 | `app/frontend/src/components/lessons/LessonTrustLabel.tsx` | `Link` | `parent, lesson` |
+| `app/frontend/src/components/ui/badge.tsx` | `_none_` | `parent` |
+| `app/frontend/src/components/ui/breadcrumb.tsx` | `Link` | `_none_` |
+| `app/frontend/src/components/ui/button.tsx` | `Link` | `_none_` |
+| `app/frontend/src/components/ui/input.tsx` | `_none_` | `parent` |
+| `app/frontend/src/components/ui-shadcn/badge.tsx` | `_none_` | `parent` |
+| `app/frontend/src/components/ui-shadcn/breadcrumb.tsx` | `Link` | `_none_` |
+| `app/frontend/src/components/ui-shadcn/button.tsx` | `Link` | `_none_` |
+| `app/frontend/src/components/ui-shadcn/input.tsx` | `_none_` | `parent` |
 | `app/frontend/src/context/LearnerContext.tsx` | `_none_` | `learner` |
 | `app/frontend/src/lib/api/client.ts` | `_none_` | `learner, parent, consent` |
 | `app/frontend/src/lib/api/offlineSync.ts` | `_none_` | `learner, lesson` |
 | `app/frontend/src/lib/api/services.ts` | `_none_` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
 | `app/frontend/src/lib/api/types.ts` | `_none_` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
 | `app/frontend/src/lib/productionReadiness/contracts.ts` | `Route` | `learner, parent, dashboard, lesson, diagnostic, consent, onboarding` |
+| `app/frontend/src/lib/utils.ts` | `_none_` | `progress` |
+| `app/frontend/src/types/index.ts` | `_none_` | `parent, dashboard, lesson, assessment, progress` |
 
 ## Command
 

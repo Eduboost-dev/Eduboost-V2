@@ -1,8 +1,8 @@
 # Diagnostic Deep Health Runtime Evidence Status
 
-Generated at: `2026-05-22T14:23:12Z`
-Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
-Branch: `codex/production_readiness`
+Generated at: `2026-05-24T20:43:46Z`
+Commit: `072c0678b1090169f2dbaac61ebaef4d636856d6`
+Branch: `code-archaeology`
 
 **Status:** `diag-deep-health-runtime-not-accepted`
 **Deep health URL:** ``
@@ -15,7 +15,7 @@ Branch: `codex/production_readiness`
 **Head SHA:** ``
 **Test command:** ``
 **Verified by:** `unverified`
-**Date verified:** `2026-05-22`
+**Date verified:** `2026-05-24`
 
 ## Required component results
 

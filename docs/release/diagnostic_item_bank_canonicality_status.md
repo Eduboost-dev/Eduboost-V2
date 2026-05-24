@@ -1,7 +1,7 @@
 # Diagnostic Item-Bank Policy Status
 
-Generated at: `2026-05-22T14:23:23Z`
-Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+Generated at: `2026-05-24T20:43:58Z`
+Commit: `072c0678b1090169f2dbaac61ebaef4d636856d6`
 
 **Status:** `diagnostic-item-bank-policy-accepted`
 **Policy:** `docs/architecture/diagnostic_item_bank_canonicality.yml`
@@ -27,9 +27,9 @@ Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 
 | Path | Line | Excerpt |
 |---|---:|---|
-| `app/models/diagnostic_item.py` | 108 | `ORM representation of the diagnostic_items table.` |
-| `app/models/diagnostic_item.py` | 114 | `__tablename__ = "diagnostic_items"` |
-| `app/models/item_exposure.py` | 54 | `ForeignKey("diagnostic_items.item_id", ondelete="RESTRICT"),` |
+| `app/models/diagnostic_item.py` | 111 | `ORM representation of the diagnostic_items table.` |
+| `app/models/diagnostic_item.py` | 117 | `__tablename__ = "diagnostic_items"` |
+| `app/models/item_exposure.py` | 58 | `ForeignKey("diagnostic_items.item_id", ondelete="RESTRICT"),` |
 | `app/services/curriculum/coverage.py` | 24 | `def detect_gaps(self, *, lessons: Iterable[Mapping[str, Any]], diagnostic_items: Iterable[Mapping[str, Any]]) -> list[CurriculumGap]:` |
 | `app/services/curriculum/coverage.py` | 27 | `item_refs = {row.get("caps_reference") for row in diagnostic_items if row.get("caps_reference")}` |
 

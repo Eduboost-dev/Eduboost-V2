@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-22T14:22:57.890813+00:00`
-- branch: `codex/production_readiness`
-- commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+- generated_at_utc: `2026-05-24T20:43:31.593259+00:00`
+- branch: `code-archaeology`
+- commit: `072c0678b1090169f2dbaac61ebaef4d636856d6`
 - release_candidate: `unset`
 
 ## Required Sign-Off Areas

@@ -394,7 +394,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1951-1990-full-check
     evidence_file: docs/release/ci_run_evidence_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: 072c0678b1090169f2dbaac61ebaef4d636856d6
     closure_blocker: scaffold only; CI-001 remains external-blocked until accepted CI evidence is attached
     blocks_beta: false
     external_dependency: false
@@ -537,7 +537,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2351-2390-full-check
     evidence_file: docs/release/beta_no_go_handoff_packet.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: 072c0678b1090169f2dbaac61ebaef4d636856d6
     closure_blocker: handoff only; beta decision remains NO-GO
     blocks_beta: false
     external_dependency: false
@@ -654,7 +654,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2751-2790-full-check
     evidence_file: docs/release/ci_auth_refresh_db_proof_workflow_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: 072c0678b1090169f2dbaac61ebaef4d636856d6
     closure_blocker: none; real workflow run URL still required for release evidence
     blocks_beta: false
     external_dependency: false

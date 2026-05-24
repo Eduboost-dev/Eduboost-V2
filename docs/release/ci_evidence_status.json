@@ -1,15 +1,22 @@
 {
-  "generated_at": "2026-05-22T14:21:55Z",
-  "current_commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
-  "current_branch": "codex/production_readiness",
-  "status": "ci-evidence-accepted",
-  "run_id": "26292884638",
-  "run_url": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26292884638",
-  "workflow_name": "Backend Consolidation Evidence",
-  "run_status": "completed",
-  "conclusion": "success",
-  "head_sha": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
-  "verified_by": "github-actions",
-  "date_verified": "2026-05-22",
-  "blockers": []
+  "generated_at": "2026-05-24T20:41:52Z",
+  "current_commit": "072c0678b1090169f2dbaac61ebaef4d636856d6",
+  "current_branch": "code-archaeology",
+  "status": "ci-evidence-not-accepted",
+  "run_id": "",
+  "run_url": "",
+  "workflow_name": "",
+  "run_status": "",
+  "conclusion": "",
+  "head_sha": "",
+  "verified_by": "unverified",
+  "date_verified": "2026-05-24",
+  "blockers": [
+    "no successful non-auth-refresh GitHub Actions run found for current commit",
+    "run ID is missing or non-numeric",
+    "GitHub Actions run status is missing, expected completed",
+    "GitHub Actions run conclusion is missing, expected success",
+    "GitHub Actions run SHA missing does not match current commit 072c0678b1090169f2dbaac61ebaef4d636856d6",
+    "workflow name is missing"
+  ]
 }

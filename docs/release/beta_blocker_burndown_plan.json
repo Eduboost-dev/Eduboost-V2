@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-22T14:21:44Z",
-  "current_commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
+  "generated_at": "2026-05-24T20:41:36Z",
+  "current_commit": "072c0678b1090169f2dbaac61ebaef4d636856d6",
   "source_decision": "NO-GO",
-  "source_beta_blocker_count": 8,
+  "source_beta_blocker_count": 9,
   "burn_down_status": "blocked",
   "actions": [
     {
@@ -30,24 +30,36 @@
       "can_be_closed_locally": false
     },
     {
-      "id": "DIAG-SCORE-001",
-      "category": "external",
-      "status": "not-proven",
-      "reason": "external approval remains incomplete",
-      "owner": "backend",
-      "evidence_file": "docs/release/diagnostic_item_bank_canonicality_status.md",
-      "next_action": "Resolve registry blocker: external approval remains incomplete",
-      "verification_command": "make external-approval-release-check",
-      "priority": "P0",
-      "can_be_closed_locally": false
-    },
-    {
       "id": "EXT-GATE-001",
       "category": "external",
       "status": "runtime-passing",
       "reason": "external approval remains incomplete",
       "owner": "release",
       "evidence_file": "docs/release/external_approval_status.md",
+      "next_action": "Resolve registry blocker: external approval remains incomplete",
+      "verification_command": "make external-approval-release-check",
+      "priority": "P0",
+      "can_be_closed_locally": false
+    },
+    {
+      "id": "JWT-001",
+      "category": "external",
+      "status": "not-proven",
+      "reason": "external approval remains incomplete",
+      "owner": "backend",
+      "evidence_file": "docs/release/jwt_secret_rotation_evidence_status.md",
+      "next_action": "Resolve registry blocker: external approval remains incomplete",
+      "verification_command": "make external-approval-release-check",
+      "priority": "P0",
+      "can_be_closed_locally": false
+    },
+    {
+      "id": "JWT-001R",
+      "category": "external",
+      "status": "not-proven",
+      "reason": "external approval remains incomplete",
+      "owner": "backend",
+      "evidence_file": "docs/release/jwt_secret_rotation_evidence_status.md",
       "next_action": "Resolve registry blocker: external approval remains incomplete",
       "verification_command": "make external-approval-release-check",
       "priority": "P0",

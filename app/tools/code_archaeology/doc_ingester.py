@@ -412,3 +412,110 @@ def _parse_frontmatter(content: str) -> tuple[dict, str]:
             k, _, v = line.partition(":")
             fm[k.strip()] = v.strip().strip('"\'')
     return fm, body
+
+
+def _split_markdown_sections(content: str) -> list[dict]:
+    """Split markdown content into heading sections.
+
+    Returns list of {heading, level, content, start_line, end_line, word_count, anchor}.
+    """
+    lines = content.splitlines()
+    hdr_re = re.compile(r"^(#{1,6})\s+(.*)$")
+    sections: list[dict] = []
+    cur = {"heading": "body", "level": 0, "start_line": 1, "content": []}
+
+    for i, line in enumerate(lines, 1):
+        m = hdr_re.match(line)
+        if m:
+            # close current
+            if cur["content"]:
+                cur["end_line"] = i - 1
+                cur["content"] = "\n".join(cur["content"]).strip()
+                cur["word_count"] = len(re.findall(r"\b\w+\b", cur["content"]))
+                cur["anchor"] = _slugify(cur["heading"]) if cur["heading"] else ""
+                sections.append(cur)
+            cur = {"heading": m.group(2).strip(), "level": len(m.group(1)), "start_line": i + 1, "content": []}
+        else:
+            cur["content"].append(line)
+
+    # flush last
+    if cur["content"]:
+        cur["end_line"] = len(lines)
+        cur["content"] = "\n".join(cur["content"]).strip()
+        cur["word_count"] = len(re.findall(r"\b\w+\b", cur["content"]))
+        cur["anchor"] = _slugify(cur["heading"]) if cur["heading"] else ""
+        sections.append(cur)
+
+    return [
+        {
+            "heading": s["heading"],
+            "level": s["level"],
+            "start_line": s.get("start_line", 0),
+            "end_line": s.get("end_line", 0),
+            "content": s["content"],
+            "word_count": s.get("word_count", 0),
+            "anchor": s.get("anchor", ""),
+        }
+        for s in sections
+    ]
+
+
+def parse_tracking_docs(repo_path: Path) -> list[dict]:
+    """Discover and parse tracking documents under `repo_path`.
+
+    Returns a list of dicts compatible with `sync_engine` expectations.
+    This function is safe to call at runtime (avoids heavy imports at module import).
+    """
+    repo_path = Path(repo_path)
+    docs: list[dict] = []
+
+    candidates = list(TRACKING_SUBPATHS)
+    # include top-level docs dir files as fallback
+    docs_dir = repo_path / "docs"
+    if docs_dir.exists():
+        for p in docs_dir.glob("**/*"):
+            if p.suffix.lower() in MARKDOWN_EXTS:
+                rel = str(p.relative_to(repo_path))
+                if rel not in candidates:
+                    candidates.append(rel)
+
+    for rel in candidates:
+        p = repo_path / rel
+        if not p.exists() or not p.is_file():
+            continue
+        try:
+            text = p.read_text(encoding="utf-8")
+        except Exception:
+            continue
+
+        fm, body = _parse_frontmatter(text)
+        sections = _split_markdown_sections(body)
+        annotations = _extract_annotations(body)
+        sentiment = _sentiment_score(body)
+
+        # tasks: count markdown task list
+        tasks = re.findall(r"^- \[[ xX]\]", body, re.MULTILINE)
+        total_tasks = len(re.findall(r"^- \[.\]", body, re.MULTILINE))
+        done_tasks = len(re.findall(r"^- \[[xX]\]", body, re.MULTILINE))
+
+        # last git modified (best-effort)
+        last_git = None
+        try:
+            res = subprocess.run(["git", "-C", str(repo_path), "log", "-1", "--format=%aI", "--", str(p)], capture_output=True, text=True, check=True)
+            last_git = res.stdout.strip() or None
+        except Exception:
+            last_git = None
+
+        docs.append({
+            "path": str(p.relative_to(repo_path)),
+            "doc_type": p.suffix.lstrip("."),
+            "title": p.name,
+            "metadata": {**fm, "total_tasks": total_tasks, "task_done": done_tasks},
+            "sections": sections,
+            "raw_content": body,
+            "sentiment": sentiment,
+            "annotations": [a.__dict__ for a in annotations],
+            "last_git_modified": last_git,
+        })
+
+    return docs

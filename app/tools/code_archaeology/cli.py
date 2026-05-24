@@ -21,52 +21,54 @@ from . import git_ingester, sync_engine, narrative_generator, doc_ingester, TEMP
 
 
 def _load_docs_minimal(repo_path: Path) -> List[dict]:
-    repo_path = Path(repo_path)
-    docs: list[dict] = []
-    # Scan known high-value tracking paths first
-    for rel in getattr(doc_ingester, "TRACKING_SUBPATHS", set()):
-        p = repo_path / rel
-        if not p.exists():
-            continue
-        try:
-            text = p.read_text(encoding="utf-8")
-        except Exception:
-            continue
-        fm, body = doc_ingester._parse_frontmatter(text)
-        sentiment = doc_ingester._sentiment_score(body)
-        # simple one-section doc
-        sections = [{"heading": "body", "content": body}]
-        docs.append({
-            "path": str(p.relative_to(repo_path)),
-            "doc_type": p.suffix.lstrip("."),
-            "title": p.name,
-            "metadata": fm,
-            "sections": sections,
-            "sentiment": sentiment,
-        })
+    # Prefer the richer parser in doc_ingester if available
+    try:
+        return doc_ingester.parse_tracking_docs(repo_path)
+    except Exception:
+        # Fallback to prior minimal loader if parse fails
+        repo_path = Path(repo_path)
+        docs: list[dict] = []
+        for rel in getattr(doc_ingester, "TRACKING_SUBPATHS", set()):
+            p = repo_path / rel
+            if not p.exists():
+                continue
+            try:
+                text = p.read_text(encoding="utf-8")
+            except Exception:
+                continue
+            fm, body = doc_ingester._parse_frontmatter(text)
+            sentiment = doc_ingester._sentiment_score(body)
+            sections = [{"heading": "body", "content": body}]
+            docs.append({
+                "path": str(p.relative_to(repo_path)),
+                "doc_type": p.suffix.lstrip("."),
+                "title": p.name,
+                "metadata": fm,
+                "sections": sections,
+                "sentiment": sentiment,
+            })
 
-    # Fallback: if none found, scan docs/ top-level markdown files
-    if not docs:
-        docs_dir = repo_path / "docs"
-        if docs_dir.exists() and docs_dir.is_dir():
-            for p in sorted(docs_dir.glob("**/*.md")):
-                try:
-                    text = p.read_text(encoding="utf-8")
-                except Exception:
-                    continue
-                fm, body = doc_ingester._parse_frontmatter(text)
-                sentiment = doc_ingester._sentiment_score(body)
-                sections = [{"heading": "body", "content": body}]
-                docs.append({
-                    "path": str(p.relative_to(repo_path)),
-                    "doc_type": p.suffix.lstrip("."),
-                    "title": p.name,
-                    "metadata": fm,
-                    "sections": sections,
-                    "sentiment": sentiment,
-                })
+        if not docs:
+            docs_dir = repo_path / "docs"
+            if docs_dir.exists() and docs_dir.is_dir():
+                for p in sorted(docs_dir.glob("**/*.md")):
+                    try:
+                        text = p.read_text(encoding="utf-8")
+                    except Exception:
+                        continue
+                    fm, body = doc_ingester._parse_frontmatter(text)
+                    sentiment = doc_ingester._sentiment_score(body)
+                    sections = [{"heading": "body", "content": body}]
+                    docs.append({
+                        "path": str(p.relative_to(repo_path)),
+                        "doc_type": p.suffix.lstrip("."),
+                        "title": p.name,
+                        "metadata": fm,
+                        "sections": sections,
+                        "sentiment": sentiment,
+                    })
 
-    return docs
+        return docs
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -108,7 +110,29 @@ def main(argv: list[str] | None = None) -> int:
     narrative_path = out / "narrative.json"
     narrative_generator.save_narrative_json(narrative, narrative_path)
     md_path = out / "narrative.md"
-    md_path.write_text(narrative.to_markdown(), encoding="utf-8")
+    narrative_md = narrative.to_markdown()
+    md_path.write_text(narrative_md, encoding="utf-8")
+
+    # 5) Render HTML report using packaged template (inject narrative as preformatted)
+    try:
+        from html import escape as _escape
+        tpl_path = TEMPLATES_PATH / "report_base.html"
+        if tpl_path.exists():
+            tpl = tpl_path.read_text(encoding="utf-8")
+            start = tpl.find("<main>")
+            end = tpl.find("</main>")
+            if start != -1 and end != -1 and end > start:
+                pre = f"<main>\n<h1>Code Archaeology — {repo.name}</h1>\n<p>Generated: {timeline.generated_at}</p>\n<section>\n<pre>{_escape(narrative_md)}</pre>\n</section>\n</main>"
+                html_out = tpl[:start] + pre + tpl[end + len("</main>") :]
+            else:
+                html_out = tpl.replace("</body>", f"<pre>{_escape(narrative_md)}</pre></body>")
+            html_path = out / "index.html"
+            html_path.write_text(html_out, encoding="utf-8")
+            print(f"[cli] HTML report written → {html_path}")
+        else:
+            print("[cli] Template not found; skipping HTML render")
+    except Exception as exc:
+        print(f"[cli] HTML render failed: {exc}")
 
     print(f"[cli] Report artifacts: {ing_path}, {tl_path}, {narrative_path}, {md_path}")
 

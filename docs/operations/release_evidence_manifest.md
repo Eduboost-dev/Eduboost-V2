@@ -1,8 +1,8 @@
 # Release Evidence Manifest
 
-Generated: `2026-05-20T18:18:57Z`
-Branch: `fix/master-ci-cd-repair`
-Commit: `4c0297e85f4a77147e22af491f7bcbe281b99bfc`
+Generated: `2026-05-24T20:42:10Z`
+Branch: `code-archaeology`
+Commit: `072c0678b1090169f2dbaac61ebaef4d636856d6`
 
 ## Required Evidence Commands
 

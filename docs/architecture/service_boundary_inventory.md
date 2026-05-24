@@ -1,6 +1,6 @@
 # Service Boundary Inventory
 
-Generated at: `2026-05-22T14:21:45Z`
+Generated at: `2026-05-24T20:41:37Z`
 
 | Path | Classification |
 |---|---|

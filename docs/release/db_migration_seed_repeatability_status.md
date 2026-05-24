@@ -1,7 +1,7 @@
 # DB Migration + Seed Repeatability Status
 
-Generated at: `2026-05-22T14:23:12Z`
-Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+Generated at: `2026-05-24T20:43:46Z`
+Commit: `072c0678b1090169f2dbaac61ebaef4d636856d6`
 
 **Status:** `db-migration-seed-repeatability-passing`
 **Raw Alembic SQL:** `temp/db_repeatability/alembic_upgrade_head.raw.sql`
@@ -11,11 +11,11 @@ Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 ## Summary
 
 - Alembic head `20260516_0100` present: `True`
-- Raw SQL lines: `1078`
-- Supabase SQL lines: `1045`
+- Raw SQL lines: `1083`
+- Supabase SQL lines: `1049`
 - Removed chatter lines: `16`
 - Removed broken null seed blocks: `2`
-- Removed Supabase role lines: `1`
+- Removed Supabase role lines: `2`
 - Generated IRT seed rows: `1600`
 - Unique IRT seed rows: `1600`
 
