@@ -37,7 +37,7 @@ const STEPS = [
   { key: "email_verified",   icon: "📧", label: "Verify email",         desc: "Confirm your email address to secure your account." },
   { key: "profile_complete", icon: "👤", label: "Complete your profile", desc: "Tell us about the learner so we can personalise lessons." },
   { key: "guardian_consent", icon: "🔒", label: "Guardian consent",      desc: "POPIA requires parental/guardian consent for learners under 18." },
-  { key: "diagnostic_done",  icon: "🧠", label: "Diagnostic assessment", desc: "A short assessment to find the learner's exact knowledge level." },
+  { key: "diagnostic_done",  icon: "🧠", label: "Diagnostic assessment", desc: "A short assessment to find the learner&apos;s exact knowledge level." },
   { key: "plan_accepted",    icon: "📅", label: "Accept study plan",     desc: "Review and accept the personalised CAPS-aligned study plan." },
 ] as const;
 
@@ -235,7 +235,7 @@ export default function OnboardingPage() {
           {/* ── Profile step ──────────────────────────────────────── */}
           {currentStep.key === "profile_complete" && (
             <div>
-              <label style={s.label} htmlFor="display-name">Learner's full name</label>
+              <label style={s.label} htmlFor="display-name">Learner&apos;s full name</label>
               <input
                 id="display-name"
                 data-testid="display-name-input"
@@ -291,7 +291,7 @@ export default function OnboardingPage() {
               <div style={s.consentBox}>
                 <h4 style={{ margin: "0 0 8px", color: "#1a3c5e" }}>POPIA Parental Consent</h4>
                 <p style={{ margin: 0, fontSize: 13, lineHeight: 1.8, color: "#374151" }}>
-                  EduBoost SA collects and processes your child's learning data to provide
+                  EduBoost SA collects and processes your child&apos;s learning data to provide
                   personalised educational content aligned with the South African CAPS curriculum.
                   Data is pseudonymised and <strong>never shared with third parties</strong> without
                   explicit consent. You may request access to or deletion of all data at any time
@@ -307,7 +307,7 @@ export default function OnboardingPage() {
                   style={{ marginRight: 10, width: 16, height: 16 }}
                 />
                 I am the parent/guardian and I give consent for EduBoost SA to process
-                the learner's data as described above.
+                the learner&apos;s data as described above.
               </label>
               <button
                 style={{ ...s.btn, opacity: loading || !consentTick ? 0.7 : 1 }}
@@ -326,7 +326,7 @@ export default function OnboardingPage() {
               <p style={s.info}>
                 The diagnostic assessment takes about 10–15 minutes and helps us find
                 exactly where the learner is in each subject — even below their current grade.
-                There are no wrong answers; it's just a starting point.
+                There are no wrong answers; it&apos;s just a starting point.
               </p>
               <button
                 style={s.btn}
@@ -342,8 +342,8 @@ export default function OnboardingPage() {
           {currentStep.key === "plan_accepted" && (
             <div>
               <p style={s.info}>
-                Based on the diagnostic, we've built a personalised CAPS-aligned study plan.
-                Review it below and confirm you're happy to begin.
+                Based on the diagnostic, we&apos;ve built a personalised CAPS-aligned study plan.
+                Review it below and confirm you&apos;re happy to begin.
               </p>
               <div style={s.planPreview}>
                 <span style={{ fontSize: 24, marginBottom: 8, display: "block" }}>📅</span>

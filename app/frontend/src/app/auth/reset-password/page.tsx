@@ -116,7 +116,7 @@ export default function ResetPasswordPage() {
           {step === "request" && (
             <>
               <h2 style={s.title}>Forgot your password?</h2>
-              <p style={s.subtitle}>Enter your email and we'll send you a reset link.</p>
+              <p style={s.subtitle}>Enter your email and we&apos;ll send you a reset link.</p>
               <form onSubmit={handleRequest} data-testid="forgot-form" noValidate>
                 <label style={s.label} htmlFor="email-input">Email address</label>
                 <input
@@ -150,11 +150,11 @@ export default function ResetPasswordPage() {
               <div style={s.bigIcon}>📬</div>
               <h2 style={s.title}>Check your inbox</h2>
               <p style={s.subtitle}>
-                If <strong>{email}</strong> is registered, you'll receive a reset link
+                If <strong>{email}</strong> is registered, you&apos;ll receive a reset link
                 shortly. It expires in {RESET_TTL_MIN} minutes.
               </p>
               <p style={{ ...s.subtitle, fontSize: 12, color: "#9ca3af" }}>
-                Don't see it? Check your spam or junk folder.
+                Don&apos;t see it? Check your spam or junk folder.
               </p>
               <button onClick={() => setStep("request")} style={s.btnOutline}>
                 Use a different email

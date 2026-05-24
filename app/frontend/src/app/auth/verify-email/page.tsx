@@ -94,7 +94,7 @@ export default function VerifyEmailPage() {
               <div style={s.bigIcon}>✅</div>
               <h2 style={s.title}>Email verified!</h2>
               <p style={s.subtitle}>
-                Your email address has been confirmed. You're one step closer to
+                Your email address has been confirmed. You&apos;re one step closer to
                 your personalised learning journey.
               </p>
               <button
