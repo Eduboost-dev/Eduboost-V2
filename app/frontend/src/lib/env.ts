@@ -1,6 +1,12 @@
 const PUBLIC_ENV_ALLOWLIST = new Set(["NEXT_PUBLIC_API_URL", "NEXT_PUBLIC_APP_ENV", "NEXT_PUBLIC_ENABLE_DEV_SESSION"]);
 const SECRET_NAME_PATTERN = /(SECRET|TOKEN|KEY|PASSWORD|PRIVATE|DATABASE_URL|REDIS_URL)/i;
 
+function normalizeFrontendApiUrl(value: string) {
+  const trimmed = value.trim().replace(/\/+$/, "");
+  if (trimmed.endsWith("/api/v2")) return trimmed;
+  return `${trimmed}/api/v2`;
+}
+
 export interface FrontendEnvReport {
   publicApiUrl: string;
   appEnv: string;
@@ -14,7 +20,7 @@ export function getFrontendEnv(): FrontendEnvReport {
   );
 
   return {
-    publicApiUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v2",
+    publicApiUrl: normalizeFrontendApiUrl(process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v2"),
     appEnv: process.env.NEXT_PUBLIC_APP_ENV || process.env.NODE_ENV || "development",
     devSessionEnabled: process.env.NEXT_PUBLIC_ENABLE_DEV_SESSION === "true" || process.env.NODE_ENV !== "production",
     exposedSecretLikeKeys,

@@ -1,6 +1,12 @@
 import type { ApiEnvelope, NormalizedApiError, JobAcceptedResponse, JobStatusResponse } from "./types";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v2";
+function normalizeApiBaseUrl(value: string) {
+  const trimmed = value.trim().replace(/\/+$/, "");
+  if (trimmed.endsWith("/api/v2")) return trimmed;
+  return `${trimmed}/api/v2`;
+}
+
+const BASE_URL = normalizeApiBaseUrl(process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v2");
 const ACCESS_TOKEN_KEY = "guardian_token";
 const LEARNER_TOKEN_KEY = "learner_token";
 
