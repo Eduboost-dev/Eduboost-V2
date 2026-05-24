@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "eslint": "^10.2.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0"
   }
 }
