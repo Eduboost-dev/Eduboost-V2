@@ -103,6 +103,7 @@ class EnvelopedRoute(APIRoute):
                 status_code=response.status_code,
                 headers=headers,
                 media_type=response.media_type,
+                background=response.background,
             )
 
         return enveloped_handler

@@ -20,6 +20,7 @@ import type {
   OfflineLessonSyncEvent,
   MasteryResponse,
   ParentExportBundle,
+  ParentDashboardResponse,
   ParentTrustDashboardResponse,
   StudyPlanResponse,
 } from "./types";
@@ -177,6 +178,8 @@ export const DataRightsService = {
 };
 
 export const ParentService = {
+  getDashboard: () => fetchApi<ParentDashboardResponse>("/parents/dashboard"),
+
   getTrustDashboard: (guardianId: string) => fetchApi<ParentTrustDashboardResponse>(`/parents/${guardianId}/dashboard`),
 
   getExportBundle: (guardianId: string) => fetchApi<ParentExportBundle>(`/parents/${guardianId}/export`),
