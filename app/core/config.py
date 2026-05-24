@@ -20,6 +20,7 @@ KEY_VAULT_SECRET_NAMES = {
     "ENCRYPTION_SALT": "eduboost-encryption-salt",
     "GROQ_API_KEY": "eduboost-groq-api-key",
     "ANTHROPIC_API_KEY": "eduboost-anthropic-api-key",
+    "GOOGLE_API_KEY": "eduboost-google-api-key",
 }
 
 
@@ -95,12 +96,14 @@ class Settings(BaseSettings):
     # ── LLM Providers ────────────────────────────────────────────────────────
     ANTHROPIC_API_KEY: str = ""
     GROQ_API_KEY: str = ""
+    GOOGLE_API_KEY: str = ""
     HUGGINGFACE_API_KEY: str = ""
     ANTHROPIC_MODEL: str = "claude-sonnet-4-20250514"
+    GOOGLE_MODEL: str = "gemini-2.5-flash"
     INFERENCE_SERVICE_URL: str = "http://localhost:9100"
     LLM_TIMEOUT_SECONDS: int = 30
     LLM_MAX_RETRIES: int = 2
-    LLM_PROVIDER: Literal["auto", "groq", "anthropic", "local_hf"] = "auto"
+    LLM_PROVIDER: Literal["auto", "google", "groq", "anthropic", "local_hf", "mock"] = "auto"
     LOCAL_BASE_MODEL_ID: str = "HuggingFaceTB/SmolLM2-360M-Instruct"
     LOCAL_ADAPTER_PATH: str = "artifacts/llm/smollm2-caps-focused-9epoch-adapter"
     LOCAL_MERGED_MODEL_PATH: str = "artifacts/llm/merged-smollm2-caps-focused-model"

@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any
 
 import anthropic
+import httpx
 from groq import AsyncGroq
 from tenacity import (
     retry,
@@ -171,6 +172,22 @@ _LOCAL_HF_SYSTEM_PROMPT = (
 )
 
 
+def _google_model_name() -> str:
+    return settings.GOOGLE_MODEL.removeprefix("models/")
+
+
+def active_provider_label() -> str:
+    if settings.LLM_PROVIDER != "auto":
+        return settings.LLM_PROVIDER
+    if settings.GOOGLE_API_KEY:
+        return "google"
+    if settings.GROQ_API_KEY:
+        return "groq"
+    if settings.ANTHROPIC_API_KEY:
+        return "anthropic"
+    return "fallback"
+
+
 class ExecutiveService:
     """Constitutional Pillar 2: The Executive. Orchestrates AI inference."""
 
@@ -205,9 +222,9 @@ class ExecutiveService:
 
         if (
             settings.LLM_PROVIDER != "local_hf"
+            and not settings.GOOGLE_API_KEY
             and not settings.GROQ_API_KEY
             and not settings.ANTHROPIC_API_KEY
-            and not settings.is_production()
             and not _is_test_provider_override(self._call_with_fallback)
         ):
             payload = self._enrich_lesson_payload(_fallback_lesson_payload(grade, subject, topic, language), grade=grade, subject=subject, topic=topic)
@@ -266,7 +283,7 @@ class ExecutiveService:
         payload = self._enrich_lesson_payload(payload, grade=grade, subject=subject, topic=topic)
         raw = payload.model_dump_json()
         await cache_set(cache_k, raw, ttl=settings.SEMANTIC_CACHE_TTL_SECONDS)
-        log.info("lesson_generated", pseudonym=pseudonym_id, provider="groq")
+        log.info("lesson_generated", pseudonym=pseudonym_id, provider=active_provider_label())
         return payload, False
 
 
@@ -320,13 +337,27 @@ class ExecutiveService:
             return self._call_mock(user_prompt, operation=operation)
         if settings.LLM_PROVIDER == "local_hf":
             return await self._call_local_hf(user_prompt, operation=operation)
+        if settings.LLM_PROVIDER == "google":
+            return await self._call_google(user_prompt, operation=operation)
         if settings.LLM_PROVIDER == "anthropic":
             return await self._call_anthropic(user_prompt, operation=operation)
-        try:
-            return await self._call_groq(user_prompt, operation=operation)
-        except Exception as exc:
-            log.warning("groq_lesson_generation_failed", error=str(exc))
+
+        if settings.GOOGLE_API_KEY:
+            try:
+                return await self._call_google(user_prompt, operation=operation)
+            except Exception as exc:
+                log.warning("google_lesson_generation_failed", error=str(exc))
+
+        if settings.GROQ_API_KEY:
+            try:
+                return await self._call_groq(user_prompt, operation=operation)
+            except Exception as exc:
+                log.warning("groq_lesson_generation_failed", error=str(exc))
+
+        if settings.ANTHROPIC_API_KEY:
             return await self._call_anthropic(user_prompt, operation=operation)
+
+        raise RuntimeError("No LLM provider credentials configured")
 
 
     def _call_mock(self, user_prompt: str, *, operation: str) -> str:
@@ -414,6 +445,54 @@ class ExecutiveService:
                 output_tokens=usage.completion_tokens,
             )
         return response.choices[0].message.content or "{}"
+
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=2, max=10),
+        retry=retry_if_exception_type(Exception),
+        reraise=True,
+    )
+    async def _call_google(self, user_prompt: str, *, operation: str) -> str:
+        if not settings.GOOGLE_API_KEY:
+            raise RuntimeError("Google Gemini API key not configured")
+
+        async with httpx.AsyncClient(timeout=settings.LLM_TIMEOUT_SECONDS) as client:
+            response = await client.post(
+                f"https://generativelanguage.googleapis.com/v1beta/models/{_google_model_name()}:generateContent",
+                headers={
+                    "Content-Type": "application/json",
+                    "x-goog-api-key": settings.GOOGLE_API_KEY,
+                },
+                json={
+                    "systemInstruction": {"parts": [{"text": _LESSON_SYSTEM_PROMPT}]},
+                    "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
+                    "generationConfig": {
+                        "responseMimeType": "application/json",
+                        "maxOutputTokens": 1200,
+                        "temperature": 0.7,
+                    },
+                },
+            )
+        response.raise_for_status()
+        payload = response.json()
+        usage = payload.get("usageMetadata") or {}
+        record_llm_tokens(
+            provider="google",
+            model=_google_model_name(),
+            operation=operation,
+            input_tokens=int(usage.get("promptTokenCount") or 0),
+            output_tokens=int(usage.get("candidatesTokenCount") or 0),
+        )
+
+        candidates = payload.get("candidates") or []
+        if not candidates:
+            raise RuntimeError("Google Gemini returned no candidates")
+
+        parts = (candidates[0].get("content") or {}).get("parts") or []
+        text = "".join(str(part.get("text") or "") for part in parts).strip()
+        if not text:
+            raise RuntimeError("Google Gemini returned an empty response")
+        return text
 
     @retry(
         stop=stop_after_attempt(3),

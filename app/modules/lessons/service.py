@@ -29,6 +29,7 @@ from uuid import UUID
 from fastapi import HTTPException, status
 from sqlalchemy import select
 
+from app.core.llm_gateway import active_provider_label
 from app.core.database import AsyncSessionLocal
 from app.models import KnowledgeGap, Lesson
 from app.repositories.repositories import (
@@ -154,7 +155,7 @@ class LessonService:
             ) from exc
 
         # 4. Persist and Audit
-        provider = "cache" if from_cache else "groq"
+        provider = "cache" if from_cache else active_provider_label()
         lesson = await self._lesson_repo.create(
             learner_id=body.learner_id,
             grade=learner.grade,
