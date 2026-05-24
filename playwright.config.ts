@@ -1,31 +1,99 @@
+/**
+ * playwright.config.ts — EduBoost SA V2
+ *
+ * Place at the project root:
+ *   playwright.config.ts
+ *
+ * Install:
+ *   npm install -D @playwright/test
+ *   npx playwright install --with-deps chromium firefox
+ *
+ * Run all E2E tests:
+ *   npx playwright test
+ *
+ * Run a specific suite:
+ *   npx playwright test tests/e2e/auth.spec.ts
+ *
+ * Run with UI (interactive):
+ *   npx playwright test --ui
+ *
+ * Generate report:
+ *   npx playwright show-report
+ */
+
 import { defineConfig, devices } from "@playwright/test";
 
-const baseURL = process.env.FRONTEND_BASE_URL || "http://127.0.0.1:3050";
-
 export default defineConfig({
-  testDir: "./tests/e2e",
-  timeout: 60_000,
+  // ── Test discovery ──────────────────────────────────────────────────────────
+  testDir:  "./tests/e2e",
+  testMatch: ["**/*.spec.ts"],
+
+  // ── Parallelism ─────────────────────────────────────────────────────────────
   fullyParallel: true,
-  retries: process.env.CI ? 1 : 0,
-  reporter: [["list"], ["html", { open: "never" }]],
+  workers:       process.env.CI ? 2 : undefined,   // cap workers on CI
+
+  // ── Retry logic ─────────────────────────────────────────────────────────────
+  retries: process.env.CI ? 2 : 0,
+
+  // ── Reporting ───────────────────────────────────────────────────────────────
+  reporter: [
+    ["list"],
+    ["html", { outputFolder: "playwright-report", open: "never" }],
+    // Uncomment for CI JUnit output:
+    // ["junit", { outputFile: "test-results/junit.xml" }],
+  ],
+
+  // ── Global test settings ────────────────────────────────────────────────────
   use: {
-    baseURL,
-    trace: "retain-on-failure",
-    screenshot: "only-on-failure",
-    video: "retain-on-failure"
+    baseURL:            process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:3000",
+
+    // Navigation & network
+    navigationTimeout:  15_000,
+    actionTimeout:       8_000,
+
+    // Capture artefacts on failure
+    screenshot:         "only-on-failure",
+    video:              "retain-on-failure",
+    trace:              "on-first-retry",
+
+    // Extra HTTP headers (pass auth cookies / CSRF tokens if needed)
+    // extraHTTPHeaders: { "x-test-mode": "1" },
   },
+
+  // ── Browser projects ────────────────────────────────────────────────────────
   projects: [
     {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] }
-    }
+      name:  "chromium",
+      use:   { ...devices["Desktop Chrome"] },
+    },
+    {
+      name:  "firefox",
+      use:   { ...devices["Desktop Firefox"] },
+    },
+    {
+      name:  "webkit",
+      use:   { ...devices["Desktop Safari"] },
+    },
+    // Mobile viewports
+    {
+      name:  "Mobile Chrome",
+      use:   { ...devices["Pixel 5"] },
+    },
+    {
+      name:  "Mobile Safari",
+      use:   { ...devices["iPhone 13"] },
+    },
   ],
-  webServer: process.env.PLAYWRIGHT_WEB_SERVER_COMMAND
-    ? {
-        command: process.env.PLAYWRIGHT_WEB_SERVER_COMMAND,
-        url: baseURL,
-        reuseExistingServer: !process.env.CI,
-        timeout: 120_000
-      }
-    : undefined
+
+  // ── Dev-server auto-start ────────────────────────────────────────────────────
+  // Uncomment if you want Playwright to spin up Next.js automatically:
+  // webServer: {
+  //   command:            "npm run dev",
+  //   url:                "http://localhost:3000",
+  //   reuseExistingServer: !process.env.CI,
+  //   timeout:            120_000,
+  // },
+
+  // ── Output directories ───────────────────────────────────────────────────────
+  outputDir: "test-results",
 });
