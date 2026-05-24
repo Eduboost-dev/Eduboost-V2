@@ -247,6 +247,24 @@ export interface ParentTrustDashboardResponse {
   learners: ParentTrustDashboardLearner[];
 }
 
+export interface ParentDashboardLearner {
+  learner_id: string;
+  display_name: string;
+  grade_level: string;
+  archetype?: string | null;
+  irt_theta?: number;
+  lessons_this_week?: number;
+  active_knowledge_gaps?: number;
+  last_lesson_at?: string | null;
+}
+
+export interface ParentDashboardResponse {
+  guardian_id: string;
+  subscription_tier: string;
+  total_lessons_generated: number;
+  learners: ParentDashboardLearner[];
+}
+
 export interface ParentExportEntry {
   learner_id: string;
   display_name: string;

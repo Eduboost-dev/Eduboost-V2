@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -16,6 +17,9 @@ import {
   Form, FormControl, FormField, FormItem, FormLabel, FormMessage,
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
+import { AuthService, ParentService } from "@/lib/api/services";
+import { decodeJwtPayload, extractErrorMessage } from "@/lib/api/client";
+import { useLearner } from "@/context/LearnerContext";
 
 // ── Schema ───────────────────────────────────────────────────────────────────
 const loginSchema = z.object({
@@ -54,8 +58,11 @@ function SocialButton({ children, ...props }: React.ButtonHTMLAttributes<HTMLBut
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function LoginPage() {
+  const router = useRouter();
+  const { setLearner } = useLearner();
   const [showPassword, setShowPassword] = useState(false);
   const [success, setSuccess]           = useState(false);
+  const [error, setError]               = useState("");
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -65,9 +72,37 @@ export default function LoginPage() {
   const { isSubmitting } = form.formState;
 
   async function onSubmit(values: LoginFormValues) {
-    console.log(values);
-    await new Promise((r) => setTimeout(r, 1200));
-    setSuccess(true);
+    setError("");
+    try {
+      const auth = await AuthService.loginGuardian({
+        email: values.email,
+        password: values.password,
+      });
+      const payload = decodeJwtPayload(auth.access_token);
+      if (payload?.sub) localStorage.setItem("guardian_id", String(payload.sub));
+
+      const dashboard = await ParentService.getDashboard();
+      const active = dashboard.learners?.[0];
+      if (!active) {
+        setError("Signed in, but no learner profile is linked to this account yet.");
+        return;
+      }
+
+      const learnerId = String(active.learner_id);
+      setLearner({
+        learner_id: learnerId,
+        id: learnerId,
+        display_name: active.display_name,
+        nickname: active.display_name,
+        grade: Number(active.grade_level) || 4,
+        language: "en",
+        archetype: active.archetype ?? null,
+      });
+      setSuccess(true);
+      router.push("/dashboard");
+    } catch (err) {
+      setError(extractErrorMessage(err, "Sign in failed. Please check your details and try again."));
+    }
   }
 
   return (
@@ -207,6 +242,12 @@ export default function LoginPage() {
                 <h1 className="font-display text-2xl font-bold text-cream mb-1.5">Welcome back</h1>
                 <p className="text-sm text-cream-muted/60">Sign in to continue your learning journey</p>
               </div>
+
+              {error && (
+                <div role="alert" className="mb-5 rounded-xl border border-error/20 bg-error/10 px-4 py-3 text-sm text-error">
+                  {error}
+                </div>
+              )}
 
               {/* Social login */}
               <div className="mb-5 grid grid-cols-2 gap-3">
@@ -369,7 +410,7 @@ export default function LoginPage() {
               <p className="mt-6 text-center text-sm text-cream-muted/50">
                 Don&apos;t have an account?{" "}
                 <Link
-                  href="/signup"
+                  href="/register"
                   className="font-semibold text-aqua-400 hover:text-aqua-300 transition-colors"
                 >
                   Sign up free
