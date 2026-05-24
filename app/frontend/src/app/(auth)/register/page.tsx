@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Card } from "../../../components/ui/Card";
-import { Button } from "../../../components/ui/Button";
+import { Card } from "../../../components/ui/Card-legacy";
+import { Button } from "../../../components/ui/Button-legacy";
 import { AuthService, ConsentService, LearnerService } from "../../../lib/api/services";
 import { decodeJwtPayload, extractErrorMessage } from "../../../lib/api/client";
 import { useLearner } from "../../../context/LearnerContext";
