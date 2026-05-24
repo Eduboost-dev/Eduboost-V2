@@ -34,9 +34,9 @@ log = get_logger(__name__)
 async def run_startup_migrations() -> None:
     if not settings.is_production():
         return
-    from sqlalchemy import text
+    from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
-    from app.core.database import engine
+    import asyncpg
 
     log.info("startup_schema_repair_begin")
     statements = (
@@ -91,22 +91,33 @@ async def run_startup_migrations() -> None:
         )
         """,
     )
-    async with engine.begin() as conn:
-        for statement in statements:
-            await conn.execute(text(statement))
-        # One-time production bootstrap requested for live application testing.
-        from app.core.security import hash_email
 
-        await conn.execute(
-            text(
+    parsed = urlsplit(settings.DATABASE_URL.replace("postgresql+asyncpg://", "postgresql://", 1))
+    query = dict(parse_qsl(parsed.query, keep_blank_values=True))
+    ssl_mode = query.pop("ssl", None)
+    query.pop("prepared_statement_cache_size", None)
+    dsn = urlunsplit((parsed.scheme, parsed.netloc, parsed.path, urlencode(query), parsed.fragment))
+    connect_kwargs = {"statement_cache_size": 0, "timeout": 10}
+    if ssl_mode:
+        connect_kwargs["ssl"] = ssl_mode
+
+    conn = await asyncpg.connect(dsn, **connect_kwargs)
+    try:
+        async with conn.transaction():
+            for statement in statements:
+                await conn.execute(statement)
+            from app.core.security import hash_email
+
+            await conn.execute(
                 """
                 UPDATE guardians
                 SET role = 'admin', is_active = true, email_verified = true
-                WHERE email_hash = :email_hash
-                """
-            ),
-            {"email_hash": hash_email("nkgololebelo@gmail.com")},
-        )
+                WHERE email_hash = $1
+                """,
+                hash_email("nkgololebelo@gmail.com"),
+            )
+    finally:
+        await conn.close()
     log.info("startup_schema_repair_complete")
 
 
