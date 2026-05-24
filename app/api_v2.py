@@ -39,16 +39,35 @@ async def run_startup_migrations() -> None:
     import asyncpg
 
     log.info("startup_schema_repair_begin")
-    statements = (
-        "ALTER TABLE guardians ADD COLUMN IF NOT EXISTS email_verified BOOLEAN NOT NULL DEFAULT false",
-        """
+    repairs = (
+        (
+            "guardians.email_verified",
+            """
+            SELECT EXISTS (
+                SELECT 1
+                FROM information_schema.columns
+                WHERE table_schema = current_schema()
+                  AND table_name = 'guardians'
+                  AND column_name = 'email_verified'
+            )
+            """,
+            "ALTER TABLE guardians ADD COLUMN IF NOT EXISTS email_verified BOOLEAN NOT NULL DEFAULT false",
+        ),
+        (
+            "tokenpurpose",
+            "SELECT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'tokenpurpose')",
+            """
         DO $$
         BEGIN
             CREATE TYPE tokenpurpose AS ENUM ('password_reset', 'email_verify');
         EXCEPTION WHEN duplicate_object THEN NULL;
         END $$;
         """,
-        """
+        ),
+        (
+            "secure_tokens",
+            "SELECT to_regclass('secure_tokens') IS NOT NULL",
+            """
         CREATE TABLE IF NOT EXISTS secure_tokens (
             id SERIAL PRIMARY KEY,
             user_id VARCHAR(36) NOT NULL REFERENCES guardians(id) ON DELETE CASCADE,
@@ -59,9 +78,21 @@ async def run_startup_migrations() -> None:
             created_at TIMESTAMPTZ NOT NULL DEFAULT now()
         )
         """,
-        "CREATE INDEX IF NOT EXISTS ix_secure_tokens_user_purpose ON secure_tokens (user_id, purpose)",
-        "CREATE INDEX IF NOT EXISTS ix_secure_tokens_expires_at ON secure_tokens (expires_at)",
-        """
+        ),
+        (
+            "ix_secure_tokens_user_purpose",
+            "SELECT to_regclass('ix_secure_tokens_user_purpose') IS NOT NULL",
+            "CREATE INDEX IF NOT EXISTS ix_secure_tokens_user_purpose ON secure_tokens (user_id, purpose)",
+        ),
+        (
+            "ix_secure_tokens_expires_at",
+            "SELECT to_regclass('ix_secure_tokens_expires_at') IS NOT NULL",
+            "CREATE INDEX IF NOT EXISTS ix_secure_tokens_expires_at ON secure_tokens (expires_at)",
+        ),
+        (
+            "onboarding_states",
+            "SELECT to_regclass('onboarding_states') IS NOT NULL",
+            """
         CREATE TABLE IF NOT EXISTS onboarding_states (
             id SERIAL PRIMARY KEY,
             user_id VARCHAR(36) NOT NULL UNIQUE REFERENCES guardians(id) ON DELETE CASCADE,
@@ -75,7 +106,11 @@ async def run_startup_migrations() -> None:
             updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
         )
         """,
-        """
+        ),
+        (
+            "privacy_settings",
+            "SELECT to_regclass('privacy_settings') IS NOT NULL",
+            """
         CREATE TABLE IF NOT EXISTS privacy_settings (
             id SERIAL PRIMARY KEY,
             user_id VARCHAR(36) NOT NULL UNIQUE REFERENCES guardians(id) ON DELETE CASCADE,
@@ -90,6 +125,7 @@ async def run_startup_migrations() -> None:
             updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
         )
         """,
+        ),
     )
 
     parsed = urlsplit(settings.DATABASE_URL.replace("postgresql+asyncpg://", "postgresql://", 1))
@@ -102,11 +138,28 @@ async def run_startup_migrations() -> None:
         connect_kwargs["ssl"] = ssl_mode
 
     conn = await asyncpg.connect(dsn, **connect_kwargs)
+    locked = False
     try:
-        async with conn.transaction():
-            for statement in statements:
+        locked = bool(await conn.fetchval("SELECT pg_try_advisory_lock($1, $2)", 443352, 20260524))
+        if not locked:
+            log.warning("startup_schema_repair_skipped_lock_busy")
+            return
+
+        await conn.execute("SET lock_timeout = '5s'")
+        await conn.execute("SET statement_timeout = '30s'")
+        for name, exists_sql, statement in repairs:
+            if await conn.fetchval(exists_sql):
+                log.info("startup_schema_repair_skip_existing", repair=name)
+                continue
+            try:
                 await conn.execute(statement)
+            except (asyncpg.LockNotAvailableError, asyncpg.QueryCanceledError) as exc:
+                log.warning("startup_schema_repair_deferred", repair=name, error=str(exc))
+                continue
+            log.info("startup_schema_repair_applied", repair=name)
     finally:
+        if locked:
+            await conn.execute("SELECT pg_advisory_unlock($1, $2)", 443352, 20260524)
         await conn.close()
     log.info("startup_schema_repair_complete")
 
