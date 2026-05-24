@@ -116,13 +116,40 @@ def main(argv: list[str] | None = None) -> int:
     # 5) Render HTML report using packaged template (inject narrative as preformatted)
     try:
         from html import escape as _escape
-        tpl_path = TEMPLATES_PATH / "report_base.html"
+        # Prefer a `report_base.html` shipped in the target repo (so users can customize),
+        # otherwise fall back to the packaged template in TEMPLATES_PATH.
+        repo_tpl = repo / "report_base.html"
+        tpl_path = repo_tpl if repo_tpl.exists() else (TEMPLATES_PATH / "report_base.html")
         if tpl_path.exists():
             tpl = tpl_path.read_text(encoding="utf-8")
             start = tpl.find("<main>")
             end = tpl.find("</main>")
             if start != -1 and end != -1 and end > start:
-                pre = f"<main>\n<h1>Code Archaeology — {repo.name}</h1>\n<p>Generated: {timeline.generated_at}</p>\n<section>\n<pre>{_escape(narrative_md)}</pre>\n</section>\n</main>"
+                # Build a richer injection: links to JSON artifacts and a JS object
+                # so the template (or client-side code) can fetch and render charts.
+                ing_name = ing_path.name
+                tl_name = tl_path.name
+                nar_name = narrative_path.name
+                md_name = md_path.name
+                pre = (
+                    f"<main>\n<h1>Code Archaeology — {repo.name}</h1>\n"
+                    f"<p>Generated: {timeline.generated_at}</p>\n"
+                    "<section id=\"report-links\">\n"
+                    "<h2>Report Artifacts</h2>\n<ul>\n"
+                    f"<li><a href=\"{ing_name}\">{ing_name}</a></li>\n"
+                    f"<li><a href=\"{tl_name}\">{tl_name}</a></li>\n"
+                    f"<li><a href=\"{nar_name}\">{nar_name}</a></li>\n"
+                    f"<li><a href=\"{md_name}\">{md_name}</a></li>\n"
+                    "</ul>\n</section>\n"
+                    "<section id=\"narrative\">\n<pre>"
+                    f"{_escape(narrative_md)}"
+                    "</pre>\n</section>\n"
+                    "<script>\n"
+                    "// Structured report descriptor available to client-side scripts\n"
+                    f"window.__CA_REPORT = {{ ingestion: \"{ing_name}\", timeline: \"{tl_name}\", narrative: \"{nar_name}\", narrative_md: \"{md_name}\" }};\n"
+                    "</script>\n"
+                    "</main>"
+                )
                 html_out = tpl[:start] + pre + tpl[end + len("</main>") :]
             else:
                 html_out = tpl.replace("</body>", f"<pre>{_escape(narrative_md)}</pre></body>")
