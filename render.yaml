@@ -16,6 +16,9 @@ services:
       - key: ENVIRONMENT
         value: "production"
 
+      - key: APP_ENV
+        value: "production"
+
       - key: APP_NAME
         value: "eduboost"
 
@@ -23,10 +26,10 @@ services:
         value: "https://eduboost-api.onrender.com"
 
       - key: FRONTEND_URL
-        value: "https://eduboost-demo.pages.dev"
+        value: "https://eduboos-frontend.onrender.com"
 
-      - key: CORS_ORIGINS
-        value: "https://eduboost-demo.pages.dev,http://localhost:3000,http://127.0.0.1:3000"
+      - key: ALLOWED_ORIGINS
+        value: "https://eduboos-frontend.onrender.com,http://localhost:3050,http://127.0.0.1:3050"
 
       # Supabase Postgres connection string.
       # Paste this during Render Blueprint creation.

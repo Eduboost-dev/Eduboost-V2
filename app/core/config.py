@@ -4,6 +4,7 @@ Pydantic BaseSettings with environment-variable loading and validation.
 """
 from functools import lru_cache
 from typing import Any
+from typing import ClassVar
 from typing import Literal
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
@@ -146,7 +147,10 @@ class Settings(BaseSettings):
     ARQ_JOB_TIMEOUT: int = 300
 
     # ── CORS ──────────────────────────────────────────────────────────────────
-    ALLOWED_ORIGINS: Any = ["http://localhost:3000", "http://localhost:3002", "http://localhost:3050"]
+    DEFAULT_ALLOWED_ORIGINS: ClassVar[list[str]] = ["http://localhost:3000", "http://localhost:3002", "http://localhost:3050"]
+    ALLOWED_ORIGINS: Any = DEFAULT_ALLOWED_ORIGINS
+    # Compatibility alias for older Render/environment contracts.
+    CORS_ORIGINS: Any = ""
 
     @field_validator("DATABASE_URL", mode="before")
     @classmethod
@@ -161,6 +165,12 @@ class Settings(BaseSettings):
         if isinstance(v, list):
             return [str(origin).strip() for origin in v if str(origin).strip()]
         raise TypeError("ALLOWED_ORIGINS must be a string or list of strings")
+
+    @model_validator(mode="after")
+    def apply_legacy_cors_origins_alias(self) -> "Settings":
+        if self.CORS_ORIGINS and self.ALLOWED_ORIGINS == self.DEFAULT_ALLOWED_ORIGINS:
+            self.ALLOWED_ORIGINS = self.parse_allowed_origins(self.CORS_ORIGINS)
+        return self
 
     # ── Validation ───────────────────────────────────────────────────────────
     @field_validator("JWT_SECRET")
