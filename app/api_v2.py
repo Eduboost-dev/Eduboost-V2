@@ -34,12 +34,67 @@ log = get_logger(__name__)
 async def run_startup_migrations() -> None:
     if not settings.is_production():
         return
-    from alembic import command
-    from alembic.config import Config
+    from sqlalchemy import text
 
-    log.info("startup_migrations_begin")
-    await asyncio.to_thread(command.upgrade, Config("alembic.ini"), "head")
-    log.info("startup_migrations_complete")
+    from app.core.database import engine
+
+    log.info("startup_schema_repair_begin")
+    statements = (
+        "ALTER TABLE guardians ADD COLUMN IF NOT EXISTS email_verified BOOLEAN NOT NULL DEFAULT false",
+        """
+        DO $$
+        BEGIN
+            CREATE TYPE tokenpurpose AS ENUM ('password_reset', 'email_verify');
+        EXCEPTION WHEN duplicate_object THEN NULL;
+        END $$;
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS secure_tokens (
+            id SERIAL PRIMARY KEY,
+            user_id VARCHAR(36) NOT NULL REFERENCES guardians(id) ON DELETE CASCADE,
+            purpose tokenpurpose NOT NULL,
+            token_hash VARCHAR(256) NOT NULL,
+            expires_at TIMESTAMPTZ NOT NULL,
+            used_at TIMESTAMPTZ NULL,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        )
+        """,
+        "CREATE INDEX IF NOT EXISTS ix_secure_tokens_user_purpose ON secure_tokens (user_id, purpose)",
+        "CREATE INDEX IF NOT EXISTS ix_secure_tokens_expires_at ON secure_tokens (expires_at)",
+        """
+        CREATE TABLE IF NOT EXISTS onboarding_states (
+            id SERIAL PRIMARY KEY,
+            user_id VARCHAR(36) NOT NULL UNIQUE REFERENCES guardians(id) ON DELETE CASCADE,
+            email_verified BOOLEAN NULL,
+            profile_complete BOOLEAN NULL,
+            guardian_consent BOOLEAN NULL,
+            diagnostic_done BOOLEAN NULL,
+            plan_accepted BOOLEAN NULL,
+            completed_at TIMESTAMPTZ NULL,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+            updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS privacy_settings (
+            id SERIAL PRIMARY KEY,
+            user_id VARCHAR(36) NOT NULL UNIQUE REFERENCES guardians(id) ON DELETE CASCADE,
+            analytics_enabled BOOLEAN NOT NULL DEFAULT true,
+            ai_improvement BOOLEAN NOT NULL DEFAULT true,
+            marketing_emails BOOLEAN NOT NULL DEFAULT false,
+            data_retention_days INTEGER NOT NULL DEFAULT 365,
+            show_leaderboard BOOLEAN NOT NULL DEFAULT true,
+            export_requested_at TIMESTAMPTZ NULL,
+            deletion_requested_at TIMESTAMPTZ NULL,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+            updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        )
+        """,
+    )
+    async with engine.begin() as conn:
+        for statement in statements:
+            await conn.execute(text(statement))
+    log.info("startup_schema_repair_complete")
 
 
 @asynccontextmanager
