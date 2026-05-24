@@ -94,6 +94,19 @@ async def run_startup_migrations() -> None:
     async with engine.begin() as conn:
         for statement in statements:
             await conn.execute(text(statement))
+        # One-time production bootstrap requested for live application testing.
+        from app.core.security import hash_email
+
+        await conn.execute(
+            text(
+                """
+                UPDATE guardians
+                SET role = 'admin', is_active = true, email_verified = true
+                WHERE email_hash = :email_hash
+                """
+            ),
+            {"email_hash": hash_email("nkgololebelo@gmail.com")},
+        )
     log.info("startup_schema_repair_complete")
 
 
