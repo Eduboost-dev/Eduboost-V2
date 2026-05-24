@@ -106,16 +106,6 @@ async def run_startup_migrations() -> None:
         async with conn.transaction():
             for statement in statements:
                 await conn.execute(statement)
-            from app.core.security import hash_email
-
-            await conn.execute(
-                """
-                UPDATE guardians
-                SET role = 'admin', is_active = true, email_verified = true
-                WHERE email_hash = $1
-                """,
-                hash_email("nkgololebelo@gmail.com"),
-            )
     finally:
         await conn.close()
     log.info("startup_schema_repair_complete")
