@@ -22,18 +22,20 @@ def _required_env(name: str) -> str:
 
 async def ensure_admin() -> int:
     email = _required_env("DEV_ADMIN_EMAIL").lower()
-    password = _required_env("DEV_ADMIN_PASSWORD")
+    password = os.getenv("DEV_ADMIN_PASSWORD", "")
     display_name = os.getenv("DEV_ADMIN_DISPLAY_NAME", "EduBoost Admin").strip() or "EduBoost Admin"
     reset_password = os.getenv("RESET_DEV_ADMIN_PASSWORD", "false").strip().lower() in {"1", "true", "yes"}
 
-    if len(password) < 12:
-        raise RuntimeError("DEV_ADMIN_PASSWORD must be at least 12 characters")
+    if password and len(password) < 12:
+        raise RuntimeError("DEV_ADMIN_PASSWORD must be at least 12 characters when provided")
 
     async with AsyncSessionLocal() as db:
         result = await db.execute(select(Guardian).where(Guardian.email_hash == hash_email(email)))
         guardian = result.scalar_one_or_none()
 
         if guardian is None:
+            if not password:
+                raise RuntimeError("DEV_ADMIN_PASSWORD is required when creating a new admin account")
             guardian = Guardian(
                 email_hash=hash_email(email),
                 email_encrypted=encrypt_pii(email),
