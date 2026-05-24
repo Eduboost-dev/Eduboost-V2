@@ -19,3 +19,30 @@ body{background:#08080b;color:#e8dcc8;font-family:JetBrains Mono,monospace}
 </main>
 </body>
 </html>
+
+<!-- Client-side charting: fetch timeline.json and render commits-per-epoch -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+(async function(){
+	try{
+		const report = window.__CA_REPORT || {};
+		const timelinePath = (report.urls && report.urls.timeline) || report.timeline || 'timeline.json';
+		const resp = await fetch(timelinePath);
+		if(!resp.ok) return;
+		const tl = await resp.json();
+		const labels = (tl.epochs||[]).map(e=>e.name||'<epoch>');
+		const data = (tl.epochs||[]).map(e=>e.commit_count||0);
+		// create a section and canvas if not already present
+		const main = document.querySelector('#main') || document.body;
+		const sec = document.createElement('section'); sec.className='section in-view';
+		sec.innerHTML = '<h2 class="section-title">Commits per Epoch</h2><div class="section-sub">Visual summary of commit volume by epoch</div><canvas id="ca-vel-chart" width="800" height="320"></canvas>';
+		main.appendChild(sec);
+		const ctx = document.getElementById('ca-vel-chart').getContext('2d');
+		new Chart(ctx, {
+			type: 'bar',
+			data: { labels, datasets: [{ label: 'Commits', data, backgroundColor: 'rgba(245,166,35,0.9)' }] },
+			options: { responsive: true, plugins:{legend:{display:false}} }
+		});
+	}catch(err){console.warn('Code Archaeology chart failed',err)}
+})();
+</script>

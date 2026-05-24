@@ -76,12 +76,16 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--repo", required=True, help="Path to repository to analyze")
     parser.add_argument("--output", required=True, help="Output directory for report files")
     parser.add_argument("--branch", default="HEAD", help="Git branch or rev to inspect")
+    parser.add_argument("--public-base-url", default=None, help="Public base URL where report artifacts will be published (used to build full URLs)")
     parser.add_argument("--first-parent", action="store_true", help="Use --first-parent for git log")
     args = parser.parse_args(argv)
 
     repo = Path(args.repo).resolve()
     out = Path(args.output).resolve()
     out.mkdir(parents=True, exist_ok=True)
+    public_base = args.public_base_url
+    if public_base and not public_base.endswith('/'):
+        public_base = public_base + '/'
 
     print(f"[cli] Repo: {repo}")
     print(f"[cli] Output: {out}")
@@ -145,9 +149,11 @@ def main(argv: list[str] | None = None) -> int:
                     f"{_escape(narrative_md)}"
                     "</pre>\n</section>\n"
                     "<script>\n"
-                    "// Structured report descriptor available to client-side scripts\n"
-                    f"window.__CA_REPORT = {{ ingestion: \"{ing_name}\", timeline: \"{tl_name}\", narrative: \"{nar_name}\", narrative_md: \"{md_name}\" }};\n"
-                    "</script>\n"
+                        "// Structured report descriptor available to client-side scripts\n"
+                        f"window.__CA_REPORT = {{ ingestion: \"{ing_name}\", timeline: \"{tl_name}\", narrative: \"{nar_name}\", narrative_md: \"{md_name}\" }};\n"
+                        "window.__CA_REPORT.urls = window.__CA_REPORT.urls || {};\n"
+                        + (f"window.__CA_REPORT.urls = {{ ingestion: \"{public_base + ing_name}\", timeline: \"{public_base + tl_name}\", narrative: \"{public_base + nar_name}\", narrative_md: \"{public_base + md_name}\" }};\n" if public_base else "")
+                        "</script>\n"
                     "</main>"
                 )
                 html_out = tpl[:start] + pre + tpl[end + len("</main>") :]
