@@ -19,7 +19,7 @@ engine_kwargs = {
 }
 
 if settings.DATABASE_URL.startswith("postgresql"):
-    engine_kwargs["connect_args"] = {"timeout": 5}
+    engine_kwargs["connect_args"] = {"timeout": 5, "statement_cache_size": 0}
 
 # PostgreSQL-specific settings
 if settings.DATABASE_URL.startswith("postgresql") and settings.APP_ENV in {"development", "test"}:
