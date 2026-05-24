@@ -3,7 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { StarsBackground } from "../components/ui/StarsBackground";
-import { Button } from "../components/ui/Button";
+import { Button } from "../components/ui/Button-legacy";
 
 export default function Home() {
   const router = useRouter();

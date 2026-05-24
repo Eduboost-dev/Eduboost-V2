@@ -1,11 +1,11 @@
 # Final Beta Gate Refresh
 
-Generated at: `2026-05-22T00:41:09Z`
-Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
+Generated at: `2026-05-23T06:06:40Z`
+Commit: `0bf52110a452701c80644433b5f821c077f3cb3c`
 
 **Beta decision:** `NO-GO`
 
-- Beta blocker count: `8`
+- Beta blocker count: `7`
 
 ## Refreshed status surfaces
 
@@ -32,7 +32,6 @@ Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
 | `SEC-001` | `external-blocked` | True | `docs/release/external_approvals/security_approval.md` | False | True | approval metadata and evidence URL required |
 | `CONTENT-001` | `external-blocked` | True | `docs/release/external_approvals/content_approval.md` | False | True | approval metadata and evidence URL required |
 | `LESSON-AUTH-001` | `runtime-passing` | False | `docs/release/lesson_authorization_hardening_report.md` | False | True | full HTTP and staging proof for all lesson routes remains pending |
-| `DIAG-SCORE-001` | `integration-passing` | False | `docs/release/diagnostics_scoring_snapshot_repair_report.md` | False | True | live DB and full scoring audit still pending |
 | `EXT-GATE-001` | `runtime-passing` | True | `docs/release/external_approval_status.md` | False | True | required external approval items remain external-blocked until signed off |
 
 ## Resolved non-blocking accepted findings
@@ -50,7 +49,6 @@ Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
 - Attach complete external approval metadata for SEC-001.
 - Attach complete external approval metadata for CONTENT-001.
 - Resolve LESSON-AUTH-001: full HTTP and staging proof for all lesson routes remains pending.
-- Resolve DIAG-SCORE-001: live DB and full scoring audit still pending.
 - Complete all external approval items tracked by EXT-GATE-001.
 
 ## No false-closure rules

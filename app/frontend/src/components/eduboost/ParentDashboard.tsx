@@ -4,8 +4,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 import { DataRightsService, ParentService } from "../../lib/api/services";
 import { extractErrorMessage } from "../../lib/api/client";
-import { Button } from "../ui/Button";
-import { Card } from "../ui/Card";
+import { Button } from "../ui/Button-legacy";
+import { Card } from "../ui/Card-legacy";
 import { Stars } from "./EntryScreens";
 import type { ParentExportBundle, ParentTrustDashboardLearner, ParentTrustDashboardResponse } from "../../lib/api/types";
 

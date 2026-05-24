@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-21T23:49:56Z",
-  "current_commit": "9b11cd7f8e1a64e1a9f83cd7f5125f5612633343",
+  "generated_at": "2026-05-23T06:06:48Z",
+  "current_commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
   "current_branch": "codex/production_readiness",
   "status": "audit-baseline-refresh-current",
   "beta_decision": "NO-GO",
-  "beta_blocker_count": 8,
+  "beta_blocker_count": 7,
   "commands": [
     {
       "command": "make final-gate-refresh",
@@ -19,7 +19,7 @@
     {
       "command": "python3 scripts/docs_inventory.py --write",
       "return_code": 0,
-      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1049\n"
+      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1070\n"
     }
   ],
   "surfaces": [
@@ -29,7 +29,7 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "9b11cd7f8e1a64e1a9f83cd7f5125f5612633343",
+      "commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
       "stale": false
     },
     {
@@ -38,7 +38,7 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "9b11cd7f8e1a64e1a9f83cd7f5125f5612633343",
+      "commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
       "stale": false
     },
     {
@@ -146,7 +146,7 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "9b11cd7f8e1a64e1a9f83cd7f5125f5612633343",
+      "commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
       "stale": false
     }
   ],
@@ -201,7 +201,6 @@
     "SEC-001",
     "CONTENT-001",
     "LESSON-AUTH-001",
-    "DIAG-SCORE-001",
     "EXT-GATE-001"
   ],
   "blockers": []
