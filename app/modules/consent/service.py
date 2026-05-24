@@ -25,6 +25,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.audit import FourthEstateService
 from app.core.consent_policy import ConsentPolicyDecision, derive_consent_state
 from app.core.exceptions import ConsentExpiredError, ConsentRequiredError
+from app.models import ParentalConsent
 from app.repositories.audit_repository import AuditRepository
 from app.repositories.repositories import ConsentRepository
 
@@ -118,7 +119,7 @@ class ConsentService:
         ip_address: str | None = None,
         user_agent: str | None = None,
         ip_hash: str | None = None,
-    ):
+    ) -> ParentalConsent:
         """Grant a new parental consent record.
 
         Creates a consent record via
@@ -193,7 +194,7 @@ class ConsentService:
             )
         return count
 
-    async def renew(self, guardian_id: str, learner_id: str, consent_version: str):
+    async def renew(self, guardian_id: str, learner_id: str, consent_version: str) -> ParentalConsent:
         """Renew an existing consent record with a new policy version.
 
         Revokes the previous consent and creates a fresh record with
@@ -256,7 +257,7 @@ class ConsentService:
             payload={"learner_id": str(learner_id)},
         )
 
-    async def get_status(self, learner_id: str):
+    async def get_status(self, learner_id: str) -> ParentalConsent | None:
         """Return the current active consent status for a learner.
 
         Args:
@@ -275,7 +276,7 @@ class ConsentService:
         """
         return await self._repo.get_latest_for_learner(str(learner_id))
 
-    async def get_expiring_consents(self, db: AsyncSession | None = None, days: int = 30):
+    async def get_expiring_consents(self, db: AsyncSession | None = None, days: int = 30) -> list[ParentalConsent]:
         """Return consent records expiring within a given window.
 
         Used by the ARQ consent-renewal reminder background job

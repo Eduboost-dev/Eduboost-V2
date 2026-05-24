@@ -19,6 +19,12 @@ Recently reconciled checks that now agree with the live runtime:
 - Frontend lint, type-check, and Vitest unit checks pass.
 - PR-002R evidence, E2E opt-in workflow, Makefile deduplication, staging release gate, and POPIA legal evidence checks pass locally.
 
+New operating controls added on 2026-05-22:
+
+- `docs/operations/recommended_operating_model.md` defines the day-to-day source-of-truth, evidence, protected-change, release-control, and accountability rules.
+- `docs/operations/project_assistance_status.md` implements the five assistance lanes: current-state triage, verification and repair, release evidence and governance, architecture/security/compliance hardening, and staging/beta/operational readiness.
+- `make recommended-operating-model-check` and `make project-assistance-status-check` provide local and CI-checkable guardrails for those controls.
+
 ## Release Readiness
 
 Status: blocked. Do not describe the repository as production-ready, release-ready, or public-beta-ready until docs/current_state.md is green and the release evidence bundle has current CI, staging, backup, restore, rollback, branch-protection, and sign-off evidence.
@@ -84,7 +90,7 @@ Current blockers are evidence-backed, not inferred:
 
 ## Audit Tracker
 
-The root [`TODO.md`](/TODO.md) is the live production-readiness tracker and current North Star execution plan for the repository.
+The root [`TODO.md`](/TODO.md) is the live production-readiness tracker and current North Star execution plan for the repository. Operational workflow is documented in [`docs/operations/recommended_operating_model.md`](operations/recommended_operating_model.md), the five project assistance lanes are tracked in [`docs/operations/project_assistance_status.md`](operations/project_assistance_status.md), and the outstanding TODO execution plan is compiled in [`docs/operations/todo_implementation_plan.md`](operations/todo_implementation_plan.md).
 
 ## Lesson Generation Authorization
 
@@ -128,7 +134,7 @@ The root [`TODO.md`](/TODO.md) is the live production-readiness tracker and curr
 
 ## POPIA Deletion Status Authorization
 
-- [`docs/security/popia_deletion_status_authorization_wiring.md`](security/popia_deletion_status_authorization_wiring.md)
+- Evidence pending: `docs/security/popia_deletion_status_authorization_wiring.md`
 
 ## Parent Erasure Authorization
 
@@ -136,7 +142,7 @@ The root [`TODO.md`](/TODO.md) is the live production-readiness tracker and curr
 
 ## POPIA Deletion Execute Authorization
 
-- [`docs/security/popia_deletion_execute_authorization_wiring.md`](security/popia_deletion_execute_authorization_wiring.md)
+- Evidence pending: `docs/security/popia_deletion_execute_authorization_wiring.md`
 
 ## Parent Export Authorization
 

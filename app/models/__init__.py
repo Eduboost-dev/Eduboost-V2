@@ -111,6 +111,7 @@ class Guardian(Base):
     stripe_customer_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
     stripe_subscription_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    email_verified: Mapped[bool] = mapped_column(Boolean, server_default=sa.text("false"), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, onupdate=_now)
 
@@ -130,6 +131,9 @@ class Guardian(Base):
 
     learners: Mapped[list[LearnerProfile]] = relationship("LearnerProfile", back_populates="guardian")
     consents: Mapped[list[ParentalConsent]] = relationship("ParentalConsent", back_populates="guardian")
+    secure_tokens: Mapped[list[SecureToken]] = relationship("SecureToken", back_populates="user", cascade="all, delete-orphan")
+    onboarding_state: Mapped[OnboardingState | None] = relationship("OnboardingState", back_populates="user", uselist=False, cascade="all, delete-orphan")
+    privacy_settings: Mapped[PrivacySettings | None] = relationship("PrivacySettings", back_populates="user", uselist=False, cascade="all, delete-orphan")
 
 
 # ── Learner Profile ───────────────────────────────────────────────────────────
@@ -617,3 +621,11 @@ LessonRecord = Lesson
 # ── CAPS Diagnostic Items ────────────────────────────────────────────────────
 from app.models.diagnostic_item import DiagnosticItem
 from app.models.item_exposure import ItemExposure
+
+# Auth extension models
+from app.models.auth_extensions import (
+    OnboardingState,
+    PrivacySettings,
+    SecureToken,
+    TokenPurpose,
+)

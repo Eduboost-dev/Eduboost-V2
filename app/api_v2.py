@@ -99,6 +99,7 @@ app.middleware("http")(analytics_middleware)
 from app.modules.practice import router as practice_router  # noqa: E402
 from app.api_v2_routers import (  # noqa: E402
     auth,
+    auth_extended,
     audit,
     billing,
     consent,
@@ -119,6 +120,7 @@ API_V2 = "/api/v2"
 API_PREFIXES = (API_V2, "/v2")
 ROUTER_REGISTRY = (
     ("auth", auth.router),
+    ("auth_extended", auth_extended.router),
     ("audit", audit.router),
     ("learners", learners.router),
     ("lessons", lessons.router),
