@@ -357,7 +357,6 @@ function Toggle({
       </div>
       <button
         data-testid={testId}
-        aria-checked={checked}
         style={{ ...s.toggleSwitch, background: checked ? "#0d6e4c" : "#d1d5db" }}
         onClick={onChange}
         role="switch"
