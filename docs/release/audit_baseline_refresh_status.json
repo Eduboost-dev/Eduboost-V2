@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-05-23T06:06:48Z",
-  "current_commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
-  "current_branch": "codex/production_readiness",
+  "generated_at": "2026-05-24T20:30:26Z",
+  "current_commit": "a03505018b2b0307e863650411ceb319fdc7bb06",
+  "current_branch": "code-archaeology",
   "status": "audit-baseline-refresh-current",
   "beta_decision": "NO-GO",
-  "beta_blocker_count": 7,
+  "beta_blocker_count": 11,
   "commands": [
     {
       "command": "make final-gate-refresh",
       "return_code": 0,
-      "output_excerpt": "make[1]: Entering directory '/home/nkgolol/Dev/SandBox/dev/Eduboost-V2'\nPYTHONPATH=. python3 -c \"from scripts.final_gate_refresh import write_refresh; r = write_refresh(); print(r.beta_decision)\"\nNO-GO\nmake[1]: Leaving directory '/home/nkgolol/Dev/SandBox/dev/Eduboost-V2'\n"
+      "output_excerpt": "PYTHONPATH=. python3 -c \"from scripts.final_gate_refresh import write_refresh; r = write_refresh(); print(r.beta_decision)\"\nNO-GO\n"
     },
     {
       "command": "write release_go_no_go_status from final_beta_gate_refresh",
@@ -19,7 +19,7 @@
     {
       "command": "python3 scripts/docs_inventory.py --write",
       "return_code": 0,
-      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1070\n"
+      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1094\n"
     }
   ],
   "surfaces": [
@@ -29,7 +29,7 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
+      "commit": "a03505018b2b0307e863650411ceb319fdc7bb06",
       "stale": false
     },
     {
@@ -38,7 +38,7 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
+      "commit": "a03505018b2b0307e863650411ceb319fdc7bb06",
       "stale": false
     },
     {
@@ -47,7 +47,7 @@
       "exists": true,
       "status": "ci-evidence-accepted",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -56,7 +56,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -65,7 +65,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "84ace987e1f577fcf647fbe105f78680003c5aaa",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -74,16 +74,16 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
-      "stale": true
+      "commit": "a03505018b2b0307e863650411ceb319fdc7bb06",
+      "stale": false
     },
     {
       "name": "staging_smoke_evidence",
       "path": "docs/release/staging_smoke_evidence_status.json",
       "exists": true,
-      "status": "staging-smoke-evidence-accepted",
+      "status": "staging-smoke-evidence-not-accepted",
       "decision": "",
-      "commit": "a195b5eea80d648d8b748ebf48885caf42f77a58",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -92,7 +92,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -101,7 +101,7 @@
       "exists": true,
       "status": "auth-refresh-db-evidence-accepted",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -110,16 +110,16 @@
       "exists": true,
       "status": "popia-response-contract-no-skip-passing",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
       "name": "diag_deep_health_runtime",
       "path": "docs/release/diag_deep_health_runtime_status.json",
       "exists": true,
-      "status": "diag-deep-health-runtime-accepted",
+      "status": "diag-deep-health-runtime-not-accepted",
       "decision": "",
-      "commit": "ecaab870ed5e171a5d8c5d58393ae80e64917ee5",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -128,7 +128,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -137,7 +137,7 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "84ace987e1f577fcf647fbe105f78680003c5aaa",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -146,7 +146,7 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
+      "commit": "a03505018b2b0307e863650411ceb319fdc7bb06",
       "stale": false
     }
   ],
@@ -184,24 +184,28 @@
       "path": "docs/release/staging_smoke_evidence_status.json",
       "expected_marker": "staging-smoke-evidence-accepted",
       "exists": true,
-      "accepted": true
+      "accepted": false
     },
     {
       "id": "DIAG-001",
       "path": "docs/release/diag_deep_health_runtime_status.json",
       "expected_marker": "diag-deep-health-runtime-accepted",
       "exists": true,
-      "accepted": true
+      "accepted": false
     }
   ],
   "remaining_beta_blockers": [
     "JWT-001",
     "ARQ-001",
+    "POPIA-001",
+    "CI-001",
     "LEGAL-001",
     "SEC-001",
     "CONTENT-001",
     "LESSON-AUTH-001",
-    "EXT-GATE-001"
+    "STAGING-001",
+    "EXT-GATE-001",
+    "JWT-001R"
   ],
   "blockers": []
 }

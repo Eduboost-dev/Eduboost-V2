@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-23T06:06:40Z",
-  "current_commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
+  "generated_at": "2026-05-24T20:30:15Z",
+  "current_commit": "a03505018b2b0307e863650411ceb319fdc7bb06",
   "beta_decision": "NO-GO",
-  "beta_blocker_count": 7,
+  "beta_blocker_count": 11,
   "surfaces": [
     {
       "name": "ci_run_evidence",
@@ -58,11 +58,11 @@
   "beta_critical_findings": [
     {
       "id": "JWT-001",
-      "title": "JWT fallback safety and production secret guard",
-      "proof_status": "runtime-passing",
-      "closure_blocker": "external production secret provisioning and rotation evidence",
-      "evidence_file": "docs/release/jwt_production_guard_repair_report.md",
-      "external_dependency": false,
+      "title": "JWT secret provisioning and rotation evidence",
+      "proof_status": "not-proven",
+      "closure_blocker": "JWT secret provisioning and rotation evidence required",
+      "evidence_file": "docs/release/jwt_secret_rotation_evidence_status.md",
+      "external_dependency": true,
       "registry_blocks_beta": true,
       "release_ready": false,
       "effective_blocks_beta": true
@@ -74,6 +74,28 @@
       "closure_blocker": "live Redis worker enqueue/dequeue staging evidence",
       "evidence_file": "docs/release/arq_dependency_worker_import_repair_report.md",
       "external_dependency": false,
+      "registry_blocks_beta": true,
+      "release_ready": false,
+      "effective_blocks_beta": true
+    },
+    {
+      "id": "POPIA-001",
+      "title": "POPIA lifecycle HTTP response-contract proof",
+      "proof_status": "not-proven",
+      "closure_blocker": "skipped tests are not proof; POPIA-001 remains beta-blocking and is repaired separately by POPIA-001R",
+      "evidence_file": "docs/release/popia_response_contract_no_skip_status.md",
+      "external_dependency": false,
+      "registry_blocks_beta": true,
+      "release_ready": false,
+      "effective_blocks_beta": true
+    },
+    {
+      "id": "CI-001",
+      "title": "Authoritative CI on release repo and branch",
+      "proof_status": "external-blocked",
+      "closure_blocker": "valid GitHub Actions run URL and passing result metadata required",
+      "evidence_file": "docs/release/ci_evidence.md",
+      "external_dependency": true,
       "registry_blocks_beta": true,
       "release_ready": false,
       "effective_blocks_beta": true
@@ -123,11 +145,33 @@
       "effective_blocks_beta": true
     },
     {
+      "id": "STAGING-001",
+      "title": "Staging acceptance approval",
+      "proof_status": "external-blocked",
+      "closure_blocker": "real staging smoke evidence and GitHub Actions run URL required",
+      "evidence_file": "docs/release/staging_smoke_evidence.md",
+      "external_dependency": true,
+      "registry_blocks_beta": true,
+      "release_ready": false,
+      "effective_blocks_beta": true
+    },
+    {
       "id": "EXT-GATE-001",
       "title": "External approval tracking gate",
       "proof_status": "runtime-passing",
       "closure_blocker": "required external approval items remain external-blocked until signed off",
       "evidence_file": "docs/release/external_approval_status.md",
+      "external_dependency": true,
+      "registry_blocks_beta": true,
+      "release_ready": false,
+      "effective_blocks_beta": true
+    },
+    {
+      "id": "JWT-001R",
+      "title": "JWT secret rotation evidence repair",
+      "proof_status": "not-proven",
+      "closure_blocker": "JWT secret provisioning and rotation evidence required",
+      "evidence_file": "docs/release/jwt_secret_rotation_evidence_status.md",
       "external_dependency": true,
       "registry_blocks_beta": true,
       "release_ready": false,
@@ -159,12 +203,16 @@
     }
   ],
   "required_next_actions": [
-    "Resolve JWT-001: external production secret provisioning and rotation evidence.",
+    "Resolve JWT-001: JWT secret provisioning and rotation evidence required.",
     "Resolve ARQ-001: live Redis worker enqueue/dequeue staging evidence.",
+    "Repair POPIA-001 skipped response-contract proof so no skipped tests are counted.",
+    "Attach accepted GitHub Actions CI evidence for CI-001.",
     "Attach complete external approval metadata for LEGAL-001.",
     "Attach complete external approval metadata for SEC-001.",
     "Attach complete external approval metadata for CONTENT-001.",
     "Resolve LESSON-AUTH-001: full HTTP and staging proof for all lesson routes remains pending.",
-    "Complete all external approval items tracked by EXT-GATE-001."
+    "Attach accepted staging smoke evidence and run URL for STAGING-001.",
+    "Complete all external approval items tracked by EXT-GATE-001.",
+    "Resolve JWT-001R: JWT secret provisioning and rotation evidence required."
   ]
 }

@@ -1,12 +1,12 @@
 # Audit Baseline Refresh Status
 
-Generated at: `2026-05-23T06:06:48Z`
-Commit: `0bf52110a452701c80644433b5f821c077f3cb3c`
-Branch: `codex/production_readiness`
+Generated at: `2026-05-24T20:30:26Z`
+Commit: `a03505018b2b0307e863650411ceb319fdc7bb06`
+Branch: `code-archaeology`
 
 **Status:** `audit-baseline-refresh-current`
 **Beta decision:** `NO-GO`
-**Beta blocker count:** `7`
+**Beta blocker count:** `11`
 
 ## Commands
 
@@ -20,20 +20,20 @@ Branch: `codex/production_readiness`
 
 | Surface | Exists | Status | Decision | Commit | Stale |
 |---|---:|---|---|---|---:|
-| `final_beta_gate_refresh` | True | `NO-GO` | `NO-GO` | `0bf52110a452701c80644433b5f821c077f3cb3c` | False |
-| `release_go_no_go_status` | True | `NO-GO` | `NO-GO` | `0bf52110a452701c80644433b5f821c077f3cb3c` | False |
-| `ci_evidence` | True | `ci-evidence-accepted` | `` | `8638400aaa53cf737aa4eb11ddab55cc97ebb02f` | True |
-| `ci_run_evidence` | True | `external-blocked` | `` | `8638400aaa53cf737aa4eb11ddab55cc97ebb02f` | True |
-| `external_approval` | True | `external-blocked` | `` | `84ace987e1f577fcf647fbe105f78680003c5aaa` | True |
-| `approval_evidence` | True | `external-blocked` | `` | `8638400aaa53cf737aa4eb11ddab55cc97ebb02f` | True |
-| `staging_smoke_evidence` | True | `staging-smoke-evidence-accepted` | `` | `a195b5eea80d648d8b748ebf48885caf42f77a58` | True |
-| `staging_acceptance` | True | `external-blocked` | `` | `8638400aaa53cf737aa4eb11ddab55cc97ebb02f` | True |
-| `auth_refresh_db_evidence` | True | `auth-refresh-db-evidence-accepted` | `` | `8638400aaa53cf737aa4eb11ddab55cc97ebb02f` | True |
-| `popia_response_contract_no_skip` | True | `popia-response-contract-no-skip-passing` | `` | `8638400aaa53cf737aa4eb11ddab55cc97ebb02f` | True |
-| `diag_deep_health_runtime` | True | `diag-deep-health-runtime-accepted` | `` | `ecaab870ed5e171a5d8c5d58393ae80e64917ee5` | True |
-| `live_db_transaction_evidence` | True | `external-blocked` | `` | `8638400aaa53cf737aa4eb11ddab55cc97ebb02f` | True |
-| `beta_blocker_burndown` | True | `` | `` | `84ace987e1f577fcf647fbe105f78680003c5aaa` | True |
-| `docs_inventory` | True | `` | `` | `0bf52110a452701c80644433b5f821c077f3cb3c` | False |
+| `final_beta_gate_refresh` | True | `NO-GO` | `NO-GO` | `a03505018b2b0307e863650411ceb319fdc7bb06` | False |
+| `release_go_no_go_status` | True | `NO-GO` | `NO-GO` | `a03505018b2b0307e863650411ceb319fdc7bb06` | False |
+| `ci_evidence` | True | `ci-evidence-accepted` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
+| `ci_run_evidence` | True | `external-blocked` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
+| `external_approval` | True | `external-blocked` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
+| `approval_evidence` | True | `external-blocked` | `` | `a03505018b2b0307e863650411ceb319fdc7bb06` | False |
+| `staging_smoke_evidence` | True | `staging-smoke-evidence-not-accepted` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
+| `staging_acceptance` | True | `external-blocked` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
+| `auth_refresh_db_evidence` | True | `auth-refresh-db-evidence-accepted` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
+| `popia_response_contract_no_skip` | True | `popia-response-contract-no-skip-passing` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
+| `diag_deep_health_runtime` | True | `diag-deep-health-runtime-not-accepted` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
+| `live_db_transaction_evidence` | True | `external-blocked` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
+| `beta_blocker_burndown` | True | `` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
+| `docs_inventory` | True | `` | `` | `a03505018b2b0307e863650411ceb319fdc7bb06` | False |
 
 ## Accepted evidence marker preservation
 
@@ -43,18 +43,22 @@ Branch: `codex/production_readiness`
 | `POPIA-001` | `docs/release/popia_response_contract_no_skip_status.json` | `popia-response-contract-no-skip-passing` | True | True |
 | `CI-001` | `docs/release/ci_evidence_status.json` | `ci-evidence-accepted` | True | True |
 | `EVID-001` | `docs/release/ci_evidence_status.json` | `ci-evidence-accepted` | True | True |
-| `STAGING-001` | `docs/release/staging_smoke_evidence_status.json` | `staging-smoke-evidence-accepted` | True | True |
-| `DIAG-001` | `docs/release/diag_deep_health_runtime_status.json` | `diag-deep-health-runtime-accepted` | True | True |
+| `STAGING-001` | `docs/release/staging_smoke_evidence_status.json` | `staging-smoke-evidence-accepted` | True | False |
+| `DIAG-001` | `docs/release/diag_deep_health_runtime_status.json` | `diag-deep-health-runtime-accepted` | True | False |
 
 ## Remaining beta blockers
 
 - `JWT-001`
 - `ARQ-001`
+- `POPIA-001`
+- `CI-001`
 - `LEGAL-001`
 - `SEC-001`
 - `CONTENT-001`
 - `LESSON-AUTH-001`
+- `STAGING-001`
 - `EXT-GATE-001`
+- `JWT-001R`
 
 ## Blockers
 

@@ -1,6 +1,6 @@
 # Router Service Dependency Map
 
-Generated at: `2026-05-22T14:16:05Z`
+Generated at: `2026-05-24T20:30:14Z`
 
 | Router | Dependencies | Services/modules | Repositories | Database imports |
 |---|---|---|---|---|
@@ -18,7 +18,7 @@ Generated at: `2026-05-22T14:16:05Z`
 | `app/api_v2_routers/gamification.py` | - | `app.services.fourth_estate`, `app.services.gamification_service_v2` | `app.repositories.gamification_repository`, `app.repositories.repositories` | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/jobs.py` | - | - | - | - |
 | `app/api_v2_routers/judiciary.py` | - | `app.services.judiciary_service_v2` | - | - |
-| `app/api_v2_routers/learners.py` | - | `app.modules.progress.progress_timeline_service`, `app.services.fourth_estate` | `app.repositories.mastery_repository`, `app.repositories.repositories` | `app.core.database`, `sqlalchemy.ext.asyncio` |
+| `app/api_v2_routers/learners.py` | - | `app.modules.consent.service`, `app.modules.progress.progress_timeline_service`, `app.services.fourth_estate` | `app.repositories.mastery_repository`, `app.repositories.repositories` | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/lessons.py` | - | `app.modules.lessons`, `app.modules.lessons.service`, `app.services.lesson_authorization` | - | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/onboarding.py` | - | `app.services.ether` | `app.repositories.repositories` | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/parents.py` | - | `app.services.consent`, `app.services.executive`, `app.services.fourth_estate` | `app.repositories.repositories` | `app.core.database`, `sqlalchemy.ext.asyncio` |

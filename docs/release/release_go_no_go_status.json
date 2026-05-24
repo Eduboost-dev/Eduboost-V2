@@ -1,17 +1,21 @@
 {
-  "generated_at": "2026-05-23T06:06:41Z",
-  "current_commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
+  "generated_at": "2026-05-24T20:30:15Z",
+  "current_commit": "a03505018b2b0307e863650411ceb319fdc7bb06",
   "status": "NO-GO",
   "beta_decision": "NO-GO",
-  "beta_blocker_count": 7,
+  "beta_blocker_count": 11,
   "remaining_beta_blockers": [
     "JWT-001",
     "ARQ-001",
+    "POPIA-001",
+    "CI-001",
     "LEGAL-001",
     "SEC-001",
     "CONTENT-001",
     "LESSON-AUTH-001",
-    "EXT-GATE-001"
+    "STAGING-001",
+    "EXT-GATE-001",
+    "JWT-001R"
   ],
   "source": "docs/release/final_beta_gate_refresh.json",
   "no_false_closure": [

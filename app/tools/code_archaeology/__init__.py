@@ -6,6 +6,9 @@ from . import doc_ingester as doc_ingester
 from . import git_ingester as git_ingester
 from . import narrative_generator as narrative_generator
 from . import sync_engine as sync_engine
-from . import sync_engine as sync  # convenience alias
+from pathlib import Path
 
-__all__ = ["doc_ingester", "git_ingester", "narrative_generator", "sync_engine", "sync"]
+# Path to bundled templates
+TEMPLATES_PATH = Path(__file__).parent / "templates"
+
+__all__ = ["doc_ingester", "git_ingester", "narrative_generator", "sync_engine", "TEMPLATES_PATH"]

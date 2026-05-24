@@ -17,19 +17,30 @@
 
 findings:
   - id: JWT-001
-    title: JWT fallback safety and production secret guard
+    title: JWT secret provisioning and rotation evidence
     severity: P0
-    gate: 1
+    gate: 6
     owner: backend
-    implementation_batch: code_1071_1110
-    proof_status: runtime-passing
-    proof_command: make backend-implementation-1071-1110-full-check
-    evidence_file: docs/release/jwt_production_guard_repair_report.md
-    last_verified_commit: 1ec9acd
-    closure_blocker: external production secret provisioning and rotation evidence
+    implementation_batch: code_3351_3390
+    proof_status: not-proven
+    proof_command: make jwt-secret-rotation-release-check
+    evidence_file: docs/release/jwt_secret_rotation_evidence_status.md
+    evidence_url: null
+    workflow_name: null
+    run_id: null
+    evidence_environment: null
+    algorithm: HS256
+    access_fingerprint: null
+    refresh_fingerprint: null
+    access_rotated: false
+    refresh_rotated: false
+    last_verified_commit: null
+    verified_by: null
+    date_verified: null
+    closure_blocker: JWT secret provisioning and rotation evidence required
+    release_ready: false
     blocks_beta: true
-    external_dependency: false
-
+    external_dependency: true
   - id: ARQ-001
     title: ARQ dependency pin and worker import proof
     severity: P0
@@ -128,12 +139,12 @@ findings:
     severity: P1
     gate: 5
     owner: legal
-    implementation_batch: code_1791_1830
+    implementation_batch: code_1991_2030
     proof_status: external-blocked
-    proof_command: make external-approval-release-check after approval metadata is attached
+    proof_command: make approval-evidence-release-check
     evidence_file: docs/release/external_approvals/legal_approval.md
     last_verified_commit: null
-    closure_blocker: external approval sign-off metadata required
+    closure_blocker: approval metadata and evidence URL required
     blocks_beta: true
     external_dependency: true
   - id: SEC-001
@@ -141,12 +152,12 @@ findings:
     severity: P1
     gate: 5
     owner: security
-    implementation_batch: code_1791_1830
+    implementation_batch: code_1991_2030
     proof_status: external-blocked
-    proof_command: make external-approval-release-check after approval metadata is attached
+    proof_command: make approval-evidence-release-check
     evidence_file: docs/release/external_approvals/security_approval.md
     last_verified_commit: null
-    closure_blocker: external approval sign-off metadata required
+    closure_blocker: approval metadata and evidence URL required
     blocks_beta: true
     external_dependency: true
   - id: CONTENT-001
@@ -154,12 +165,12 @@ findings:
     severity: P1
     gate: 5
     owner: content
-    implementation_batch: code_1791_1830
+    implementation_batch: code_1991_2030
     proof_status: external-blocked
-    proof_command: make external-approval-release-check after approval metadata is attached
+    proof_command: make approval-evidence-release-check
     evidence_file: docs/release/external_approvals/content_approval.md
     last_verified_commit: null
-    closure_blocker: external approval sign-off metadata required
+    closure_blocker: approval metadata and evidence URL required
     blocks_beta: true
     external_dependency: true
   - id: LESSON-AUTH-001
@@ -396,7 +407,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1991-2030-full-check
     evidence_file: docs/release/approval_evidence_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: a03505018b2b0307e863650411ceb319fdc7bb06
     closure_blocker: scaffold only; individual approvals remain external-blocked until accepted metadata is attached
     blocks_beta: false
     external_dependency: false
@@ -875,4 +886,29 @@ findings:
     closure_blocker: none
     release_ready: true
     blocks_beta: false
+    external_dependency: true
+  - id: JWT-001R
+    title: JWT secret rotation evidence repair
+    severity: P0
+    gate: 6
+    owner: backend
+    implementation_batch: code_3351_3390
+    proof_status: not-proven
+    proof_command: make jwt-secret-rotation-release-check
+    evidence_file: docs/release/jwt_secret_rotation_evidence_status.md
+    evidence_url: null
+    workflow_name: null
+    run_id: null
+    evidence_environment: null
+    algorithm: HS256
+    access_fingerprint: null
+    refresh_fingerprint: null
+    access_rotated: false
+    refresh_rotated: false
+    last_verified_commit: null
+    verified_by: null
+    date_verified: null
+    closure_blocker: JWT secret provisioning and rotation evidence required
+    release_ready: false
+    blocks_beta: true
     external_dependency: true

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-22T14:16:05Z",
+  "generated_at": "2026-05-24T20:30:14Z",
   "rows": [
     {
       "router": "app/api_v2_routers/0005_irt_seed.py",
@@ -165,6 +165,7 @@
     {
       "router": "app/api_v2_routers/learners.py",
       "service_imports": [
+        "app.modules.consent.service",
         "app.modules.progress.progress_timeline_service",
         "app.services.fourth_estate"
       ],

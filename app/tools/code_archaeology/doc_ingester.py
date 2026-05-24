@@ -396,3 +396,19 @@ def cluster_docs(docs: list[TrackingDoc]) -> list[DocCluster]:
             visited.add(path_a)
 
     return clusters
+
+
+# Minimal frontmatter parser (safe for import/test)
+def _parse_frontmatter(content: str) -> tuple[dict, str]:
+    """Simple frontmatter parser: supports YAML-style '---' blocks."""
+    m = re.match(r"^---\s*\n(.*?)\n---\s*\n", content, re.DOTALL)
+    if not m:
+        return {}, content
+    fm_text = m.group(1)
+    body = content[m.end():]
+    fm = {}
+    for line in fm_text.splitlines():
+        if ":" in line:
+            k, _, v = line.partition(":")
+            fm[k.strip()] = v.strip().strip('"\'')
+    return fm, body

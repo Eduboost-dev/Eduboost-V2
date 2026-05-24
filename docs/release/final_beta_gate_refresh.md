@@ -1,11 +1,11 @@
 # Final Beta Gate Refresh
 
-Generated at: `2026-05-23T06:06:40Z`
-Commit: `0bf52110a452701c80644433b5f821c077f3cb3c`
+Generated at: `2026-05-24T20:30:15Z`
+Commit: `a03505018b2b0307e863650411ceb319fdc7bb06`
 
 **Beta decision:** `NO-GO`
 
-- Beta blocker count: `7`
+- Beta blocker count: `11`
 
 ## Refreshed status surfaces
 
@@ -26,13 +26,17 @@ Commit: `0bf52110a452701c80644433b5f821c077f3cb3c`
 
 | ID | Proof status | External | Evidence | Release-ready | Effective blocks beta | Blocker |
 |---|---|---:|---|---:|---:|---|
-| `JWT-001` | `runtime-passing` | False | `docs/release/jwt_production_guard_repair_report.md` | False | True | external production secret provisioning and rotation evidence |
+| `JWT-001` | `not-proven` | True | `docs/release/jwt_secret_rotation_evidence_status.md` | False | True | JWT secret provisioning and rotation evidence required |
 | `ARQ-001` | `runtime-passing` | False | `docs/release/arq_dependency_worker_import_repair_report.md` | False | True | live Redis worker enqueue/dequeue staging evidence |
+| `POPIA-001` | `not-proven` | False | `docs/release/popia_response_contract_no_skip_status.md` | False | True | skipped tests are not proof; POPIA-001 remains beta-blocking and is repaired separately by POPIA-001R |
+| `CI-001` | `external-blocked` | True | `docs/release/ci_evidence.md` | False | True | valid GitHub Actions run URL and passing result metadata required |
 | `LEGAL-001` | `external-blocked` | True | `docs/release/external_approvals/legal_approval.md` | False | True | approval metadata and evidence URL required |
 | `SEC-001` | `external-blocked` | True | `docs/release/external_approvals/security_approval.md` | False | True | approval metadata and evidence URL required |
 | `CONTENT-001` | `external-blocked` | True | `docs/release/external_approvals/content_approval.md` | False | True | approval metadata and evidence URL required |
 | `LESSON-AUTH-001` | `runtime-passing` | False | `docs/release/lesson_authorization_hardening_report.md` | False | True | full HTTP and staging proof for all lesson routes remains pending |
+| `STAGING-001` | `external-blocked` | True | `docs/release/staging_smoke_evidence.md` | False | True | real staging smoke evidence and GitHub Actions run URL required |
 | `EXT-GATE-001` | `runtime-passing` | True | `docs/release/external_approval_status.md` | False | True | required external approval items remain external-blocked until signed off |
+| `JWT-001R` | `not-proven` | True | `docs/release/jwt_secret_rotation_evidence_status.md` | False | True | JWT secret provisioning and rotation evidence required |
 
 ## Resolved non-blocking accepted findings
 
@@ -43,13 +47,17 @@ Commit: `0bf52110a452701c80644433b5f821c077f3cb3c`
 
 ## Required next actions
 
-- Resolve JWT-001: external production secret provisioning and rotation evidence.
+- Resolve JWT-001: JWT secret provisioning and rotation evidence required.
 - Resolve ARQ-001: live Redis worker enqueue/dequeue staging evidence.
+- Repair POPIA-001 skipped response-contract proof so no skipped tests are counted.
+- Attach accepted GitHub Actions CI evidence for CI-001.
 - Attach complete external approval metadata for LEGAL-001.
 - Attach complete external approval metadata for SEC-001.
 - Attach complete external approval metadata for CONTENT-001.
 - Resolve LESSON-AUTH-001: full HTTP and staging proof for all lesson routes remains pending.
+- Attach accepted staging smoke evidence and run URL for STAGING-001.
 - Complete all external approval items tracked by EXT-GATE-001.
+- Resolve JWT-001R: JWT secret provisioning and rotation evidence required.
 
 ## No false-closure rules
 
