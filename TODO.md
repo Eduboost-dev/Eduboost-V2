@@ -2,7 +2,7 @@
 
 **Purpose:** Execution-focused North Star for the next phase. This reflects the current green local backend unit baseline and separates repository-side completion from CI, runtime, external, legal, security, product, and beta-launch evidence.
 
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-22
 **Latest local backend unit result:** `1702 passed, 29 skipped, 0 warnings`
 
 ## Status vocabulary
@@ -26,6 +26,9 @@
 - [x] Full backend unit suite locally green: `1702 passed, 29 skipped, 0 warnings`.
 - [x] Cluster H phantom-entry problem identified and converted into concrete remediation tasks.
 - [x] Documentation claim discipline established: repository evidence must not be represented as legal, runtime, deployment, or launch approval.
+- [x] Recommended Operating Model documented and enforced by `make recommended-operating-model-check`.
+- [x] Five-lane project assistance status documented and enforced by `make project-assistance-status-check`.
+- [x] Outstanding TODO implementation plan compiled at `docs/operations/todo_implementation_plan.md` and checked by `make todo-implementation-plan-check`.
 - [ ] EduBoost is **not public-beta-ready** with real learner data.
 - [ ] EduBoost is **not production-launch-ready**.
 - [ ] Next milestone: **CI green -> staging execution evidence -> controlled beta go/no-go**.
@@ -43,6 +46,7 @@
 | NS-03 | Commit migration graph repair and related POPIA/AuthService repairs. | Git commit containing repair files. | [ ] |
 | NS-04 | Record local test evidence. | `docs/release/unit_test_evidence.md` contains full output. | [ ] |
 | NS-05 | Triage non-failing warnings. | Warnings documented as accepted, fixed, or tracked. | [ ] |
+| NS-05A | Keep operating-model and project-assistance controls current. | `docs/operations/recommended_operating_model.md`, `docs/operations/project_assistance_status.md`, and their Make checks pass. | [x] |
 
 Current warnings to track:
 
@@ -181,6 +185,8 @@ Current warnings to track:
 | Area | Status |
 |---|---|
 | Repository-side production-readiness baseline | [x] complete |
+| Operating-model and assistance controls | [x] documented and checkable |
+| Outstanding TODO implementation plan | [x] documented and checkable |
 | Full local backend test baseline | [x] green: `1702 passed, 29 skipped` |
 | CI on this fork | [ ] open |
 | Branch protection | [external] open |

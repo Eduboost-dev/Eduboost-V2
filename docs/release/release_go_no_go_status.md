@@ -1,10 +1,10 @@
 # Release Go/No-Go Status
 
-Generated at: `2026-05-21T23:49:48Z`
-Commit: `9b11cd7f8e1a64e1a9f83cd7f5125f5612633343`
+Generated at: `2026-05-23T06:06:41Z`
+Commit: `0bf52110a452701c80644433b5f821c077f3cb3c`
 
 **Beta decision:** `NO-GO`
-**Beta blocker count:** `8`
+**Beta blocker count:** `7`
 
 ## Remaining beta blockers
 
@@ -14,7 +14,6 @@ Commit: `9b11cd7f8e1a64e1a9f83cd7f5125f5612633343`
 - `SEC-001`
 - `CONTENT-001`
 - `LESSON-AUTH-001`
-- `DIAG-SCORE-001`
 - `EXT-GATE-001`
 
 ## No false-closure rules

@@ -1579,3 +1579,62 @@ make db-migration-seed-repeatability-test
 make backend-implementation-3071-3110-full-check
 ```
 
+## DB-OWNERSHIP-001R / Backend implementation 3111-3150 — live-only POPIA/DSR table ownership
+
+Commands:
+
+```bash
+make db-live-only-table-ownership-status
+make db-live-only-table-ownership-registry-patch
+make db-live-only-table-ownership-check
+make db-live-only-table-ownership-test
+make backend-implementation-3111-3150-full-check
+```
+
+## DIAG-ITEMS-001R / Backend implementation 3151-3190 — diagnostic item-bank canonicality
+
+Commands:
+
+```bash
+make diagnostic-item-bank-canonicality-status
+make diagnostic-item-bank-canonicality-registry-patch
+make diagnostic-item-bank-canonicality-check
+make diagnostic-item-bank-canonicality-test
+make backend-implementation-3151-3190-full-check
+```
+
+## DIAG-SCORE-001R / Backend implementation 3191-3230 — diagnostic scoring live DB audit gate
+
+Commands:
+
+```bash
+make diagnostic-score-live-audit-status
+make diagnostic-score-live-audit-check
+make diagnostic-score-live-audit-test
+make backend-implementation-3191-3230-full-check
+```
+
+Accepted-evidence command:
+
+```bash
+DIAG_SCORE_ACCEPT=1 DIAG_SCORE_ALLOW_BRIDGE_SEED=1 make diagnostic-score-live-audit-release-check
+```
+
+## AUDIT-WRITE-001R / Backend implementation 3271-3310 — runtime audit_events write evidence
+
+Commands:
+
+```bash
+make audit-write-runtime-status
+make audit-write-runtime-registry-patch
+make audit-write-runtime-check
+make audit-write-runtime-test
+make backend-implementation-3271-3310-full-check
+```
+
+Accepted-evidence command:
+
+```bash
+AUDIT_WRITE_ACCEPT=1 AUDIT_WRITE_RUN_FLOW=1 make audit-write-runtime-release-check
+```
+

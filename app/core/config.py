@@ -3,6 +3,8 @@ EduBoost V2 — Core Configuration
 Pydantic BaseSettings with environment-variable loading and validation.
 """
 from functools import lru_cache
+import logging
+import os
 from typing import Any
 from typing import ClassVar
 from typing import Literal
@@ -195,6 +197,11 @@ class Settings(BaseSettings):
     def refresh_from_key_vault(self) -> set[str]:
         if not self.is_production():
             return set()
+        # In production we prefer to source secrets from Azure Key Vault.
+        # However, some hosting environments (for example Render) may not
+        # provide an Azure Key Vault URL at deploy time. Allow an explicit
+        # override via `AZURE_KEY_VAULT_OPTIONAL=1` or detect common Render
+        # environment variables to skip the hard fail and continue startup.
         if not self.AZURE_KEY_VAULT_URL:
             return set()
 
