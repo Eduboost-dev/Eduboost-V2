@@ -4,6 +4,7 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 
 | Path | Line | Category | Text |
 |---|---:|---|---|
+| `alembic/env.py` | 46 | consent_records_table | `"consent_records",` |
 | `alembic/versions/0001_v2_consolidated_schema.py` | 13 | parental_consents_table | `3. parental_consents — POPIA consent records with expiry/revocation` |
 | `alembic/versions/0001_v2_consolidated_schema.py` | 92 | parental_consents_table | `"parental_consents",` |
 | `alembic/versions/0001_v2_consolidated_schema.py` | 105 | parental_consents_table | `op.create_index("ix_parental_consent_guardian", "parental_consents", ["guardian_id"])` |
@@ -29,7 +30,7 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `alembic/versions/20260507_1330_database_integrity_constraints.py` | 233 | parental_consents_table | `op.drop_column("parental_consents", "created_at")` |
 | `alembic/versions/20260510_0300_popia_consent_audit_dsr.py` | 43 | consent_records_table | `"consent_records",` |
 | `alembic/versions/20260510_0300_popia_consent_audit_dsr.py` | 56 | consent_records_table | `op.create_index("ix_consent_records_learner_id", "consent_records", ["learner_id"])` |
-| `alembic/versions/20260510_0300_popia_consent_audit_dsr.py` | 127 | consent_records_table | `"consent_records", "audit_events",` |
+| `alembic/versions/20260510_0300_popia_consent_audit_dsr.py` | 134 | consent_records_table | `"consent_records",` |
 | `alembic/versions/_deprecated/0001_initial_consolidated_schema.py` | 102 | parental_consents_table | `# ── parental_consents ─────────────────────────────────────────────────` |
 | `alembic/versions/_deprecated/0001_initial_consolidated_schema.py` | 104 | parental_consents_table | `"parental_consents",` |
 | `alembic/versions/_deprecated/0001_initial_consolidated_schema.py` | 132 | parental_consents_table | `op.create_index("ix_consents_learner_id", "parental_consents", ["learner_id"])` |
@@ -65,7 +66,8 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `app/api_v2_routers/consent.py` | 81 | consent_service | `await ConsentService(db).revoke(` |
 | `app/api_v2_routers/consent.py` | 81 | consent_revoke | `await ConsentService(db).revoke(` |
 | `app/api_v2_routers/consent.py` | 104 | consent_service | `consent = await ConsentService(db).get_status(str(learner_id))` |
-| `app/api_v2_routers/learners.py` | 143 | consent_service | `consent_svc = ConsentService(db)` |
+| `app/api_v2_routers/learners.py` | 13 | consent_service | `from app.modules.consent.service import ConsentService` |
+| `app/api_v2_routers/learners.py` | 144 | consent_service | `consent_svc = ConsentService(db)` |
 | `app/api_v2_routers/parents.py` | 23 | consent_service | `from app.services.consent import ConsentService` |
 | `app/api_v2_routers/parents.py` | 282 | consent_service | `consent_service = ConsentService(db)` |
 | `app/api_v2_routers/popia.py` | 4 | require_active_consent | `All learner-data routes use the require_active_consent dependency (§4.2).` |
@@ -284,6 +286,7 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `scripts/check_runtime_wiring_no_destructive_actions.py` | 20 | consent_records_table | `"merge consent_records",` |
 | `scripts/check_runtime_wiring_no_destructive_actions.py` | 21 | parental_consents_table | `"merge parental_consents",` |
 | `scripts/compare_orm_tables_to_database.py` | 94 | consent_records_table | `"consent_records",` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 32 | parental_consents_table | `"parental_consents",` |
 | `scripts/db_live_only_table_ownership.py` | 17 | consent_records_table | `"consent_records",` |
 | `scripts/db_migration_seed_repeatability.py` | 39 | parental_consents_table | `"parental_consents",` |
 | `scripts/generate_backend_deletion_candidate_inventory.py` | 14 | parental_consents_table | `("legacy_consent", re.compile(r"parental_consents\|ParentalConsent\|legacy consent", re.IGNORECASE)),` |

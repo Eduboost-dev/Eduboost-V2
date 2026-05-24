@@ -56,9 +56,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `alembic/versions/20260510_0300_popia_consent_audit_dsr.py` | 29 | audit_events_table | `RAISE EXCEPTION 'audit_events is append-only – modifications are forbidden';` |
 | `alembic/versions/20260510_0300_popia_consent_audit_dsr.py` | 35 | audit_events_table | `BEFORE UPDATE OR DELETE ON audit_events` |
 | `alembic/versions/20260510_0300_popia_consent_audit_dsr.py` | 115 | audit_events_table | `# §4.5 – revoke UPDATE/DELETE from app role on audit_events` |
-| `alembic/versions/20260510_0300_popia_consent_audit_dsr.py` | 118 | audit_events_table | `op.execute("REVOKE UPDATE, DELETE ON audit_events FROM eduboost_app;")` |
-| `alembic/versions/20260510_0300_popia_consent_audit_dsr.py` | 122 | audit_events_table | `op.execute("DROP TRIGGER IF EXISTS trg_audit_events_immutable ON audit_events;")` |
-| `alembic/versions/20260510_0300_popia_consent_audit_dsr.py` | 127 | audit_events_table | `"consent_records", "audit_events",` |
+| `alembic/versions/20260510_0300_popia_consent_audit_dsr.py` | 122 | audit_events_table | `REVOKE UPDATE, DELETE ON audit_events FROM eduboost_app;` |
+| `alembic/versions/20260510_0300_popia_consent_audit_dsr.py` | 129 | audit_events_table | `op.execute("DROP TRIGGER IF EXISTS trg_audit_events_immutable ON audit_events;")` |
 | `alembic/versions/20260516_0100_remove_base_sentinel.py` | 4 | audit_events_table | `Fix split migration state: remove 'base' sentinel + ensure audit_events exists.` |
 | `alembic/versions/20260516_0100_remove_base_sentinel.py` | 14 | audit_events_table | `2. Migration ``0006_v2_audit_events.py`` (which creates the ``audit_events``` |
 | `alembic/versions/20260516_0100_remove_base_sentinel.py` | 36 | audit_events_table | `# ── Fix 2: Ensure audit_events exists (migration 0006 may have been skipped) ─` |
@@ -116,7 +115,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/api_v2_routers/consent.py` | 47 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.grant().` |
 | `app/api_v2_routers/consent.py` | 80 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.revoke().` |
 | `app/api_v2_routers/gamification.py` | 62 | audit_record_call | `await FourthEstateService(db).record(` |
-| `app/api_v2_routers/learners.py` | 151 | audit_record_call | `await audit.record(` |
+| `app/api_v2_routers/learners.py` | 152 | audit_record_call | `await audit.record(` |
 | `app/api_v2_routers/parents.py` | 77 | audit_append_call | `dashboard_learners.append(` |
 | `app/api_v2_routers/parents.py` | 157 | audit_append_call | `response_learners.append(` |
 | `app/api_v2_routers/parents.py` | 204 | audit_append_call | `exports.append(` |
@@ -1010,6 +1009,44 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/popia_service.py` | 202 | audit_append_call | `await self.audit.append(` |
 | `app/services/popia_transactional_lifecycle.py` | 60 | audit_append_call | `missing.append(method_name)` |
 | `app/services/runtime_audit_facade.py` | 25 | audit_record_call | `await AuditRepositoryCompatAdapter(repository).record(` |
+| `app/tools/code_archaeology/cli.py` | 39 | audit_append_call | `docs.append({` |
+| `app/tools/code_archaeology/cli.py` | 60 | audit_append_call | `docs.append({` |
+| `app/tools/code_archaeology/doc_ingester.py` | 106 | audit_append_call | `result.append(InlineAnnotation(kind=m.group(1).upper(), text=m.group(2).strip(), line=i))` |
+| `app/tools/code_archaeology/doc_ingester.py` | 206 | audit_append_call | `self._index[sec.anchor].append((doc.path, sec))` |
+| `app/tools/code_archaeology/doc_ingester.py` | 207 | audit_append_call | `self._index[sec.heading.lower()].append((doc.path, sec))` |
+| `app/tools/code_archaeology/doc_ingester.py` | 384 | audit_append_call | `group.append(path_b)` |
+| `app/tools/code_archaeology/doc_ingester.py` | 390 | audit_append_call | `clusters.append(DocCluster(` |
+| `app/tools/code_archaeology/git_ingester.py` | 211 | audit_append_call | `all_tags.append(tag)` |
+| `app/tools/code_archaeology/git_ingester.py` | 213 | audit_append_call | `semver.append(tag)` |
+| `app/tools/code_archaeology/git_ingester.py` | 325 | audit_append_call | `entries.append(CoChangeEntry(file_a=a, file_b=b, co_change_count=count, coupling_score=coupling))` |
+| `app/tools/code_archaeology/git_ingester.py` | 353 | audit_append_call | `windows.append(row)` |
+| `app/tools/code_archaeology/git_ingester.py` | 370 | audit_append_call | `current.append(curr)` |
+| `app/tools/code_archaeology/git_ingester.py` | 374 | audit_append_call | `clusters.append(CommitCluster(` |
+| `app/tools/code_archaeology/git_ingester.py` | 385 | audit_append_call | `clusters.append(CommitCluster(` |
+| `app/tools/code_archaeology/git_ingester.py` | 426 | audit_append_call | `acceleration.append({"week": rolling[i]["week"], "delta": delta})` |
+| `app/tools/code_archaeology/git_ingester.py` | 434 | audit_append_call | `momentum.append({"week": r["week"], "ema": round(ema, 3)})` |
+| `app/tools/code_archaeology/git_ingester.py` | 464 | audit_append_call | `tag_map.setdefault(chash, []).append(tag.name)` |
+| `app/tools/code_archaeology/git_ingester.py` | 486 | audit_append_call | `files_changed.append(d.b_path or d.a_path or "")` |
+| `app/tools/code_archaeology/git_ingester.py` | 494 | audit_append_call | `records.append(CommitRecord(` |
+| `app/tools/code_archaeology/git_ingester.py` | 525 | audit_append_call | `cmd.append("--first-parent")` |
+| `app/tools/code_archaeology/git_ingester.py` | 540 | audit_append_call | `body_lines.append(line); continue` |
+| `app/tools/code_archaeology/git_ingester.py` | 553 | audit_append_call | `commits.append(CommitRecord(` |
+| `app/tools/code_archaeology/git_ingester.py` | 579 | audit_append_call | `files.append(parts[2]); continue` |
+| `app/tools/code_archaeology/git_ingester.py` | 582 | audit_append_call | `files.append(parts[2])` |
+| `app/tools/code_archaeology/narrative_generator.py` | 61 | audit_append_call | `chapters.append(NarrativeChapter(epoch_name=name, heading=heading, body=body, pull_quote=pull, risk_callout=None, themes=epoch.get('dominant_themes', []), velocity_note=""))` |
+| `app/tools/code_archaeology/sync_engine.py` | 403 | audit_append_call | `sections_index.append((doc["path"], heading, kws))` |
+| `app/tools/code_archaeology/sync_engine.py` | 423 | audit_append_call | `entries.append(CrossRef(` |
+| `app/tools/code_archaeology/sync_engine.py` | 430 | audit_append_call | `commit_to_docs[c.hash].append(f"{doc_path}#{sec_heading}")` |
+| `app/tools/code_archaeology/sync_engine.py` | 431 | audit_append_call | `doc_to_commits[f"{doc_path}#{sec_heading}"].append(c.hash)` |
+| `app/tools/code_archaeology/sync_engine.py` | 436 | audit_append_call | `by_hash[e.commit_hash].append(e)` |
+| `app/tools/code_archaeology/sync_engine.py` | 462 | audit_append_call | `gaps.append(TimelineGap(` |
+| `app/tools/code_archaeology/sync_engine.py` | 503 | audit_append_call | `edges.append(AuthorEdge(` |
+| `app/tools/code_archaeology/sync_engine.py` | 518 | audit_append_call | `deltas.append(EpochDelta(` |
+| `app/tools/code_archaeology/sync_engine.py` | 565 | audit_append_call | `annotated.append(CommitSummary(` |
+| `app/tools/code_archaeology/sync_engine.py` | 600 | audit_append_call | `epochs_map.setdefault(current_epoch, []).append(commit)` |
+| `app/tools/code_archaeology/sync_engine.py` | 653 | audit_append_call | `hint_parts.append(f"+{total_ins}/-{total_dels} lines")` |
+| `app/tools/code_archaeology/sync_engine.py` | 655 | audit_append_call | `hint_parts.append(f"themes: {', '.join(dominant_themes[:3])}")` |
+| `app/tools/code_archaeology/sync_engine.py` | 676 | audit_append_call | `story_epochs.append(epoch)` |
 | `scripts/approval_evidence.py` | 170 | audit_append_call | `blockers.append("decision must be approved/accepted/pass")` |
 | `scripts/approval_evidence.py` | 172 | audit_append_call | `blockers.append("approver is pending")` |
 | `scripts/approval_evidence.py` | 174 | audit_append_call | `blockers.append("evidence URL is pending or invalid")` |
@@ -1039,6 +1076,40 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/audit_router_thinness.py` | 198 | audit_append_call | `report.violations.append(` |
 | `scripts/audit_router_thinness.py` | 212 | audit_append_call | `report.violations.append(` |
 | `scripts/audit_router_thinness.py` | 234 | audit_append_call | `report.violations.append(` |
+| `scripts/audit_write_flow.py` | 8 | audit_events_table | `in the payload, and satisfies all audit_events CHECK constraints.` |
+| `scripts/audit_write_flow.py` | 93 | audit_events_table | `INSERT INTO public.audit_events` |
+| `scripts/audit_write_flow_command.py` | 4 | audit_repository | `Writes one real audit_events row via the app's AuditRepository using psycopg2 (sync)` |
+| `scripts/audit_write_flow_command.py` | 4 | audit_events_table | `Writes one real audit_events row via the app's AuditRepository using psycopg2 (sync)` |
+| `scripts/audit_write_flow_command.py` | 40 | audit_events_table | `INSERT INTO audit_events (` |
+| `scripts/audit_write_runtime_evidence.py` | 27 | audit_events_table | `AUDIT_TABLE = "audit_events"` |
+| `scripts/audit_write_runtime_evidence.py` | 129 | audit_append_call | `blockers.append("AUDIT_WRITE_RUN_ID is required for accepted evidence")` |
+| `scripts/audit_write_runtime_evidence.py` | 132 | audit_append_call | `blockers.append("AUDIT_WRITE_RUN_ID is not numeric")` |
+| `scripts/audit_write_runtime_evidence.py` | 135 | audit_append_call | `blockers.append("GitHub CLI is unavailable or not authenticated")` |
+| `scripts/audit_write_runtime_evidence.py` | 140 | audit_append_call | `blockers.append(f"unable to read GitHub Actions run {run_id}")` |
+| `scripts/audit_write_runtime_evidence.py` | 150 | audit_append_call | `blockers.append("run URL does not contain numeric run ID")` |
+| `scripts/audit_write_runtime_evidence.py` | 152 | audit_append_call | `blockers.append(f"GitHub Actions run status is {run_status or 'missing'}, expected completed")` |
+| `scripts/audit_write_runtime_evidence.py` | 154 | audit_append_call | `blockers.append(f"GitHub Actions run conclusion is {conclusion or 'missing'}, expected success")` |
+| `scripts/audit_write_runtime_evidence.py` | 156 | audit_append_call | `blockers.append(f"GitHub Actions run SHA {head_sha or 'missing'} does not match current commit {expected_sha}")` |
+| `scripts/audit_write_runtime_evidence.py` | 158 | audit_append_call | `blockers.append("workflow name is missing")` |
+| `scripts/audit_write_runtime_evidence.py` | 252 | audit_append_call | `blockers.append("AUDIT_WRITE_DATABASE_URL/DATABASE_URL is missing, placeholder, local, or invalid")` |
+| `scripts/audit_write_runtime_evidence.py` | 259 | audit_append_call | `blockers.append("audit_events table is missing")` |
+| `scripts/audit_write_runtime_evidence.py` | 259 | audit_events_table | `blockers.append("audit_events table is missing")` |
+| `scripts/audit_write_runtime_evidence.py` | 265 | audit_append_call | `blockers.append(f"flow command failed with exit code {flow_result.return_code}")` |
+| `scripts/audit_write_runtime_evidence.py` | 271 | audit_append_call | `blockers.append("audit_events did not increase and trace ID was not found")` |
+| `scripts/audit_write_runtime_evidence.py` | 271 | audit_events_table | `blockers.append("audit_events did not increase and trace ID was not found")` |
+| `scripts/audit_write_runtime_evidence.py` | 273 | audit_append_call | `blockers.append("audit_events has no rows after audited flow")` |
+| `scripts/audit_write_runtime_evidence.py` | 273 | audit_events_table | `blockers.append("audit_events has no rows after audited flow")` |
+| `scripts/audit_write_runtime_evidence.py` | 275 | audit_append_call | `blockers.append(f"database audit-write check failed: {type(exc).__name__}: {exc}")` |
+| `scripts/audit_write_runtime_evidence.py` | 279 | audit_append_call | `blockers.append("accepted evidence requires run_flow unless AUDIT_WRITE_ATTACH_ONLY=1")` |
+| `scripts/audit_write_runtime_evidence.py` | 281 | audit_append_call | `blockers.append("AUDIT_WRITE_FLOW_COMMAND is missing or placeholder")` |
+| `scripts/audit_write_runtime_evidence.py` | 283 | audit_append_call | `blockers.append("AUDIT_WRITE_FLOW_RESULT must be passed when provided")` |
+| `scripts/audit_write_runtime_evidence.py` | 323 | audit_events_table | `f"**audit_events exists:** `{status.audit_table_exists}`",` |
+| `scripts/audit_write_runtime_evidence.py` | 324 | audit_events_table | `f"**audit_events before:** `{status.audit_events_count_before}`",` |
+| `scripts/audit_write_runtime_evidence.py` | 325 | audit_events_table | `f"**audit_events after:** `{status.audit_events_count_after}`",` |
+| `scripts/audit_write_runtime_evidence.py` | 326 | audit_events_table | `f"**audit_events delta:** `{status.audit_events_delta}`",` |
+| `scripts/audit_write_runtime_evidence.py` | 347 | audit_append_call | `lines.append("- None")` |
+| `scripts/audit_write_runtime_evidence.py` | 354 | audit_events_table | `"- The audit_events table must contain rows after the flow.",` |
+| `scripts/audit_write_runtime_evidence.py` | 355 | audit_events_table | `"- Either audit_events count must increase or the trace ID must be found in recent audit rows.",` |
 | `scripts/auth_lifecycle_http_proof.py` | 88 | audit_append_call | `parts.append(value.attr)` |
 | `scripts/auth_lifecycle_http_proof.py` | 91 | audit_append_call | `parts.append(value.id)` |
 | `scripts/auth_lifecycle_http_proof.py` | 131 | audit_append_call | `routes[endpoint_name]["paths"].append(route.path)` |
@@ -1178,6 +1249,12 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_audit_event_contracts.py` | 33 | audit_log_identifier | `"AuditLog emission is handled inside ConsentService",` |
 | `scripts/check_audit_event_contracts.py` | 51 | audit_append_call | `results.append(CheckResult(rel_path, marker, marker in text))` |
 | `scripts/check_audit_review_closeout_certificate.py` | 55 | audit_append_call | `results.append(` |
+| `scripts/check_audit_write_runtime_evidence.py` | 41 | audit_events_table | `print(f"- INFO audit_events before: {status.audit_events_count_before}")` |
+| `scripts/check_audit_write_runtime_evidence.py` | 42 | audit_events_table | `print(f"- INFO audit_events after: {status.audit_events_count_after}")` |
+| `scripts/check_audit_write_runtime_evidence.py` | 43 | audit_events_table | `print(f"- INFO audit_events delta: {status.audit_events_delta}")` |
+| `scripts/check_audit_write_runtime_evidence.py` | 60 | audit_append_call | `failures.append(f"{item_id} missing {required}")` |
+| `scripts/check_audit_write_runtime_evidence.py` | 72 | audit_append_call | `failures.append("audit write runtime evidence unit tests failed")` |
+| `scripts/check_audit_write_runtime_evidence.py` | 81 | audit_append_call | `failures.append("focused Ruff failed")` |
 | `scripts/check_auth_boundary_evidence.py` | 58 | audit_append_call | `results.append(EvidenceResult(rel_path, path.exists(), "present" if path.exists() else "missing"))` |
 | `scripts/check_auth_boundary_evidence.py` | 62 | audit_append_call | `results.append(EvidenceResult(rel_path, snippet in text, f"contains {snippet!r}" if snippet in text else f"missing {snippet!r}"))` |
 | `scripts/check_auth_db_lifecycle_proof.py` | 37 | audit_append_call | `failures.append(f"proof source missing {token}")` |
@@ -1443,6 +1520,9 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_database_resilience_env_matrix.py` | 33 | audit_append_call | `results.append(` |
 | `scripts/check_database_restore_integrity.py` | 41 | audit_append_call | `results.append(` |
 | `scripts/check_database_restore_integrity.py` | 52 | audit_append_call | `results.append(` |
+| `scripts/check_db_backup_restore_rollback_evidence.py` | 66 | audit_append_call | `failures.append(f"{item_id} missing {required}")` |
+| `scripts/check_db_backup_restore_rollback_evidence.py` | 83 | audit_append_call | `failures.append("DB backup/restore/rollback unit tests failed")` |
+| `scripts/check_db_backup_restore_rollback_evidence.py` | 96 | audit_append_call | `failures.append("focused Ruff failed")` |
 | `scripts/check_db_live_only_table_ownership.py` | 48 | audit_append_call | `failures.append(f"missing ownership record for {table}")` |
 | `scripts/check_db_live_only_table_ownership.py` | 58 | audit_append_call | `failures.append("DB-OWNERSHIP-001R should not block beta unless ownership is migration-required")` |
 | `scripts/check_db_live_only_table_ownership.py` | 83 | audit_append_call | `failures.append("DB live-only table ownership unit tests failed")` |
@@ -1624,6 +1704,9 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_jwt_rotation.py` | 21 | audit_append_call | `failures.append("missing keyring helper")` |
 | `scripts/check_jwt_rotation.py` | 27 | audit_append_call | `failures.append("security.py missing keyring import")` |
 | `scripts/check_jwt_rotation.py` | 33 | audit_append_call | `failures.append("no kid header path or blocker")` |
+| `scripts/check_jwt_secret_rotation_evidence.py` | 30 | audit_append_call | `if req not in e: failures.append(f"{item} missing {req}")` |
+| `scripts/check_jwt_secret_rotation_evidence.py` | 37 | audit_append_call | `if r.returncode != 0: failures.append("JWT secret rotation unit tests failed")` |
+| `scripts/check_jwt_secret_rotation_evidence.py` | 40 | audit_append_call | `else: failures.append("focused Ruff failed"); print(ruff.stdout)` |
 | `scripts/check_learner_vertical_journey_contract.py` | 49 | audit_append_call | `results.append(` |
 | `scripts/check_learner_vertical_journey_contract.py` | 54 | audit_append_call | `results.append(` |
 | `scripts/check_learner_vertical_journey_contract.py` | 62 | audit_append_call | `results.append(` |
@@ -1900,6 +1983,36 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/ci_run_evidence.py` | 176 | audit_append_call | `blockers.append("verified by is pending")` |
 | `scripts/ci_run_evidence.py` | 178 | audit_append_call | `blockers.append("date verified is pending")` |
 | `scripts/ci_run_evidence.py` | 257 | audit_append_call | `lines.extend(f"- {b}" for b in status.blockers) if status.blockers else lines.append("- None")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 29 | audit_events_table | `"audit_events",` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 175 | audit_append_call | `out["blockers"].append(f"database smoke failed: {type(exc).__name__}: {exc}")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 178 | audit_append_call | `out["blockers"].append("alembic_version not detected")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 180 | audit_append_call | `out["blockers"].append("no public tables detected")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 219 | audit_append_call | `blockers.append("DB_ROLLBACK_RUN_ID is required")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 222 | audit_append_call | `blockers.append("DB_ROLLBACK_RUN_ID is not numeric")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 225 | audit_append_call | `blockers.append("GitHub CLI is unavailable")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 233 | audit_append_call | `blockers.append(f"unable to read GitHub Actions run {run_id}")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 247 | audit_append_call | `blockers.append(f"run status is {evidence['run_status']}, expected completed")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 249 | audit_append_call | `blockers.append(f"run conclusion is {evidence['conclusion']}, expected success")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 251 | audit_append_call | `blockers.append(f"run SHA {evidence['head_sha']} does not match current commit {expected_sha}")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 253 | audit_append_call | `blockers.append("run URL does not contain run ID")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 286 | audit_append_call | `blockers.append("DB_ROLLBACK_SOURCE_DATABASE_URL is missing, placeholder, local, or invalid")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 288 | audit_append_call | `blockers.append("DB_ROLLBACK_RESTORE_DATABASE_URL is missing, placeholder, local, or invalid")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 290 | audit_append_call | `blockers.append("source and restore database URLs must differ")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 307 | audit_append_call | `blockers.append("pg_dump is not installed")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 309 | audit_append_call | `blockers.append("pg_restore is not installed")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 319 | audit_append_call | `blockers.append(f"backup command failed with exit code {backup.returncode}")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 325 | audit_append_call | `blockers.append("backup dump was not created or was empty")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 331 | audit_append_call | `blockers.append(f"restore command failed with exit code {restore.returncode}")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 337 | audit_append_call | `blockers.append(f"table count mismatch: source={src_smoke['table_count']}, restore={dst_smoke['table_count']}")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 339 | audit_append_call | `blockers.append(f"alembic mismatch: source={src_smoke['alembic_version']}, restore={dst_smoke['alembic_version']}")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 342 | audit_append_call | `blockers.append("key table count mismatches detected")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 349 | audit_append_call | `blockers.append("accepted evidence requires run_drill unless DB_ROLLBACK_ATTACH_ONLY=1")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 351 | audit_append_call | `blockers.append("valid dump SHA256 checksum is required")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 353 | audit_append_call | `blockers.append("non-empty dump size is required")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 355 | audit_append_call | `blockers.append("restore command did not run")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 415 | audit_append_call | `lines.append(f"\| `{table}` \| {status['source_smoke']['key_table_counts'].get(table)} \| {status['restore_smoke']['key_table_counts'].get(table)} \|")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 420 | audit_append_call | `lines.append(f"- `{table}` source={values.get('source')} restore={values.get('restore')}")` |
+| `scripts/db_backup_restore_rollback_evidence.py` | 422 | audit_append_call | `lines.append("- None")` |
 | `scripts/db_live_only_table_ownership.py` | 129 | audit_append_call | `blockers.append("table missing from ownership policy")` |
 | `scripts/db_live_only_table_ownership.py` | 140 | audit_append_call | `blockers.append("domain is missing")` |
 | `scripts/db_live_only_table_ownership.py` | 143 | audit_append_call | `blockers.append(f"ownership must be one of {sorted(ALLOWED_OWNERSHIP)}")` |
@@ -1965,34 +2078,35 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/diagnostic_item_bank_canonicality.py` | 210 | audit_append_call | `lines.append(` |
 | `scripts/diagnostic_item_bank_canonicality.py` | 214 | audit_append_call | `lines.append("\| `-` \| 0 \| `none` \|")` |
 | `scripts/diagnostic_item_bank_canonicality.py` | 220 | audit_append_call | `lines.append("- None")` |
-| `scripts/diagnostic_score_live_audit.py` | 346 | audit_append_call | `unsupported.append(column.name)` |
-| `scripts/diagnostic_score_live_audit.py` | 348 | audit_append_call | `insert_columns.append(column.name)` |
-| `scripts/diagnostic_score_live_audit.py` | 349 | audit_append_call | `select_exprs.append(expr)` |
-| `scripts/diagnostic_score_live_audit.py` | 400 | audit_append_call | `blockers.append("DIAG_SCORE_RUN_ID is required for accepted evidence")` |
-| `scripts/diagnostic_score_live_audit.py` | 404 | audit_append_call | `blockers.append("DIAG_SCORE_RUN_ID is not numeric")` |
-| `scripts/diagnostic_score_live_audit.py` | 408 | audit_append_call | `blockers.append("GitHub CLI is unavailable or not authenticated")` |
-| `scripts/diagnostic_score_live_audit.py` | 413 | audit_append_call | `blockers.append(f"unable to read GitHub Actions run {run_id}")` |
-| `scripts/diagnostic_score_live_audit.py` | 423 | audit_append_call | `blockers.append("run URL does not contain numeric run ID")` |
-| `scripts/diagnostic_score_live_audit.py` | 425 | audit_append_call | `blockers.append(f"GitHub Actions run status is {run_status or 'missing'}, expected completed")` |
-| `scripts/diagnostic_score_live_audit.py` | 427 | audit_append_call | `blockers.append(f"GitHub Actions run conclusion is {conclusion or 'missing'}, expected success")` |
-| `scripts/diagnostic_score_live_audit.py` | 429 | audit_append_call | `blockers.append(f"GitHub Actions run SHA {head_sha or 'missing'} does not match current commit {expected_sha}")` |
-| `scripts/diagnostic_score_live_audit.py` | 431 | audit_append_call | `blockers.append("workflow name is missing")` |
-| `scripts/diagnostic_score_live_audit.py` | 459 | audit_append_call | `blockers.append("DIAG_SCORE_DATABASE_URL/DATABASE_URL is missing, non-Postgres async, local, example, or placeholder")` |
-| `scripts/diagnostic_score_live_audit.py` | 469 | audit_append_call | `blockers.append("diagnostic_items table is missing")` |
-| `scripts/diagnostic_score_live_audit.py` | 471 | audit_append_call | `blockers.append("irt_items table is missing")` |
-| `scripts/diagnostic_score_live_audit.py` | 484 | audit_append_call | `blockers.append(f"irt_items has {irt_count} rows, expected at least {EXPECTED_IRT_MIN_ROWS}")` |
-| `scripts/diagnostic_score_live_audit.py` | 489 | audit_append_call | `blockers.append("DIAG_SCORE_ALLOW_BRIDGE_SEED must be 1 before mutating diagnostic_items")` |
-| `scripts/diagnostic_score_live_audit.py` | 491 | audit_append_call | `blockers.append("cannot bridge-seed without both diagnostic_items and irt_items")` |
-| `scripts/diagnostic_score_live_audit.py` | 499 | audit_append_call | `blockers.append(` |
-| `scripts/diagnostic_score_live_audit.py` | 506 | audit_append_call | `blockers.append("diagnostic_items has 0 rows; runtime-required item bank is not seeded")` |
-| `scripts/diagnostic_score_live_audit.py` | 518 | audit_append_call | `blockers.append("DIAG_SCORE_TEST_COMMAND is missing or placeholder")` |
-| `scripts/diagnostic_score_live_audit.py` | 520 | audit_append_call | `blockers.append("DIAG_SCORE_SEED_RESULT must be passed")` |
-| `scripts/diagnostic_score_live_audit.py` | 522 | audit_append_call | `blockers.append("DIAG_SCORE_SCORING_RESULT must be passed")` |
-| `scripts/diagnostic_score_live_audit.py` | 524 | audit_append_call | `blockers.append("DIAG_SCORE_AUDIT_RESULT must be passed")` |
-| `scripts/diagnostic_score_live_audit.py` | 592 | audit_append_call | `lines.append("- None")` |
-| `scripts/diagnostic_score_live_audit.py` | 598 | audit_append_call | `lines.append("- None")` |
-| `scripts/diagnostic_score_live_audit.py` | 602 | audit_append_call | `lines.append(` |
-| `scripts/diagnostic_score_live_audit.py` | 610 | audit_append_call | `lines.append("- None")` |
+| `scripts/diagnostic_score_live_audit.py` | 358 | audit_append_call | `unsupported.append(column.name)` |
+| `scripts/diagnostic_score_live_audit.py` | 360 | audit_append_call | `insert_columns.append(column.name)` |
+| `scripts/diagnostic_score_live_audit.py` | 361 | audit_append_call | `select_exprs.append(expr)` |
+| `scripts/diagnostic_score_live_audit.py` | 412 | audit_append_call | `blockers.append("DIAG_SCORE_RUN_ID is required for accepted evidence")` |
+| `scripts/diagnostic_score_live_audit.py` | 416 | audit_append_call | `blockers.append("DIAG_SCORE_RUN_ID is not numeric")` |
+| `scripts/diagnostic_score_live_audit.py` | 420 | audit_append_call | `blockers.append("GitHub CLI is unavailable or not authenticated")` |
+| `scripts/diagnostic_score_live_audit.py` | 425 | audit_append_call | `blockers.append(f"unable to read GitHub Actions run {run_id}")` |
+| `scripts/diagnostic_score_live_audit.py` | 435 | audit_append_call | `blockers.append("run URL does not contain numeric run ID")` |
+| `scripts/diagnostic_score_live_audit.py` | 437 | audit_append_call | `blockers.append(f"GitHub Actions run status is {run_status or 'missing'}, expected completed")` |
+| `scripts/diagnostic_score_live_audit.py` | 439 | audit_append_call | `blockers.append(f"GitHub Actions run conclusion is {conclusion or 'missing'}, expected success")` |
+| `scripts/diagnostic_score_live_audit.py` | 441 | audit_append_call | `blockers.append(f"GitHub Actions run SHA {head_sha or 'missing'} does not match current commit {expected_sha}")` |
+| `scripts/diagnostic_score_live_audit.py` | 443 | audit_append_call | `blockers.append("workflow name is missing")` |
+| `scripts/diagnostic_score_live_audit.py` | 475 | audit_append_call | `blockers.append("DIAG_SCORE_DATABASE_URL/DATABASE_URL is missing, non-Postgres async, local, example, or placeholder")` |
+| `scripts/diagnostic_score_live_audit.py` | 493 | audit_append_call | `blockers.append("diagnostic_items table is missing")` |
+| `scripts/diagnostic_score_live_audit.py` | 495 | audit_append_call | `blockers.append("irt_items table is missing")` |
+| `scripts/diagnostic_score_live_audit.py` | 508 | audit_append_call | `blockers.append(f"irt_items has {irt_count} rows, expected at least {EXPECTED_IRT_MIN_ROWS}")` |
+| `scripts/diagnostic_score_live_audit.py` | 513 | audit_append_call | `blockers.append("DIAG_SCORE_ALLOW_BRIDGE_SEED must be 1 before mutating diagnostic_items")` |
+| `scripts/diagnostic_score_live_audit.py` | 515 | audit_append_call | `blockers.append("cannot bridge-seed without both diagnostic_items and irt_items")` |
+| `scripts/diagnostic_score_live_audit.py` | 523 | audit_append_call | `blockers.append(` |
+| `scripts/diagnostic_score_live_audit.py` | 531 | audit_append_call | `blockers.append("diagnostic_items has 0 rows; runtime-required item bank is not seeded")` |
+| `scripts/diagnostic_score_live_audit.py` | 537 | audit_append_call | `blockers.append(f"DB connection/query error: {exc}")` |
+| `scripts/diagnostic_score_live_audit.py` | 546 | audit_append_call | `blockers.append("DIAG_SCORE_TEST_COMMAND is missing or placeholder")` |
+| `scripts/diagnostic_score_live_audit.py` | 548 | audit_append_call | `blockers.append("DIAG_SCORE_SEED_RESULT must be passed")` |
+| `scripts/diagnostic_score_live_audit.py` | 550 | audit_append_call | `blockers.append("DIAG_SCORE_SCORING_RESULT must be passed")` |
+| `scripts/diagnostic_score_live_audit.py` | 552 | audit_append_call | `blockers.append("DIAG_SCORE_AUDIT_RESULT must be passed")` |
+| `scripts/diagnostic_score_live_audit.py` | 620 | audit_append_call | `lines.append("- None")` |
+| `scripts/diagnostic_score_live_audit.py` | 626 | audit_append_call | `lines.append("- None")` |
+| `scripts/diagnostic_score_live_audit.py` | 630 | audit_append_call | `lines.append(` |
+| `scripts/diagnostic_score_live_audit.py` | 638 | audit_append_call | `lines.append("- None")` |
 | `scripts/docs_inventory.py` | 84 | audit_append_call | `headings.append(` |
 | `scripts/docs_inventory.py` | 124 | audit_append_call | `statuses.append(status)` |
 | `scripts/docs_inventory.py` | 133 | audit_append_call | `dates.append(value)` |
@@ -2198,6 +2312,32 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/integrate_patch.py` | 59 | audit_append_call | `staged_conflicts.append(target)` |
 | `scripts/integrate_patch.py` | 64 | audit_append_call | `moved.append(dest_file)` |
 | `scripts/inventory_services.py` | 92 | audit_append_call | `found_duplicates.append((dup_path, canonical_rel))` |
+| `scripts/jwt_secret_rotation_evidence.py` | 152 | audit_append_call | `blockers.append(f"JWT self-test raised {type(exc).__name__}: {exc}")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 153 | audit_append_call | `if not access_ok: blockers.append("access token issue/verify self-test failed")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 154 | audit_append_call | `if not refresh_ok: blockers.append("refresh token issue/verify self-test failed")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 155 | audit_append_call | `if not access_tamper: blockers.append("access token tamper rejection failed")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 156 | audit_append_call | `if not refresh_tamper: blockers.append("refresh token tamper rejection failed")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 157 | audit_append_call | `if not separated: blockers.append("access and refresh secrets must be different")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 173 | audit_append_call | `if not re.fullmatch(r"[0-9]+", run_id): blockers.append("JWT_EVIDENCE_RUN_ID is not numeric")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 174 | audit_append_call | `if not _gh_available(): blockers.append("GitHub CLI is unavailable or not authenticated")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 177 | audit_append_call | `blockers.append(f"unable to read GitHub Actions run {run_id}")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 184 | audit_append_call | `if f"/actions/runs/{run_id}" not in url: blockers.append("run URL does not contain numeric run ID")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 185 | audit_append_call | `if status != "completed": blockers.append(f"GitHub Actions run status is {status or 'missing'}, expected completed")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 186 | audit_append_call | `if conclusion != "success": blockers.append(f"GitHub Actions run conclusion is {conclusion or 'missing'}, expected success")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 187 | audit_append_call | `if head_sha != expected_sha: blockers.append(f"GitHub Actions run SHA {head_sha or 'missing'} does not match current commit {expected_sha}")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 188 | audit_append_call | `if not workflow: blockers.append("workflow name is missing")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 201 | audit_append_call | `if not ev.present: blockers.append(f"current {label} JWT secret is missing")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 202 | audit_append_call | `if ev.present and ev.length < MIN_SECRET_LENGTH: blockers.append(f"current {label} JWT secret length is {ev.length}, expected at least {MIN_SECRET_LENGTH}")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 203 | audit_append_call | `if ev.placeholder_like: blockers.append(f"current {label} JWT secret looks placeholder-like")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 207 | audit_append_call | `if evidence_env not in {"staging", "production"}: blockers.append("JWT_EVIDENCE_ENV must be staging or production")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 208 | audit_append_call | `if not store or has_placeholder(store): blockers.append("JWT_SECRET_STORE is missing or placeholder-like")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 209 | audit_append_call | `if not ref or has_placeholder(ref): blockers.append("JWT_ROTATION_REFERENCE is missing or placeholder-like")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 210 | audit_append_call | `if not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", date): blockers.append("JWT_ROTATION_DATE must be YYYY-MM-DD")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 211 | audit_append_call | `if rotation_result != "passed": blockers.append("JWT_ROTATION_RESULT must be passed")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 212 | audit_append_call | `if not prev_access: blockers.append("previous access JWT fingerprint/secret is required for rotation evidence")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 213 | audit_append_call | `if not prev_refresh: blockers.append("previous refresh JWT fingerprint/secret is required for rotation evidence")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 214 | audit_append_call | `if prev_access and not access_rotated: blockers.append("current access JWT fingerprint matches previous fingerprint; rotation not proven")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 215 | audit_append_call | `if prev_refresh and not refresh_rotated: blockers.append("current refresh JWT fingerprint matches previous fingerprint; rotation not proven")` |
 | `scripts/lessons/generate_lessons.py` | 150 | audit_append_call | `result.errors.append(msg)` |
 | `scripts/lessons/generate_lessons.py` | 157 | audit_append_call | `result.errors.append(msg)` |
 | `scripts/lessons/generate_lessons.py` | 164 | audit_append_call | `result.errors.append(msg)` |
@@ -2235,6 +2375,9 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/migrate_auth_lifecycle_helpers_to_service.py` | 87 | audit_append_call | `helpers.append((node.name, method, start, end))` |
 | `scripts/migrate_auth_lifecycle_helpers_to_service.py` | 99 | audit_append_call | `extracted.append((method, block))` |
 | `scripts/migrate_auth_lifecycle_helpers_to_service.py` | 132 | audit_append_call | `exported.append(f"{method}_impl")` |
+| `scripts/patch_audit_write_runtime_registry.py` | 34 | audit_events_table | `closure_blocker = "none" if accepted else "real audit_events write proof required"` |
+| `scripts/patch_audit_write_runtime_registry.py` | 39 | audit_events_table | `title: Runtime audit_events write proof` |
+| `scripts/patch_audit_write_runtime_registry.py` | 63 | audit_events_table | `title: Runtime audit_events write evidence repair` |
 | `scripts/patch_diagnostics_scoring_snapshot.py` | 26 | audit_append_call | `old_append = 'snap.responses.append({"item_id": item_id, "correct": correct, "response": response})'` |
 | `scripts/patch_diagnostics_scoring_snapshot.py` | 28 | audit_append_call | `'snap.responses.append({**diagnostic_response_snapshot(item, item_id=item_id), '` |
 | `scripts/patch_final_gate_refresh_classifier_registry.py` | 49 | audit_append_call | `patched_ids.append(item_id)` |
@@ -2465,7 +2608,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/staging_smoke_evidence_acceptance.py` | 262 | audit_append_call | `blockers.append("STAGING_SMOKE_HEALTHCHECK_RESULT must be passed")` |
 | `scripts/staging_smoke_evidence_acceptance.py` | 265 | audit_append_call | `blockers.append("STAGING_SMOKE_API_RESULT must be passed")` |
 | `scripts/staging_smoke_evidence_acceptance.py` | 268 | audit_append_call | `blockers.append("STAGING_SMOKE_FRONTEND_RESULT must be passed or omitted")` |
-| `scripts/staging_smoke_evidence_acceptance.py` | 329 | audit_append_call | `lines.append("- None")` |
+| `scripts/staging_smoke_evidence_acceptance.py` | 341 | audit_append_call | `lines.append("- None")` |
 | `scripts/staging_smoke_probe.py` | 130 | audit_append_call | `blockers.append("staging base URL must be real, HTTPS, and non-placeholder")` |
 | `scripts/staging_smoke_probe.py` | 137 | audit_append_call | `probes.append(smoke_get("healthcheck", build_url(base_url, health_path)))` |
 | `scripts/staging_smoke_probe.py` | 138 | audit_append_call | `probes.append(smoke_get("api", build_url(base_url, api_path)))` |
@@ -2626,6 +2769,9 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/unit/test_billing_monetization_production_readiness.py` | 69 | audit_log_identifier | `assert "processed:evt_1:invoice.created:1" in store.audit_log` |
 | `tests/unit/test_billing_monetization_production_readiness.py` | 70 | audit_log_identifier | `assert "duplicate:evt_1:invoice.created" in store.audit_log` |
 | `tests/unit/test_consent_policy.py` | 75 | audit_append_call | `self.events.append(kwargs)` |
+| `tests/unit/test_db_backup_restore_rollback_evidence.py` | 32 | audit_events_table | `source = {"key_table_counts": {"audit_events": 6, "irt_items": 1600}}` |
+| `tests/unit/test_db_backup_restore_rollback_evidence.py` | 33 | audit_events_table | `restore = {"key_table_counts": {"audit_events": 6, "irt_items": 1599}}` |
+| `tests/unit/test_db_backup_restore_rollback_evidence.py` | 36 | audit_events_table | `assert "audit_events" not in mismatches` |
 | `tests/unit/test_db_migration_seed_repeatability.py` | 90 | audit_events_table | `'CREATE TABLE public."audit_events" (',` |
 | `tests/unit/test_db_migration_seed_repeatability.py` | 102 | audit_events_table | `assert presence['audit_events'] is True` |
 | `tests/unit/test_diagnostics_scoring_snapshot.py` | 67 | audit_append_call | `captured.append([float(getattr(item, "difficulty_b", getattr(item, "b_param", 0.0))) for item, _ in responses])` |

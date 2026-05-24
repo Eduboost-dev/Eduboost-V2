@@ -576,7 +576,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2511-2550-full-check
     evidence_file: docs/release/auth_service_cleanup_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: c16d9f333394d9f6dbadf7cc1682666b16163806
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
@@ -589,7 +589,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2551-2590-full-check
     evidence_file: docs/release/auth_route_logout_delegate_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: c16d9f333394d9f6dbadf7cc1682666b16163806
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
@@ -602,7 +602,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2591-2630-full-check
     evidence_file: docs/release/auth_lifecycle_http_proof_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: c16d9f333394d9f6dbadf7cc1682666b16163806
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
@@ -615,7 +615,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2631-2670-full-check
     evidence_file: docs/release/auth_lifecycle_semantic_proof_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: c16d9f333394d9f6dbadf7cc1682666b16163806
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
