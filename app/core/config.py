@@ -37,6 +37,7 @@ def normalize_async_database_url(value: str) -> str:
     sslmode = query.pop("sslmode", "")
     if sslmode and "ssl" not in query:
         query["ssl"] = sslmode
+    query.setdefault("prepared_statement_cache_size", "0")
     return urlunsplit((parsed.scheme, parsed.netloc, parsed.path, urlencode(query), parsed.fragment))
 
 
