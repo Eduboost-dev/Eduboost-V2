@@ -149,7 +149,12 @@ class Settings(BaseSettings):
     ARQ_JOB_TIMEOUT: int = 300
 
     # ── CORS ──────────────────────────────────────────────────────────────────
-    DEFAULT_ALLOWED_ORIGINS: ClassVar[list[str]] = ["http://localhost:3000", "http://localhost:3002", "http://localhost:3050"]
+    DEFAULT_ALLOWED_ORIGINS: ClassVar[list[str]] = [
+        "https://eduboos-frontend.onrender.com",
+        "http://localhost:3000",
+        "http://localhost:3002",
+        "http://localhost:3050",
+    ]
     ALLOWED_ORIGINS: Any = DEFAULT_ALLOWED_ORIGINS
     # Compatibility alias for older Render/environment contracts.
     CORS_ORIGINS: Any = ""
@@ -171,7 +176,8 @@ class Settings(BaseSettings):
     @model_validator(mode="after")
     def apply_legacy_cors_origins_alias(self) -> "Settings":
         if self.CORS_ORIGINS and self.ALLOWED_ORIGINS == self.DEFAULT_ALLOWED_ORIGINS:
-            self.ALLOWED_ORIGINS = self.parse_allowed_origins(self.CORS_ORIGINS)
+            origins = [*self.DEFAULT_ALLOWED_ORIGINS, *self.parse_allowed_origins(self.CORS_ORIGINS)]
+            self.ALLOWED_ORIGINS = list(dict.fromkeys(origins))
         return self
 
     # ── Validation ───────────────────────────────────────────────────────────
