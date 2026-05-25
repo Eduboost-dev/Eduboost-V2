@@ -143,7 +143,7 @@ Current warnings to track:
 | ID | Task | Evidence required | Status |
 |---|---|---|---|
 | NS-45 | Confirm current CAPS approved item count. | `docs/release/runtime_launch_content_evidence_status.md` records 40/40 approved items for each launch ref. | [x] |
-| NS-46 | Submit AI-generated candidate items for educator review. | Content Factory refreshed foundation implemented with admin-only `/api/v2/admin/content-factory` validation/provenance gates; evidence in `docs/release/content_factory_refreshed_status.md`. Educator spot-audit and expansion review remain external. | [verify] |
+| NS-46 | Submit AI-generated candidate items for educator review. | Content Factory refreshed foundation implemented with admin-only `/api/v2/admin/content-factory` validation/provenance/coverage gates; evidence in `docs/release/content_factory_refreshed_status.md`. Educator spot-audit and expansion review remain external. | [verify] |
 | NS-47 | Reach or explicitly defer launch item-bank threshold. | Runtime evidence shows 40 approved diagnostic items per launch ref. | [x] |
 | NS-48 | Add independent answer-key validation plan. | Launch content evidence records 100% answer-key verification; Content Factory diagnostic validation now blocks artifacts without `answer_key`; CI guardrail still outstanding. | [verify] |
 | NS-49 | Define supported beta grades/subjects/languages. | `docs/product/launch_scope.md` and launch content evidence define Grade 4 Mathematics launch slice; broader scope remains roadmap. | [verify] |
@@ -194,7 +194,7 @@ Current warnings to track:
 | Runtime DB migration proof | [ ] open |
 | Backup/restore/rollback drill | [ ] open |
 | Legal/security approval | [external] open |
-| CAPS launch-slice content gate | [x] green for Grade 4 Mathematics launch slice; refreshed Content Factory scope registry is [verify] pending CI/staging/educator proof |
+| CAPS launch-slice content gate | [x] green for Grade 4 Mathematics launch slice; refreshed Content Factory scope registry and registry-backed coverage service are [verify] pending CI/staging/educator proof |
 | Billing/notifications decision | [ ] open |
 | Controlled beta go/no-go | [external] open |
 | Public beta / production launch | [blocked] blocked |

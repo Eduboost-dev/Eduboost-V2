@@ -931,13 +931,13 @@ findings:
     blocks_beta: true
     external_dependency: true
   - id: CONTENT-FACTORY-001
-    title: Refreshed Content Factory ETL provenance and scope registry foundation
+    title: Refreshed Content Factory ETL provenance, scope registry, and coverage foundation
     severity: P1
     gate: 8
     owner: backend
     implementation_batch: content_factory_refreshed_20260525
     proof_status: integration-passing
-    proof_command: python3 -m pytest tests/unit/test_content_scope_registry.py tests/api/test_content_factory_scope_routes.py tests/api/test_content_factory_admin_routes.py tests/unit/test_content_factory_services.py tests/unit/test_api_v2_router_contract.py -q --no-cov; python3 scripts/generate_openapi.py && make openapi-check; npm run type-check in app/frontend
+    proof_command: python3 -m pytest tests/unit/test_content_scope_registry.py tests/unit/test_content_coverage_service.py tests/unit/test_content_factory_services.py tests/api/test_content_factory_admin_routes.py tests/api/test_content_factory_scope_routes.py tests/api/test_content_factory_coverage_routes.py tests/unit/test_api_v2_router_contract.py tests/unit/modules/diagnostics/test_item_bank_service.py -q --no-cov; python3 scripts/generate_openapi.py && make openapi-check; npm run type-check in app/frontend
     evidence_file: docs/release/content_factory_refreshed_status.md
     evidence_url: null
     workflow_name: null
