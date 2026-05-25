@@ -68,6 +68,53 @@ export type GenerationExecutionReport = {
   artifacts: number;
 };
 
+
+export type ReviewQueueItem = {
+  artifact_id: string;
+  scope_id: string;
+  content_layer: string;
+  artifact_type: string;
+  caps_ref?: string | null;
+  status: string;
+  risk_level: string;
+  risk_reasons: string[];
+  validation_status: string;
+  provenance_status: string;
+  reviewer_id?: string | null;
+};
+
+export type ReviewQueuePage = {
+  items: ReviewQueueItem[];
+  total: number;
+  limit: number;
+  offset: number;
+};
+
+export type ReviewBundle = {
+  artifact: Record<string, unknown>;
+  validation_report?: Record<string, unknown> | null;
+  provenance: Record<string, unknown>;
+  sources: Array<Record<string, unknown>>;
+  review_risk: { level: string; score: number; reasons: string[] };
+  generation_metadata: Record<string, unknown>;
+  prior_review_events: Array<Record<string, unknown>>;
+};
+
+export type BulkReviewResponse = {
+  status: string;
+  artifact_ids: string[];
+  errors: string[];
+  summary: Record<string, number>;
+};
+
+export type ReviewerWorkload = {
+  reviewer_id: string;
+  assigned: number;
+  in_review: number;
+  overdue: number;
+  total_open: number;
+};
+
 export type ContentArtifact = {
   artifact_id: string;
   scope_id: string;
@@ -143,8 +190,45 @@ export function fetchContentFactoryRuns() {
   return fetchApi<GenerationRun[]>("/admin/content-factory/runs");
 }
 
-export function fetchContentFactoryReviewQueue() {
-  return fetchApi<ContentArtifact[]>("/admin/content-factory/review-queue");
+export function fetchContentFactoryReviewQueue(params: Record<string, string> = {}) {
+  const query = new URLSearchParams(params).toString();
+  return fetchApi<ReviewQueuePage>(`/admin/content-factory/review-queue${query ? `?${query}` : ""}`);
+}
+
+export function fetchReviewBundle(artifactId: string) {
+  return fetchApi<ReviewBundle>(`/admin/content-factory/artifacts/${artifactId}/review-bundle`);
+}
+
+export function bulkApproveReview(artifactIds: string[], notes: string) {
+  return fetchApi<BulkReviewResponse>("/admin/content-factory/review/bulk-approve", {
+    method: "POST",
+    body: JSON.stringify({ artifact_ids: artifactIds, notes }),
+  });
+}
+
+export function bulkRejectReview(artifactIds: string[], reason: string) {
+  return fetchApi<BulkReviewResponse>("/admin/content-factory/review/bulk-reject", {
+    method: "POST",
+    body: JSON.stringify({ artifact_ids: artifactIds, reason }),
+  });
+}
+
+export function bulkQuarantineReview(artifactIds: string[], reason: string) {
+  return fetchApi<BulkReviewResponse>("/admin/content-factory/review/bulk-quarantine", {
+    method: "POST",
+    body: JSON.stringify({ artifact_ids: artifactIds, reason }),
+  });
+}
+
+export function assignReviewBatch(artifactIds: string[], reviewerId: string) {
+  return fetchApi<BulkReviewResponse>("/admin/content-factory/review-assignments/bulk", {
+    method: "POST",
+    body: JSON.stringify({ artifact_ids: artifactIds, reviewer_id: reviewerId }),
+  });
+}
+
+export function fetchReviewerWorkload(reviewerId: string) {
+  return fetchApi<ReviewerWorkload>(`/admin/content-factory/reviewers/${reviewerId}/workload`);
 }
 
 export function fetchAdminEtlStatus() {
