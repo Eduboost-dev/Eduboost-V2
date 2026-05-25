@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import GenerationRunsPanel from "./GenerationRunsPanel";
+import ReviewQueuePanel from "./ReviewQueuePanel";
 import StagingReadinessPanel from "./StagingReadinessPanel";
 import {
   fetchAdminEtlStatus,
@@ -9,7 +10,7 @@ import {
   fetchContentFactoryReviewQueue,
   fetchContentFactoryRuns,
   fetchContentFactoryScopes,
-  type ContentArtifact,
+  type ReviewQueuePage,
   type ContentScope,
   type EtlStatus,
   type GenerationRun,
@@ -20,7 +21,7 @@ type DashboardState = {
   scopes: ContentScope[];
   coverage: ScopeCoverageReport | null;
   runs: GenerationRun[];
-  reviewQueue: ContentArtifact[];
+  reviewQueue: ReviewQueuePage | null;
   etlStatus: EtlStatus | null;
 };
 
@@ -28,7 +29,7 @@ const emptyState: DashboardState = {
   scopes: [],
   coverage: null,
   runs: [],
-  reviewQueue: [],
+  reviewQueue: null,
   etlStatus: null,
 };
 
@@ -80,13 +81,15 @@ export default function ContentFactoryLiveDashboard() {
         <section className="grid gap-4 md:grid-cols-4">
           <Metric label="Scopes" value={state.scopes.length} />
           <Metric label="Runs" value={state.runs.length} />
-          <Metric label="Review Queue" value={state.reviewQueue.length} />
+          <Metric label="Review Queue" value={state.reviewQueue?.total ?? 0} />
           <Metric label="ETL" value={state.etlStatus?.status ?? "unknown"} />
         </section>
 
         <StagingReadinessPanel />
 
         <GenerationRunsPanel runs={state.runs} />
+
+        <ReviewQueuePanel />
 
         <section className="grid gap-6 lg:grid-cols-2">
           <Panel title="Scope Coverage">
