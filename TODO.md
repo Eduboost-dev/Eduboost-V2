@@ -194,7 +194,7 @@ Current warnings to track:
 | Runtime DB migration proof | [ ] open |
 | Backup/restore/rollback drill | [ ] open |
 | Legal/security approval | [external] open |
-| CAPS launch-slice content gate | [x] green for Grade 4 Mathematics launch slice; refreshed Content Factory foundation is [verify] pending CI/staging/educator proof |
+| CAPS launch-slice content gate | [x] green for Grade 4 Mathematics launch slice; refreshed Content Factory scope registry is [verify] pending CI/staging/educator proof |
 | Billing/notifications decision | [ ] open |
 | Controlled beta go/no-go | [external] open |
 | Public beta / production launch | [blocked] blocked |

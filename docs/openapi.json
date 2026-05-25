@@ -704,6 +704,80 @@
         "title": "ContentFactoryHealthResponse",
         "type": "object"
       },
+      "ContentScope": {
+        "additionalProperties": false,
+        "properties": {
+          "caps_refs": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Caps Refs",
+            "type": "array"
+          },
+          "curriculum": {
+            "minLength": 1,
+            "title": "Curriculum",
+            "type": "string"
+          },
+          "grade": {
+            "maximum": 12.0,
+            "minimum": 0.0,
+            "title": "Grade",
+            "type": "integer"
+          },
+          "language": {
+            "maxLength": 8,
+            "minLength": 2,
+            "title": "Language",
+            "type": "string"
+          },
+          "scope_id": {
+            "minLength": 1,
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ContentScopeStatus"
+          },
+          "subject": {
+            "minLength": 1,
+            "title": "Subject",
+            "type": "string"
+          },
+          "subject_code": {
+            "minLength": 1,
+            "title": "Subject Code",
+            "type": "string"
+          },
+          "topic_map_path": {
+            "minLength": 1,
+            "title": "Topic Map Path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope_id",
+          "grade",
+          "subject_code",
+          "subject",
+          "language",
+          "curriculum",
+          "status",
+          "topic_map_path"
+        ],
+        "title": "ContentScope",
+        "type": "object"
+      },
+      "ContentScopeStatus": {
+        "enum": [
+          "draft",
+          "active",
+          "deprecated",
+          "archived"
+        ],
+        "title": "ContentScopeStatus",
+        "type": "string"
+      },
       "CorrectionRequestLegacyBody": {
         "properties": {
           "fields": {
@@ -835,6 +909,34 @@
           "overall_avg_quality_score"
         ],
         "title": "CoverageSummary",
+        "type": "object"
+      },
+      "CoverageTarget": {
+        "additionalProperties": false,
+        "properties": {
+          "caps_ref": {
+            "minLength": 1,
+            "title": "Caps Ref",
+            "type": "string"
+          },
+          "scope_id": {
+            "minLength": 1,
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "targets": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Targets",
+            "type": "object"
+          }
+        },
+        "required": [
+          "scope_id",
+          "caps_ref"
+        ],
+        "title": "CoverageTarget",
         "type": "object"
       },
       "DiagnosticAnswer": {
@@ -2649,6 +2751,134 @@
           }
         ],
         "summary": "Get Artifact Provenance",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/scopes": {
+      "get": {
+        "operationId": "list_content_scopes_api_v2_admin_content_factory_scopes_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ContentScope"
+                  },
+                  "title": "Response List Content Scopes Api V2 Admin Content Factory Scopes Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Content Scopes",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/scopes/{scope_id}": {
+      "get": {
+        "operationId": "get_content_scope_api_v2_admin_content_factory_scopes__scope_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentScope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Content Scope",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/scopes/{scope_id}/targets": {
+      "get": {
+        "operationId": "get_content_scope_targets_api_v2_admin_content_factory_scopes__scope_id__targets_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CoverageTarget"
+                  },
+                  "title": "Response Get Content Scope Targets Api V2 Admin Content Factory Scopes  Scope Id  Targets Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Content Scope Targets",
         "tags": [
           "admin-content-factory"
         ]
@@ -6597,6 +6827,134 @@
           }
         ],
         "summary": "Get Artifact Provenance",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/scopes": {
+      "get": {
+        "operationId": "list_content_scopes_v2_admin_content_factory_scopes_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ContentScope"
+                  },
+                  "title": "Response List Content Scopes V2 Admin Content Factory Scopes Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Content Scopes",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/scopes/{scope_id}": {
+      "get": {
+        "operationId": "get_content_scope_v2_admin_content_factory_scopes__scope_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentScope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Content Scope",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/scopes/{scope_id}/targets": {
+      "get": {
+        "operationId": "get_content_scope_targets_v2_admin_content_factory_scopes__scope_id__targets_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CoverageTarget"
+                  },
+                  "title": "Response Get Content Scope Targets V2 Admin Content Factory Scopes  Scope Id  Targets Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Content Scope Targets",
         "tags": [
           "admin-content-factory"
         ]
