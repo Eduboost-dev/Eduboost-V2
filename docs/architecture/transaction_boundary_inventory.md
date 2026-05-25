@@ -1,6 +1,6 @@
 # Transaction Boundary Inventory
 
-Generated at: `2026-05-22T14:26:10Z`
+Generated at: `2026-05-24T20:46:59Z`
 
 Candidate count: `96`
 Critical candidate count: `47`
@@ -14,8 +14,8 @@ Policy: Multi-write candidates remain not-proven until rollback/integration test
 | `app/api_v2_routers/consent.py` | `revoke_consent` | 69 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `revoke` | `-` |
 | `app/api_v2_routers/diagnostics.py` | `submit_diagnostic` | 81 | `multi-write-candidate-not-proven` | `diagnostics_response` | `upsert` | `-` |
 | `app/api_v2_routers/gamification.py` | `award_xp` | 46 | `multi-write-candidate-not-proven` | `lesson_completion` | `commit` | `-` |
-| `app/api_v2_routers/learners.py` | `create_learner` | 24 | `single-mutation-candidate` | `-` | `create` | `-` |
-| `app/api_v2_routers/learners.py` | `request_erasure` | 122 | `single-mutation-candidate` | `-` | `delete` | `-` |
+| `app/api_v2_routers/learners.py` | `create_learner` | 25 | `single-mutation-candidate` | `-` | `create` | `-` |
+| `app/api_v2_routers/learners.py` | `request_erasure` | 123 | `single-mutation-candidate` | `-` | `delete` | `-` |
 | `app/api_v2_routers/parents.py` | `get_parent_trust_dashboard` | 105 | `multi-write-candidate-not-proven` | `lesson_completion` | `execute` | `-` |
 | `app/api_v2_routers/parents.py` | `get_learner_progress` | 219 | `single-mutation-candidate` | `-` | `execute` | `-` |
 | `app/api_v2_routers/parents.py` | `request_erasure` | 271 | `single-mutation-candidate` | `-` | `delete` | `-` |

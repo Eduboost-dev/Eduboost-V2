@@ -1,9 +1,9 @@
 # Production Frontend Runtime Status
 
-Generated at: `2026-05-22T14:25:53Z`
-Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+Generated at: `2026-05-24T20:46:45Z`
+Commit: `f8e0b6cba09123135c9c4af0611f35c4bb2163ca`
 
-**Status:** `runtime-preflight-passing`
+**Status:** `runtime-preflight-not-proven`
 
 ## Compose config preflight
 
@@ -25,7 +25,7 @@ Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 | `Dockerfile contains standalone runtime copy` | True | .next/standalone |
 | `Dockerfile uses port 3050` | True | EXPOSE/PORT 3050 |
 | `Next config exists` | True | app/frontend/next.config.js |
-| `Next config output standalone` | True | output: 'standalone' |
+| `Next config output standalone` | False | output: 'standalone' |
 | `nginx proxies to frontend:3050` | True | proxy_pass frontend:3050 |
 | `nginx cert paths use /etc/letsencrypt` | True | ssl_certificate path |
 
@@ -45,6 +45,7 @@ Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 
 ## Blockers
 
+- Next config output standalone
 - runtime evidence: Docker compose config result pending
 - runtime evidence: Frontend image build result pending
 - runtime evidence: Runtime container result pending

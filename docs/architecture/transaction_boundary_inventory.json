@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-22T14:26:10Z",
+  "generated_at": "2026-05-24T20:46:59Z",
   "scan_roots": [
     "app/api_v2_routers",
     "app/services",
@@ -72,7 +72,7 @@
     {
       "file": "app/api_v2_routers/learners.py",
       "function": "create_learner",
-      "lineno": 24,
+      "lineno": 25,
       "mutation_calls": [
         "create"
       ],
@@ -83,7 +83,7 @@
     {
       "file": "app/api_v2_routers/learners.py",
       "function": "request_erasure",
-      "lineno": 122,
+      "lineno": 123,
       "mutation_calls": [
         "delete"
       ],

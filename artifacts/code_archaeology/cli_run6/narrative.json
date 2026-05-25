@@ -1,0 +1,85 @@
+{
+  "title": "Code Archaeology: Git",
+  "tagline": "An expedition.",
+  "chapters": [
+    {
+      "epoch_name": "Foundation",
+      "heading": "Chapter: Foundation",
+      "body": "This epoch (Foundation) had 137 commits.",
+      "pull_quote": "137 commits — Foundation.",
+      "risk_callout": null,
+      "themes": [
+        "documentation",
+        "ci_cd",
+        "architecture",
+        "popia_compliance",
+        "auth"
+      ],
+      "velocity_note": ""
+    },
+    {
+      "epoch_name": "V2 Architecture Migration",
+      "heading": "Chapter: V2 Architecture Migration",
+      "body": "This epoch (V2 Architecture Migration) had 54 commits.",
+      "pull_quote": "54 commits — V2 Architecture Migration.",
+      "risk_callout": null,
+      "themes": [
+        "ci_cd",
+        "architecture",
+        "documentation",
+        "auth",
+        "popia_compliance"
+      ],
+      "velocity_note": ""
+    },
+    {
+      "epoch_name": "Production Readiness",
+      "heading": "Chapter: Production Readiness",
+      "body": "This epoch (Production Readiness) had 434 commits.",
+      "pull_quote": "434 commits — Production Readiness.",
+      "risk_callout": null,
+      "themes": [
+        "documentation",
+        "ci_cd",
+        "production_ready",
+        "bugfix",
+        "popia_compliance"
+      ],
+      "velocity_note": ""
+    },
+    {
+      "epoch_name": "CAPS Grade 4 Item Bank",
+      "heading": "Chapter: CAPS Grade 4 Item Bank",
+      "body": "This epoch (CAPS Grade 4 Item Bank) had 56 commits.",
+      "pull_quote": "56 commits — CAPS Grade 4 Item Bank.",
+      "risk_callout": null,
+      "themes": [
+        "ci_cd",
+        "documentation",
+        "security",
+        "diagnostics",
+        "popia_compliance"
+      ],
+      "velocity_note": ""
+    },
+    {
+      "epoch_name": "PR Integration & Release Prep",
+      "heading": "Chapter: PR Integration & Release Prep",
+      "body": "This epoch (PR Integration & Release Prep) had 41 commits.",
+      "pull_quote": "41 commits — PR Integration & Release Prep.",
+      "risk_callout": null,
+      "themes": [
+        "ci_cd",
+        "documentation",
+        "production_ready",
+        "popia_compliance",
+        "architecture"
+      ],
+      "velocity_note": ""
+    }
+  ],
+  "epilogue": "Epilogue.",
+  "metadata": {
+    "mode": "template"
+  }
+}

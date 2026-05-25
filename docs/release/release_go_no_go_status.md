@@ -1,7 +1,7 @@
 # Release Go/No-Go Status
 
-Generated at: `2026-05-24T20:41:36Z`
-Commit: `072c0678b1090169f2dbaac61ebaef4d636856d6`
+Generated at: `2026-05-24T20:46:47Z`
+Commit: `f8e0b6cba09123135c9c4af0611f35c4bb2163ca`
 
 **Decision:** `NO-GO`
 
@@ -24,7 +24,7 @@ Commit: `072c0678b1090169f2dbaac61ebaef4d636856d6`
 | `EXT-GATE-001` | `runtime-passing` | True | False | external approval remains incomplete | `docs/release/external_approval_status.md` |
 | `LEGAL-001` | `external-blocked` | True | False | external approval remains incomplete | `docs/release/external_approvals/legal_approval.md` |
 | `SEC-001` | `external-blocked` | True | False | external approval remains incomplete | `docs/release/external_approvals/security_approval.md` |
-| `STAGING-001` | `external-blocked` | True | False | external approval remains incomplete | `docs/release/staging_smoke_evidence.md` |
+| `STAGING-001` | `external-blocked` | True | False | external approval remains incomplete | `docs/release/external_approvals/staging_acceptance.md` |
 | `JWT-001` | `not-proven` | True | False | external approval remains incomplete | `docs/release/jwt_secret_rotation_evidence_status.md` |
 | `JWT-001R` | `not-proven` | True | False | external approval remains incomplete | `docs/release/jwt_secret_rotation_evidence_status.md` |
 

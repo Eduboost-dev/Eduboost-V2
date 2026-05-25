@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-24T20:43:31.177699+00:00`
+- generated_at_utc: `2026-05-24T20:46:47.235687+00:00`
 - branch: `code-archaeology`
-- commit: `072c0678b1090169f2dbaac61ebaef4d636856d6`
-- release_candidate: `beta-072c067`
+- commit: `f8e0b6cba09123135c9c4af0611f35c4bb2163ca`
+- release_candidate: `beta-f8e0b6c`
 
 ## Tagging Convention
 
@@ -26,8 +26,8 @@
 ## Example Commands
 
 ```bash
-git tag -a beta-072c067 -m "Beta release candidate beta-072c067"
-git push origin beta-072c067
+git tag -a beta-f8e0b6c -m "Beta release candidate beta-f8e0b6c"
+git push origin beta-f8e0b6c
 ```
 
 ## Safety Boundary

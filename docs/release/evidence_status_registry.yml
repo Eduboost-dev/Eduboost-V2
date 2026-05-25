@@ -139,12 +139,12 @@ findings:
     severity: P1
     gate: 5
     owner: legal
-    implementation_batch: code_1991_2030
+    implementation_batch: code_1791_1830
     proof_status: external-blocked
-    proof_command: make approval-evidence-release-check
+    proof_command: make external-approval-release-check after approval metadata is attached
     evidence_file: docs/release/external_approvals/legal_approval.md
     last_verified_commit: null
-    closure_blocker: approval metadata and evidence URL required
+    closure_blocker: external approval sign-off metadata required
     blocks_beta: true
     external_dependency: true
   - id: SEC-001
@@ -152,12 +152,12 @@ findings:
     severity: P1
     gate: 5
     owner: security
-    implementation_batch: code_1991_2030
+    implementation_batch: code_1791_1830
     proof_status: external-blocked
-    proof_command: make approval-evidence-release-check
+    proof_command: make external-approval-release-check after approval metadata is attached
     evidence_file: docs/release/external_approvals/security_approval.md
     last_verified_commit: null
-    closure_blocker: approval metadata and evidence URL required
+    closure_blocker: external approval sign-off metadata required
     blocks_beta: true
     external_dependency: true
   - id: CONTENT-001
@@ -165,12 +165,12 @@ findings:
     severity: P1
     gate: 5
     owner: content
-    implementation_batch: code_1991_2030
+    implementation_batch: code_1791_1830
     proof_status: external-blocked
-    proof_command: make approval-evidence-release-check
+    proof_command: make external-approval-release-check after approval metadata is attached
     evidence_file: docs/release/external_approvals/content_approval.md
     last_verified_commit: null
-    closure_blocker: approval metadata and evidence URL required
+    closure_blocker: external approval sign-off metadata required
     blocks_beta: true
     external_dependency: true
   - id: LESSON-AUTH-001
@@ -342,7 +342,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1791-1830-full-check
     evidence_file: docs/release/external_approval_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: f8e0b6cba09123135c9c4af0611f35c4bb2163ca
     closure_blocker: required external approval items remain external-blocked until signed off
     blocks_beta: true
     external_dependency: true
@@ -381,7 +381,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1911-1950-full-check
     evidence_file: docs/release/staging_acceptance_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: f8e0b6cba09123135c9c4af0611f35c4bb2163ca
     closure_blocker: scaffold only; STAGING-001 remains external-blocked until real staging evidence is attached
     blocks_beta: false
     external_dependency: false
@@ -420,7 +420,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2031-2070-full-check
     evidence_file: docs/release/route_transaction_implementation_plan.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: f8e0b6cba09123135c9c4af0611f35c4bb2163ca
     closure_blocker: plan only; 15 route transaction wiring actions remain until implemented and proven
     blocks_beta: false
     external_dependency: false
@@ -433,7 +433,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2071-2110-full-check
     evidence_file: docs/release/auth_route_transaction_slice_report.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: f8e0b6cba09123135c9c4af0611f35c4bb2163ca
     closure_blocker: live DB rollback proof remains external-blocked for this slice
     blocks_beta: false
     external_dependency: false
@@ -446,7 +446,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2111-2150-full-check
     evidence_file: docs/release/popia_route_transaction_slice_report.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: f8e0b6cba09123135c9c4af0611f35c4bb2163ca
     closure_blocker: live DB rollback proof remains external-blocked for this slice
     blocks_beta: false
     external_dependency: false
@@ -459,7 +459,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2111-2150R-full-check
     evidence_file: docs/release/popia_route_transaction_gap_plan.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: f8e0b6cba09123135c9c4af0611f35c4bb2163ca
     closure_blocker: repair only; implementation gaps remain until source local status passes
     blocks_beta: false
     external_dependency: false
@@ -485,7 +485,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2191-2230-full-check
     evidence_file: docs/release/route_transaction_slice_rollup.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: f8e0b6cba09123135c9c4af0611f35c4bb2163ca
     closure_blocker: rollup only; TX-ROUTE-001 remains blocked while local/live DB gaps remain
     blocks_beta: false
     external_dependency: false
@@ -498,7 +498,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2231-2270-full-check
     evidence_file: docs/release/live_db_transaction_evidence_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: f8e0b6cba09123135c9c4af0611f35c4bb2163ca
     closure_blocker: scaffold only; live DB evidence aggregate status is external-blocked
     blocks_beta: false
     external_dependency: false
@@ -511,7 +511,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2271-2310-full-check
     evidence_file: docs/release/final_beta_gate_refresh.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: f8e0b6cba09123135c9c4af0611f35c4bb2163ca
     closure_blocker: refresh only; generated beta decision is NO-GO
     blocks_beta: false
     external_dependency: false
@@ -524,7 +524,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2311-2350-full-check
     evidence_file: docs/release/evidence_attachment_runbook.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: f8e0b6cba09123135c9c4af0611f35c4bb2163ca
     closure_blocker: runbook only; real evidence must still be attached before beta GO
     blocks_beta: false
     external_dependency: false
@@ -550,7 +550,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2431-2470-full-check
     evidence_file: docs/release/production_frontend_deployment_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: f8e0b6cba09123135c9c4af0611f35c4bb2163ca
     closure_blocker: config only; real staging deployment/browser smoke still required
     blocks_beta: false
     external_dependency: false
@@ -560,10 +560,10 @@ findings:
     gate: 5
     owner: platform
     implementation_batch: code_2471_2510
-    proof_status: runtime-passing
+    proof_status: not-proven
     proof_command: make backend-implementation-2471-2510-full-check
     evidence_file: docs/release/production_frontend_runtime_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: null
     closure_blocker: local preflight only unless runtime evidence is accepted
     blocks_beta: false
     external_dependency: false

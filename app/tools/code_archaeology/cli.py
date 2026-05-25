@@ -126,8 +126,13 @@ def main(argv: list[str] | None = None) -> int:
         tpl_path = repo_tpl if repo_tpl.exists() else (TEMPLATES_PATH / "report_base.html")
         if tpl_path.exists():
             tpl = tpl_path.read_text(encoding="utf-8")
-            start = tpl.find("<main>")
+            start = tpl.find("<main")
             end = tpl.find("</main>")
+            if start != -1:
+                # find end of opening <main ...> tag
+                ob = tpl.find('>', start)
+                if ob != -1:
+                    start = ob + 1
             if start != -1 and end != -1 and end > start:
                 # Build a richer injection: links to JSON artifacts and a JS object
                 # so the template (or client-side code) can fetch and render charts.
@@ -135,27 +140,31 @@ def main(argv: list[str] | None = None) -> int:
                 tl_name = tl_path.name
                 nar_name = narrative_path.name
                 md_name = md_path.name
-                pre = (
-                    f"<main>\n<h1>Code Archaeology — {repo.name}</h1>\n"
-                    f"<p>Generated: {timeline.generated_at}</p>\n"
-                    "<section id=\"report-links\">\n"
-                    "<h2>Report Artifacts</h2>\n<ul>\n"
-                    f"<li><a href=\"{ing_name}\">{ing_name}</a></li>\n"
-                    f"<li><a href=\"{tl_name}\">{tl_name}</a></li>\n"
-                    f"<li><a href=\"{nar_name}\">{nar_name}</a></li>\n"
-                    f"<li><a href=\"{md_name}\">{md_name}</a></li>\n"
-                    "</ul>\n</section>\n"
-                    "<section id=\"narrative\">\n<pre>"
-                    f"{_escape(narrative_md)}"
-                    "</pre>\n</section>\n"
-                    "<script>\n"
-                        "// Structured report descriptor available to client-side scripts\n"
-                        f"window.__CA_REPORT = {{ ingestion: \"{ing_name}\", timeline: \"{tl_name}\", narrative: \"{nar_name}\", narrative_md: \"{md_name}\" }};\n"
-                        "window.__CA_REPORT.urls = window.__CA_REPORT.urls || {};\n"
-                        + (f"window.__CA_REPORT.urls = {{ ingestion: \"{public_base + ing_name}\", timeline: \"{public_base + tl_name}\", narrative: \"{public_base + nar_name}\", narrative_md: \"{public_base + md_name}\" }};\n" if public_base else "")
-                        "</script>\n"
-                    "</main>"
+                urls_js = (
+                    f"window.__CA_REPORT.urls = {{ ingestion: \"{public_base + ing_name}\", timeline: \"{public_base + tl_name}\", narrative: \"{public_base + nar_name}\", narrative_md: \"{public_base + md_name}\" }};\n"
+                    if public_base else ""
                 )
+                pre = f"""<main>
+<h1>Code Archaeology — {repo.name}</h1>
+<p>Generated: {timeline.generated_at}</p>
+<section id="report-links">
+<h2>Report Artifacts</h2>
+<ul>
+<li><a href="{ing_name}">{ing_name}</a></li>
+<li><a href="{tl_name}">{tl_name}</a></li>
+<li><a href="{nar_name}">{nar_name}</a></li>
+<li><a href="{md_name}">{md_name}</a></li>
+</ul>
+</section>
+<section id="narrative"><pre>{_escape(narrative_md)}</pre>
+</section>
+<script>
+// Structured report descriptor available to client-side scripts
+window.__CA_REPORT = {{ ingestion: "{ing_name}", timeline: "{tl_name}", narrative: "{nar_name}", narrative_md: "{md_name}" }};
+window.__CA_REPORT.urls = window.__CA_REPORT.urls || {{}};
+{urls_js}
+</script>
+</main>"""
                 html_out = tpl[:start] + pre + tpl[end + len("</main>") :]
             else:
                 html_out = tpl.replace("</body>", f"<pre>{_escape(narrative_md)}</pre></body>")

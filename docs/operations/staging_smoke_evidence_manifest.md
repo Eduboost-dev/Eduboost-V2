@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-24T20:43:32.008091+00:00`
+- generated_at_utc: `2026-05-24T20:46:56.914256+00:00`
 - branch: `code-archaeology`
-- commit: `072c0678b1090169f2dbaac61ebaef4d636856d6`
+- commit: `f8e0b6cba09123135c9c4af0611f35c4bb2163ca`
 - target_environment: `test`
 
 ## Required Smoke Checks

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-22T14:25:56Z",
-  "current_commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
+  "generated_at": "2026-05-24T20:46:49Z",
+  "current_commit": "f8e0b6cba09123135c9c4af0611f35c4bb2163ca",
   "source_report": "docs/release/diagnostics_route_transaction_slice_report.json",
   "source_local_status": "route-diagnostics-delegation-not-proven",
   "source_live_db_status": "external-blocked",
