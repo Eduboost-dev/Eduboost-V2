@@ -74,7 +74,7 @@ def upgrade() -> None:
             ),
             sa.Column(
                 "purpose",
-                sa.Enum("password_reset", "email_verify", name="tokenpurpose"),
+                tokenpurpose,
                 nullable=False,
             ),
             sa.Column("token_hash", sa.String(256), nullable=False),

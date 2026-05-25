@@ -115,5 +115,8 @@ def test_openapi_includes_admin_content_factory_contract() -> None:
     tag_names = {tag["name"] for tag in schema["tags"]}
     assert "admin-content-factory" in tag_names
     assert "/api/v2/admin/content-factory/health" in schema["paths"]
+    assert "/api/v2/admin/content-factory/scopes" in schema["paths"]
+    assert "/api/v2/admin/content-factory/scopes/{scope_id}" in schema["paths"]
+    assert "/api/v2/admin/content-factory/scopes/{scope_id}/targets" in schema["paths"]
     assert "/api/v2/admin/content-factory/validate-artifact" in schema["paths"]
     assert "/api/v2/content-factory/health" not in schema["paths"]

@@ -17,10 +17,10 @@ branch_labels = None
 depends_on = None
 
 
-content_scope_status = sa.Enum("draft", "active", "paused", "retired", name="content_scope_status")
-content_layer = sa.Enum("diagnostic_items", "lessons", "assessment_blueprints", "study_plan_templates", name="content_layer")
-content_artifact_type = sa.Enum("diagnostic_item", "lesson", "assessment_blueprint", "study_plan_template", "rubric", "remediation_path", name="content_artifact_type")
-content_artifact_status = sa.Enum(
+content_scope_status = postgresql.ENUM("draft", "active", "paused", "retired", name="content_scope_status", create_type=False)
+content_layer = postgresql.ENUM("diagnostic_items", "lessons", "assessment_blueprints", "study_plan_templates", name="content_layer", create_type=False)
+content_artifact_type = postgresql.ENUM("diagnostic_item", "lesson", "assessment_blueprint", "study_plan_template", "rubric", "remediation_path", name="content_artifact_type", create_type=False)
+content_artifact_status = postgresql.ENUM(
     "draft",
     "generated",
     "validation_failed",
@@ -33,8 +33,9 @@ content_artifact_status = sa.Enum(
     "quarantined",
     "generation_failed",
     name="content_artifact_status",
+    create_type=False,
 )
-content_review_action = sa.Enum("approve", "reject", "quarantine", "request_changes", name="content_review_action")
+content_review_action = postgresql.ENUM("approve", "reject", "quarantine", "request_changes", name="content_review_action", create_type=False)
 
 
 def upgrade() -> None:

@@ -135,3 +135,61 @@ class ContentArtifactReviewResponse(BaseModel):
     artifact_id: uuid.UUID
     review_action: str
     reviewer_id: str | None
+
+class ContentGenerationRunCreateRequest(BaseModel):
+    scope_id: str
+    layers: list[ContentLayer] = Field(default_factory=lambda: [ContentLayer.DIAGNOSTIC_ITEMS, ContentLayer.LESSONS])
+    dry_run: bool = True
+    budget_cap: float | None = Field(default=None, ge=0)
+    max_concurrency: int = Field(default=1, ge=1, le=20)
+
+
+class ContentGenerationRunResponse(BaseModel):
+    run_id: uuid.UUID
+    scope_id: str
+    status: str
+    requested_by: str | None = None
+    run_metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class ContentGenerationTaskResponse(BaseModel):
+    task_id: uuid.UUID
+    run_id: uuid.UUID
+    scope_id: str
+    caps_ref: str | None
+    content_layer: str
+    status: str
+    attempt_number: int = 1
+    max_attempts: int = 3
+    output_artifact_ids: list[str] = Field(default_factory=list)
+    validation_failures: list[str] = Field(default_factory=list)
+
+
+class ContentFactoryActionRequest(BaseModel):
+    reason: str | None = None
+    notes: str | None = None
+
+
+class ContentFactoryActionResponse(BaseModel):
+    artifact_id: uuid.UUID | None = None
+    previous_status: str | None = None
+    new_status: str | None = None
+    status: str | None = None
+    errors: list[str] = Field(default_factory=list)
+    summary: dict[str, Any] = Field(default_factory=dict)
+
+
+class ContentSeedRunResponse(BaseModel):
+    seed_run_id: uuid.UUID
+    scope_id: str
+    dry_run: bool
+    status: str
+    summary: dict[str, Any] = Field(default_factory=dict)
+
+
+class ContentFactoryReportResponse(BaseModel):
+    scope_id: str
+    generation_enabled: bool
+    coverage: dict[str, Any]
+    run_count: int
+    review_queue_count: int

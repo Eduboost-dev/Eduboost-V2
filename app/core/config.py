@@ -64,6 +64,8 @@ class Settings(BaseSettings):
     ENVIRONMENT: Literal["development", "test", "staging", "production"] = "development"
     APP_ENV: Literal["development", "test", "staging", "production"] = "development"
     DEBUG: bool = False
+    CONTENT_STARTUP_SEED_ENABLED: bool = False
+    CONTENT_FACTORY_GENERATION_ENABLED: bool = False
     LEGACY_RETIREMENT_DATE: str = "2026-08-01"
 
     # ── Database ─────────────────────────────────────────────────────────────
