@@ -59,3 +59,14 @@ def test_legacy_prefixes_are_not_exposed_by_canonical_runtime() -> None:
     assert [
         path for path in route_paths if path.startswith(forbidden_prefixes)
     ] == []
+
+
+@pytest.mark.unit
+def test_content_factory_scope_openapi_contract_is_admin_only() -> None:
+    schema = app.openapi()
+
+    operations = schema["paths"]["/api/v2/admin/content-factory/scopes"]
+    assert set(operations) == {"get"}
+    assert operations["get"]["tags"] == ["admin-content-factory"]
+    assert "/api/v2/admin/content-factory/scopes/{scope_id}/targets" in schema["paths"]
+    assert "/api/v2/content-factory/scopes" not in schema["paths"]

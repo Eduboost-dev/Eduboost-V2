@@ -18,7 +18,10 @@ from app.domain.content_factory_schemas import (
     ContentFactoryETLStatusResponse,
     ContentFactoryHealthResponse,
 )
+from app.domain.content_coverage import CoverageTarget
+from app.domain.content_scope import ContentScope
 from app.services.content_factory import ContentFactoryService, ContentValidationService
+from app.services.content_scope_registry import ContentScopeRegistry
 
 router = APIRouter(
     route_class=EnvelopedRoute,
@@ -48,6 +51,27 @@ async def etl_status() -> ContentFactoryETLStatusResponse:
             "MCP server wrappers are isolated under tools/etl and are not imported by app startup.",
         ],
     )
+
+
+@router.get("/scopes", response_model=list[ContentScope])
+async def list_content_scopes() -> list[ContentScope]:
+    return ContentScopeRegistry().list_scopes()
+
+
+@router.get("/scopes/{scope_id}", response_model=ContentScope)
+async def get_content_scope(scope_id: str) -> ContentScope:
+    try:
+        return ContentScopeRegistry().get_scope(scope_id)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/scopes/{scope_id}/targets", response_model=list[CoverageTarget])
+async def get_content_scope_targets(scope_id: str) -> list[CoverageTarget]:
+    try:
+        return ContentScopeRegistry().get_scope_targets(scope_id)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
 
 
 @router.post("/validate-artifact", response_model=ContentArtifactValidationResponse)
