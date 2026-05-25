@@ -7,24 +7,27 @@ database connection (uses the `db_session` fixture from the root conftest).
 """
 from __future__ import annotations
 
+import enum
 import pytest
 import pytest_asyncio
 from sqlalchemy import inspect, text
 
 pytestmark = pytest.mark.integration
 
+# ── ORM-derived table list (single source of truth) ───────────────────────────
+# Derived directly from app.models.content_factory so this list stays in sync
+# with the ORM automatically – any new model added there will be caught here.
+import app.models.content_factory as _cf_models  # noqa: E402
+from app.core.database import Base  # noqa: E402
 
-REQUIRED_TABLES = [
-    "content_generation_artifacts",
-    "content_artifact_sources",
-    "content_generation_runs",
-    "content_generation_tasks",
-    "content_seed_runs",
-    "content_promotion_events",
-    "lesson_bank",
-    "assessment_blueprints",
-    "study_plan_templates",
+_CF_ORM_CLASSES = [
+    cls for cls in _cf_models.__dict__.values()
+    if isinstance(cls, type) and issubclass(cls, Base) and hasattr(cls, "__tablename__")
 ]
+
+REQUIRED_TABLES: list[str] = sorted(
+    {cls.__tablename__ for cls in _CF_ORM_CLASSES}
+)
 
 # Spot-check columns in the two tables that received the most schema expansion
 REQUIRED_SOURCE_COLUMNS = [
@@ -39,6 +42,16 @@ REQUIRED_TASK_COLUMNS = [
     "depends_on_task_ids",
     "validation_failures",
     "token_usage",
+]
+
+# ── Enum/status compatibility map: ORM Python enum → DB type name ─────────────
+# Each entry: (Python enum class, expected postgres type name)
+_ENUM_COMPAT_CHECKS: list[tuple[type[enum.Enum], str]] = [
+    (_cf_models.ContentArtifactStatus, "content_artifact_status"),
+    (_cf_models.ContentLayer, "content_layer"),
+    (_cf_models.ContentArtifactType, "content_artifact_type"),
+    (_cf_models.ContentReviewAction, "content_review_action"),
+    (_cf_models.ContentScopeStatus, "content_scope_status"),
 ]
 
 
@@ -116,3 +129,120 @@ async def test_content_generation_artifacts_unique_hash(db_session):
         has_unique = await conn.run_sync(_check)
 
     assert has_unique, "content_generation_artifacts.artifact_hash must have a unique constraint"
+
+
+# ── ORM ↔ migration table name reconciliation ─────────────────────────────────
+
+@pytest.mark.asyncio
+async def test_all_orm_tables_exist_in_db(db_session):
+    """Every __tablename__ declared in app.models.content_factory must exist in the DB.
+
+    This test is auto-derived from the ORM — if a new model is added but
+    its migration is forgotten, this test will catch it.
+    """
+    def _check(conn):
+        inspector = inspect(conn)
+        existing = set(inspector.get_table_names())
+        missing = [t for t in REQUIRED_TABLES if t not in existing]
+        extra_in_list = [t for t in REQUIRED_TABLES if t not in existing]
+        return missing
+
+    async with db_session.bind.connect() as conn:
+        missing = await conn.run_sync(_check)
+
+    assert not missing, (
+        f"ORM-declared tables not found in DB after migration: {missing}. "
+        "Add a migration for these tables."
+    )
+
+
+# ── Enum / status value compatibility ─────────────────────────────────────────
+
+@pytest.mark.asyncio
+async def test_content_artifact_status_enum_matches_db(db_session):
+    """Python ContentArtifactStatus values must exactly match the DB enum type."""
+    py_values = {e.value for e in _cf_models.ContentArtifactStatus}
+    query = text(
+        "SELECT enumlabel FROM pg_enum "
+        "JOIN pg_type ON pg_enum.enumtypid = pg_type.oid "
+        "WHERE pg_type.typname = 'content_artifact_status'"
+    )
+    result = await db_session.execute(query)
+    db_values = {row[0] for row in result.fetchall()}
+
+    missing_in_db = py_values - db_values
+    missing_in_py = db_values - py_values
+    assert not missing_in_db, f"Python enum values not in DB enum: {missing_in_db}"
+    assert not missing_in_py, f"DB enum values not in Python enum: {missing_in_py}"
+
+
+@pytest.mark.asyncio
+async def test_content_layer_enum_matches_db(db_session):
+    """Python ContentLayer values must exactly match the DB enum type."""
+    py_values = {e.value for e in _cf_models.ContentLayer}
+    query = text(
+        "SELECT enumlabel FROM pg_enum "
+        "JOIN pg_type ON pg_enum.enumtypid = pg_type.oid "
+        "WHERE pg_type.typname = 'content_layer'"
+    )
+    result = await db_session.execute(query)
+    db_values = {row[0] for row in result.fetchall()}
+
+    missing_in_db = py_values - db_values
+    missing_in_py = db_values - py_values
+    assert not missing_in_db, f"ContentLayer Python values not in DB: {missing_in_db}"
+    assert not missing_in_py, f"ContentLayer DB values not in Python: {missing_in_py}"
+
+
+@pytest.mark.asyncio
+async def test_content_artifact_type_enum_matches_db(db_session):
+    """Python ContentArtifactType values must exactly match the DB enum type."""
+    py_values = {e.value for e in _cf_models.ContentArtifactType}
+    query = text(
+        "SELECT enumlabel FROM pg_enum "
+        "JOIN pg_type ON pg_enum.enumtypid = pg_type.oid "
+        "WHERE pg_type.typname = 'content_artifact_type'"
+    )
+    result = await db_session.execute(query)
+    db_values = {row[0] for row in result.fetchall()}
+
+    missing_in_db = py_values - db_values
+    missing_in_py = db_values - py_values
+    assert not missing_in_db, f"ContentArtifactType Python values not in DB: {missing_in_db}"
+    assert not missing_in_py, f"ContentArtifactType DB values not in Python: {missing_in_py}"
+
+
+@pytest.mark.asyncio
+async def test_content_review_action_enum_matches_db(db_session):
+    """Python ContentReviewAction values must exactly match the DB enum type."""
+    py_values = {e.value for e in _cf_models.ContentReviewAction}
+    query = text(
+        "SELECT enumlabel FROM pg_enum "
+        "JOIN pg_type ON pg_enum.enumtypid = pg_type.oid "
+        "WHERE pg_type.typname = 'content_review_action'"
+    )
+    result = await db_session.execute(query)
+    db_values = {row[0] for row in result.fetchall()}
+
+    missing_in_db = py_values - db_values
+    missing_in_py = db_values - py_values
+    assert not missing_in_db, f"ContentReviewAction Python values not in DB: {missing_in_db}"
+    assert not missing_in_py, f"ContentReviewAction DB values not in Python: {missing_in_py}"
+
+
+@pytest.mark.asyncio
+async def test_content_scope_status_enum_matches_db(db_session):
+    """Python ContentScopeStatus values must exactly match the DB enum type."""
+    py_values = {e.value for e in _cf_models.ContentScopeStatus}
+    query = text(
+        "SELECT enumlabel FROM pg_enum "
+        "JOIN pg_type ON pg_enum.enumtypid = pg_type.oid "
+        "WHERE pg_type.typname = 'content_scope_status'"
+    )
+    result = await db_session.execute(query)
+    db_values = {row[0] for row in result.fetchall()}
+
+    missing_in_db = py_values - db_values
+    missing_in_py = db_values - py_values
+    assert not missing_in_db, f"ContentScopeStatus Python values not in DB: {missing_in_db}"
+    assert not missing_in_py, f"ContentScopeStatus DB values not in Python: {missing_in_py}"
