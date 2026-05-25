@@ -34,6 +34,7 @@ def test_registered_router_fragments_are_exposed_under_each_v2_prefix() -> None:
         "consent": "/consent",
         "consent_renewal": "/consent",
         "content_factory": "/admin/content-factory",
+        "admin_etl": "/admin/etl",
         "audit": "/audit",
         "popia": "/popia",
         "jobs": "/jobs",
@@ -75,4 +76,10 @@ def test_content_factory_scope_openapi_contract_is_admin_only() -> None:
         schema["paths"]["/api/v2/admin/content-factory/scopes/{scope_id}/coverage"]["get"]["tags"]
         == ["admin-content-factory"]
     )
+    assert "/api/v2/admin/content-factory/runs" in schema["paths"]
+    assert "/api/v2/admin/content-factory/artifacts/{artifact_id}/provenance" in schema["paths"]
+    assert "/api/v2/admin/content-factory/review-queue" in schema["paths"]
+    assert "/api/v2/admin/content-factory/scopes/{scope_id}/seed-staging" in schema["paths"]
+    assert "/api/v2/admin/etl/status" in schema["paths"]
+    assert schema["paths"]["/api/v2/admin/etl/status"]["get"]["tags"] == ["admin-etl"]
     assert "/api/v2/content-factory/scopes" not in schema["paths"]
