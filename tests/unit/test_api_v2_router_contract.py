@@ -80,6 +80,16 @@ def test_content_factory_scope_openapi_contract_is_admin_only() -> None:
     assert "/api/v2/admin/content-factory/artifacts/{artifact_id}/provenance" in schema["paths"]
     assert "/api/v2/admin/content-factory/review-queue" in schema["paths"]
     assert "/api/v2/admin/content-factory/scopes/{scope_id}/seed-staging" in schema["paths"]
+    staging_paths = {
+        "/api/v2/admin/content-factory/staging-verification/all-scopes",
+        "/api/v2/admin/content-factory/staging-verification/runs",
+        "/api/v2/admin/content-factory/staging-verification/runs/{run_id}",
+        "/api/v2/admin/content-factory/scopes/{scope_id}/staging-verification",
+        "/api/v2/admin/content-factory/scopes/{scope_id}/staging-readiness",
+    }
+    assert staging_paths <= set(schema["paths"])
+    assert all(schema["paths"][path][next(iter(schema["paths"][path]))]["tags"] == ["admin-content-factory"] for path in staging_paths)
+    assert not any(path.startswith("/api/v2/content-factory") and "staging" in path for path in schema["paths"])
     assert "/api/v2/admin/etl/status" in schema["paths"]
     assert schema["paths"]["/api/v2/admin/etl/status"]["get"]["tags"] == ["admin-etl"]
     assert "/api/v2/content-factory/scopes" not in schema["paths"]
