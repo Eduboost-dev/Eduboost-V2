@@ -19,7 +19,9 @@ def test_router_registry_has_unique_names() -> None:
 def test_registered_router_fragments_are_exposed_under_each_v2_prefix() -> None:
     route_paths = {route.path for route in app.routes}
     expected_fragments = {
+        "assessments": "/assessments",
         "auth": "/auth",
+        "auth_extended": "/auth",
         "learners": "/learners",
         "lessons": "/lessons",
         "study_plans": "/study-plans",
@@ -31,6 +33,7 @@ def test_registered_router_fragments_are_exposed_under_each_v2_prefix() -> None:
         "billing": "/billing",
         "consent": "/consent",
         "consent_renewal": "/consent",
+        "content_factory": "/admin/content-factory",
         "audit": "/audit",
         "popia": "/popia",
         "jobs": "/jobs",

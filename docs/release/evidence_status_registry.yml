@@ -930,3 +930,22 @@ findings:
     release_ready: false
     blocks_beta: true
     external_dependency: true
+  - id: CONTENT-FACTORY-001
+    title: Refreshed Content Factory ETL provenance foundation
+    severity: P1
+    gate: 8
+    owner: backend
+    implementation_batch: content_factory_refreshed_20260525
+    proof_status: integration-passing
+    proof_command: python3 -m pytest tests/unit/test_content_factory_services.py tests/api/test_content_factory_admin_routes.py tests/unit/test_api_v2_router_contract.py -q --no-cov; python3 scripts/generate_openapi.py && make openapi-check; npm run type-check in app/frontend
+    evidence_file: docs/release/content_factory_refreshed_status.md
+    evidence_url: null
+    workflow_name: null
+    run_id: null
+    last_verified_commit: null
+    verified_by: local
+    date_verified: 2026-05-25
+    closure_blocker: CI, disposable PostgreSQL migration, typed live dashboard conversion, staging seed, educator review, and production rollback evidence still required
+    release_ready: false
+    blocks_beta: false
+    external_dependency: false

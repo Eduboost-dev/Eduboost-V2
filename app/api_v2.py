@@ -199,6 +199,7 @@ OPENAPI_TAGS = [
     {"name": "consent", "description": "POPIA consent collection"},
     {"name": "popia", "description": "POPIA data subject rights"},
     {"name": "jobs", "description": "Background job status"},
+    {"name": "admin-content-factory", "description": "Admin-only content factory and ETL provenance controls"},
 ]
 
 app = FastAPI(
@@ -241,6 +242,7 @@ from app.api_v2_routers import (  # noqa: E402
     billing,
     consent,
     consent_renewal,
+    content_factory,
     diagnostics,
     gamification,
     jobs,
@@ -271,6 +273,7 @@ ROUTER_REGISTRY = (
     ("billing", billing.router),
     ("consent", consent.router),
     ("consent_renewal", consent_renewal.router),
+    ("content_factory", content_factory.router),
     ("popia", popia.router),
     ("jobs", jobs.router),
     ("system", system.router),
