@@ -48,7 +48,15 @@ typecheck:
 	mypy .
 
 migrate:
+	@if [ -n "$$DATABASE_URL" ]; then $(PYTHON) scripts/wait_for_db.py --optional; fi
 	alembic upgrade head
+
+wait-db:
+	$(PYTHON) scripts/wait_for_db.py
+
+migration-smoke:
+	@if [ -n "$$DATABASE_URL" ]; then $(PYTHON) scripts/wait_for_db.py; fi
+	./scripts/smoke_test_migrations.sh
 
 docs:
 	mkdocs serve
