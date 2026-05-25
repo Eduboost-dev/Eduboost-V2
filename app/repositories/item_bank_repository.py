@@ -359,6 +359,8 @@ class ItemBankRepository:
 
     async def upsert(self, data: dict) -> DiagnosticItem:
         data = self._normalise(data)
+        column_keys = {column.key for column in DiagnosticItem.__table__.columns}
+        data = {key: value for key, value in data.items() if key in column_keys}
         item_id = uuid.UUID(data["item_id"]) if isinstance(data["item_id"], str) else data["item_id"]
 
         existing = await self.get_item(item_id)
