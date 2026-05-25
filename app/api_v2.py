@@ -199,7 +199,7 @@ OPENAPI_TAGS = [
     {"name": "consent", "description": "POPIA consent collection"},
     {"name": "popia", "description": "POPIA data subject rights"},
     {"name": "jobs", "description": "Background job status"},
-    {"name": "content_factory", "description": "Admin content factory and ETL provenance controls"},
+    {"name": "admin-content-factory", "description": "Admin-only content factory and ETL provenance controls"},
 ]
 
 app = FastAPI(

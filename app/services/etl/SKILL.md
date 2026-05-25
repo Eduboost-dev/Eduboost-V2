@@ -3,7 +3,7 @@ name: eduboost-etl
 description: >
   Complete guide for working with the Eduboost ETL Document & Training Data Pipeline (Phases 0–12).
   Use this skill whenever a user mentions the Eduboost ETL pipeline, etl_pipeline.py,
-  etl_mcp_server.py, the ETL Admin Dashboard, document ingestion, training data generation,
+  tools/etl/etl_mcp_server.py, the ETL Admin Dashboard, document ingestion, training data generation,
   content gaps, quality validation, or any pipeline operation across the 13-phase roadmap.
   Also triggers for: ingesting documents, running pipeline stages, fixing metadata,
   approving/rejecting content, searching chunks, generating training datasets, exporting
@@ -19,7 +19,7 @@ compatibility:
   files:
     - etl_pipeline.py        # Phases 0–7 base (not in this repo — assumed present)
     - etl_pipeline_v2.py     # Phases 8–12 extensions
-    - etl_mcp_server_v2.py   # 21 MCP tools (stdio + streamable-http)
+    - tools/etl/etl_mcp_server_v2.py   # 21 MCP tools (stdio + streamable-http)
     - ETLAdminDashboard_v2.jsx  # React admin dashboard (Phase 11)
 ---
 
@@ -34,7 +34,7 @@ etl_pipeline.py (Phases 0–7)
 etl_pipeline_v2.py (Phases 8–12)
   └─ EduboostETLv2        ← versioning, FTS, embeddings, training datasets, monitoring
 
-etl_mcp_server_v2.py
+tools/etl/etl_mcp_server_v2.py
   └─ FastMCP server       ← 21 tools wrapping EduboostETLv2
        transport: stdio | streamable-http
 
@@ -148,10 +148,10 @@ All tools accept Pydantic models. Responses are JSON strings. Check `success` fi
 
 ```python
 # Start server
-python etl_mcp_server_v2.py --transport streamable-http --port 8765
+python tools/etl/etl_mcp_server_v2.py --transport streamable-http --port 8765
 
 # Or stdio (Claude Desktop / MCP Inspector)
-python etl_mcp_server_v2.py
+python tools/etl/etl_mcp_server_v2.py
 ```
 
 ### Environment Variables
@@ -282,7 +282,7 @@ To add a new tab:
 eduboost-etl/
 ├── etl_pipeline.py              # Phases 0–7 (base, assumed present)
 ├── etl_pipeline_v2.py           # Phases 8–12 (EduboostETLv2)
-├── etl_mcp_server_v2.py         # MCP server (21 tools)
+├── tools/etl/etl_mcp_server_v2.py         # MCP server (21 tools)
 ├── ETLAdminDashboard_v2.jsx     # React dashboard
 ├── data/
 │   ├── documents/raw/           # Immutable source files

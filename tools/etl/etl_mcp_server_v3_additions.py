@@ -46,7 +46,7 @@ from pydantic import BaseModel, Field, ConfigDict
 # ── Re-use the server singleton from v2 ───────────────────────────────────
 # In production: import `mcp` and `pipeline` from etl_mcp_server_v2
 # Here shown as standalone for clarity.
-from app.services.etl.etl_mcp_server_v2 import mcp, pipeline   # type: ignore
+from tools.etl.etl_mcp_server_v2 import mcp, pipeline   # type: ignore
 
 
 # ===========================================================================
