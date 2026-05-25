@@ -438,10 +438,38 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements/dev.txt
 
+      - name: Wait for database readiness
+        run: python scripts/wait_for_db.py --timeout 60 --interval 2
+
       - name: Run Content Factory migration gate
         run: |
           chmod +x scripts/ci/check_content_factory_migrations.sh
           bash scripts/ci/check_content_factory_migrations.sh
+
+  # -------------------------------------------------------------------------
+  # CONTENT FACTORY UNIT TESTS (static — no DB required)
+  # -------------------------------------------------------------------------
+  content-factory-unit-tests:
+    name: Content Factory Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements/dev.txt
+
+      - name: Run Content Factory static unit tests
+        run: |
+          pytest \
+            tests/unit/test_content_factory_route_security.py \
+            tests/unit/test_content_factory_enums.py \
+            tests/unit/test_content_factory_table_reconciliation.py \
+            -v --tb=short --no-cov
 
   # -------------------------------------------------------------------------
   # POPIA COMPLIANCE TESTS
@@ -525,7 +553,7 @@ jobs:
     name: Production Promotion Gate
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published'
-    needs: [lint, unit-tests, integration-tests, frontend, schema-drift, content-factory-migrations, popia-tests, image-scan, secrets-scan, e2e]
+    needs: [lint, unit-tests, integration-tests, frontend, schema-drift, content-factory-migrations, content-factory-unit-tests, popia-tests, image-scan, secrets-scan, e2e]
     environment: production
     steps:
       - uses: actions/checkout@v4
