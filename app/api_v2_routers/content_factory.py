@@ -1,6 +1,7 @@
 """Admin routes for the ETL-backed Content Factory."""
 from __future__ import annotations
 
+import sys
 import uuid
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -10,125 +11,95 @@ from app.core.database import get_db
 from app.core.envelope_route import EnvelopedRoute
 from app.core.security import require_admin
 from app.domain.content_factory_schemas import (
-    ContentArtifactCreate,
-    ContentArtifactResponse,
-    ContentArtifactReviewRequest,
-    ContentArtifactReviewResponse,
-    ContentValidationReportResponse,
-    SourceBundleValidationRequest,
-    SourceBundleValidationResponse,
+    ContentArtifactProvenanceResponse,
+    ContentArtifactProvenanceSourceResponse,
+    ContentArtifactValidationRequest,
+    ContentArtifactValidationResponse,
+    ContentFactoryETLStatusResponse,
+    ContentFactoryHealthResponse,
 )
-from app.services.content_factory import ContentFactoryService, ETLProvenanceService
+from app.services.content_factory import ContentFactoryService, ContentValidationService
 
 router = APIRouter(
     route_class=EnvelopedRoute,
-    prefix="/content-factory",
-    tags=["content_factory"],
+    prefix="/admin/content-factory",
+    tags=["admin-content-factory"],
     dependencies=[Depends(require_admin)],
 )
 
 
-@router.post("/source-bundles/validate", response_model=SourceBundleValidationResponse)
-async def validate_source_bundle(request: SourceBundleValidationRequest) -> SourceBundleValidationResponse:
-    result = ETLProvenanceService().validate_source_bundle(
+@router.get("/health", response_model=ContentFactoryHealthResponse)
+async def content_factory_health() -> ContentFactoryHealthResponse:
+    return ContentFactoryHealthResponse(
+        status="ok",
+        route_scope="admin",
+        generation_enabled=False,
+    )
+
+
+@router.get("/etl/status", response_model=ContentFactoryETLStatusResponse)
+async def etl_status() -> ContentFactoryETLStatusResponse:
+    return ContentFactoryETLStatusResponse(
+        status="available",
+        pipeline_package="app.services.etl",
+        mcp_runtime_imported=_mcp_runtime_imported(),
+        notes=[
+            "ETL pipeline modules are importable from app.services.etl.",
+            "MCP server wrappers are isolated under tools/etl and are not imported by app startup.",
+        ],
+    )
+
+
+@router.post("/validate-artifact", response_model=ContentArtifactValidationResponse)
+async def validate_artifact_payload(
+    request: ContentArtifactValidationRequest,
+) -> ContentArtifactValidationResponse:
+    result = ContentValidationService().validate_artifact_payload(
+        artifact_json=request.artifact_json,
         caps_ref=request.caps_ref,
         sources=[source.model_dump() for source in request.sources],
+        artifact_type=request.artifact_type.value,
         min_sources=request.min_sources,
-        require_approved_documents=request.require_approved_documents,
-        allow_synthetic_without_source=request.allow_synthetic_without_source,
     )
-    return SourceBundleValidationResponse(
-        passed=result.passed,
-        errors=result.errors,
-        source_snapshot_hash=result.source_snapshot_hash,
+    return ContentArtifactValidationResponse(
+        passed=result["passed"],
+        checks=result["checks"],
+        errors=result["errors"],
+        source_snapshot_hash=result["source_snapshot_hash"],
     )
 
 
-@router.post("/artifacts", response_model=ContentArtifactResponse, status_code=status.HTTP_201_CREATED)
-async def create_artifact(
-    request: ContentArtifactCreate,
-    session: AsyncSession = Depends(get_db),
-) -> ContentArtifactResponse:
-    try:
-        artifact = await ContentFactoryService().create_artifact(
-            session,
-            payload=request.model_dump(mode="json"),
-        )
-    except (KeyError, ValueError) as exc:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
-    return _artifact_response(artifact)
-
-
-@router.get("/artifacts/{artifact_id}", response_model=ContentArtifactResponse)
-async def get_artifact(
+@router.get("/provenance/{artifact_id}", response_model=ContentArtifactProvenanceResponse)
+async def get_artifact_provenance(
     artifact_id: uuid.UUID,
     session: AsyncSession = Depends(get_db),
-) -> ContentArtifactResponse:
+) -> ContentArtifactProvenanceResponse:
     try:
         artifact = await ContentFactoryService().get_artifact(session, artifact_id)
     except LookupError as exc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
-    return _artifact_response(artifact)
 
-
-@router.post("/artifacts/{artifact_id}/validate", response_model=ContentValidationReportResponse)
-async def validate_artifact(
-    artifact_id: uuid.UUID,
-    session: AsyncSession = Depends(get_db),
-) -> ContentValidationReportResponse:
-    try:
-        report = await ContentFactoryService().validate_existing_artifact(session, artifact_id)
-    except LookupError as exc:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
-    return ContentValidationReportResponse(
-        validation_report_id=report.validation_report_id,
-        artifact_id=report.artifact_id,
-        passed=report.passed,
-        checks=report.checks,
-        errors=report.errors,
-    )
-
-
-@router.post("/artifacts/{artifact_id}/reviews", response_model=ContentArtifactReviewResponse)
-async def review_artifact(
-    artifact_id: uuid.UUID,
-    request: ContentArtifactReviewRequest,
-    current_user: dict = Depends(require_admin),
-    session: AsyncSession = Depends(get_db),
-) -> ContentArtifactReviewResponse:
-    try:
-        review = await ContentFactoryService().review_artifact(
-            session,
-            artifact_id=artifact_id,
-            reviewer_id=current_user.get("sub"),
-            review_action=request.review_action,
-            review_reason=request.review_reason,
-            quality_score=request.quality_score,
-        )
-    except LookupError as exc:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
-    except ValueError as exc:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
-
-    return ContentArtifactReviewResponse(
-        review_id=review.review_id,
-        artifact_id=review.artifact_id,
-        review_action=_value(review.review_action),
-        reviewer_id=review.reviewer_id,
-    )
-
-
-def _artifact_response(artifact) -> ContentArtifactResponse:
-    return ContentArtifactResponse(
+    return ContentArtifactProvenanceResponse(
         artifact_id=artifact.artifact_id,
-        scope_id=artifact.scope_id,
-        content_layer=_value(artifact.content_layer),
-        artifact_type=_value(artifact.artifact_type),
-        caps_ref=artifact.caps_ref,
         status=_value(artifact.status),
         artifact_hash=artifact.artifact_hash,
         source_snapshot_hash=artifact.source_snapshot_hash,
+        sources=[
+            ContentArtifactProvenanceSourceResponse(
+                source_document_id=source.source_document_id,
+                source_chunk_id=source.source_chunk_id,
+                curriculum_mapping_id=source.curriculum_mapping_id,
+                source_hash=source.source_hash,
+                source_role=source.source_role,
+                source_metadata=source.source_metadata or {},
+            )
+            for source in artifact.sources
+        ],
     )
+
+
+def _mcp_runtime_imported() -> bool:
+    return any(name.startswith("mcp.") or name == "mcp" for name in sys.modules)
 
 
 def _value(value) -> str:

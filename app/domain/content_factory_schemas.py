@@ -37,6 +37,19 @@ class SourceBundleValidationResponse(BaseModel):
     source_snapshot_hash: str | None
 
 
+class ContentFactoryHealthResponse(BaseModel):
+    status: str
+    route_scope: str
+    generation_enabled: bool = False
+
+
+class ContentFactoryETLStatusResponse(BaseModel):
+    status: str
+    pipeline_package: str
+    mcp_runtime_imported: bool
+    notes: list[str] = Field(default_factory=list)
+
+
 class ContentArtifactCreate(BaseModel):
     scope_id: str
     content_layer: ContentLayer
@@ -60,6 +73,14 @@ class ContentArtifactCreate(BaseModel):
     sources: list[ETLSourceCitation] = Field(default_factory=list)
 
 
+class ContentArtifactValidationRequest(BaseModel):
+    artifact_type: ContentArtifactType
+    artifact_json: dict[str, Any]
+    caps_ref: str | None = None
+    min_sources: int = Field(default=1, ge=0, le=20)
+    sources: list[ETLSourceCitation] = Field(default_factory=list)
+
+
 class ContentArtifactResponse(BaseModel):
     artifact_id: uuid.UUID
     scope_id: str
@@ -77,6 +98,30 @@ class ContentValidationReportResponse(BaseModel):
     passed: bool
     checks: dict[str, Any]
     errors: list[str]
+
+
+class ContentArtifactValidationResponse(BaseModel):
+    passed: bool
+    checks: dict[str, Any]
+    errors: list[str]
+    source_snapshot_hash: str | None
+
+
+class ContentArtifactProvenanceSourceResponse(BaseModel):
+    source_document_id: str
+    source_chunk_id: str | None
+    curriculum_mapping_id: str | None
+    source_hash: str | None
+    source_role: str
+    source_metadata: dict[str, Any]
+
+
+class ContentArtifactProvenanceResponse(BaseModel):
+    artifact_id: uuid.UUID
+    status: str
+    artifact_hash: str
+    source_snapshot_hash: str | None
+    sources: list[ContentArtifactProvenanceSourceResponse]
 
 
 class ContentArtifactReviewRequest(BaseModel):

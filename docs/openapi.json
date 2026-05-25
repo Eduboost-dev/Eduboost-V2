@@ -1,6 +1,71 @@
 {
   "components": {
     "schemas": {
+      "AssessmentAttemptRequest": {
+        "properties": {
+          "learner_id": {
+            "title": "Learner Id",
+            "type": "string"
+          },
+          "responses": {
+            "items": {
+              "$ref": "#/components/schemas/AssessmentAttemptResponseItem"
+            },
+            "title": "Responses",
+            "type": "array"
+          },
+          "time_taken_seconds": {
+            "default": 0,
+            "minimum": 0.0,
+            "title": "Time Taken Seconds",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "learner_id"
+        ],
+        "title": "AssessmentAttemptRequest",
+        "type": "object"
+      },
+      "AssessmentAttemptResponseItem": {
+        "properties": {
+          "answer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Answer"
+          },
+          "item_id": {
+            "title": "Item Id",
+            "type": "string"
+          },
+          "metadata": {
+            "title": "Metadata",
+            "type": "object"
+          },
+          "selected_option": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selected Option"
+          }
+        },
+        "required": [
+          "item_id"
+        ],
+        "title": "AssessmentAttemptResponseItem",
+        "type": "object"
+      },
       "AwardXPRequest": {
         "properties": {
           "event_type": {
@@ -391,6 +456,254 @@
         "title": "ConsentWithdrawRequest",
         "type": "object"
       },
+      "ContentArtifactProvenanceResponse": {
+        "properties": {
+          "artifact_hash": {
+            "title": "Artifact Hash",
+            "type": "string"
+          },
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "source_snapshot_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Snapshot Hash"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/ContentArtifactProvenanceSourceResponse"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "artifact_id",
+          "status",
+          "artifact_hash",
+          "source_snapshot_hash",
+          "sources"
+        ],
+        "title": "ContentArtifactProvenanceResponse",
+        "type": "object"
+      },
+      "ContentArtifactProvenanceSourceResponse": {
+        "properties": {
+          "curriculum_mapping_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Curriculum Mapping Id"
+          },
+          "source_chunk_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Chunk Id"
+          },
+          "source_document_id": {
+            "title": "Source Document Id",
+            "type": "string"
+          },
+          "source_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Hash"
+          },
+          "source_metadata": {
+            "title": "Source Metadata",
+            "type": "object"
+          },
+          "source_role": {
+            "title": "Source Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_document_id",
+          "source_chunk_id",
+          "curriculum_mapping_id",
+          "source_hash",
+          "source_role",
+          "source_metadata"
+        ],
+        "title": "ContentArtifactProvenanceSourceResponse",
+        "type": "object"
+      },
+      "ContentArtifactType": {
+        "enum": [
+          "diagnostic_item",
+          "lesson",
+          "assessment_blueprint",
+          "study_plan_template",
+          "rubric",
+          "remediation_path"
+        ],
+        "title": "ContentArtifactType",
+        "type": "string"
+      },
+      "ContentArtifactValidationRequest": {
+        "properties": {
+          "artifact_json": {
+            "title": "Artifact Json",
+            "type": "object"
+          },
+          "artifact_type": {
+            "$ref": "#/components/schemas/ContentArtifactType"
+          },
+          "caps_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caps Ref"
+          },
+          "min_sources": {
+            "default": 1,
+            "maximum": 20.0,
+            "minimum": 0.0,
+            "title": "Min Sources",
+            "type": "integer"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/ETLSourceCitation"
+            },
+            "title": "Sources",
+            "type": "array"
+          }
+        },
+        "required": [
+          "artifact_type",
+          "artifact_json"
+        ],
+        "title": "ContentArtifactValidationRequest",
+        "type": "object"
+      },
+      "ContentArtifactValidationResponse": {
+        "properties": {
+          "checks": {
+            "title": "Checks",
+            "type": "object"
+          },
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "source_snapshot_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Snapshot Hash"
+          }
+        },
+        "required": [
+          "passed",
+          "checks",
+          "errors",
+          "source_snapshot_hash"
+        ],
+        "title": "ContentArtifactValidationResponse",
+        "type": "object"
+      },
+      "ContentFactoryETLStatusResponse": {
+        "properties": {
+          "mcp_runtime_imported": {
+            "title": "Mcp Runtime Imported",
+            "type": "boolean"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Notes",
+            "type": "array"
+          },
+          "pipeline_package": {
+            "title": "Pipeline Package",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "pipeline_package",
+          "mcp_runtime_imported"
+        ],
+        "title": "ContentFactoryETLStatusResponse",
+        "type": "object"
+      },
+      "ContentFactoryHealthResponse": {
+        "properties": {
+          "generation_enabled": {
+            "default": false,
+            "title": "Generation Enabled",
+            "type": "boolean"
+          },
+          "route_scope": {
+            "title": "Route Scope",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "route_scope"
+        ],
+        "title": "ContentFactoryHealthResponse",
+        "type": "object"
+      },
       "CorrectionRequestLegacyBody": {
         "properties": {
           "fields": {
@@ -688,6 +1001,102 @@
         "title": "DiagnosticSubmit",
         "type": "object"
       },
+      "ETLSourceCitation": {
+        "additionalProperties": true,
+        "properties": {
+          "caps_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caps Ref"
+          },
+          "chunk_quality_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chunk Quality Score"
+          },
+          "curriculum_mapping_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Curriculum Mapping Id"
+          },
+          "document_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Document Status"
+          },
+          "license_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "License Status"
+          },
+          "source_chunk_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Chunk Id"
+          },
+          "source_document_id": {
+            "title": "Source Document Id",
+            "type": "string"
+          },
+          "source_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Hash"
+          },
+          "source_role": {
+            "default": "primary_context",
+            "title": "Source Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_document_id"
+        ],
+        "title": "ETLSourceCitation",
+        "type": "object"
+      },
       "ErasureRequestBody": {
         "properties": {
           "learner_id": {
@@ -724,6 +1133,20 @@
           "learner_id"
         ],
         "title": "ExportRequestBody",
+        "type": "object"
+      },
+      "ForgotPasswordRequest": {
+        "properties": {
+          "email": {
+            "format": "email",
+            "title": "Email",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "title": "ForgotPasswordRequest",
         "type": "object"
       },
       "HTTPValidationError": {
@@ -1175,6 +1598,24 @@
         "title": "OnboardingResult",
         "type": "object"
       },
+      "OnboardingStepUpdate": {
+        "properties": {
+          "step": {
+            "title": "Step",
+            "type": "string"
+          },
+          "value": {
+            "default": true,
+            "title": "Value",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "step"
+        ],
+        "title": "OnboardingStepUpdate",
+        "type": "object"
+      },
       "OnboardingSubmit": {
         "properties": {
           "answers": {
@@ -1446,6 +1887,91 @@
         "title": "PracticeSessionRequest",
         "type": "object"
       },
+      "PrivacySettingsUpdate": {
+        "properties": {
+          "ai_improvement": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ai Improvement"
+          },
+          "analytics_enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analytics Enabled"
+          },
+          "data_retention_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Retention Days"
+          },
+          "marketing_emails": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Marketing Emails"
+          },
+          "show_leaderboard": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Show Leaderboard"
+          }
+        },
+        "title": "PrivacySettingsUpdate",
+        "type": "object"
+      },
+      "ProfileUpdateRequest": {
+        "description": "Update learner display name, grade, and home language.",
+        "properties": {
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "grade": {
+            "title": "Grade",
+            "type": "string"
+          },
+          "home_language": {
+            "title": "Home Language",
+            "type": "string"
+          }
+        },
+        "required": [
+          "display_name",
+          "grade",
+          "home_language"
+        ],
+        "title": "ProfileUpdateRequest",
+        "type": "object"
+      },
       "QualityScoreDistribution": {
         "properties": {
           "below_threshold": {
@@ -1687,6 +2213,24 @@
           "display_name"
         ],
         "title": "RegisterRequest",
+        "type": "object"
+      },
+      "ResetPasswordRequest": {
+        "properties": {
+          "new_password": {
+            "title": "New Password",
+            "type": "string"
+          },
+          "token": {
+            "title": "Token",
+            "type": "string"
+          }
+        },
+        "required": [
+          "token",
+          "new_password"
+        ],
+        "title": "ResetPasswordRequest",
         "type": "object"
       },
       "RestrictionRequestLegacyBody": {
@@ -2010,6 +2554,263 @@
         ]
       }
     },
+    "/api/v2/admin/content-factory/etl/status": {
+      "get": {
+        "operationId": "etl_status_api_v2_admin_content_factory_etl_status_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentFactoryETLStatusResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Etl Status",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/health": {
+      "get": {
+        "operationId": "content_factory_health_api_v2_admin_content_factory_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentFactoryHealthResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Content Factory Health",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/provenance/{artifact_id}": {
+      "get": {
+        "operationId": "get_artifact_provenance_api_v2_admin_content_factory_provenance__artifact_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "artifact_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Artifact Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentArtifactProvenanceResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Artifact Provenance",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/validate-artifact": {
+      "post": {
+        "operationId": "validate_artifact_payload_api_v2_admin_content_factory_validate_artifact_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentArtifactValidationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentArtifactValidationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Validate Artifact Payload",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/assessments": {
+      "get": {
+        "operationId": "list_assessments_api_v2_assessments_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Assessments",
+        "tags": [
+          "V2 Assessments"
+        ]
+      }
+    },
+    "/api/v2/assessments/{assessment_id}/attempt": {
+      "post": {
+        "operationId": "submit_attempt_api_v2_assessments__assessment_id__attempt_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "assessment_id",
+            "required": true,
+            "schema": {
+              "title": "Assessment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssessmentAttemptRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Submit Attempt",
+        "tags": [
+          "V2 Assessments"
+        ]
+      }
+    },
     "/api/v2/audit": {
       "get": {
         "operationId": "get_audit_feed_api_v2_audit_get",
@@ -2122,6 +2923,46 @@
         ]
       }
     },
+    "/api/v2/auth/forgot-password": {
+      "post": {
+        "description": "Request a password-reset email.\nAlways returns 202 regardless of whether the email exists (OWASP A07\nuser-enumeration prevention). Rate-limited to 5 requests / 15 min / IP.",
+        "operationId": "forgot_password_api_v2_auth_forgot_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Forgot Password",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
     "/api/v2/auth/login": {
       "post": {
         "operationId": "login_api_v2_auth_login_post",
@@ -2165,7 +3006,6 @@
     },
     "/api/v2/auth/logout": {
       "post": {
-        "description": "Revoke the current access token and clear the refresh token cookie.",
         "operationId": "logout_api_v2_auth_logout_post",
         "parameters": [
           {
@@ -2235,9 +3075,242 @@
         ]
       }
     },
+    "/api/v2/auth/onboarding": {
+      "get": {
+        "description": "Return current onboarding state. Auto-creates row on first request.",
+        "operationId": "get_onboarding_api_v2_auth_onboarding_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Onboarding",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
+    "/api/v2/auth/onboarding/profile": {
+      "patch": {
+        "description": "Save learner profile data (display name, grade, home language) and\nautomatically mark the profile_complete onboarding step as done.",
+        "operationId": "update_learner_profile_api_v2_auth_onboarding_profile_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Update Learner Profile",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
+    "/api/v2/auth/onboarding/step": {
+      "patch": {
+        "description": "Mark an individual onboarding step complete.",
+        "operationId": "update_onboarding_step_api_v2_auth_onboarding_step_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OnboardingStepUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Update Onboarding Step",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
+    "/api/v2/auth/privacy": {
+      "get": {
+        "description": "Return current privacy settings. Auto-creates defaults on first request.",
+        "operationId": "get_privacy_settings_api_v2_auth_privacy_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Privacy Settings",
+        "tags": [
+          "auth-extended"
+        ]
+      },
+      "patch": {
+        "description": "Partial-update privacy settings. Only supplied fields are changed.",
+        "operationId": "update_privacy_settings_api_v2_auth_privacy_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrivacySettingsUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Update Privacy Settings",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
+    "/api/v2/auth/privacy/request-deletion": {
+      "post": {
+        "description": "POPIA right-to-erasure — soft-flag the account for scheduled deletion.",
+        "operationId": "request_account_deletion_api_v2_auth_privacy_request_deletion_post",
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Request Account Deletion",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
+    "/api/v2/auth/privacy/request-export": {
+      "post": {
+        "description": "POPIA section 23 right-of-access — queue a data export job.",
+        "operationId": "request_data_export_api_v2_auth_privacy_request_export_post",
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Request Data Export",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
     "/api/v2/auth/refresh": {
       "post": {
-        "operationId": "refresh_token_api_v2_auth_refresh_post",
+        "operationId": "refresh_api_v2_auth_refresh_post",
         "parameters": [
           {
             "in": "cookie",
@@ -2295,7 +3368,7 @@
             "description": "Validation Error"
           }
         },
-        "summary": "Refresh Token",
+        "summary": "Refresh",
         "tags": [
           "auth"
         ]
@@ -2342,9 +3415,48 @@
         ]
       }
     },
+    "/api/v2/auth/reset-password": {
+      "post": {
+        "description": "Consume a password-reset token and update the hashed password.",
+        "operationId": "reset_password_api_v2_auth_reset_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Reset Password",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
     "/api/v2/auth/revoke-all": {
       "post": {
-        "description": "Revoke ALL tokens for the current user (logout from all devices).\nUseful for security incidents or password changes.",
         "operationId": "revoke_all_tokens_api_v2_auth_revoke_all_post",
         "parameters": [
           {
@@ -2390,6 +3502,31 @@
         ]
       }
     },
+    "/api/v2/auth/send-verification": {
+      "post": {
+        "description": "Resend (or send initial) email verification link. Requires auth.",
+        "operationId": "send_verification_api_v2_auth_send_verification_post",
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Send Verification",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
     "/api/v2/auth/sessions": {
       "get": {
         "description": "Return active refresh-token sessions for the current user.\n\nThe response intentionally exposes only token metadata, never token values.",
@@ -2412,6 +3549,47 @@
         "summary": "List Sessions",
         "tags": [
           "auth"
+        ]
+      }
+    },
+    "/api/v2/auth/verify-email": {
+      "get": {
+        "description": "Consume an email-verification token (linked from email).",
+        "operationId": "verify_email_api_v2_auth_verify_email_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "title": "Token",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Verify Email",
+        "tags": [
+          "auth-extended"
         ]
       }
     },
@@ -5324,6 +6502,263 @@
         ]
       }
     },
+    "/v2/admin/content-factory/etl/status": {
+      "get": {
+        "operationId": "etl_status_v2_admin_content_factory_etl_status_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentFactoryETLStatusResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Etl Status",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/health": {
+      "get": {
+        "operationId": "content_factory_health_v2_admin_content_factory_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentFactoryHealthResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Content Factory Health",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/provenance/{artifact_id}": {
+      "get": {
+        "operationId": "get_artifact_provenance_v2_admin_content_factory_provenance__artifact_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "artifact_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Artifact Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentArtifactProvenanceResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Artifact Provenance",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/validate-artifact": {
+      "post": {
+        "operationId": "validate_artifact_payload_v2_admin_content_factory_validate_artifact_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentArtifactValidationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentArtifactValidationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Validate Artifact Payload",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/assessments": {
+      "get": {
+        "operationId": "list_assessments_v2_assessments_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Assessments",
+        "tags": [
+          "V2 Assessments"
+        ]
+      }
+    },
+    "/v2/assessments/{assessment_id}/attempt": {
+      "post": {
+        "operationId": "submit_attempt_v2_assessments__assessment_id__attempt_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "assessment_id",
+            "required": true,
+            "schema": {
+              "title": "Assessment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssessmentAttemptRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Submit Attempt",
+        "tags": [
+          "V2 Assessments"
+        ]
+      }
+    },
     "/v2/audit": {
       "get": {
         "operationId": "get_audit_feed_v2_audit_get",
@@ -5436,6 +6871,46 @@
         ]
       }
     },
+    "/v2/auth/forgot-password": {
+      "post": {
+        "description": "Request a password-reset email.\nAlways returns 202 regardless of whether the email exists (OWASP A07\nuser-enumeration prevention). Rate-limited to 5 requests / 15 min / IP.",
+        "operationId": "forgot_password_v2_auth_forgot_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Forgot Password",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
     "/v2/auth/login": {
       "post": {
         "operationId": "login_v2_auth_login_post",
@@ -5479,7 +6954,6 @@
     },
     "/v2/auth/logout": {
       "post": {
-        "description": "Revoke the current access token and clear the refresh token cookie.",
         "operationId": "logout_v2_auth_logout_post",
         "parameters": [
           {
@@ -5549,9 +7023,242 @@
         ]
       }
     },
+    "/v2/auth/onboarding": {
+      "get": {
+        "description": "Return current onboarding state. Auto-creates row on first request.",
+        "operationId": "get_onboarding_v2_auth_onboarding_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Onboarding",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
+    "/v2/auth/onboarding/profile": {
+      "patch": {
+        "description": "Save learner profile data (display name, grade, home language) and\nautomatically mark the profile_complete onboarding step as done.",
+        "operationId": "update_learner_profile_v2_auth_onboarding_profile_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Update Learner Profile",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
+    "/v2/auth/onboarding/step": {
+      "patch": {
+        "description": "Mark an individual onboarding step complete.",
+        "operationId": "update_onboarding_step_v2_auth_onboarding_step_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OnboardingStepUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Update Onboarding Step",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
+    "/v2/auth/privacy": {
+      "get": {
+        "description": "Return current privacy settings. Auto-creates defaults on first request.",
+        "operationId": "get_privacy_settings_v2_auth_privacy_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Privacy Settings",
+        "tags": [
+          "auth-extended"
+        ]
+      },
+      "patch": {
+        "description": "Partial-update privacy settings. Only supplied fields are changed.",
+        "operationId": "update_privacy_settings_v2_auth_privacy_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrivacySettingsUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Update Privacy Settings",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
+    "/v2/auth/privacy/request-deletion": {
+      "post": {
+        "description": "POPIA right-to-erasure — soft-flag the account for scheduled deletion.",
+        "operationId": "request_account_deletion_v2_auth_privacy_request_deletion_post",
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Request Account Deletion",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
+    "/v2/auth/privacy/request-export": {
+      "post": {
+        "description": "POPIA section 23 right-of-access — queue a data export job.",
+        "operationId": "request_data_export_v2_auth_privacy_request_export_post",
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Request Data Export",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
     "/v2/auth/refresh": {
       "post": {
-        "operationId": "refresh_token_v2_auth_refresh_post",
+        "operationId": "refresh_v2_auth_refresh_post",
         "parameters": [
           {
             "in": "cookie",
@@ -5609,7 +7316,7 @@
             "description": "Validation Error"
           }
         },
-        "summary": "Refresh Token",
+        "summary": "Refresh",
         "tags": [
           "auth"
         ]
@@ -5656,9 +7363,48 @@
         ]
       }
     },
+    "/v2/auth/reset-password": {
+      "post": {
+        "description": "Consume a password-reset token and update the hashed password.",
+        "operationId": "reset_password_v2_auth_reset_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Reset Password",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
     "/v2/auth/revoke-all": {
       "post": {
-        "description": "Revoke ALL tokens for the current user (logout from all devices).\nUseful for security incidents or password changes.",
         "operationId": "revoke_all_tokens_v2_auth_revoke_all_post",
         "parameters": [
           {
@@ -5704,6 +7450,31 @@
         ]
       }
     },
+    "/v2/auth/send-verification": {
+      "post": {
+        "description": "Resend (or send initial) email verification link. Requires auth.",
+        "operationId": "send_verification_v2_auth_send_verification_post",
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Send Verification",
+        "tags": [
+          "auth-extended"
+        ]
+      }
+    },
     "/v2/auth/sessions": {
       "get": {
         "description": "Return active refresh-token sessions for the current user.\n\nThe response intentionally exposes only token metadata, never token values.",
@@ -5726,6 +7497,47 @@
         "summary": "List Sessions",
         "tags": [
           "auth"
+        ]
+      }
+    },
+    "/v2/auth/verify-email": {
+      "get": {
+        "description": "Consume an email-verification token (linked from email).",
+        "operationId": "verify_email_v2_auth_verify_email_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "title": "Token",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Verify Email",
+        "tags": [
+          "auth-extended"
         ]
       }
     },
@@ -8611,6 +10423,10 @@
     {
       "description": "Background job status",
       "name": "jobs"
+    },
+    {
+      "description": "Admin-only content factory and ETL provenance controls",
+      "name": "admin-content-factory"
     }
   ]
 }
