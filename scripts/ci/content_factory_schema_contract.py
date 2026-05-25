@@ -27,6 +27,7 @@ REQUIRED_TABLES: list[str] = [
     "content_coverage_targets",
     "content_validation_reports",
     "content_artifact_reviews",
+    "content_review_assignments",
     "lesson_bank",
 ]
 
@@ -80,6 +81,16 @@ REQUIRED_COLUMNS: dict[str, list[str]] = {
         "can_promote_production",
         "summary_json",
         "blockers_json",
+    ],
+    "content_review_assignments": [
+        "id",
+        "artifact_id",
+        "assigned_to",
+        "assigned_by",
+        "assigned_at",
+        "priority",
+        "status",
+        "resolved_at",
     ],
 }
 
@@ -151,5 +162,6 @@ ORM_TABLE_MAP: dict[str, str] = {
     "ContentCoverageTarget": "content_coverage_targets",
     "ContentValidationReport": "content_validation_reports",
     "ContentArtifactReview": "content_artifact_reviews",
+    "ContentReviewAssignment": "content_review_assignments",
     "LessonBank": "lesson_bank",
 }

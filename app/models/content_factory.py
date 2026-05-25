@@ -286,6 +286,27 @@ class ContentArtifactReview(Base):
     artifact: Mapped[ContentGenerationArtifact] = relationship("ContentGenerationArtifact", back_populates="reviews")
 
 
+class ContentReviewAssignment(Base):
+    __tablename__ = "content_review_assignments"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=func.gen_random_uuid())
+    artifact_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content_generation_artifacts.artifact_id", ondelete="CASCADE"), nullable=False)
+    assigned_to: Mapped[str] = mapped_column(String(80), nullable=False)
+    assigned_by: Mapped[str] = mapped_column(String(80), nullable=False)
+    assigned_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    due_by: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    priority: Mapped[str] = mapped_column(String(20), nullable=False, server_default="normal")
+    status: Mapped[str] = mapped_column(String(20), nullable=False, server_default="assigned")
+    resolved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now())
+
+    __table_args__ = (
+        Index("ix_content_review_assignments_reviewer_status", "assigned_to", "status"),
+        Index("ix_content_review_assignments_artifact_status", "artifact_id", "status"),
+    )
+
+
 class ContentSeedRun(Base):
     __tablename__ = "content_seed_runs"
 
