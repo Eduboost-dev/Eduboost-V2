@@ -16,6 +16,7 @@ from app.core.analytics import analytics_middleware
 from app.core.config import settings
 from app.core.exceptions import register_exception_handlers
 from app.core.health import gather_deep_health
+from app.services.launch_content_seed import seed_launch_content_if_needed
 from app.core.logging import configure_logging, get_logger
 from app.core.metrics import REGISTRY
 from app.core.middleware import RequestIDMiddleware, StructuredLoggingMiddleware, TimingMiddleware
@@ -168,6 +169,7 @@ async def run_startup_migrations() -> None:
 async def lifespan(app: FastAPI):
     log.info("eduboost_v2_starting", env=settings.ENVIRONMENT, version=settings.APP_VERSION)
     await run_startup_migrations()
+    await seed_launch_content_if_needed()
     consent_task = None
     secret_rotation_task = None
     if settings.ENVIRONMENT != "test":
