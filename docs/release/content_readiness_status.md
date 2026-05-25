@@ -16,3 +16,11 @@ Status: launch-slice content gate passed for Grade 4 Mathematics.
 ## Boundary
 
 This clears the content gate for the Grade 4 Mathematics launch slice only. It does not clear CI, branch protection, backup and restore, legal or security signoff, frontend journey evidence, or formal beta go-no-go.
+
+## Content Factory Refreshed Plan Integration
+
+Status: repository-side foundation implemented and locally tested on branch `feature/content-factory-refreshed`; not yet CI, staging, educator-review, or production verified.
+
+The refreshed Content Factory implementation adds ETL-backed provenance gates, generated-artifact lifecycle tables, admin validation/review routes, and the `/admin/content-factory` dashboard entry point. Evidence: `docs/release/content_factory_refreshed_status.md`.
+
+This improves the future content expansion path but does not change the launch-slice boundary above or replace external educator/content approval.

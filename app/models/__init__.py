@@ -621,6 +621,26 @@ LessonRecord = Lesson
 # ── CAPS Diagnostic Items ────────────────────────────────────────────────────
 from app.models.diagnostic_item import DiagnosticItem
 from app.models.item_exposure import ItemExposure
+from app.models.content_factory import (
+    AssessmentBlueprint,
+    ContentArtifactReview,
+    ContentArtifactSource,
+    ContentArtifactStatus,
+    ContentArtifactType,
+    ContentCoverageTarget,
+    ContentGenerationArtifact,
+    ContentGenerationRun,
+    ContentGenerationTask,
+    ContentLayer,
+    ContentPromotionEvent,
+    ContentReviewAction,
+    ContentScope,
+    ContentScopeStatus,
+    ContentSeedRun,
+    ContentValidationReport,
+    LessonBank,
+    StudyPlanTemplate,
+)
 
 # Auth extension models
 from app.models.auth_extensions import (
