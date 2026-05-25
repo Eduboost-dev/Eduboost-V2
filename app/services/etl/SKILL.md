@@ -35,7 +35,7 @@ etl_pipeline_v2.py (Phases 8–12)
   └─ EduboostETLv2        ← versioning, FTS, embeddings, training datasets, monitoring
 
 tools/etl/etl_mcp_server_v2.py
-  └─ FastMCP server       ← 21 tools wrapping EduboostETLv2
+  └─ MCP server       ← 21 tools wrapping EduboostETLv2
        transport: stdio | streamable-http
 
 ETLAdminDashboard_v2.jsx
