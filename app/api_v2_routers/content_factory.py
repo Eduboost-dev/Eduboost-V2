@@ -23,6 +23,10 @@ from app.domain.content_factory_schemas import (
     ContentFactoryActionResponse,
     ContentFactoryETLStatusResponse,
     ContentFactoryHealthResponse,
+    ArtifactReviewBundleResponse,
+    BulkReviewAssignmentRequest,
+    BulkReviewRequest,
+    BulkReviewResponse,
     ContentFactoryReportResponse,
     ContentGenerationExecutionReportResponse,
     ContentGenerationExecutionResponse,
@@ -32,6 +36,12 @@ from app.domain.content_factory_schemas import (
     ContentGenerationTaskResponse,
     ContentSeedRunResponse,
     ContentStagingVerificationRunResponse,
+    ReviewAssignmentRequest,
+    ReviewAssignmentResponse,
+    ReviewQueueItemResponse,
+    ReviewQueuePageResponse,
+    ReviewSummaryResponse,
+    ReviewerWorkloadResponse,
 )
 from app.domain.content_coverage import CapsRefCoverageReport, ContentLayer, CoverageTarget, ScopeCoverageReport
 from app.domain.content_scope import ContentScope
@@ -47,6 +57,9 @@ from app.services.content_generation_planner import ContentGenerationPlanner
 from app.services.content_coverage_service import ContentCoverageService
 from app.services.content_scope_registry import ContentScopeRegistry
 from app.services.content_seed_promotion import ContentSeedPromotionService
+from app.services.content_review_queue import ContentReviewQueueService
+from app.services.content_reviewer_assignment import ContentReviewerAssignmentService
+from app.services.content_bulk_review import ContentBulkReviewService
 from app.services.content_staging_readiness import (
     AllScopeStagingVerificationReport,
     ContentStagingReadinessService,
@@ -97,6 +110,18 @@ def get_seed_promotion_service(
 
 def get_staging_readiness_service() -> ContentStagingReadinessService:
     return ContentStagingReadinessService()
+
+
+def get_content_review_queue_service() -> ContentReviewQueueService:
+    return ContentReviewQueueService()
+
+
+def get_content_reviewer_assignment_service() -> ContentReviewerAssignmentService:
+    return ContentReviewerAssignmentService()
+
+
+def get_content_bulk_review_service() -> ContentBulkReviewService:
+    return ContentBulkReviewService()
 
 
 @router.get("/health", response_model=ContentFactoryHealthResponse)
@@ -424,10 +449,144 @@ async def quarantine_artifact(artifact_id: uuid.UUID, request: ContentFactoryAct
     return ContentFactoryActionResponse(**transition.__dict__)
 
 
-@router.get("/review-queue", response_model=list[ContentArtifactResponse])
-async def get_review_queue(session: AsyncSession = Depends(get_db)) -> list[ContentArtifactResponse]:
-    result = await session.execute(select(ContentGenerationArtifact).where(ContentGenerationArtifact.status == ContentArtifactStatus.PENDING_REVIEW).order_by(ContentGenerationArtifact.created_at.asc()).limit(100))
-    return [_artifact_response(artifact) for artifact in result.scalars().all()]
+@router.get("/review-queue", response_model=ReviewQueuePageResponse)
+async def get_review_queue(
+    scope_id: str | None = Query(default=None),
+    layer: str | None = Query(default=None),
+    caps_ref: str | None = Query(default=None),
+    artifact_type: str | None = Query(default=None),
+    risk_level: str | None = Query(default=None),
+    reviewer_id: str | None = Query(default=None),
+    limit: int = Query(default=50, ge=1, le=200),
+    offset: int = Query(default=0, ge=0),
+    session: AsyncSession = Depends(get_db),
+    service: ContentReviewQueueService = Depends(get_content_review_queue_service),
+) -> ReviewQueuePageResponse:
+    page = await service.list_queue(session, scope_id=scope_id, layer=layer, caps_ref=caps_ref, artifact_type=artifact_type, risk_level=risk_level, reviewer_id=reviewer_id, limit=limit, offset=offset)
+    return ReviewQueuePageResponse(items=[_review_queue_item_response(item) for item in page.items], total=page.total, limit=page.limit, offset=page.offset)
+
+
+@router.get("/review-summary", response_model=ReviewSummaryResponse)
+async def get_review_summary(
+    scope_id: str | None = Query(default=None),
+    session: AsyncSession = Depends(get_db),
+    service: ContentReviewQueueService = Depends(get_content_review_queue_service),
+) -> ReviewSummaryResponse:
+    return ReviewSummaryResponse(**(await service.get_review_summary(session, scope_id=scope_id)).__dict__)
+
+
+@router.get("/artifacts/{artifact_id}/review-bundle", response_model=ArtifactReviewBundleResponse)
+async def get_artifact_review_bundle(
+    artifact_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    service: ContentReviewQueueService = Depends(get_content_review_queue_service),
+) -> ArtifactReviewBundleResponse:
+    try:
+        bundle = await service.get_artifact_review_bundle(session, artifact_id)
+        return ArtifactReviewBundleResponse(
+            artifact=bundle.artifact,
+            validation_report=bundle.validation_report,
+            provenance=bundle.provenance,
+            sources=bundle.sources,
+            review_risk=bundle.review_risk.__dict__,
+            generation_metadata=bundle.generation_metadata,
+            prior_review_events=bundle.prior_review_events,
+            similar_artifacts=bundle.similar_artifacts,
+        )
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.post("/review-assignments", response_model=ReviewAssignmentResponse)
+async def assign_reviewer(
+    request: ReviewAssignmentRequest,
+    session: AsyncSession = Depends(get_db),
+    service: ContentReviewerAssignmentService = Depends(get_content_reviewer_assignment_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ReviewAssignmentResponse:
+    try:
+        assignment = await service.assign_artifact(session, request.artifact_id, request.reviewer_id, str(current_user.get("sub") or "admin"), priority=request.priority)
+        await session.commit()
+        return _assignment_response(assignment)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.post("/review-assignments/bulk", response_model=BulkReviewResponse)
+async def bulk_assign_reviewer(
+    request: BulkReviewAssignmentRequest,
+    session: AsyncSession = Depends(get_db),
+    service: ContentBulkReviewService = Depends(get_content_bulk_review_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> BulkReviewResponse:
+    result = await service.bulk_assign(session, request.artifact_ids, reviewer_id=request.reviewer_id, assigned_by=str(current_user.get("sub") or "admin"), priority=request.priority)
+    await session.commit()
+    return BulkReviewResponse(**result.__dict__)
+
+
+@router.get("/review-assignments", response_model=list[ReviewAssignmentResponse])
+async def list_review_assignments(
+    reviewer_id: str | None = Query(default=None),
+    status_filter: str | None = Query(default=None, alias="status"),
+    session: AsyncSession = Depends(get_db),
+    service: ContentReviewerAssignmentService = Depends(get_content_reviewer_assignment_service),
+) -> list[ReviewAssignmentResponse]:
+    assignments = await service.list_assignments(session, reviewer_id=reviewer_id, status=status_filter)
+    return [_assignment_response(assignment) for assignment in assignments]
+
+
+@router.get("/reviewers/{reviewer_id}/workload", response_model=ReviewerWorkloadResponse)
+async def get_reviewer_workload(
+    reviewer_id: str,
+    session: AsyncSession = Depends(get_db),
+    service: ContentReviewerAssignmentService = Depends(get_content_reviewer_assignment_service),
+) -> ReviewerWorkloadResponse:
+    return ReviewerWorkloadResponse(**(await service.get_reviewer_workload(session, reviewer_id)).__dict__)
+
+
+@router.post("/review/bulk-approve", response_model=BulkReviewResponse)
+async def bulk_approve_review(
+    request: BulkReviewRequest,
+    session: AsyncSession = Depends(get_db),
+    service: ContentBulkReviewService = Depends(get_content_bulk_review_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> BulkReviewResponse:
+    try:
+        result = await service.bulk_approve(session, request.artifact_ids, reviewer_id=str(current_user.get("sub") or "admin"), notes=request.notes or "")
+        await session.commit()
+        return BulkReviewResponse(**result.__dict__)
+    except ValueError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.post("/review/bulk-reject", response_model=BulkReviewResponse)
+async def bulk_reject_review(
+    request: BulkReviewRequest,
+    session: AsyncSession = Depends(get_db),
+    service: ContentBulkReviewService = Depends(get_content_bulk_review_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> BulkReviewResponse:
+    try:
+        result = await service.bulk_reject(session, request.artifact_ids, reviewer_id=str(current_user.get("sub") or "admin"), reason=request.reason or "")
+        await session.commit()
+        return BulkReviewResponse(**result.__dict__)
+    except ValueError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.post("/review/bulk-quarantine", response_model=BulkReviewResponse)
+async def bulk_quarantine_review(
+    request: BulkReviewRequest,
+    session: AsyncSession = Depends(get_db),
+    service: ContentBulkReviewService = Depends(get_content_bulk_review_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> BulkReviewResponse:
+    try:
+        result = await service.bulk_quarantine(session, request.artifact_ids, reviewer_id=str(current_user.get("sub") or "admin"), reason=request.reason or "")
+        await session.commit()
+        return BulkReviewResponse(**result.__dict__)
+    except ValueError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
 
 
 @router.post("/staging-verification/all-scopes", response_model=AllScopeStagingVerificationReport)
@@ -584,6 +743,35 @@ def _staging_verification_run_response(run) -> ContentStagingVerificationRunResp
         created_by=run.created_by,
         created_at=run.created_at.isoformat() if run.created_at else None,
         completed_at=run.completed_at.isoformat() if run.completed_at else None,
+    )
+
+
+def _review_queue_item_response(item) -> ReviewQueueItemResponse:
+    return ReviewQueueItemResponse(
+        artifact_id=item.artifact_id,
+        scope_id=item.scope_id,
+        content_layer=item.content_layer,
+        artifact_type=item.artifact_type,
+        caps_ref=item.caps_ref,
+        status=item.status,
+        risk_level=item.risk_level,
+        risk_reasons=item.risk_reasons,
+        validation_status=item.validation_status,
+        provenance_status=item.provenance_status,
+        reviewer_id=item.reviewer_id,
+        created_at=item.created_at.isoformat() if item.created_at else None,
+    )
+
+
+def _assignment_response(assignment) -> ReviewAssignmentResponse:
+    return ReviewAssignmentResponse(
+        id=assignment.id,
+        artifact_id=assignment.artifact_id,
+        assigned_to=assignment.assigned_to,
+        assigned_by=assignment.assigned_by,
+        priority=assignment.priority,
+        status=assignment.status,
+        due_by=assignment.due_by.isoformat() if assignment.due_by else None,
     )
 
 
