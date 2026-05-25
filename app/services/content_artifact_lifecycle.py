@@ -7,7 +7,7 @@ from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models.content_factory import ContentArtifactStatus, ContentGenerationArtifact
+from app.models.content_factory import ContentArtifactReview, ContentArtifactStatus, ContentGenerationArtifact, ContentReviewAction
 from app.services.content_factory import ContentFactoryService
 
 
@@ -50,6 +50,7 @@ class ContentArtifactLifecycleService:
             raise ValueError("Only pending_review artifacts can be approved.")
         await self.factory_service.assert_artifact_has_approved_sources(session, artifact_id)
         artifact.status = ContentArtifactStatus.APPROVED
+        session.add(ContentArtifactReview(artifact_id=artifact.artifact_id, reviewer_id=actor_id, review_action=ContentReviewAction.APPROVE, review_reason=notes or None))
         await session.flush()
         return ArtifactStatusTransition(artifact.artifact_id, previous, ContentArtifactStatus.APPROVED.value, actor_id, notes or None)
 
@@ -66,6 +67,7 @@ class ContentArtifactLifecycleService:
             raise ValueError("Promoted production artifacts must be retired rather than quarantined.")
         previous = _value(artifact.status)
         artifact.status = ContentArtifactStatus.QUARANTINED
+        session.add(ContentArtifactReview(artifact_id=artifact.artifact_id, reviewer_id=actor_id, review_action=ContentReviewAction.QUARANTINE, review_reason=reason))
         await session.flush()
         return ArtifactStatusTransition(artifact.artifact_id, previous, ContentArtifactStatus.QUARANTINED.value, actor_id, reason)
 
@@ -98,6 +100,8 @@ class ContentArtifactLifecycleService:
         if previous == ContentArtifactStatus.QUARANTINED.value and status == ContentArtifactStatus.APPROVED:
             raise ValueError("Quarantined artifacts require explicit revalidation before approval.")
         artifact.status = status
+        action = ContentReviewAction.REJECT if status == ContentArtifactStatus.REJECTED else ContentReviewAction.REQUEST_CHANGES
+        session.add(ContentArtifactReview(artifact_id=artifact.artifact_id, reviewer_id=actor_id, review_action=action, review_reason=reason))
         await session.flush()
         return ArtifactStatusTransition(artifact.artifact_id, previous, status.value, actor_id, reason)
 
