@@ -1,6 +1,69 @@
 {
   "components": {
     "schemas": {
+      "AllScopeStagingVerificationReport": {
+        "properties": {
+          "can_promote_production": {
+            "title": "Can Promote Production",
+            "type": "boolean"
+          },
+          "can_seed_staging": {
+            "title": "Can Seed Staging",
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "created_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created By"
+          },
+          "run_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Id"
+          },
+          "scopes": {
+            "items": {
+              "$ref": "#/components/schemas/ScopeStagingVerificationReport"
+            },
+            "title": "Scopes",
+            "type": "array"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "object"
+          }
+        },
+        "required": [
+          "status",
+          "can_seed_staging",
+          "can_promote_production",
+          "scopes"
+        ],
+        "title": "AllScopeStagingVerificationReport",
+        "type": "object"
+      },
       "AssessmentAttemptRequest": {
         "properties": {
           "learner_id": {
@@ -127,6 +190,15 @@
         ],
         "title": "BiasReviewRequest",
         "type": "object"
+      },
+      "BlockerSeverity": {
+        "enum": [
+          "info",
+          "warning",
+          "blocking"
+        ],
+        "title": "BlockerSeverity",
+        "type": "string"
       },
       "CapsRefCoverage": {
         "properties": {
@@ -1189,6 +1261,62 @@
         "title": "ContentSeedRunResponse",
         "type": "object"
       },
+      "ContentStagingVerificationRunResponse": {
+        "properties": {
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "created_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created By"
+          },
+          "run_id": {
+            "format": "uuid",
+            "title": "Run Id",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "object"
+          }
+        },
+        "required": [
+          "run_id",
+          "status"
+        ],
+        "title": "ContentStagingVerificationRunResponse",
+        "type": "object"
+      },
       "CorrectionRequestLegacyBody": {
         "properties": {
           "fields": {
@@ -1806,6 +1934,93 @@
           "updated_at"
         ],
         "title": "JobStatusResponse",
+        "type": "object"
+      },
+      "LayerReadinessSummary": {
+        "properties": {
+          "approved": {
+            "default": 0,
+            "title": "Approved",
+            "type": "integer"
+          },
+          "caps_ref": {
+            "title": "Caps Ref",
+            "type": "string"
+          },
+          "generated": {
+            "default": 0,
+            "title": "Generated",
+            "type": "integer"
+          },
+          "invalid_license": {
+            "default": 0,
+            "title": "Invalid License",
+            "type": "integer"
+          },
+          "invalid_provenance": {
+            "default": 0,
+            "title": "Invalid Provenance",
+            "type": "integer"
+          },
+          "layer": {
+            "title": "Layer",
+            "type": "string"
+          },
+          "low_source_quality": {
+            "default": 0,
+            "title": "Low Source Quality",
+            "type": "integer"
+          },
+          "pending_review": {
+            "default": 0,
+            "title": "Pending Review",
+            "type": "integer"
+          },
+          "promoted_production": {
+            "default": 0,
+            "title": "Promoted Production",
+            "type": "integer"
+          },
+          "quarantined": {
+            "default": 0,
+            "title": "Quarantined",
+            "type": "integer"
+          },
+          "rejected": {
+            "default": 0,
+            "title": "Rejected",
+            "type": "integer"
+          },
+          "seeded_staging": {
+            "default": 0,
+            "title": "Seeded Staging",
+            "type": "integer"
+          },
+          "stageable": {
+            "default": 0,
+            "title": "Stageable",
+            "type": "integer"
+          },
+          "status": {
+            "$ref": "#/components/schemas/StagingReadinessStatus"
+          },
+          "target": {
+            "default": 0,
+            "title": "Target",
+            "type": "integer"
+          },
+          "validation_failed": {
+            "default": 0,
+            "title": "Validation Failed",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "layer",
+          "caps_ref",
+          "status"
+        ],
+        "title": "LayerReadinessSummary",
         "type": "object"
       },
       "LearnerCreate": {
@@ -2927,6 +3142,160 @@
         "title": "SafetyClassification",
         "type": "string"
       },
+      "ScopeBlocker": {
+        "additionalProperties": true,
+        "properties": {
+          "approved": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Approved"
+          },
+          "caps_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caps Ref"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "generated": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Generated"
+          },
+          "layer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Layer"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "pending_review": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pending Review"
+          },
+          "promoted_production": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promoted Production"
+          },
+          "quarantined": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quarantined"
+          },
+          "rejected": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rejected"
+          },
+          "required": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Required"
+          },
+          "seeded_staging": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seeded Staging"
+          },
+          "severity": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BlockerSeverity"
+              }
+            ],
+            "default": "blocking"
+          },
+          "validation_failed": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Validation Failed"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "title": "ScopeBlocker",
+        "type": "object"
+      },
       "ScopeCoverageLayerSummary": {
         "additionalProperties": false,
         "properties": {
@@ -3031,6 +3400,68 @@
         ],
         "title": "ScopeCoverageSummary",
         "type": "object"
+      },
+      "ScopeStagingVerificationReport": {
+        "properties": {
+          "blockers": {
+            "items": {
+              "$ref": "#/components/schemas/ScopeBlocker"
+            },
+            "title": "Blockers",
+            "type": "array"
+          },
+          "can_promote_production": {
+            "title": "Can Promote Production",
+            "type": "boolean"
+          },
+          "can_seed_staging": {
+            "title": "Can Seed Staging",
+            "type": "boolean"
+          },
+          "layers": {
+            "items": {
+              "$ref": "#/components/schemas/LayerReadinessSummary"
+            },
+            "title": "Layers",
+            "type": "array"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/StagingReadinessStatus"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "object"
+          }
+        },
+        "required": [
+          "scope_id",
+          "status",
+          "can_seed_staging",
+          "can_promote_production"
+        ],
+        "title": "ScopeStagingVerificationReport",
+        "type": "object"
+      },
+      "StagingReadinessStatus": {
+        "enum": [
+          "ready_for_staging",
+          "partially_stageable",
+          "blocked_by_coverage",
+          "blocked_by_review",
+          "blocked_by_provenance",
+          "blocked_by_validation",
+          "blocked_by_source_quality",
+          "blocked_by_license",
+          "blocked_by_missing_targets",
+          "blocked_by_missing_scope",
+          "not_configured"
+        ],
+        "title": "StagingReadinessStatus",
+        "type": "string"
       },
       "StudyPlanGenerateRequest": {
         "properties": {
@@ -4492,6 +4923,83 @@
         ]
       }
     },
+    "/api/v2/admin/content-factory/scopes/{scope_id}/staging-readiness": {
+      "get": {
+        "operationId": "get_scope_staging_readiness_api_v2_admin_content_factory_scopes__scope_id__staging_readiness_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_partial",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Partial",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_pending_review",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Pending Review",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_blockers",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Blockers",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScopeStagingVerificationReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Scope Staging Readiness",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/api/v2/admin/content-factory/scopes/{scope_id}/staging-verification": {
       "get": {
         "operationId": "verify_staging_seed_api_v2_admin_content_factory_scopes__scope_id__staging_verification_get",
@@ -4534,6 +5042,81 @@
           }
         ],
         "summary": "Verify Staging Seed",
+        "tags": [
+          "admin-content-factory"
+        ]
+      },
+      "post": {
+        "operationId": "run_scope_staging_verification_api_v2_admin_content_factory_scopes__scope_id__staging_verification_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_partial",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Partial",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_pending_review",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Pending Review",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_blockers",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Blockers",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScopeStagingVerificationReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Run Scope Staging Verification",
         "tags": [
           "admin-content-factory"
         ]
@@ -4585,6 +5168,152 @@
           }
         ],
         "summary": "Get Content Scope Targets",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/staging-verification/all-scopes": {
+      "post": {
+        "operationId": "run_all_scope_staging_verification_api_v2_admin_content_factory_staging_verification_all_scopes_post",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "include_partial",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Partial",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_pending_review",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Pending Review",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_blockers",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Blockers",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllScopeStagingVerificationReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Run All Scope Staging Verification",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/staging-verification/runs": {
+      "get": {
+        "operationId": "list_staging_verification_runs_api_v2_admin_content_factory_staging_verification_runs_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ContentStagingVerificationRunResponse"
+                  },
+                  "title": "Response List Staging Verification Runs Api V2 Admin Content Factory Staging Verification Runs Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Staging Verification Runs",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/staging-verification/runs/{run_id}": {
+      "get": {
+        "operationId": "get_staging_verification_run_api_v2_admin_content_factory_staging_verification_runs__run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllScopeStagingVerificationReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Staging Verification Run",
         "tags": [
           "admin-content-factory"
         ]
@@ -10086,6 +10815,83 @@
         ]
       }
     },
+    "/v2/admin/content-factory/scopes/{scope_id}/staging-readiness": {
+      "get": {
+        "operationId": "get_scope_staging_readiness_v2_admin_content_factory_scopes__scope_id__staging_readiness_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_partial",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Partial",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_pending_review",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Pending Review",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_blockers",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Blockers",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScopeStagingVerificationReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Scope Staging Readiness",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/v2/admin/content-factory/scopes/{scope_id}/staging-verification": {
       "get": {
         "operationId": "verify_staging_seed_v2_admin_content_factory_scopes__scope_id__staging_verification_get",
@@ -10128,6 +10934,81 @@
           }
         ],
         "summary": "Verify Staging Seed",
+        "tags": [
+          "admin-content-factory"
+        ]
+      },
+      "post": {
+        "operationId": "run_scope_staging_verification_v2_admin_content_factory_scopes__scope_id__staging_verification_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_partial",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Partial",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_pending_review",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Pending Review",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_blockers",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Blockers",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScopeStagingVerificationReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Run Scope Staging Verification",
         "tags": [
           "admin-content-factory"
         ]
@@ -10179,6 +11060,152 @@
           }
         ],
         "summary": "Get Content Scope Targets",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/staging-verification/all-scopes": {
+      "post": {
+        "operationId": "run_all_scope_staging_verification_v2_admin_content_factory_staging_verification_all_scopes_post",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "include_partial",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Partial",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_pending_review",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Pending Review",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_blockers",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Blockers",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllScopeStagingVerificationReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Run All Scope Staging Verification",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/staging-verification/runs": {
+      "get": {
+        "operationId": "list_staging_verification_runs_v2_admin_content_factory_staging_verification_runs_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ContentStagingVerificationRunResponse"
+                  },
+                  "title": "Response List Staging Verification Runs V2 Admin Content Factory Staging Verification Runs Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Staging Verification Runs",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/staging-verification/runs/{run_id}": {
+      "get": {
+        "operationId": "get_staging_verification_run_v2_admin_content_factory_staging_verification_runs__run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllScopeStagingVerificationReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Staging Verification Run",
         "tags": [
           "admin-content-factory"
         ]

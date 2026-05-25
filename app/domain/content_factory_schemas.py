@@ -193,3 +193,12 @@ class ContentFactoryReportResponse(BaseModel):
     coverage: dict[str, Any]
     run_count: int
     review_queue_count: int
+
+
+class ContentStagingVerificationRunResponse(BaseModel):
+    run_id: uuid.UUID
+    status: str
+    summary: dict[str, Any] = Field(default_factory=dict)
+    created_by: str | None = None
+    created_at: str | None = None
+    completed_at: str | None = None
