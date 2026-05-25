@@ -634,6 +634,7 @@ from app.models.content_factory import (
     ContentLayer,
     ContentPromotionEvent,
     ContentReviewAction,
+    ContentReviewAssignment,
     ContentScope,
     ContentScopeStatus,
     ContentSeedRun,
