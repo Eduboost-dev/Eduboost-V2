@@ -100,6 +100,20 @@ def test_content_factory_scope_openapi_contract_is_admin_only() -> None:
     assert generation_paths <= set(schema["paths"])
     assert all(schema["paths"][path][next(iter(schema["paths"][path]))]["tags"] == ["admin-content-factory"] for path in generation_paths)
     assert not any(path.startswith("/api/v2/content-factory") and "generation" in path for path in schema["paths"])
+    review_paths = {
+        "/api/v2/admin/content-factory/review-queue",
+        "/api/v2/admin/content-factory/review-summary",
+        "/api/v2/admin/content-factory/artifacts/{artifact_id}/review-bundle",
+        "/api/v2/admin/content-factory/review-assignments",
+        "/api/v2/admin/content-factory/review-assignments/bulk",
+        "/api/v2/admin/content-factory/reviewers/{reviewer_id}/workload",
+        "/api/v2/admin/content-factory/review/bulk-approve",
+        "/api/v2/admin/content-factory/review/bulk-reject",
+        "/api/v2/admin/content-factory/review/bulk-quarantine",
+    }
+    assert review_paths <= set(schema["paths"])
+    assert all(schema["paths"][path][next(iter(schema["paths"][path]))]["tags"] == ["admin-content-factory"] for path in review_paths)
+    assert not any(path.startswith("/api/v2/content-factory") and "review" in path for path in schema["paths"])
     assert "/api/v2/admin/etl/status" in schema["paths"]
     assert schema["paths"]["/api/v2/admin/etl/status"]["get"]["tags"] == ["admin-etl"]
     assert "/api/v2/content-factory/scopes" not in schema["paths"]

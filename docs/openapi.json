@@ -64,6 +64,64 @@
         "title": "AllScopeStagingVerificationReport",
         "type": "object"
       },
+      "ArtifactReviewBundleResponse": {
+        "properties": {
+          "artifact": {
+            "title": "Artifact",
+            "type": "object"
+          },
+          "generation_metadata": {
+            "title": "Generation Metadata",
+            "type": "object"
+          },
+          "prior_review_events": {
+            "items": {
+              "type": "object"
+            },
+            "title": "Prior Review Events",
+            "type": "array"
+          },
+          "provenance": {
+            "title": "Provenance",
+            "type": "object"
+          },
+          "review_risk": {
+            "$ref": "#/components/schemas/ReviewRiskResponse"
+          },
+          "similar_artifacts": {
+            "items": {
+              "type": "object"
+            },
+            "title": "Similar Artifacts",
+            "type": "array"
+          },
+          "sources": {
+            "items": {
+              "type": "object"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "validation_report": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Validation Report"
+          }
+        },
+        "required": [
+          "artifact",
+          "provenance",
+          "review_risk"
+        ],
+        "title": "ArtifactReviewBundleResponse",
+        "type": "object"
+      },
       "AssessmentAttemptRequest": {
         "properties": {
           "learner_id": {
@@ -199,6 +257,105 @@
         ],
         "title": "BlockerSeverity",
         "type": "string"
+      },
+      "BulkReviewAssignmentRequest": {
+        "properties": {
+          "artifact_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Artifact Ids",
+            "type": "array"
+          },
+          "priority": {
+            "default": "normal",
+            "title": "Priority",
+            "type": "string"
+          },
+          "reviewer_id": {
+            "title": "Reviewer Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reviewer_id"
+        ],
+        "title": "BulkReviewAssignmentRequest",
+        "type": "object"
+      },
+      "BulkReviewRequest": {
+        "properties": {
+          "artifact_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Artifact Ids",
+            "type": "array"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "title": "BulkReviewRequest",
+        "type": "object"
+      },
+      "BulkReviewResponse": {
+        "properties": {
+          "artifact_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "title": "Artifact Ids",
+            "type": "array"
+          },
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "summary": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Summary",
+            "type": "object"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "BulkReviewResponse",
+        "type": "object"
       },
       "CapsRefCoverage": {
         "properties": {
@@ -3228,6 +3385,81 @@
         "title": "ReviewActionResponse",
         "type": "object"
       },
+      "ReviewAssignmentRequest": {
+        "properties": {
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "priority": {
+            "default": "normal",
+            "title": "Priority",
+            "type": "string"
+          },
+          "reviewer_id": {
+            "title": "Reviewer Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "artifact_id",
+          "reviewer_id"
+        ],
+        "title": "ReviewAssignmentRequest",
+        "type": "object"
+      },
+      "ReviewAssignmentResponse": {
+        "properties": {
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "assigned_by": {
+            "title": "Assigned By",
+            "type": "string"
+          },
+          "assigned_to": {
+            "title": "Assigned To",
+            "type": "string"
+          },
+          "due_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due By"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "priority": {
+            "title": "Priority",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "artifact_id",
+          "assigned_to",
+          "assigned_by",
+          "priority",
+          "status"
+        ],
+        "title": "ReviewAssignmentResponse",
+        "type": "object"
+      },
       "ReviewDecision": {
         "enum": [
           "approved",
@@ -3263,6 +3495,126 @@
         "title": "ReviewItemRequest",
         "type": "object"
       },
+      "ReviewQueueItemResponse": {
+        "properties": {
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "artifact_type": {
+            "title": "Artifact Type",
+            "type": "string"
+          },
+          "caps_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caps Ref"
+          },
+          "content_layer": {
+            "title": "Content Layer",
+            "type": "string"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "provenance_status": {
+            "title": "Provenance Status",
+            "type": "string"
+          },
+          "reviewer_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewer Id"
+          },
+          "risk_level": {
+            "title": "Risk Level",
+            "type": "string"
+          },
+          "risk_reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Risk Reasons",
+            "type": "array"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "validation_status": {
+            "title": "Validation Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "artifact_id",
+          "scope_id",
+          "content_layer",
+          "artifact_type",
+          "status",
+          "risk_level",
+          "validation_status",
+          "provenance_status"
+        ],
+        "title": "ReviewQueueItemResponse",
+        "type": "object"
+      },
+      "ReviewQueuePageResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewQueueItemResponse"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "ReviewQueuePageResponse",
+        "type": "object"
+      },
       "ReviewQueueResponse": {
         "properties": {
           "lessons": {
@@ -3284,6 +3636,31 @@
         "title": "ReviewQueueResponse",
         "type": "object"
       },
+      "ReviewRiskResponse": {
+        "properties": {
+          "level": {
+            "title": "Level",
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "score": {
+            "default": 0,
+            "title": "Score",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "level"
+        ],
+        "title": "ReviewRiskResponse",
+        "type": "object"
+      },
       "ReviewStatus": {
         "enum": [
           "ai_generated",
@@ -3294,6 +3671,75 @@
         ],
         "title": "ReviewStatus",
         "type": "string"
+      },
+      "ReviewSummaryResponse": {
+        "properties": {
+          "assigned": {
+            "default": 0,
+            "title": "Assigned",
+            "type": "integer"
+          },
+          "critical_risk": {
+            "default": 0,
+            "title": "Critical Risk",
+            "type": "integer"
+          },
+          "high_risk": {
+            "default": 0,
+            "title": "High Risk",
+            "type": "integer"
+          },
+          "low_risk": {
+            "default": 0,
+            "title": "Low Risk",
+            "type": "integer"
+          },
+          "medium_risk": {
+            "default": 0,
+            "title": "Medium Risk",
+            "type": "integer"
+          },
+          "pending_review": {
+            "default": 0,
+            "title": "Pending Review",
+            "type": "integer"
+          }
+        },
+        "title": "ReviewSummaryResponse",
+        "type": "object"
+      },
+      "ReviewerWorkloadResponse": {
+        "properties": {
+          "assigned": {
+            "title": "Assigned",
+            "type": "integer"
+          },
+          "in_review": {
+            "title": "In Review",
+            "type": "integer"
+          },
+          "overdue": {
+            "title": "Overdue",
+            "type": "integer"
+          },
+          "reviewer_id": {
+            "title": "Reviewer Id",
+            "type": "string"
+          },
+          "total_open": {
+            "title": "Total Open",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "reviewer_id",
+          "assigned",
+          "in_review",
+          "overdue",
+          "total_open"
+        ],
+        "title": "ReviewerWorkloadResponse",
+        "type": "object"
       },
       "SafetyClassification": {
         "enum": [
@@ -4183,6 +4629,54 @@
         ]
       }
     },
+    "/api/v2/admin/content-factory/artifacts/{artifact_id}/review-bundle": {
+      "get": {
+        "operationId": "get_artifact_review_bundle_api_v2_admin_content_factory_artifacts__artifact_id__review_bundle_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "artifact_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Artifact Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArtifactReviewBundleResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Artifact Review Bundle",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/api/v2/admin/content-factory/artifacts/{artifact_id}/submit-review": {
       "post": {
         "operationId": "submit_artifact_for_review_api_v2_admin_content_factory_artifacts__artifact_id__submit_review_post",
@@ -4378,23 +4872,314 @@
         ]
       }
     },
-    "/api/v2/admin/content-factory/review-queue": {
+    "/api/v2/admin/content-factory/review-assignments": {
       "get": {
-        "operationId": "get_review_queue_api_v2_admin_content_factory_review_queue_get",
+        "operationId": "list_review_assignments_api_v2_admin_content_factory_review_assignments_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "reviewer_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reviewer Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/ContentArtifactResponse"
+                    "$ref": "#/components/schemas/ReviewAssignmentResponse"
                   },
-                  "title": "Response Get Review Queue Api V2 Admin Content Factory Review Queue Get",
+                  "title": "Response List Review Assignments Api V2 Admin Content Factory Review Assignments Get",
                   "type": "array"
                 }
               }
             },
             "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Review Assignments",
+        "tags": [
+          "admin-content-factory"
+        ]
+      },
+      "post": {
+        "operationId": "assign_reviewer_api_v2_admin_content_factory_review_assignments_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewAssignmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewAssignmentResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Assign Reviewer",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/review-assignments/bulk": {
+      "post": {
+        "operationId": "bulk_assign_reviewer_api_v2_admin_content_factory_review_assignments_bulk_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewAssignmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Assign Reviewer",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/review-queue": {
+      "get": {
+        "operationId": "get_review_queue_api_v2_admin_content_factory_review_queue_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layer",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "caps_ref",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Caps Ref"
+            }
+          },
+          {
+            "in": "query",
+            "name": "artifact_type",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Artifact Type"
+            }
+          },
+          {
+            "in": "query",
+            "name": "risk_level",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Risk Level"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reviewer_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reviewer Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewQueuePageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
           }
         },
         "security": [
@@ -4403,6 +5188,245 @@
           }
         ],
         "summary": "Get Review Queue",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/review-summary": {
+      "get": {
+        "operationId": "get_review_summary_api_v2_admin_content_factory_review_summary_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewSummaryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Review Summary",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/review/bulk-approve": {
+      "post": {
+        "operationId": "bulk_approve_review_api_v2_admin_content_factory_review_bulk_approve_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Approve Review",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/review/bulk-quarantine": {
+      "post": {
+        "operationId": "bulk_quarantine_review_api_v2_admin_content_factory_review_bulk_quarantine_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Quarantine Review",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/review/bulk-reject": {
+      "post": {
+        "operationId": "bulk_reject_review_api_v2_admin_content_factory_review_bulk_reject_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Reject Review",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/reviewers/{reviewer_id}/workload": {
+      "get": {
+        "operationId": "get_reviewer_workload_api_v2_admin_content_factory_reviewers__reviewer_id__workload_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "reviewer_id",
+            "required": true,
+            "schema": {
+              "title": "Reviewer Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewerWorkloadResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Reviewer Workload",
         "tags": [
           "admin-content-factory"
         ]
@@ -10333,6 +11357,54 @@
         ]
       }
     },
+    "/v2/admin/content-factory/artifacts/{artifact_id}/review-bundle": {
+      "get": {
+        "operationId": "get_artifact_review_bundle_v2_admin_content_factory_artifacts__artifact_id__review_bundle_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "artifact_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Artifact Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArtifactReviewBundleResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Artifact Review Bundle",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/v2/admin/content-factory/artifacts/{artifact_id}/submit-review": {
       "post": {
         "operationId": "submit_artifact_for_review_v2_admin_content_factory_artifacts__artifact_id__submit_review_post",
@@ -10528,23 +11600,314 @@
         ]
       }
     },
-    "/v2/admin/content-factory/review-queue": {
+    "/v2/admin/content-factory/review-assignments": {
       "get": {
-        "operationId": "get_review_queue_v2_admin_content_factory_review_queue_get",
+        "operationId": "list_review_assignments_v2_admin_content_factory_review_assignments_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "reviewer_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reviewer Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/ContentArtifactResponse"
+                    "$ref": "#/components/schemas/ReviewAssignmentResponse"
                   },
-                  "title": "Response Get Review Queue V2 Admin Content Factory Review Queue Get",
+                  "title": "Response List Review Assignments V2 Admin Content Factory Review Assignments Get",
                   "type": "array"
                 }
               }
             },
             "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Review Assignments",
+        "tags": [
+          "admin-content-factory"
+        ]
+      },
+      "post": {
+        "operationId": "assign_reviewer_v2_admin_content_factory_review_assignments_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewAssignmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewAssignmentResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Assign Reviewer",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/review-assignments/bulk": {
+      "post": {
+        "operationId": "bulk_assign_reviewer_v2_admin_content_factory_review_assignments_bulk_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewAssignmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Assign Reviewer",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/review-queue": {
+      "get": {
+        "operationId": "get_review_queue_v2_admin_content_factory_review_queue_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layer",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "caps_ref",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Caps Ref"
+            }
+          },
+          {
+            "in": "query",
+            "name": "artifact_type",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Artifact Type"
+            }
+          },
+          {
+            "in": "query",
+            "name": "risk_level",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Risk Level"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reviewer_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reviewer Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewQueuePageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
           }
         },
         "security": [
@@ -10553,6 +11916,245 @@
           }
         ],
         "summary": "Get Review Queue",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/review-summary": {
+      "get": {
+        "operationId": "get_review_summary_v2_admin_content_factory_review_summary_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewSummaryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Review Summary",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/review/bulk-approve": {
+      "post": {
+        "operationId": "bulk_approve_review_v2_admin_content_factory_review_bulk_approve_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Approve Review",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/review/bulk-quarantine": {
+      "post": {
+        "operationId": "bulk_quarantine_review_v2_admin_content_factory_review_bulk_quarantine_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Quarantine Review",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/review/bulk-reject": {
+      "post": {
+        "operationId": "bulk_reject_review_v2_admin_content_factory_review_bulk_reject_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Reject Review",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/reviewers/{reviewer_id}/workload": {
+      "get": {
+        "operationId": "get_reviewer_workload_v2_admin_content_factory_reviewers__reviewer_id__workload_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "reviewer_id",
+            "required": true,
+            "schema": {
+              "title": "Reviewer Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewerWorkloadResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Reviewer Workload",
         "tags": [
           "admin-content-factory"
         ]

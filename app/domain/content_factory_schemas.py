@@ -224,6 +224,97 @@ class ContentFactoryReportResponse(BaseModel):
     review_queue_count: int
 
 
+class ReviewRiskResponse(BaseModel):
+    level: str
+    score: int = 0
+    reasons: list[str] = Field(default_factory=list)
+
+
+class ReviewQueueItemResponse(BaseModel):
+    artifact_id: uuid.UUID
+    scope_id: str
+    content_layer: str
+    artifact_type: str
+    caps_ref: str | None = None
+    status: str
+    risk_level: str
+    risk_reasons: list[str] = Field(default_factory=list)
+    validation_status: str
+    provenance_status: str
+    reviewer_id: str | None = None
+    created_at: str | None = None
+
+
+class ReviewQueuePageResponse(BaseModel):
+    items: list[ReviewQueueItemResponse]
+    total: int
+    limit: int
+    offset: int
+
+
+class ReviewSummaryResponse(BaseModel):
+    pending_review: int = 0
+    low_risk: int = 0
+    medium_risk: int = 0
+    high_risk: int = 0
+    critical_risk: int = 0
+    assigned: int = 0
+
+
+class ArtifactReviewBundleResponse(BaseModel):
+    artifact: dict[str, Any]
+    validation_report: dict[str, Any] | None = None
+    provenance: dict[str, Any]
+    sources: list[dict[str, Any]] = Field(default_factory=list)
+    review_risk: ReviewRiskResponse
+    generation_metadata: dict[str, Any] = Field(default_factory=dict)
+    prior_review_events: list[dict[str, Any]] = Field(default_factory=list)
+    similar_artifacts: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class ReviewAssignmentRequest(BaseModel):
+    artifact_id: uuid.UUID
+    reviewer_id: str
+    priority: str = "normal"
+
+
+class BulkReviewAssignmentRequest(BaseModel):
+    artifact_ids: list[uuid.UUID] = Field(default_factory=list, min_length=1)
+    reviewer_id: str
+    priority: str = "normal"
+
+
+class ReviewAssignmentResponse(BaseModel):
+    id: uuid.UUID
+    artifact_id: uuid.UUID
+    assigned_to: str
+    assigned_by: str
+    priority: str
+    status: str
+    due_by: str | None = None
+
+
+class ReviewerWorkloadResponse(BaseModel):
+    reviewer_id: str
+    assigned: int
+    in_review: int
+    overdue: int
+    total_open: int
+
+
+class BulkReviewRequest(BaseModel):
+    artifact_ids: list[uuid.UUID] = Field(default_factory=list, min_length=1)
+    reason: str | None = None
+    notes: str | None = None
+
+
+class BulkReviewResponse(BaseModel):
+    status: str
+    artifact_ids: list[uuid.UUID] = Field(default_factory=list)
+    errors: list[str] = Field(default_factory=list)
+    summary: dict[str, int] = Field(default_factory=dict)
+
+
 class ContentStagingVerificationRunResponse(BaseModel):
     run_id: uuid.UUID
     status: str
