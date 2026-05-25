@@ -42,3 +42,8 @@ This branch moves the Content Factory from a plan/temp-asset state to a reposito
 - Replace or extend the imported dashboard mock data with live calls to `/api/v2/admin/content-factory` once operator workflows are finalized.
 - Add educator review workflow evidence before generated content is treated as externally approved.
 - Add staging seed and rollback evidence before promoting generated artifacts into learner-facing production tables.
+## PR-CF-005 Control Plane
+
+Status: implemented locally on `pr-cf-005-content-factory-control-plane`; CI, staging migration, and production proof remain pending.
+
+Added expanded ETL provenance fields, artifact lifecycle service, generation run/task ledger, dry-run orchestrator skeleton, seed/promotion gates, blueprint/template validation skeletons, expanded admin Content Factory API, read-only admin ETL API, live dashboard API wiring, and startup seed feature-flag hardening.

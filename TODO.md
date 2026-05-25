@@ -216,3 +216,8 @@ Acceptable evidence includes:
 - test result artefact.
 
 A document that merely says “evidence added” is not evidence.
+## Content Factory Control Plane
+
+| ID | Task | Status | Gate |
+|---|---|---|---|
+| CONTENT-FACTORY-005 | PR-CF-005 control plane foundation | Implemented locally; CI/staging/promotion proof pending. | [verify] |
