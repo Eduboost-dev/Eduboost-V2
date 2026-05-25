@@ -637,6 +637,8 @@ from app.models.content_factory import (
     ContentScope,
     ContentScopeStatus,
     ContentSeedRun,
+    ContentStagingVerificationRun,
+    ContentStagingVerificationScopeResult,
     ContentValidationReport,
     LessonBank,
     StudyPlanTemplate,

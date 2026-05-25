@@ -297,6 +297,38 @@ class ContentSeedRun(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
 
 
+class ContentStagingVerificationRun(Base):
+    __tablename__ = "content_staging_verification_runs"
+
+    run_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=func.gen_random_uuid())
+    status: Mapped[str] = mapped_column(String(40), nullable=False, server_default="completed")
+    summary_json: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False, default=dict)
+    created_by: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class ContentStagingVerificationScopeResult(Base):
+    __tablename__ = "content_staging_verification_scope_results"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=func.gen_random_uuid())
+    run_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content_staging_verification_runs.run_id", ondelete="CASCADE"), nullable=False)
+    scope_id: Mapped[str] = mapped_column(String(80), nullable=False)
+    status: Mapped[str] = mapped_column(String(40), nullable=False)
+    can_seed_staging: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
+    can_promote_production: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="false")
+    summary_json: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False, default=dict)
+    blockers_json: Mapped[list[dict[str, Any]]] = mapped_column(JSONB, nullable=False, default=list)
+    created_by: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    __table_args__ = (
+        UniqueConstraint("run_id", "scope_id", name="uq_content_staging_verification_run_scope"),
+        Index("ix_content_staging_verification_scope_status", "scope_id", "status"),
+    )
+
+
 class ContentPromotionEvent(Base):
     __tablename__ = "content_promotion_events"
 
