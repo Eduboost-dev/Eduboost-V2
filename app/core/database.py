@@ -3,6 +3,7 @@ EduBoost V2 — Database Engine & Session Factory
 SQLAlchemy async engine wired to PostgreSQL via asyncpg.
 """
 from collections.abc import AsyncGenerator
+import uuid
 
 from sqlalchemy.pool import NullPool
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
@@ -19,7 +20,12 @@ engine_kwargs = {
 }
 
 if settings.DATABASE_URL.startswith("postgresql"):
-    engine_kwargs["connect_args"] = {"timeout": 5, "statement_cache_size": 0}
+    engine_kwargs["connect_args"] = {
+        "timeout": 5,
+        "statement_cache_size": 0,
+        "prepared_statement_cache_size": 0,
+        "prepared_statement_name_func": lambda: f"__asyncpg_{uuid.uuid4()}__",
+    }
 
 # PostgreSQL-specific settings
 if settings.DATABASE_URL.startswith("postgresql") and settings.APP_ENV in {"development", "test"}:
