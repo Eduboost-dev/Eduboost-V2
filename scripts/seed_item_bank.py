@@ -43,7 +43,10 @@ logger = logging.getLogger("seed_item_bank")
 
 from app.modules.diagnostics.item_validator import ItemValidator, ValidationError
 
-TOPIC_MAP_PATH = REPO_ROOT / "data" / "caps" / "caps_topic_map_grade4_maths.json"
+TOPIC_MAP_PATHS = [
+    REPO_ROOT / "data" / "caps" / "topic_maps" / "caps_topic_map_grade4_maths.json",
+    REPO_ROOT / "data" / "caps" / "caps_topic_map_grade4_maths.json",
+]
 DEFAULT_INPUT  = REPO_ROOT / "data" / "caps" / "grade4_maths_item_bank.json"
 
 LAUNCH_REFS   = ["4.M.1.1", "4.M.1.2", "4.M.1.3"]
@@ -55,11 +58,12 @@ LAUNCH_TARGET = 40
 # ---------------------------------------------------------------------------
 
 def load_topic_map() -> dict:
-    if not TOPIC_MAP_PATH.exists():
-        logger.warning("Topic map not found — CAPS ref validation will be skipped.")
-        return {}
-    with open(TOPIC_MAP_PATH) as f:
-        return json.load(f)
+    for path in TOPIC_MAP_PATHS:
+        if path.exists():
+            with open(path) as f:
+                return json.load(f)
+    logger.warning("Topic map not found — CAPS ref validation will be skipped.")
+    return {}
 
 
 def load_seed(input_path: Path) -> list[dict]:

@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import os
 import sys
 from pathlib import Path
 from uuid import UUID
@@ -14,8 +15,10 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from app.core.database import AsyncSessionLocal
-from app.models import Lesson
+from app.core.security import hash_email
+from app.models import Guardian, Language, LearnerProfile, Lesson
 from app.modules.lessons.lesson_validator import LessonValidator
+from sqlalchemy import select
 
 DEFAULT_INPUT = ROOT / "data" / "generated" / "lessons" / "grade4_maths_launch_lessons.json"
 
@@ -43,6 +46,7 @@ def lesson_row(lesson: dict, learner_id: str) -> dict:
         "safety_classification": lesson.get("safety_classification", "safe"),
         "pii_check_passed": bool(lesson.get("pii_check_passed")),
         "answer_key_verified": bool(lesson.get("answer_key_verified")),
+        "alignment_confidence": float(lesson.get("alignment_confidence") or 0.0),
         "quality_score": float(lesson.get("quality_score") or 0.0),
         "trust_label": lesson.get("trust_label", {}),
         "review_status": lesson.get("review_status", "approved"),
@@ -57,6 +61,39 @@ def lesson_row(lesson: dict, learner_id: str) -> dict:
     }
 
 
+async def resolve_seed_learner_id(session, args: argparse.Namespace) -> str:
+    if args.learner_id:
+        return args.learner_id
+
+    guardian_email = (args.guardian_email or os.getenv("DEV_ADMIN_EMAIL") or "").strip().lower()
+    if not guardian_email:
+        raise SystemExit("--learner-id or --guardian-email/DEV_ADMIN_EMAIL is required unless --dry-run is used")
+
+    result = await session.execute(select(Guardian).where(Guardian.email_hash == hash_email(guardian_email)))
+    guardian = result.scalar_one_or_none()
+    if guardian is None:
+        raise SystemExit(f"Guardian for {guardian_email} was not found; create the admin account before seeding lessons")
+
+    result = await session.execute(
+        select(LearnerProfile).where(
+            LearnerProfile.guardian_id == guardian.id,
+            LearnerProfile.grade == args.seed_learner_grade,
+            LearnerProfile.display_name == args.seed_learner_display_name,
+        )
+    )
+    learner = result.scalar_one_or_none()
+    if learner is None:
+        learner = LearnerProfile(
+            guardian_id=guardian.id,
+            display_name=args.seed_learner_display_name,
+            grade=args.seed_learner_grade,
+            language=Language.ENGLISH,
+        )
+        session.add(learner)
+        await session.flush()
+    return learner.id
+
+
 async def seed(args: argparse.Namespace) -> int:
     payload = json.loads(args.input.read_text(encoding="utf-8"))
     lessons = payload.get("lessons", [])
@@ -68,11 +105,10 @@ async def seed(args: argparse.Namespace) -> int:
     if args.dry_run:
         print(json.dumps({"dry_run": True, "lessons": len(lessons)}, indent=2))
         return 0
-    if not args.learner_id:
-        raise SystemExit("--learner-id is required unless --dry-run is used")
     async with AsyncSessionLocal() as session:
+        learner_id = await resolve_seed_learner_id(session, args)
         for lesson in lessons:
-            row = lesson_row(lesson, args.learner_id)
+            row = lesson_row(lesson, learner_id)
             existing = await session.get(Lesson, row["id"])
             if existing:
                 for key, value in row.items():
@@ -80,7 +116,7 @@ async def seed(args: argparse.Namespace) -> int:
             else:
                 session.add(Lesson(**row))
         await session.commit()
-    print(json.dumps({"seeded": len(lessons), "learner_id": args.learner_id}, indent=2))
+    print(json.dumps({"seeded": len(lessons), "learner_id": learner_id}, indent=2))
     return 0
 
 
@@ -89,6 +125,9 @@ def main() -> int:
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("--learner-id")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--guardian-email", help="Guardian/admin email used to create or reuse a seed learner when --learner-id is omitted")
+    parser.add_argument("--seed-learner-display-name", default="Launch Content Seed Learner")
+    parser.add_argument("--seed-learner-grade", type=int, default=4)
     return asyncio.run(seed(parser.parse_args()))
 
 
