@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import GenerationRunsPanel from "./GenerationRunsPanel";
 import StagingReadinessPanel from "./StagingReadinessPanel";
 import {
   fetchAdminEtlStatus,
@@ -84,6 +85,8 @@ export default function ContentFactoryLiveDashboard() {
         </section>
 
         <StagingReadinessPanel />
+
+        <GenerationRunsPanel runs={state.runs} />
 
         <section className="grid gap-6 lg:grid-cols-2">
           <Panel title="Scope Coverage">

@@ -25,6 +25,49 @@ export type GenerationRun = {
   run_metadata: Record<string, unknown>;
 };
 
+
+export type GenerationTask = {
+  task_id: string;
+  run_id: string;
+  scope_id: string;
+  caps_ref?: string | null;
+  content_layer: string;
+  status: string;
+  attempt_number: number;
+  max_attempts: number;
+  output_artifact_ids: string[];
+  validation_failures: string[];
+};
+
+export type GenerationPlanResponse = {
+  run_id: string;
+  created_task_ids: string[];
+  skipped: Array<Record<string, unknown>>;
+  missing: Array<Record<string, unknown>>;
+};
+
+export type GenerationExecutionResponse = {
+  run_id?: string | null;
+  task_id?: string | null;
+  status: string;
+  artifact_ids: string[];
+  errors: string[];
+  summary: Record<string, unknown>;
+  provider?: string | null;
+  mode?: string | null;
+};
+
+export type GenerationExecutionReport = {
+  run_id: string;
+  status: string;
+  tasks: number;
+  queued: number;
+  succeeded: number;
+  failed: number;
+  skipped: number;
+  artifacts: number;
+};
+
 export type ContentArtifact = {
   artifact_id: string;
   scope_id: string;
@@ -117,4 +160,25 @@ export function runAllScopeStagingVerification() {
 
 export function fetchScopeStagingReadiness(scopeId: string) {
   return fetchApi<ScopeStagingVerificationReport>(`/admin/content-factory/scopes/${scopeId}/staging-readiness`);
+}
+
+
+export function fetchGenerationRunTasks(runId: string) {
+  return fetchApi<GenerationTask[]>(`/admin/content-factory/runs/${runId}/tasks`);
+}
+
+export function planMissingGenerationTasks(runId: string) {
+  return fetchApi<GenerationPlanResponse>(`/admin/content-factory/runs/${runId}/plan-missing`, { method: "POST" });
+}
+
+export function executeGenerationRun(runId: string) {
+  return fetchApi<GenerationExecutionResponse>(`/admin/content-factory/runs/${runId}/execute`, { method: "POST" });
+}
+
+export function executeGenerationTask(taskId: string) {
+  return fetchApi<GenerationExecutionResponse>(`/admin/content-factory/tasks/${taskId}/execute`, { method: "POST" });
+}
+
+export function fetchGenerationExecutionReport(runId: string) {
+  return fetchApi<GenerationExecutionReport>(`/admin/content-factory/runs/${runId}/execution-report`);
 }
