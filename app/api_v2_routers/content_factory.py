@@ -24,6 +24,9 @@ from app.domain.content_factory_schemas import (
     ContentFactoryETLStatusResponse,
     ContentFactoryHealthResponse,
     ContentFactoryReportResponse,
+    ContentGenerationExecutionReportResponse,
+    ContentGenerationExecutionResponse,
+    ContentGenerationPlanResponse,
     ContentGenerationRunCreateRequest,
     ContentGenerationRunResponse,
     ContentGenerationTaskResponse,
@@ -32,13 +35,15 @@ from app.domain.content_factory_schemas import (
 )
 from app.domain.content_coverage import CapsRefCoverageReport, ContentLayer, CoverageTarget, ScopeCoverageReport
 from app.domain.content_scope import ContentScope
-from app.models.content_factory import ContentArtifactStatus, ContentGenerationArtifact
+from app.models.content_factory import ContentArtifactStatus, ContentGenerationArtifact, ContentGenerationTask
 from app.repositories.item_bank_repository import ItemBankRepository
 from app.repositories.lesson_repository import LessonRepository
 from app.services.content_artifact_lifecycle import ContentArtifactLifecycleService
 from app.services.content_factory import ContentFactoryService, ContentValidationService
 from app.services.content_factory_orchestrator import ContentFactoryOrchestrator
 from app.services.content_generation_runs import ContentGenerationRunService
+from app.services.content_generation_executor import ContentGenerationExecutor, GenerationDisabledError
+from app.services.content_generation_planner import ContentGenerationPlanner
 from app.services.content_coverage_service import ContentCoverageService
 from app.services.content_scope_registry import ContentScopeRegistry
 from app.services.content_seed_promotion import ContentSeedPromotionService
@@ -74,6 +79,14 @@ def get_content_artifact_lifecycle_service() -> ContentArtifactLifecycleService:
 
 def get_content_factory_orchestrator() -> ContentFactoryOrchestrator:
     return ContentFactoryOrchestrator()
+
+
+def get_content_generation_planner() -> ContentGenerationPlanner:
+    return ContentGenerationPlanner()
+
+
+def get_content_generation_executor() -> ContentGenerationExecutor:
+    return ContentGenerationExecutor()
 
 
 def get_seed_promotion_service(
@@ -218,6 +231,79 @@ async def get_generation_run_tasks(
     service: ContentGenerationRunService = Depends(get_content_generation_run_service),
 ) -> list[ContentGenerationTaskResponse]:
     return [_task_response(task) for task in await service.get_run_tasks(session, run_id)]
+
+
+@router.post("/runs/{run_id}/plan-missing", response_model=ContentGenerationPlanResponse)
+async def plan_missing_generation_tasks(
+    run_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    planner: ContentGenerationPlanner = Depends(get_content_generation_planner),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ContentGenerationPlanResponse:
+    try:
+        plan = await planner.plan_missing_for_run(session, run_id, actor_id=str(current_user.get("sub") or "admin"))
+        await session.commit()
+        return ContentGenerationPlanResponse(run_id=plan.run_id, created_task_ids=plan.created_task_ids, skipped=plan.skipped, missing=plan.missing)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.post("/runs/{run_id}/execute", response_model=ContentGenerationExecutionResponse)
+async def execute_generation_run(
+    run_id: uuid.UUID,
+    max_tasks: int | None = Query(default=None, ge=1, le=100),
+    session: AsyncSession = Depends(get_db),
+    executor: ContentGenerationExecutor = Depends(get_content_generation_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ContentGenerationExecutionResponse:
+    try:
+        result = await executor.execute_run(session, run_id, max_tasks=max_tasks, actor_id=str(current_user.get("sub") or "admin"))
+        await session.commit()
+        return ContentGenerationExecutionResponse(run_id=result.run_id, status=result.status, summary=result.summary)
+    except GenerationDisabledError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail={"error": "generation_disabled", "message": str(exc)}) from exc
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.post("/tasks/{task_id}/execute", response_model=ContentGenerationExecutionResponse)
+async def execute_generation_task(
+    task_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    executor: ContentGenerationExecutor = Depends(get_content_generation_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ContentGenerationExecutionResponse:
+    try:
+        result = await executor.execute_task(session, task_id, actor_id=str(current_user.get("sub") or "admin"))
+        await session.commit()
+        return ContentGenerationExecutionResponse(task_id=result.task_id, status=result.status, artifact_ids=result.artifact_ids, errors=result.errors, provider=result.provider, mode=result.mode)
+    except GenerationDisabledError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail={"error": "generation_disabled", "message": str(exc)}) from exc
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/tasks/{task_id}", response_model=ContentGenerationTaskResponse)
+async def get_generation_task(
+    task_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+) -> ContentGenerationTaskResponse:
+    task = await session.get(ContentGenerationTask, task_id)
+    if task is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Generation task {task_id} not found.")
+    return _task_response(task)
+
+
+@router.get("/runs/{run_id}/execution-report", response_model=ContentGenerationExecutionReportResponse)
+async def get_generation_execution_report(
+    run_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    executor: ContentGenerationExecutor = Depends(get_content_generation_executor),
+) -> ContentGenerationExecutionReportResponse:
+    try:
+        return ContentGenerationExecutionReportResponse(**await executor.execution_report(session, run_id))
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
 
 
 @router.post("/runs/{run_id}/cancel", response_model=ContentGenerationRunResponse)
