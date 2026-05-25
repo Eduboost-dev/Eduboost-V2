@@ -3,12 +3,12 @@
     "adr": 25,
     "api": 6,
     "architecture": 39,
-    "general": 486,
-    "release": 416,
+    "general": 487,
+    "release": 425,
     "security": 98
   },
-  "commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
-  "document_count": 1070,
+  "commit": "6b687361f42f90878bdd93934578519294cf94f7",
+  "document_count": 1080,
   "documents": [
     {
       "category": "general",
@@ -6545,14 +6545,14 @@
         },
         {
           "level": 2,
-          "line": 248,
+          "line": 249,
           "text": "Command"
         }
       ],
       "links": [],
       "path": "docs/ai/ai_prompt_surface_inventory.md",
-      "sha256": "68d7b771b49db89319bcea55a35b6b12386bc85ce91b050ee6969e2447688027",
-      "size_bytes": 15429,
+      "sha256": "f3a3f223434e744c30ff74213c09ab0c5d0b837fdae612c47799cdbdc02f2e27",
+      "size_bytes": 15487,
       "statuses": [],
       "title": "AI Prompt Surface Inventory"
     },
@@ -11252,49 +11252,61 @@
     {
       "category": "general",
       "dates": [],
-      "evidence_references": [],
+      "evidence_references": [
+        "docs/release/runtime_launch_content_evidence_status.md"
+      ],
       "generated": false,
       "headings": [],
       "links": [],
       "path": "docs/beta/beta_content_hard_gate.json",
-      "sha256": "b2b5e65ef514b5e80cc7d095bee98eb9b466467482ead59d842bb57dbc7f8e56",
-      "size_bytes": 227,
+      "sha256": "b1341b45f1147bc4e968371443c3ff363ee82e409bace7e24109eca7e75007d2",
+      "size_bytes": 336,
       "statuses": [
-        "blocked"
+        "pass"
       ],
       "title": "Beta Content Hard Gate"
     },
     {
       "category": "general",
       "dates": [],
-      "evidence_references": [],
+      "evidence_references": [
+        "docs/release/runtime_launch_content_evidence_status.md",
+        "docs/release/beta_readiness_status.md"
+      ],
       "generated": false,
       "headings": [
         {
           "level": 1,
           "line": 1,
           "text": "Beta Content Hard Gate"
+        },
+        {
+          "level": 2,
+          "line": 18,
+          "text": "Boundary"
         }
       ],
       "links": [],
       "path": "docs/beta/beta_content_hard_gate.md",
-      "sha256": "1787ec93d3ceb8b38e44cc166d59fbabbff543237bf9a6debc02709d4ff78fd7",
-      "size_bytes": 247,
+      "sha256": "ef5f7cad5de2fdac9eedf8529ab8072a1f380309c98aec7c97ab364542cee81b",
+      "size_bytes": 656,
       "statuses": [
-        "blocked"
+        "pass"
       ],
       "title": "Beta Content Hard Gate"
     },
     {
       "category": "general",
       "dates": [],
-      "evidence_references": [],
+      "evidence_references": [
+        "docs/release/runtime_launch_content_evidence_status.md"
+      ],
       "generated": false,
       "headings": [],
       "links": [],
       "path": "docs/beta/beta_content_threshold_status.json",
-      "sha256": "118a9f7706cb22cdcee62b2dd6b2a75e28430e44312a6fad94a2c75fe8730cc0",
-      "size_bytes": 128,
+      "sha256": "13efcf59091f8d4a104a3bcf7b99aa3fea790d7b852ef2557ff44eb2f564f70d",
+      "size_bytes": 239,
       "statuses": [],
       "title": "Beta Content Threshold Status"
     },
@@ -11323,7 +11335,9 @@
     {
       "category": "general",
       "dates": [],
-      "evidence_references": [],
+      "evidence_references": [
+        "docs/release/runtime_launch_content_evidence_status.md"
+      ],
       "generated": false,
       "headings": [
         {
@@ -11340,14 +11354,19 @@
           "level": 2,
           "line": 16,
           "text": "Command"
+        },
+        {
+          "level": 2,
+          "line": 22,
+          "text": "Evidence"
         }
       ],
       "links": [],
       "path": "docs/beta/item_review_process.md",
-      "sha256": "03bc982e25b787401c4e44fd73f148c2222b02f934c5ce30129cb95542fd37d2",
-      "size_bytes": 591,
+      "sha256": "99a9c575df2546d8bcb81ecc1e1cfdfd19dfcc6f093d6bc8ea67420afa3eb19b",
+      "size_bytes": 915,
       "statuses": [
-        "blocked"
+        "passed"
       ],
       "title": "EduBoost Beta Item Review Process"
     },
@@ -11935,28 +11954,40 @@
     {
       "category": "general",
       "dates": [],
-      "evidence_references": [],
+      "evidence_references": [
+        "docs/release/runtime_launch_content_evidence_status.md"
+      ],
       "generated": false,
       "headings": [
         {
           "level": 1,
           "line": 1,
           "text": "CAPS Learning Proof"
+        },
+        {
+          "level": 2,
+          "line": 7,
+          "text": "Current Launch Slice"
+        },
+        {
+          "level": 2,
+          "line": 20,
+          "text": "Boundary"
         }
       ],
       "links": [],
       "path": "docs/caps/caps_learning_proof.md",
-      "sha256": "645cd673f366a54d5282579d350a0c83cd91e69f8785630e2ea811b8c4a5f45d",
-      "size_bytes": 363,
-      "statuses": [
-        "blocked"
-      ],
+      "sha256": "edad5c3b34cbe66a621bff965fed52f9354a2441e3ecacd4685923fa45b53a24",
+      "size_bytes": 726,
+      "statuses": [],
       "title": "CAPS Learning Proof"
     },
     {
       "category": "general",
       "dates": [],
-      "evidence_references": [],
+      "evidence_references": [
+        "docs/release/runtime_launch_content_evidence_status.md"
+      ],
       "generated": false,
       "headings": [
         {
@@ -11966,290 +11997,132 @@
         },
         {
           "level": 2,
-          "line": 10,
+          "line": 5,
           "text": "Current State"
         },
         {
           "level": 2,
+          "line": 16,
+          "text": "Difficulty Distribution"
+        },
+        {
+          "level": 2,
           "line": 26,
-          "text": "Required Difficulty Distribution"
+          "text": "Runtime Evidence"
         },
         {
           "level": 2,
-          "line": 45,
-          "text": "Batch Execution Plan"
+          "line": 36,
+          "text": "Validation Commands"
         },
         {
           "level": 2,
-          "line": 58,
-          "text": "Acceptance Gates"
-        },
-        {
-          "level": 2,
-          "line": 75,
-          "text": "Human Review Criteria"
-        },
-        {
-          "level": 2,
-          "line": 87,
-          "text": "Production Completion Definition"
+          "line": 41,
+          "text": "Remaining Work"
         }
       ],
       "links": [],
       "path": "docs/caps/grade4_maths_120_item_production_plan.md",
-      "sha256": "b4a8943046f6ceb0e17ace5a9dfbe4ccc6f01866fa663b91cd8ae9f200e1dff0",
-      "size_bytes": 3839,
-      "statuses": [
-        "fail",
-        "pass"
-      ],
+      "sha256": "9fd74ce1df919355809853b5c26e25e309e911c9d603044a7d031eaa99423510",
+      "size_bytes": 1648,
+      "statuses": [],
       "title": "Grade 4 Mathematics 120-Item Production Plan"
     },
     {
       "category": "general",
       "dates": [],
-      "evidence_references": [],
+      "evidence_references": [
+        "docs/release/runtime_launch_content_evidence_status.md"
+      ],
       "generated": false,
       "headings": [
         {
           "level": 1,
           "line": 1,
-          "text": "Grade 4 Mathematics \u2014 CAPS Item Bank Coverage Matrix"
+          "text": "Grade 4 Mathematics - CAPS Item Bank Coverage Matrix"
         },
         {
           "level": 2,
-          "line": 10,
+          "line": 6,
           "text": "Summary"
         },
         {
           "level": 2,
+          "line": 19,
+          "text": "Coverage By CAPS Reference"
+        },
+        {
+          "level": 2,
           "line": 27,
-          "text": "Coverage by CAPS Reference"
+          "text": "Difficulty Distribution"
         },
         {
           "level": 2,
-          "line": 45,
-          "text": "Difficulty Distribution Target vs. Actual"
-        },
-        {
-          "level": 3,
-          "line": 50,
-          "text": "Target (per topic cluster, 40 items)"
-        },
-        {
-          "level": 3,
-          "line": 59,
-          "text": "4.M.1.1 \u2014 Whole Numbers"
-        },
-        {
-          "level": 3,
-          "line": 72,
-          "text": "4.M.1.2 \u2014 Common Fractions"
-        },
-        {
-          "level": 3,
-          "line": 85,
-          "text": "4.M.1.3 \u2014 2D Shapes"
+          "line": 35,
+          "text": "Definition Of Done Checklist"
         },
         {
           "level": 2,
-          "line": 100,
-          "text": "Item Quality Scores"
-        },
-        {
-          "level": 2,
-          "line": 121,
-          "text": "Exposure Heatmap"
-        },
-        {
-          "level": 2,
-          "line": 138,
-          "text": "Misconception Tag Coverage"
-        },
-        {
-          "level": 3,
-          "line": 144,
-          "text": "4.M.1.1 \u2014 Whole Numbers \u2014 Expected Misconception Tags"
-        },
-        {
-          "level": 3,
-          "line": 154,
-          "text": "4.M.1.2 \u2014 Common Fractions \u2014 Expected Misconception Tags"
-        },
-        {
-          "level": 3,
-          "line": 163,
-          "text": "4.M.1.3 \u2014 2D Shapes \u2014 Expected Misconception Tags"
-        },
-        {
-          "level": 2,
-          "line": 174,
-          "text": "Definition of Done \u2014 Checklist"
-        },
-        {
-          "level": 2,
-          "line": 204,
-          "text": "How to Regenerate This Document"
-        },
-        {
-          "level": 1,
-          "line": 207,
-          "text": "From repo root"
-        },
-        {
-          "level": 2,
-          "line": 218,
-          "text": "Related Documents"
+          "line": 46,
+          "text": "Boundary"
         }
       ],
-      "links": [
-        {
-          "kind": "external",
-          "target": "https://github.com/nkgolo-lebelo/Eduboost",
-          "text": "nkgolo-lebelo/Eduboost"
-        },
-        {
-          "kind": "local",
-          "target": "grade4_maths_120_item_production_plan.md",
-          "text": "Grade 4 Mathematics 120-Item Production Plan"
-        },
-        {
-          "kind": "local",
-          "target": "../../TODO.md",
-          "text": "TODO.md"
-        },
-        {
-          "kind": "local",
-          "target": "../../RoadMap.md",
-          "text": "RoadMap.md"
-        },
-        {
-          "kind": "local",
-          "target": "../architecture/V2_ARCHITECTURE.md",
-          "text": "docs/architecture/V2_ARCHITECTURE.md"
-        },
-        {
-          "kind": "local",
-          "target": "../project_status.md",
-          "text": "docs/project_status.md"
-        },
-        {
-          "kind": "local",
-          "target": "../../CHANGELOG.md",
-          "text": "CHANGELOG.md"
-        },
-        {
-          "kind": "local",
-          "target": "../../SECURITY.md",
-          "text": "SECURITY.md"
-        }
-      ],
+      "links": [],
       "path": "docs/caps/grade4_maths_coverage_matrix.md",
-      "sha256": "2e0578ceb3d92518cdefbbc82ffbca4ce2206ff3a45b233574df9ee6b48bd925",
-      "size_bytes": 9715,
+      "sha256": "c8844cfb47d78c6c5aaa81971aab235f3a5f4e6ac45168f2e41737b59ece1f53",
+      "size_bytes": 1872,
       "statuses": [
-        "pending",
-        "todo"
+        "pending"
       ],
-      "title": "Grade 4 Mathematics \u2014 CAPS Item Bank Coverage Matrix"
+      "title": "Grade 4 Mathematics - CAPS Item Bank Coverage Matrix"
     },
     {
       "category": "general",
       "dates": [],
-      "evidence_references": [],
+      "evidence_references": [
+        "docs/release/runtime_launch_content_evidence_status.md"
+      ],
       "generated": false,
       "headings": [
         {
           "level": 1,
           "line": 1,
-          "text": "Grade 4 Mathematics \u2014 Lesson Coverage Matrix"
+          "text": "Grade 4 Mathematics - Lesson Coverage Matrix"
         },
         {
           "level": 2,
-          "line": 8,
-          "text": "Purpose"
+          "line": 6,
+          "text": "Summary"
         },
         {
           "level": 2,
-          "line": 21,
-          "text": "CAPS Reference Coding Scheme"
+          "line": 18,
+          "text": "Coverage Table - Launch Scope"
+        },
+        {
+          "level": 2,
+          "line": 26,
+          "text": "Quality Score Distribution"
         },
         {
           "level": 2,
           "line": 34,
-          "text": "Launch Scope: Grade 4 Mathematics"
+          "text": "Runtime Evidence"
         },
         {
           "level": 2,
-          "line": 40,
-          "text": "Coverage Table \u2014 Term 1 (Launch Scope)"
-        },
-        {
-          "level": 2,
-          "line": 52,
-          "text": "Coverage Table \u2014 Term 2 (Post-Launch)"
-        },
-        {
-          "level": 2,
-          "line": 63,
-          "text": "Coverage Table \u2014 Term 3 (Post-Launch)"
-        },
-        {
-          "level": 2,
-          "line": 74,
-          "text": "Coverage Table \u2014 Term 4 (Post-Launch)"
-        },
-        {
-          "level": 2,
-          "line": 84,
-          "text": "Quality Score Distribution (Launch Scope)"
-        },
-        {
-          "level": 2,
-          "line": 96,
-          "text": "Answer-Key Verification Rate"
-        },
-        {
-          "level": 2,
-          "line": 108,
-          "text": "Human Review Summary"
-        },
-        {
-          "level": 2,
-          "line": 118,
-          "text": "Milestone C Definition of Done \u2014 Per Caps Ref"
-        },
-        {
-          "level": 2,
-          "line": 137,
-          "text": "AI Transparency Labels"
-        },
-        {
-          "level": 2,
-          "line": 152,
-          "text": "How to Update This Document"
-        },
-        {
-          "level": 1,
-          "line": 155,
-          "text": "After a generation or review batch:"
-        },
-        {
-          "level": 1,
-          "line": 159,
-          "text": "For a specific caps_ref only:"
+          "line": 38,
+          "text": "Remaining Work"
         }
       ],
       "links": [],
       "path": "docs/caps/grade4_maths_lesson_coverage_matrix.md",
-      "sha256": "61c00f707fa8603b0a815f7355746862d44d417d1213ec14cfe479432dc3a3a9",
-      "size_bytes": 7682,
+      "sha256": "b252b932d8d25d61a05fc5ebbafa9fcfa54abc93f5987487fd149b1b3895ecd5",
+      "size_bytes": 1546,
       "statuses": [
-        "pass",
-        "pending",
-        "fail"
+        "pass"
       ],
-      "title": "Grade 4 Mathematics \u2014 Lesson Coverage Matrix"
+      "title": "Grade 4 Mathematics - Lesson Coverage Matrix"
     },
     {
       "category": "general",
@@ -13190,7 +13063,9 @@
     {
       "category": "general",
       "dates": [],
-      "evidence_references": [],
+      "evidence_references": [
+        "docs/release/runtime_launch_content_evidence_status.md"
+      ],
       "generated": false,
       "headings": [
         {
@@ -13211,18 +13086,23 @@
         {
           "level": 2,
           "line": 25,
-          "text": "Repository Evidence"
+          "text": "Current Launch Evidence"
         },
         {
           "level": 2,
           "line": 37,
+          "text": "Repository Evidence"
+        },
+        {
+          "level": 2,
+          "line": 49,
           "text": "Launch Boundary"
         }
       ],
       "links": [],
       "path": "docs/diagnostics/item_bank_launch_coverage_contract.md",
-      "sha256": "5d3ec5242e571cec626ed233c0267af1be1a67f35b8f0acbc5f939589409e180",
-      "size_bytes": 1399,
+      "sha256": "558ed7b1c4a75e0287bf2b2df2072fe22306b2767ae242711495b6e33600de85",
+      "size_bytes": 1661,
       "statuses": [],
       "title": "Item Bank Launch Coverage Contract"
     },
@@ -15036,14 +14916,14 @@
         },
         {
           "level": 2,
-          "line": 81,
+          "line": 77,
           "text": "Command"
         }
       ],
       "links": [],
       "path": "docs/frontend/frontend_route_inventory.md",
-      "sha256": "732bcad313e7494d4143b498e4bcbcea0df6f5dfcdb3b18597503ea499933254",
-      "size_bytes": 6329,
+      "sha256": "6bcfa286d19d7e85ab678059973901b63f2f771ca289b3ebdceb84870a123597",
+      "size_bytes": 6035,
       "statuses": [],
       "title": "Frontend Route Inventory"
     },
@@ -23153,29 +23033,29 @@
         },
         {
           "level": 2,
-          "line": 31,
+          "line": 30,
           "text": "Diagnostic Session Lifecycle"
         },
         {
           "level": 2,
-          "line": 41,
+          "line": 40,
           "text": "Mastery Evidence"
         },
         {
           "level": 2,
-          "line": 52,
+          "line": 51,
           "text": "Aggregate Check"
         },
         {
           "level": 2,
-          "line": 66,
+          "line": 65,
           "text": "Verification Gaps"
         }
       ],
       "links": [],
       "path": "docs/learning_science/learning_evidence.md",
-      "sha256": "ea57a268d3ed5e76a275f7a32f52e1e4c3d1e5870f40bbda1f209c399294fc6f",
-      "size_bytes": 2859,
+      "sha256": "a105e2742ccb5c497ffb547e0482ea6b3df0d1ad22d3079522c892151cae2dfd",
+      "size_bytes": 2959,
       "statuses": [],
       "title": "Learning Evidence"
     },
@@ -26186,8 +26066,8 @@
       ],
       "links": [],
       "path": "docs/operations/database_backup_manifest.md",
-      "sha256": "e54a3e3d58977fb0aa9742f7182288ee1e8a47fe17c0d02d1cc2aba782c68439",
-      "size_bytes": 692,
+      "sha256": "74c27d228843449abf1844a5cdfe81475096fd75c2480f691bbadc0822c1e327",
+      "size_bytes": 689,
       "statuses": [
         "pending"
       ],
@@ -26400,8 +26280,8 @@
       ],
       "links": [],
       "path": "docs/operations/database_restore_evidence.md",
-      "sha256": "a143789fef732d87106ccbcbd297a00fd04a23ba1a3a9220e5bc1302f9640200",
-      "size_bytes": 745,
+      "sha256": "e72f37ff9eb0639b18bc348313f1a946899ffb852298c8aece30bfc3834724d4",
+      "size_bytes": 742,
       "statuses": [
         "pending",
         "blocked"
@@ -29795,8 +29675,8 @@
       ],
       "links": [],
       "path": "docs/operations/release_evidence_manifest.md",
-      "sha256": "e44bda3792aca3846856a07421e1c1fa7bae0a74bc079aa45b6765f23400ab63",
-      "size_bytes": 1267,
+      "sha256": "e77e963115f7b70f9df6da9409002e1cc001fcb1f167bbfd58edcbf3da17cc4f",
+      "size_bytes": 1264,
       "statuses": [
         "pending"
       ],
@@ -30255,6 +30135,98 @@
       "size_bytes": 131629,
       "statuses": [],
       "title": "Release State Snapshot"
+    },
+    {
+      "category": "general",
+      "dates": [
+        "2026-05-24"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Render Frontend/Backend Connectivity Report"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Live services checked"
+        },
+        {
+          "level": 2,
+          "line": 10,
+          "text": "Findings"
+        },
+        {
+          "level": 2,
+          "line": 19,
+          "text": "Required Render environment values"
+        },
+        {
+          "level": 2,
+          "line": 39,
+          "text": "Admin test account"
+        },
+        {
+          "level": 2,
+          "line": 58,
+          "text": "Outstanding feature and readiness list"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://eduboos-frontend.onrender.com`",
+          "text": "https://eduboos-frontend.onrender.com`"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com`",
+          "text": "https://eduboost-api.onrender.com`"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com`.",
+          "text": "https://eduboost-api.onrender.com`."
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/api/v2`",
+          "text": "https://eduboost-api.onrender.com/api/v2`"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboos-frontend.onrender.com`",
+          "text": "https://eduboos-frontend.onrender.com`"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboos-frontend.onrender.com",
+          "text": "https://eduboos-frontend.onrender.com"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboos-frontend.onrender.com,http://localhost:3050,http://127.0.0.1:3050",
+          "text": "https://eduboos-frontend.onrender.com,http://localhost:3050,http://127.0.0.1:3050"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com",
+          "text": "https://eduboost-api.onrender.com"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/api/v2",
+          "text": "https://eduboost-api.onrender.com/api/v2"
+        }
+      ],
+      "path": "docs/operations/render_frontend_backend_connectivity_report.md",
+      "sha256": "962bdf91c003ff95746978a2854c15e2a7f9c6cd6c9b47b873d3a5c002f19a00",
+      "size_bytes": 4826,
+      "statuses": [],
+      "title": "Render Frontend/Backend Connectivity Report"
     },
     {
       "category": "general",
@@ -32272,7 +32244,9 @@
     {
       "category": "general",
       "dates": [],
-      "evidence_references": [],
+      "evidence_references": [
+        "docs/release/runtime_launch_content_evidence_status.md"
+      ],
       "generated": false,
       "headings": [
         {
@@ -32283,23 +32257,28 @@
         {
           "level": 2,
           "line": 5,
-          "text": "Supported in private beta"
+          "text": "Supported launch slice with live content evidence"
         },
         {
           "level": 2,
           "line": 14,
+          "text": "Supported in private beta with boundary controls"
+        },
+        {
+          "level": 2,
+          "line": 23,
           "text": "Unsupported claims"
         },
         {
           "level": 2,
-          "line": 18,
-          "text": "Launch gates"
+          "line": 27,
+          "text": "Launch gates still outside content"
         }
       ],
       "links": [],
       "path": "docs/product/launch_scope.md",
-      "sha256": "2922a78f356f73c7e420c57543502a48392f6e3e298069a90f13b87c9f5fe8d5",
-      "size_bytes": 1260,
+      "sha256": "0716f943e34ca965d99928478b49c2fbc087507df109cccb5e2b3b7a1226c936",
+      "size_bytes": 1749,
       "statuses": [
         "pass"
       ],
@@ -32366,19 +32345,19 @@
         },
         {
           "level": 2,
-          "line": 9,
+          "line": 10,
           "text": "Next: trustworthy beta"
         },
         {
           "level": 2,
-          "line": 17,
+          "line": 18,
           "text": "Later: differentiated South African learning platform"
         }
       ],
       "links": [],
       "path": "docs/product/roadmap.md",
-      "sha256": "832bb6638037bd4fb88db24710131b09ee979d909fa01e98c5f6c044357d96c1",
-      "size_bytes": 820,
+      "sha256": "9b1732e740030466b2046f643ab003eea156b5534664d9b87b0c93bd89cf29a9",
+      "size_bytes": 957,
       "statuses": [],
       "title": "Transparent product roadmap"
     },
@@ -34018,6 +33997,102 @@
       "category": "release",
       "dates": [],
       "evidence_references": [
+        "scripts/db_backup_restore_rollback_evidence.py",
+        "docs/release/db_backup_restore_rollback_evidence_status.json",
+        "docs/release/db_backup_restore_rollback_evidence_status.md",
+        "docs/release/drill_logs.txt"
+      ],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "DB Backup/Restore/Rollback Drill \u2014 Troubleshooting & Runbook"
+        },
+        {
+          "level": 1,
+          "line": 79,
+          "text": "run from repo root"
+        },
+        {
+          "level": 1,
+          "line": 129,
+          "text": "create network"
+        },
+        {
+          "level": 1,
+          "line": 131,
+          "text": "remove previous"
+        },
+        {
+          "level": 1,
+          "line": 133,
+          "text": "run disposable Postgres 17"
+        },
+        {
+          "level": 1,
+          "line": 136,
+          "text": "wait"
+        },
+        {
+          "level": 1,
+          "line": 139,
+          "text": "run drill in python container on same network, passing envs and --schema=public"
+        },
+        {
+          "level": 1,
+          "line": 174,
+          "text": "create network"
+        },
+        {
+          "level": 1,
+          "line": 176,
+          "text": "remove previous container"
+        },
+        {
+          "level": 1,
+          "line": 178,
+          "text": "run disposable Postgres 17"
+        },
+        {
+          "level": 1,
+          "line": 181,
+          "text": "wait for readiness"
+        },
+        {
+          "level": 1,
+          "line": 183,
+          "text": "run drill"
+        },
+        {
+          "level": 1,
+          "line": 189,
+          "text": "review evidence"
+        },
+        {
+          "level": 1,
+          "line": 191,
+          "text": "cleanup"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/DB_BACKUP_RESTORE_ROLLBACK_DRILL_README.md",
+      "sha256": "c68ae2e4fc679e1e0595a3654ade647400c0cd6ca30b4076875685b6d7e04ae3",
+      "size_bytes": 11389,
+      "statuses": [
+        "fail",
+        "pass",
+        "failed",
+        "passed"
+      ],
+      "title": "DB Backup/Restore/Rollback Drill \u2014 Troubleshooting & Runbook"
+    },
+    {
+      "category": "release",
+      "dates": [
+        "2026-05-25"
+      ],
+      "evidence_references": [
         "docs/release/full_pytest_latest_green.txt",
         "docs/release/unit_latest_green.txt",
         "docs/release/unit_latest_after_popia_service_evidence.txt",
@@ -34035,6 +34110,8 @@
         "docs/release/legal_popia_review.md",
         "docs/release/security_review.md",
         "docs/release/caps_content_approval.md",
+        "docs/release/runtime_launch_content_evidence_status.md",
+        "docs/release/runtime_launch_content_evidence_status.json",
         "docs/release/branch_protection_evidence.md",
         "docs/release/popia_sweep_evidence.md",
         "docs/release/backup_restore_evidence.md"
@@ -34058,523 +34135,528 @@
         },
         {
           "level": 2,
-          "line": 33,
+          "line": 34,
           "text": "Maintenance"
         },
         {
           "level": 2,
-          "line": 48,
+          "line": 49,
           "text": "Local pytest evidence capture"
         },
         {
           "level": 2,
-          "line": 58,
+          "line": 59,
           "text": "Staging smoke evidence capture"
         },
         {
           "level": 2,
-          "line": 69,
+          "line": 70,
           "text": "Migration evidence capture"
         },
         {
           "level": 2,
-          "line": 80,
+          "line": 81,
           "text": "Backend consolidation dragon diagnostics"
         },
         {
           "level": 2,
-          "line": 90,
+          "line": 91,
           "text": "Audit consolidation evidence"
         },
         {
           "level": 2,
-          "line": 100,
+          "line": 101,
           "text": "Consent consolidation evidence"
         },
         {
           "level": 2,
-          "line": 110,
+          "line": 111,
           "text": "Health/readiness and schema drift diagnostics"
         },
         {
           "level": 2,
-          "line": 121,
+          "line": 122,
           "text": "Backend consolidation rollup"
         },
         {
           "level": 2,
-          "line": 132,
+          "line": 133,
           "text": "Backend runtime compatibility"
         },
         {
           "level": 2,
-          "line": 143,
+          "line": 144,
           "text": "Backend consolidation readiness and no-op guard"
         },
         {
           "level": 2,
-          "line": 155,
+          "line": 156,
           "text": "Backend consolidation execution packet"
         },
         {
           "level": 2,
-          "line": 166,
+          "line": 167,
           "text": "Backend runtime probe fixtures"
         },
         {
           "level": 2,
-          "line": 177,
+          "line": 178,
           "text": "Backend consolidation terminal packet"
         },
         {
           "level": 2,
-          "line": 189,
+          "line": 190,
           "text": "Backend consolidation implementation foundation"
         },
         {
           "level": 2,
-          "line": 200,
+          "line": 201,
           "text": "Backend implementation code_364-code_366"
         },
         {
           "level": 2,
-          "line": 212,
+          "line": 213,
           "text": "Backend implementation progress slice 367-370"
         },
         {
           "level": 2,
-          "line": 224,
+          "line": 225,
           "text": "Backend implementation slice 371-375"
         },
         {
           "level": 2,
-          "line": 235,
+          "line": 236,
           "text": "Backend implementation slice 376-382"
         },
         {
           "level": 2,
-          "line": 246,
+          "line": 247,
           "text": "Backend implementation slice 383-390"
         },
         {
           "level": 2,
-          "line": 257,
+          "line": 258,
           "text": "Backend implementation slice 391-400"
         },
         {
           "level": 2,
-          "line": 268,
+          "line": 269,
           "text": "Backend runtime enablement 401-420"
         },
         {
           "level": 2,
-          "line": 280,
+          "line": 281,
           "text": "Backend implementation slice 421-430"
         },
         {
           "level": 2,
-          "line": 292,
+          "line": 293,
           "text": "Backend implementation slice 431-450"
         },
         {
           "level": 2,
-          "line": 304,
+          "line": 305,
           "text": "Backend runtime integration readiness 451-480"
         },
         {
           "level": 2,
-          "line": 316,
+          "line": 317,
           "text": "Backend implementation 531-560 \u2014 Roadmap reconciliation and production hardening"
         },
         {
           "level": 2,
-          "line": 336,
+          "line": 337,
           "text": "Backend implementation 561-580 \u2014 Beta evidence execution and release gating"
         },
         {
           "level": 2,
-          "line": 354,
+          "line": 355,
           "text": "Backend implementation 581-590 \u2014 Beta evidence integrity repair"
         },
         {
           "level": 2,
-          "line": 368,
+          "line": 369,
           "text": "Backend implementation 591-610 \u2014 POPIA consent lifecycle repair"
         },
         {
           "level": 2,
-          "line": 385,
+          "line": 386,
           "text": "Backend implementation 611-630 \u2014 Lesson object authorization repair"
         },
         {
           "level": 2,
-          "line": 402,
+          "line": 403,
           "text": "Backend implementation 631-650 \u2014 Auth token claim consistency"
         },
         {
           "level": 2,
-          "line": 419,
+          "line": 420,
           "text": "Backend implementation 651-670 \u2014 Boundary enforcement and import discipline"
         },
         {
           "level": 2,
-          "line": 438,
+          "line": 439,
           "text": "Backend implementation 671-690 \u2014 Import-linter architecture contracts"
         },
         {
           "level": 2,
-          "line": 457,
+          "line": 458,
           "text": "Backend implementation 691-720 \u2014 Diagnostics and durable jobs data integrity"
         },
         {
           "level": 2,
-          "line": 476,
+          "line": 477,
           "text": "Backend implementation 721-750 \u2014 Auth router boundary closure"
         },
         {
           "level": 2,
-          "line": 494,
+          "line": 495,
           "text": "Backend implementation 751-780 \u2014 JWT rotation and dependency security hardening"
         },
         {
           "level": 2,
-          "line": 515,
+          "line": 516,
           "text": "Backend implementation 781-830R2 \u2014 Follow-up audit runtime blocker repair"
         },
         {
           "level": 2,
-          "line": 533,
+          "line": 534,
           "text": "Backend implementation 831-870 \u2014 POPIA lifecycle integration tests and diagnostics DB integrity proof"
         },
         {
           "level": 2,
-          "line": 551,
+          "line": 552,
           "text": "Backend implementation 831-870R \u2014 Auth forward-reference runtime import repair"
         },
         {
           "level": 2,
-          "line": 566,
+          "line": 567,
           "text": "Backend implementation 871-910 \u2014 AuthService extraction and auth router repository closure"
         },
         {
           "level": 2,
-          "line": 583,
+          "line": 584,
           "text": "Backend implementation 911-950 \u2014 Auth service method extraction and lifecycle integration tests"
         },
         {
           "level": 2,
-          "line": 603,
+          "line": 604,
           "text": "Backend implementation 951-990 \u2014 Complete AuthApplicationService ownership and auth HTTP lifecycle tests"
         },
         {
           "level": 2,
-          "line": 623,
+          "line": 624,
           "text": "Backend implementation 991-1030 \u2014 Auth HTTP success-path tests and refresh scope proof"
         },
         {
           "level": 2,
-          "line": 642,
+          "line": 643,
           "text": "Backend implementation 1031-1070 \u2014 Transactional auth repository/DB proof"
         },
         {
           "level": 2,
-          "line": 660,
+          "line": 661,
           "text": "JWT-001 / Backend implementation 1071-1110 \u2014 JWT fallback safety and production secret guard"
         },
         {
           "level": 2,
-          "line": 678,
+          "line": 679,
           "text": "ARQ-001 / Backend implementation 1111-1150 \u2014 ARQ dependency pin and worker import proof"
         },
         {
           "level": 2,
-          "line": 696,
+          "line": 697,
           "text": "POPIA-001 / Backend implementation 1151-1190 \u2014 POPIA lifecycle HTTP response-contract proof"
         },
         {
           "level": 2,
-          "line": 712,
+          "line": 713,
           "text": "EVID-001 / Backend implementation 1191-1230 \u2014 Evidence registry and skipped-test governance"
         },
         {
           "level": 2,
-          "line": 730,
+          "line": 731,
           "text": "DIAG-001 / Backend implementation 1231-1270 \u2014 Diagnostics served-item/session/CAPS binding"
         },
         {
           "level": 2,
-          "line": 748,
+          "line": 749,
           "text": "AUTH-REPO-001 / Backend implementation 1271-1310 \u2014 Production repository auth fixture proof"
         },
         {
           "level": 2,
-          "line": 765,
+          "line": 766,
           "text": "LESSON-AUTH-001 / Backend implementation 1311-1350 \u2014 Lesson object authorization hardening"
         },
         {
           "level": 2,
-          "line": 782,
+          "line": 783,
           "text": "ARCH-001R / Backend implementation 1351-1390R \u2014 Diagnostics dynamic repository boundary repair"
         },
         {
           "level": 2,
-          "line": 799,
+          "line": 800,
           "text": "TX-001 / Backend implementation 1391-1430 \u2014 Transaction boundary inventory and guardrails"
         },
         {
           "level": 2,
-          "line": 816,
+          "line": 817,
           "text": "TX-001B / Backend implementation 1431-1470 \u2014 POPIA transaction rollback proof"
         },
         {
           "level": 2,
-          "line": 832,
+          "line": 833,
           "text": "TX-AUTH-001 / Backend implementation 1471-1510 \u2014 Auth registration transaction rollback proof"
         },
         {
           "level": 2,
-          "line": 848,
+          "line": 849,
           "text": "TX-DIAG-001 / Backend implementation 1511-1550 \u2014 Diagnostic response transaction rollback proof"
         },
         {
           "level": 2,
-          "line": 864,
+          "line": 865,
           "text": "TX-LESSON-001 / Backend implementation 1551-1590 \u2014 Lesson completion gamification transaction rollback proof"
         },
         {
           "level": 2,
-          "line": 880,
+          "line": 881,
           "text": "TX-001C / Backend implementation 1591-1630 \u2014 Transaction rollback proof rollup"
         },
         {
           "level": 2,
-          "line": 897,
+          "line": 898,
           "text": "EVID-001R + DIAG-SCORE-001 / Backend implementation 1631-1670 \u2014 skipped-proof enforcement and diagnostics scoring snapshot repair"
         },
         {
           "level": 2,
-          "line": 916,
+          "line": 917,
           "text": "CI-001 / Backend implementation 1671-1710 \u2014 CI authority and release evidence gate"
         },
         {
           "level": 2,
-          "line": 934,
+          "line": 935,
           "text": "DOCS-INTEL-001 / Backend implementation 1711-1750 \u2014 Documentation intelligence refresh"
         },
         {
           "level": 2,
-          "line": 952,
+          "line": 953,
           "text": "TX-ROUTE-001 / Backend implementation 1751-1790 \u2014 Production route transaction wiring inventory"
         },
         {
           "level": 2,
-          "line": 969,
+          "line": 970,
           "text": "EXT-GATE-001 / Backend implementation 1791-1830 \u2014 External approval tracking gate"
         },
         {
           "level": 2,
-          "line": 987,
+          "line": 988,
           "text": "RELEASE-GO-001 / Backend implementation 1831-1870 \u2014 Release-owner go/no-go status rollup"
         },
         {
           "level": 2,
-          "line": 1005,
+          "line": 1006,
           "text": "BLOCKER-BURN-001 / Backend implementation 1871-1910 \u2014 Beta blocker burn-down planning"
         },
         {
           "level": 2,
-          "line": 1023,
+          "line": 1024,
           "text": "STAGING-PROOF-001 / Backend implementation 1911-1950 \u2014 Staging acceptance evidence capture scaffold"
         },
         {
           "level": 2,
-          "line": 1042,
+          "line": 1043,
           "text": "CI-RUN-001 / Backend implementation 1951-1990 \u2014 CI evidence attachment and verification support"
         },
         {
           "level": 2,
-          "line": 1071,
+          "line": 1072,
           "text": "APPROVAL-EVID-001 / Backend implementation 1991-2030 \u2014 Legal/security/content approval evidence attachment support"
         },
         {
           "level": 2,
-          "line": 1101,
+          "line": 1102,
           "text": "ROUTE-TX-IMPL-001 / Backend implementation 2031-2070 \u2014 Production transaction route wiring implementation plan"
         },
         {
           "level": 2,
-          "line": 1119,
+          "line": 1120,
           "text": "ROUTE-TX-AUTH-001 / Backend implementation 2071-2110 \u2014 First auth route transaction slice"
         },
         {
           "level": 2,
-          "line": 1137,
+          "line": 1138,
           "text": "ROUTE-TX-POPIA-001 / Backend implementation 2111-2150 \u2014 POPIA route transaction slice"
         },
         {
           "level": 2,
-          "line": 1155,
+          "line": 1156,
           "text": "ROUTE-TX-POPIA-001R / Backend implementation 2111-2150R \u2014 POPIA route transaction no-false-closure repair"
         },
         {
           "level": 2,
-          "line": 1172,
+          "line": 1173,
           "text": "ROUTE-TX-DIAG-001 / Backend implementation 2151-2190 \u2014 Diagnostics route transaction slice"
         },
         {
           "level": 2,
-          "line": 1190,
+          "line": 1191,
           "text": "ROUTE-TX-ROLLUP-001 / Backend implementation 2191-2230 \u2014 Route transaction slice rollup"
         },
         {
           "level": 2,
-          "line": 1208,
+          "line": 1209,
           "text": "LIVE-DB-TX-EVID-001 / Backend implementation 2231-2270 \u2014 Live DB transaction evidence attachment support"
         },
         {
           "level": 2,
-          "line": 1238,
+          "line": 1239,
           "text": "FINAL-GATE-REFRESH-001 / Backend implementation 2271-2310 \u2014 Final release gate refresh"
         },
         {
           "level": 2,
-          "line": 1256,
+          "line": 1257,
           "text": "EVIDENCE-ATTACHMENT-RUNBOOK-001 / Backend implementation 2311-2350 \u2014 Operator runbook for attaching real release evidence"
         },
         {
           "level": 2,
-          "line": 1273,
+          "line": 1274,
           "text": "BETA-NO-GO-HANDOFF-001 / Backend implementation 2351-2390 \u2014 Beta NO-GO handoff packet"
         },
         {
           "level": 2,
-          "line": 1290,
+          "line": 1291,
           "text": "DEPLOY-FE-001 / Backend implementation 2431-2470 \u2014 Production frontend container and E2E port alignment"
         },
         {
           "level": 2,
-          "line": 1309,
+          "line": 1310,
           "text": "DEPLOY-FE-RUNTIME-001 / Backend implementation 2471-2510 \u2014 Production frontend runtime proof guardrails"
         },
         {
           "level": 2,
-          "line": 1329,
+          "line": 1330,
           "text": "AUTH-SERVICE-CLEANUP-001 / Backend implementation 2511-2550 \u2014 Auth service monkey-patch cleanup and route ownership guardrails"
         },
         {
           "level": 2,
-          "line": 1342,
+          "line": 1343,
           "text": "AUTH-ROUTE-LOGOUT-DELEGATE-001 / Backend implementation 2551-2590 \u2014 Auth logout/revoke route delegation"
         },
         {
           "level": 2,
-          "line": 1354,
+          "line": 1355,
           "text": "AUTH-ROUTE-LOGOUT-DELEGATE-001R / Backend implementation 2551-2590R \u2014 Syntax-safe auth logout/revoke route delegation repair"
         },
         {
           "level": 2,
-          "line": 1366,
+          "line": 1367,
           "text": "AUTH-ROUTE-LOGOUT-DELEGATE-001R2 / Backend implementation 2551-2590R2 \u2014 auth_service parameter repair for logout/revoke delegation"
         },
         {
           "level": 2,
-          "line": 1378,
+          "line": 1379,
           "text": "AUTH-ROUTE-LOGOUT-DELEGATE-001R3 / Backend implementation 2551-2590R3 \u2014 Auth route service dependency repair"
         },
         {
           "level": 2,
-          "line": 1390,
+          "line": 1391,
           "text": "AUTH-LIFECYCLE-HTTP-PROOF-001 / Backend implementation 2591-2630 \u2014 Auth lifecycle HTTP route proof"
         },
         {
           "level": 2,
-          "line": 1402,
+          "line": 1403,
           "text": "AUTH-LIFECYCLE-SEMANTIC-PROOF-001 / Backend implementation 2631-2670 \u2014 Controlled auth lifecycle semantic proof"
         },
         {
           "level": 2,
-          "line": 1414,
+          "line": 1415,
           "text": "AUTH-REFRESH-DB-PROOF-001 / Backend implementation 2671-2710 \u2014 Auth refresh DB proof scaffold"
         },
         {
           "level": 2,
-          "line": 1426,
+          "line": 1427,
           "text": "AUTH-REFRESH-DB-EVIDENCE-001 / Backend implementation 2711-2750 \u2014 Auth refresh DB evidence attachment gate"
         },
         {
           "level": 2,
-          "line": 1438,
+          "line": 1439,
           "text": "AUTH-REFRESH-DB-EVIDENCE-001R / Backend implementation 2711-2750R \u2014 Auth refresh DB evidence placeholder repair"
         },
         {
           "level": 2,
-          "line": 1449,
+          "line": 1450,
           "text": "CI-AUTH-REFRESH-DB-PROOF-001 / Backend implementation 2751-2790 \u2014 GitHub Actions auth refresh DB proof workflow"
         },
         {
           "level": 2,
-          "line": 1460,
+          "line": 1461,
           "text": "FINAL-GATE-REFRESH-001R / Backend implementation 2791-2830 \u2014 Final gate release-ready classifier repair"
         },
         {
           "level": 2,
-          "line": 1472,
+          "line": 1473,
           "text": "POPIA-001R / Backend implementation 2831-2870 \u2014 POPIA no-skip response-contract proof repair"
         },
         {
           "level": 2,
-          "line": 1483,
+          "line": 1484,
           "text": "POPIA-001R2 / Backend implementation 2831-2870R \u2014 POPIA no-skip checker plumbing repair"
         },
         {
           "level": 2,
-          "line": 1494,
+          "line": 1495,
           "text": "POPIA-001R4 / Backend implementation 2831-2870R3 \u2014 POPIA no-skip literal guard repair"
         },
         {
           "level": 2,
-          "line": 1505,
+          "line": 1506,
           "text": "CI-001 + EVID-001 / Backend implementation 2871-2910 \u2014 accepted CI evidence repair"
         },
         {
           "level": 2,
-          "line": 1517,
+          "line": 1518,
           "text": "STAGING-SMOKE-WORKFLOW-001 / Backend implementation 2911-2950 \u2014 staging smoke workflow configuration"
         },
         {
           "level": 2,
-          "line": 1529,
+          "line": 1530,
           "text": "STAGING-001R / Backend implementation 2911-2950 \u2014 accepted staging smoke evidence repair"
         },
         {
           "level": 2,
-          "line": 1541,
+          "line": 1542,
           "text": "DIAG-001R / Backend implementation 2951-2990 \u2014 diagnostic deep-health runtime evidence tooling"
         },
         {
           "level": 2,
-          "line": 1558,
+          "line": 1559,
           "text": "AUDIT-BASELINE-REFRESH / Backend implementation 2991-3030 \u2014 release gate truth refresh"
         },
         {
           "level": 2,
-          "line": 1570,
+          "line": 1571,
           "text": "DB-REPEATABILITY-001R / Backend implementation 3071-3110 \u2014 repeatable Supabase migration and IRT seed generation"
         },
         {
           "level": 2,
-          "line": 1582,
+          "line": 1583,
           "text": "DB-OWNERSHIP-001R / Backend implementation 3111-3150 \u2014 live-only POPIA/DSR table ownership"
         },
         {
           "level": 2,
-          "line": 1594,
+          "line": 1595,
           "text": "DIAG-ITEMS-001R / Backend implementation 3151-3190 \u2014 diagnostic item-bank canonicality"
         },
         {
           "level": 2,
-          "line": 1606,
+          "line": 1607,
           "text": "DIAG-SCORE-001R / Backend implementation 3191-3230 \u2014 diagnostic scoring live DB audit gate"
+        },
+        {
+          "level": 2,
+          "line": 1624,
+          "text": "AUDIT-WRITE-001R / Backend implementation 3271-3310 \u2014 runtime audit_events write evidence"
         }
       ],
       "links": [
@@ -34600,8 +34682,8 @@
         }
       ],
       "path": "docs/release/EVIDENCE_INDEX.md",
-      "sha256": "affe122d0b43d8f705b942ed1c8775628acf037bebd5072d127e071d514418eb",
-      "size_bytes": 50185,
+      "sha256": "2e67542fdd16f6ec1143b695a00e4ef14797f6b5b73f5c906fddc47beb500fdf",
+      "size_bytes": 50875,
       "statuses": [
         "todo",
         "passed",
@@ -36362,8 +36444,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/audit_baseline_refresh_status.json",
-      "sha256": "3510c1bf1f952e5cbbfc4dd3d56522c7de35f172c0a595ae5f632ff81e3d8106",
-      "size_bytes": 6510,
+      "sha256": "1152baefdac6b58036d3b9ffce52989d50fa5761d3db802d88d177718d6d70cf",
+      "size_bytes": 6488,
       "statuses": [
         "external-blocked"
       ],
@@ -36408,19 +36490,19 @@
         },
         {
           "level": 2,
-          "line": 60,
+          "line": 59,
           "text": "Blockers"
         },
         {
           "level": 2,
-          "line": 64,
+          "line": 63,
           "text": "No false-closure rules"
         }
       ],
       "links": [],
       "path": "docs/release/audit_baseline_refresh_status.md",
-      "sha256": "79617a8ef0f12ebfe584308803a00b07b253194ae331633f7fc1cbefaea16c5e",
-      "size_bytes": 3577,
+      "sha256": "3b2da10ae24a2e76d629adfb60fbd1e59d28eb48d32929bffacba52f16bafc58",
+      "size_bytes": 3558,
       "statuses": [
         "external-blocked"
       ],
@@ -36751,6 +36833,55 @@
         "blocked"
       ],
       "title": "Audit Runtime Integration Target Map"
+    },
+    {
+      "category": "release",
+      "dates": [
+        "2026-05-23"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [],
+      "path": "docs/release/audit_write_runtime_evidence_status.json",
+      "sha256": "bf6fcf3859b161f4905f2d2477aec0e1dff155adb34eb1f74da2e8835b57616b",
+      "size_bytes": 864,
+      "statuses": [],
+      "title": "Audit Write Runtime Evidence Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Audit Write Runtime Evidence Status"
+        },
+        {
+          "level": 2,
+          "line": 21,
+          "text": "Flow output excerpt"
+        },
+        {
+          "level": 2,
+          "line": 27,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 31,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/audit_write_runtime_evidence_status.md",
+      "sha256": "802dd1eec4bb7196a2054f9676ad3c7a9b563e990183a04a6b9173a9540f521c",
+      "size_bytes": 1153,
+      "statuses": [],
+      "title": "Audit Write Runtime Evidence Status"
     },
     {
       "category": "release",
@@ -40823,6 +40954,7 @@
       "category": "release",
       "dates": [],
       "evidence_references": [
+        "docs/release/runtime_launch_content_evidence_status.md",
         "docs/release/staging_smoke_latest.json",
         "docs/release/placeholder_restore.log",
         "docs/release/placeholder_rollback.log"
@@ -40837,8 +40969,8 @@
         }
       ],
       "path": "docs/release/beta_readiness_status.json",
-      "sha256": "d69d02607b7d976d8c1a86e2e14b2050bdff7968eb9f40adc15937d97d39caf2",
-      "size_bytes": 2931,
+      "sha256": "6c25f4a9b2ca04c457eee94604a8901534c770dfdd63de78c1c906178dada8b8",
+      "size_bytes": 3028,
       "statuses": [
         "blocked",
         "pass",
@@ -40849,7 +40981,9 @@
     {
       "category": "release",
       "dates": [],
-      "evidence_references": [],
+      "evidence_references": [
+        "docs/release/runtime_launch_content_evidence_status.md"
+      ],
       "generated": false,
       "headings": [
         {
@@ -40860,16 +40994,27 @@
         {
           "level": 2,
           "line": 15,
-          "text": "Blockers"
+          "text": "Content Gate Update"
+        },
+        {
+          "level": 2,
+          "line": 19,
+          "text": "Remaining Blockers"
+        },
+        {
+          "level": 2,
+          "line": 27,
+          "text": "Boundary"
         }
       ],
       "links": [],
       "path": "docs/release/beta_readiness_status.md",
-      "sha256": "1c62c62ec75f9ae2f706c22341818aa44a5827f06075b4d98668593581e2f2aa",
-      "size_bytes": 457,
+      "sha256": "4ecd8bf8e9b25c014a67d739aad1c697b2e0fa294354d8268e31e3bea4a90b77",
+      "size_bytes": 785,
       "statuses": [
         "blocked",
-        "pass"
+        "pass",
+        "passed"
       ],
       "title": "Beta Readiness Status"
     },
@@ -41476,24 +41621,106 @@
     {
       "category": "release",
       "dates": [],
-      "evidence_references": [],
+      "evidence_references": [
+        "docs/release/runtime_launch_content_evidence_status.md"
+      ],
       "generated": false,
       "headings": [
         {
           "level": 1,
           "line": 1,
           "text": "Content Readiness Status"
+        },
+        {
+          "level": 2,
+          "line": 16,
+          "text": "Boundary"
         }
       ],
       "links": [],
       "path": "docs/release/content_readiness_status.md",
-      "sha256": "c4d6c03d171fd1f9fe5167f45037e067cd37597ee8c4255905067dcf557ff97a",
-      "size_bytes": 90,
+      "sha256": "3280068ba05eef0319a98db9f6e36a0200b891d0770e66ac489887e91ffdd3e8",
+      "size_bytes": 707,
       "statuses": [
-        "blocked",
-        "pending"
+        "passed"
       ],
       "title": "Content Readiness Status"
+    },
+    {
+      "category": "release",
+      "dates": [
+        "2026-05-24"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26346124598\",",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26346124598\","
+        }
+      ],
+      "path": "docs/release/db_backup_restore_rollback_evidence_status.json",
+      "sha256": "ad09fa9af4d2860fc36a9ad8045a933138812b8d340fbac0a491f50889ea1b2b",
+      "size_bytes": 1973,
+      "statuses": [],
+      "title": "Db Backup Restore Rollback Evidence Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "DB Backup / Restore / Rollback Evidence Status"
+        },
+        {
+          "level": 2,
+          "line": 19,
+          "text": "Key table counts"
+        },
+        {
+          "level": 2,
+          "line": 29,
+          "text": "Key count mismatches"
+        },
+        {
+          "level": 2,
+          "line": 33,
+          "text": "Backup output excerpt"
+        },
+        {
+          "level": 2,
+          "line": 39,
+          "text": "Restore output excerpt"
+        },
+        {
+          "level": 2,
+          "line": 45,
+          "text": "Blockers"
+        },
+        {
+          "level": 2,
+          "line": 49,
+          "text": "No false-closure rules"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26346124598`",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26346124598`"
+        }
+      ],
+      "path": "docs/release/db_backup_restore_rollback_evidence_status.md",
+      "sha256": "1e15ac9dfde872af125b25850aaf521aab0940625e8227e2f278aaf359d46dc5",
+      "size_bytes": 1694,
+      "statuses": [],
+      "title": "DB Backup / Restore / Rollback Evidence Status"
     },
     {
       "category": "release",
@@ -41977,20 +42204,25 @@
           "level": 2,
           "line": 85,
           "text": "No false-closure rules"
+        },
+        {
+          "level": 2,
+          "line": 94,
+          "text": "Supabase import helper"
         }
       ],
       "links": [
         {
           "kind": "external",
-          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760`",
-          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26316648760`"
+          "target": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26292735463`",
+          "text": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26292735463`"
         }
       ],
       "path": "docs/release/diagnostic_score_live_audit_status.md",
-      "sha256": "296aaa194c1a6d57354831c472b3a2eed5ef8dd7c504a519361671a16f3c8de5",
-      "size_bytes": 3369,
+      "sha256": "df9a93d289b3483473137ca292e5e317332259e6b265a8af96c690d481d70ba3",
+      "size_bytes": 3632,
       "statuses": [
-        "passed"
+        "pending"
       ],
       "title": "Diagnostic Score Live Audit Status"
     },
@@ -42580,7 +42812,9 @@
         "docs/release/audit_baseline_refresh_status.md",
         "docs/release/db_migration_seed_repeatability_status.md",
         "docs/release/db_live_only_table_ownership_status.md",
-        "docs/release/diagnostic_item_bank_canonicality_status.md"
+        "docs/release/diagnostic_item_bank_canonicality_status.md",
+        "docs/release/audit_write_runtime_evidence_status.md",
+        "docs/release/db_backup_restore_rollback_evidence_status.md"
       ],
       "generated": false,
       "headings": [
@@ -42728,8 +42962,8 @@
         }
       ],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "22a8b511f35dae8fc6e5b32e20075fdac652fb91a15a0b40bf1d47e5c7e293d1",
-      "size_bytes": 33175,
+      "sha256": "2c09b51fa46a3e574535065b0d19b472de062dd742d8508746725789f9edbdb0",
+      "size_bytes": 35824,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -45561,6 +45795,35 @@
         {
           "level": 1,
           "line": 1,
+          "text": "Next Execution Queue After AUDIT-WRITE-001R / code_3271_3310"
+        },
+        {
+          "level": 2,
+          "line": 3,
+          "text": "Recommended next backend/database batches"
+        },
+        {
+          "level": 2,
+          "line": 10,
+          "text": "Accepted evidence reference"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/next_execution_queue_after_3271_3310.md",
+      "sha256": "48e5d3e6c1a9afbd4716ca391f269035f8f1598a7aca64ae79605394c23dbb49",
+      "size_bytes": 779,
+      "statuses": [],
+      "title": "Next Execution Queue After AUDIT-WRITE-001R / code_3271_3310"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "Next Execution Queue After code_831_870"
         },
         {
@@ -47596,6 +47859,40 @@
         {
           "level": 1,
           "line": 1,
+          "text": "No False-Closure Status After AUDIT-WRITE-001R / code_3271_3310"
+        },
+        {
+          "level": 2,
+          "line": 5,
+          "text": "Proven by default"
+        },
+        {
+          "level": 2,
+          "line": 11,
+          "text": "Proven only in accepted mode"
+        },
+        {
+          "level": 2,
+          "line": 19,
+          "text": "Not claimed"
+        }
+      ],
+      "links": [],
+      "path": "docs/release/no_false_closure_status_after_3271_3310.md",
+      "sha256": "f33bd50e16394a0b7378de892d73b33c7dfdd759f70d9cd6f383e4a757a7c272",
+      "size_bytes": 873,
+      "statuses": [],
+      "title": "No False-Closure Status After AUDIT-WRITE-001R / code_3271_3310"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
           "text": "No False-Closure Status After code_831_870"
         },
         {
@@ -49071,6 +49368,119 @@
         "todo"
       ],
       "title": "Runtime Integration Test Evidence Template"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/health\",",
+          "text": "https://eduboost-api.onrender.com/health\","
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/api/v2/health/deep\",",
+          "text": "https://eduboost-api.onrender.com/api/v2/health/deep\","
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboos-frontend.onrender.com\",",
+          "text": "https://eduboos-frontend.onrender.com\","
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/api/v2/lessons/coverage?grade=4&subject=Mathematics\",",
+          "text": "https://eduboost-api.onrender.com/api/v2/lessons/coverage?grade=4&subject=Mathematics\","
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/api/v2/diagnostics/coverage\",",
+          "text": "https://eduboost-api.onrender.com/api/v2/diagnostics/coverage\","
+        }
+      ],
+      "path": "docs/release/runtime_launch_content_evidence_status.json",
+      "sha256": "1aaf032d951118f91977da71c1f5008f623c77b363165073a4b3f8e563a4c81c",
+      "size_bytes": 5162,
+      "statuses": [
+        "blocked"
+      ],
+      "title": "Runtime Launch Content Evidence Status"
+    },
+    {
+      "category": "release",
+      "dates": [],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Runtime Launch Content Evidence Status"
+        },
+        {
+          "level": 2,
+          "line": 8,
+          "text": "Summary"
+        },
+        {
+          "level": 2,
+          "line": 12,
+          "text": "Health"
+        },
+        {
+          "level": 2,
+          "line": 23,
+          "text": "Launch Content Evidence"
+        },
+        {
+          "level": 2,
+          "line": 40,
+          "text": "Implementation Roadmap Taken"
+        },
+        {
+          "level": 2,
+          "line": 52,
+          "text": "Commands And Checks Used"
+        },
+        {
+          "level": 2,
+          "line": 64,
+          "text": "Outstanding Tasks"
+        },
+        {
+          "level": 2,
+          "line": 74,
+          "text": "Operational Note"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/health",
+          "text": "https://eduboost-api.onrender.com/health"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboost-api.onrender.com/api/v2/health/deep",
+          "text": "https://eduboost-api.onrender.com/api/v2/health/deep"
+        },
+        {
+          "kind": "external",
+          "target": "https://eduboos-frontend.onrender.com",
+          "text": "https://eduboos-frontend.onrender.com"
+        }
+      ],
+      "path": "docs/release/runtime_launch_content_evidence_status.md",
+      "sha256": "4f6ce6f258439e232977282f90112a519d67064aff6ae4109cce7231a362156e",
+      "size_bytes": 4875,
+      "statuses": [
+        "blocked"
+      ],
+      "title": "Runtime Launch Content Evidence Status"
     },
     {
       "category": "release",
@@ -55975,8 +56385,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 1070,
-  "generated_at": "2026-05-23T06:06:48Z",
+  "files_scanned": 1080,
+  "generated_at": "2026-05-25T08:54:16Z",
   "generated_count": 4,
   "missing_important_docs": []
 }
