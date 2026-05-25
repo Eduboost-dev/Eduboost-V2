@@ -3,7 +3,6 @@
   "blockers": [
     "remote_ci",
     "branch_protection",
-    "content_gate",
     "backup_drill",
     "restore_drill",
     "rollback_drill"
@@ -31,16 +30,18 @@
       "required": true
     },
     "content_gate": {
-      "status": "blocked",
-      "approved_items": 14,
+      "status": "pass",
+      "approved_items": 40,
       "required_items": 40,
+      "total_approved_items": 120,
+      "approved_lessons": 24,
+      "green_refs": 3,
       "waiver": "",
       "waiver_owner": "",
-      "blockers": [
-        "insufficient_approved_items"
-      ],
-      "captured_at": "2026-05-19T23:01:46Z",
-      "required": true
+      "blockers": [],
+      "captured_at": "2026-05-25T08:35:24Z",
+      "required": true,
+      "evidence": "docs/release/runtime_launch_content_evidence_status.md"
     },
     "staging_smoke": {
       "status": "pass",
@@ -102,6 +103,6 @@
       ]
     }
   },
-  "captured_at": "2026-05-19T23:01:47Z",
+  "captured_at": "2026-05-25T08:35:24Z",
   "required": true
 }

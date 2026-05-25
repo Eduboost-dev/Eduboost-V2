@@ -1,8 +1,10 @@
 {
-  "beta_ready": false,
-  "approved_items": 14,
+  "beta_ready": true,
+  "approved_items": 40,
   "required_items": 40,
-  "blockers": [
-    "insufficient_approved_items"
-  ]
+  "total_approved_items": 120,
+  "approved_lessons": 24,
+  "green_refs": 3,
+  "blockers": [],
+  "evidence": "docs/release/runtime_launch_content_evidence_status.md"
 }
