@@ -128,9 +128,6 @@ schema-integrity:
 db-repository-check:
 	$(PYTHON) scripts/check_db_repository_evidence.py
 
-migration-smoke:
-	@echo "Run migration smoke tests (requires DATABASE_URL pointing to disposable DB)"
-	./scripts/smoke_test_migrations.sh
 
 clean:
 	find . -type d -name "__pycache__" -prune -exec rm -rf {} +

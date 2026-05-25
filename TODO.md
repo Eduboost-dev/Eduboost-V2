@@ -221,3 +221,5 @@ A document that merely says “evidence added” is not evidence.
 | ID | Task | Status | Gate |
 |---|---|---|---|
 | CONTENT-FACTORY-005 | PR-CF-005 control plane foundation | Implemented locally; CI/staging/promotion proof pending. | [verify] |
+- [x] PR-CF-007 all-scope staging verification implemented locally; production promotion remains blocked pending human review and green gates. Evidence: docs/backlog/pr_cf_007_all_scope_staging_verification.md
+- [x] PR-CF-008 controlled generation executor implemented locally; generation remains disabled by default and human review remains mandatory. Evidence: docs/backlog/pr_cf_008_controlled_generation_executor.md

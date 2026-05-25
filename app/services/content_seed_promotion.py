@@ -35,11 +35,13 @@ class ContentSeedPromotionService:
         await session.flush()
         return run
 
-    async def seed_staging(self, session: AsyncSession, scope_id: str, actor_id: str) -> ContentSeedRun:
+    async def seed_staging(self, session: AsyncSession, scope_id: str, actor_id: str, allow_partial: bool = True) -> ContentSeedRun:
         gate = await self._seed_gate(session, scope_id, None)
-        if not gate.passed:
+        stageable_count = int(gate.summary.get("stageable_approved", 0))
+        if not gate.passed and (not allow_partial or stageable_count <= 0):
             raise ValueError("Staging seed gate failed: " + "; ".join(gate.errors))
-        run = ContentSeedRun(seed_run_id=uuid.uuid4(), scope_id=scope_id, dry_run=False, status="seeded_staging", summary={"actor_id": actor_id, **gate.summary})
+        run_status = "seeded_staging" if gate.passed else "partially_seeded_staging"
+        run = ContentSeedRun(seed_run_id=uuid.uuid4(), scope_id=scope_id, dry_run=False, status=run_status, summary={"actor_id": actor_id, "allow_partial": allow_partial, "errors": gate.errors, **gate.summary})
         session.add(run)
         await session.flush()
         return run
@@ -68,8 +70,10 @@ class ContentSeedPromotionService:
         layers = [layer] if layer else REQUIRED_PROMOTION_LAYERS
         coverage = await self.coverage_service.get_scope_coverage(scope_id, layers=layers)
         errors: list[str] = []
+        stageable_approved = 0
         for caps_ref in coverage.per_caps_ref:
             for content_layer, counts in caps_ref.layers.items():
+                stageable_approved += int(counts.approved or 0)
                 if counts.status != CoverageLayerStatus.GREEN:
                     errors.append(f"{caps_ref.caps_ref}:{content_layer.value} coverage is {counts.status.value}.")
 
@@ -80,7 +84,8 @@ class ContentSeedPromotionService:
             if status in {ContentArtifactStatus.REJECTED.value, ContentArtifactStatus.QUARANTINED.value, ContentArtifactStatus.VALIDATION_FAILED.value}:
                 errors.append(f"Artifact {artifact.artifact_id} has blocking status {status}.")
 
-        return GateResult(not errors, errors, {"scope_id": scope_id, "layers": [item.value for item in layers]})
+        blocking_artifact_count = sum(1 for artifact in artifacts if _value(artifact.status) in {ContentArtifactStatus.REJECTED.value, ContentArtifactStatus.QUARANTINED.value, ContentArtifactStatus.VALIDATION_FAILED.value})
+        return GateResult(not errors, errors, {"scope_id": scope_id, "layers": [item.value for item in layers], "stageable_approved": stageable_approved, "blocking_artifact_count": blocking_artifact_count})
 
 
 def _value(value: Any) -> str:

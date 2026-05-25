@@ -24,23 +24,34 @@ from app.domain.content_factory_schemas import (
     ContentFactoryETLStatusResponse,
     ContentFactoryHealthResponse,
     ContentFactoryReportResponse,
+    ContentGenerationExecutionReportResponse,
+    ContentGenerationExecutionResponse,
+    ContentGenerationPlanResponse,
     ContentGenerationRunCreateRequest,
     ContentGenerationRunResponse,
     ContentGenerationTaskResponse,
     ContentSeedRunResponse,
+    ContentStagingVerificationRunResponse,
 )
 from app.domain.content_coverage import CapsRefCoverageReport, ContentLayer, CoverageTarget, ScopeCoverageReport
 from app.domain.content_scope import ContentScope
-from app.models.content_factory import ContentArtifactStatus, ContentGenerationArtifact
+from app.models.content_factory import ContentArtifactStatus, ContentGenerationArtifact, ContentGenerationTask
 from app.repositories.item_bank_repository import ItemBankRepository
 from app.repositories.lesson_repository import LessonRepository
 from app.services.content_artifact_lifecycle import ContentArtifactLifecycleService
 from app.services.content_factory import ContentFactoryService, ContentValidationService
 from app.services.content_factory_orchestrator import ContentFactoryOrchestrator
 from app.services.content_generation_runs import ContentGenerationRunService
+from app.services.content_generation_executor import ContentGenerationExecutor, GenerationDisabledError
+from app.services.content_generation_planner import ContentGenerationPlanner
 from app.services.content_coverage_service import ContentCoverageService
 from app.services.content_scope_registry import ContentScopeRegistry
 from app.services.content_seed_promotion import ContentSeedPromotionService
+from app.services.content_staging_readiness import (
+    AllScopeStagingVerificationReport,
+    ContentStagingReadinessService,
+    ScopeStagingVerificationReport,
+)
 
 router = APIRouter(
     route_class=EnvelopedRoute,
@@ -70,10 +81,22 @@ def get_content_factory_orchestrator() -> ContentFactoryOrchestrator:
     return ContentFactoryOrchestrator()
 
 
+def get_content_generation_planner() -> ContentGenerationPlanner:
+    return ContentGenerationPlanner()
+
+
+def get_content_generation_executor() -> ContentGenerationExecutor:
+    return ContentGenerationExecutor()
+
+
 def get_seed_promotion_service(
     coverage_service: ContentCoverageService = Depends(get_content_coverage_service),
 ) -> ContentSeedPromotionService:
     return ContentSeedPromotionService(coverage_service)
+
+
+def get_staging_readiness_service() -> ContentStagingReadinessService:
+    return ContentStagingReadinessService()
 
 
 @router.get("/health", response_model=ContentFactoryHealthResponse)
@@ -210,6 +233,79 @@ async def get_generation_run_tasks(
     return [_task_response(task) for task in await service.get_run_tasks(session, run_id)]
 
 
+@router.post("/runs/{run_id}/plan-missing", response_model=ContentGenerationPlanResponse)
+async def plan_missing_generation_tasks(
+    run_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    planner: ContentGenerationPlanner = Depends(get_content_generation_planner),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ContentGenerationPlanResponse:
+    try:
+        plan = await planner.plan_missing_for_run(session, run_id, actor_id=str(current_user.get("sub") or "admin"))
+        await session.commit()
+        return ContentGenerationPlanResponse(run_id=plan.run_id, created_task_ids=plan.created_task_ids, skipped=plan.skipped, missing=plan.missing)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.post("/runs/{run_id}/execute", response_model=ContentGenerationExecutionResponse)
+async def execute_generation_run(
+    run_id: uuid.UUID,
+    max_tasks: int | None = Query(default=None, ge=1, le=100),
+    session: AsyncSession = Depends(get_db),
+    executor: ContentGenerationExecutor = Depends(get_content_generation_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ContentGenerationExecutionResponse:
+    try:
+        result = await executor.execute_run(session, run_id, max_tasks=max_tasks, actor_id=str(current_user.get("sub") or "admin"))
+        await session.commit()
+        return ContentGenerationExecutionResponse(run_id=result.run_id, status=result.status, summary=result.summary)
+    except GenerationDisabledError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail={"error": "generation_disabled", "message": str(exc)}) from exc
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.post("/tasks/{task_id}/execute", response_model=ContentGenerationExecutionResponse)
+async def execute_generation_task(
+    task_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    executor: ContentGenerationExecutor = Depends(get_content_generation_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ContentGenerationExecutionResponse:
+    try:
+        result = await executor.execute_task(session, task_id, actor_id=str(current_user.get("sub") or "admin"))
+        await session.commit()
+        return ContentGenerationExecutionResponse(task_id=result.task_id, status=result.status, artifact_ids=result.artifact_ids, errors=result.errors, provider=result.provider, mode=result.mode)
+    except GenerationDisabledError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail={"error": "generation_disabled", "message": str(exc)}) from exc
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/tasks/{task_id}", response_model=ContentGenerationTaskResponse)
+async def get_generation_task(
+    task_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+) -> ContentGenerationTaskResponse:
+    task = await session.get(ContentGenerationTask, task_id)
+    if task is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Generation task {task_id} not found.")
+    return _task_response(task)
+
+
+@router.get("/runs/{run_id}/execution-report", response_model=ContentGenerationExecutionReportResponse)
+async def get_generation_execution_report(
+    run_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    executor: ContentGenerationExecutor = Depends(get_content_generation_executor),
+) -> ContentGenerationExecutionReportResponse:
+    try:
+        return ContentGenerationExecutionReportResponse(**await executor.execution_report(session, run_id))
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
 @router.post("/runs/{run_id}/cancel", response_model=ContentGenerationRunResponse)
 async def cancel_generation_run(
     run_id: uuid.UUID,
@@ -334,6 +430,88 @@ async def get_review_queue(session: AsyncSession = Depends(get_db)) -> list[Cont
     return [_artifact_response(artifact) for artifact in result.scalars().all()]
 
 
+@router.post("/staging-verification/all-scopes", response_model=AllScopeStagingVerificationReport)
+async def run_all_scope_staging_verification(
+    include_partial: bool = Query(default=True),
+    include_pending_review: bool = Query(default=True),
+    include_blockers: bool = Query(default=True),
+    session: AsyncSession = Depends(get_db),
+    service: ContentStagingReadinessService = Depends(get_staging_readiness_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> AllScopeStagingVerificationReport:
+    report = await service.verify_all_scopes(
+        session,
+        include_partial=include_partial,
+        actor_id=str(current_user.get("sub") or "admin"),
+        persist=True,
+    )
+    await session.commit()
+    if not include_blockers:
+        report = report.model_copy(update={"scopes": [scope.model_copy(update={"blockers": []}) for scope in report.scopes]})
+    return report
+
+
+@router.get("/staging-verification/runs", response_model=list[ContentStagingVerificationRunResponse])
+async def list_staging_verification_runs(
+    session: AsyncSession = Depends(get_db),
+    service: ContentStagingReadinessService = Depends(get_staging_readiness_service),
+) -> list[ContentStagingVerificationRunResponse]:
+    runs = await service.list_runs(session)
+    return [_staging_verification_run_response(run) for run in runs]
+
+
+@router.get("/staging-verification/runs/{run_id}", response_model=AllScopeStagingVerificationReport)
+async def get_staging_verification_run(
+    run_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    service: ContentStagingReadinessService = Depends(get_staging_readiness_service),
+) -> AllScopeStagingVerificationReport:
+    try:
+        return await service.get_run_report(session, run_id)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.post("/scopes/{scope_id}/staging-verification", response_model=ScopeStagingVerificationReport)
+async def run_scope_staging_verification(
+    scope_id: str,
+    include_partial: bool = Query(default=True),
+    include_pending_review: bool = Query(default=True),
+    include_blockers: bool = Query(default=True),
+    session: AsyncSession = Depends(get_db),
+    service: ContentStagingReadinessService = Depends(get_staging_readiness_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ScopeStagingVerificationReport:
+    report = await service.verify_scope(
+        scope_id,
+        session=session,
+        include_partial=include_partial,
+        actor_id=str(current_user.get("sub") or "admin"),
+    )
+    if report.status.value == "blocked_by_missing_scope":
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Unknown content scope: {scope_id}")
+    if not include_blockers:
+        report = report.model_copy(update={"blockers": []})
+    return report
+
+
+@router.get("/scopes/{scope_id}/staging-readiness", response_model=ScopeStagingVerificationReport)
+async def get_scope_staging_readiness(
+    scope_id: str,
+    include_partial: bool = Query(default=True),
+    include_pending_review: bool = Query(default=True),
+    include_blockers: bool = Query(default=True),
+    session: AsyncSession = Depends(get_db),
+    service: ContentStagingReadinessService = Depends(get_staging_readiness_service),
+) -> ScopeStagingVerificationReport:
+    report = await service.verify_scope(scope_id, session=session, include_partial=include_partial)
+    if report.status.value == "blocked_by_missing_scope":
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Unknown content scope: {scope_id}")
+    if not include_blockers:
+        report = report.model_copy(update={"blockers": []})
+    return report
+
+
 @router.post("/scopes/{scope_id}/dry-run-seed", response_model=ContentSeedRunResponse)
 async def dry_run_seed(scope_id: str, layer: ContentLayer | None = None, session: AsyncSession = Depends(get_db), service: ContentSeedPromotionService = Depends(get_seed_promotion_service)) -> ContentSeedRunResponse:
     run = await service.dry_run_seed(session, scope_id, layer)
@@ -396,6 +574,17 @@ def _artifact_response(artifact) -> ContentArtifactResponse:
 
 def _seed_run_response(run) -> ContentSeedRunResponse:
     return ContentSeedRunResponse(seed_run_id=run.seed_run_id, scope_id=run.scope_id, dry_run=run.dry_run, status=run.status, summary=run.summary or {})
+
+
+def _staging_verification_run_response(run) -> ContentStagingVerificationRunResponse:
+    return ContentStagingVerificationRunResponse(
+        run_id=run.run_id,
+        status=run.status,
+        summary=run.summary_json or {},
+        created_by=run.created_by,
+        created_at=run.created_at.isoformat() if run.created_at else None,
+        completed_at=run.completed_at.isoformat() if run.completed_at else None,
+    )
 
 
 def _value(value) -> str:

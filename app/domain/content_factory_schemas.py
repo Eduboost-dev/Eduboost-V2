@@ -165,6 +165,35 @@ class ContentGenerationTaskResponse(BaseModel):
     validation_failures: list[str] = Field(default_factory=list)
 
 
+class ContentGenerationPlanResponse(BaseModel):
+    run_id: uuid.UUID
+    created_task_ids: list[uuid.UUID] = Field(default_factory=list)
+    skipped: list[dict[str, Any]] = Field(default_factory=list)
+    missing: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class ContentGenerationExecutionResponse(BaseModel):
+    run_id: uuid.UUID | None = None
+    task_id: uuid.UUID | None = None
+    status: str
+    artifact_ids: list[uuid.UUID] = Field(default_factory=list)
+    errors: list[str] = Field(default_factory=list)
+    summary: dict[str, Any] = Field(default_factory=dict)
+    provider: str | None = None
+    mode: str | None = None
+
+
+class ContentGenerationExecutionReportResponse(BaseModel):
+    run_id: str
+    status: str
+    tasks: int
+    queued: int
+    succeeded: int
+    failed: int
+    skipped: int
+    artifacts: int
+
+
 class ContentFactoryActionRequest(BaseModel):
     reason: str | None = None
     notes: str | None = None
@@ -193,3 +222,12 @@ class ContentFactoryReportResponse(BaseModel):
     coverage: dict[str, Any]
     run_count: int
     review_queue_count: int
+
+
+class ContentStagingVerificationRunResponse(BaseModel):
+    run_id: uuid.UUID
+    status: str
+    summary: dict[str, Any] = Field(default_factory=dict)
+    created_by: str | None = None
+    created_at: str | None = None
+    completed_at: str | None = None
