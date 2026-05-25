@@ -29,6 +29,7 @@ This index is the authoritative map from release claims to readable evidence art
 | Legal/POPIA review complete | `docs/release/legal_popia_review.md` | human review | TODO: signed review | Legal |
 | Security review complete | `docs/release/security_review.md` | human review / scan output | TODO: signed review | Security |
 | CAPS educator approval complete | `docs/release/caps_content_approval.md` | educator review | TODO: approval record | Curriculum |
+| Runtime Grade 4 Maths launch content is deployed and seeded | `docs/release/runtime_launch_content_evidence_status.md` and `docs/release/runtime_launch_content_evidence_status.json` | live Render health/deep-health and coverage APIs | 2026-05-25 | Engineering |
 
 ## Maintenance
 
