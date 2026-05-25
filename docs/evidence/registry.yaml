@@ -1,0 +1,12 @@
+evidence:
+  - id: pr-cf-007-staging-verification
+    title: Content Factory all-scope staging verification
+    status: implemented-local
+    artifacts:
+      - docs/content_factory/staging_verification.md
+      - docs/backlog/pr_cf_007_all_scope_staging_verification.md
+      - docs/openapi.json
+    verification:
+      - focused backend tests passed
+      - frontend type-check passed
+      - disposable Postgres migration smoke passed
