@@ -6,6 +6,7 @@ import argparse
 import asyncio
 import json
 import os
+import secrets
 import sys
 from pathlib import Path
 from uuid import UUID
@@ -15,8 +16,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from app.core.database import AsyncSessionLocal
-from app.core.security import hash_email
-from app.models import Guardian, Language, LearnerProfile, Lesson
+from app.core.security import encrypt_pii, hash_email, hash_password
+from app.models import Guardian, Language, LearnerProfile, Lesson, UserRole
 from app.modules.lessons.lesson_validator import LessonValidator
 from sqlalchemy import select
 
@@ -72,7 +73,17 @@ async def resolve_seed_learner_id(session, args: argparse.Namespace) -> str:
     result = await session.execute(select(Guardian).where(Guardian.email_hash == hash_email(guardian_email)))
     guardian = result.scalar_one_or_none()
     if guardian is None:
-        raise SystemExit(f"Guardian for {guardian_email} was not found; create the admin account before seeding lessons")
+        if not args.allow_system_seed_owner:
+            raise SystemExit(f"Guardian for {guardian_email} was not found; create the admin account before seeding lessons")
+        guardian = Guardian(
+            email_hash=hash_email(guardian_email),
+            email_encrypted=encrypt_pii(guardian_email),
+            display_name="Launch Content Seed Owner",
+            role=UserRole.PARENT,
+            password_hash=hash_password(secrets.token_urlsafe(32)),
+            is_active=False,
+        )
+        session.add(guardian)
 
     result = await session.execute(
         select(LearnerProfile).where(
@@ -128,6 +139,7 @@ def main() -> int:
     parser.add_argument("--guardian-email", help="Guardian/admin email used to create or reuse a seed learner when --learner-id is omitted")
     parser.add_argument("--seed-learner-display-name", default="Launch Content Seed Learner")
     parser.add_argument("--seed-learner-grade", type=int, default=4)
+    parser.add_argument("--allow-system-seed-owner", action="store_true", help="Create a disabled system guardian/learner owner if the guardian email is absent")
     return asyncio.run(seed(parser.parse_args()))
 
 
