@@ -2,7 +2,7 @@
 
 **Purpose:** Execution-focused North Star for the next phase. This reflects the current green local backend unit baseline and separates repository-side completion from CI, runtime, external, legal, security, product, and beta-launch evidence.
 
-**Last updated:** 2026-05-22
+**Last updated:** 2026-05-25
 **Latest local backend unit result:** `1702 passed, 29 skipped, 0 warnings`
 
 ## Status vocabulary
@@ -142,11 +142,11 @@ Current warnings to track:
 
 | ID | Task | Evidence required | Status |
 |---|---|---|---|
-| NS-45 | Confirm current CAPS approved item count. | Item-bank report with approved vs candidate counts. | [ ] |
-| NS-46 | Submit AI-generated candidate items for educator review. | Review/sign-off records. | [external] |
-| NS-47 | Reach or explicitly defer launch item-bank threshold. | Approved item evidence or beta-scope limitation document. | [ ] |
-| NS-48 | Add independent answer-key validation plan. | Implementation or documented external review workflow. | [ ] |
-| NS-49 | Define supported beta grades/subjects/languages. | Beta product scope document. | [ ] |
+| NS-45 | Confirm current CAPS approved item count. | `docs/release/runtime_launch_content_evidence_status.md` records 40/40 approved items for each launch ref. | [x] |
+| NS-46 | Submit AI-generated candidate items for educator review. | Launch slice auto-approved through strict validation; educator spot-audit and expansion review remain external. | [verify] |
+| NS-47 | Reach or explicitly defer launch item-bank threshold. | Runtime evidence shows 40 approved diagnostic items per launch ref. | [x] |
+| NS-48 | Add independent answer-key validation plan. | Launch content evidence records 100% answer-key verification; CI guardrail still outstanding. | [verify] |
+| NS-49 | Define supported beta grades/subjects/languages. | `docs/product/launch_scope.md` and launch content evidence define Grade 4 Mathematics launch slice; broader scope remains roadmap. | [verify] |
 | NS-50 | Create known issues and limitations file. | `docs/release/known_issues.md`; must not be empty. | [ ] |
 | NS-51 | Define beta acceptance criteria. | `docs/release/beta_acceptance_criteria.md` with actual metrics and thresholds. | [external] |
 
@@ -194,7 +194,7 @@ Current warnings to track:
 | Runtime DB migration proof | [ ] open |
 | Backup/restore/rollback drill | [ ] open |
 | Legal/security approval | [external] open |
-| CAPS educator approval | [external] open |
+| CAPS launch-slice content gate | [x] green for Grade 4 Mathematics launch slice |
 | Billing/notifications decision | [ ] open |
 | Controlled beta go/no-go | [external] open |
 | Public beta / production launch | [blocked] blocked |

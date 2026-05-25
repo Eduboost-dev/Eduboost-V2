@@ -2,8 +2,9 @@
 
 ## Now: production hardening and private alpha
 
-- Keep launch scope narrow.
-- Validate consent, diagnostics, lessons, parent reporting, support, monitoring, and backup/restore.
+- Keep launch scope narrow around the verified Grade 4 Mathematics slice.
+- Validate consent, frontend learner journeys, parent reporting, support, monitoring, and backup/restore.
+- Use the seeded launch content evidence as the baseline for diagnostics and lessons.
 - Use synthetic or explicitly consented users only.
 
 ## Next: trustworthy beta

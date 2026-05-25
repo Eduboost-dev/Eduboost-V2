@@ -24,9 +24,8 @@ readiness; it records what is implemented and what still needs approval.
 - Coverage matrix: `docs/caps/grade4_maths_coverage_matrix.md`
 - Production plan: `docs/caps/grade4_maths_120_item_production_plan.md`
 - Validator: `scripts/validate_item_bank.py`
-- Current approved scope: 14 approved Grade 4 Mathematics starter items.
-- Current limitation: generated candidate coverage exists, but the approval gate
-  remains open and must not be described as full production CAPS coverage.
+- Current approved scope: 120 approved Grade 4 Mathematics launch diagnostic items across `4.M.1.1`, `4.M.1.2`, and `4.M.1.3`.
+- Current limitation: the Grade 4 Mathematics launch slice is green, but this must not be described as full Grade 4 Mathematics or Grades R-7 CAPS coverage.
 
 ## Diagnostic Session Lifecycle
 
@@ -65,8 +64,8 @@ make diagnostics-assessment-check
 
 ## Verification Gaps
 
-- The minimum viable launch item bank is not approved at the target count.
-- Generated candidate items still require human review and approval promotion.
+- The minimum viable Grade 4 Mathematics launch item bank is approved and seeded at the target count.
+- Expansion beyond the launch slice still requires generated content, validation, and promotion.
 - Bias review needs end-to-end reviewer evidence.
 - Diagnostic/session behavior still needs staging-path evidence before release.
 - Mastery and recommendation claims must remain limited to tested model behavior

@@ -23,7 +23,7 @@ Release cadence:
 
 ### Changed
 - Extended item-bank repository and service APIs for exposure heatmaps, review workflow compatibility, exclusion-aware IRT item selection, and Phase 5 CI script arguments.
-- Clarified documentation to state the true content-bank status: implementation is integrated, but the committed seed currently has 14 approved starter items and still needs 106 approved items to reach the 120-item production target.
+- Updated release documentation to record the live Grade 4 Mathematics launch slice: 120 approved diagnostic items, 24 approved lessons, 100% answer-key verification, and 3 green launch refs.
 
 ### ⚠️ BREAKING: Complete V2 Architectural Migration (2026-05-02)
 
