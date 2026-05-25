@@ -29,7 +29,7 @@ class Result:
 def check_all() -> list[Result]:
     results = [Result(p, (ROOT / p).exists(), "present" if (ROOT / p).exists() else "missing") for p in REQUIRED]
     matrix = (ROOT / "docs/caps/grade4_maths_coverage_matrix.md").read_text(encoding="utf-8")
-    for snippet in ("14 approved starter items", "approval gate remains open"):
+    for snippet in ("Current approved items per launch ref", "40 approved", "Green for launch slice"):
         results.append(Result("docs/caps/grade4_maths_coverage_matrix.md", snippet in matrix, f"contains {snippet!r}"))
     return results
 

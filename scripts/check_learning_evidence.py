@@ -49,9 +49,9 @@ CONTENT_REQUIREMENTS = {
         "Verification Gaps",
     ),
     "docs/caps/grade4_maths_coverage_matrix.md": (
-        "Current Approved Items",
-        "14 approved starter items",
-        "approval gate remains open",
+        "Current approved items per launch ref",
+        "40 approved",
+        "Green for launch slice",
     ),
     "Makefile": (
         "diagnostics-assessment-check",

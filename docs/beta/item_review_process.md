@@ -1,8 +1,8 @@
 # EduBoost Beta Item Review Process
 
-**Status:** required before controlled beta with real learners
+Status: launch-slice content threshold passed; expansion review remains required.
 
-Beta is blocked until at least 40 Grade 4 Mathematics items are educator-approved and independently answer-key validated.
+The Grade 4 Mathematics launch slice now has 40 approved diagnostic items per launch ref and 100% answer-key verification evidence. This clears the content threshold for 4.M.1.1, 4.M.1.2, 4.M.1.3 only.
 
 ## Review criteria
 
@@ -11,11 +11,16 @@ Beta is blocked until at least 40 Grade 4 Mathematics items are educator-approve
 - Grade-appropriate language.
 - No culturally inappropriate or unsafe content.
 - No personal data or learner-identifying text.
-- Independent answer-key validation by a second reviewer.
+- Independent answer-key validation by a second reviewer or validator.
 
 ## Command
 
-```bash
-make beta-content-threshold-check
-make beta-content-threshold-schema-check
-```
+- make beta-content-threshold-check
+- make beta-content-threshold-schema-check
+- python3 scripts/validate_launch_content.py --strict
+
+## Evidence
+
+- docs/release/runtime_launch_content_evidence_status.md
+- docs/caps/grade4_maths_coverage_matrix.md
+- docs/caps/grade4_maths_lesson_coverage_matrix.md
