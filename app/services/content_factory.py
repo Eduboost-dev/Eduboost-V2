@@ -36,6 +36,15 @@ class SourceGateResult:
     source_snapshot_hash: str | None
 
 
+@dataclass(frozen=True)
+class ArtifactProvenanceReport:
+    artifact_id: uuid.UUID
+    passed: bool
+    errors: list[str]
+    source_snapshot_hash: str | None
+    sources: list[dict[str, Any]]
+
+
 def stable_json_hash(payload: Any) -> str:
     body = json.dumps(payload, sort_keys=True, separators=(",", ":"), default=str)
     return "sha256:" + hashlib.sha256(body.encode("utf-8")).hexdigest()
@@ -188,26 +197,34 @@ class ContentFactoryService:
         await session.flush()
 
         for source in sources:
+            explicit_keys = {
+                "source_document_id", "source_chunk_id", "source_title", "source_type", "source_uri",
+                "citation_text", "caps_ref", "grade", "subject_code", "language", "license_status",
+                "source_quality_score", "chunk_quality_score", "etl_version", "document_version_id",
+                "chunk_hash", "curriculum_mapping_id", "source_hash", "source_role",
+            }
             session.add(
                 ContentArtifactSource(
                     artifact_id=artifact.artifact_id,
                     source_document_id=source["source_document_id"],
                     source_chunk_id=source.get("source_chunk_id"),
+                    source_title=source.get("source_title"),
+                    source_type=source.get("source_type"),
+                    source_uri=source.get("source_uri"),
+                    citation_text=source.get("citation_text"),
+                    caps_ref=source.get("caps_ref"),
+                    grade=source.get("grade"),
+                    subject_code=source.get("subject_code"),
+                    language=source.get("language"),
+                    license_status=source.get("license_status"),
+                    source_quality_score=source.get("source_quality_score") or source.get("chunk_quality_score"),
+                    etl_version=source.get("etl_version"),
+                    document_version_id=source.get("document_version_id"),
+                    chunk_hash=source.get("chunk_hash"),
                     curriculum_mapping_id=source.get("curriculum_mapping_id"),
                     source_hash=source.get("source_hash"),
                     source_role=source.get("source_role") or "primary_context",
-                    source_metadata={
-                        key: value
-                        for key, value in source.items()
-                        if key
-                        not in {
-                            "source_document_id",
-                            "source_chunk_id",
-                            "curriculum_mapping_id",
-                            "source_hash",
-                            "source_role",
-                        }
-                    },
+                    source_metadata={key: value for key, value in source.items() if key not in explicit_keys},
                 )
             )
 
@@ -293,6 +310,31 @@ class ContentFactoryService:
         await session.flush()
         return review
 
+    async def validate_artifact_sources(self, session: AsyncSession, artifact_id: uuid.UUID) -> SourceGateResult:
+        artifact = await self._get_artifact(session, artifact_id)
+        sources = [_source_to_bundle_item(source) for source in artifact.sources]
+        return self.validation_service.provenance_service.validate_source_bundle(
+            caps_ref=artifact.caps_ref,
+            sources=sources,
+            min_sources=1,
+            require_approved_documents=True,
+        )
+
+    async def get_artifact_provenance(self, session: AsyncSession, artifact_id: uuid.UUID) -> ArtifactProvenanceReport:
+        artifact = await self._get_artifact(session, artifact_id)
+        gate = await self.validate_artifact_sources(session, artifact_id)
+        return ArtifactProvenanceReport(
+            artifact_id=artifact.artifact_id,
+            passed=gate.passed,
+            errors=gate.errors,
+            source_snapshot_hash=gate.source_snapshot_hash,
+            sources=[_source_to_bundle_item(source) for source in artifact.sources],
+        )
+
+    async def assert_artifact_has_approved_sources(self, session: AsyncSession, artifact_id: uuid.UUID) -> None:
+        gate = await self.validate_artifact_sources(session, artifact_id)
+        if not gate.passed:
+            raise ValueError("Artifact provenance validation failed: " + "; ".join(gate.errors))
     async def get_artifact(self, session: AsyncSession, artifact_id: uuid.UUID) -> ContentGenerationArtifact:
         return await self._get_artifact(session, artifact_id)
 
@@ -310,3 +352,31 @@ class ContentFactoryService:
 
 def _enum_value(value: Any) -> str:
     return value.value if hasattr(value, "value") else str(value)
+
+
+def _source_to_bundle_item(source: ContentArtifactSource) -> dict[str, Any]:
+    metadata = source.source_metadata or {}
+    quality = source.source_quality_score
+    return {
+        "source_document_id": source.source_document_id,
+        "source_chunk_id": source.source_chunk_id,
+        "source_title": source.source_title,
+        "source_type": source.source_type,
+        "source_uri": source.source_uri,
+        "citation_text": source.citation_text,
+        "caps_ref": source.caps_ref or metadata.get("caps_ref"),
+        "grade": source.grade,
+        "subject_code": source.subject_code,
+        "language": source.language,
+        "license_status": source.license_status or metadata.get("license_status"),
+        "source_quality_score": float(quality) if quality is not None else metadata.get("source_quality_score"),
+        "chunk_quality_score": float(quality) if quality is not None else metadata.get("chunk_quality_score"),
+        "etl_version": source.etl_version,
+        "document_version_id": source.document_version_id,
+        "chunk_hash": source.chunk_hash,
+        "curriculum_mapping_id": source.curriculum_mapping_id,
+        "source_hash": source.source_hash,
+        "source_role": source.source_role,
+        "document_status": metadata.get("document_status"),
+        **metadata,
+    }
