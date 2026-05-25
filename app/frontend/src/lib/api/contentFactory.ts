@@ -34,6 +34,54 @@ export type ContentArtifact = {
   status: string;
 };
 
+
+export type ScopeBlocker = {
+  code: string;
+  severity: "info" | "warning" | "blocking";
+  layer?: string | null;
+  caps_ref?: string | null;
+  required?: number | null;
+  approved?: number | null;
+  pending_review?: number | null;
+};
+
+export type LayerReadinessSummary = {
+  layer: string;
+  caps_ref: string;
+  target: number;
+  approved: number;
+  pending_review: number;
+  generated: number;
+  validation_failed: number;
+  rejected: number;
+  quarantined: number;
+  seeded_staging: number;
+  promoted_production: number;
+  stageable: number;
+  status: string;
+};
+
+export type ScopeStagingVerificationReport = {
+  scope_id: string;
+  status: string;
+  can_seed_staging: boolean;
+  can_promote_production: boolean;
+  blockers: ScopeBlocker[];
+  layers: LayerReadinessSummary[];
+  summary: Record<string, number | string | boolean>;
+};
+
+export type AllScopeStagingVerificationReport = {
+  run_id?: string | null;
+  status: string;
+  can_seed_staging: boolean;
+  can_promote_production: boolean;
+  scopes: ScopeStagingVerificationReport[];
+  summary: Record<string, number | string | boolean>;
+  created_by?: string | null;
+  created_at: string;
+};
+
 export type EtlStatus = {
   status: string;
   documents_indexed?: number;
@@ -58,4 +106,15 @@ export function fetchContentFactoryReviewQueue() {
 
 export function fetchAdminEtlStatus() {
   return fetchApi<EtlStatus>("/admin/etl/status");
+}
+
+
+export function runAllScopeStagingVerification() {
+  return fetchApi<AllScopeStagingVerificationReport>("/admin/content-factory/staging-verification/all-scopes", {
+    method: "POST",
+  });
+}
+
+export function fetchScopeStagingReadiness(scopeId: string) {
+  return fetchApi<ScopeStagingVerificationReport>(`/admin/content-factory/scopes/${scopeId}/staging-readiness`);
 }

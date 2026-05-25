@@ -61,7 +61,7 @@ describe('Content Factory API client contracts', () => {
       const errorResponse = { status: 401, detail: 'Authentication required' }
       const handled = handleNon2rxResponse(errorResponse)
       expect(handled).toHaveProperty('error')
-      expect(handled.error).toContain( '401')
+      expect(handled.error).toContain('401')
     })
   })
 })
