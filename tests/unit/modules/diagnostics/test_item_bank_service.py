@@ -21,8 +21,8 @@ import pytest
 
 from app.models.diagnostic_item import DiagnosticItem
 from app.domain.item_schema import ReviewStatus
+from app.domain.content_coverage import ContentLayer
 from app.modules.diagnostics.item_bank_service import (
-    LAUNCH_TARGET_ITEMS,
     ItemBankService,
     ItemSelectionError,
     fisher_information_3pl,
@@ -75,6 +75,20 @@ def mock_repo():
 @pytest.fixture
 def service(mock_repo):
     return ItemBankService(mock_repo)
+
+
+class CustomCoverageTargets:
+    def __init__(self, target: int = 40) -> None:
+        self.target = target
+
+    def get_scope_caps_refs(self, scope_id: str) -> list[str]:
+        return ["4.M.1.1", "4.M.1.2", "4.M.1.3"]
+
+    def get_coverage_target(self, scope_id: str, caps_ref: str, layer: ContentLayer) -> int:
+        assert scope_id
+        assert caps_ref
+        assert layer == ContentLayer.DIAGNOSTIC_ITEMS
+        return self.target
 
 
 # ---------------------------------------------------------------------------
@@ -214,6 +228,19 @@ async def test_get_coverage_summary_calculates_ratios(service, mock_repo):
     assert "4.M.1.1" in summary
     assert summary["4.M.1.1"]["coverage_ratio"] == 0.5  # 20 / 40 (target)
     assert summary["4.M.1.1"]["target"] == 40
+
+
+@pytest.mark.asyncio
+async def test_get_coverage_summary_uses_injected_registry_target(mock_repo):
+    mock_repo.get_coverage_summary.return_value = {
+        "4.M.1.1": {"caps_ref": "4.M.1.1", "approved": 6, "total": 10},
+    }
+    service = ItemBankService(mock_repo, coverage_targets=CustomCoverageTargets(target=12), scope_id="custom_scope")
+
+    summary = await service.get_coverage_summary(["4.M.1.1"], scope_id="custom_scope")
+
+    assert summary["4.M.1.1"]["target"] == 12
+    assert summary["4.M.1.1"]["coverage_ratio"] == 0.5
 
 
 @pytest.mark.asyncio

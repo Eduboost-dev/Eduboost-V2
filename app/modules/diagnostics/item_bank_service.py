@@ -11,16 +11,13 @@ import math
 import uuid
 from typing import Sequence, Optional
 
+from app.domain.content_coverage import ContentLayer
 from app.models.diagnostic_item import DiagnosticItem
 from app.repositories.item_bank_repository import ItemBankRepository
+from app.services.content_scope_registry import ContentScopeRegistry
 
 
-# Target item count per CAPS ref for the Grade 4 Maths MVP launch
-LAUNCH_TARGET_ITEMS: dict[str, int] = {
-    "4.M.1.1": 40,
-    "4.M.1.2": 40,
-    "4.M.1.3": 40,
-}
+DEFAULT_CONTENT_SCOPE_ID = "grade4_mathematics_en"
 
 # Ability neighbourhood window for IRT-informed selection
 _THETA_WINDOW = 1.0
@@ -52,9 +49,16 @@ class ItemBankService:
     Inject an ItemBankRepository instance.
     """
 
-    def __init__(self, repo: ItemBankRepository) -> None:
+    def __init__(
+        self,
+        repo: ItemBankRepository,
+        coverage_targets: ContentScopeRegistry | None = None,
+        scope_id: str = DEFAULT_CONTENT_SCOPE_ID,
+    ) -> None:
         self.repo = repo
         self._repo = repo
+        self.coverage_targets = coverage_targets or ContentScopeRegistry()
+        self.scope_id = scope_id
 
     # ─── Public API ──────────────────────────────────────────────────────────
 
@@ -118,14 +122,21 @@ class ItemBankService:
     async def get_coverage_summary(
         self,
         caps_refs: Optional[list[str]] = None,
+        *,
+        scope_id: str | None = None,
     ) -> dict[str, dict]:
-        """
-        Return per-caps_ref item counts enriched with coverage ratio.
-        """
-        summaries = await self.repo.get_coverage_summary(caps_refs)
+        """Return per-caps_ref item counts enriched with registry-backed targets."""
+        active_scope_id = scope_id or self.scope_id
+        requested_refs = caps_refs or self.coverage_targets.get_scope_caps_refs(active_scope_id)
+        summaries = await self.repo.get_coverage_summary(requested_refs)
 
-        for ref, s in summaries.items():
-            target = LAUNCH_TARGET_ITEMS.get(ref, 40)
+        for ref in requested_refs:
+            s = summaries.setdefault(ref, {"caps_ref": ref, "approved": 0, "total": 0})
+            target = self.coverage_targets.get_coverage_target(
+                active_scope_id,
+                ref,
+                ContentLayer.DIAGNOSTIC_ITEMS,
+            )
             s["target"] = target
             approved = s.get("approved", 0)
             s["coverage_ratio"] = round(approved / target, 4) if target else 0.0
@@ -136,10 +147,18 @@ class ItemBankService:
         """Return per-item exposure utilisation for a CAPS reference."""
         return await self.repo.get_exposure_heatmap(caps_ref)
 
-    async def is_launch_ready(self) -> bool:
-        """Returns True when ALL launch caps_refs have ≥ target approved items."""
-        summaries = await self.get_coverage_summary(caps_refs=list(LAUNCH_TARGET_ITEMS.keys()))
+    async def is_scope_ready(self, scope_id: str | None = None) -> bool:
+        """Returns True when all configured diagnostic targets for a scope are met."""
+        active_scope_id = scope_id or self.scope_id
+        summaries = await self.get_coverage_summary(
+            caps_refs=self.coverage_targets.get_scope_caps_refs(active_scope_id),
+            scope_id=active_scope_id,
+        )
         return all(s["coverage_ratio"] >= 1.0 for s in summaries.values())
+
+    async def is_launch_ready(self) -> bool:
+        """Compatibility wrapper for the default Grade 4 Mathematics launch scope."""
+        return await self.is_scope_ready(DEFAULT_CONTENT_SCOPE_ID)
 
     async def mark_item_reviewed(
         self,
