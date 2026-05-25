@@ -69,4 +69,10 @@ def test_content_factory_scope_openapi_contract_is_admin_only() -> None:
     assert set(operations) == {"get"}
     assert operations["get"]["tags"] == ["admin-content-factory"]
     assert "/api/v2/admin/content-factory/scopes/{scope_id}/targets" in schema["paths"]
+    assert "/api/v2/admin/content-factory/scopes/{scope_id}/coverage" in schema["paths"]
+    assert "/api/v2/admin/content-factory/scopes/{scope_id}/coverage/{caps_ref}" in schema["paths"]
+    assert (
+        schema["paths"]["/api/v2/admin/content-factory/scopes/{scope_id}/coverage"]["get"]["tags"]
+        == ["admin-content-factory"]
+    )
     assert "/api/v2/content-factory/scopes" not in schema["paths"]

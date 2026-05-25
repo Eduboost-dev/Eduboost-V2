@@ -4,7 +4,7 @@ from __future__ import annotations
 import sys
 import uuid
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
@@ -18,9 +18,12 @@ from app.domain.content_factory_schemas import (
     ContentFactoryETLStatusResponse,
     ContentFactoryHealthResponse,
 )
-from app.domain.content_coverage import CoverageTarget
+from app.domain.content_coverage import CapsRefCoverageReport, ContentLayer, CoverageTarget, ScopeCoverageReport
 from app.domain.content_scope import ContentScope
+from app.repositories.item_bank_repository import ItemBankRepository
+from app.repositories.lesson_repository import LessonRepository
 from app.services.content_factory import ContentFactoryService, ContentValidationService
+from app.services.content_coverage_service import ContentCoverageService
 from app.services.content_scope_registry import ContentScopeRegistry
 
 router = APIRouter(
@@ -29,6 +32,13 @@ router = APIRouter(
     tags=["admin-content-factory"],
     dependencies=[Depends(require_admin)],
 )
+
+
+def get_content_coverage_service(session: AsyncSession = Depends(get_db)) -> ContentCoverageService:
+    return ContentCoverageService(
+        item_repo=ItemBankRepository(session),
+        lesson_repo=LessonRepository(session),
+    )
 
 
 @router.get("/health", response_model=ContentFactoryHealthResponse)
@@ -70,6 +80,31 @@ async def get_content_scope(scope_id: str) -> ContentScope:
 async def get_content_scope_targets(scope_id: str) -> list[CoverageTarget]:
     try:
         return ContentScopeRegistry().get_scope_targets(scope_id)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/scopes/{scope_id}/coverage", response_model=ScopeCoverageReport)
+async def get_content_scope_coverage(
+    scope_id: str,
+    layer: list[ContentLayer] | None = Query(default=None),
+    coverage_service: ContentCoverageService = Depends(get_content_coverage_service),
+) -> ScopeCoverageReport:
+    try:
+        return await coverage_service.get_scope_coverage(scope_id, layers=layer)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/scopes/{scope_id}/coverage/{caps_ref}", response_model=CapsRefCoverageReport)
+async def get_content_caps_ref_coverage(
+    scope_id: str,
+    caps_ref: str,
+    layer: list[ContentLayer] | None = Query(default=None),
+    coverage_service: ContentCoverageService = Depends(get_content_coverage_service),
+) -> CapsRefCoverageReport:
+    try:
+        return await coverage_service.get_caps_ref_coverage(scope_id, caps_ref, layers=layer)
     except LookupError as exc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
 

@@ -247,6 +247,33 @@
         "title": "CapsRefCoverage",
         "type": "object"
       },
+      "CapsRefCoverageReport": {
+        "additionalProperties": false,
+        "properties": {
+          "caps_ref": {
+            "title": "Caps Ref",
+            "type": "string"
+          },
+          "layers": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/CoverageLayerCounts"
+            },
+            "title": "Layers",
+            "type": "object"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope_id",
+          "caps_ref",
+          "layers"
+        ],
+        "title": "CapsRefCoverageReport",
+        "type": "object"
+      },
       "CheckoutSessionResponse": {
         "properties": {
           "checkout_url": {
@@ -704,6 +731,17 @@
         "title": "ContentFactoryHealthResponse",
         "type": "object"
       },
+      "ContentLayer": {
+        "enum": [
+          "topic_map",
+          "diagnostic_items",
+          "lessons",
+          "assessment_blueprints",
+          "study_plan_templates"
+        ],
+        "title": "ContentLayer",
+        "type": "string"
+      },
       "ContentScope": {
         "additionalProperties": false,
         "properties": {
@@ -801,6 +839,59 @@
         ],
         "title": "CorrectionRequestLegacyBody",
         "type": "object"
+      },
+      "CoverageLayerCounts": {
+        "additionalProperties": false,
+        "properties": {
+          "approved": {
+            "default": 0,
+            "title": "Approved",
+            "type": "integer"
+          },
+          "coverage_ratio": {
+            "default": 0.0,
+            "title": "Coverage Ratio",
+            "type": "number"
+          },
+          "generated": {
+            "default": 0,
+            "title": "Generated",
+            "type": "integer"
+          },
+          "pending_review": {
+            "default": 0,
+            "title": "Pending Review",
+            "type": "integer"
+          },
+          "rejected": {
+            "default": 0,
+            "title": "Rejected",
+            "type": "integer"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CoverageLayerStatus"
+          },
+          "target": {
+            "default": 0,
+            "title": "Target",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "CoverageLayerCounts",
+        "type": "object"
+      },
+      "CoverageLayerStatus": {
+        "enum": [
+          "red",
+          "amber",
+          "green",
+          "not_configured"
+        ],
+        "title": "CoverageLayerStatus",
+        "type": "string"
       },
       "CoverageResponse": {
         "properties": {
@@ -2463,6 +2554,111 @@
         "title": "SafetyClassification",
         "type": "string"
       },
+      "ScopeCoverageLayerSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "approved_total": {
+            "default": 0,
+            "title": "Approved Total",
+            "type": "integer"
+          },
+          "coverage_ratio": {
+            "default": 0.0,
+            "title": "Coverage Ratio",
+            "type": "number"
+          },
+          "target_total": {
+            "default": 0,
+            "title": "Target Total",
+            "type": "integer"
+          }
+        },
+        "title": "ScopeCoverageLayerSummary",
+        "type": "object"
+      },
+      "ScopeCoverageReport": {
+        "additionalProperties": false,
+        "properties": {
+          "grade": {
+            "title": "Grade",
+            "type": "integer"
+          },
+          "language": {
+            "title": "Language",
+            "type": "string"
+          },
+          "layers": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ScopeCoverageLayerSummary"
+            },
+            "title": "Layers",
+            "type": "object"
+          },
+          "per_caps_ref": {
+            "items": {
+              "$ref": "#/components/schemas/CapsRefCoverageReport"
+            },
+            "title": "Per Caps Ref",
+            "type": "array"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "subject_code": {
+            "title": "Subject Code",
+            "type": "string"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/ScopeCoverageSummary"
+          }
+        },
+        "required": [
+          "scope_id",
+          "grade",
+          "subject_code",
+          "language",
+          "summary",
+          "layers",
+          "per_caps_ref"
+        ],
+        "title": "ScopeCoverageReport",
+        "type": "object"
+      },
+      "ScopeCoverageSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "amber_refs": {
+            "title": "Amber Refs",
+            "type": "integer"
+          },
+          "green_refs": {
+            "title": "Green Refs",
+            "type": "integer"
+          },
+          "not_configured_refs": {
+            "title": "Not Configured Refs",
+            "type": "integer"
+          },
+          "red_refs": {
+            "title": "Red Refs",
+            "type": "integer"
+          },
+          "total_caps_refs": {
+            "title": "Total Caps Refs",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "total_caps_refs",
+          "green_refs",
+          "amber_refs",
+          "red_refs",
+          "not_configured_refs"
+        ],
+        "title": "ScopeCoverageSummary",
+        "type": "object"
+      },
       "StudyPlanGenerateRequest": {
         "properties": {
           "gap_ratio": {
@@ -2828,6 +3024,147 @@
           }
         ],
         "summary": "Get Content Scope",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/scopes/{scope_id}/coverage": {
+      "get": {
+        "operationId": "get_content_scope_coverage_api_v2_admin_content_factory_scopes__scope_id__coverage_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layer",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "$ref": "#/components/schemas/ContentLayer"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScopeCoverageReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Content Scope Coverage",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/scopes/{scope_id}/coverage/{caps_ref}": {
+      "get": {
+        "operationId": "get_content_caps_ref_coverage_api_v2_admin_content_factory_scopes__scope_id__coverage__caps_ref__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layer",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "$ref": "#/components/schemas/ContentLayer"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapsRefCoverageReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Content Caps Ref Coverage",
         "tags": [
           "admin-content-factory"
         ]
@@ -5153,6 +5490,17 @@
               ],
               "title": "Subject"
             }
+          },
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "default": "grade4_mathematics_en",
+              "minLength": 1,
+              "title": "Scope Id",
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -6904,6 +7252,147 @@
           }
         ],
         "summary": "Get Content Scope",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/scopes/{scope_id}/coverage": {
+      "get": {
+        "operationId": "get_content_scope_coverage_v2_admin_content_factory_scopes__scope_id__coverage_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layer",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "$ref": "#/components/schemas/ContentLayer"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScopeCoverageReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Content Scope Coverage",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/scopes/{scope_id}/coverage/{caps_ref}": {
+      "get": {
+        "operationId": "get_content_caps_ref_coverage_v2_admin_content_factory_scopes__scope_id__coverage__caps_ref__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layer",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "$ref": "#/components/schemas/ContentLayer"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapsRefCoverageReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Content Caps Ref Coverage",
         "tags": [
           "admin-content-factory"
         ]
@@ -9228,6 +9717,17 @@
                 }
               ],
               "title": "Subject"
+            }
+          },
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "default": "grade4_mathematics_en",
+              "minLength": 1,
+              "title": "Scope Id",
+              "type": "string"
             }
           }
         ],
