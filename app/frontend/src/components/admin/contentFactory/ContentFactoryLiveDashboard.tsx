@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import StagingReadinessPanel from "./StagingReadinessPanel";
 import {
   fetchAdminEtlStatus,
   fetchContentFactoryCoverage,
@@ -81,6 +82,8 @@ export default function ContentFactoryLiveDashboard() {
           <Metric label="Review Queue" value={state.reviewQueue.length} />
           <Metric label="ETL" value={state.etlStatus?.status ?? "unknown"} />
         </section>
+
+        <StagingReadinessPanel />
 
         <section className="grid gap-6 lg:grid-cols-2">
           <Panel title="Scope Coverage">
