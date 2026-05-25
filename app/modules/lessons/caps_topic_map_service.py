@@ -35,15 +35,27 @@ from typing import Optional
 
 logger = logging.getLogger(__name__)
 
-# Default map paths relative to the project root.
-# File location: <project_root>/app/modules/lessons/caps_topic_map_service.py
-#   parents[0] = <project_root>/app/modules/lessons/
-#   parents[1] = <project_root>/app/modules/
-#   parents[2] = <project_root>/app/
-#   parents[3] = <project_root>/              ← correct project root
-_DEFAULT_MAP_PATHS: list[Path] = [
-    Path(__file__).resolve().parents[3] / "data" / "caps" / "caps_topic_map_grade4_maths.json",
-]
+_PROJECT_ROOT = Path(__file__).resolve().parents[3]
+
+
+def _discover_default_map_paths() -> list[Path]:
+    """Return canonical topic-map paths in stable load order.
+
+    The launch map still lives at the legacy path. New maps should live under
+    data/caps/topic_maps so Grades R-7 can be added without changing code.
+    """
+    paths: list[Path] = []
+    topic_maps_dir = _PROJECT_ROOT / "data" / "caps" / "topic_maps"
+    if topic_maps_dir.exists():
+        paths.extend(sorted(topic_maps_dir.glob("*.json")))
+    legacy_launch_map = _PROJECT_ROOT / "data" / "caps" / "caps_topic_map_grade4_maths.json"
+    canonical_launch_map = topic_maps_dir / legacy_launch_map.name
+    if legacy_launch_map.exists() and not canonical_launch_map.exists() and legacy_launch_map not in paths:
+        paths.append(legacy_launch_map)
+    return paths
+
+
+_DEFAULT_MAP_PATHS: list[Path] = _discover_default_map_paths()
 
 
 # ─── Data classes (read-only view of map entries) ─────────────────────────────
@@ -138,7 +150,7 @@ class CAPSTopicMapService:
     """
 
     def __init__(self, map_paths: Optional[list[Path]] = None) -> None:
-        self._map_paths: list[Path] = map_paths or _DEFAULT_MAP_PATHS
+        self._map_paths: list[Path] = map_paths or _discover_default_map_paths()
         self._maps: list[CAPSTopicMap] = []
         self._global_index: dict[str, TopicEntry | SubtopicEntry] = {}
         self._loaded: bool = False
@@ -275,6 +287,81 @@ class CAPSTopicMapService:
         if isinstance(entry, SubtopicEntry):
             return entry.common_misconceptions
         return []
+
+    def get_topic_context(self, caps_ref: str) -> Optional[dict]:
+        """Return a normalized generation context for any topic or subtopic ref."""
+        self._ensure_loaded()
+        for topic_map in self._maps:
+            for term_entry in topic_map.terms:
+                for topic in term_entry.topics:
+                    if topic.caps_ref == caps_ref:
+                        standards: list[str] = []
+                        misconceptions: list[str] = []
+                        prerequisites: list[str] = []
+                        for subtopic in topic.subtopics:
+                            standards.extend(subtopic.assessment_standards)
+                            misconceptions.extend(subtopic.common_misconceptions)
+                            prerequisites.extend(subtopic.prerequisites)
+                        return {
+                            "caps_ref": topic.caps_ref,
+                            "grade": topic_map.meta.grade,
+                            "subject": topic_map.meta.subject,
+                            "subject_code": topic_map.meta.subject_code,
+                            "term": term_entry.term,
+                            "weeks": term_entry.weeks,
+                            "topic": topic.topic,
+                            "subtopic": topic.topic,
+                            "skill": topic.topic,
+                            "assessment_standards": list(dict.fromkeys(standards)),
+                            "learning_outcomes": list(dict.fromkeys(standards)),
+                            "prerequisites": list(dict.fromkeys(prerequisites)),
+                            "common_misconceptions": list(dict.fromkeys(misconceptions)),
+                        }
+                    for subtopic in topic.subtopics:
+                        if subtopic.caps_ref == caps_ref:
+                            return {
+                                "caps_ref": subtopic.caps_ref,
+                                "grade": topic_map.meta.grade,
+                                "subject": topic_map.meta.subject,
+                                "subject_code": topic_map.meta.subject_code,
+                                "term": term_entry.term,
+                                "weeks": term_entry.weeks,
+                                "topic": topic.topic,
+                                "subtopic": subtopic.subtopic,
+                                "skill": subtopic.subtopic,
+                                "assessment_standards": subtopic.assessment_standards,
+                                "learning_outcomes": subtopic.assessment_standards,
+                                "prerequisites": subtopic.prerequisites,
+                                "common_misconceptions": subtopic.common_misconceptions,
+                            }
+        return None
+
+    def iter_topic_contexts(
+        self,
+        *,
+        grade: Optional[int] = None,
+        subject_code: Optional[str] = None,
+        include_subtopics: bool = True,
+    ) -> list[dict]:
+        """Return normalized generation contexts across loaded maps."""
+        contexts: list[dict] = []
+        self._ensure_loaded()
+        for topic_map in self._maps:
+            if grade is not None and topic_map.meta.grade != grade:
+                continue
+            if subject_code is not None and topic_map.meta.subject_code != subject_code:
+                continue
+            for term_entry in topic_map.terms:
+                for topic in term_entry.topics:
+                    topic_context = self.get_topic_context(topic.caps_ref)
+                    if topic_context:
+                        contexts.append(topic_context)
+                    if include_subtopics:
+                        for subtopic in topic.subtopics:
+                            subtopic_context = self.get_topic_context(subtopic.caps_ref)
+                            if subtopic_context:
+                                contexts.append(subtopic_context)
+        return contexts
 
     def list_topics(
         self,

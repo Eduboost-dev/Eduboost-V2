@@ -147,7 +147,7 @@ class LessonGenerator:
         misconception_tags = misconception_tags or []
 
         # ── Step 1: Resolve CAPS reference ───────────────────────────────
-        topic_meta = self._caps_service.get_topic_metadata(caps_ref)
+        topic_meta = self._caps_service.get_topic_context(caps_ref)
         if topic_meta is None:
             raise LessonGenerationError(
                 f"CAPS reference '{caps_ref}' not found in canonical topic map. "
@@ -237,8 +237,10 @@ class LessonGenerator:
                     "total_tokens": llm_response.prompt_tokens + llm_response.completion_tokens,
                 },
                 "review_status": (
-                    "ai_generated"
-                    if answer_key_verified and quality_score >= 0.7
+                    "approved"
+                    if answer_key_verified and quality_score >= 0.85
+                    else "ai_generated"
+                    if answer_key_verified and quality_score >= 0.70
                     else "requires_review"
                 ),
             }

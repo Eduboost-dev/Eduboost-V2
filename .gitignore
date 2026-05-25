@@ -27,6 +27,9 @@ app/frontend/coverage/
 data/caps/*
 !data/caps/caps_topic_map_grade4_maths.json
 !data/caps/grade4_maths_item_bank.json
+!data/caps/launch_coverage_targets.json
+!data/caps/topic_maps/
+!data/caps/topic_maps/*.json
 artifacts/llm/
 # Sensitive keys
 *.pem

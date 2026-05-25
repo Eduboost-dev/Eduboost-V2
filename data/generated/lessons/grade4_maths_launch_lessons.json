@@ -1,0 +1,3129 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-05-25T00:12:14.696871+00:00",
+  "scope": "grade4_maths_launch_slice",
+  "language": "en",
+  "approval_policy": "auto_approved_when_schema_caps_safety_answer_quality_pass",
+  "lessons": [
+    {
+      "lesson_id": "f41028fa-8f4c-50f5-897e-d6c0d83d1c1f",
+      "caps_ref": "4.M.1.1",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Whole Numbers",
+      "subtopic": "Whole Numbers",
+      "learning_objectives": [
+        "Count forwards and backwards in 10s, 100s and 1 000s from any number.",
+        "Represent and recognise the place value of digits in whole numbers up to 4-digit numbers.",
+        "Order and compare 4-digit numbers using <, > and = symbols."
+      ],
+      "explanation": "In this lesson we learn whole numbers in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Whole Numbers: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Whole Numbers: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "place_value_confusion"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "place_value_confusion"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "place_value_confusion"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "place_value_confusion",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "foundational",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "standard",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "295f0ce1-e36a-5913-b72a-b3bb228346e5",
+      "caps_ref": "4.M.1.1",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Whole Numbers",
+      "subtopic": "Whole Numbers",
+      "learning_objectives": [
+        "Count forwards and backwards in 10s, 100s and 1 000s from any number.",
+        "Represent and recognise the place value of digits in whole numbers up to 4-digit numbers.",
+        "Order and compare 4-digit numbers using <, > and = symbols."
+      ],
+      "explanation": "In this lesson we learn whole numbers in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Whole Numbers: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Whole Numbers: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "reversal_of_digit_order"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "reversal_of_digit_order"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "reversal_of_digit_order"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "reversal_of_digit_order",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "developing",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.92,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "visual",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "0d74fb26-3350-5b40-85ff-c8cdd897a9df",
+      "caps_ref": "4.M.1.1",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Whole Numbers",
+      "subtopic": "Whole Numbers",
+      "learning_objectives": [
+        "Count forwards and backwards in 10s, 100s and 1 000s from any number.",
+        "Represent and recognise the place value of digits in whole numbers up to 4-digit numbers.",
+        "Order and compare 4-digit numbers using <, > and = symbols."
+      ],
+      "explanation": "In this lesson we learn whole numbers in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Whole Numbers: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Whole Numbers: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "incorrect_comparison_with_unequal_digit_counts"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "incorrect_comparison_with_unequal_digit_counts"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "incorrect_comparison_with_unequal_digit_counts"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "incorrect_comparison_with_unequal_digit_counts",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "on_level",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9400000000000001,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "story",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "af26a420-87c6-5693-95c0-3b7a919c62e4",
+      "caps_ref": "4.M.1.1",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Whole Numbers",
+      "subtopic": "Whole Numbers",
+      "learning_objectives": [
+        "Count forwards and backwards in 10s, 100s and 1 000s from any number.",
+        "Represent and recognise the place value of digits in whole numbers up to 4-digit numbers.",
+        "Order and compare 4-digit numbers using <, > and = symbols."
+      ],
+      "explanation": "In this lesson we learn whole numbers in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Whole Numbers: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Whole Numbers: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "forgetting_to_regroup"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "forgetting_to_regroup"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "forgetting_to_regroup"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "forgetting_to_regroup",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "extending",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "step_by_step",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "9f6ee46f-b074-5aca-8464-5679b9ff3cdd",
+      "caps_ref": "4.M.1.1",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Whole Numbers",
+      "subtopic": "Whole Numbers",
+      "learning_objectives": [
+        "Count forwards and backwards in 10s, 100s and 1 000s from any number.",
+        "Represent and recognise the place value of digits in whole numbers up to 4-digit numbers.",
+        "Order and compare 4-digit numbers using <, > and = symbols."
+      ],
+      "explanation": "In this lesson we learn whole numbers in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Whole Numbers: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Whole Numbers: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "subtracting_smaller_from_larger_regardless_of_position"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "subtracting_smaller_from_larger_regardless_of_position"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "subtracting_smaller_from_larger_regardless_of_position"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "subtracting_smaller_from_larger_regardless_of_position",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "foundational",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.92,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "real_world_sa",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "4531d2fe-7a7c-5d14-b943-acaf5a930b7e",
+      "caps_ref": "4.M.1.1",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Whole Numbers",
+      "subtopic": "Whole Numbers",
+      "learning_objectives": [
+        "Count forwards and backwards in 10s, 100s and 1 000s from any number.",
+        "Represent and recognise the place value of digits in whole numbers up to 4-digit numbers.",
+        "Order and compare 4-digit numbers using <, > and = symbols."
+      ],
+      "explanation": "In this lesson we learn whole numbers in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Whole Numbers: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Whole Numbers: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "place_value_error_in_column_method"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "place_value_error_in_column_method"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "place_value_error_in_column_method"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "place_value_error_in_column_method",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "developing",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9400000000000001,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "exam_style",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "a7ab0505-57bb-5231-a069-cf9dea9b55c5",
+      "caps_ref": "4.M.1.1",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Whole Numbers",
+      "subtopic": "Whole Numbers",
+      "learning_objectives": [
+        "Count forwards and backwards in 10s, 100s and 1 000s from any number.",
+        "Represent and recognise the place value of digits in whole numbers up to 4-digit numbers.",
+        "Order and compare 4-digit numbers using <, > and = symbols."
+      ],
+      "explanation": "In this lesson we learn whole numbers in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Whole Numbers: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Whole Numbers: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "incorrect_times_table_recall"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "incorrect_times_table_recall"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "incorrect_times_table_recall"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "incorrect_times_table_recall",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "on_level",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "standard",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "171e5e97-abbd-5a8d-998e-49e201c251e5",
+      "caps_ref": "4.M.1.1",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Whole Numbers",
+      "subtopic": "Whole Numbers",
+      "learning_objectives": [
+        "Count forwards and backwards in 10s, 100s and 1 000s from any number.",
+        "Represent and recognise the place value of digits in whole numbers up to 4-digit numbers.",
+        "Order and compare 4-digit numbers using <, > and = symbols."
+      ],
+      "explanation": "In this lesson we learn whole numbers in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Whole Numbers: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Whole Numbers: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "forgetting_to_carry_in_multiplication"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "forgetting_to_carry_in_multiplication"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for whole numbers?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "forgetting_to_carry_in_multiplication"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "forgetting_to_carry_in_multiplication",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "extending",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.92,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "step_by_step",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "7839a5e1-2810-5e43-b7f3-40495211a54a",
+      "caps_ref": "4.M.1.2",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Common Fractions",
+      "subtopic": "Common Fractions",
+      "learning_objectives": [
+        "Name and write common fractions: halves, thirds, quarters, fifths, sixths, eighths, tenths.",
+        "Order and compare common fractions with the same denominator.",
+        "Identify fractions on a number line."
+      ],
+      "explanation": "In this lesson we learn common fractions in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Common Fractions: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Common Fractions: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "larger_denominator_means_larger_fraction"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "larger_denominator_means_larger_fraction"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "larger_denominator_means_larger_fraction"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "larger_denominator_means_larger_fraction",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "foundational",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "standard",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "16987898-41c3-56b3-8908-7a6017ce40ae",
+      "caps_ref": "4.M.1.2",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Common Fractions",
+      "subtopic": "Common Fractions",
+      "learning_objectives": [
+        "Name and write common fractions: halves, thirds, quarters, fifths, sixths, eighths, tenths.",
+        "Order and compare common fractions with the same denominator.",
+        "Identify fractions on a number line."
+      ],
+      "explanation": "In this lesson we learn common fractions in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Common Fractions: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Common Fractions: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "fraction_as_two_separate_whole_numbers"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "fraction_as_two_separate_whole_numbers"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "fraction_as_two_separate_whole_numbers"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "fraction_as_two_separate_whole_numbers",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "developing",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.92,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "visual",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "0bf1033d-d4ef-54b9-8baa-64ab53579fac",
+      "caps_ref": "4.M.1.2",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Common Fractions",
+      "subtopic": "Common Fractions",
+      "learning_objectives": [
+        "Name and write common fractions: halves, thirds, quarters, fifths, sixths, eighths, tenths.",
+        "Order and compare common fractions with the same denominator.",
+        "Identify fractions on a number line."
+      ],
+      "explanation": "In this lesson we learn common fractions in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Common Fractions: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Common Fractions: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "numerator_denominator_confusion"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "numerator_denominator_confusion"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "numerator_denominator_confusion"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "numerator_denominator_confusion",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "on_level",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9400000000000001,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "story",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "e034cfd4-5d92-58bd-ba52-6677b8bef6c6",
+      "caps_ref": "4.M.1.2",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Common Fractions",
+      "subtopic": "Common Fractions",
+      "learning_objectives": [
+        "Name and write common fractions: halves, thirds, quarters, fifths, sixths, eighths, tenths.",
+        "Order and compare common fractions with the same denominator.",
+        "Identify fractions on a number line."
+      ],
+      "explanation": "In this lesson we learn common fractions in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Common Fractions: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Common Fractions: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "adding_numerators_and_denominators_separately"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "adding_numerators_and_denominators_separately"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "adding_numerators_and_denominators_separately"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "adding_numerators_and_denominators_separately",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "extending",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "step_by_step",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "9926d92b-c590-59c5-9059-c70281a156e3",
+      "caps_ref": "4.M.1.2",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Common Fractions",
+      "subtopic": "Common Fractions",
+      "learning_objectives": [
+        "Name and write common fractions: halves, thirds, quarters, fifths, sixths, eighths, tenths.",
+        "Order and compare common fractions with the same denominator.",
+        "Identify fractions on a number line."
+      ],
+      "explanation": "In this lesson we learn common fractions in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Common Fractions: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Common Fractions: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "not_recognising_equivalent_forms"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "not_recognising_equivalent_forms"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "not_recognising_equivalent_forms"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "not_recognising_equivalent_forms",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "foundational",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.92,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "real_world_sa",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "f2fe5b23-5b32-5e04-9ce7-37324ed96ecf",
+      "caps_ref": "4.M.1.2",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Common Fractions",
+      "subtopic": "Common Fractions",
+      "learning_objectives": [
+        "Name and write common fractions: halves, thirds, quarters, fifths, sixths, eighths, tenths.",
+        "Order and compare common fractions with the same denominator.",
+        "Identify fractions on a number line."
+      ],
+      "explanation": "In this lesson we learn common fractions in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Common Fractions: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Common Fractions: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "confusion_between_simplifying_and_halving"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "confusion_between_simplifying_and_halving"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "confusion_between_simplifying_and_halving"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "confusion_between_simplifying_and_halving",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "developing",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9400000000000001,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "exam_style",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "91552c96-9650-53fa-bc8d-fb3a8143fd76",
+      "caps_ref": "4.M.1.2",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Common Fractions",
+      "subtopic": "Common Fractions",
+      "learning_objectives": [
+        "Name and write common fractions: halves, thirds, quarters, fifths, sixths, eighths, tenths.",
+        "Order and compare common fractions with the same denominator.",
+        "Identify fractions on a number line."
+      ],
+      "explanation": "In this lesson we learn common fractions in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Common Fractions: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Common Fractions: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "larger_denominator_means_larger_fraction"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "larger_denominator_means_larger_fraction"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "larger_denominator_means_larger_fraction"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "larger_denominator_means_larger_fraction",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "on_level",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "standard",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "413feb0f-f612-5a83-8eb2-6ea5be10c75e",
+      "caps_ref": "4.M.1.2",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "Common Fractions",
+      "subtopic": "Common Fractions",
+      "learning_objectives": [
+        "Name and write common fractions: halves, thirds, quarters, fifths, sixths, eighths, tenths.",
+        "Order and compare common fractions with the same denominator.",
+        "Identify fractions on a number line."
+      ],
+      "explanation": "In this lesson we learn common fractions in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for Common Fractions: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for Common Fractions: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "fraction_as_two_separate_whole_numbers"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "fraction_as_two_separate_whole_numbers"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for common fractions?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "fraction_as_two_separate_whole_numbers"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "fraction_as_two_separate_whole_numbers",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "extending",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.92,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "step_by_step",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "40663924-369a-5fa1-ad12-7d0a9d550b45",
+      "caps_ref": "4.M.1.3",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "2D Shapes",
+      "subtopic": "2D Shapes",
+      "learning_objectives": [
+        "Identify and name 2D shapes: circles, triangles, quadrilaterals, pentagons, hexagons, heptagons, octagons.",
+        "Describe shapes by number of sides, angles, and symmetry.",
+        "Classify shapes as regular or irregular."
+      ],
+      "explanation": "In this lesson we learn 2d shapes in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for 2D Shapes: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for 2D Shapes: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "confusing_squares_and_rectangles"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "confusing_squares_and_rectangles"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "confusing_squares_and_rectangles"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "confusing_squares_and_rectangles",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "foundational",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "standard",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "2abdccec-3e9e-5e6d-91bf-be32de37d624",
+      "caps_ref": "4.M.1.3",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "2D Shapes",
+      "subtopic": "2D Shapes",
+      "learning_objectives": [
+        "Identify and name 2D shapes: circles, triangles, quadrilaterals, pentagons, hexagons, heptagons, octagons.",
+        "Describe shapes by number of sides, angles, and symmetry.",
+        "Classify shapes as regular or irregular."
+      ],
+      "explanation": "In this lesson we learn 2d shapes in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for 2D Shapes: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for 2D Shapes: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "orientation_dependence_for_shape_recognition"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "orientation_dependence_for_shape_recognition"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "orientation_dependence_for_shape_recognition"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "orientation_dependence_for_shape_recognition",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "developing",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.92,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "visual",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "d4ba0147-6f91-5279-a505-7e10e29d3179",
+      "caps_ref": "4.M.1.3",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "2D Shapes",
+      "subtopic": "2D Shapes",
+      "learning_objectives": [
+        "Identify and name 2D shapes: circles, triangles, quadrilaterals, pentagons, hexagons, heptagons, octagons.",
+        "Describe shapes by number of sides, angles, and symmetry.",
+        "Classify shapes as regular or irregular."
+      ],
+      "explanation": "In this lesson we learn 2d shapes in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for 2D Shapes: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for 2D Shapes: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "counting_vertices_instead_of_sides"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "counting_vertices_instead_of_sides"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "counting_vertices_instead_of_sides"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "counting_vertices_instead_of_sides",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "on_level",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9400000000000001,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "story",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "8d427a38-1b4c-5844-8248-4151a1c094ec",
+      "caps_ref": "4.M.1.3",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "2D Shapes",
+      "subtopic": "2D Shapes",
+      "learning_objectives": [
+        "Identify and name 2D shapes: circles, triangles, quadrilaterals, pentagons, hexagons, heptagons, octagons.",
+        "Describe shapes by number of sides, angles, and symmetry.",
+        "Classify shapes as regular or irregular."
+      ],
+      "explanation": "In this lesson we learn 2d shapes in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for 2D Shapes: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for 2D Shapes: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "diagonal_symmetry_confused_with_horizontal_or_vertical"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "diagonal_symmetry_confused_with_horizontal_or_vertical"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "diagonal_symmetry_confused_with_horizontal_or_vertical"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "diagonal_symmetry_confused_with_horizontal_or_vertical",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "extending",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "step_by_step",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "ebc2b7e1-4809-559b-ba42-803bb020af56",
+      "caps_ref": "4.M.1.3",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "2D Shapes",
+      "subtopic": "2D Shapes",
+      "learning_objectives": [
+        "Identify and name 2D shapes: circles, triangles, quadrilaterals, pentagons, hexagons, heptagons, octagons.",
+        "Describe shapes by number of sides, angles, and symmetry.",
+        "Classify shapes as regular or irregular."
+      ],
+      "explanation": "In this lesson we learn 2d shapes in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for 2D Shapes: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for 2D Shapes: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "confusing_rotational_symmetry_with_line_symmetry"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "confusing_rotational_symmetry_with_line_symmetry"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "confusing_rotational_symmetry_with_line_symmetry"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "confusing_rotational_symmetry_with_line_symmetry",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "foundational",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.92,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "real_world_sa",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "b5f01bb5-5bfa-5ca3-8619-a79814f960d0",
+      "caps_ref": "4.M.1.3",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "2D Shapes",
+      "subtopic": "2D Shapes",
+      "learning_objectives": [
+        "Identify and name 2D shapes: circles, triangles, quadrilaterals, pentagons, hexagons, heptagons, octagons.",
+        "Describe shapes by number of sides, angles, and symmetry.",
+        "Classify shapes as regular or irregular."
+      ],
+      "explanation": "In this lesson we learn 2d shapes in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for 2D Shapes: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for 2D Shapes: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "confusing_squares_and_rectangles"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "confusing_squares_and_rectangles"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "confusing_squares_and_rectangles"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "confusing_squares_and_rectangles",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "developing",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9400000000000001,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "exam_style",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "59fb8b83-9150-5f53-8217-324f4abbd935",
+      "caps_ref": "4.M.1.3",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "2D Shapes",
+      "subtopic": "2D Shapes",
+      "learning_objectives": [
+        "Identify and name 2D shapes: circles, triangles, quadrilaterals, pentagons, hexagons, heptagons, octagons.",
+        "Describe shapes by number of sides, angles, and symmetry.",
+        "Classify shapes as regular or irregular."
+      ],
+      "explanation": "In this lesson we learn 2d shapes in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for 2D Shapes: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for 2D Shapes: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "orientation_dependence_for_shape_recognition"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "orientation_dependence_for_shape_recognition"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "orientation_dependence_for_shape_recognition"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "orientation_dependence_for_shape_recognition",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "on_level",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.9,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "standard",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    },
+    {
+      "lesson_id": "b17c87ad-258d-52b9-bd25-bd628583c79c",
+      "caps_ref": "4.M.1.3",
+      "grade": 4,
+      "subject": "Mathematics",
+      "term": 1,
+      "topic": "2D Shapes",
+      "subtopic": "2D Shapes",
+      "learning_objectives": [
+        "Identify and name 2D shapes: circles, triangles, quadrilaterals, pentagons, hexagons, heptagons, octagons.",
+        "Describe shapes by number of sides, angles, and symmetry.",
+        "Classify shapes as regular or irregular."
+      ],
+      "explanation": "In this lesson we learn 2d shapes in small steps. The learner looks at the numbers, shapes, or parts first. Then the learner chooses a method, checks the work, and explains the answer in a clear sentence. Use simple class examples with counters, paper shapes, number cards, and rands.",
+      "worked_examples": [
+        {
+          "question": "Example 1 for 2D Shapes: read the question and mark the important information.",
+          "step_by_step_solution": [
+            "Read the question once.",
+            "Circle the number, shape, or fraction that matters.",
+            "Choose the method that matches the topic.",
+            "Write the answer and check it."
+          ],
+          "answer": "The answer is correct when it matches the marked information."
+        },
+        {
+          "question": "Example 2 for 2D Shapes: solve a short classroom problem.",
+          "step_by_step_solution": [
+            "Start with the known facts.",
+            "Work one step at a time.",
+            "Compare the answer with the question.",
+            "Explain the reason in words."
+          ],
+          "answer": "The final answer includes the working and a short reason."
+        }
+      ],
+      "practice_questions": [
+        {
+          "question_id": "q1",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "counting_vertices_instead_of_sides"
+        },
+        {
+          "question_id": "q2",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "counting_vertices_instead_of_sides"
+        },
+        {
+          "question_id": "q3",
+          "question_text": "Which answer shows the best idea for 2d shapes?",
+          "options": {
+            "A": "Use the place, shape, or part shown in the question.",
+            "B": "Choose the largest number without checking the question.",
+            "C": "Ignore the labels and guess from the first word.",
+            "D": "Use the same answer for every question."
+          },
+          "correct_option": "A",
+          "explanation": "Option A is correct because the learner checks the given information before choosing an answer.",
+          "misconception_tag": "counting_vertices_instead_of_sides"
+        }
+      ],
+      "answer_key": [
+        {
+          "question_id": "q1",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q2",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        },
+        {
+          "question_id": "q3",
+          "correct_option": "A",
+          "correct_answer_text": "Use the place, shape, or part shown in the question."
+        }
+      ],
+      "remediation_hints": [
+        {
+          "misconception_tag": "counting_vertices_instead_of_sides",
+          "hint_text": "Go back to the marked information and solve one small step at a time.",
+          "example": "Use counters, a drawing, or a number line before choosing the answer."
+        }
+      ],
+      "difficulty_level": "extending",
+      "language_level": "5.0",
+      "safety_classification": "safe",
+      "pii_check_passed": true,
+      "answer_key_verified": true,
+      "quality_score": 0.92,
+      "prompt_template_version": "launch_seed_v1",
+      "provider": "google",
+      "model_version": "gemini-2.5-flash",
+      "generation_latency_ms": 0,
+      "token_usage": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0
+      },
+      "variant_type": "step_by_step",
+      "review_status": "approved",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "reviewed_at": "2026-05-25T00:00:00Z",
+      "trust_label": {
+        "ai_generated": true,
+        "caps_linked": true,
+        "answer_checked": true,
+        "teacher_reviewed": false,
+        "safety_checked": true,
+        "auto_approved": true,
+        "auto_approval_reason": "launch_seed_schema_validated_quality_score_ge_0_85"
+      }
+    }
+  ]
+}

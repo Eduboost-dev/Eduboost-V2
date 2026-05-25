@@ -59,6 +59,27 @@ async def get_diagnostic_items(
         "properties": {"learner_grade": learner.grade},
     }
 
+    canonical_items = await diagnostic_repositories.item_bank(db).list_approved_for_grade(learner.grade, limit=20)
+    if canonical_items:
+        return [
+            {
+                "id": str(i.item_id),
+                "item_id": str(i.item_id),
+                "question": i.stem,
+                "question_text": i.stem,
+                "options": i.options,
+                "subject": getattr(i.subject, "value", i.subject),
+                "topic": i.topic,
+                "skill": i.skill,
+                "difficulty": float(i.difficulty_b),
+                "discrimination": float(i.discrimination_a),
+                "caps_reference": i.caps_ref,
+                "caps_ref": i.caps_ref,
+                "review_status": getattr(i.review_status, "value", i.review_status),
+            }
+            for i in canonical_items
+        ]
+
     items = await diagnostic_repositories.irt(db).get_items_for_grade(learner.grade, limit=20)
     return [
         {
@@ -277,7 +298,7 @@ async def diagnostic_next_item(
     if session_caps_ref and str(caps_ref) != str(session_caps_ref):
         raise HTTPException(status_code=400, detail="caps_ref does not match recovered diagnostic session")
     repo = diagnostic_repositories.item_bank(db)
-    items = list(await repo.list_by_caps_ref(session_caps_ref, limit=200))
+    items = list(await repo.list_by_caps_ref(session_caps_ref, review_status="approved", limit=200))
     item = await session_service.get_next_item(session_id, items)
     if item is None:
         return {"completed": True}

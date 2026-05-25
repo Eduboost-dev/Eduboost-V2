@@ -59,25 +59,72 @@ SA_METRIC_UNITS = re.compile(r"\b(km|metre|meter|kg|gram|litre|liter|ml)\b", re.
 # CAPS alignment signals
 # ---------------------------------------------------------------------------
 
+def _topic_lookup(topic_map: dict) -> dict[str, dict]:
+    topics = topic_map.get("topics", {})
+    if isinstance(topics, dict) and topics:
+        return topics
+
+    lookup: dict[str, dict] = {}
+    for term in topic_map.get("terms", []):
+        term_no = term.get("term")
+        for topic in term.get("topics", []):
+            topic_ref = topic.get("caps_ref")
+            if topic_ref:
+                standards = []
+                misconceptions = []
+                for subtopic in topic.get("subtopics", []):
+                    standards.extend(subtopic.get("assessment_standards", []))
+                    misconceptions.extend(subtopic.get("common_misconceptions", []))
+                lookup[topic_ref] = {
+                    "grade": topic_map.get("grade"),
+                    "subject": topic_map.get("subject"),
+                    "term": term_no,
+                    "topic": topic.get("topic"),
+                    "subtopic": topic.get("topic"),
+                    "skill": topic.get("topic"),
+                    "assessment_standards": standards,
+                    "common_misconceptions": misconceptions,
+                }
+            for subtopic in topic.get("subtopics", []):
+                subtopic_ref = subtopic.get("caps_ref")
+                if subtopic_ref:
+                    lookup[subtopic_ref] = {
+                        "grade": topic_map.get("grade"),
+                        "subject": topic_map.get("subject"),
+                        "term": term_no,
+                        "topic": topic.get("topic"),
+                        "subtopic": subtopic.get("subtopic"),
+                        "skill": subtopic.get("subtopic"),
+                        "assessment_standards": subtopic.get("assessment_standards", []),
+                        "common_misconceptions": subtopic.get("common_misconceptions", []),
+                    }
+    return lookup
+
+
 def _caps_alignment_score(item: dict, topic_map: dict) -> float:
     """
-    1.0  — caps_ref is in topic map AND skill/topic/subtopic match.
-    0.7  — caps_ref is in topic map but fields don't fully match.
-    0.3  — caps_ref not in topic map (unknown reference).
+    1.0  - caps_ref is in topic map AND skill/topic/subtopic match.
+    0.7  - caps_ref is in topic map but fields do not fully match.
+    0.3  - caps_ref not in topic map (unknown reference).
     """
     caps_ref = item.get("caps_ref", "")
-    topics   = topic_map.get("topics", {})
+    topics = _topic_lookup(topic_map)
 
     if caps_ref not in topics:
         return 0.3
 
     topic_entry = topics[caps_ref]
+    item_subtopic = item.get("subtopic")
+    expected_subtopic = topic_entry.get("subtopic")
+    is_topic_level_ref = len(str(caps_ref).split(".")) == 4
+    subtopic_matches = is_topic_level_ref or item_subtopic in {expected_subtopic, topic_entry.get("topic")}
+    skill_matches = is_topic_level_ref or item.get("skill") in {topic_entry.get("skill"), topic_entry.get("topic"), expected_subtopic}
     matches = sum([
-        item.get("topic")    == topic_entry.get("topic"),
-        item.get("subtopic") == topic_entry.get("subtopic"),
-        item.get("skill")    == topic_entry.get("skill"),
-        item.get("grade")    == topic_entry.get("grade"),
-        item.get("term")     == topic_entry.get("term"),
+        item.get("topic") == topic_entry.get("topic"),
+        subtopic_matches,
+        skill_matches,
+        item.get("grade") == topic_entry.get("grade"),
+        item.get("term") == topic_entry.get("term"),
     ])
     return round(0.3 + 0.7 * (matches / 5), 2)
 

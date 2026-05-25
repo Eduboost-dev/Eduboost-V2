@@ -40,12 +40,12 @@ PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
 # LLM Gateway import — tolerates missing dependency for unit tests
 # ---------------------------------------------------------------------------
 try:
-    from app.core.llm_gateway import LLMGateway
+    from app.services.llm.json_completion import JsonCompletionGateway
     _GATEWAY_AVAILABLE = True
 except ImportError:
     _GATEWAY_AVAILABLE = False
     logger.warning(
-        "LLMGateway not importable — ItemGenerator will raise in production "
+        "JsonCompletionGateway not importable — ItemGenerator will raise in production "
         "but tests can inject a mock gateway."
     )
 
@@ -96,7 +96,7 @@ class ItemGenerator:
         if gateway is not None:
             self._gateway = gateway
         elif _GATEWAY_AVAILABLE:
-            self._gateway = LLMGateway()
+            self._gateway = JsonCompletionGateway()
         else:
             self._gateway = None  # will raise on first use
 
@@ -232,12 +232,14 @@ class ItemGenerator:
         Strips markdown code fences if present.
         """
         try:
-            response_text = await self._gateway.complete(
+            response = await self._gateway.complete(
                 prompt=prompt,
                 max_tokens=max_tokens,
                 temperature=0.7,
                 response_format="json",
+                operation=f"diagnostic_item_{call_label}",
             )
+            response_text = getattr(response, "content", response)
         except Exception as exc:
             raise ItemGenerationError(
                 f"LLM {call_label} call failed: {exc}"

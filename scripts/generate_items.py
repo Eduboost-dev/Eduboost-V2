@@ -50,6 +50,8 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from app.modules.diagnostics.item_generator import ItemGenerator, ItemGenerationError
 from app.modules.diagnostics.item_validator import ItemValidator, ValidationError
+from app.modules.diagnostics.quality_scorer import QualityScorer
+from app.modules.lessons.caps_topic_map_service import CAPSTopicMapService
 
 logging.basicConfig(
     level=logging.INFO,
@@ -78,6 +80,8 @@ SEED_SCHEMA_HEADER = {
 
 TOPIC_MAP_PATH = REPO_ROOT / "data" / "caps" / "caps_topic_map_grade4_maths.json"
 DEFAULT_OUTPUT  = REPO_ROOT / "data" / "caps" / "grade4_maths_item_bank.json"
+DEFAULT_MANIFEST_DIR = REPO_ROOT / "data" / "generated" / "run_manifests"
+AUTO_APPROVAL_REVIEWER_ID = "00000000-0000-0000-0000-000000000002"
 
 
 # ---------------------------------------------------------------------------
@@ -90,6 +94,44 @@ def load_topic_map() -> dict:
         sys.exit(1)
     with open(TOPIC_MAP_PATH) as f:
         return json.load(f)
+
+
+def load_topic_context(caps_ref: str) -> dict:
+    service = CAPSTopicMapService()
+    topic_data = service.get_topic_context(caps_ref)
+    if topic_data is None:
+        logger.error(
+            "CAPS ref '%s' not found in topic maps. Available refs include: %s",
+            caps_ref,
+            service.list_all_caps_refs()[:20],
+        )
+        sys.exit(1)
+    topic_data["launch_target"] = 40
+    return topic_data
+
+
+def apply_review_policy(item: dict, validator: ItemValidator, scorer: QualityScorer) -> dict:
+    errors = validator.validate_all(item)
+    scored = scorer.score(item)
+    now = datetime.now(timezone.utc).isoformat()
+    if not errors and scored.get("safety_passed") is True and float(scored.get("quality_score") or 0) >= 0.85:
+        scored["review_status"] = "approved"
+        scored["reviewer_id"] = scored.get("reviewer_id") or AUTO_APPROVAL_REVIEWER_ID
+        scored["reviewed_at"] = scored.get("reviewed_at") or now
+    elif not errors and float(scored.get("quality_score") or 0) >= 0.70:
+        scored["review_status"] = "ai_generated"
+    else:
+        scored["review_status"] = "retired"
+    return scored
+
+
+def write_manifest(manifest_dir: Path, payload: dict) -> None:
+    manifest_dir.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    path = manifest_dir / f"diagnostic_items_{payload['caps_ref']}_{stamp}.json"
+    with path.open("w", encoding="utf-8") as fh:
+        json.dump(payload, fh, indent=2, default=str)
+    logger.info("Wrote generation manifest -> %s", path)
 
 
 def load_or_init_seed(output_path: Path) -> dict:
@@ -163,17 +205,10 @@ async def run_generation(
     dry_run: bool,
     max_retries: int,
     retry_delay: float,
+    manifest_dir: Path,
 ) -> None:
     topic_map = load_topic_map()
-    if caps_ref not in topic_map.get("topics", {}):
-        logger.error(
-            "CAPS ref '%s' not found in topic map. Available: %s",
-            caps_ref,
-            list(topic_map["topics"].keys()),
-        )
-        sys.exit(1)
-
-    topic_data = topic_map["topics"][caps_ref]
+    topic_data = load_topic_context(caps_ref)
     seed = load_or_init_seed(output_path)
 
     # Update metadata
@@ -187,6 +222,7 @@ async def run_generation(
 
     generator = ItemGenerator()
     validator  = ItemValidator(topic_map=topic_map)
+    scorer     = QualityScorer(topic_map=topic_map)
 
     difficulty_schedule = build_difficulty_schedule(difficulty_band, n_items)
 
@@ -219,8 +255,9 @@ async def run_generation(
                     b_max=b_max,
                 )
 
-                # Validate
+                # Validate, score, and apply launch auto-approval policy.
                 validator.validate(item)
+                item = apply_review_policy(item, validator, scorer)
 
                 # Duplicate guard
                 if item_exists(seed, item["item_id"]):
@@ -268,6 +305,18 @@ async def run_generation(
     # Final save
     if not dry_run:
         save_seed(seed, output_path)
+
+    write_manifest(manifest_dir, {
+        "operation": "diagnostic_item_generation",
+        "caps_ref": caps_ref,
+        "provider": "configured_llm",
+        "prompt_version": "item_generation_v1",
+        "curriculum_version": topic_map.get("_meta", {}).get("schema_version", "unknown"),
+        "requested_count": n_items,
+        "difficulty_band": difficulty_band,
+        "stats": stats,
+        "dry_run": dry_run,
+    })
 
     # Report
     approved = count_approved(seed, caps_ref)
@@ -331,6 +380,10 @@ def parse_args() -> argparse.Namespace:
         "--retry-delay", type=float, default=1.5,
         help="Seconds to wait between retries (default: 1.5)",
     )
+    parser.add_argument(
+        "--manifest-dir", type=Path, default=DEFAULT_MANIFEST_DIR,
+        help="Directory for generation run manifests",
+    )
     return parser.parse_args()
 
 
@@ -345,6 +398,7 @@ def main() -> None:
             dry_run=args.dry_run,
             max_retries=args.max_retries,
             retry_delay=args.retry_delay,
+            manifest_dir=args.manifest_dir,
         )
     )
 

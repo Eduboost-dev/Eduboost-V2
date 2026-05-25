@@ -42,7 +42,8 @@ import logging
 import sys
 import time
 
-_REPO_ROOT = __import__("os").path.dirname(__import__("os").path.dirname(__import__("os").path.abspath(__file__)))
+from pathlib import Path
+_REPO_ROOT = str(Path(__file__).resolve().parents[2])
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
@@ -73,7 +74,7 @@ async def load_lessons(
     stmt = select(Lesson)
 
     if caps_ref:
-        stmt = stmt.where(Lesson.caps_reference == caps_ref)
+        stmt = stmt.where((Lesson.caps_ref == caps_ref) | (Lesson.caps_reference == caps_ref))
 
     if approved_only:
         stmt = stmt.where(Lesson.review_status == "approved")
@@ -97,7 +98,7 @@ def orm_to_lesson_create(orm_lesson) -> LessonCreate | None:
         # Build a minimal LessonCreate from the ORM row
         # The full structured fields may live in `content` (JSON column)
         data: dict = content if isinstance(content, dict) else {}
-        data.setdefault("caps_ref", getattr(orm_lesson, "caps_reference", ""))
+        data.setdefault("caps_ref", getattr(orm_lesson, "caps_ref", None) or getattr(orm_lesson, "caps_reference", ""))
         data.setdefault("grade", getattr(orm_lesson, "grade", 4))
         data.setdefault("subject", getattr(orm_lesson, "subject", "mathematics"))
         data.setdefault("term", getattr(orm_lesson, "term", 1))

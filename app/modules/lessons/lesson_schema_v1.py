@@ -72,6 +72,7 @@ class ReviewStatus(str, Enum):
 
 
 class LLMProvider(str, Enum):
+    google = "google"
     groq = "groq"
     anthropic = "anthropic"
     mock = "mock"
@@ -84,6 +85,7 @@ class VariantType(str, Enum):
     story = "story"
     step_by_step = "step_by_step"
     exam_style = "exam_style"
+    real_world_sa = "real_world_sa"
     multilingual = "multilingual"
 
 

@@ -1,0 +1,175 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-05-25T00:12:14.696871+00:00",
+  "scope": "grade4_maths_launch_slice",
+  "source_item_bank": "diagnostic_items",
+  "blueprints": [
+    {
+      "blueprint_id": "g4-maths-launch-baseline-diagnostic-v1",
+      "type": "baseline_diagnostic",
+      "title": "Grade 4 Maths Baseline Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.M.1.1",
+          "4.M.1.2",
+          "4.M.1.3"
+        ],
+        "item_count": 20,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 5,
+          "moderate": 5,
+          "on_level": 5,
+          "challenging": 5
+        }
+      }
+    },
+    {
+      "blueprint_id": "g4-maths-4-M-1-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Whole Numbers Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.M.1.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      }
+    },
+    {
+      "blueprint_id": "g4-maths-4-M-1-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Whole Numbers Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.M.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      }
+    },
+    {
+      "blueprint_id": "g4-maths-4-M-1-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Whole Numbers Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.M.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      }
+    },
+    {
+      "blueprint_id": "g4-maths-4-M-1-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Common Fractions Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.M.1.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      }
+    },
+    {
+      "blueprint_id": "g4-maths-4-M-1-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Common Fractions Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.M.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      }
+    },
+    {
+      "blueprint_id": "g4-maths-4-M-1-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Common Fractions Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.M.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      }
+    },
+    {
+      "blueprint_id": "g4-maths-4-M-1-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "2D Shapes Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.M.1.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      }
+    },
+    {
+      "blueprint_id": "g4-maths-4-M-1-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "2D Shapes Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.M.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      }
+    },
+    {
+      "blueprint_id": "g4-maths-4-M-1-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "2D Shapes Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.M.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      }
+    }
+  ]
+}

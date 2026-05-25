@@ -105,6 +105,30 @@ class ItemBankRepository:
         result = await self.db.execute(stmt)
         return result.scalars().all()
 
+    async def list_approved_for_grade(
+        self,
+        grade: int,
+        *,
+        subject: str | None = None,
+        limit: int = 20,
+    ) -> Sequence[DiagnosticItem]:
+        """Return approved, safe canonical diagnostic items for a grade."""
+        stmt = (
+            select(DiagnosticItem)
+            .where(
+                DiagnosticItem.grade == grade,
+                DiagnosticItem.review_status == ReviewStatusEnum.APPROVED,
+                DiagnosticItem.safety_passed.is_(True),
+                DiagnosticItem.exposure_count < DiagnosticItem.max_exposure,
+            )
+            .order_by(DiagnosticItem.caps_ref.asc(), DiagnosticItem.difficulty_b.asc())
+            .limit(limit)
+        )
+        if subject:
+            stmt = stmt.where(DiagnosticItem.subject == self._SUBJECT_MAP.get(subject, subject))
+        result = await self.db.execute(stmt)
+        return result.scalars().all()
+
     async def get_exposure_heatmap(self, caps_ref: str) -> list[dict]:
         """Return exposure utilisation per item for a CAPS reference."""
         stmt = (
