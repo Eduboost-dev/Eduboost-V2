@@ -2336,6 +2336,202 @@
         "title": "LearnerCreate",
         "type": "object"
       },
+      "LearnerDiagnosticItem": {
+        "properties": {
+          "artifact_id": {
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "caps_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caps Ref"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string"
+          },
+          "grade": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Grade"
+          },
+          "language": {
+            "title": "Language",
+            "type": "string"
+          },
+          "payload": {
+            "title": "Payload",
+            "type": "object"
+          },
+          "promotion_event_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Event Id"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "source_artifact_hash": {
+            "title": "Source Artifact Hash",
+            "type": "string"
+          },
+          "subject_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subject Code"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "required": [
+          "artifact_id",
+          "scope_id",
+          "caps_ref",
+          "grade",
+          "subject_code",
+          "language",
+          "title",
+          "payload",
+          "source_artifact_hash",
+          "promotion_event_id",
+          "created_at"
+        ],
+        "title": "LearnerDiagnosticItem",
+        "type": "object"
+      },
+      "LearnerLesson": {
+        "properties": {
+          "artifact_id": {
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "caps_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caps Ref"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string"
+          },
+          "grade": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Grade"
+          },
+          "language": {
+            "title": "Language",
+            "type": "string"
+          },
+          "payload": {
+            "title": "Payload",
+            "type": "object"
+          },
+          "promotion_event_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Event Id"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "source_artifact_hash": {
+            "title": "Source Artifact Hash",
+            "type": "string"
+          },
+          "subject_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subject Code"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "required": [
+          "artifact_id",
+          "scope_id",
+          "caps_ref",
+          "grade",
+          "subject_code",
+          "language",
+          "title",
+          "payload",
+          "source_artifact_hash",
+          "promotion_event_id",
+          "created_at"
+        ],
+        "title": "LearnerLesson",
+        "type": "object"
+      },
       "LearnerResponse": {
         "properties": {
           "archetype": {
@@ -2400,6 +2596,46 @@
           "created_at"
         ],
         "title": "LearnerResponse",
+        "type": "object"
+      },
+      "LearnerScopeContentSummary": {
+        "properties": {
+          "diagnostic_items_count": {
+            "title": "Diagnostic Items Count",
+            "type": "integer"
+          },
+          "last_promotion_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Promotion At"
+          },
+          "lessons_count": {
+            "title": "Lessons Count",
+            "type": "integer"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "total_artifacts_count": {
+            "title": "Total Artifacts Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "scope_id",
+          "diagnostic_items_count",
+          "lessons_count",
+          "total_artifacts_count",
+          "last_promotion_at"
+        ],
+        "title": "LearnerScopeContentSummary",
         "type": "object"
       },
       "LessonRequest": {
@@ -10410,6 +10646,352 @@
         ]
       }
     },
+    "/api/v2/learner/content/scopes/{scope_id}/caps/{caps_ref}/diagnostic-items": {
+      "get": {
+        "description": "Get learner-visible diagnostic items for a scope and CAPS reference.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: CAPS reference\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible diagnostic items",
+        "operationId": "get_diagnostic_items_by_caps_ref_api_v2_learner_content_scopes__scope_id__caps__caps_ref__diagnostic_items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerDiagnosticItem"
+                  },
+                  "title": "Response Get Diagnostic Items By Caps Ref Api V2 Learner Content Scopes  Scope Id  Caps  Caps Ref  Diagnostic Items Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Diagnostic Items By Caps Ref",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/api/v2/learner/content/scopes/{scope_id}/caps/{caps_ref}/lessons": {
+      "get": {
+        "description": "Get learner-visible lessons for a scope and CAPS reference.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: CAPS reference\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible lessons",
+        "operationId": "get_lessons_by_caps_ref_api_v2_learner_content_scopes__scope_id__caps__caps_ref__lessons_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerLesson"
+                  },
+                  "title": "Response Get Lessons By Caps Ref Api V2 Learner Content Scopes  Scope Id  Caps  Caps Ref  Lessons Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Lessons By Caps Ref",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/api/v2/learner/content/scopes/{scope_id}/diagnostic-items": {
+      "get": {
+        "description": "Get learner-visible diagnostic items for a scope.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: Optional CAPS reference filter\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible diagnostic items",
+        "operationId": "get_diagnostic_items_api_v2_learner_content_scopes__scope_id__diagnostic_items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "caps_ref",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Caps Ref"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerDiagnosticItem"
+                  },
+                  "title": "Response Get Diagnostic Items Api V2 Learner Content Scopes  Scope Id  Diagnostic Items Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Diagnostic Items",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/api/v2/learner/content/scopes/{scope_id}/lessons": {
+      "get": {
+        "description": "Get learner-visible lessons for a scope.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: Optional CAPS reference filter\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible lessons",
+        "operationId": "get_lessons_api_v2_learner_content_scopes__scope_id__lessons_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "caps_ref",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Caps Ref"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerLesson"
+                  },
+                  "title": "Response Get Lessons Api V2 Learner Content Scopes  Scope Id  Lessons Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Lessons",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/api/v2/learner/content/scopes/{scope_id}/summary": {
+      "get": {
+        "description": "Get summary of learner-visible content for a scope.\n\nArgs:\n    scope_id: Content scope ID\n\nReturns:\n    Summary of learner-visible content",
+        "operationId": "get_scope_summary_api_v2_learner_content_scopes__scope_id__summary_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearnerScopeContentSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Scope Summary",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
     "/api/v2/learners/": {
       "post": {
         "operationId": "create_learner_api_v2_learners__post",
@@ -17898,6 +18480,352 @@
         ]
       }
     },
+    "/v2/learner/content/scopes/{scope_id}/caps/{caps_ref}/diagnostic-items": {
+      "get": {
+        "description": "Get learner-visible diagnostic items for a scope and CAPS reference.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: CAPS reference\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible diagnostic items",
+        "operationId": "get_diagnostic_items_by_caps_ref_v2_learner_content_scopes__scope_id__caps__caps_ref__diagnostic_items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerDiagnosticItem"
+                  },
+                  "title": "Response Get Diagnostic Items By Caps Ref V2 Learner Content Scopes  Scope Id  Caps  Caps Ref  Diagnostic Items Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Diagnostic Items By Caps Ref",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/v2/learner/content/scopes/{scope_id}/caps/{caps_ref}/lessons": {
+      "get": {
+        "description": "Get learner-visible lessons for a scope and CAPS reference.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: CAPS reference\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible lessons",
+        "operationId": "get_lessons_by_caps_ref_v2_learner_content_scopes__scope_id__caps__caps_ref__lessons_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerLesson"
+                  },
+                  "title": "Response Get Lessons By Caps Ref V2 Learner Content Scopes  Scope Id  Caps  Caps Ref  Lessons Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Lessons By Caps Ref",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/v2/learner/content/scopes/{scope_id}/diagnostic-items": {
+      "get": {
+        "description": "Get learner-visible diagnostic items for a scope.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: Optional CAPS reference filter\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible diagnostic items",
+        "operationId": "get_diagnostic_items_v2_learner_content_scopes__scope_id__diagnostic_items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "caps_ref",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Caps Ref"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerDiagnosticItem"
+                  },
+                  "title": "Response Get Diagnostic Items V2 Learner Content Scopes  Scope Id  Diagnostic Items Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Diagnostic Items",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/v2/learner/content/scopes/{scope_id}/lessons": {
+      "get": {
+        "description": "Get learner-visible lessons for a scope.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: Optional CAPS reference filter\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible lessons",
+        "operationId": "get_lessons_v2_learner_content_scopes__scope_id__lessons_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "caps_ref",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Caps Ref"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerLesson"
+                  },
+                  "title": "Response Get Lessons V2 Learner Content Scopes  Scope Id  Lessons Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Lessons",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/v2/learner/content/scopes/{scope_id}/summary": {
+      "get": {
+        "description": "Get summary of learner-visible content for a scope.\n\nArgs:\n    scope_id: Content scope ID\n\nReturns:\n    Summary of learner-visible content",
+        "operationId": "get_scope_summary_v2_learner_content_scopes__scope_id__summary_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearnerScopeContentSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Scope Summary",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
     "/v2/learners/": {
       "post": {
         "operationId": "create_learner_v2_learners__post",
@@ -19828,6 +20756,10 @@
     {
       "description": "Admin-only read visibility into ETL source material",
       "name": "admin-etl"
+    },
+    {
+      "description": "Learner-facing production content from Content Factory",
+      "name": "learner-content"
     }
   ]
 }

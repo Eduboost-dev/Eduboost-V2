@@ -128,6 +128,16 @@ def test_content_factory_scope_openapi_contract_is_admin_only() -> None:
     assert production_promotion_paths <= set(schema["paths"])
     assert all(schema["paths"][path][next(iter(schema["paths"][path]))]["tags"] == ["admin-content-factory"] for path in production_promotion_paths)
     assert not any(path.startswith("/api/v2/content-factory") and "promotion" in path for path in schema["paths"])
+    learner_content_paths = {
+        "/api/v2/learner/content/scopes/{scope_id}/summary",
+        "/api/v2/learner/content/scopes/{scope_id}/diagnostic-items",
+        "/api/v2/learner/content/scopes/{scope_id}/lessons",
+        "/api/v2/learner/content/scopes/{scope_id}/caps/{caps_ref}/diagnostic-items",
+        "/api/v2/learner/content/scopes/{scope_id}/caps/{caps_ref}/lessons",
+    }
+    assert learner_content_paths <= set(schema["paths"])
+    assert all(schema["paths"][path][next(iter(schema["paths"][path]))]["tags"] == ["learner-content"] for path in learner_content_paths)
+    assert not any(path.startswith("/api/v2/admin") and "learner-content" in path for path in schema["paths"])
     assert "/api/v2/admin/etl/status" in schema["paths"]
     assert schema["paths"]["/api/v2/admin/etl/status"]["get"]["tags"] == ["admin-etl"]
     assert "/api/v2/content-factory/scopes" not in schema["paths"]
