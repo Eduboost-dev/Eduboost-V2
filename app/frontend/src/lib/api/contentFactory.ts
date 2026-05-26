@@ -451,6 +451,96 @@ export function verifyScopeProductionRead(scopeId: string, layers?: string[] | n
   return fetchApi<ScopeProductionReadReport>(`/admin/content-factory/scopes/${scopeId}/production-read-verification${query}`);
 }
 
+export type StagingArtifactPreview = {
+  artifact_id: string;
+  scope_id: string;
+  caps_ref: string | null;
+  layer: string;
+  artifact_type: string;
+  staging_status: string;
+  learner_visible: boolean;
+  seed_run_id: string | null;
+  seed_run_status: string | null;
+  verification_passed: boolean | null;
+  payload: Record<string, unknown>;
+  source_artifact_hash: string;
+  created_at: string;
+};
+
+export type StagingPreviewReport = {
+  scope_id: string;
+  layers: string[];
+  total_artifacts_count: number;
+  active_artifacts_count: number;
+  pending_artifacts_count: number;
+  learner_visible_count: number;
+  artifacts: StagingArtifactPreview[];
+};
+
+export type StagingCapsRefPreview = {
+  scope_id: string;
+  caps_ref: string;
+  layers: string[];
+  total_artifacts_count: number;
+  active_artifacts_count: number;
+  learner_visible_count: number;
+  artifacts: StagingArtifactPreview[];
+};
+
+export type LearnerDiagnosticItem = {
+  artifact_id: string;
+  scope_id: string;
+  caps_ref: string | null;
+  grade: number | null;
+  subject_code: string | null;
+  language: string;
+  title: string | null;
+  payload: Record<string, unknown>;
+  source_artifact_hash: string;
+  promotion_event_id: string | null;
+  created_at: string;
+};
+
+export type LearnerLesson = {
+  artifact_id: string;
+  scope_id: string;
+  caps_ref: string | null;
+  grade: number | null;
+  subject_code: string | null;
+  language: string;
+  title: string | null;
+  payload: Record<string, unknown>;
+  source_artifact_hash: string;
+  promotion_event_id: string | null;
+  created_at: string;
+};
+
+export type LearnerScopeContentSummary = {
+  scope_id: string;
+  diagnostic_items_count: number;
+  lessons_count: number;
+  total_artifacts_count: number;
+  last_promotion_at: string | null;
+};
+
+export function fetchStagingPreview(scopeId: string, layers?: string[] | null) {
+  const query = layers ? `?layers=${layers.join(",")}` : "";
+  return fetchApi<StagingPreviewReport>(`/admin/content-factory/staging-preview/scopes/${scopeId}${query}`);
+}
+
+export function fetchStagingPreviewByCapsRef(scopeId: string, capsRef: string, layers?: string[] | null) {
+  const query = layers ? `?layers=${layers.join(",")}` : "";
+  return fetchApi<StagingCapsRefPreview>(`/admin/content-factory/staging-preview/scopes/${scopeId}/caps/${capsRef}${query}`);
+}
+
+export function fetchProductionPreview(scopeId: string) {
+  return fetchApi<LearnerScopeContentSummary>(`/admin/content-factory/production-preview/scopes/${scopeId}`);
+}
+
+export function fetchProductionPreviewByCapsRef(scopeId: string, capsRef: string) {
+  return fetchApi<{ diagnostic_items: LearnerDiagnosticItem[]; lessons: LearnerLesson[] }>(`/admin/content-factory/production-preview/scopes/${scopeId}/caps/${capsRef}`);
+}
+
 
 export function fetchGenerationRunTasks(runId: string) {
   return fetchApi<GenerationTask[]>(`/admin/content-factory/runs/${runId}/tasks`);
