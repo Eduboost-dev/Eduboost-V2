@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.domain.content_coverage import ContentLayer, CoverageLayerStatus
 from app.models.content_factory import ContentSeedRun
 from app.services.content_coverage_service import ContentCoverageService
+from app.services.content_production_promotion_gate import ContentProductionPromotionGate
 from app.services.content_staging_read_verification import ContentStagingReadVerificationService
 from app.services.content_staging_seed_executor import ContentStagingSeedExecutor
 
@@ -27,10 +28,12 @@ class ContentSeedPromotionService:
         coverage_service: ContentCoverageService,
         verification_service: ContentStagingReadVerificationService | None = None,
         seed_executor: ContentStagingSeedExecutor | None = None,
+        production_gate: ContentProductionPromotionGate | None = None,
     ) -> None:
         self.coverage_service = coverage_service
         self.verification_service = verification_service or ContentStagingReadVerificationService()
         self.seed_executor = seed_executor or ContentStagingSeedExecutor()
+        self.production_gate = production_gate or ContentProductionPromotionGate(coverage_service=coverage_service)
 
     async def dry_run_seed(self, session: AsyncSession, scope_id: str, layers: list[ContentLayer] | None = None) -> ContentSeedRun:
         gate = await self._seed_gate(session, scope_id, layers)
@@ -93,14 +96,22 @@ class ContentSeedPromotionService:
         return GateResult(True, [], {"scope_id": scope_id, "staged_artifacts_count": report.staged_artifacts_count})
 
     async def promote_production(self, session: AsyncSession, scope_id: str, actor_id: str) -> GateResult:
-        gate = await self._seed_gate(session, scope_id, None)
-        if not gate.passed:
-            raise ValueError("Production promotion gate failed: " + "; ".join(gate.errors))
-
+        # Use the production promotion gate to evaluate scope eligibility
+        gate_report = await self.production_gate.evaluate_scope(session, scope_id)
+        
+        if gate_report.status.value != "promotable":
+            errors = [b.message for b in gate_report.blockers]
+            raise ValueError(
+                f"Production promotion gate failed: {gate_report.status.value}. "
+                + "; ".join(errors)
+            )
+        
+        # Verify staging seed
         verification = await self.verify_staging_seed(session, scope_id)
         if not verification.passed:
             raise ValueError("Production promotion gate failed: Staging verification failed. " + "; ".join(verification.errors))
-        raise ValueError("Production promotion is blocked in PR-CF-010; use the PR-CF-011 release gate.")
+        
+        return GateResult(True, [], gate_report.coverage_summary | gate_report.staging_summary)
 
     async def _seed_gate(self, session: AsyncSession, scope_id: str, layers: list[ContentLayer] | None) -> GateResult:
         layers = layers or [ContentLayer.DIAGNOSTIC_ITEMS, ContentLayer.LESSONS]

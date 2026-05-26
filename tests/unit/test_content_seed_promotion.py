@@ -2,6 +2,7 @@ import pytest
 from uuid import UUID
 
 from app.domain.content_coverage import ContentLayer, CoverageLayerCounts, CoverageLayerStatus, ScopeCoverageLayerSummary, ScopeCoverageReport, ScopeCoverageSummary, CapsRefCoverageReport
+from app.services.content_production_promotion_gate import ContentProductionPromotionGate, ProductionGateStatus
 from app.services.content_seed_promotion import ContentSeedPromotionService
 
 
@@ -52,6 +53,30 @@ class FailingVerificationService:
         return type("Report", (), {"passed": False, "errors": ["missing staging record"], "staged_artifacts_count": 0})()
 
 
+class FakeProductionGate:
+    def __init__(self, status: ProductionGateStatus = ProductionGateStatus.PROMOTABLE) -> None:
+        self.status = status
+
+    async def evaluate_scope(self, session, scope_id, *, layers=None):
+        from app.services.content_production_promotion_gate import ProductionGateBlocker, ProductionGateReport
+        if self.status == ProductionGateStatus.PROMOTABLE:
+            return ProductionGateReport(
+                scope_id=scope_id,
+                status=ProductionGateStatus.PROMOTABLE,
+                blockers=[],
+                coverage_summary={},
+                staging_summary={},
+            )
+        else:
+            return ProductionGateReport(
+                scope_id=scope_id,
+                status=self.status,
+                blockers=[ProductionGateBlocker(type="test", message="Test blocker")],
+                coverage_summary={},
+                staging_summary={},
+            )
+
+
 class Result:
     def scalars(self):
         return self
@@ -99,16 +124,29 @@ async def test_production_promotion_rejects_unverified_staging() -> None:
     service = ContentSeedPromotionService(
         FakeCoverageService(CoverageLayerStatus.GREEN),
         verification_service=FailingVerificationService(),
+        production_gate=FakeProductionGate(),
     )
     with pytest.raises(ValueError, match="Staging verification failed"):
         await service.promote_production(Session(), "grade4_mathematics_en", "admin")
 
 
 @pytest.mark.asyncio
-async def test_production_promotion_remains_blocked_after_verified_staging() -> None:
+async def test_production_promotion_requires_full_gate_report() -> None:
     service = ContentSeedPromotionService(
         FakeCoverageService(CoverageLayerStatus.GREEN),
         verification_service=PassingVerificationService(),
+        production_gate=FakeProductionGate(status=ProductionGateStatus.BLOCKED_BY_COVERAGE),
     )
-    with pytest.raises(ValueError, match="blocked in PR-CF-010"):
+    with pytest.raises(ValueError, match="Production promotion gate failed"):
         await service.promote_production(Session(), "grade4_mathematics_en", "admin")
+
+
+@pytest.mark.asyncio
+async def test_production_promotion_passes_with_full_gate_report() -> None:
+    service = ContentSeedPromotionService(
+        FakeCoverageService(CoverageLayerStatus.GREEN),
+        verification_service=PassingVerificationService(),
+        production_gate=FakeProductionGate(status=ProductionGateStatus.PROMOTABLE),
+    )
+    result = await service.promote_production(Session(), "grade4_mathematics_en", "admin")
+    assert result.passed
