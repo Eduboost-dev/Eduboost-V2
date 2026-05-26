@@ -15,9 +15,15 @@ from app.services.content_generation.source_context import ContentGenerationSour
 from app.services.content_scope_registry import ContentScopeRegistry
 from app.services.content_staging_readiness import ContentStagingReadinessService
 
-PLANNABLE_LAYERS = {ContentLayer.DIAGNOSTIC_ITEMS.value, ContentLayer.LESSONS.value}
+PLANNABLE_LAYERS = {
+    ContentLayer.DIAGNOSTIC_ITEMS.value,
+    ContentLayer.LESSONS.value,
+    ContentLayer.ASSESSMENT_BLUEPRINTS.value,
+    ContentLayer.STUDY_PLAN_TEMPLATES.value,
+}
 DEFAULT_PROMPT_VERSION = "cf-gen-v1"
 DEFAULT_TARGET_VERSION = "1.0"
+DEFAULT_GENERATOR_VERSION = "1.0"
 
 
 @dataclass(frozen=True)
@@ -48,6 +54,7 @@ class ContentGenerationPlanner:
         actor_id: str | None = None,
         prompt_version: str = DEFAULT_PROMPT_VERSION,
         target_version: str = DEFAULT_TARGET_VERSION,
+        generator_version: str = DEFAULT_GENERATOR_VERSION,
     ) -> GenerationPlanResult:
         run = await session.get(ContentGenerationRun, run_id)
         if run is None:
@@ -72,7 +79,7 @@ class ContentGenerationPlanner:
                     skipped.append({"scope_id": scope.scope_id, "caps_ref": layer.caps_ref, "layer": layer.layer, "reason": "missing_source_context", "errors": context.errors})
                     continue
                 task_missing = min(missing_count, max_artifacts_per_task)
-                idempotency_key = f"{scope.scope_id}:{layer.caps_ref}:{layer.layer}:{target_version}:{prompt_version}"
+                idempotency_key = f"{scope.scope_id}:{layer.caps_ref}:{layer.layer}:{target_version}:{prompt_version}:{generator_version}"
                 existing = await session.execute(select(ContentGenerationTask).where(ContentGenerationTask.idempotency_key == idempotency_key))
                 existing_task = existing.scalar_one_or_none()
                 if existing_task is not None:
@@ -92,6 +99,7 @@ class ContentGenerationPlanner:
                     task_metadata={
                         "target_version": target_version,
                         "prompt_version": prompt_version,
+                        "generator_version": generator_version,
                         "required_count": layer.target,
                         "approved_count": layer.approved,
                         "missing_count": task_missing,
