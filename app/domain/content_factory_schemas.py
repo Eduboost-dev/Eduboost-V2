@@ -275,6 +275,74 @@ class StagingRollbackResponse(BaseModel):
     rolled_back_count: int
 
 
+class ProductionGateBlockerResponse(BaseModel):
+    type: str
+    message: str
+    artifact_id: uuid.UUID | None = None
+    caps_ref: str | None = None
+
+
+class ProductionGateReportResponse(BaseModel):
+    scope_id: str
+    status: str
+    blockers: list[ProductionGateBlockerResponse] = Field(default_factory=list)
+    coverage_summary: dict[str, Any] = Field(default_factory=dict)
+    staging_summary: dict[str, Any] = Field(default_factory=dict)
+
+
+class ProductionPromotionPlanResponse(BaseModel):
+    scope_id: str
+    layers: list[str]
+    promotable_count: int
+    skipped_count: int
+    skipped: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class ProductionPromotionRequest(BaseModel):
+    layers: list[str] | None = None
+    confirmation: str
+
+
+class ProductionPromotionResultResponse(BaseModel):
+    promotion_event_id: uuid.UUID
+    scope_id: str
+    status: str
+    promoted_count: int
+    skipped_count: int
+    errors: list[str] = Field(default_factory=list)
+
+
+class ProductionPromotionPageResponse(BaseModel):
+    items: list[ProductionPromotionResultResponse] = Field(default_factory=list)
+    total: int
+    limit: int
+    offset: int
+
+
+class ProductionReadVerificationReportResponse(BaseModel):
+    promotion_event_id: uuid.UUID
+    passed: bool
+    verified_count: int
+    errors: list[str] = Field(default_factory=list)
+
+
+class ScopeProductionReadReportResponse(BaseModel):
+    scope_id: str
+    passed: bool
+    production_artifacts_count: int
+    errors: list[str] = Field(default_factory=list)
+
+
+class ProductionRollbackRequest(BaseModel):
+    reason: str
+
+
+class ProductionRollbackResultResponse(BaseModel):
+    promotion_event_id: uuid.UUID
+    status: str
+    rolled_back_count: int
+
+
 class ContentFactoryReportResponse(BaseModel):
     scope_id: str
     generation_enabled: bool

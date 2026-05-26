@@ -36,6 +36,16 @@ from app.domain.content_factory_schemas import (
     ContentGenerationTaskResponse,
     ContentSeedRunResponse,
     ContentStagingVerificationRunResponse,
+    ProductionGateBlockerResponse,
+    ProductionGateReportResponse,
+    ProductionPromotionPlanResponse,
+    ProductionPromotionRequest,
+    ProductionPromotionResultResponse,
+    ProductionPromotionPageResponse,
+    ProductionReadVerificationReportResponse,
+    ScopeProductionReadReportResponse,
+    ProductionRollbackRequest,
+    ProductionRollbackResultResponse,
     ReviewAssignmentRequest,
     ReviewAssignmentResponse,
     ReviewQueueItemResponse,
@@ -68,6 +78,9 @@ from app.services.content_reviewer_assignment import ContentReviewerAssignmentSe
 from app.services.content_bulk_review import ContentBulkReviewService
 from app.services.content_staging_seed_executor import ContentStagingSeedExecutor
 from app.services.content_staging_read_verification import ContentStagingReadVerificationService
+from app.services.content_production_promotion_gate import ContentProductionPromotionGate
+from app.services.content_production_promotion_executor import ContentProductionPromotionExecutor
+from app.services.content_production_read_verification import ContentProductionReadVerificationService
 
 from app.services.content_staging_readiness import (
     AllScopeStagingVerificationReport,
@@ -137,6 +150,22 @@ def get_content_staging_seed_executor() -> ContentStagingSeedExecutor:
 
 def get_content_staging_read_verification_service() -> ContentStagingReadVerificationService:
     return ContentStagingReadVerificationService()
+
+
+def get_production_promotion_gate(
+    coverage_service: ContentCoverageService = Depends(get_content_coverage_service),
+) -> ContentProductionPromotionGate:
+    return ContentProductionPromotionGate(coverage_service=coverage_service)
+
+
+def get_production_promotion_executor(
+    gate: ContentProductionPromotionGate = Depends(get_production_promotion_gate),
+) -> ContentProductionPromotionExecutor:
+    return ContentProductionPromotionExecutor(gate=gate)
+
+
+def get_production_read_verification_service() -> ContentProductionReadVerificationService:
+    return ContentProductionReadVerificationService()
 
 
 @router.get("/health", response_model=ContentFactoryHealthResponse)
@@ -796,18 +825,177 @@ async def verify_scope_staging(
     return StagingReadVerificationResponse(scope_id=report.scope_id, passed=report.passed, staged_artifacts_count=report.staged_artifacts_count, errors=report.errors)
 
 
-async def verify_staging_seed(scope_id: str, session: AsyncSession = Depends(get_db), service: ContentSeedPromotionService = Depends(get_seed_promotion_service)) -> ContentFactoryActionResponse:
-    result = await service.verify_staging_seed(session, scope_id)
-    return ContentFactoryActionResponse(status="passed" if result.passed else "blocked", errors=result.errors, summary=result.summary)
+@router.get("/scopes/{scope_id}/production-gate", response_model=ProductionGateReportResponse)
+async def get_production_gate(
+    scope_id: str,
+    layers: list[str] | None = Query(None),
+    session: AsyncSession = Depends(get_db),
+    gate: ContentProductionPromotionGate = Depends(get_production_promotion_gate),
+) -> ProductionGateReportResponse:
+    report = await gate.evaluate_scope(session, scope_id, layers=layers)
+    return ProductionGateReportResponse(
+        scope_id=report.scope_id,
+        status=report.status.value,
+        blockers=[ProductionGateBlockerResponse(type=b.type, message=b.message, artifact_id=b.artifact_id, caps_ref=b.caps_ref) for b in report.blockers],
+        coverage_summary=report.coverage_summary,
+        staging_summary=report.staging_summary,
+    )
 
 
-@router.post("/scopes/{scope_id}/promote-production", response_model=ContentFactoryActionResponse)
-async def promote_production(scope_id: str, session: AsyncSession = Depends(get_db), service: ContentSeedPromotionService = Depends(get_seed_promotion_service), current_user: dict[str, Any] = Depends(get_current_user)) -> ContentFactoryActionResponse:
+@router.post("/scopes/{scope_id}/dry-run-promotion", response_model=ProductionPromotionPlanResponse)
+async def dry_run_promotion(
+    scope_id: str,
+    layers: list[str] | None = Query(None),
+    session: AsyncSession = Depends(get_db),
+    executor: ContentProductionPromotionExecutor = Depends(get_production_promotion_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ProductionPromotionPlanResponse:
     try:
-        result = await service.promote_production(session, scope_id, str(current_user.get("sub") or "admin"))
-        return ContentFactoryActionResponse(status="passed" if result.passed else "blocked", errors=result.errors, summary=result.summary)
+        plan = await executor.dry_run_promotion(session, scope_id, layers=layers, actor_id=str(current_user.get("sub") or "admin"))
+        return ProductionPromotionPlanResponse(
+            scope_id=plan.scope_id,
+            layers=plan.layers,
+            promotable_count=plan.promotable_count,
+            skipped_count=plan.skipped_count,
+            skipped=plan.skipped,
+        )
     except ValueError as exc:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.post("/scopes/{scope_id}/promote-production", response_model=ProductionPromotionResultResponse)
+async def promote_production(
+    scope_id: str,
+    request: ProductionPromotionRequest,
+    session: AsyncSession = Depends(get_db),
+    executor: ContentProductionPromotionExecutor = Depends(get_production_promotion_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ProductionPromotionResultResponse:
+    try:
+        result = await executor.promote_scope(
+            session,
+            scope_id,
+            layers=request.layers,
+            actor_id=str(current_user.get("sub") or "admin"),
+            confirmation=request.confirmation,
+        )
+        await session.commit()
+        return ProductionPromotionResultResponse(**result.__dict__)
+    except ValueError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.get("/promotion-events", response_model=ProductionPromotionPageResponse)
+async def list_promotion_events(
+    scope_id: str | None = Query(None),
+    limit: int = 50,
+    offset: int = 0,
+    session: AsyncSession = Depends(get_db),
+    executor: ContentProductionPromotionExecutor = Depends(get_production_promotion_executor),
+) -> ProductionPromotionPageResponse:
+    page = await executor.list_promotion_events(session, scope_id=scope_id, limit=limit, offset=offset)
+    return ProductionPromotionPageResponse(
+        items=[ProductionPromotionResultResponse(**item.__dict__) for item in page.items],
+        total=page.total,
+        limit=page.limit,
+        offset=page.offset,
+    )
+
+
+@router.get("/promotion-events/{promotion_event_id}", response_model=ProductionPromotionResultResponse)
+async def get_promotion_event(
+    promotion_event_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    executor: ContentProductionPromotionExecutor = Depends(get_production_promotion_executor),
+) -> ProductionPromotionResultResponse:
+    try:
+        result = await executor.get_promotion_event(session, promotion_event_id)
+        return ProductionPromotionResultResponse(**result.__dict__)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/promotion-events/{promotion_event_id}/items")
+async def get_promotion_event_items(
+    promotion_event_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+) -> dict[str, Any]:
+    from app.models.content_factory import ContentProductionArtifact
+    result = await session.execute(
+        select(ContentProductionArtifact).where(
+            ContentProductionArtifact.created_by_promotion_event_id == promotion_event_id,
+        )
+    )
+    items = result.scalars().all()
+    return {
+        "items": [
+            {
+                "id": str(item.id),
+                "artifact_id": str(item.artifact_id),
+                "staging_artifact_id": str(item.staging_artifact_id) if item.staging_artifact_id else None,
+                "scope_id": item.scope_id,
+                "caps_ref": item.caps_ref,
+                "layer": item.layer,
+                "artifact_type": item.artifact_type,
+                "production_status": item.production_status,
+            }
+            for item in items
+        ],
+        "total": len(items),
+    }
+
+
+@router.post("/promotion-events/{promotion_event_id}/verify", response_model=ProductionReadVerificationReportResponse)
+async def verify_promotion_event(
+    promotion_event_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    verification_service: ContentProductionReadVerificationService = Depends(get_production_read_verification_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ProductionReadVerificationReportResponse:
+    report = await verification_service.verify_promotion_event(session, promotion_event_id, actor_id=str(current_user.get("sub") or "admin"))
+    return ProductionReadVerificationReportResponse(
+        promotion_event_id=report.promotion_event_id,
+        passed=report.passed,
+        verified_count=report.verified_count,
+        errors=report.errors,
+    )
+
+
+@router.post("/promotion-events/{promotion_event_id}/rollback", response_model=ProductionRollbackResultResponse)
+async def rollback_promotion_event(
+    promotion_event_id: uuid.UUID,
+    request: ProductionRollbackRequest,
+    session: AsyncSession = Depends(get_db),
+    executor: ContentProductionPromotionExecutor = Depends(get_production_promotion_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ProductionRollbackResultResponse:
+    try:
+        result = await executor.rollback_promotion(
+            session,
+            promotion_event_id,
+            actor_id=str(current_user.get("sub") or "admin"),
+            reason=request.reason,
+        )
+        await session.commit()
+        return ProductionRollbackResultResponse(**result.__dict__)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/scopes/{scope_id}/production-read-verification", response_model=ScopeProductionReadReportResponse)
+async def verify_scope_production(
+    scope_id: str,
+    layers: list[str] | None = Query(None),
+    session: AsyncSession = Depends(get_db),
+    verification_service: ContentProductionReadVerificationService = Depends(get_production_read_verification_service),
+) -> ScopeProductionReadReportResponse:
+    report = await verification_service.verify_scope_production(session, scope_id, layers=layers)
+    return ScopeProductionReadReportResponse(
+        scope_id=report.scope_id,
+        passed=report.passed,
+        production_artifacts_count=report.production_artifacts_count,
+        errors=report.errors,
+    )
 
 
 @router.get("/reports/{scope_id}", response_model=ContentFactoryReportResponse)
