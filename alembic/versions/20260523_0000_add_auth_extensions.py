@@ -1,6 +1,6 @@
 """add_auth_extensions
 
-Revision ID: 3f8a2c1d9e04
+Revision ID: 20260523_0000
 Revises: <SET_TO_YOUR_LATEST_REVISION>
 Create Date: 2026-05-23
 
@@ -19,7 +19,7 @@ from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
-revision      = "3f8a2c1d9e04"
+revision      = "20260523_0000"
 down_revision = "20260516_0100"
 branch_labels = None
 depends_on    = None
