@@ -465,3 +465,21 @@ class ContentStagingArtifact(Base):
     created_by_seed_run_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("content_seed_runs.run_id"), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now())
+
+
+class ContentProductionArtifact(Base):
+    __tablename__ = "content_production_artifacts"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=func.gen_random_uuid())
+    artifact_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content_generation_artifacts.artifact_id"), nullable=False)
+    staging_artifact_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("content_staging_artifacts.id"), nullable=True)
+    scope_id: Mapped[str] = mapped_column(String(80), nullable=False)
+    caps_ref: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    layer: Mapped[str] = mapped_column(String(40), nullable=False)
+    artifact_type: Mapped[str] = mapped_column(String(40), nullable=False)
+    payload_json: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False)
+    source_artifact_hash: Mapped[str] = mapped_column(String(64), nullable=False)
+    production_status: Mapped[str] = mapped_column(String(40), nullable=False, server_default="active")
+    created_by_promotion_event_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("content_promotion_events.event_id"), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now())
