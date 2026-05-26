@@ -633,6 +633,7 @@ from app.models.content_factory import (
     ContentGenerationTask,
     ContentLayer,
     ContentPromotionEvent,
+    ContentProductionArtifact,
     ContentReviewAction,
     ContentReviewAssignment,
     ContentScope,
