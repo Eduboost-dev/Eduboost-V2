@@ -1547,39 +1547,6 @@
         "title": "ContentScopeStatus",
         "type": "string"
       },
-      "ContentSeedRunResponse": {
-        "properties": {
-          "dry_run": {
-            "title": "Dry Run",
-            "type": "boolean"
-          },
-          "scope_id": {
-            "title": "Scope Id",
-            "type": "string"
-          },
-          "seed_run_id": {
-            "format": "uuid",
-            "title": "Seed Run Id",
-            "type": "string"
-          },
-          "status": {
-            "title": "Status",
-            "type": "string"
-          },
-          "summary": {
-            "title": "Summary",
-            "type": "object"
-          }
-        },
-        "required": [
-          "seed_run_id",
-          "scope_id",
-          "dry_run",
-          "status"
-        ],
-        "title": "ContentSeedRunResponse",
-        "type": "object"
-      },
       "ContentStagingVerificationRunResponse": {
         "properties": {
           "completed_at": {
@@ -4054,6 +4021,71 @@
         "title": "ScopeStagingVerificationReport",
         "type": "object"
       },
+      "StagingReadVerificationResponse": {
+        "properties": {
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "scope_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scope Id"
+          },
+          "seed_run_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seed Run Id"
+          },
+          "staged_artifacts_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Staged Artifacts Count"
+          },
+          "verified_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verified Count"
+          }
+        },
+        "required": [
+          "passed"
+        ],
+        "title": "StagingReadVerificationResponse",
+        "type": "object"
+      },
       "StagingReadinessStatus": {
         "enum": [
           "ready_for_staging",
@@ -4070,6 +4102,252 @@
         ],
         "title": "StagingReadinessStatus",
         "type": "string"
+      },
+      "StagingRollbackResponse": {
+        "properties": {
+          "rolled_back_count": {
+            "title": "Rolled Back Count",
+            "type": "integer"
+          },
+          "seed_run_id": {
+            "format": "uuid",
+            "title": "Seed Run Id",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "seed_run_id",
+          "status",
+          "rolled_back_count"
+        ],
+        "title": "StagingRollbackResponse",
+        "type": "object"
+      },
+      "StagingSeedItemResponse": {
+        "properties": {
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "artifact_type": {
+            "title": "Artifact Type",
+            "type": "string"
+          },
+          "caps_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caps Ref"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "layer": {
+            "title": "Layer",
+            "type": "string"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "seed_payload_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seed Payload Hash"
+          },
+          "seed_run_id": {
+            "format": "uuid",
+            "title": "Seed Run Id",
+            "type": "string"
+          },
+          "skip_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skip Reason"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "target_record_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Record Id"
+          },
+          "target_table": {
+            "title": "Target Table",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "seed_run_id",
+          "artifact_id",
+          "scope_id",
+          "layer",
+          "artifact_type",
+          "target_table",
+          "status"
+        ],
+        "title": "StagingSeedItemResponse",
+        "type": "object"
+      },
+      "StagingSeedPlanResponse": {
+        "properties": {
+          "layers": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Layers",
+            "type": "array"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "seedable_count": {
+            "title": "Seedable Count",
+            "type": "integer"
+          },
+          "skipped": {
+            "items": {
+              "$ref": "#/components/schemas/StagingSeedSkippedArtifactResponse"
+            },
+            "title": "Skipped",
+            "type": "array"
+          },
+          "skipped_count": {
+            "title": "Skipped Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "scope_id",
+          "seedable_count",
+          "skipped_count"
+        ],
+        "title": "StagingSeedPlanResponse",
+        "type": "object"
+      },
+      "StagingSeedRunPageResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/StagingSeedRunResultResponse"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "StagingSeedRunPageResponse",
+        "type": "object"
+      },
+      "StagingSeedRunResultResponse": {
+        "properties": {
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "seed_run_id": {
+            "format": "uuid",
+            "title": "Seed Run Id",
+            "type": "string"
+          },
+          "seeded_count": {
+            "title": "Seeded Count",
+            "type": "integer"
+          },
+          "skipped_count": {
+            "title": "Skipped Count",
+            "type": "integer"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "seed_run_id",
+          "scope_id",
+          "status",
+          "seeded_count",
+          "skipped_count"
+        ],
+        "title": "StagingSeedRunResultResponse",
+        "type": "object"
+      },
+      "StagingSeedSkippedArtifactResponse": {
+        "properties": {
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "artifact_id",
+          "reason"
+        ],
+        "title": "StagingSeedSkippedArtifactResponse",
+        "type": "object"
       },
       "StudyPlanGenerateRequest": {
         "properties": {
@@ -6116,7 +6394,7 @@
     },
     "/api/v2/admin/content-factory/scopes/{scope_id}/dry-run-seed": {
       "post": {
-        "operationId": "dry_run_seed_api_v2_admin_content_factory_scopes__scope_id__dry_run_seed_post",
+        "operationId": "dry_run_scope_seed_api_v2_admin_content_factory_scopes__scope_id__dry_run_seed_post",
         "parameters": [
           {
             "in": "path",
@@ -6126,22 +6404,6 @@
               "title": "Scope Id",
               "type": "string"
             }
-          },
-          {
-            "in": "query",
-            "name": "layer",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/app__domain__content_coverage__ContentLayer"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Layer"
-            }
           }
         ],
         "responses": {
@@ -6149,7 +6411,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentSeedRunResponse"
+                  "$ref": "#/components/schemas/StagingSeedPlanResponse"
                 }
               }
             },
@@ -6171,7 +6433,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Dry Run Seed",
+        "summary": "Dry Run Scope Seed",
         "tags": [
           "admin-content-factory"
         ]
@@ -6226,7 +6488,7 @@
     },
     "/api/v2/admin/content-factory/scopes/{scope_id}/seed-staging": {
       "post": {
-        "operationId": "seed_staging_api_v2_admin_content_factory_scopes__scope_id__seed_staging_post",
+        "operationId": "seed_scope_staging_api_v2_admin_content_factory_scopes__scope_id__seed_staging_post",
         "parameters": [
           {
             "in": "path",
@@ -6236,6 +6498,16 @@
               "title": "Scope Id",
               "type": "string"
             }
+          },
+          {
+            "in": "query",
+            "name": "allow_partial",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Allow Partial",
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -6243,7 +6515,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentSeedRunResponse"
+                  "$ref": "#/components/schemas/StagingSeedRunResultResponse"
                 }
               }
             },
@@ -6265,7 +6537,54 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Seed Staging",
+        "summary": "Seed Scope Staging",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/scopes/{scope_id}/staging-read-verification": {
+      "get": {
+        "operationId": "verify_scope_staging_api_v2_admin_content_factory_scopes__scope_id__staging_read_verification_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingReadVerificationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Scope Staging",
         "tags": [
           "admin-content-factory"
         ]
@@ -6349,51 +6668,6 @@
       }
     },
     "/api/v2/admin/content-factory/scopes/{scope_id}/staging-verification": {
-      "get": {
-        "operationId": "verify_staging_seed_api_v2_admin_content_factory_scopes__scope_id__staging_verification_get",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "scope_id",
-            "required": true,
-            "schema": {
-              "title": "Scope Id",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContentFactoryActionResponse"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
-          }
-        },
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "summary": "Verify Staging Seed",
-        "tags": [
-          "admin-content-factory"
-        ]
-      },
       "post": {
         "operationId": "run_scope_staging_verification_api_v2_admin_content_factory_scopes__scope_id__staging_verification_post",
         "parameters": [
@@ -6516,6 +6790,285 @@
           }
         ],
         "summary": "Get Content Scope Targets",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/seed-runs": {
+      "get": {
+        "operationId": "list_seed_runs_api_v2_admin_content_factory_seed_runs_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingSeedRunPageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Seed Runs",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/seed-runs/{seed_run_id}": {
+      "get": {
+        "operationId": "get_seed_run_api_v2_admin_content_factory_seed_runs__seed_run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingSeedRunResultResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Seed Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/seed-runs/{seed_run_id}/items": {
+      "get": {
+        "operationId": "get_seed_run_items_api_v2_admin_content_factory_seed_runs__seed_run_id__items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StagingSeedItemResponse"
+                  },
+                  "title": "Response Get Seed Run Items Api V2 Admin Content Factory Seed Runs  Seed Run Id  Items Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Seed Run Items",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/seed-runs/{seed_run_id}/rollback": {
+      "post": {
+        "operationId": "rollback_seed_run_api_v2_admin_content_factory_seed_runs__seed_run_id__rollback_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reason",
+            "required": true,
+            "schema": {
+              "title": "Reason",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingRollbackResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Rollback Seed Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/seed-runs/{seed_run_id}/verify": {
+      "post": {
+        "operationId": "verify_seed_run_api_v2_admin_content_factory_seed_runs__seed_run_id__verify_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingReadVerificationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Seed Run",
         "tags": [
           "admin-content-factory"
         ]
@@ -12844,7 +13397,7 @@
     },
     "/v2/admin/content-factory/scopes/{scope_id}/dry-run-seed": {
       "post": {
-        "operationId": "dry_run_seed_v2_admin_content_factory_scopes__scope_id__dry_run_seed_post",
+        "operationId": "dry_run_scope_seed_v2_admin_content_factory_scopes__scope_id__dry_run_seed_post",
         "parameters": [
           {
             "in": "path",
@@ -12854,22 +13407,6 @@
               "title": "Scope Id",
               "type": "string"
             }
-          },
-          {
-            "in": "query",
-            "name": "layer",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/app__domain__content_coverage__ContentLayer"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Layer"
-            }
           }
         ],
         "responses": {
@@ -12877,7 +13414,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentSeedRunResponse"
+                  "$ref": "#/components/schemas/StagingSeedPlanResponse"
                 }
               }
             },
@@ -12899,7 +13436,7 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Dry Run Seed",
+        "summary": "Dry Run Scope Seed",
         "tags": [
           "admin-content-factory"
         ]
@@ -12954,7 +13491,7 @@
     },
     "/v2/admin/content-factory/scopes/{scope_id}/seed-staging": {
       "post": {
-        "operationId": "seed_staging_v2_admin_content_factory_scopes__scope_id__seed_staging_post",
+        "operationId": "seed_scope_staging_v2_admin_content_factory_scopes__scope_id__seed_staging_post",
         "parameters": [
           {
             "in": "path",
@@ -12964,6 +13501,16 @@
               "title": "Scope Id",
               "type": "string"
             }
+          },
+          {
+            "in": "query",
+            "name": "allow_partial",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Allow Partial",
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -12971,7 +13518,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentSeedRunResponse"
+                  "$ref": "#/components/schemas/StagingSeedRunResultResponse"
                 }
               }
             },
@@ -12993,7 +13540,54 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Seed Staging",
+        "summary": "Seed Scope Staging",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/scopes/{scope_id}/staging-read-verification": {
+      "get": {
+        "operationId": "verify_scope_staging_v2_admin_content_factory_scopes__scope_id__staging_read_verification_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingReadVerificationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Scope Staging",
         "tags": [
           "admin-content-factory"
         ]
@@ -13077,51 +13671,6 @@
       }
     },
     "/v2/admin/content-factory/scopes/{scope_id}/staging-verification": {
-      "get": {
-        "operationId": "verify_staging_seed_v2_admin_content_factory_scopes__scope_id__staging_verification_get",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "scope_id",
-            "required": true,
-            "schema": {
-              "title": "Scope Id",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContentFactoryActionResponse"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
-          }
-        },
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "summary": "Verify Staging Seed",
-        "tags": [
-          "admin-content-factory"
-        ]
-      },
       "post": {
         "operationId": "run_scope_staging_verification_v2_admin_content_factory_scopes__scope_id__staging_verification_post",
         "parameters": [
@@ -13244,6 +13793,285 @@
           }
         ],
         "summary": "Get Content Scope Targets",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/seed-runs": {
+      "get": {
+        "operationId": "list_seed_runs_v2_admin_content_factory_seed_runs_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingSeedRunPageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Seed Runs",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/seed-runs/{seed_run_id}": {
+      "get": {
+        "operationId": "get_seed_run_v2_admin_content_factory_seed_runs__seed_run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingSeedRunResultResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Seed Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/seed-runs/{seed_run_id}/items": {
+      "get": {
+        "operationId": "get_seed_run_items_v2_admin_content_factory_seed_runs__seed_run_id__items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StagingSeedItemResponse"
+                  },
+                  "title": "Response Get Seed Run Items V2 Admin Content Factory Seed Runs  Seed Run Id  Items Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Seed Run Items",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/seed-runs/{seed_run_id}/rollback": {
+      "post": {
+        "operationId": "rollback_seed_run_v2_admin_content_factory_seed_runs__seed_run_id__rollback_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reason",
+            "required": true,
+            "schema": {
+              "title": "Reason",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingRollbackResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Rollback Seed Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/seed-runs/{seed_run_id}/verify": {
+      "post": {
+        "operationId": "verify_seed_run_v2_admin_content_factory_seed_runs__seed_run_id__verify_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingReadVerificationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Seed Run",
         "tags": [
           "admin-content-factory"
         ]
