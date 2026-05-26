@@ -124,8 +124,10 @@ class ContentLearnerReadService:
         if generation_artifact.status == ContentArtifactStatus.VALIDATION_FAILED:
             return False
 
-        # Must have valid provenance
-        if not generation_artifact.provenance_valid:
+        # Check if artifact has sources (provenance)
+        # Use getattr with a default to handle cases where relationship isn't loaded
+        sources = getattr(generation_artifact, "sources", None)
+        if sources is None or len(sources) == 0:
             return False
 
         return True
