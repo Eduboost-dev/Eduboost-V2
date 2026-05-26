@@ -638,6 +638,8 @@ from app.models.content_factory import (
     ContentScope,
     ContentScopeStatus,
     ContentSeedRun,
+    ContentStagingArtifact,
+    ContentStagingSeedItem,
     ContentStagingVerificationRun,
     ContentStagingVerificationScopeResult,
     ContentValidationReport,

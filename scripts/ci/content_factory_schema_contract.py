@@ -28,6 +28,8 @@ REQUIRED_TABLES: list[str] = [
     "content_validation_reports",
     "content_artifact_reviews",
     "content_review_assignments",
+    "content_staging_seed_items",
+    "content_staging_artifacts",
     "lesson_bank",
 ]
 
@@ -91,6 +93,26 @@ REQUIRED_COLUMNS: dict[str, list[str]] = {
         "priority",
         "status",
         "resolved_at",
+    ],
+    "content_staging_seed_items": [
+        "id",
+        "seed_run_id",
+        "artifact_id",
+        "scope_id",
+        "layer",
+        "artifact_type",
+        "target_table",
+        "status",
+    ],
+    "content_staging_artifacts": [
+        "id",
+        "artifact_id",
+        "scope_id",
+        "layer",
+        "artifact_type",
+        "payload_json",
+        "source_artifact_hash",
+        "staging_status",
     ],
 }
 
@@ -163,5 +185,7 @@ ORM_TABLE_MAP: dict[str, str] = {
     "ContentValidationReport": "content_validation_reports",
     "ContentArtifactReview": "content_artifact_reviews",
     "ContentReviewAssignment": "content_review_assignments",
+    "ContentStagingSeedItem": "content_staging_seed_items",
+    "ContentStagingArtifact": "content_staging_artifacts",
     "LessonBank": "lesson_bank",
 }
