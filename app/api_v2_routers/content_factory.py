@@ -42,6 +42,12 @@ from app.domain.content_factory_schemas import (
     ReviewQueuePageResponse,
     ReviewSummaryResponse,
     ReviewerWorkloadResponse,
+    StagingReadVerificationResponse,
+    StagingRollbackResponse,
+    StagingSeedItemResponse,
+    StagingSeedPlanResponse,
+    StagingSeedRunPageResponse,
+    StagingSeedRunResultResponse,
 )
 from app.domain.content_coverage import CapsRefCoverageReport, ContentLayer, CoverageTarget, ScopeCoverageReport
 from app.domain.content_scope import ContentScope
@@ -60,6 +66,9 @@ from app.services.content_seed_promotion import ContentSeedPromotionService
 from app.services.content_review_queue import ContentReviewQueueService
 from app.services.content_reviewer_assignment import ContentReviewerAssignmentService
 from app.services.content_bulk_review import ContentBulkReviewService
+from app.services.content_staging_seed_executor import ContentStagingSeedExecutor
+from app.services.content_staging_read_verification import ContentStagingReadVerificationService
+
 from app.services.content_staging_readiness import (
     AllScopeStagingVerificationReport,
     ContentStagingReadinessService,
@@ -122,6 +131,12 @@ def get_content_reviewer_assignment_service() -> ContentReviewerAssignmentServic
 
 def get_content_bulk_review_service() -> ContentBulkReviewService:
     return ContentBulkReviewService()
+
+def get_content_staging_seed_executor() -> ContentStagingSeedExecutor:
+    return ContentStagingSeedExecutor()
+
+def get_content_staging_read_verification_service() -> ContentStagingReadVerificationService:
+    return ContentStagingReadVerificationService()
 
 
 @router.get("/health", response_model=ContentFactoryHealthResponse)
@@ -671,24 +686,116 @@ async def get_scope_staging_readiness(
     return report
 
 
-@router.post("/scopes/{scope_id}/dry-run-seed", response_model=ContentSeedRunResponse)
-async def dry_run_seed(scope_id: str, layer: ContentLayer | None = None, session: AsyncSession = Depends(get_db), service: ContentSeedPromotionService = Depends(get_seed_promotion_service)) -> ContentSeedRunResponse:
-    run = await service.dry_run_seed(session, scope_id, layer)
-    await session.commit()
-    return _seed_run_response(run)
+@router.post("/scopes/{scope_id}/dry-run-seed", response_model=StagingSeedPlanResponse)
+async def dry_run_scope_seed(
+    scope_id: str,
+    session: AsyncSession = Depends(get_db),
+    seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> StagingSeedPlanResponse:
+    plan = await seed_executor.dry_run_seed(session, scope_id, actor_id=str(current_user.get("sub") or "admin"))
+    return StagingSeedPlanResponse(
+        scope_id=plan.scope_id,
+        layers=plan.layers,
+        seedable_count=len(plan.seedable),
+        skipped_count=len(plan.skipped),
+        skipped=[{"artifact_id": s.artifact_id, "reason": s.reason} for s in plan.skipped],
+    )
 
 
-@router.post("/scopes/{scope_id}/seed-staging", response_model=ContentSeedRunResponse)
-async def seed_staging(scope_id: str, session: AsyncSession = Depends(get_db), service: ContentSeedPromotionService = Depends(get_seed_promotion_service), current_user: dict[str, Any] = Depends(get_current_user)) -> ContentSeedRunResponse:
+@router.post("/scopes/{scope_id}/seed-staging", response_model=StagingSeedRunResultResponse)
+async def seed_scope_staging(
+    scope_id: str,
+    allow_partial: bool = True,
+    session: AsyncSession = Depends(get_db),
+    seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> StagingSeedRunResultResponse:
     try:
-        run = await service.seed_staging(session, scope_id, str(current_user.get("sub") or "admin"))
+        result = await seed_executor.seed_staging(session, scope_id, actor_id=str(current_user.get("sub") or "admin"), allow_partial=allow_partial)
         await session.commit()
-        return _seed_run_response(run)
+        return StagingSeedRunResultResponse(**result.__dict__)
     except ValueError as exc:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
 
 
-@router.get("/scopes/{scope_id}/staging-verification", response_model=ContentFactoryActionResponse)
+@router.get("/seed-runs", response_model=StagingSeedRunPageResponse)
+async def list_seed_runs(
+    scope_id: str | None = None,
+    limit: int = 50,
+    offset: int = 0,
+    session: AsyncSession = Depends(get_db),
+    seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
+) -> StagingSeedRunPageResponse:
+    page = await seed_executor.list_seed_runs(session, scope_id=scope_id, limit=limit, offset=offset)
+    return StagingSeedRunPageResponse(
+        items=[StagingSeedRunResultResponse(**item.__dict__) for item in page.items],
+        total=page.total,
+        limit=page.limit,
+        offset=page.offset,
+    )
+
+
+@router.get("/seed-runs/{seed_run_id}", response_model=StagingSeedRunResultResponse)
+async def get_seed_run(
+    seed_run_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
+) -> StagingSeedRunResultResponse:
+    try:
+        result = await seed_executor.get_seed_run(session, seed_run_id)
+        return StagingSeedRunResultResponse(**result.__dict__)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/seed-runs/{seed_run_id}/items", response_model=list[StagingSeedItemResponse])
+async def get_seed_run_items(
+    seed_run_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
+) -> list[StagingSeedItemResponse]:
+    items = await seed_executor.list_seed_run_items(session, seed_run_id)
+    return [StagingSeedItemResponse(**item.__dict__) for item in items]
+
+
+@router.post("/seed-runs/{seed_run_id}/verify", response_model=StagingReadVerificationResponse)
+async def verify_seed_run(
+    seed_run_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    verification_service: ContentStagingReadVerificationService = Depends(get_content_staging_read_verification_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> StagingReadVerificationResponse:
+    report = await verification_service.verify_seed_run(session, seed_run_id, actor_id=str(current_user.get("sub") or "admin"))
+    return StagingReadVerificationResponse(seed_run_id=report.seed_run_id, passed=report.passed, verified_count=report.verified_count, errors=report.errors)
+
+
+@router.post("/seed-runs/{seed_run_id}/rollback", response_model=StagingRollbackResponse)
+async def rollback_seed_run(
+    seed_run_id: uuid.UUID,
+    reason: str,
+    session: AsyncSession = Depends(get_db),
+    seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> StagingRollbackResponse:
+    try:
+        result = await seed_executor.rollback_seed_run(session, seed_run_id, actor_id=str(current_user.get("sub") or "admin"), reason=reason)
+        await session.commit()
+        return StagingRollbackResponse(**result.__dict__)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/scopes/{scope_id}/staging-read-verification", response_model=StagingReadVerificationResponse)
+async def verify_scope_staging(
+    scope_id: str,
+    session: AsyncSession = Depends(get_db),
+    verification_service: ContentStagingReadVerificationService = Depends(get_content_staging_read_verification_service),
+) -> StagingReadVerificationResponse:
+    report = await verification_service.verify_scope_staging(session, scope_id)
+    return StagingReadVerificationResponse(scope_id=report.scope_id, passed=report.passed, staged_artifacts_count=report.staged_artifacts_count, errors=report.errors)
+
+
 async def verify_staging_seed(scope_id: str, session: AsyncSession = Depends(get_db), service: ContentSeedPromotionService = Depends(get_seed_promotion_service)) -> ContentFactoryActionResponse:
     result = await service.verify_staging_seed(session, scope_id)
     return ContentFactoryActionResponse(status="passed" if result.passed else "blocked", errors=result.errors, summary=result.summary)

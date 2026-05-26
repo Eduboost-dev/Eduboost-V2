@@ -216,6 +216,65 @@ class ContentSeedRunResponse(BaseModel):
     summary: dict[str, Any] = Field(default_factory=dict)
 
 
+class StagingSeedSkippedArtifactResponse(BaseModel):
+    artifact_id: uuid.UUID
+    reason: str
+
+
+class StagingSeedPlanResponse(BaseModel):
+    scope_id: str
+    layers: list[str] = Field(default_factory=list)
+    seedable_count: int
+    skipped_count: int
+    skipped: list[StagingSeedSkippedArtifactResponse] = Field(default_factory=list)
+
+
+class StagingSeedRunResultResponse(BaseModel):
+    seed_run_id: uuid.UUID
+    scope_id: str
+    status: str
+    seeded_count: int
+    skipped_count: int
+    errors: list[str] = Field(default_factory=list)
+
+
+class StagingSeedRunPageResponse(BaseModel):
+    items: list[StagingSeedRunResultResponse] = Field(default_factory=list)
+    total: int
+    limit: int
+    offset: int
+
+
+class StagingSeedItemResponse(BaseModel):
+    id: uuid.UUID
+    seed_run_id: uuid.UUID
+    artifact_id: uuid.UUID
+    scope_id: str
+    caps_ref: str | None = None
+    layer: str
+    artifact_type: str
+    target_table: str
+    target_record_id: str | None = None
+    status: str
+    skip_reason: str | None = None
+    seed_payload_hash: str | None = None
+
+
+class StagingReadVerificationResponse(BaseModel):
+    seed_run_id: uuid.UUID | None = None
+    scope_id: str | None = None
+    passed: bool
+    verified_count: int | None = None
+    staged_artifacts_count: int | None = None
+    errors: list[str] = Field(default_factory=list)
+
+
+class StagingRollbackResponse(BaseModel):
+    seed_run_id: uuid.UUID
+    status: str
+    rolled_back_count: int
+
+
 class ContentFactoryReportResponse(BaseModel):
     scope_id: str
     generation_enabled: bool
