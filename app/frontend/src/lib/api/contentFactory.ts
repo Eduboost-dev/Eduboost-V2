@@ -172,6 +172,60 @@ export type AllScopeStagingVerificationReport = {
   created_at: string;
 };
 
+export type StagingSeedPlan = {
+  scope_id: string;
+  layers: string[];
+  seedable_count: number;
+  skipped_count: number;
+  skipped: Array<{ artifact_id: string; reason: string }>;
+};
+
+export type StagingSeedRun = {
+  seed_run_id: string;
+  scope_id: string;
+  status: string;
+  seeded_count: number;
+  skipped_count: number;
+  errors: string[];
+};
+
+export type StagingSeedRunPage = {
+  items: StagingSeedRun[];
+  total: number;
+  limit: number;
+  offset: number;
+};
+
+export type StagingSeedItem = {
+  id: string;
+  seed_run_id: string;
+  artifact_id: string;
+  scope_id: string;
+  caps_ref?: string | null;
+  layer: string;
+  artifact_type: string;
+  target_table: string;
+  target_record_id?: string | null;
+  status: string;
+  skip_reason?: string | null;
+  seed_payload_hash?: string | null;
+};
+
+export type StagingReadVerification = {
+  seed_run_id?: string | null;
+  scope_id?: string | null;
+  passed: boolean;
+  verified_count?: number | null;
+  staged_artifacts_count?: number | null;
+  errors: string[];
+};
+
+export type StagingRollback = {
+  seed_run_id: string;
+  status: string;
+  rolled_back_count: number;
+};
+
 export type EtlStatus = {
   status: string;
   documents_indexed?: number;
@@ -244,6 +298,39 @@ export function runAllScopeStagingVerification() {
 
 export function fetchScopeStagingReadiness(scopeId: string) {
   return fetchApi<ScopeStagingVerificationReport>(`/admin/content-factory/scopes/${scopeId}/staging-readiness`);
+}
+
+export function dryRunStagingSeed(scopeId: string) {
+  return fetchApi<StagingSeedPlan>(`/admin/content-factory/scopes/${scopeId}/dry-run-seed`, { method: "POST" });
+}
+
+export function seedStaging(scopeId: string, allowPartial = true) {
+  return fetchApi<StagingSeedRun>(`/admin/content-factory/scopes/${scopeId}/seed-staging?allow_partial=${String(allowPartial)}`, {
+    method: "POST",
+  });
+}
+
+export function fetchStagingSeedRuns(scopeId?: string) {
+  const query = scopeId ? `?scope_id=${encodeURIComponent(scopeId)}` : "";
+  return fetchApi<StagingSeedRunPage>(`/admin/content-factory/seed-runs${query}`);
+}
+
+export function fetchStagingSeedRunItems(seedRunId: string) {
+  return fetchApi<StagingSeedItem[]>(`/admin/content-factory/seed-runs/${seedRunId}/items`);
+}
+
+export function verifyStagingSeedRun(seedRunId: string) {
+  return fetchApi<StagingReadVerification>(`/admin/content-factory/seed-runs/${seedRunId}/verify`, { method: "POST" });
+}
+
+export function verifyScopeStagingRead(scopeId: string) {
+  return fetchApi<StagingReadVerification>(`/admin/content-factory/scopes/${scopeId}/staging-read-verification`);
+}
+
+export function rollbackStagingSeedRun(seedRunId: string, reason: string) {
+  return fetchApi<StagingRollback>(`/admin/content-factory/seed-runs/${seedRunId}/rollback?reason=${encodeURIComponent(reason)}`, {
+    method: "POST",
+  });
 }
 
 
