@@ -5573,6 +5573,286 @@
         ]
       }
     },
+    "/api/v2/admin/content-factory/full-generation/plan": {
+      "post": {
+        "description": "Plan full generation for all configured scopes (admin-only).",
+        "operationId": "plan_full_generation_api_v2_admin_content_factory_full_generation_plan_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Plan Full Generation",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/full-generation/runs": {
+      "get": {
+        "description": "List full generation runs (admin-only).",
+        "operationId": "list_full_generation_runs_api_v2_admin_content_factory_full_generation_runs_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Full Generation Runs",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/full-generation/runs/{run_id}": {
+      "get": {
+        "description": "Get a full generation run (admin-only).",
+        "operationId": "get_full_generation_run_api_v2_admin_content_factory_full_generation_runs__run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Full Generation Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/full-generation/runs/{run_id}/cancel": {
+      "post": {
+        "description": "Cancel a full generation run (admin-only).",
+        "operationId": "cancel_full_generation_run_api_v2_admin_content_factory_full_generation_runs__run_id__cancel_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Cancel Full Generation Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/full-generation/runs/{run_id}/report": {
+      "get": {
+        "description": "Get a full generation run report (admin-only).",
+        "operationId": "get_full_generation_run_report_api_v2_admin_content_factory_full_generation_runs__run_id__report_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Full Generation Run Report",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/full-generation/runs/{run_id}/resume": {
+      "post": {
+        "description": "Resume a full generation run (admin-only).",
+        "operationId": "resume_full_generation_run_api_v2_admin_content_factory_full_generation_runs__run_id__resume_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Resume Full Generation Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/full-generation/start": {
+      "post": {
+        "description": "Start full generation run (admin-only).",
+        "operationId": "start_full_generation_api_v2_admin_content_factory_full_generation_start_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Request",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Start Full Generation",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/api/v2/admin/content-factory/health": {
       "get": {
         "operationId": "content_factory_health_api_v2_admin_content_factory_health_get",
@@ -13642,6 +13922,286 @@
           }
         ],
         "summary": "Etl Status",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/full-generation/plan": {
+      "post": {
+        "description": "Plan full generation for all configured scopes (admin-only).",
+        "operationId": "plan_full_generation_v2_admin_content_factory_full_generation_plan_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Plan Full Generation",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/full-generation/runs": {
+      "get": {
+        "description": "List full generation runs (admin-only).",
+        "operationId": "list_full_generation_runs_v2_admin_content_factory_full_generation_runs_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Full Generation Runs",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/full-generation/runs/{run_id}": {
+      "get": {
+        "description": "Get a full generation run (admin-only).",
+        "operationId": "get_full_generation_run_v2_admin_content_factory_full_generation_runs__run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Full Generation Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/full-generation/runs/{run_id}/cancel": {
+      "post": {
+        "description": "Cancel a full generation run (admin-only).",
+        "operationId": "cancel_full_generation_run_v2_admin_content_factory_full_generation_runs__run_id__cancel_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Cancel Full Generation Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/full-generation/runs/{run_id}/report": {
+      "get": {
+        "description": "Get a full generation run report (admin-only).",
+        "operationId": "get_full_generation_run_report_v2_admin_content_factory_full_generation_runs__run_id__report_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Full Generation Run Report",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/full-generation/runs/{run_id}/resume": {
+      "post": {
+        "description": "Resume a full generation run (admin-only).",
+        "operationId": "resume_full_generation_run_v2_admin_content_factory_full_generation_runs__run_id__resume_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Resume Full Generation Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/full-generation/start": {
+      "post": {
+        "description": "Start full generation run (admin-only).",
+        "operationId": "start_full_generation_v2_admin_content_factory_full_generation_start_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Request",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Start Full Generation",
         "tags": [
           "admin-content-factory"
         ]
