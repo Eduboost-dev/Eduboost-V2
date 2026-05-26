@@ -112,7 +112,7 @@ def test_learner_route_is_not_under_admin(client: TestClient) -> None:
     response = client.get("/api/v2/learner/content/scopes/test_scope/summary")
     assert response.status_code == 200
     # The route path should not contain /admin
-    assert "/admin/" not in response.request.url
+    assert "/admin/" not in str(response.request.url)
 
 
 def test_admin_can_also_access_learner_routes(admin_client: TestClient) -> None:

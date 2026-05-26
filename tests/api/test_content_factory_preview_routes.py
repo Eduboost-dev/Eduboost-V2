@@ -145,11 +145,11 @@ def test_staging_preview_is_under_admin(admin_client: TestClient) -> None:
     """Staging preview is under /admin."""
     response = admin_client.get("/api/v2/admin/content-factory/staging-preview/scopes/test_scope")
     assert response.status_code == 200
-    assert "/admin/" in response.request.url
+    assert "/admin/" in str(response.request.url)
 
 
 def test_production_preview_is_under_admin(admin_client: TestClient) -> None:
     """Production preview is under /admin."""
     response = admin_client.get("/api/v2/admin/content-factory/production-preview/scopes/test_scope")
     assert response.status_code == 200
-    assert "/admin/" in response.request.url
+    assert "/admin/" in str(response.request.url)
