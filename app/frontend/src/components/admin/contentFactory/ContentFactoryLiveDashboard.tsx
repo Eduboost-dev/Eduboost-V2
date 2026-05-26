@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import GenerationRunsPanel from "./GenerationRunsPanel";
 import ReviewQueuePanel from "./ReviewQueuePanel";
 import StagingReadinessPanel from "./StagingReadinessPanel";
+import StagingSeedPanel from "./StagingSeedPanel";
 import {
   fetchAdminEtlStatus,
   fetchContentFactoryCoverage,
@@ -86,6 +87,8 @@ export default function ContentFactoryLiveDashboard() {
         </section>
 
         <StagingReadinessPanel />
+
+        <StagingSeedPanel scopes={state.scopes} />
 
         <GenerationRunsPanel runs={state.runs} />
 
