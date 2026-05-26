@@ -542,6 +542,58 @@ export function fetchProductionPreviewByCapsRef(scopeId: string, capsRef: string
 }
 
 
+// ── Full Generation Run API ─────────────────────────────────────────────────────
+
+export type FullGenerationPlanResponse = {
+  run_id: string;
+  created_task_ids: string[];
+  skipped: Array<Record<string, unknown>>;
+  missing: Array<Record<string, unknown>>;
+};
+
+export type FullGenerationRunsResponse = {
+  items: GenerationRun[];
+  total: number;
+};
+
+export type FullGenerationRunReport = {
+  run_id: string;
+  status: string;
+  metadata: Record<string, unknown>;
+};
+
+export function planFullGeneration() {
+  return fetchApi<FullGenerationPlanResponse>("/admin/content-factory/full-generation/plan", { method: "POST" });
+}
+
+export function startFullGeneration(runId: string, confirmation: string) {
+  return fetchApi<{ run_id: string; status: string }>("/admin/content-factory/full-generation/start", {
+    method: "POST",
+    body: JSON.stringify({ run_id: runId, confirmation }),
+  });
+}
+
+export function listFullGenerationRuns() {
+  return fetchApi<FullGenerationRunsResponse>("/admin/content-factory/full-generation/runs");
+}
+
+export function getFullGenerationRun(runId: string) {
+  return fetchApi<GenerationRun>(`/admin/content-factory/full-generation/runs/${runId}`);
+}
+
+export function getFullGenerationRunReport(runId: string) {
+  return fetchApi<FullGenerationRunReport>(`/admin/content-factory/full-generation/runs/${runId}/report`);
+}
+
+export function cancelFullGenerationRun(runId: string) {
+  return fetchApi<{ run_id: string; status: string }>(`/admin/content-factory/full-generation/runs/${runId}/cancel`, { method: "POST" });
+}
+
+export function resumeFullGenerationRun(runId: string) {
+  return fetchApi<{ run_id: string; status: string }>(`/admin/content-factory/full-generation/runs/${runId}/resume`, { method: "POST" });
+}
+
+
 export function fetchGenerationRunTasks(runId: string) {
   return fetchApi<GenerationTask[]>(`/admin/content-factory/runs/${runId}/tasks`);
 }
