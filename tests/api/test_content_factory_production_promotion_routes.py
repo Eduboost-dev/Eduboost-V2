@@ -2,110 +2,180 @@
 from __future__ import annotations
 
 import uuid
+from types import SimpleNamespace
 
 import pytest
 from fastapi.testclient import TestClient
 
+from app.api_v2 import app
+from app.api_v2_routers import content_factory
+from app.core.security import get_current_user
 
-@pytest.mark.asyncio
-async def test_unauthenticated_production_gate_rejected(client: TestClient) -> None:
+
+class FakeSession:
+    async def commit(self):
+        return None
+
+class FakeProductionGate:
+    async def evaluate_scope(self, session, scope_id, *, layers=None):
+        return SimpleNamespace(
+            scope_id=scope_id,
+            status="promotable",
+            blockers=[],
+            coverage_summary={},
+            staging_summary={},
+        )
+
+class FakeProductionExecutor:
+    async def dry_run_promotion(self, session, scope_id, *, layers=None, actor_id):
+        return SimpleNamespace(
+            scope_id=scope_id,
+            layers=layers or [],
+            promotable_count=0,
+            skipped_count=0,
+            skipped=[],
+        )
+    async def promote_scope(self, session, scope_id, *, layers=None, actor_id, confirmation):
+        raise ValueError("Gate not passed")
+    async def list_promotion_events(self, session, *, scope_id=None, limit=50, offset=0):
+        return SimpleNamespace(items=[], total=0, limit=50, offset=0)
+    async def get_promotion_event(self, session, promotion_event_id):
+        raise LookupError("Event not found")
+    async def rollback_promotion(self, session, promotion_event_id, *, actor_id, reason):
+        raise LookupError("Event not found")
+
+class FakeProductionReadVerification:
+    async def verify_promotion_event(self, session, promotion_event_id, *, actor_id=None):
+        raise LookupError("Event not found")
+    async def verify_scope_production(self, session, scope_id, *, layers=None):
+        return SimpleNamespace(
+            scope_id=scope_id,
+            passed=True,
+            production_artifacts_count=0,
+            errors=[],
+        )
+
+def _admin_user():
+    return {"sub": str(uuid.uuid4()), "role": "admin", "type": "access"}
+
+def _parent_user():
+    return {"sub": str(uuid.uuid4()), "role": "parent", "type": "access"}
+
+def _session():
+    return FakeSession()
+
+
+@pytest.fixture(autouse=True)
+def clear_overrides():
+    app.dependency_overrides.clear()
+    yield
+    app.dependency_overrides.clear()
+
+
+@pytest.fixture
+def admin_auth_headers():
+    return {"Authorization": "Bearer admin_token"}
+
+
+@pytest.fixture
+def client():
+    app.dependency_overrides[get_current_user] = _admin_user
+    app.dependency_overrides[content_factory.get_production_promotion_gate] = FakeProductionGate
+    app.dependency_overrides[content_factory.get_production_promotion_executor] = FakeProductionExecutor
+    app.dependency_overrides[content_factory.get_production_read_verification_service] = FakeProductionReadVerification
+    return TestClient(app)
+
+
+@pytest.fixture
+def non_admin_client():
+    app.dependency_overrides[get_current_user] = _parent_user
+    return TestClient(app)
+
+
+def test_unauthenticated_production_gate_rejected(client: TestClient) -> None:
     """Unauthenticated production gate rejected."""
+    app.dependency_overrides.clear()
     response = client.get("/api/v2/admin/content-factory/scopes/test_scope/production-gate")
     assert response.status_code == 401
 
 
-@pytest.mark.asyncio
-async def test_non_admin_production_gate_rejected(client: TestClient, auth_headers: dict[str, str]) -> None:
+def test_non_admin_production_gate_rejected(non_admin_client: TestClient) -> None:
     """Non-admin production gate rejected."""
-    response = client.get("/api/v2/admin/content-factory/scopes/test_scope/production-gate", headers=auth_headers)
+    response = non_admin_client.get("/api/v2/admin/content-factory/scopes/test_scope/production-gate")
     assert response.status_code == 403
 
 
-@pytest.mark.asyncio
-async def test_admin_can_fetch_production_gate(client: TestClient, admin_auth_headers: dict[str, str]) -> None:
+def test_admin_can_fetch_production_gate(client: TestClient) -> None:
     """Admin can fetch production gate."""
-    response = client.get("/api/v2/admin/content-factory/scopes/test_scope/production-gate", headers=admin_auth_headers)
-    assert response.status_code in [200, 404]  # 404 if scope doesn't exist, 200 if it does
+    response = client.get("/api/v2/admin/content-factory/scopes/test_scope/production-gate")
+    assert response.status_code == 200
 
 
-@pytest.mark.asyncio
-async def test_admin_can_dry_run_promotion(client: TestClient, admin_auth_headers: dict[str, str]) -> None:
+def test_admin_can_dry_run_promotion(client: TestClient) -> None:
     """Admin can dry-run promotion."""
-    response = client.post("/api/v2/admin/content-factory/scopes/test_scope/dry-run-promotion", headers=admin_auth_headers)
-    assert response.status_code in [200, 409]  # 409 if gate fails
+    response = client.post("/api/v2/admin/content-factory/scopes/test_scope/dry-run-promotion")
+    assert response.status_code == 200
 
 
-@pytest.mark.asyncio
-async def test_promote_production_rejects_missing_confirmation(client: TestClient, admin_auth_headers: dict[str, str]) -> None:
+def test_promote_production_rejects_missing_confirmation(client: TestClient) -> None:
     """Promote production rejects missing confirmation."""
     response = client.post(
         "/api/v2/admin/content-factory/scopes/test_scope/promote-production",
-        headers=admin_auth_headers,
         json={"layers": None, "confirmation": ""},
     )
     assert response.status_code == 422  # Validation error for missing confirmation
 
 
-@pytest.mark.asyncio
-async def test_promote_production_rejects_wrong_confirmation(client: TestClient, admin_auth_headers: dict[str, str]) -> None:
+def test_promote_production_rejects_wrong_confirmation(client: TestClient) -> None:
     """Promote production rejects wrong confirmation."""
     response = client.post(
         "/api/v2/admin/content-factory/scopes/test_scope/promote-production",
-        headers=admin_auth_headers,
         json={"layers": None, "confirmation": "WRONG_CONFIRMATION"},
     )
     assert response.status_code == 409  # Confirmation mismatch
 
 
-@pytest.mark.asyncio
-async def test_promote_production_rejects_blocked_gate(client: TestClient, admin_auth_headers: dict[str, str]) -> None:
+def test_promote_production_rejects_blocked_gate(client: TestClient) -> None:
     """Promote production rejects blocked gate."""
     response = client.post(
         "/api/v2/admin/content-factory/scopes/test_scope/promote-production",
-        headers=admin_auth_headers,
         json={"layers": None, "confirmation": "PROMOTE test_scope TO PRODUCTION"},
     )
     assert response.status_code == 409  # Gate blocked
 
 
-@pytest.mark.asyncio
-async def test_admin_can_list_promotion_events(client: TestClient, admin_auth_headers: dict[str, str]) -> None:
+def test_admin_can_list_promotion_events(client: TestClient) -> None:
     """Admin can list promotion events."""
-    response = client.get("/api/v2/admin/content-factory/promotion-events", headers=admin_auth_headers)
+    response = client.get("/api/v2/admin/content-factory/promotion-events")
     assert response.status_code == 200
 
 
-@pytest.mark.asyncio
-async def test_admin_can_fetch_promotion_event(client: TestClient, admin_auth_headers: dict[str, str]) -> None:
+def test_admin_can_fetch_promotion_event(client: TestClient) -> None:
     """Admin can fetch promotion event."""
     promotion_event_id = uuid.uuid4()
-    response = client.get(f"/api/v2/admin/content-factory/promotion-events/{promotion_event_id}", headers=admin_auth_headers)
+    response = client.get(f"/api/v2/admin/content-factory/promotion-events/{promotion_event_id}")
     assert response.status_code == 404  # Event doesn't exist yet
 
 
-@pytest.mark.asyncio
-async def test_admin_can_fetch_promotion_event_items(client: TestClient, admin_auth_headers: dict[str, str]) -> None:
+def test_admin_can_fetch_promotion_event_items(client: TestClient) -> None:
     """Admin can fetch promotion event items."""
     promotion_event_id = uuid.uuid4()
-    response = client.get(f"/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/items", headers=admin_auth_headers)
+    response = client.get(f"/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/items")
     assert response.status_code == 200
 
 
-@pytest.mark.asyncio
-async def test_admin_can_verify_promotion_event(client: TestClient, admin_auth_headers: dict[str, str]) -> None:
+def test_admin_can_verify_promotion_event(client: TestClient) -> None:
     """Admin can verify promotion event."""
     promotion_event_id = uuid.uuid4()
-    response = client.post(f"/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/verify", headers=admin_auth_headers)
+    response = client.post(f"/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/verify")
     assert response.status_code == 404  # Event doesn't exist yet
 
 
-@pytest.mark.asyncio
-async def test_admin_can_rollback_promotion_event(client: TestClient, admin_auth_headers: dict[str, str]) -> None:
+def test_admin_can_rollback_promotion_event(client: TestClient) -> None:
     """Admin can rollback promotion event."""
     promotion_event_id = uuid.uuid4()
     response = client.post(
         f"/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/rollback",
-        headers=admin_auth_headers,
         json={"reason": "test rollback"},
     )
     assert response.status_code == 404  # Event doesn't exist yet
