@@ -43,10 +43,10 @@ class ProductionPromotionResult:
 
 @dataclass(frozen=True)
 class ProductionPromotionPage:
-    items: list[ProductionPromotionResult] = field(default_factory=list)
     total: int
     limit: int
     offset: int
+    items: list[ProductionPromotionResult] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
