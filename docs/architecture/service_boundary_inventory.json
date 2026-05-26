@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T23:01:52Z",
+  "generated_at": "2026-05-26T16:03:07Z",
   "rows": [
     {
       "path": "app/services/ai_safety.py",
@@ -118,11 +118,151 @@
       "classification": "deprecated_pending_callsite_removal"
     },
     {
+      "path": "app/services/content_artifact_lifecycle.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_blueprint_validation.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_bulk_review.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_coverage_service.py",
+      "classification": "domain_or_cross_cutting_service"
+    },
+    {
+      "path": "app/services/content_factory.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_factory_orchestrator.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation/blueprint_generator.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation/diagnostic_generator.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation/lesson_generator.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation/prompt_payloads.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation/provider_factory.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation/providers/base.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation/providers/deterministic.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation/providers/llm.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation/source_context.py",
+      "classification": "deprecated_pending_callsite_removal"
+    },
+    {
+      "path": "app/services/content_generation/study_plan_template_generator.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation_executor.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation_planner.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation_reporter.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation_run_lock.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_generation_runs.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_learner_read_service.py",
+      "classification": "domain_or_cross_cutting_service"
+    },
+    {
+      "path": "app/services/content_production_promotion_executor.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_production_promotion_gate.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_production_read_verification.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_review_queue.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_review_risk.py",
+      "classification": "deprecated_pending_callsite_removal"
+    },
+    {
+      "path": "app/services/content_reviewer_assignment.py",
+      "classification": "unclassified"
+    },
+    {
       "path": "app/services/content_safety/lesson_contracts.py",
       "classification": "unclassified"
     },
     {
       "path": "app/services/content_safety/pii.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_scope_registry.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_seed_promotion.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_staging_preview_service.py",
+      "classification": "domain_or_cross_cutting_service"
+    },
+    {
+      "path": "app/services/content_staging_read_verification.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_staging_readiness.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_staging_seed_executor.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/content_template_validation.py",
       "classification": "unclassified"
     },
     {
@@ -186,12 +326,32 @@
       "classification": "unclassified"
     },
     {
+      "path": "app/services/email_service.py",
+      "classification": "domain_or_cross_cutting_service"
+    },
+    {
       "path": "app/services/ether.py",
       "classification": "unclassified"
     },
     {
       "path": "app/services/ether_service.py",
       "classification": "domain_or_cross_cutting_service"
+    },
+    {
+      "path": "app/services/etl/etl_pipeline.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/etl/etl_pipeline_v2.py",
+      "classification": "deprecated_pending_callsite_removal"
+    },
+    {
+      "path": "app/services/etl/etl_pipeline_v3_additions.py",
+      "classification": "deprecated_pending_callsite_removal"
+    },
+    {
+      "path": "app/services/etl/factory.py",
+      "classification": "unclassified"
     },
     {
       "path": "app/services/executive.py",
@@ -234,6 +394,10 @@
       "classification": "unclassified"
     },
     {
+      "path": "app/services/launch_content_seed.py",
+      "classification": "unclassified"
+    },
+    {
       "path": "app/services/learner_service.py",
       "classification": "domain_or_cross_cutting_service"
     },
@@ -255,6 +419,10 @@
     },
     {
       "path": "app/services/llm/gateway.py",
+      "classification": "unclassified"
+    },
+    {
+      "path": "app/services/llm/json_completion.py",
       "classification": "unclassified"
     },
     {

@@ -1,7 +1,7 @@
 # Auth Route Transaction Slice Report
 
-Generated at: `2026-05-19T23:09:22Z`
-Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
+Generated at: `2026-05-26T16:07:04Z`
+Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 
 - Route file: `app/api_v2_routers/auth.py`
 - Local status: `route-auth-delegation-passing`
@@ -11,8 +11,8 @@ Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
 
 | Route function | Line | Delegate | Delegate found | Auth service dependency | Direct DB mutations | Status |
 |---|---:|---|---:|---:|---|---|
-| `register` | 89 | `auth_service.register` | True | True | `-` | `route-delegates-to-auth-service` |
-| `create_dev_session` | 126 | `auth_service.create_dev_session` | True | True | `-` | `route-delegates-to-auth-service` |
+| `register` | 87 | `auth_service.register` | True | True | `-` | `route-delegates-to-auth-service` |
+| `create_dev_session` | 124 | `auth_service.create_dev_session` | True | True | `-` | `route-delegates-to-auth-service` |
 
 ## Transaction service markers found
 

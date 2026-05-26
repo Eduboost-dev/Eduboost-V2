@@ -1,7 +1,7 @@
 # Diagnostics Route Transaction Gap Plan
 
-Generated at: `2026-05-19T23:09:24Z`
-Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
+Generated at: `2026-05-26T16:07:04Z`
+Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 
 - Source report: `docs/release/diagnostics_route_transaction_slice_report.json`
 - Source local status: `route-diagnostics-delegation-not-proven`
@@ -13,7 +13,7 @@ Commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
 
 | Route function | Line | Current status | Reason | Closeable by current report |
 |---|---:|---|---|---:|
-| `submit_diagnostic` | 81 | `not-proven` | no diagnostics service delegate call found | False |
+| `submit_diagnostic` | 102 | `not-proven` | no diagnostics service delegate call found | False |
 
 ## No false-closure rules
 

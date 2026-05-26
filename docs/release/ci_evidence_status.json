@@ -1,15 +1,22 @@
 {
-  "generated_at": "2026-05-21T14:40:16Z",
-  "current_commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
-  "current_branch": "codex/production_readiness",
-  "status": "ci-evidence-accepted",
-  "run_id": "26230855521",
-  "run_url": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521",
-  "workflow_name": "Auth Boundary",
-  "run_status": "completed",
-  "conclusion": "success",
-  "head_sha": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
-  "verified_by": "github-actions",
-  "date_verified": "2026-05-21",
-  "blockers": []
+  "generated_at": "2026-05-26T16:03:25Z",
+  "current_commit": "f932279e2bf3d3524425915a4eb844816b078872",
+  "current_branch": "pr-cf-013-full-generation-runner",
+  "status": "ci-evidence-not-accepted",
+  "run_id": "",
+  "run_url": "",
+  "workflow_name": "",
+  "run_status": "",
+  "conclusion": "",
+  "head_sha": "",
+  "verified_by": "unverified",
+  "date_verified": "2026-05-26",
+  "blockers": [
+    "no successful non-auth-refresh GitHub Actions run found for current commit",
+    "run ID is missing or non-numeric",
+    "GitHub Actions run status is missing, expected completed",
+    "GitHub Actions run conclusion is missing, expected success",
+    "GitHub Actions run SHA missing does not match current commit f932279e2bf3d3524425915a4eb844816b078872",
+    "workflow name is missing"
+  ]
 }

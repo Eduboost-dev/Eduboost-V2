@@ -1,9 +1,9 @@
 # DB Migration + Seed Repeatability Status
 
-Generated at: `2026-05-22T00:42:58Z`
-Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
+Generated at: `2026-05-26T16:04:45Z`
+Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 
-**Status:** `db-migration-seed-repeatability-passing`
+**Status:** `db-migration-seed-repeatability-not-proven`
 **Raw Alembic SQL:** `temp/db_repeatability/alembic_upgrade_head.raw.sql`
 **Supabase SQL:** `temp/db_repeatability/alembic_upgrade_head.supabase.sql`
 **IRT seed SQL:** `temp/db_repeatability/seed_irt_items.sql`
@@ -11,11 +11,11 @@ Commit: `95d322bf5f8392b7dc3037e168e561e0f390a1a9`
 ## Summary
 
 - Alembic head `20260516_0100` present: `True`
-- Raw SQL lines: `1078`
-- Supabase SQL lines: `1045`
+- Raw SQL lines: `1186`
+- Supabase SQL lines: `1152`
 - Removed chatter lines: `16`
 - Removed broken null seed blocks: `2`
-- Removed Supabase role lines: `1`
+- Removed Supabase role lines: `2`
 - Generated IRT seed rows: `1600`
 - Unique IRT seed rows: `1600`
 
@@ -57,7 +57,7 @@ npx --yes supabase db query --linked --file temp/db_repeatability/seed_irt_items
 
 ## Blockers
 
-- None
+- alembic upgrade head --sql failed
 
 ## No false-closure rules
 

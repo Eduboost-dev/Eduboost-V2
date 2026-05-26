@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-05-23T06:06:48Z",
-  "current_commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
-  "current_branch": "codex/production_readiness",
+  "generated_at": "2026-05-26T15:59:22Z",
+  "current_commit": "f932279e2bf3d3524425915a4eb844816b078872",
+  "current_branch": "pr-cf-013-full-generation-runner",
   "status": "audit-baseline-refresh-current",
   "beta_decision": "NO-GO",
-  "beta_blocker_count": 7,
+  "beta_blocker_count": 14,
   "commands": [
     {
       "command": "make final-gate-refresh",
       "return_code": 0,
-      "output_excerpt": "make[1]: Entering directory '/home/nkgolol/Dev/SandBox/dev/Eduboost-V2'\nPYTHONPATH=. python3 -c \"from scripts.final_gate_refresh import write_refresh; r = write_refresh(); print(r.beta_decision)\"\nNO-GO\nmake[1]: Leaving directory '/home/nkgolol/Dev/SandBox/dev/Eduboost-V2'\n"
+      "output_excerpt": "PYTHONPATH=. python3 -c \"from scripts.final_gate_refresh import write_refresh; r = write_refresh(); print(r.beta_decision)\"\nNO-GO\n"
     },
     {
       "command": "write release_go_no_go_status from final_beta_gate_refresh",
@@ -19,7 +19,7 @@
     {
       "command": "python3 scripts/docs_inventory.py --write",
       "return_code": 0,
-      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1070\n"
+      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1099\n"
     }
   ],
   "surfaces": [
@@ -29,7 +29,7 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
       "stale": false
     },
     {
@@ -38,17 +38,17 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
       "stale": false
     },
     {
       "name": "ci_evidence",
       "path": "docs/release/ci_evidence_status.json",
       "exists": true,
-      "status": "ci-evidence-accepted",
+      "status": "ci-evidence-not-accepted",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
-      "stale": true
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
+      "stale": false
     },
     {
       "name": "ci_run_evidence",
@@ -56,8 +56,8 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
-      "stale": true
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
+      "stale": false
     },
     {
       "name": "external_approval",
@@ -65,8 +65,8 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "84ace987e1f577fcf647fbe105f78680003c5aaa",
-      "stale": true
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
+      "stale": false
     },
     {
       "name": "approval_evidence",
@@ -74,17 +74,17 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
-      "stale": true
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
+      "stale": false
     },
     {
       "name": "staging_smoke_evidence",
       "path": "docs/release/staging_smoke_evidence_status.json",
       "exists": true,
-      "status": "staging-smoke-evidence-accepted",
+      "status": "staging-smoke-evidence-not-accepted",
       "decision": "",
-      "commit": "a195b5eea80d648d8b748ebf48885caf42f77a58",
-      "stale": true
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
+      "stale": false
     },
     {
       "name": "staging_acceptance",
@@ -92,8 +92,8 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
-      "stale": true
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
+      "stale": false
     },
     {
       "name": "auth_refresh_db_evidence",
@@ -101,8 +101,8 @@
       "exists": true,
       "status": "auth-refresh-db-evidence-accepted",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
-      "stale": true
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
+      "stale": false
     },
     {
       "name": "popia_response_contract_no_skip",
@@ -110,17 +110,17 @@
       "exists": true,
       "status": "popia-response-contract-no-skip-passing",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
-      "stale": true
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
+      "stale": false
     },
     {
       "name": "diag_deep_health_runtime",
       "path": "docs/release/diag_deep_health_runtime_status.json",
       "exists": true,
-      "status": "diag-deep-health-runtime-accepted",
+      "status": "diag-deep-health-runtime-not-accepted",
       "decision": "",
-      "commit": "ecaab870ed5e171a5d8c5d58393ae80e64917ee5",
-      "stale": true
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
+      "stale": false
     },
     {
       "name": "live_db_transaction_evidence",
@@ -128,8 +128,8 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "8638400aaa53cf737aa4eb11ddab55cc97ebb02f",
-      "stale": true
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
+      "stale": false
     },
     {
       "name": "beta_blocker_burndown",
@@ -137,8 +137,8 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "84ace987e1f577fcf647fbe105f78680003c5aaa",
-      "stale": true
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
+      "stale": false
     },
     {
       "name": "docs_inventory",
@@ -146,7 +146,7 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "0bf52110a452701c80644433b5f821c077f3cb3c",
+      "commit": "f932279e2bf3d3524425915a4eb844816b078872",
       "stale": false
     }
   ],
@@ -170,38 +170,45 @@
       "path": "docs/release/ci_evidence_status.json",
       "expected_marker": "ci-evidence-accepted",
       "exists": true,
-      "accepted": true
+      "accepted": false
     },
     {
       "id": "EVID-001",
       "path": "docs/release/ci_evidence_status.json",
       "expected_marker": "ci-evidence-accepted",
       "exists": true,
-      "accepted": true
+      "accepted": false
     },
     {
       "id": "STAGING-001",
       "path": "docs/release/staging_smoke_evidence_status.json",
       "expected_marker": "staging-smoke-evidence-accepted",
       "exists": true,
-      "accepted": true
+      "accepted": false
     },
     {
       "id": "DIAG-001",
       "path": "docs/release/diag_deep_health_runtime_status.json",
       "expected_marker": "diag-deep-health-runtime-accepted",
       "exists": true,
-      "accepted": true
+      "accepted": false
     }
   ],
   "remaining_beta_blockers": [
     "JWT-001",
     "ARQ-001",
+    "POPIA-001",
+    "CI-001",
     "LEGAL-001",
     "SEC-001",
     "CONTENT-001",
     "LESSON-AUTH-001",
-    "EXT-GATE-001"
+    "STAGING-001",
+    "EXT-GATE-001",
+    "AUDIT-WRITE-001",
+    "AUDIT-WRITE-001R",
+    "DB-ROLLBACK-001",
+    "DB-ROLLBACK-001R"
   ],
   "blockers": []
 }

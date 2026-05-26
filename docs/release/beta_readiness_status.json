@@ -15,7 +15,7 @@
       "branch": "",
       "result": "",
       "test_summary": "",
-      "captured_at": "2026-05-19T23:01:46Z",
+      "captured_at": "2026-05-26T16:03:05Z",
       "required": true
     },
     "branch_protection": {
@@ -26,22 +26,18 @@
       "admin_enforced": false,
       "bypass_disabled": false,
       "evidence_url": "",
-      "captured_at": "2026-05-19T23:01:46Z",
+      "captured_at": "2026-05-26T16:03:05Z",
       "required": true
     },
     "content_gate": {
       "status": "pass",
       "approved_items": 40,
       "required_items": 40,
-      "total_approved_items": 120,
-      "approved_lessons": 24,
-      "green_refs": 3,
       "waiver": "",
       "waiver_owner": "",
       "blockers": [],
-      "captured_at": "2026-05-25T08:35:24Z",
-      "required": true,
-      "evidence": "docs/release/runtime_launch_content_evidence_status.md"
+      "captured_at": "2026-05-26T16:03:05Z",
+      "required": true
     },
     "staging_smoke": {
       "status": "pass",
@@ -49,7 +45,7 @@
       "base_url": "https://staging.example.com",
       "passed": true,
       "result_count": 5,
-      "captured_at": "2026-05-19T23:01:46Z",
+      "captured_at": "2026-05-26T16:03:05Z",
       "required": true
     },
     "backup_drill": {
@@ -59,7 +55,7 @@
       "evidence_url": "",
       "operator": "",
       "notes": "",
-      "captured_at": "2026-05-19T23:01:46Z",
+      "captured_at": "2026-05-26T16:03:05Z",
       "required": true
     },
     "restore_drill": {
@@ -73,7 +69,7 @@
       "required": true,
       "evidence_source_type": "unknown",
       "integrity_status": "synthetic_invalid",
-      "integrity_checked_at": "2026-05-19T23:01:45Z",
+      "integrity_checked_at": "2026-05-26T16:03:05Z",
       "trusted_source_required": [
         "real_restore_drill"
       ],
@@ -93,7 +89,7 @@
       "required": true,
       "evidence_source_type": "unknown",
       "integrity_status": "synthetic_invalid",
-      "integrity_checked_at": "2026-05-19T23:01:45Z",
+      "integrity_checked_at": "2026-05-26T16:03:05Z",
       "trusted_source_required": [
         "real_rollback_drill"
       ],
@@ -103,6 +99,6 @@
       ]
     }
   },
-  "captured_at": "2026-05-25T08:35:24Z",
+  "captured_at": "2026-05-26T16:03:05Z",
   "required": true
 }

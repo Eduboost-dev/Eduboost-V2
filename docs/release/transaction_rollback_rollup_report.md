@@ -1,6 +1,6 @@
 # Transaction Rollback Proof Rollup
 
-Generated at: `2026-05-19T23:09:41Z`
+Generated at: `2026-05-26T16:07:16Z`
 
 **Status:** `isolated_rollback_coverage_complete`
 

@@ -8,16 +8,16 @@ This contract defines production-readiness expectations for the minimum viable d
 
 - minimum viable item bank for each supported launch grade
 - minimum viable item bank for each supported launch subject
-- item review status draft
-- item review status AI-generated
-- item review status human-reviewed
-- item review status approved
-- item review status retired
+- item review status `draft`
+- item review status `AI-generated`
+- item review status `human-reviewed`
+- item review status `approved`
+- item review status `retired`
 - item calibration workflow
 - item exposure limits
 - item reuse policy
 - item retirement workflow
-- item import and export tooling
+- item import/export tooling
 - distractor quality review
 - explanation quality review
 - misconception tagging

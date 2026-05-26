@@ -1,22 +1,27 @@
 # CI Evidence Status
 
-Generated at: `2026-05-21T14:40:16Z`
-Commit: `8638400aaa53cf737aa4eb11ddab55cc97ebb02f`
-Branch: `codex/production_readiness`
+Generated at: `2026-05-26T16:03:25Z`
+Commit: `f932279e2bf3d3524425915a4eb844816b078872`
+Branch: `pr-cf-013-full-generation-runner`
 
-**Status:** `ci-evidence-accepted`
-**Run ID:** `26230855521`
-**Run URL:** `https://github.com/NkgoloL/Eduboost-V2/actions/runs/26230855521`
-**Workflow:** `Auth Boundary`
-**Run status:** `completed`
-**Conclusion:** `success`
-**Head SHA:** `8638400aaa53cf737aa4eb11ddab55cc97ebb02f`
-**Verified by:** `github-actions`
-**Date verified:** `2026-05-21`
+**Status:** `ci-evidence-not-accepted`
+**Run ID:** ``
+**Run URL:** ``
+**Workflow:** ``
+**Run status:** ``
+**Conclusion:** ``
+**Head SHA:** ``
+**Verified by:** `unverified`
+**Date verified:** `2026-05-26`
 
 ## Blockers
 
-- None
+- no successful non-auth-refresh GitHub Actions run found for current commit
+- run ID is missing or non-numeric
+- GitHub Actions run status is missing, expected completed
+- GitHub Actions run conclusion is missing, expected success
+- GitHub Actions run SHA missing does not match current commit f932279e2bf3d3524425915a4eb844816b078872
+- workflow name is missing
 
 ## No false-closure rules
 

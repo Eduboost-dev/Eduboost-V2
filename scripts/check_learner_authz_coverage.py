@@ -21,6 +21,8 @@ ALLOWLIST = {
     ("auth.py", "POST", "/dev-session"),
     # Token refresh endpoint is system auth, not learner-object scoped.
     ("auth.py", "POST", "/refresh"),
+    # Email verification uses a URL token, not session auth — not learner-object scoped.
+    ("auth_extended.py", "GET", "/verify-email"),
     # Operational consent-renewal trigger is tracked outside learner-object route checks.
     # Public ranking endpoint; this is aggregate gamification data and not learner-object scoped.
     ("gamification.py", "GET", "/leaderboard"),
