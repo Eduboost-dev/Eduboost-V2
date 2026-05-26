@@ -3015,6 +3015,284 @@
         "title": "PrivacySettingsUpdate",
         "type": "object"
       },
+      "ProductionGateBlockerResponse": {
+        "properties": {
+          "artifact_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Artifact Id"
+          },
+          "caps_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caps Ref"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "message"
+        ],
+        "title": "ProductionGateBlockerResponse",
+        "type": "object"
+      },
+      "ProductionGateReportResponse": {
+        "properties": {
+          "blockers": {
+            "items": {
+              "$ref": "#/components/schemas/ProductionGateBlockerResponse"
+            },
+            "title": "Blockers",
+            "type": "array"
+          },
+          "coverage_summary": {
+            "title": "Coverage Summary",
+            "type": "object"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "staging_summary": {
+            "title": "Staging Summary",
+            "type": "object"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope_id",
+          "status"
+        ],
+        "title": "ProductionGateReportResponse",
+        "type": "object"
+      },
+      "ProductionPromotionPageResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ProductionPromotionResultResponse"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "ProductionPromotionPageResponse",
+        "type": "object"
+      },
+      "ProductionPromotionPlanResponse": {
+        "properties": {
+          "layers": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Layers",
+            "type": "array"
+          },
+          "promotable_count": {
+            "title": "Promotable Count",
+            "type": "integer"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "skipped": {
+            "items": {
+              "type": "object"
+            },
+            "title": "Skipped",
+            "type": "array"
+          },
+          "skipped_count": {
+            "title": "Skipped Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "scope_id",
+          "layers",
+          "promotable_count",
+          "skipped_count"
+        ],
+        "title": "ProductionPromotionPlanResponse",
+        "type": "object"
+      },
+      "ProductionPromotionRequest": {
+        "properties": {
+          "confirmation": {
+            "title": "Confirmation",
+            "type": "string"
+          },
+          "layers": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Layers"
+          }
+        },
+        "required": [
+          "confirmation"
+        ],
+        "title": "ProductionPromotionRequest",
+        "type": "object"
+      },
+      "ProductionPromotionResultResponse": {
+        "properties": {
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "promoted_count": {
+            "title": "Promoted Count",
+            "type": "integer"
+          },
+          "promotion_event_id": {
+            "format": "uuid",
+            "title": "Promotion Event Id",
+            "type": "string"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "skipped_count": {
+            "title": "Skipped Count",
+            "type": "integer"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "promotion_event_id",
+          "scope_id",
+          "status",
+          "promoted_count",
+          "skipped_count"
+        ],
+        "title": "ProductionPromotionResultResponse",
+        "type": "object"
+      },
+      "ProductionReadVerificationReportResponse": {
+        "properties": {
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "promotion_event_id": {
+            "format": "uuid",
+            "title": "Promotion Event Id",
+            "type": "string"
+          },
+          "verified_count": {
+            "title": "Verified Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "promotion_event_id",
+          "passed",
+          "verified_count"
+        ],
+        "title": "ProductionReadVerificationReportResponse",
+        "type": "object"
+      },
+      "ProductionRollbackRequest": {
+        "properties": {
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ],
+        "title": "ProductionRollbackRequest",
+        "type": "object"
+      },
+      "ProductionRollbackResultResponse": {
+        "properties": {
+          "promotion_event_id": {
+            "format": "uuid",
+            "title": "Promotion Event Id",
+            "type": "string"
+          },
+          "rolled_back_count": {
+            "title": "Rolled Back Count",
+            "type": "integer"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "promotion_event_id",
+          "status",
+          "rolled_back_count"
+        ],
+        "title": "ProductionRollbackResultResponse",
+        "type": "object"
+      },
       "ProfileUpdateRequest": {
         "description": "Update learner display name, grade, and home language.",
         "properties": {
@@ -3974,6 +4252,36 @@
           "not_configured_refs"
         ],
         "title": "ScopeCoverageSummary",
+        "type": "object"
+      },
+      "ScopeProductionReadReportResponse": {
+        "properties": {
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "production_artifacts_count": {
+            "title": "Production Artifacts Count",
+            "type": "integer"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope_id",
+          "passed",
+          "production_artifacts_count"
+        ],
+        "title": "ScopeProductionReadReportResponse",
         "type": "object"
       },
       "ScopeStagingVerificationReport": {
@@ -5050,6 +5358,283 @@
           }
         ],
         "summary": "Content Factory Health",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/promotion-events": {
+      "get": {
+        "operationId": "list_promotion_events_api_v2_admin_content_factory_promotion_events_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionPromotionPageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Promotion Events",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/promotion-events/{promotion_event_id}": {
+      "get": {
+        "operationId": "get_promotion_event_api_v2_admin_content_factory_promotion_events__promotion_event_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionPromotionResultResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Promotion Event",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/items": {
+      "get": {
+        "operationId": "get_promotion_event_items_api_v2_admin_content_factory_promotion_events__promotion_event_id__items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Promotion Event Items Api V2 Admin Content Factory Promotion Events  Promotion Event Id  Items Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Promotion Event Items",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/rollback": {
+      "post": {
+        "operationId": "rollback_promotion_event_api_v2_admin_content_factory_promotion_events__promotion_event_id__rollback_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionRollbackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionRollbackResultResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Rollback Promotion Event",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/verify": {
+      "post": {
+        "operationId": "verify_promotion_event_api_v2_admin_content_factory_promotion_events__promotion_event_id__verify_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionReadVerificationReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Promotion Event",
         "tags": [
           "admin-content-factory"
         ]
@@ -6392,6 +6977,72 @@
         ]
       }
     },
+    "/api/v2/admin/content-factory/scopes/{scope_id}/dry-run-promotion": {
+      "post": {
+        "operationId": "dry_run_promotion_api_v2_admin_content_factory_scopes__scope_id__dry_run_promotion_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionPromotionPlanResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Dry Run Promotion",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/api/v2/admin/content-factory/scopes/{scope_id}/dry-run-seed": {
       "post": {
         "operationId": "dry_run_scope_seed_api_v2_admin_content_factory_scopes__scope_id__dry_run_seed_post",
@@ -6439,6 +7090,138 @@
         ]
       }
     },
+    "/api/v2/admin/content-factory/scopes/{scope_id}/production-gate": {
+      "get": {
+        "operationId": "get_production_gate_api_v2_admin_content_factory_scopes__scope_id__production_gate_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionGateReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Production Gate",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/scopes/{scope_id}/production-read-verification": {
+      "get": {
+        "operationId": "verify_scope_production_api_v2_admin_content_factory_scopes__scope_id__production_read_verification_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScopeProductionReadReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Scope Production",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/api/v2/admin/content-factory/scopes/{scope_id}/promote-production": {
       "post": {
         "operationId": "promote_production_api_v2_admin_content_factory_scopes__scope_id__promote_production_post",
@@ -6453,12 +7236,22 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionPromotionRequest"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentFactoryActionResponse"
+                  "$ref": "#/components/schemas/ProductionPromotionResultResponse"
                 }
               }
             },
@@ -12058,6 +12851,283 @@
         ]
       }
     },
+    "/v2/admin/content-factory/promotion-events": {
+      "get": {
+        "operationId": "list_promotion_events_v2_admin_content_factory_promotion_events_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionPromotionPageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Promotion Events",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/promotion-events/{promotion_event_id}": {
+      "get": {
+        "operationId": "get_promotion_event_v2_admin_content_factory_promotion_events__promotion_event_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionPromotionResultResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Promotion Event",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/promotion-events/{promotion_event_id}/items": {
+      "get": {
+        "operationId": "get_promotion_event_items_v2_admin_content_factory_promotion_events__promotion_event_id__items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Promotion Event Items V2 Admin Content Factory Promotion Events  Promotion Event Id  Items Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Promotion Event Items",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/promotion-events/{promotion_event_id}/rollback": {
+      "post": {
+        "operationId": "rollback_promotion_event_v2_admin_content_factory_promotion_events__promotion_event_id__rollback_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionRollbackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionRollbackResultResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Rollback Promotion Event",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/promotion-events/{promotion_event_id}/verify": {
+      "post": {
+        "operationId": "verify_promotion_event_v2_admin_content_factory_promotion_events__promotion_event_id__verify_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionReadVerificationReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Promotion Event",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/v2/admin/content-factory/provenance/{artifact_id}": {
       "get": {
         "operationId": "get_artifact_provenance_v2_admin_content_factory_provenance__artifact_id__get",
@@ -13395,6 +14465,72 @@
         ]
       }
     },
+    "/v2/admin/content-factory/scopes/{scope_id}/dry-run-promotion": {
+      "post": {
+        "operationId": "dry_run_promotion_v2_admin_content_factory_scopes__scope_id__dry_run_promotion_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionPromotionPlanResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Dry Run Promotion",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/v2/admin/content-factory/scopes/{scope_id}/dry-run-seed": {
       "post": {
         "operationId": "dry_run_scope_seed_v2_admin_content_factory_scopes__scope_id__dry_run_seed_post",
@@ -13442,6 +14578,138 @@
         ]
       }
     },
+    "/v2/admin/content-factory/scopes/{scope_id}/production-gate": {
+      "get": {
+        "operationId": "get_production_gate_v2_admin_content_factory_scopes__scope_id__production_gate_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionGateReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Production Gate",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/scopes/{scope_id}/production-read-verification": {
+      "get": {
+        "operationId": "verify_scope_production_v2_admin_content_factory_scopes__scope_id__production_read_verification_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScopeProductionReadReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Scope Production",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/v2/admin/content-factory/scopes/{scope_id}/promote-production": {
       "post": {
         "operationId": "promote_production_v2_admin_content_factory_scopes__scope_id__promote_production_post",
@@ -13456,12 +14724,22 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionPromotionRequest"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentFactoryActionResponse"
+                  "$ref": "#/components/schemas/ProductionPromotionResultResponse"
                 }
               }
             },
