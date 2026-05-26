@@ -1006,6 +1006,75 @@ async def get_content_factory_report(scope_id: str, coverage_service: ContentCov
     return ContentFactoryReportResponse(scope_id=scope_id, generation_enabled=_generation_enabled(), coverage=coverage.model_dump(mode="json"), run_count=run_count, review_queue_count=review_queue)
 
 
+# ── Staging and Production Preview Routes ─────────────────────────────────────
+
+
+def get_staging_preview_service():
+    from app.services.content_staging_preview_service import ContentStagingPreviewService
+    return ContentStagingPreviewService()
+
+
+def get_learner_read_service():
+    from app.services.content_learner_read_service import ContentLearnerReadService
+    return ContentLearnerReadService()
+
+
+@router.get("/staging-preview/scopes/{scope_id}")
+async def get_staging_preview(
+    scope_id: str,
+    layers: list[str] | None = Query(None),
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+    service = Depends(get_staging_preview_service),
+):
+    """Get staging preview for a scope (admin-only)."""
+    from app.services.content_staging_preview_service import StagingPreviewReport
+    report = await service.preview_scope(session, scope_id, layers=layers)
+    return report
+
+
+@router.get("/staging-preview/scopes/{scope_id}/caps/{caps_ref}")
+async def get_staging_preview_by_caps_ref(
+    scope_id: str,
+    caps_ref: str,
+    layers: list[str] | None = Query(None),
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+    service = Depends(get_staging_preview_service),
+):
+    """Get staging preview for a scope and CAPS reference (admin-only)."""
+    from app.services.content_staging_preview_service import StagingCapsRefPreview
+    report = await service.preview_caps_ref(session, scope_id, caps_ref, layers=layers)
+    return report
+
+
+@router.get("/production-preview/scopes/{scope_id}")
+async def get_production_preview(
+    scope_id: str,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+    service = Depends(get_learner_read_service),
+):
+    """Get production preview for a scope (admin-only)."""
+    from app.services.content_learner_read_service import LearnerScopeContentSummary
+    summary = await service.get_scope_content_summary(session, scope_id)
+    return summary
+
+
+@router.get("/production-preview/scopes/{scope_id}/caps/{caps_ref}")
+async def get_production_preview_by_caps_ref(
+    scope_id: str,
+    caps_ref: str,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+    service = Depends(get_learner_read_service),
+):
+    """Get production preview for a scope and CAPS reference (admin-only)."""
+    diagnostic_items = await service.get_diagnostic_items(session, scope_id=scope_id, caps_ref=caps_ref)
+    lessons = await service.get_lessons(session, scope_id=scope_id, caps_ref=caps_ref)
+    return {"diagnostic_items": diagnostic_items, "lessons": lessons}
+
+
 def _mcp_runtime_imported() -> bool:
     return any(name.startswith("mcp.") or name == "mcp" for name in sys.modules)
 

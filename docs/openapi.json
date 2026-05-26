@@ -5599,6 +5599,107 @@
         ]
       }
     },
+    "/api/v2/admin/content-factory/production-preview/scopes/{scope_id}": {
+      "get": {
+        "description": "Get production preview for a scope (admin-only).",
+        "operationId": "get_production_preview_api_v2_admin_content_factory_production_preview_scopes__scope_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Production Preview",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/production-preview/scopes/{scope_id}/caps/{caps_ref}": {
+      "get": {
+        "description": "Get production preview for a scope and CAPS reference (admin-only).",
+        "operationId": "get_production_preview_by_caps_ref_api_v2_admin_content_factory_production_preview_scopes__scope_id__caps__caps_ref__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Production Preview By Caps Ref",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/api/v2/admin/content-factory/promotion-events": {
       "get": {
         "operationId": "list_promotion_events_api_v2_admin_content_factory_promotion_events_get",
@@ -8098,6 +8199,145 @@
           }
         ],
         "summary": "Verify Seed Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/staging-preview/scopes/{scope_id}": {
+      "get": {
+        "description": "Get staging preview for a scope (admin-only).",
+        "operationId": "get_staging_preview_api_v2_admin_content_factory_staging_preview_scopes__scope_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Staging Preview",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/staging-preview/scopes/{scope_id}/caps/{caps_ref}": {
+      "get": {
+        "description": "Get staging preview for a scope and CAPS reference (admin-only).",
+        "operationId": "get_staging_preview_by_caps_ref_api_v2_admin_content_factory_staging_preview_scopes__scope_id__caps__caps_ref__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Staging Preview By Caps Ref",
         "tags": [
           "admin-content-factory"
         ]
@@ -13433,6 +13673,107 @@
         ]
       }
     },
+    "/v2/admin/content-factory/production-preview/scopes/{scope_id}": {
+      "get": {
+        "description": "Get production preview for a scope (admin-only).",
+        "operationId": "get_production_preview_v2_admin_content_factory_production_preview_scopes__scope_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Production Preview",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/production-preview/scopes/{scope_id}/caps/{caps_ref}": {
+      "get": {
+        "description": "Get production preview for a scope and CAPS reference (admin-only).",
+        "operationId": "get_production_preview_by_caps_ref_v2_admin_content_factory_production_preview_scopes__scope_id__caps__caps_ref__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Production Preview By Caps Ref",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/v2/admin/content-factory/promotion-events": {
       "get": {
         "operationId": "list_promotion_events_v2_admin_content_factory_promotion_events_get",
@@ -15932,6 +16273,145 @@
           }
         ],
         "summary": "Verify Seed Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/staging-preview/scopes/{scope_id}": {
+      "get": {
+        "description": "Get staging preview for a scope (admin-only).",
+        "operationId": "get_staging_preview_v2_admin_content_factory_staging_preview_scopes__scope_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Staging Preview",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/staging-preview/scopes/{scope_id}/caps/{caps_ref}": {
+      "get": {
+        "description": "Get staging preview for a scope and CAPS reference (admin-only).",
+        "operationId": "get_staging_preview_by_caps_ref_v2_admin_content_factory_staging_preview_scopes__scope_id__caps__caps_ref__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Staging Preview By Caps Ref",
         "tags": [
           "admin-content-factory"
         ]
