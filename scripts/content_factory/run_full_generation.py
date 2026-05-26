@@ -13,7 +13,7 @@ from pathlib import Path
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from app.core.database import async_session_maker
+from app.core.database import AsyncSessionLocal
 from app.models.content_factory import ContentGenerationRun, ContentGenerationTask
 from app.services.content_generation_planner import ContentGenerationPlanner
 from app.services.content_generation_run_lock import ContentGenerationRunLock
@@ -53,7 +53,7 @@ async def run_full_generation(
     lock = ContentGenerationRunLock()
     holder = f"{os.uname().nodename}:{os.getpid()}"
 
-    async with async_session_maker() as session:
+    async with AsyncSessionLocal() as session:
         lock_result = await lock.acquire(session, holder=holder)
         if not lock_result.acquired:
             print(f"ERROR: Lock already held by {lock_result.lock_holder}")
