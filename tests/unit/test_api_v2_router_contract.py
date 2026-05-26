@@ -138,6 +138,20 @@ def test_content_factory_scope_openapi_contract_is_admin_only() -> None:
     assert learner_content_paths <= set(schema["paths"])
     assert all(schema["paths"][path][next(iter(schema["paths"][path]))]["tags"] == ["learner-content"] for path in learner_content_paths)
     assert not any(path.startswith("/api/v2/admin") and "learner-content" in path for path in schema["paths"])
+    staging_preview_paths = {
+        "/api/v2/admin/content-factory/staging-preview/scopes/{scope_id}",
+        "/api/v2/admin/content-factory/staging-preview/scopes/{scope_id}/caps/{caps_ref}",
+    }
+    assert staging_preview_paths <= set(schema["paths"])
+    assert all(schema["paths"][path][next(iter(schema["paths"][path]))]["tags"] == ["admin-content-factory"] for path in staging_preview_paths)
+    assert all(path.startswith("/api/v2/admin/content-factory") for path in staging_preview_paths)
+    production_preview_paths = {
+        "/api/v2/admin/content-factory/production-preview/scopes/{scope_id}",
+        "/api/v2/admin/content-factory/production-preview/scopes/{scope_id}/caps/{caps_ref}",
+    }
+    assert production_preview_paths <= set(schema["paths"])
+    assert all(schema["paths"][path][next(iter(schema["paths"][path]))]["tags"] == ["admin-content-factory"] for path in production_preview_paths)
+    assert all(path.startswith("/api/v2/admin/content-factory") for path in production_preview_paths)
     assert "/api/v2/admin/etl/status" in schema["paths"]
     assert schema["paths"]["/api/v2/admin/etl/status"]["get"]["tags"] == ["admin-etl"]
     assert "/api/v2/content-factory/scopes" not in schema["paths"]
