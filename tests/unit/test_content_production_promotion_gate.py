@@ -18,10 +18,9 @@ from app.services.content_production_promotion_gate import (
     ContentProductionPromotionGate,
     ProductionGateStatus,
 )
-from tests.conftest import async_test
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_gate_blocks_red_coverage(session: AsyncSession) -> None:
     """Gate blocks red coverage."""
     from app.services.content_coverage_service import ContentCoverageService
@@ -38,7 +37,7 @@ async def test_gate_blocks_red_coverage(session: AsyncSession) -> None:
     assert any("coverage" in b.type.lower() for b in report.blockers)
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_gate_blocks_amber_coverage(session: AsyncSession) -> None:
     """Gate blocks amber coverage."""
     from app.services.content_coverage_service import ContentCoverageService
@@ -54,7 +53,7 @@ async def test_gate_blocks_amber_coverage(session: AsyncSession) -> None:
     assert any("coverage" in b.type.lower() for b in report.blockers)
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_gate_blocks_pending_review_artifacts(session: AsyncSession) -> None:
     """Gate blocks pending review artifacts."""
     from app.services.content_coverage_service import ContentCoverageService
@@ -86,7 +85,7 @@ async def test_gate_blocks_pending_review_artifacts(session: AsyncSession) -> No
     assert any("review" in b.type.lower() for b in report.blockers)
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_gate_blocks_rejected_artifacts(session: AsyncSession) -> None:
     """Gate blocks rejected artifacts."""
     from app.services.content_coverage_service import ContentCoverageService
@@ -118,7 +117,7 @@ async def test_gate_blocks_rejected_artifacts(session: AsyncSession) -> None:
     assert any("review" in b.type.lower() for b in report.blockers)
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_gate_blocks_quarantined_artifacts(session: AsyncSession) -> None:
     """Gate blocks quarantined artifacts."""
     from app.services.content_coverage_service import ContentCoverageService
@@ -150,7 +149,7 @@ async def test_gate_blocks_quarantined_artifacts(session: AsyncSession) -> None:
     assert any("review" in b.type.lower() for b in report.blockers)
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_gate_blocks_invalid_provenance(session: AsyncSession) -> None:
     """Gate blocks invalid provenance."""
     from app.services.content_coverage_service import ContentCoverageService
@@ -182,7 +181,7 @@ async def test_gate_blocks_invalid_provenance(session: AsyncSession) -> None:
     assert any("provenance" in b.type.lower() for b in report.blockers)
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_gate_blocks_dirty_validation_report(session: AsyncSession) -> None:
     """Gate blocks dirty validation report."""
     from app.services.content_coverage_service import ContentCoverageService
@@ -224,7 +223,7 @@ async def test_gate_blocks_dirty_validation_report(session: AsyncSession) -> Non
     assert any("validation" in b.type.lower() for b in report.blockers)
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_gate_blocks_missing_staging_verification(session: AsyncSession) -> None:
     """Gate blocks missing staging verification."""
     from app.services.content_coverage_service import ContentCoverageService
@@ -240,7 +239,7 @@ async def test_gate_blocks_missing_staging_verification(session: AsyncSession) -
     assert any("staging" in b.type.lower() for b in report.blockers)
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_gate_blocks_deprecated_source_documents(session: AsyncSession) -> None:
     """Gate blocks deprecated/rejected/archived source documents."""
     from app.services.content_coverage_service import ContentCoverageService
@@ -258,7 +257,7 @@ async def test_gate_blocks_deprecated_source_documents(session: AsyncSession) ->
     # This test would need to be expanded when source document checking is implemented
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_gate_passes_when_all_targets_green_and_staging_verified(session: AsyncSession) -> None:
     """Gate passes when all configured targets are green and staging verified."""
     from app.services.content_coverage_service import ContentCoverageService

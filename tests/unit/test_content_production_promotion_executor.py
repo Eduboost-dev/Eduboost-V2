@@ -19,10 +19,9 @@ from app.services.content_production_promotion_executor import (
     ContentProductionPromotionExecutor,
 )
 from app.services.content_production_promotion_gate import ContentProductionPromotionGate
-from tests.conftest import async_test
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_dry_run_promotion_does_not_mutate_production(session: AsyncSession) -> None:
     """Dry-run promotion does not mutate production."""
     gate = ContentProductionPromotionGate(coverage_service=None)
@@ -35,7 +34,7 @@ async def test_dry_run_promotion_does_not_mutate_production(session: AsyncSessio
     # The actual dry-run should not create any production artifacts
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_promotion_requires_exact_confirmation_phrase(session: AsyncSession) -> None:
     """Promotion requires exact confirmation phrase."""
     gate = ContentProductionPromotionGate(coverage_service=None)
@@ -52,7 +51,7 @@ async def test_promotion_requires_exact_confirmation_phrase(session: AsyncSessio
         )
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_promotion_requires_passing_gate(session: AsyncSession) -> None:
     """Promotion requires passing gate."""
     gate = ContentProductionPromotionGate(coverage_service=None)
@@ -69,7 +68,7 @@ async def test_promotion_requires_passing_gate(session: AsyncSession) -> None:
         )
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_promotion_persists_event_and_item_evidence(session: AsyncSession) -> None:
     """Promotion persists event and item evidence."""
     gate = ContentProductionPromotionGate(coverage_service=None)
@@ -86,7 +85,7 @@ async def test_promotion_persists_event_and_item_evidence(session: AsyncSession)
     # For now, this is a structural test showing the expected flow
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_rollback_marks_items_rolled_back(session: AsyncSession) -> None:
     """Rollback marks items rolled_back."""
     gate = ContentProductionPromotionGate(coverage_service=None)
