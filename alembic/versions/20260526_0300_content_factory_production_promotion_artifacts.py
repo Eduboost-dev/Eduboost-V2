@@ -33,7 +33,7 @@ def upgrade() -> None:
         sa.Column("updated_at", sa.DateTime(timezone=True), nullable=False, server_default=sa.func.now()),
         sa.ForeignKeyConstraint(["artifact_id"], ["content_generation_artifacts.artifact_id"], ondelete="CASCADE"),
         sa.ForeignKeyConstraint(["staging_artifact_id"], ["content_staging_artifacts.id"], ondelete="SET NULL"),
-        sa.ForeignKeyConstraint(["created_by_promotion_event_id"], ["content_promotion_events.event_id"], ondelete="SET NULL"),
+        sa.ForeignKeyConstraint(["created_by_promotion_event_id"], ["content_promotion_events.promotion_event_id"], ondelete="SET NULL"),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("created_by_promotion_event_id", "artifact_id", name="uq_content_production_promotion_artifact")
     )

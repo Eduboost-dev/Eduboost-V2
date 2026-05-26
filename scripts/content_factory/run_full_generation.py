@@ -14,7 +14,12 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from app.core.database import AsyncSessionLocal
-from app.models.content_factory import ContentGenerationRun, ContentGenerationTask
+from app.models.content_factory import (
+    ContentGenerationRun,
+    ContentGenerationTask,
+    ContentScope,
+    ContentScopeStatus,
+)
 from app.services.content_generation_planner import ContentGenerationPlanner
 from app.services.content_generation_run_lock import ContentGenerationRunLock
 from app.services.content_generation_reporter import ContentGenerationReporter, GenerationReportData
@@ -62,6 +67,26 @@ async def run_full_generation(
         print(f"Lock acquired by {holder}")
 
         try:
+            # Ensure placeholder scope exists for cross-scope runs to satisfy FK
+            if all_scopes:
+                existing = await session.get(ContentScope, "all_scopes")
+                if existing is None:
+                    session.add(
+                        ContentScope(
+                            scope_id="all_scopes",
+                            grade=0,
+                            subject_code="multi",
+                            subject_slug="all_scopes",
+                            subject_display_name="All Scopes",
+                            language="en",
+                            curriculum="CAPS",
+                            status=ContentScopeStatus.ACTIVE,
+                            source_policy={},
+                            targets={},
+                        )
+                    )
+                    await session.flush()
+
             # Create generation run
             run_id = uuid.uuid4()
             run = ContentGenerationRun(
