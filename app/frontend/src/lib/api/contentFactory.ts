@@ -226,6 +226,74 @@ export type StagingRollback = {
   rolled_back_count: number;
 };
 
+export type ProductionGateBlocker = {
+  type: string;
+  message: string;
+  artifact_id?: string | null;
+  caps_ref?: string | null;
+};
+
+export type ProductionGateReport = {
+  scope_id: string;
+  status: string;
+  blockers: ProductionGateBlocker[];
+  coverage_summary: Record<string, unknown>;
+  staging_summary: Record<string, unknown>;
+};
+
+export type ProductionPromotionPlan = {
+  scope_id: string;
+  layers: string[];
+  promotable_count: number;
+  skipped_count: number;
+  skipped: Array<Record<string, unknown>>;
+};
+
+export type ProductionPromotionRequest = {
+  layers?: string[] | null;
+  confirmation: string;
+};
+
+export type ProductionPromotionResult = {
+  promotion_event_id: string;
+  scope_id: string;
+  status: string;
+  promoted_count: number;
+  skipped_count: number;
+  errors: string[];
+};
+
+export type ProductionPromotionPage = {
+  items: ProductionPromotionResult[];
+  total: number;
+  limit: number;
+  offset: number;
+};
+
+export type ProductionReadVerificationReport = {
+  promotion_event_id: string;
+  passed: boolean;
+  verified_count: number;
+  errors: string[];
+};
+
+export type ScopeProductionReadReport = {
+  scope_id: string;
+  passed: boolean;
+  production_artifacts_count: number;
+  errors: string[];
+};
+
+export type ProductionRollbackRequest = {
+  reason: string;
+};
+
+export type ProductionRollbackResult = {
+  promotion_event_id: string;
+  status: string;
+  rolled_back_count: number;
+};
+
 export type EtlStatus = {
   status: string;
   documents_indexed?: number;
@@ -331,6 +399,56 @@ export function rollbackStagingSeedRun(seedRunId: string, reason: string) {
   return fetchApi<StagingRollback>(`/admin/content-factory/seed-runs/${seedRunId}/rollback?reason=${encodeURIComponent(reason)}`, {
     method: "POST",
   });
+}
+
+export function fetchProductionGate(scopeId: string, layers?: string[] | null) {
+  const query = layers ? `?layers=${layers.join(",")}` : "";
+  return fetchApi<ProductionGateReport>(`/admin/content-factory/scopes/${scopeId}/production-gate${query}`);
+}
+
+export function dryRunProductionPromotion(scopeId: string, layers?: string[] | null) {
+  const query = layers ? `?layers=${layers.join(",")}` : "";
+  return fetchApi<ProductionPromotionPlan>(`/admin/content-factory/scopes/${scopeId}/dry-run-promotion${query}`, { method: "POST" });
+}
+
+export function promoteProduction(scopeId: string, request: ProductionPromotionRequest) {
+  return fetchApi<ProductionPromotionResult>(`/admin/content-factory/scopes/${scopeId}/promote-production`, {
+    method: "POST",
+    body: JSON.stringify(request),
+  });
+}
+
+export function fetchPromotionEvents(scopeId?: string | null, limit = 50, offset = 0) {
+  const params = new URLSearchParams();
+  if (scopeId) params.set("scope_id", scopeId);
+  params.set("limit", String(limit));
+  params.set("offset", String(offset));
+  const query = params.toString();
+  return fetchApi<ProductionPromotionPage>(`/admin/content-factory/promotion-events${query ? `?${query}` : ""}`);
+}
+
+export function fetchPromotionEvent(promotionEventId: string) {
+  return fetchApi<ProductionPromotionResult>(`/admin/content-factory/promotion-events/${promotionEventId}`);
+}
+
+export function fetchPromotionEventItems(promotionEventId: string) {
+  return fetchApi<{ items: Array<Record<string, unknown>>; total: number }>(`/admin/content-factory/promotion-events/${promotionEventId}/items`);
+}
+
+export function verifyPromotionEvent(promotionEventId: string) {
+  return fetchApi<ProductionReadVerificationReport>(`/admin/content-factory/promotion-events/${promotionEventId}/verify`, { method: "POST" });
+}
+
+export function rollbackPromotionEvent(promotionEventId: string, reason: string) {
+  return fetchApi<ProductionRollbackResult>(`/admin/content-factory/promotion-events/${promotionEventId}/rollback`, {
+    method: "POST",
+    body: JSON.stringify({ reason }),
+  });
+}
+
+export function verifyScopeProductionRead(scopeId: string, layers?: string[] | null) {
+  const query = layers ? `?layers=${layers.join(",")}` : "";
+  return fetchApi<ScopeProductionReadReport>(`/admin/content-factory/scopes/${scopeId}/production-read-verification${query}`);
 }
 
 

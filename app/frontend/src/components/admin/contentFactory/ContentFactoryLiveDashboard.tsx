@@ -5,6 +5,7 @@ import GenerationRunsPanel from "./GenerationRunsPanel";
 import ReviewQueuePanel from "./ReviewQueuePanel";
 import StagingReadinessPanel from "./StagingReadinessPanel";
 import StagingSeedPanel from "./StagingSeedPanel";
+import ProductionPromotionPanel from "./ProductionPromotionPanel";
 import {
   fetchAdminEtlStatus,
   fetchContentFactoryCoverage,
@@ -89,6 +90,8 @@ export default function ContentFactoryLiveDashboard() {
         <StagingReadinessPanel />
 
         <StagingSeedPanel scopes={state.scopes} />
+
+        <ProductionPromotionPanel scopes={state.scopes} />
 
         <GenerationRunsPanel runs={state.runs} />
 
