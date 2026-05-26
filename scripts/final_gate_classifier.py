@@ -27,6 +27,13 @@ ACCEPTED_AUTH_REFRESH_IDS = {
     "AUTH-REFRESH-DB-PROOF-001",
     "AUTH-REFRESH-DB-EVIDENCE-001",
 }
+BETA_CRITICAL_IDS = {
+    "CI-001",
+    "LEGAL-001",
+    "SEC-001",
+    "CONTENT-001",
+    "STAGING-001",
+}
 FALSE_CLOSURE_TOKENS = {
     "skipped",
     "not proof",

@@ -1,7 +1,7 @@
 """repair auth extension schema drift
 
 Revision ID: 20260524_1800
-Revises: 3f8a2c1d9e04
+Revises: 20260523_0000
 Create Date: 2026-05-24
 
 Production may have been stamped at the auth-extension head before all objects
@@ -15,7 +15,7 @@ from sqlalchemy.dialects import postgresql
 
 
 revision = "20260524_1800"
-down_revision = "3f8a2c1d9e04"
+down_revision = "20260523_0000"
 branch_labels = None
 depends_on = None
 
