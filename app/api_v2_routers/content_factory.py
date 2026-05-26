@@ -1075,6 +1075,194 @@ async def get_production_preview_by_caps_ref(
     return {"diagnostic_items": diagnostic_items, "lessons": lessons}
 
 
+# ── Full Generation Run Routes ─────────────────────────────────────────────────────
+
+
+@router.post("/full-generation/plan")
+async def plan_full_generation(
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """Plan full generation for all configured scopes (admin-only)."""
+    from app.services.content_generation_planner import ContentGenerationPlanner
+    from app.models.content_factory import ContentGenerationRun
+
+    planner = ContentGenerationPlanner()
+    run = ContentGenerationRun(
+        run_id=uuid.uuid4(),
+        scope_id="all_scopes",
+        status="queued",
+        requested_by=current_user.get("sub"),
+        run_metadata={"layers": ["diagnostic_items", "lessons", "assessment_blueprints", "study_plan_templates"]},
+    )
+    session.add(run)
+    await session.flush()
+
+    plan_result = await planner.plan_missing_for_run(
+        session,
+        run.run_id,
+        actor_id=current_user.get("sub"),
+    )
+
+    return {
+        "run_id": str(run.run_id),
+        "created_task_ids": [str(t) for t in plan_result.created_task_ids],
+        "skipped": plan_result.skipped,
+        "missing": plan_result.missing,
+    }
+
+
+@router.post("/full-generation/start")
+async def start_full_generation(
+    request: dict,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """Start full generation run (admin-only)."""
+    if not _generation_enabled():
+        raise HTTPException(status_code=403, detail="CONTENT_FACTORY_GENERATION_ENABLED is not set to true")
+
+    from app.services.content_generation.provider_factory import get_generation_settings
+
+    settings = get_generation_settings()
+    if settings.provider == "llm":
+        confirmation = request.get("confirmation", "")
+        expected = "GENERATE OUTSTANDING CONTENT FOR ALL CONFIGURED SCOPES"
+        if confirmation != expected:
+            raise HTTPException(status_code=400, detail=f"Confirmation must be exactly: {expected}")
+
+    run_id = request.get("run_id")
+    if not run_id:
+        raise HTTPException(status_code=400, detail="run_id is required")
+
+    from app.models.content_factory import ContentGenerationRun
+
+    run = await session.get(ContentGenerationRun, uuid.UUID(run_id))
+    if not run:
+        raise HTTPException(status_code=404, detail="Generation run not found")
+
+    run.status = "running"
+    await session.flush()
+
+    return {"run_id": str(run.run_id), "status": "running"}
+
+
+@router.get("/full-generation/runs")
+async def list_full_generation_runs(
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """List full generation runs (admin-only)."""
+    from app.models.content_factory import ContentGenerationRun
+
+    result = await session.execute(
+        select(ContentGenerationRun)
+        .where(ContentGenerationRun.scope_id == "all_scopes")
+        .order_by(ContentGenerationRun.created_at.desc())
+        .limit(50)
+    )
+    runs = result.scalars().all()
+
+    return {
+        "items": [_run_response(run) for run in runs],
+        "total": len(runs),
+    }
+
+
+@router.get("/full-generation/runs/{run_id}")
+async def get_full_generation_run(
+    run_id: str,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """Get a full generation run (admin-only)."""
+    from app.models.content_factory import ContentGenerationRun
+
+    run = await session.get(ContentGenerationRun, uuid.UUID(run_id))
+    if not run:
+        raise HTTPException(status_code=404, detail="Generation run not found")
+
+    return _run_response(run)
+
+
+@router.get("/full-generation/runs/{run_id}/report")
+async def get_full_generation_run_report(
+    run_id: str,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """Get a full generation run report (admin-only)."""
+    from app.models.content_factory import ContentGenerationRun
+
+    run = await session.get(ContentGenerationRun, uuid.UUID(run_id))
+    if not run:
+        raise HTTPException(status_code=404, detail="Generation run not found")
+
+    metadata = run.run_metadata or {}
+    return {
+        "run_id": str(run.run_id),
+        "status": run.status,
+        "metadata": metadata,
+    }
+
+
+@router.post("/full-generation/runs/{run_id}/cancel")
+async def cancel_full_generation_run(
+    run_id: str,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """Cancel a full generation run (admin-only)."""
+    from app.models.content_factory import ContentGenerationRun, ContentGenerationTask
+
+    run = await session.get(ContentGenerationRun, uuid.UUID(run_id))
+    if not run:
+        raise HTTPException(status_code=404, detail="Generation run not found")
+
+    if run.status not in ("queued", "running"):
+        raise HTTPException(status_code=400, detail="Can only cancel queued or running runs")
+
+    run.status = "cancelled"
+    await session.flush()
+
+    # Cancel queued/running tasks
+    result = await session.execute(
+        select(ContentGenerationTask).where(
+            ContentGenerationTask.run_id == run.run_id,
+            ContentGenerationTask.status.in_(["queued", "running"]),
+        )
+    )
+    tasks = result.scalars().all()
+    for task in tasks:
+        task.status = "cancelled"
+
+    await session.flush()
+
+    return {"run_id": str(run.run_id), "status": "cancelled"}
+
+
+@router.post("/full-generation/runs/{run_id}/resume")
+async def resume_full_generation_run(
+    run_id: str,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """Resume a full generation run (admin-only)."""
+    from app.models.content_factory import ContentGenerationRun
+
+    run = await session.get(ContentGenerationRun, uuid.UUID(run_id))
+    if not run:
+        raise HTTPException(status_code=404, detail="Generation run not found")
+
+    if run.status != "cancelled":
+        raise HTTPException(status_code=400, detail="Can only resume cancelled runs")
+
+    run.status = "queued"
+    await session.flush()
+
+    return {"run_id": str(run.run_id), "status": "queued"}
+
+
 def _mcp_runtime_imported() -> bool:
     return any(name.startswith("mcp.") or name == "mcp" for name in sys.modules)
 
