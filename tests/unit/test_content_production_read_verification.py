@@ -15,10 +15,9 @@ from app.models.content_factory import (
 from app.services.content_production_read_verification import (
     ContentProductionReadVerificationService,
 )
-from tests.conftest import async_test
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_production_read_verification_fails_if_promoted_record_is_missing(session: AsyncSession) -> None:
     """Production read verification fails if promoted record is missing."""
     service = ContentProductionReadVerificationService()
@@ -30,7 +29,7 @@ async def test_production_read_verification_fails_if_promoted_record_is_missing(
     assert any("not found" in error for error in report.errors)
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_production_read_verification_fails_if_production_record_points_to_non_approved_artifact(session: AsyncSession) -> None:
     """Production read verification fails if production record points to non-approved artifact."""
     service = ContentProductionReadVerificationService()
@@ -86,7 +85,7 @@ async def test_production_read_verification_fails_if_production_record_points_to
     assert any("non-approved" in error for error in report.errors)
 
 
-@async_test
+@pytest.mark.asyncio
 async def test_production_read_verification_passes_for_valid_promoted_records(session: AsyncSession) -> None:
     """Production read verification passes for valid promoted records."""
     service = ContentProductionReadVerificationService()
