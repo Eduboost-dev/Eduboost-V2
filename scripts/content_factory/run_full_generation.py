@@ -59,6 +59,26 @@ async def run_full_generation(
     holder = f"{os.uname().nodename}:{os.getpid()}"
 
     async with AsyncSessionLocal() as session:
+        # Ensure placeholder scope exists for cross-scope runs to satisfy FK
+        if all_scopes:
+            existing = await session.get(ContentScope, "all_scopes")
+            if existing is None:
+                session.add(
+                    ContentScope(
+                        scope_id="all_scopes",
+                        grade=0,
+                        subject_code="multi",
+                        subject_slug="all_scopes",
+                        subject_display_name="All Scopes",
+                        language="en",
+                        curriculum="CAPS",
+                        status=ContentScopeStatus.ACTIVE,
+                        source_policy={},
+                        targets={},
+                    )
+                )
+                await session.flush()
+
         lock_result = await lock.acquire(session, holder=holder)
         if not lock_result.acquired:
             print(f"ERROR: Lock already held by {lock_result.lock_holder}")
@@ -66,27 +86,8 @@ async def run_full_generation(
 
         print(f"Lock acquired by {holder}")
 
+        
         try:
-            # Ensure placeholder scope exists for cross-scope runs to satisfy FK
-            if all_scopes:
-                existing = await session.get(ContentScope, "all_scopes")
-                if existing is None:
-                    session.add(
-                        ContentScope(
-                            scope_id="all_scopes",
-                            grade=0,
-                            subject_code="multi",
-                            subject_slug="all_scopes",
-                            subject_display_name="All Scopes",
-                            language="en",
-                            curriculum="CAPS",
-                            status=ContentScopeStatus.ACTIVE,
-                            source_policy={},
-                            targets={},
-                        )
-                    )
-                    await session.flush()
-
             # Create generation run
             run_id = uuid.uuid4()
             run = ContentGenerationRun(
