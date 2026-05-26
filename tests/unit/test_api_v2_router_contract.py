@@ -39,6 +39,7 @@ def test_registered_router_fragments_are_exposed_under_each_v2_prefix() -> None:
         "popia": "/popia",
         "jobs": "/jobs",
         "system": "/system",
+        "learner_content": "/learner/content",
     }
 
     missing: list[str] = []
