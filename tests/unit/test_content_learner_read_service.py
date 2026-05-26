@@ -72,9 +72,9 @@ def test_is_learner_visible_artifact_with_active_production() -> None:
         production_status="active",
     )
 
-    # For this test, we'll just check the service can be called
-    # The actual provenance check requires database queries
-    assert service.is_learner_visible_artifact(generation_artifact, production_artifact) is False  # Will be False without provenance_valid field
+    # Without sources loaded, it will return False
+    # In a real database context, sources would be loaded
+    assert service.is_learner_visible_artifact(generation_artifact, production_artifact) is False
 
 
 def test_is_learner_visible_artifact_without_production() -> None:
@@ -247,6 +247,8 @@ def test_is_learner_visible_artifact_with_invalid_provenance() -> None:
         artifact_json={},
         artifact_hash="test_hash",
     )
+    # No sources means invalid provenance
+    generation_artifact.sources = []
 
     production_artifact = ContentProductionArtifact(
         id=uuid.uuid4(),
@@ -259,5 +261,5 @@ def test_is_learner_visible_artifact_with_invalid_provenance() -> None:
         production_status="active",
     )
 
-    # Without provenance_valid field, the service will return False
+    # Empty sources means no provenance, so not learner-visible
     assert service.is_learner_visible_artifact(generation_artifact, production_artifact) is False
