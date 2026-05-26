@@ -58,3 +58,57 @@ class DeterministicContentGenerationProvider:
             )
             for index in range(count)
         ]
+
+    async def generate_assessment_blueprints(
+        self,
+        request: dict,
+    ) -> list[dict]:
+        """Generate deterministic assessment blueprints."""
+        count = request.get("missing_count", 1)
+        caps_ref = request.get("caps_ref", "")
+        scope_id = request.get("scope_id", "")
+        return [
+            {
+                "scope_id": scope_id,
+                "caps_ref": caps_ref,
+                "grade": request.get("grade"),
+                "subject_code": request.get("subject_code"),
+                "language": request.get("language", "en"),
+                "title": f"Assessment Blueprint for {caps_ref}",
+                "assessment_type": "summative",
+                "question_mix": {"multiple_choice": 10, "short_answer": 5},
+                "cognitive_level_distribution": {"recall": 3, "application": 7, "analysis": 5},
+                "linked_diagnostic_item_ids": [],
+                "rubric": {"criteria": ["accuracy", "completeness"]},
+                "answer_key_policy": "provided",
+                "source_chunk_ids": request.get("source_chunk_ids", []),
+            }
+            for _ in range(count)
+        ]
+
+    async def generate_study_plan_templates(
+        self,
+        request: dict,
+    ) -> list[dict]:
+        """Generate deterministic study-plan templates."""
+        count = request.get("missing_count", 1)
+        caps_ref = request.get("caps_ref", "")
+        scope_id = request.get("scope_id", "")
+        return [
+            {
+                "scope_id": scope_id,
+                "caps_ref": caps_ref,
+                "grade": request.get("grade"),
+                "subject_code": request.get("subject_code"),
+                "language": request.get("language", "en"),
+                "title": f"Study Plan Template for {caps_ref}",
+                "diagnostic_trigger_conditions": {"score_below": 60},
+                "recommended_lesson_ids": [],
+                "practice_item_ids": [],
+                "remediation_steps": ["review_concepts", "practice_exercises"],
+                "extension_steps": ["advanced_problems", "real_world_applications"],
+                "estimated_minutes": 45,
+                "source_chunk_ids": request.get("source_chunk_ids", []),
+            }
+            for _ in range(count)
+        ]

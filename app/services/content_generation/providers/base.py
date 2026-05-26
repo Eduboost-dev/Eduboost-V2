@@ -26,3 +26,15 @@ class ContentGenerationProvider(Protocol):
         request: LessonGenerationRequest,
     ) -> list[GeneratedLesson]:
         ...
+
+    async def generate_assessment_blueprints(
+        self,
+        request: dict,
+    ) -> list[dict]:
+        ...
+
+    async def generate_study_plan_templates(
+        self,
+        request: dict,
+    ) -> list[dict]:
+        ...

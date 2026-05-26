@@ -28,3 +28,15 @@ class LLMContentGenerationProvider:
         request: LessonGenerationRequest,
     ) -> list[GeneratedLesson]:
         raise RuntimeError("LLM content generation provider is not configured.")
+
+    async def generate_assessment_blueprints(
+        self,
+        request: dict,
+    ) -> list[dict]:
+        raise RuntimeError("LLM content generation provider is not configured.")
+
+    async def generate_study_plan_templates(
+        self,
+        request: dict,
+    ) -> list[dict]:
+        raise RuntimeError("LLM content generation provider is not configured.")
