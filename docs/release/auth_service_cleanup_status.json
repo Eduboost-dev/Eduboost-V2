@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-20T15:13:26Z",
-  "current_commit": "629906580bd58863ec4a55ab9cdbe93f600f3951",
-  "status": "auth-service-monkeypatch-cleaned-route-delegation-pending",
+  "generated_at": "2026-05-26T15:59:44Z",
+  "current_commit": "f932279e2bf3d3524425915a4eb844816b078872",
+  "status": "auth-service-cleanup-passing",
   "monkey_patches": [],
   "service_methods_present": [
     "create_dev_session",
@@ -11,13 +11,10 @@
     "register",
     "revoke_all_tokens"
   ],
-  "route_delegations_present": [],
-  "route_delegations_missing": [
+  "route_delegations_present": [
     "logout",
     "revoke_all_tokens"
   ],
-  "blockers": [
-    "auth router does not delegate logout to auth_service.logout",
-    "auth router does not delegate revoke_all_tokens to auth_service.revoke_all_tokens"
-  ]
+  "route_delegations_missing": [],
+  "blockers": []
 }

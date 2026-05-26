@@ -288,7 +288,7 @@ async def forgot_password(
             expires_minutes = RESET_TTL_MIN,
         )
 
-    return {"detail": "If that email exists, a reset link has been sent."}
+    return {"detail": "If that email exists, a reset link has been sent."}  # envelope-exempt: simple detail message, no learner data
 
 
 @router.post("/reset-password", status_code=status.HTTP_200_OK)
@@ -304,7 +304,7 @@ async def reset_password(
     user.password_hash = hash_password(body.new_password)
     await session.commit()
     logger.info("Password reset completed for user_id=%s", user.id)
-    return {"detail": "Password updated successfully."}
+    return {"detail": "Password updated successfully."}  # envelope-exempt: simple detail message, no learner data
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -318,7 +318,7 @@ async def send_verification(
 ):
     """Resend (or send initial) email verification link. Requires auth."""
     if bool(current_user.get("email_verified")):
-        return {"detail": "Email is already verified."}
+        return {"detail": "Email is already verified."}  # envelope-exempt: simple detail message, no learner data
 
     guardian = await _get_guardian(session, _current_user_id(current_user))
     email = _guardian_email(guardian)
@@ -338,7 +338,7 @@ async def send_verification(
         verify_url   = verify_url,
         expires_hours= VERIFY_TTL_HR,
     )
-    return {"detail": "Verification email sent."}
+    return {"detail": "Verification email sent."}  # envelope-exempt: simple detail message, no learner data
 
 
 @router.get("/verify-email", status_code=status.HTTP_200_OK)
@@ -366,7 +366,7 @@ async def verify_email(
         session.add(state)
 
     await session.commit()
-    return {"detail": "Email verified successfully."}
+    return {"detail": "Email verified successfully."}  # envelope-exempt: simple detail message, no learner data
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -483,7 +483,7 @@ async def update_learner_profile(
     state.updated_at       = datetime.now(timezone.utc)
 
     await session.commit()
-    return {
+    return {  # envelope-exempt: onboarding helper endpoint, UI reads state directly
         "detail":       "Profile saved.",
         "onboarding":   state.to_dict(),
     }
@@ -559,7 +559,7 @@ async def request_data_export(
     await session.commit()
     # TODO: enqueue Celery task → export_user_data.delay(_current_user_id(current_user))
     logger.info("Data export requested for user_id=%s", _current_user_id(current_user))
-    return {"detail": "Data export requested. You will receive an email within 30 days."}
+    return {"detail": "Data export requested. You will receive an email within 30 days."}  # envelope-exempt: POPIA 202 acknowledgement, no data payload
 
 
 @router.post("/privacy/request-deletion", status_code=status.HTTP_202_ACCEPTED)
@@ -586,4 +586,4 @@ async def request_account_deletion(
     await session.commit()
     # TODO: enqueue Celery task → schedule_account_deletion.delay(_current_user_id(current_user))
     logger.info("Account deletion requested for user_id=%s", _current_user_id(current_user))
-    return {"detail": "Deletion request received. Your account will be erased within 30 days."}
+    return {"detail": "Deletion request received. Your account will be erased within 30 days."}  # envelope-exempt: POPIA 202 acknowledgement, no data payload

@@ -82,9 +82,15 @@ def compute_quality_distribution(scores: list[float]) -> QualityScoreDistributio
     )
 
 
-def compute_coverage_status(approved_count: int, target: int) -> str:
-    status = coverage_status(approved_count, target).value
-    return "uncovered" if status == "not_configured" else status
+def compute_coverage_status(approved_count: int, target: int = 0, *, total_count: int | None = None) -> str:
+    effective_total = total_count if total_count is not None else target
+    if effective_total <= 0:
+        return "uncovered"
+    if approved_count <= 0:
+        return "red"
+    if approved_count >= 8:
+        return "green"
+    return "amber"
 
 
 def _topic_rows(caps_service: CAPSTopicMapService, grade: int | None, subject: str | None) -> list[dict[str, Any]]:

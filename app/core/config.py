@@ -209,11 +209,9 @@ class Settings(BaseSettings):
     def refresh_from_key_vault(self) -> set[str]:
         if not self.is_production():
             return set()
-        # In production we prefer to source secrets from Azure Key Vault.
-        # However, some hosting environments (for example Render) may not
-        # provide an Azure Key Vault URL at deploy time. Allow an explicit
-        # override via `AZURE_KEY_VAULT_OPTIONAL=1` or detect common Render
-        # environment variables to skip the hard fail and continue startup.
+        # AZURE_KEY_VAULT_URL is required when APP_ENV is production
+        # for secret injection from Azure Key Vault. However, some hosting
+        # environments (for example Render) may not provide it at deploy time.
         if not self.AZURE_KEY_VAULT_URL:
             return set()
 

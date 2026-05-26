@@ -1,7 +1,7 @@
 # Staging Smoke Workflow Status
 
-Generated at: `2026-05-21T16:41:21Z`
-Commit: `1d8a3ae080435187f4b47ede0dccbe892575c055`
+Generated at: `2026-05-26T16:07:13Z`
+Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 
 **Status:** `staging-smoke-workflow-configured`
 

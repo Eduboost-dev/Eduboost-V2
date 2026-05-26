@@ -1,7 +1,7 @@
 # Diagnostic Item-Bank Policy Status
 
-Generated at: `2026-05-22T01:47:04Z`
-Commit: `197640872a84b950721cf6c3f46350bc7c855240`
+Generated at: `2026-05-26T16:04:55Z`
+Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 
 **Status:** `diagnostic-item-bank-policy-accepted`
 **Policy:** `docs/architecture/diagnostic_item_bank_canonicality.yml`
@@ -27,9 +27,14 @@ Commit: `197640872a84b950721cf6c3f46350bc7c855240`
 
 | Path | Line | Excerpt |
 |---|---:|---|
-| `app/models/diagnostic_item.py` | 108 | `ORM representation of the diagnostic_items table.` |
-| `app/models/diagnostic_item.py` | 114 | `__tablename__ = "diagnostic_items"` |
-| `app/models/item_exposure.py` | 54 | `ForeignKey("diagnostic_items.item_id", ondelete="RESTRICT"),` |
+| `app/api_v2_routers/content_factory.py` | 1073 | `diagnostic_items = await service.get_diagnostic_items(session, scope_id=scope_id, caps_ref=caps_ref)` |
+| `app/api_v2_routers/content_factory.py` | 1075 | `return {"diagnostic_items": diagnostic_items, "lessons": lessons}` |
+| `app/api_v2_routers/content_factory.py` | 1096 | `run_metadata={"layers": ["diagnostic_items", "lessons", "assessment_blueprints", "study_plan_templates"]},` |
+| `app/domain/content_coverage.py` | 11 | `DIAGNOSTIC_ITEMS = "diagnostic_items"` |
+| `app/models/content_factory.py` | 56 | `DIAGNOSTIC_ITEMS = "diagnostic_items"` |
+| `app/models/diagnostic_item.py` | 111 | `ORM representation of the diagnostic_items table.` |
+| `app/models/diagnostic_item.py` | 117 | `__tablename__ = "diagnostic_items"` |
+| `app/models/item_exposure.py` | 58 | `ForeignKey("diagnostic_items.item_id", ondelete="RESTRICT"),` |
 | `app/services/curriculum/coverage.py` | 24 | `def detect_gaps(self, *, lessons: Iterable[Mapping[str, Any]], diagnostic_items: Iterable[Mapping[str, Any]]) -> list[CurriculumGap]:` |
 | `app/services/curriculum/coverage.py` | 27 | `item_refs = {row.get("caps_reference") for row in diagnostic_items if row.get("caps_reference")}` |
 

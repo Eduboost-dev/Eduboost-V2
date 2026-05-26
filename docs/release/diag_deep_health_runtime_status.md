@@ -1,48 +1,53 @@
 # Diagnostic Deep Health Runtime Evidence Status
 
-Generated at: `2026-05-21T22:46:42Z`
-Commit: `ecaab870ed5e171a5d8c5d58393ae80e64917ee5`
-Branch: `codex/production_readiness`
+Generated at: `2026-05-26T16:04:45Z`
+Commit: `f932279e2bf3d3524425915a4eb844816b078872`
+Branch: `pr-cf-013-full-generation-runner`
 
-**Status:** `diag-deep-health-runtime-accepted`
-**Deep health URL:** `https://eduboost-api.onrender.com/api/v2/health/deep`
-**HTTP status:** `200`
-**Run ID:** `26257276487`
-**Run URL:** `https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487`
-**Workflow:** `Staging Smoke`
-**Run status:** `completed`
-**Conclusion:** `success`
-**Head SHA:** `ecaab870ed5e171a5d8c5d58393ae80e64917ee5`
-**Test command:** `curl -fsS https://eduboost-api.onrender.com/api/v2/health/deep`
-**Verified by:** `github-actions`
-**Date verified:** `2026-05-21`
+**Status:** `diag-deep-health-runtime-not-accepted`
+**Deep health URL:** ``
+**HTTP status:** `None`
+**Run ID:** ``
+**Run URL:** ``
+**Workflow:** ``
+**Run status:** ``
+**Conclusion:** ``
+**Head SHA:** ``
+**Test command:** ``
+**Verified by:** `unverified`
+**Date verified:** `2026-05-26`
 
 ## Required component results
 
 | Component | Result |
 |---|---|
-| `db` | `passed` |
-| `migration` | `passed` |
-| `audit` | `passed` |
-| `session` | `passed` |
+| `db` | `` |
+| `migration` | `` |
+| `audit` | `` |
+| `session` | `` |
 
 ## Inferred response signals
 
 | Component | Signal |
 |---|---|
-| `db` | `passed` |
-| `migration` | `passed` |
-| `audit` | `passed` |
+| `-` | `none inferred` |
 
 ## HTTP body excerpt
 
 ```text
-{"status":"ok","critical":{"secrets":{"status":"ok"},"postgres":{"status":"ok"},"redis":{"status":"ok"},"migrations":{"status":"ok","revision":"20260516_0100"},"audit_repository":{"status":"ok"}},"optional":{"llm_provider":{"status":"skipped","detail":"No LLM provider credentials configured"},"judiciary":{"status":"ok"}},"message":"System is operational"}
+
 ```
 
 ## Blockers
 
-- None
+- deep health URL is missing, non-HTTPS, localhost/example, or placeholder
+- DIAG_DEEP_HEALTH_TEST_COMMAND is missing or placeholder
+- deep health HTTP probe was not attempted
+- DIAG_DEEP_HEALTH_DB_RESULT must be passed
+- DIAG_DEEP_HEALTH_MIGRATION_RESULT must be passed
+- DIAG_DEEP_HEALTH_AUDIT_RESULT must be passed
+- DIAG_DEEP_HEALTH_SESSION_RESULT must be passed
+- DIAG_DEEP_HEALTH_RUN_ID is required for accepted evidence
 
 ## No false-closure rules
 

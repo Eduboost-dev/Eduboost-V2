@@ -1,6 +1,6 @@
 # Dependency Pin Report
 
-Generated at: `2026-05-19T23:08:51Z`
+Generated at: `2026-05-26T16:06:52Z`
 
 **Status:** blocked_unpinned_dependencies
 
@@ -8,4 +8,4 @@ Generated at: `2026-05-19T23:08:51Z`
 
 - `requirements.txt:4: arq>=0.25.0`
 - `requirements/base.txt:385: arq>=0.25.0`
-- `requirements/dev.txt:497: arq>=0.25.0`
+- `requirements/dev.txt:499: arq>=0.25.0`

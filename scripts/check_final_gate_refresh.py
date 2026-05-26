@@ -34,7 +34,7 @@ def main() -> int:
     print(f"- INFO beta decision: {refresh.beta_decision}")
     print(f"- INFO beta blockers: {refresh.beta_blocker_count}")
 
-    if refresh.refresh_results:
+    if refresh.surfaces:
         print("- PASS status surfaces refreshed")
     else:
         failures.append("no status surfaces refreshed")

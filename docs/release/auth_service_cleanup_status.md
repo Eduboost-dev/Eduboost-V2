@@ -1,9 +1,9 @@
 # Auth Service Cleanup Status
 
-Generated at: `2026-05-20T15:13:26Z`
-Commit: `629906580bd58863ec4a55ab9cdbe93f600f3951`
+Generated at: `2026-05-26T15:59:44Z`
+Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 
-**Status:** `auth-service-monkeypatch-cleaned-route-delegation-pending`
+**Status:** `auth-service-cleanup-passing`
 
 ## Service methods present
 
@@ -16,8 +16,8 @@ Commit: `629906580bd58863ec4a55ab9cdbe93f600f3951`
 
 ## Route delegation
 
-- Present: `-`
-- Missing: `logout, revoke_all_tokens`
+- Present: `logout, revoke_all_tokens`
+- Missing: `-`
 
 ## Monkey patches
 
@@ -25,8 +25,7 @@ Commit: `629906580bd58863ec4a55ab9cdbe93f600f3951`
 
 ## Blockers
 
-- auth router does not delegate logout to auth_service.logout
-- auth router does not delegate revoke_all_tokens to auth_service.revoke_all_tokens
+- None
 
 ## No false-closure rules
 

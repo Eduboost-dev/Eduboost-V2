@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-20T17:47:41Z",
-  "current_commit": "b66c03d8d158d1f6eb107592f807599ac8f199a9",
+  "generated_at": "2026-05-26T15:59:43Z",
+  "current_commit": "f932279e2bf3d3524425915a4eb844816b078872",
   "status": "auth-route-service-dependencies-passing",
   "functions": [
     {
@@ -32,7 +32,7 @@
       "passed": true
     },
     {
-      "function": "refresh_token",
+      "function": "refresh",
       "line": 148,
       "references_auth_service": true,
       "has_auth_service_param": true,
