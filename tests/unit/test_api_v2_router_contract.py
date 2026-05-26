@@ -114,6 +114,20 @@ def test_content_factory_scope_openapi_contract_is_admin_only() -> None:
     assert review_paths <= set(schema["paths"])
     assert all(schema["paths"][path][next(iter(schema["paths"][path]))]["tags"] == ["admin-content-factory"] for path in review_paths)
     assert not any(path.startswith("/api/v2/content-factory") and "review" in path for path in schema["paths"])
+    production_promotion_paths = {
+        "/api/v2/admin/content-factory/scopes/{scope_id}/production-gate",
+        "/api/v2/admin/content-factory/scopes/{scope_id}/dry-run-promotion",
+        "/api/v2/admin/content-factory/scopes/{scope_id}/promote-production",
+        "/api/v2/admin/content-factory/promotion-events",
+        "/api/v2/admin/content-factory/promotion-events/{promotion_event_id}",
+        "/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/items",
+        "/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/verify",
+        "/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/rollback",
+        "/api/v2/admin/content-factory/scopes/{scope_id}/production-read-verification",
+    }
+    assert production_promotion_paths <= set(schema["paths"])
+    assert all(schema["paths"][path][next(iter(schema["paths"][path]))]["tags"] == ["admin-content-factory"] for path in production_promotion_paths)
+    assert not any(path.startswith("/api/v2/content-factory") and "promotion" in path for path in schema["paths"])
     assert "/api/v2/admin/etl/status" in schema["paths"]
     assert schema["paths"]["/api/v2/admin/etl/status"]["get"]["tags"] == ["admin-etl"]
     assert "/api/v2/content-factory/scopes" not in schema["paths"]
