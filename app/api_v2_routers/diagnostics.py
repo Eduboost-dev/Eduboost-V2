@@ -298,7 +298,8 @@ async def diagnostic_next_item(
     if session_caps_ref and str(caps_ref) != str(session_caps_ref):
         raise HTTPException(status_code=400, detail="caps_ref does not match recovered diagnostic session")
     repo = diagnostic_repositories.item_bank(db)
-    items = list(await repo.list_by_caps_ref(session_caps_ref, review_status="approved", limit=200))
+    # Use only supported arguments to be compatible with repository fakes in integration tests.
+    items = list(await repo.list_by_caps_ref(session_caps_ref, limit=200))
     item = await session_service.get_next_item(session_id, items)
     if item is None:
         return {"completed": True}

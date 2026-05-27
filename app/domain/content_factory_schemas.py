@@ -300,7 +300,7 @@ class ProductionPromotionPlanResponse(BaseModel):
 
 class ProductionPromotionRequest(BaseModel):
     layers: list[str] | None = None
-    confirmation: str
+    confirmation: str = Field(min_length=1)
 
 
 class ProductionPromotionResultResponse(BaseModel):

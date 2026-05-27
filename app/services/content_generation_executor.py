@@ -7,6 +7,7 @@ from datetime import UTC, datetime, timedelta
 from typing import Any
 
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.content_factory import ContentArtifactType, ContentGenerationArtifact, ContentGenerationTask, ContentLayer
@@ -84,7 +85,11 @@ class ContentGenerationExecutor:
             return await self._fail_task(session, task, context.errors)
 
         provider = get_content_generation_provider(self.settings)
-        generated_payloads = await self._call_provider(provider, task, context.chunks)
+        try:
+            generated_payloads = await self._call_provider(provider, task, context.chunks)
+        except Exception as exc:
+            return await self._fail_task(session, task, [f"Generation failed: {exc}"])
+
         existing_hashes = await self._existing_hashes(session)
         artifact_ids: list[uuid.UUID] = []
         errors: list[str] = []
@@ -94,33 +99,39 @@ class ContentGenerationExecutor:
             validation_errors = payload["validation_errors"](artifact_hash, existing_hashes)
             if validation_errors:
                 errors.extend(validation_errors)
-            artifact = await self.content_factory_service.create_artifact(
-                session,
-                payload={
-                    "run_id": task.run_id,
-                    "task_id": task.task_id,
-                    "scope_id": task.scope_id,
-                    "content_layer": task.content_layer,
-                    "artifact_type": payload["artifact_type"],
-                    "artifact_json": artifact_json,
-                    "caps_ref": task.caps_ref,
-                    "grade": payload["grade"],
-                    "subject_code": payload["subject_code"],
-                    "language": payload["language"],
-                    "provider": provider.provider_name,
-                    "model": provider.model_name,
-                    "prompt_version": task.prompt_version or "cf-gen-v1",
-                    "token_usage": {"provider": provider.provider_name, "estimated": True},
-                    "cost_metadata": {"estimated_cost_usd": 0},
-                    "quality_score": 0.9 if not validation_errors else 0,
-                    "safety_status": "passed",
-                    "answer_key_verified": not validation_errors,
-                    "caps_alignment_score": 1.0 if not validation_errors else 0,
-                    "sources": source_rows_for_chunks(context.chunks, caps_ref=task.caps_ref or "", grade=payload["grade"], subject_code=payload["subject_code"], language=payload["language"]),
-                },
-            )
-            if validation_errors:
-                artifact.status = "validation_failed"
+                continue
+            try:
+                async with session.begin_nested():
+                    artifact = await self.content_factory_service.create_artifact(
+                        session,
+                        payload={
+                            "run_id": task.run_id,
+                            "task_id": task.task_id,
+                            "scope_id": task.scope_id,
+                            "content_layer": task.content_layer,
+                            "artifact_type": payload["artifact_type"],
+                            "artifact_json": artifact_json,
+                            "caps_ref": task.caps_ref,
+                            "grade": payload["grade"],
+                            "subject_code": payload["subject_code"],
+                            "language": payload["language"],
+                            "provider": provider.provider_name,
+                            "model": provider.model_name,
+                            "prompt_version": task.prompt_version or "cf-gen-v1",
+                            "token_usage": {"provider": provider.provider_name, "estimated": True},
+                            "cost_metadata": {"estimated_cost_usd": 0},
+                            "quality_score": 0.9,
+                            "safety_status": "passed",
+                            "answer_key_verified": True,
+                            "caps_alignment_score": 1.0,
+                            "sources": source_rows_for_chunks(context.chunks, caps_ref=task.caps_ref or "", grade=payload["grade"], subject_code=payload["subject_code"], language=payload["language"]),
+                        },
+                    )
+            except IntegrityError:
+                errors.append("Artifact creation failed because a matching artifact hash already exists.")
+                continue
+            except Exception as exc:
+                return await self._fail_task(session, task, [f"Artifact creation failed: {exc}"])
             artifact_ids.append(artifact.artifact_id)
             existing_hashes.add(artifact.artifact_hash)
 
