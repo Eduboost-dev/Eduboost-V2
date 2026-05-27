@@ -21,6 +21,7 @@ from app.models.content_factory import (
     ContentScopeStatus,
 )
 from app.services.content_generation_planner import ContentGenerationPlanner
+from app.services.content_generation_executor import ContentGenerationExecutor
 from app.services.content_generation_run_lock import ContentGenerationRunLock
 from app.services.content_generation_reporter import ContentGenerationReporter, GenerationReportData
 
@@ -34,6 +35,7 @@ DEFAULT_LAYERS = "diagnostic_items,lessons,assessment_blueprints,study_plan_temp
 async def run_full_generation(
     *,
     all_scopes: bool = False,
+    scope_id: str | None = None,
     layers: list[str] | None = None,
     max_concurrency: int = DEFAULT_MAX_CONCURRENCY,
     max_artifacts: int = DEFAULT_MAX_ARTIFACTS,
@@ -54,30 +56,34 @@ async def run_full_generation(
         print("ERROR: CONTENT_FACTORY_GENERATION_ENABLED is not set to true")
         return 1
 
+    # Require explicit scope unless running across all scopes
+    if not all_scopes and not scope_id:
+        print("ERROR: --scope-id is required unless --all-scopes is set")
+        return 2
+
     # Acquire lock
     lock = ContentGenerationRunLock()
     holder = f"{os.uname().nodename}:{os.getpid()}"
 
     async with AsyncSessionLocal() as session:
-        # Ensure placeholder scope exists for cross-scope runs to satisfy FK
-        if all_scopes:
-            existing = await session.get(ContentScope, "all_scopes")
-            if existing is None:
-                session.add(
-                    ContentScope(
-                        scope_id="all_scopes",
-                        grade=0,
-                        subject_code="multi",
-                        subject_slug="all_scopes",
-                        subject_display_name="All Scopes",
-                        language="en",
-                        curriculum="CAPS",
-                        status=ContentScopeStatus.ACTIVE,
-                        source_policy={},
-                        targets={},
-                    )
+        # Ensure placeholder 'all_scopes' scope exists to satisfy FK used by the lock manager
+        existing = await session.get(ContentScope, "all_scopes")
+        if existing is None:
+            session.add(
+                ContentScope(
+                    scope_id="all_scopes",
+                    grade=0,
+                    subject_code="multi",
+                    subject_slug="all_scopes",
+                    subject_display_name="All Scopes",
+                    language="en",
+                    curriculum="CAPS",
+                    status=ContentScopeStatus.ACTIVE,
+                    source_policy={},
+                    targets={},
                 )
-                await session.flush()
+            )
+            await session.flush()
 
         lock_result = await lock.acquire(session, holder=holder)
         if not lock_result.acquired:
@@ -92,7 +98,7 @@ async def run_full_generation(
             run_id = uuid.uuid4()
             run = ContentGenerationRun(
                 run_id=run_id,
-                scope_id="all_scopes" if all_scopes else "single_scope",
+                scope_id="all_scopes" if all_scopes else str(scope_id),
                 status="queued",
                 requested_by=holder,
                 run_metadata={
@@ -125,41 +131,15 @@ async def run_full_generation(
                 print("Plan-only mode - exiting")
                 return 0
 
-            # Execute tasks (simplified for now)
+            # Execute tasks via the production executor (creates real artifacts)
             run.status = "running"
             await session.flush()
 
-            executed_count = 0
-            generated_count = 0
+            executor = ContentGenerationExecutor()
+            exec_result = await executor.execute_run(session, run_id, actor_id=holder)
+            executed_count = exec_result.summary.get("tasks_executed", 0)
+            generated_count = exec_result.summary.get("artifacts_created", 0)
             errors = []
-
-            for task_id in plan_result.created_task_ids:
-                if executed_count >= max_artifacts:
-                    print(f"Reached max artifacts limit ({max_artifacts})")
-                    break
-
-                if generated_count >= budget_cap:
-                    print(f"Reached budget cap ({budget_cap})")
-                    break
-
-                task = await session.get(ContentGenerationTask, task_id)
-                if task:
-                    task.status = "running"
-                    await session.flush()
-
-                    # Simulate execution (in real implementation, this would call the provider)
-                    await asyncio.sleep(0.1)
-
-                    task.status = "completed"
-                    task.attempt_number = 1
-                    await session.flush()
-
-                    executed_count += 1
-                    generated_count += 1
-                    print(f"Executed task {task_id}")
-
-            run.status = "completed"
-            await session.flush()
 
             print(f"Executed {executed_count} tasks")
             print(f"Generated {generated_count} artifacts")
@@ -211,6 +191,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Run full content generation")
     parser.add_argument("--all-scopes", action="store_true", help="Plan for all configured scopes")
     parser.add_argument("--layers", type=str, default=DEFAULT_LAYERS, help="Comma-separated list of layers")
+    parser.add_argument("--scope-id", type=str, help="Scope ID to generate (required unless --all-scopes)")
     parser.add_argument("--max-concurrency", type=int, default=DEFAULT_MAX_CONCURRENCY, help="Max concurrent tasks")
     parser.add_argument("--max-artifacts", type=int, default=DEFAULT_MAX_ARTIFACTS, help="Max artifacts to generate")
     parser.add_argument("--budget-cap", type=int, default=DEFAULT_BUDGET_CAP, help="Budget cap")
@@ -226,6 +207,7 @@ def main() -> int:
 
     return asyncio.run(run_full_generation(
         all_scopes=args.all_scopes,
+        scope_id=args.scope_id,
         layers=layers,
         max_concurrency=args.max_concurrency,
         max_artifacts=args.max_artifacts,

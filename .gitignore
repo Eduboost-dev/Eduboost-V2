@@ -47,3 +47,4 @@ app/frontend/out/
 
 # Cloudflare Wrangler Cache
 .wrangler/
+docs/release/backend_deletion_candidate_inventory.md
