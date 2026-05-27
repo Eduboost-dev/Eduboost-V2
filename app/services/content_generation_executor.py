@@ -105,10 +105,10 @@ class ContentGenerationExecutor:
                 payload["artifact_json"] = artifact_json
 
             artifact_hash = stable_json_hash(artifact_json)
-            validation_errors = payload["validation_errors"](artifact_hash, existing_hashes)
-            if validation_errors:
-                errors.extend(validation_errors)
-                continue
+            pre_validation_errors = payload["validation_errors"](artifact_hash, existing_hashes)
+            if pre_validation_errors:
+                # keep generator-level validation errors for the task report
+                errors.extend(pre_validation_errors)
             try:
                 create_payload = {
                     "run_id": task.run_id,
@@ -142,6 +142,19 @@ class ContentGenerationExecutor:
                 continue
             except Exception as exc:
                 return await self._fail_task(session, task, [f"Artifact creation failed: {exc}"])
+            # If the generator reported pre-validation errors, mark the persisted
+            # artifact as validation_failed so it is blocked from review.
+            if pre_validation_errors:
+                try:
+                    artifact.status = "validation_failed"
+                except Exception:
+                    # Best-effort: if artifact object uses an enum, set to enum value.
+                    try:
+                        from app.models.content_factory import ContentArtifactStatus
+
+                        artifact.status = ContentArtifactStatus.VALIDATION_FAILED
+                    except Exception:
+                        pass
             artifact_ids.append(artifact.artifact_id)
             existing_hashes.add(artifact.artifact_hash)
 
