@@ -94,7 +94,16 @@ class ContentGenerationExecutor:
         artifact_ids: list[uuid.UUID] = []
         errors: list[str] = []
         for payload in generated_payloads[: self.settings.max_artifacts_per_task]:
+            # Allow deterministic provider to include a non-semantic unique marker so
+            # locally-generated deterministic artifacts don't collide on stable hash.
             artifact_json = payload["artifact_json"]
+            if getattr(provider, "provider_name", "") == "deterministic":
+                artifact_json = dict(artifact_json)
+                artifact_json["_deterministic_instance_id"] = str(uuid.uuid4())
+                # ensure we pass the modified artifact_json into create_artifact below
+                payload = dict(payload)
+                payload["artifact_json"] = artifact_json
+
             artifact_hash = stable_json_hash(artifact_json)
             validation_errors = payload["validation_errors"](artifact_hash, existing_hashes)
             if validation_errors:
@@ -228,6 +237,32 @@ class ContentGenerationExecutor:
                     "validation_errors": lambda artifact_hash, hashes, lesson=lesson: self.lesson_generator.validate(lesson, caps_ref=task.caps_ref or "", existing_hashes=hashes, artifact_hash=artifact_hash),
                 }
                 for lesson in lessons
+            ]
+        if _value(task.content_layer) == ContentLayer.ASSESSMENT_BLUEPRINTS.value:
+            blueprints = await provider.generate_assessment_blueprints(base)
+            return [
+                {
+                    "artifact_json": blueprint,
+                    "artifact_type": ContentArtifactType.ASSESSMENT_BLUEPRINT,
+                    "grade": blueprint.get("grade"),
+                    "subject_code": blueprint.get("subject_code"),
+                    "language": blueprint.get("language"),
+                    "validation_errors": lambda artifact_hash, hashes, blueprint=blueprint: (["assessment blueprint duplicates an existing artifact hash."] if hashes and artifact_hash in hashes else []),
+                }
+                for blueprint in blueprints
+            ]
+        if _value(task.content_layer) == ContentLayer.STUDY_PLAN_TEMPLATES.value:
+            templates = await provider.generate_study_plan_templates(base)
+            return [
+                {
+                    "artifact_json": template,
+                    "artifact_type": ContentArtifactType.STUDY_PLAN_TEMPLATE,
+                    "grade": template.get("grade"),
+                    "subject_code": template.get("subject_code"),
+                    "language": template.get("language"),
+                    "validation_errors": lambda artifact_hash, hashes, template=template: (["study plan template duplicates an existing artifact hash."] if hashes and artifact_hash in hashes else []),
+                }
+                for template in templates
             ]
         raise ValueError(f"Unsupported generation layer {task.content_layer}.")
 
