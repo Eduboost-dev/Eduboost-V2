@@ -110,32 +110,33 @@ class ContentGenerationExecutor:
                 errors.extend(validation_errors)
                 continue
             try:
-                async with session.begin_nested():
-                    artifact = await self.content_factory_service.create_artifact(
-                        session,
-                        payload={
-                            "run_id": task.run_id,
-                            "task_id": task.task_id,
-                            "scope_id": task.scope_id,
-                            "content_layer": task.content_layer,
-                            "artifact_type": payload["artifact_type"],
-                            "artifact_json": artifact_json,
-                            "caps_ref": task.caps_ref,
-                            "grade": payload["grade"],
-                            "subject_code": payload["subject_code"],
-                            "language": payload["language"],
-                            "provider": provider.provider_name,
-                            "model": provider.model_name,
-                            "prompt_version": task.prompt_version or "cf-gen-v1",
-                            "token_usage": {"provider": provider.provider_name, "estimated": True},
-                            "cost_metadata": {"estimated_cost_usd": 0},
-                            "quality_score": 0.9,
-                            "safety_status": "passed",
-                            "answer_key_verified": True,
-                            "caps_alignment_score": 1.0,
-                            "sources": source_rows_for_chunks(context.chunks, caps_ref=task.caps_ref or "", grade=payload["grade"], subject_code=payload["subject_code"], language=payload["language"]),
-                        },
-                    )
+                create_payload = {
+                    "run_id": task.run_id,
+                    "task_id": task.task_id,
+                    "scope_id": task.scope_id,
+                    "content_layer": task.content_layer,
+                    "artifact_type": payload["artifact_type"],
+                    "artifact_json": artifact_json,
+                    "caps_ref": task.caps_ref,
+                    "grade": payload["grade"],
+                    "subject_code": payload["subject_code"],
+                    "language": payload["language"],
+                    "provider": provider.provider_name,
+                    "model": provider.model_name,
+                    "prompt_version": task.prompt_version or "cf-gen-v1",
+                    "token_usage": {"provider": provider.provider_name, "estimated": True},
+                    "cost_metadata": {"estimated_cost_usd": 0},
+                    "quality_score": 0.9,
+                    "safety_status": "passed",
+                    "answer_key_verified": True,
+                    "caps_alignment_score": 1.0,
+                    "sources": source_rows_for_chunks(context.chunks, caps_ref=task.caps_ref or "", grade=payload["grade"], subject_code=payload["subject_code"], language=payload["language"]),
+                }
+                if hasattr(session, "begin_nested"):
+                    async with session.begin_nested():
+                        artifact = await self.content_factory_service.create_artifact(session, payload=create_payload)
+                else:
+                    artifact = await self.content_factory_service.create_artifact(session, payload=create_payload)
             except IntegrityError:
                 errors.append("Artifact creation failed because a matching artifact hash already exists.")
                 continue
