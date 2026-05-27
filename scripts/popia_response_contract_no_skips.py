@@ -148,9 +148,10 @@ def has_skip(output: str) -> bool:
 
 def run_pytest() -> tuple[int, str, bool]:
     env = {**os.environ, "PYTHONPATH": str(ROOT), "SKIP_PYTEST_RECURSION": "1"}
+    venv_py = str((ROOT / ".venv" / "bin" / "python")) if (ROOT / ".venv" / "bin" / "python").exists() else sys.executable
     result = subprocess.run(
         [
-            sys.executable,
+            venv_py,
             "-m",
             "pytest",
             "-c",

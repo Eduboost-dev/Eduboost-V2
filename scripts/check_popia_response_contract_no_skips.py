@@ -44,9 +44,10 @@ def main() -> int:
         ast.parse(read(path))
         print(f"- PASS syntax {path}")
 
+    venv_py = str((ROOT / ".venv" / "bin" / "python")) if (ROOT / ".venv" / "bin" / "python").exists() else sys.executable
     ruff = subprocess.run(
         [
-            sys.executable,
+            venv_py,
             "-m",
             "ruff",
             "check",
