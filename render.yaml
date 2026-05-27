@@ -13,8 +13,9 @@ services:
     healthCheckPath: /ready
     autoDeployTrigger: commit
     envVars:
+      # ADR-001 declares Python 3.12.3 as the supported runtime.
       - key: PYTHON_VERSION
-        value: "3.11.9"
+        value: "3.12.3"
 
       - key: ENVIRONMENT
         value: "production"

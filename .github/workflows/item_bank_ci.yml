@@ -33,7 +33,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PYTHON_VERSION: "3.12"
+  PYTHON_VERSION: "3.12.3"
   ITEM_BANK_MIN_APPROVED: "1"
   ITEM_BANK_MIN_APPROVED_TOTAL: "14"
   DATABASE_URL: "postgresql://eduboost:eduboost@localhost:5432/eduboost"

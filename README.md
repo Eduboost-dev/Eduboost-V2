@@ -46,7 +46,7 @@ The launch content evidence lives in docs/release/runtime_launch_content_evidenc
 ### Prerequisites
 
 - Docker Desktop with Compose v2
-- Python 3.11+
+- Python 3.12.3 (managed via `.python-version`; see `docs/adr/ADR-001-python-runtime-version.md`)
 - Node.js 20 LTS
 
 ### Start the default stack
