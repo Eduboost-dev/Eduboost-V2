@@ -1,7 +1,10 @@
 # Staging Smoke Evidence Status
 
-Generated at: `2026-05-26T16:07:07Z`
-Commit: `f932279e2bf3d3524425915a4eb844816b078872`
+**Status:** pending runtime execution
+<!-- Status: pending runtime execution -->
+
+Generated at: `2026-05-26T18:41:16Z`
+Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 Branch: `pr-cf-013-full-generation-runner`
 
 **Status:** `staging-smoke-evidence-not-accepted`
@@ -20,13 +23,27 @@ Branch: `pr-cf-013-full-generation-runner`
 **Verified by:** `unverified`
 **Date verified:** `2026-05-26`
 
+Required coverage includes:
+
+- GET /api/v2/health/deep
+- Auth register/login/refresh/logout
+- POPIA data export route
+
+## TODO
+
+- Attach GitHub Actions run URL and numeric run ID — TODO
+- Confirm run status is completed and conclusion is success — TODO
+- Attach matching head SHA and workflow name — TODO
+- Provide staging base URL (HTTPS) and smoke command — TODO
+- Record smoke, healthcheck, API, and frontend results — TODO
+
 ## Blockers
 
 - no successful staging/smoke GitHub Actions run found for current commit; set STAGING_SMOKE_RUN_ID
 - run ID is missing or non-numeric
 - GitHub Actions run status is missing, expected completed
 - GitHub Actions run conclusion is missing, expected success
-- GitHub Actions run SHA missing does not match current commit f932279e2bf3d3524425915a4eb844816b078872
+- GitHub Actions run SHA missing does not match current commit 3fd35da07070e6f6e8bc43ec0915d25ba53da6a7
 - workflow name is missing
 - staging base URL is missing, non-HTTPS, localhost/example, or placeholder
 - staging smoke test command is missing or placeholder

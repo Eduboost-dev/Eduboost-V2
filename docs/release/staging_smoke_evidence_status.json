@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-26T16:07:07Z",
-  "current_commit": "f932279e2bf3d3524425915a4eb844816b078872",
+  "generated_at": "2026-05-26T18:41:16Z",
+  "current_commit": "3fd35da07070e6f6e8bc43ec0915d25ba53da6a7",
   "current_branch": "pr-cf-013-full-generation-runner",
   "status": "staging-smoke-evidence-not-accepted",
   "run_id": "",
@@ -22,7 +22,7 @@
     "run ID is missing or non-numeric",
     "GitHub Actions run status is missing, expected completed",
     "GitHub Actions run conclusion is missing, expected success",
-    "GitHub Actions run SHA missing does not match current commit f932279e2bf3d3524425915a4eb844816b078872",
+    "GitHub Actions run SHA missing does not match current commit 3fd35da07070e6f6e8bc43ec0915d25ba53da6a7",
     "workflow name is missing",
     "staging base URL is missing, non-HTTPS, localhost/example, or placeholder",
     "staging smoke test command is missing or placeholder",

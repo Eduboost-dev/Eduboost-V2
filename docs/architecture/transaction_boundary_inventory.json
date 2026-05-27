@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T16:07:16Z",
+  "generated_at": "2026-05-26T18:41:29Z",
   "scan_roots": [
     "app/api_v2_routers",
     "app/services",

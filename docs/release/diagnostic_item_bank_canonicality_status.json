@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-26T16:04:55Z",
-  "current_commit": "f932279e2bf3d3524425915a4eb844816b078872",
+  "generated_at": "2026-05-26T18:36:52Z",
+  "current_commit": "3fd35da07070e6f6e8bc43ec0915d25ba53da6a7",
   "status": "diagnostic-item-bank-policy-accepted",
   "policy_path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
   "decision": "diagnostic_items-runtime-required",
@@ -308,19 +308,31 @@
     },
     {
       "path": "docs/content_factory/full_generation_runner.md",
-      "line_number": 22,
-      "line_excerpt": "- diagnostic_items",
-      "runtime_surface": false
-    },
-    {
-      "path": "docs/content_factory/full_generation_runner.md",
-      "line_number": 34,
+      "line_number": 78,
       "line_excerpt": "--layers diagnostic_items,lessons,assessment_blueprints,study_plan_templates \\",
       "runtime_surface": false
     },
     {
       "path": "docs/content_factory/full_generation_runner.md",
-      "line_number": 44,
+      "line_number": 90,
+      "line_excerpt": "--layers diagnostic_items,lessons,assessment_blueprints,study_plan_templates \\",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/content_factory/full_generation_runner.md",
+      "line_number": 128,
+      "line_excerpt": "- diagnostic_items",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/content_factory/full_generation_runner.md",
+      "line_number": 140,
+      "line_excerpt": "--layers diagnostic_items,lessons,assessment_blueprints,study_plan_templates \\",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/content_factory/full_generation_runner.md",
+      "line_number": 150,
       "line_excerpt": "--layers diagnostic_items,lessons,assessment_blueprints,study_plan_templates \\",
       "runtime_surface": false
     },
