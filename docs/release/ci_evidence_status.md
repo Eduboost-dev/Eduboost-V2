@@ -1,27 +1,22 @@
 # CI Evidence Status
 
-Generated at: `2026-05-26T16:03:25Z`
-Commit: `f932279e2bf3d3524425915a4eb844816b078872`
+Generated at: `2026-05-26T20:59:26Z`
+Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 Branch: `pr-cf-013-full-generation-runner`
 
-**Status:** `ci-evidence-not-accepted`
-**Run ID:** ``
-**Run URL:** ``
-**Workflow:** ``
-**Run status:** ``
-**Conclusion:** ``
-**Head SHA:** ``
-**Verified by:** `unverified`
+**Status:** `ci-evidence-accepted`
+**Run ID:** `26466298748`
+**Run URL:** `https://github.com/NkgoloL/Eduboost-V2/actions/runs/26466298748`
+**Workflow:** `Runtime Contract`
+**Run status:** `completed`
+**Conclusion:** `success`
+**Head SHA:** `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+**Verified by:** `github-actions`
 **Date verified:** `2026-05-26`
 
 ## Blockers
 
-- no successful non-auth-refresh GitHub Actions run found for current commit
-- run ID is missing or non-numeric
-- GitHub Actions run status is missing, expected completed
-- GitHub Actions run conclusion is missing, expected success
-- GitHub Actions run SHA missing does not match current commit f932279e2bf3d3524425915a4eb844816b078872
-- workflow name is missing
+- None
 
 ## No false-closure rules
 

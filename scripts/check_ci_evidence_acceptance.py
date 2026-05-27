@@ -56,9 +56,11 @@ def main() -> int:
 
     if not os.getenv("SKIP_PYTEST_RECURSION"):
         env = {**os.environ, "PYTHONPATH": str(ROOT), "SKIP_PYTEST_RECURSION": "1"}
+        venv_py = ROOT / ".venv" / "bin" / "python"
+        py = str(venv_py) if venv_py.exists() else sys.executable
         result = subprocess.run(
             [
-                sys.executable,
+                py,
                 "-m",
                 "pytest",
                 "-c",
@@ -79,9 +81,11 @@ def main() -> int:
         if result.returncode != 0:
             failures.append("CI evidence acceptance unit tests failed")
 
+    venv_py = ROOT / ".venv" / "bin" / "python"
+    py = str(venv_py) if venv_py.exists() else sys.executable
     ruff = subprocess.run(
         [
-            sys.executable,
+            py,
             "-m",
             "ruff",
             "check",
