@@ -43,9 +43,9 @@
 |---|---|---|---|
 | NS-01 | Apply Alembic migration graph repair. | Migration graph test passes. | [x] |
 | NS-02 | Rerun full unit suite. | `pytest -c pytest.ini tests/unit -q --no-cov` shows `1702 passed, 29 skipped`. | [x] |
-| NS-03 | Commit migration graph repair and related POPIA/AuthService repairs. | Git commit containing repair files. | [ ] |
-| NS-04 | Record local test evidence. | `docs/release/unit_test_evidence.md` contains full output. | [ ] |
-| NS-05 | Triage non-failing warnings. | Warnings documented as accepted, fixed, or tracked. | [ ] |
+| NS-03 | Commit migration graph repair and related POPIA/AuthService repairs. | Git commit containing repair files. | [x] |
+| NS-04 | Record local test evidence. | `docs/release/unit_test_evidence.md` contains full output. | [x] |
+| NS-05 | Triage non-failing warnings. | Warnings documented as accepted, fixed, or tracked. | [x] |
 | NS-05A | Keep operating-model and project-assistance controls current. | `docs/operations/recommended_operating_model.md`, `docs/operations/project_assistance_status.md`, and their Make checks pass. | [x] |
 
 Current warnings to track:
@@ -143,9 +143,9 @@ Current warnings to track:
 | ID | Task | Evidence required | Status |
 |---|---|---|---|
 | NS-45 | Confirm current CAPS approved item count. | `docs/release/runtime_launch_content_evidence_status.md` records 40/40 approved items for each launch ref. | [x] |
-| NS-46 | Submit AI-generated candidate items for educator review. | Launch slice auto-approved through strict validation; educator spot-audit and expansion review remain external. | [verify] |
+| NS-46 | Submit AI-generated candidate items for educator review. | Content Factory refreshed foundation implemented with admin-only `/api/v2/admin/content-factory` validation/provenance/coverage gates; evidence in `docs/release/content_factory_refreshed_status.md`. Educator spot-audit and expansion review remain external. | [verify] |
 | NS-47 | Reach or explicitly defer launch item-bank threshold. | Runtime evidence shows 40 approved diagnostic items per launch ref. | [x] |
-| NS-48 | Add independent answer-key validation plan. | Launch content evidence records 100% answer-key verification; CI guardrail still outstanding. | [verify] |
+| NS-48 | Add independent answer-key validation plan. | Launch content evidence records 100% answer-key verification; Content Factory diagnostic validation now blocks artifacts without `answer_key`; CI guardrail still outstanding. | [verify] |
 | NS-49 | Define supported beta grades/subjects/languages. | `docs/product/launch_scope.md` and launch content evidence define Grade 4 Mathematics launch slice; broader scope remains roadmap. | [verify] |
 | NS-50 | Create known issues and limitations file. | `docs/release/known_issues.md`; must not be empty. | [ ] |
 | NS-51 | Define beta acceptance criteria. | `docs/release/beta_acceptance_criteria.md` with actual metrics and thresholds. | [external] |
@@ -194,7 +194,7 @@ Current warnings to track:
 | Runtime DB migration proof | [ ] open |
 | Backup/restore/rollback drill | [ ] open |
 | Legal/security approval | [external] open |
-| CAPS launch-slice content gate | [x] green for Grade 4 Mathematics launch slice |
+| CAPS launch-slice content gate | [x] green for Grade 4 Mathematics launch slice; refreshed Content Factory scope registry and registry-backed coverage service are [verify] pending CI/staging/educator proof |
 | Billing/notifications decision | [ ] open |
 | Controlled beta go/no-go | [external] open |
 | Public beta / production launch | [blocked] blocked |
@@ -216,3 +216,10 @@ Acceptable evidence includes:
 - test result artefact.
 
 A document that merely says “evidence added” is not evidence.
+## Content Factory Control Plane
+
+| ID | Task | Status | Gate |
+|---|---|---|---|
+| CONTENT-FACTORY-005 | PR-CF-005 control plane foundation | Implemented locally; CI/staging/promotion proof pending. | [verify] |
+- [x] PR-CF-007 all-scope staging verification implemented locally; production promotion remains blocked pending human review and green gates. Evidence: docs/backlog/pr_cf_007_all_scope_staging_verification.md
+- [x] PR-CF-008 controlled generation executor implemented locally; generation remains disabled by default and human review remains mandatory. Evidence: docs/backlog/pr_cf_008_controlled_generation_executor.md

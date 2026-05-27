@@ -25,6 +25,15 @@ New operating controls added on 2026-05-22:
 - `docs/operations/project_assistance_status.md` implements the five assistance lanes: current-state triage, verification and repair, release evidence and governance, architecture/security/compliance hardening, and staging/beta/operational readiness.
 - `make recommended-operating-model-check` and `make project-assistance-status-check` provide local and CI-checkable guardrails for those controls.
 
+## Content Factory Refreshed Implementation
+
+Status: implemented and locally tested on branch `feature/content-factory-refreshed`; not CI, staging, or production verified.
+
+The refreshed Content Factory plan from `temp/EduBoost_Content_Factory_Refreshed_Plan_25-May-2026.md` and the accompanying `temp/etl/` assets have been integrated into the repository. Evidence is tracked in [`docs/release/content_factory_refreshed_status.md`](release/content_factory_refreshed_status.md).
+
+Implemented scope includes Content Factory ORM tables and migration, ETL service assets under `app/services/etl/`, optional MCP wrappers isolated under `tools/etl/`, admin-only `/api/v2/admin/content-factory` routes, provenance and validation gates, a file-backed `grade4_mathematics_en` scope/coverage registry, registry-backed coverage calculations, `/admin/content-factory` frontend entry point, and focused local tests.
+
+Remaining proof required: CI run, disposable PostgreSQL migration evidence, staging seed/promotion proof, educator review evidence, and production rollback evidence.`n`nPR-CF-005 control-plane foundation is implemented locally: provenance expansion, lifecycle transitions, generation run/task ledger, dry-run orchestrator, seed/promotion gates, admin ETL visibility, and live dashboard reads are present behind admin-only routes and feature flags.
 ## Release Readiness
 
 Status: blocked. Do not describe the repository as production-ready, release-ready, or public-beta-ready until docs/current_state.md is green and the release evidence bundle has current CI, staging, backup, restore, rollback, branch-protection, and sign-off evidence.

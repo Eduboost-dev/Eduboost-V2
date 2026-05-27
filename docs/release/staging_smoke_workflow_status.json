@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-21T16:41:21Z",
-  "current_commit": "1d8a3ae080435187f4b47ede0dccbe892575c055",
+  "generated_at": "2026-05-26T18:41:23Z",
+  "current_commit": "3fd35da07070e6f6e8bc43ec0915d25ba53da6a7",
   "status": "staging-smoke-workflow-configured",
   "workflow_exists": true,
   "probe_exists": true,

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import dataclasses
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -74,7 +75,8 @@ def load_registry(path: Path) -> list[EvidenceFinding]:
 
     if current:
         findings.append(current)
-    return [EvidenceFinding(**item) for item in findings]
+    known = {f.name for f in dataclasses.fields(EvidenceFinding)}
+    return [EvidenceFinding(**{k: v for k, v in item.items() if k in known}) for item in findings]
 
 
 def validate_registry(findings: list[EvidenceFinding], root: Path) -> list[str]:

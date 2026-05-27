@@ -78,7 +78,7 @@ def test_database_url_normalizes_render_postgres_scheme() -> None:
         ENCRYPTION_KEY="A" * 44,
     )
 
-    assert settings.DATABASE_URL == "postgresql+asyncpg://user:pass@render-postgres.example.com:5432/eduboost"
+    assert settings.DATABASE_URL == "postgresql+asyncpg://user:pass@render-postgres.example.com:5432/eduboost?prepared_statement_cache_size=0"
 
 
 def test_database_url_keeps_async_and_non_postgres_schemes() -> None:
@@ -93,7 +93,7 @@ def test_database_url_keeps_async_and_non_postgres_schemes() -> None:
         ENCRYPTION_KEY="A" * 44,
     )
 
-    assert async_settings.DATABASE_URL == "postgresql+asyncpg://user:pass@localhost:5432/eduboost"
+    assert async_settings.DATABASE_URL == "postgresql+asyncpg://user:pass@localhost:5432/eduboost?prepared_statement_cache_size=0"
     assert sqlite_settings.DATABASE_URL == "sqlite+aiosqlite:///./test.db"
 
 
@@ -104,4 +104,4 @@ def test_database_url_normalizes_sslmode_for_asyncpg() -> None:
         ENCRYPTION_KEY="A" * 44,
     )
 
-    assert settings.DATABASE_URL == "postgresql+asyncpg://user:pass@db.example.com:5432/eduboost?ssl=require"
+    assert settings.DATABASE_URL == "postgresql+asyncpg://user:pass@db.example.com:5432/eduboost?ssl=require&prepared_statement_cache_size=0"

@@ -1,10 +1,12 @@
 {
-  "generated_at": "2026-05-19T23:02:01Z",
-  "current_commit": "9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4",
+  "generated_at": "2026-05-26T18:33:55Z",
+  "current_commit": "3fd35da07070e6f6e8bc43ec0915d25ba53da6a7",
   "workflow_files": [
     ".github/workflows/api-envelope-error-contract.yml",
     ".github/workflows/architecture-gates.yml",
+    ".github/workflows/audit-write-runtime-evidence.yml",
     ".github/workflows/auth-boundary.yml",
+    ".github/workflows/auth-refresh-db-proof.yml",
     ".github/workflows/backend-consolidation.yml",
     ".github/workflows/beta-release-approval.yml",
     ".github/workflows/ci-cd.yml",
@@ -18,6 +20,8 @@
     ".github/workflows/cluster-h-release-readiness.yml",
     ".github/workflows/db-backup-dryrun.yml",
     ".github/workflows/db-backup-matrix.yml",
+    ".github/workflows/db-backup-restore-rollback-evidence.yml",
+    ".github/workflows/diag-score-live-audit.yml",
     ".github/workflows/frontend-e2e.yml",
     ".github/workflows/item_bank_ci.yml",
     ".github/workflows/learner-authz-coverage.yml",
@@ -31,7 +35,8 @@
     ".github/workflows/privacy-boundary.yml",
     ".github/workflows/release.yml",
     ".github/workflows/repo-state.yml",
-    ".github/workflows/runtime-contract.yml"
+    ".github/workflows/runtime-contract.yml",
+    ".github/workflows/staging-smoke.yml"
   ],
   "workflow_present": true,
   "workflow_mentions_required_snippets": true,

@@ -27,6 +27,13 @@ ACCEPTED_AUTH_REFRESH_IDS = {
     "AUTH-REFRESH-DB-PROOF-001",
     "AUTH-REFRESH-DB-EVIDENCE-001",
 }
+BETA_CRITICAL_IDS = {
+    "CI-001",
+    "LEGAL-001",
+    "SEC-001",
+    "CONTENT-001",
+    "STAGING-001",
+}
 FALSE_CLOSURE_TOKENS = {
     "skipped",
     "not proof",
@@ -85,9 +92,12 @@ class FinalGateRefresh:
     beta_decision: str
     beta_blocker_count: int
     surfaces: list[StatusSurface]
+    refresh_results: list[StatusSurface]
     beta_critical_findings: list[RegistryFinding]
+    non_ready_beta_findings: list[RegistryFinding]
     resolved_non_blocking_findings: list[RegistryFinding]
     required_next_actions: list[str]
+    no_false_closure_rules: list[str]
 
 
 def current_commit() -> str:
@@ -260,15 +270,24 @@ def build_refresh() -> FinalGateRefresh:
             required_actions.append(action)
             seen.add(action)
 
+    no_false_closure_rules = [
+        "Do not mark beta GO while any effective beta-blocking registry item is not release-ready.",
+        "Integration-passing with `closure_blocker: none` can be release-ready even when the item had an external dependency.",
+        "External-blocked, not-proven, skipped-test, scaffold-only, and unresolved runtime/staging blockers remain beta-blocking.",
+    ]
+
     return FinalGateRefresh(
         generated_at=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         current_commit=current_commit(),
         beta_decision="GO" if not beta_critical else "NO-GO",
         beta_blocker_count=len(beta_critical),
         surfaces=status_surfaces(),
+        refresh_results=status_surfaces(),
         beta_critical_findings=beta_critical,
+        non_ready_beta_findings=beta_critical,
         resolved_non_blocking_findings=resolved,
         required_next_actions=required_actions,
+        no_false_closure_rules=no_false_closure_rules,
     )
 
 

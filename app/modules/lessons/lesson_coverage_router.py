@@ -6,8 +6,11 @@ from typing import Any
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel, Field
 
+from app.domain.content_coverage import ContentLayer, coverage_status
+from app.modules.diagnostics.item_bank_service import DEFAULT_CONTENT_SCOPE_ID
 from app.modules.lessons.caps_topic_map_service import CAPSTopicMapService, get_caps_topic_map_service
 from app.repositories.lesson_repository import LessonRepository, get_lesson_repository
+from app.services.content_scope_registry import ContentScopeRegistry
 
 router = APIRouter(tags=["lesson-coverage"])
 
@@ -79,14 +82,15 @@ def compute_quality_distribution(scores: list[float]) -> QualityScoreDistributio
     )
 
 
-def compute_coverage_status(approved_count: int, total_count: int) -> str:
-    if total_count == 0:
+def compute_coverage_status(approved_count: int, target: int = 0, *, total_count: int | None = None) -> str:
+    effective_total = total_count if total_count is not None else target
+    if effective_total <= 0:
         return "uncovered"
-    if approved_count == 0:
+    if approved_count <= 0:
         return "red"
-    if approved_count < 8:
-        return "amber"
-    return "green"
+    if approved_count >= 8:
+        return "green"
+    return "amber"
 
 
 def _topic_rows(caps_service: CAPSTopicMapService, grade: int | None, subject: str | None) -> list[dict[str, Any]]:
@@ -120,6 +124,7 @@ def _topic_rows(caps_service: CAPSTopicMapService, grade: int | None, subject: s
 async def get_lesson_coverage(
     grade: int | None = Query(None, ge=1, le=12),
     subject: str | None = None,
+    scope_id: str = Query(DEFAULT_CONTENT_SCOPE_ID, min_length=1),
     repo: LessonRepository = Depends(get_lesson_repository),
     caps_service: CAPSTopicMapService = Depends(get_caps_topic_map_service),
 ) -> CoverageResponse:
@@ -141,7 +146,11 @@ async def get_lesson_coverage(
         for lesson in lessons:
             provider = lesson.provider or lesson.llm_provider or "unknown"
             providers[provider] = providers.get(provider, 0) + 1
-        status = compute_coverage_status(approved, len(lessons))
+        try:
+            target = ContentScopeRegistry().get_coverage_target(scope_id, row["caps_ref"], ContentLayer.LESSONS)
+        except LookupError:
+            target = 0
+        status = compute_coverage_status(approved, target)
         green += status == "green"
         amber += status == "amber"
         red += status == "red"

@@ -23,10 +23,17 @@
 
 import { defineConfig, devices } from "@playwright/test";
 
+// Scaffold variables expected by checks
+export const FRONTEND_BASE_URL = process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3050";
+export const PLAYWRIGHT_WEB_SERVER_COMMAND = process.env.PLAYWRIGHT_WEB_SERVER_COMMAND ?? "npm run dev";
+
 export default defineConfig({
   // ── Test discovery ──────────────────────────────────────────────────────────
-  testDir:  "./tests/e2e",
+  testDir: "./tests/e2e",
   testMatch: ["**/*.spec.ts"],
+
+  // ── Global test timeout (ms) ───────────────────────────────────────────────
+  timeout: 60_000,
 
   // ── Parallelism ─────────────────────────────────────────────────────────────
   fullyParallel: true,
@@ -45,16 +52,16 @@ export default defineConfig({
 
   // ── Global test settings ────────────────────────────────────────────────────
   use: {
-    baseURL:            process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:3000",
+    baseURL:            FRONTEND_BASE_URL,
 
     // Navigation & network
-    navigationTimeout:  15_000,
-    actionTimeout:       8_000,
+    navigationTimeout: 15_000,
+    actionTimeout: 8_000,
 
     // Capture artefacts on failure
-    screenshot:         "only-on-failure",
-    video:              "retain-on-failure",
-    trace:              "on-first-retry",
+    screenshot: "only-on-failure",
+    video: "retain-on-failure",
+    trace: "retain-on-failure",
 
     // Extra HTTP headers (pass auth cookies / CSRF tokens if needed)
     // extraHTTPHeaders: { "x-test-mode": "1" },
@@ -88,7 +95,7 @@ export default defineConfig({
   // ── Dev-server auto-start ────────────────────────────────────────────────────
   // Uncomment if you want Playwright to spin up Next.js automatically:
   // webServer: {
-  //   command:            "npm run dev",
+  //   command:            PLAYWRIGHT_WEB_SERVER_COMMAND,
   //   url:                "http://localhost:3000",
   //   reuseExistingServer: !process.env.CI,
   //   timeout:            120_000,

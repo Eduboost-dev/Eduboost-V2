@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T22:55:39Z",
+  "generated_at": "2026-05-26T18:26:18Z",
   "status": "controlled_dependency_override_success_scope_proof",
   "route_count": 9,
   "routes": [
@@ -35,8 +35,8 @@
       "methods": [
         "POST"
       ],
-      "name": "refresh_token",
-      "endpoint": "refresh_token",
+      "name": "refresh",
+      "endpoint": "refresh",
       "response_model": "TokenResponse"
     },
     {
@@ -71,8 +71,8 @@
       "methods": [
         "POST"
       ],
-      "name": "refresh_token",
-      "endpoint": "refresh_token",
+      "name": "refresh",
+      "endpoint": "refresh",
       "response_model": "TokenResponse"
     },
     {

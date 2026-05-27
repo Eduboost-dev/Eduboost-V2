@@ -397,6 +397,81 @@ jobs:
         run: alembic check
 
   # -------------------------------------------------------------------------
+  # CONTENT FACTORY MIGRATION GATE
+  # -------------------------------------------------------------------------
+  content-factory-migrations:
+    name: Content Factory Migration Gate
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: eduboost
+          POSTGRES_PASSWORD: eduboost
+          POSTGRES_DB: eduboost_content_factory_test
+        ports:
+          - 55432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgresql+asyncpg://eduboost:eduboost@localhost:55432/eduboost_content_factory_test
+      REDIS_URL: redis://localhost:6379/0
+      ENVIRONMENT: test
+      APP_ENV: test
+      ALLOWED_ORIGINS: http://localhost:3000,http://localhost:8000,http://test
+      ENCRYPTION_KEY: MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA=
+      JWT_SECRET: test-jwt-secret-32-chars-minimum-value
+      JWT_SECRET_KEY: test-jwt-secret-32-chars-minimum-value
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements/dev.txt
+
+      - name: Wait for database readiness
+        run: python scripts/wait_for_db.py --timeout 60 --interval 2
+
+      - name: Run Content Factory migration gate
+        run: |
+          chmod +x scripts/ci/check_content_factory_migrations.sh
+          bash scripts/ci/check_content_factory_migrations.sh
+
+  # -------------------------------------------------------------------------
+  # CONTENT FACTORY UNIT TESTS (static — no DB required)
+  # -------------------------------------------------------------------------
+  content-factory-unit-tests:
+    name: Content Factory Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements/dev.txt
+
+      - name: Run Content Factory static unit tests
+        run: |
+          pytest \
+            tests/unit/test_content_factory_route_security.py \
+            tests/unit/test_content_factory_enums.py \
+            tests/unit/test_content_factory_table_reconciliation.py \
+            -v --tb=short --no-cov
+
+  # -------------------------------------------------------------------------
   # POPIA COMPLIANCE TESTS
   # -------------------------------------------------------------------------
   popia-tests:
@@ -478,7 +553,7 @@ jobs:
     name: Production Promotion Gate
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published'
-    needs: [lint, unit-tests, integration-tests, frontend, schema-drift, popia-tests, image-scan, secrets-scan, e2e]
+    needs: [lint, unit-tests, integration-tests, frontend, schema-drift, content-factory-migrations, content-factory-unit-tests, popia-tests, image-scan, secrets-scan, e2e]
     environment: production
     steps:
       - uses: actions/checkout@v4

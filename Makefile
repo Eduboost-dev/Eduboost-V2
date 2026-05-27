@@ -48,7 +48,15 @@ typecheck:
 	mypy .
 
 migrate:
+	@if [ -n "$$DATABASE_URL" ]; then $(PYTHON) scripts/wait_for_db.py --optional; fi
 	alembic upgrade head
+
+wait-db:
+	$(PYTHON) scripts/wait_for_db.py
+
+migration-smoke:
+	@if [ -n "$$DATABASE_URL" ]; then $(PYTHON) scripts/wait_for_db.py; fi
+	./scripts/smoke_test_migrations.sh
 
 docs:
 	mkdocs serve
@@ -120,9 +128,6 @@ schema-integrity:
 db-repository-check:
 	$(PYTHON) scripts/check_db_repository_evidence.py
 
-migration-smoke:
-	@echo "Run migration smoke tests (requires DATABASE_URL pointing to disposable DB)"
-	./scripts/smoke_test_migrations.sh
 
 clean:
 	find . -type d -name "__pycache__" -prune -exec rm -rf {} +
