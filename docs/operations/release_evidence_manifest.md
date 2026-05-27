@@ -1,8 +1,8 @@
 # Release Evidence Manifest
 
-Generated: `2026-05-20T18:18:57Z`
-Branch: `fix/master-ci-cd-repair`
-Commit: `4c0297e85f4a77147e22af491f7bcbe281b99bfc`
+Generated: `2026-05-26T20:27:47Z`
+Branch: `pr-cf-013-full-generation-runner`
+Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 
 ## Required Evidence Commands
 

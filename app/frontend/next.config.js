@@ -8,6 +8,7 @@ function normalizeApiBaseUrl(value) {
 const apiBaseUrl = normalizeApiBaseUrl(process.env.NEXT_PUBLIC_API_URL);
 
 const nextConfig = {
+  output: 'standalone',
   images: {
     unoptimized: true,
   },

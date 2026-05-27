@@ -64,6 +64,64 @@
         "title": "AllScopeStagingVerificationReport",
         "type": "object"
       },
+      "ArtifactReviewBundleResponse": {
+        "properties": {
+          "artifact": {
+            "title": "Artifact",
+            "type": "object"
+          },
+          "generation_metadata": {
+            "title": "Generation Metadata",
+            "type": "object"
+          },
+          "prior_review_events": {
+            "items": {
+              "type": "object"
+            },
+            "title": "Prior Review Events",
+            "type": "array"
+          },
+          "provenance": {
+            "title": "Provenance",
+            "type": "object"
+          },
+          "review_risk": {
+            "$ref": "#/components/schemas/ReviewRiskResponse"
+          },
+          "similar_artifacts": {
+            "items": {
+              "type": "object"
+            },
+            "title": "Similar Artifacts",
+            "type": "array"
+          },
+          "sources": {
+            "items": {
+              "type": "object"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "validation_report": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Validation Report"
+          }
+        },
+        "required": [
+          "artifact",
+          "provenance",
+          "review_risk"
+        ],
+        "title": "ArtifactReviewBundleResponse",
+        "type": "object"
+      },
       "AssessmentAttemptRequest": {
         "properties": {
           "learner_id": {
@@ -199,6 +257,105 @@
         ],
         "title": "BlockerSeverity",
         "type": "string"
+      },
+      "BulkReviewAssignmentRequest": {
+        "properties": {
+          "artifact_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Artifact Ids",
+            "type": "array"
+          },
+          "priority": {
+            "default": "normal",
+            "title": "Priority",
+            "type": "string"
+          },
+          "reviewer_id": {
+            "title": "Reviewer Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reviewer_id"
+        ],
+        "title": "BulkReviewAssignmentRequest",
+        "type": "object"
+      },
+      "BulkReviewRequest": {
+        "properties": {
+          "artifact_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Artifact Ids",
+            "type": "array"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "title": "BulkReviewRequest",
+        "type": "object"
+      },
+      "BulkReviewResponse": {
+        "properties": {
+          "artifact_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "title": "Artifact Ids",
+            "type": "array"
+          },
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "summary": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Summary",
+            "type": "object"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "BulkReviewResponse",
+        "type": "object"
       },
       "CapsRefCoverage": {
         "properties": {
@@ -1390,39 +1547,6 @@
         "title": "ContentScopeStatus",
         "type": "string"
       },
-      "ContentSeedRunResponse": {
-        "properties": {
-          "dry_run": {
-            "title": "Dry Run",
-            "type": "boolean"
-          },
-          "scope_id": {
-            "title": "Scope Id",
-            "type": "string"
-          },
-          "seed_run_id": {
-            "format": "uuid",
-            "title": "Seed Run Id",
-            "type": "string"
-          },
-          "status": {
-            "title": "Status",
-            "type": "string"
-          },
-          "summary": {
-            "title": "Summary",
-            "type": "object"
-          }
-        },
-        "required": [
-          "seed_run_id",
-          "scope_id",
-          "dry_run",
-          "status"
-        ],
-        "title": "ContentSeedRunResponse",
-        "type": "object"
-      },
       "ContentStagingVerificationRunResponse": {
         "properties": {
           "completed_at": {
@@ -2212,6 +2336,202 @@
         "title": "LearnerCreate",
         "type": "object"
       },
+      "LearnerDiagnosticItem": {
+        "properties": {
+          "artifact_id": {
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "caps_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caps Ref"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string"
+          },
+          "grade": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Grade"
+          },
+          "language": {
+            "title": "Language",
+            "type": "string"
+          },
+          "payload": {
+            "title": "Payload",
+            "type": "object"
+          },
+          "promotion_event_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Event Id"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "source_artifact_hash": {
+            "title": "Source Artifact Hash",
+            "type": "string"
+          },
+          "subject_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subject Code"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "required": [
+          "artifact_id",
+          "scope_id",
+          "caps_ref",
+          "grade",
+          "subject_code",
+          "language",
+          "title",
+          "payload",
+          "source_artifact_hash",
+          "promotion_event_id",
+          "created_at"
+        ],
+        "title": "LearnerDiagnosticItem",
+        "type": "object"
+      },
+      "LearnerLesson": {
+        "properties": {
+          "artifact_id": {
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "caps_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caps Ref"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string"
+          },
+          "grade": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Grade"
+          },
+          "language": {
+            "title": "Language",
+            "type": "string"
+          },
+          "payload": {
+            "title": "Payload",
+            "type": "object"
+          },
+          "promotion_event_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Event Id"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "source_artifact_hash": {
+            "title": "Source Artifact Hash",
+            "type": "string"
+          },
+          "subject_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subject Code"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "required": [
+          "artifact_id",
+          "scope_id",
+          "caps_ref",
+          "grade",
+          "subject_code",
+          "language",
+          "title",
+          "payload",
+          "source_artifact_hash",
+          "promotion_event_id",
+          "created_at"
+        ],
+        "title": "LearnerLesson",
+        "type": "object"
+      },
       "LearnerResponse": {
         "properties": {
           "archetype": {
@@ -2276,6 +2596,46 @@
           "created_at"
         ],
         "title": "LearnerResponse",
+        "type": "object"
+      },
+      "LearnerScopeContentSummary": {
+        "properties": {
+          "diagnostic_items_count": {
+            "title": "Diagnostic Items Count",
+            "type": "integer"
+          },
+          "last_promotion_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Promotion At"
+          },
+          "lessons_count": {
+            "title": "Lessons Count",
+            "type": "integer"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "total_artifacts_count": {
+            "title": "Total Artifacts Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "scope_id",
+          "diagnostic_items_count",
+          "lessons_count",
+          "total_artifacts_count",
+          "last_promotion_at"
+        ],
+        "title": "LearnerScopeContentSummary",
         "type": "object"
       },
       "LessonRequest": {
@@ -2891,6 +3251,284 @@
         "title": "PrivacySettingsUpdate",
         "type": "object"
       },
+      "ProductionGateBlockerResponse": {
+        "properties": {
+          "artifact_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Artifact Id"
+          },
+          "caps_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caps Ref"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "message"
+        ],
+        "title": "ProductionGateBlockerResponse",
+        "type": "object"
+      },
+      "ProductionGateReportResponse": {
+        "properties": {
+          "blockers": {
+            "items": {
+              "$ref": "#/components/schemas/ProductionGateBlockerResponse"
+            },
+            "title": "Blockers",
+            "type": "array"
+          },
+          "coverage_summary": {
+            "title": "Coverage Summary",
+            "type": "object"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "staging_summary": {
+            "title": "Staging Summary",
+            "type": "object"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope_id",
+          "status"
+        ],
+        "title": "ProductionGateReportResponse",
+        "type": "object"
+      },
+      "ProductionPromotionPageResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ProductionPromotionResultResponse"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "ProductionPromotionPageResponse",
+        "type": "object"
+      },
+      "ProductionPromotionPlanResponse": {
+        "properties": {
+          "layers": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Layers",
+            "type": "array"
+          },
+          "promotable_count": {
+            "title": "Promotable Count",
+            "type": "integer"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "skipped": {
+            "items": {
+              "type": "object"
+            },
+            "title": "Skipped",
+            "type": "array"
+          },
+          "skipped_count": {
+            "title": "Skipped Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "scope_id",
+          "layers",
+          "promotable_count",
+          "skipped_count"
+        ],
+        "title": "ProductionPromotionPlanResponse",
+        "type": "object"
+      },
+      "ProductionPromotionRequest": {
+        "properties": {
+          "confirmation": {
+            "title": "Confirmation",
+            "type": "string"
+          },
+          "layers": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Layers"
+          }
+        },
+        "required": [
+          "confirmation"
+        ],
+        "title": "ProductionPromotionRequest",
+        "type": "object"
+      },
+      "ProductionPromotionResultResponse": {
+        "properties": {
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "promoted_count": {
+            "title": "Promoted Count",
+            "type": "integer"
+          },
+          "promotion_event_id": {
+            "format": "uuid",
+            "title": "Promotion Event Id",
+            "type": "string"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "skipped_count": {
+            "title": "Skipped Count",
+            "type": "integer"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "promotion_event_id",
+          "scope_id",
+          "status",
+          "promoted_count",
+          "skipped_count"
+        ],
+        "title": "ProductionPromotionResultResponse",
+        "type": "object"
+      },
+      "ProductionReadVerificationReportResponse": {
+        "properties": {
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "promotion_event_id": {
+            "format": "uuid",
+            "title": "Promotion Event Id",
+            "type": "string"
+          },
+          "verified_count": {
+            "title": "Verified Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "promotion_event_id",
+          "passed",
+          "verified_count"
+        ],
+        "title": "ProductionReadVerificationReportResponse",
+        "type": "object"
+      },
+      "ProductionRollbackRequest": {
+        "properties": {
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ],
+        "title": "ProductionRollbackRequest",
+        "type": "object"
+      },
+      "ProductionRollbackResultResponse": {
+        "properties": {
+          "promotion_event_id": {
+            "format": "uuid",
+            "title": "Promotion Event Id",
+            "type": "string"
+          },
+          "rolled_back_count": {
+            "title": "Rolled Back Count",
+            "type": "integer"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "promotion_event_id",
+          "status",
+          "rolled_back_count"
+        ],
+        "title": "ProductionRollbackResultResponse",
+        "type": "object"
+      },
       "ProfileUpdateRequest": {
         "description": "Update learner display name, grade, and home language.",
         "properties": {
@@ -3228,6 +3866,81 @@
         "title": "ReviewActionResponse",
         "type": "object"
       },
+      "ReviewAssignmentRequest": {
+        "properties": {
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "priority": {
+            "default": "normal",
+            "title": "Priority",
+            "type": "string"
+          },
+          "reviewer_id": {
+            "title": "Reviewer Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "artifact_id",
+          "reviewer_id"
+        ],
+        "title": "ReviewAssignmentRequest",
+        "type": "object"
+      },
+      "ReviewAssignmentResponse": {
+        "properties": {
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "assigned_by": {
+            "title": "Assigned By",
+            "type": "string"
+          },
+          "assigned_to": {
+            "title": "Assigned To",
+            "type": "string"
+          },
+          "due_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due By"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "priority": {
+            "title": "Priority",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "artifact_id",
+          "assigned_to",
+          "assigned_by",
+          "priority",
+          "status"
+        ],
+        "title": "ReviewAssignmentResponse",
+        "type": "object"
+      },
       "ReviewDecision": {
         "enum": [
           "approved",
@@ -3263,6 +3976,126 @@
         "title": "ReviewItemRequest",
         "type": "object"
       },
+      "ReviewQueueItemResponse": {
+        "properties": {
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "artifact_type": {
+            "title": "Artifact Type",
+            "type": "string"
+          },
+          "caps_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caps Ref"
+          },
+          "content_layer": {
+            "title": "Content Layer",
+            "type": "string"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "provenance_status": {
+            "title": "Provenance Status",
+            "type": "string"
+          },
+          "reviewer_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewer Id"
+          },
+          "risk_level": {
+            "title": "Risk Level",
+            "type": "string"
+          },
+          "risk_reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Risk Reasons",
+            "type": "array"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "validation_status": {
+            "title": "Validation Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "artifact_id",
+          "scope_id",
+          "content_layer",
+          "artifact_type",
+          "status",
+          "risk_level",
+          "validation_status",
+          "provenance_status"
+        ],
+        "title": "ReviewQueueItemResponse",
+        "type": "object"
+      },
+      "ReviewQueuePageResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewQueueItemResponse"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "ReviewQueuePageResponse",
+        "type": "object"
+      },
       "ReviewQueueResponse": {
         "properties": {
           "lessons": {
@@ -3284,6 +4117,31 @@
         "title": "ReviewQueueResponse",
         "type": "object"
       },
+      "ReviewRiskResponse": {
+        "properties": {
+          "level": {
+            "title": "Level",
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "score": {
+            "default": 0,
+            "title": "Score",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "level"
+        ],
+        "title": "ReviewRiskResponse",
+        "type": "object"
+      },
       "ReviewStatus": {
         "enum": [
           "ai_generated",
@@ -3294,6 +4152,75 @@
         ],
         "title": "ReviewStatus",
         "type": "string"
+      },
+      "ReviewSummaryResponse": {
+        "properties": {
+          "assigned": {
+            "default": 0,
+            "title": "Assigned",
+            "type": "integer"
+          },
+          "critical_risk": {
+            "default": 0,
+            "title": "Critical Risk",
+            "type": "integer"
+          },
+          "high_risk": {
+            "default": 0,
+            "title": "High Risk",
+            "type": "integer"
+          },
+          "low_risk": {
+            "default": 0,
+            "title": "Low Risk",
+            "type": "integer"
+          },
+          "medium_risk": {
+            "default": 0,
+            "title": "Medium Risk",
+            "type": "integer"
+          },
+          "pending_review": {
+            "default": 0,
+            "title": "Pending Review",
+            "type": "integer"
+          }
+        },
+        "title": "ReviewSummaryResponse",
+        "type": "object"
+      },
+      "ReviewerWorkloadResponse": {
+        "properties": {
+          "assigned": {
+            "title": "Assigned",
+            "type": "integer"
+          },
+          "in_review": {
+            "title": "In Review",
+            "type": "integer"
+          },
+          "overdue": {
+            "title": "Overdue",
+            "type": "integer"
+          },
+          "reviewer_id": {
+            "title": "Reviewer Id",
+            "type": "string"
+          },
+          "total_open": {
+            "title": "Total Open",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "reviewer_id",
+          "assigned",
+          "in_review",
+          "overdue",
+          "total_open"
+        ],
+        "title": "ReviewerWorkloadResponse",
+        "type": "object"
       },
       "SafetyClassification": {
         "enum": [
@@ -3563,6 +4490,36 @@
         "title": "ScopeCoverageSummary",
         "type": "object"
       },
+      "ScopeProductionReadReportResponse": {
+        "properties": {
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "production_artifacts_count": {
+            "title": "Production Artifacts Count",
+            "type": "integer"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scope_id",
+          "passed",
+          "production_artifacts_count"
+        ],
+        "title": "ScopeProductionReadReportResponse",
+        "type": "object"
+      },
       "ScopeStagingVerificationReport": {
         "properties": {
           "blockers": {
@@ -3608,6 +4565,71 @@
         "title": "ScopeStagingVerificationReport",
         "type": "object"
       },
+      "StagingReadVerificationResponse": {
+        "properties": {
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "scope_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scope Id"
+          },
+          "seed_run_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seed Run Id"
+          },
+          "staged_artifacts_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Staged Artifacts Count"
+          },
+          "verified_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verified Count"
+          }
+        },
+        "required": [
+          "passed"
+        ],
+        "title": "StagingReadVerificationResponse",
+        "type": "object"
+      },
       "StagingReadinessStatus": {
         "enum": [
           "ready_for_staging",
@@ -3624,6 +4646,252 @@
         ],
         "title": "StagingReadinessStatus",
         "type": "string"
+      },
+      "StagingRollbackResponse": {
+        "properties": {
+          "rolled_back_count": {
+            "title": "Rolled Back Count",
+            "type": "integer"
+          },
+          "seed_run_id": {
+            "format": "uuid",
+            "title": "Seed Run Id",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "seed_run_id",
+          "status",
+          "rolled_back_count"
+        ],
+        "title": "StagingRollbackResponse",
+        "type": "object"
+      },
+      "StagingSeedItemResponse": {
+        "properties": {
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "artifact_type": {
+            "title": "Artifact Type",
+            "type": "string"
+          },
+          "caps_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caps Ref"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "layer": {
+            "title": "Layer",
+            "type": "string"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "seed_payload_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seed Payload Hash"
+          },
+          "seed_run_id": {
+            "format": "uuid",
+            "title": "Seed Run Id",
+            "type": "string"
+          },
+          "skip_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skip Reason"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "target_record_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Record Id"
+          },
+          "target_table": {
+            "title": "Target Table",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "seed_run_id",
+          "artifact_id",
+          "scope_id",
+          "layer",
+          "artifact_type",
+          "target_table",
+          "status"
+        ],
+        "title": "StagingSeedItemResponse",
+        "type": "object"
+      },
+      "StagingSeedPlanResponse": {
+        "properties": {
+          "layers": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Layers",
+            "type": "array"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "seedable_count": {
+            "title": "Seedable Count",
+            "type": "integer"
+          },
+          "skipped": {
+            "items": {
+              "$ref": "#/components/schemas/StagingSeedSkippedArtifactResponse"
+            },
+            "title": "Skipped",
+            "type": "array"
+          },
+          "skipped_count": {
+            "title": "Skipped Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "scope_id",
+          "seedable_count",
+          "skipped_count"
+        ],
+        "title": "StagingSeedPlanResponse",
+        "type": "object"
+      },
+      "StagingSeedRunPageResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/StagingSeedRunResultResponse"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "StagingSeedRunPageResponse",
+        "type": "object"
+      },
+      "StagingSeedRunResultResponse": {
+        "properties": {
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "scope_id": {
+            "title": "Scope Id",
+            "type": "string"
+          },
+          "seed_run_id": {
+            "format": "uuid",
+            "title": "Seed Run Id",
+            "type": "string"
+          },
+          "seeded_count": {
+            "title": "Seeded Count",
+            "type": "integer"
+          },
+          "skipped_count": {
+            "title": "Skipped Count",
+            "type": "integer"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "seed_run_id",
+          "scope_id",
+          "status",
+          "seeded_count",
+          "skipped_count"
+        ],
+        "title": "StagingSeedRunResultResponse",
+        "type": "object"
+      },
+      "StagingSeedSkippedArtifactResponse": {
+        "properties": {
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "artifact_id",
+          "reason"
+        ],
+        "title": "StagingSeedSkippedArtifactResponse",
+        "type": "object"
       },
       "StudyPlanGenerateRequest": {
         "properties": {
@@ -4183,6 +5451,54 @@
         ]
       }
     },
+    "/api/v2/admin/content-factory/artifacts/{artifact_id}/review-bundle": {
+      "get": {
+        "operationId": "get_artifact_review_bundle_api_v2_admin_content_factory_artifacts__artifact_id__review_bundle_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "artifact_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Artifact Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArtifactReviewBundleResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Artifact Review Bundle",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/api/v2/admin/content-factory/artifacts/{artifact_id}/submit-review": {
       "post": {
         "operationId": "submit_artifact_for_review_api_v2_admin_content_factory_artifacts__artifact_id__submit_review_post",
@@ -4257,6 +5573,286 @@
         ]
       }
     },
+    "/api/v2/admin/content-factory/full-generation/plan": {
+      "post": {
+        "description": "Plan full generation for all configured scopes (admin-only).",
+        "operationId": "plan_full_generation_api_v2_admin_content_factory_full_generation_plan_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Plan Full Generation",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/full-generation/runs": {
+      "get": {
+        "description": "List full generation runs (admin-only).",
+        "operationId": "list_full_generation_runs_api_v2_admin_content_factory_full_generation_runs_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Full Generation Runs",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/full-generation/runs/{run_id}": {
+      "get": {
+        "description": "Get a full generation run (admin-only).",
+        "operationId": "get_full_generation_run_api_v2_admin_content_factory_full_generation_runs__run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Full Generation Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/full-generation/runs/{run_id}/cancel": {
+      "post": {
+        "description": "Cancel a full generation run (admin-only).",
+        "operationId": "cancel_full_generation_run_api_v2_admin_content_factory_full_generation_runs__run_id__cancel_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Cancel Full Generation Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/full-generation/runs/{run_id}/report": {
+      "get": {
+        "description": "Get a full generation run report (admin-only).",
+        "operationId": "get_full_generation_run_report_api_v2_admin_content_factory_full_generation_runs__run_id__report_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Full Generation Run Report",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/full-generation/runs/{run_id}/resume": {
+      "post": {
+        "description": "Resume a full generation run (admin-only).",
+        "operationId": "resume_full_generation_run_api_v2_admin_content_factory_full_generation_runs__run_id__resume_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Resume Full Generation Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/full-generation/start": {
+      "post": {
+        "description": "Start full generation run (admin-only).",
+        "operationId": "start_full_generation_api_v2_admin_content_factory_full_generation_start_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Request",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Start Full Generation",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/api/v2/admin/content-factory/health": {
       "get": {
         "operationId": "content_factory_health_api_v2_admin_content_factory_health_get",
@@ -4278,6 +5874,384 @@
           }
         ],
         "summary": "Content Factory Health",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/production-preview/scopes/{scope_id}": {
+      "get": {
+        "description": "Get production preview for a scope (admin-only).",
+        "operationId": "get_production_preview_api_v2_admin_content_factory_production_preview_scopes__scope_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Production Preview",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/production-preview/scopes/{scope_id}/caps/{caps_ref}": {
+      "get": {
+        "description": "Get production preview for a scope and CAPS reference (admin-only).",
+        "operationId": "get_production_preview_by_caps_ref_api_v2_admin_content_factory_production_preview_scopes__scope_id__caps__caps_ref__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Production Preview By Caps Ref",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/promotion-events": {
+      "get": {
+        "operationId": "list_promotion_events_api_v2_admin_content_factory_promotion_events_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionPromotionPageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Promotion Events",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/promotion-events/{promotion_event_id}": {
+      "get": {
+        "operationId": "get_promotion_event_api_v2_admin_content_factory_promotion_events__promotion_event_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionPromotionResultResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Promotion Event",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/items": {
+      "get": {
+        "operationId": "get_promotion_event_items_api_v2_admin_content_factory_promotion_events__promotion_event_id__items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Promotion Event Items Api V2 Admin Content Factory Promotion Events  Promotion Event Id  Items Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Promotion Event Items",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/rollback": {
+      "post": {
+        "operationId": "rollback_promotion_event_api_v2_admin_content_factory_promotion_events__promotion_event_id__rollback_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionRollbackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionRollbackResultResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Rollback Promotion Event",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/promotion-events/{promotion_event_id}/verify": {
+      "post": {
+        "operationId": "verify_promotion_event_api_v2_admin_content_factory_promotion_events__promotion_event_id__verify_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionReadVerificationReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Promotion Event",
         "tags": [
           "admin-content-factory"
         ]
@@ -4378,23 +6352,314 @@
         ]
       }
     },
-    "/api/v2/admin/content-factory/review-queue": {
+    "/api/v2/admin/content-factory/review-assignments": {
       "get": {
-        "operationId": "get_review_queue_api_v2_admin_content_factory_review_queue_get",
+        "operationId": "list_review_assignments_api_v2_admin_content_factory_review_assignments_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "reviewer_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reviewer Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/ContentArtifactResponse"
+                    "$ref": "#/components/schemas/ReviewAssignmentResponse"
                   },
-                  "title": "Response Get Review Queue Api V2 Admin Content Factory Review Queue Get",
+                  "title": "Response List Review Assignments Api V2 Admin Content Factory Review Assignments Get",
                   "type": "array"
                 }
               }
             },
             "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Review Assignments",
+        "tags": [
+          "admin-content-factory"
+        ]
+      },
+      "post": {
+        "operationId": "assign_reviewer_api_v2_admin_content_factory_review_assignments_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewAssignmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewAssignmentResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Assign Reviewer",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/review-assignments/bulk": {
+      "post": {
+        "operationId": "bulk_assign_reviewer_api_v2_admin_content_factory_review_assignments_bulk_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewAssignmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Assign Reviewer",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/review-queue": {
+      "get": {
+        "operationId": "get_review_queue_api_v2_admin_content_factory_review_queue_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layer",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "caps_ref",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Caps Ref"
+            }
+          },
+          {
+            "in": "query",
+            "name": "artifact_type",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Artifact Type"
+            }
+          },
+          {
+            "in": "query",
+            "name": "risk_level",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Risk Level"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reviewer_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reviewer Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewQueuePageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
           }
         },
         "security": [
@@ -4403,6 +6668,245 @@
           }
         ],
         "summary": "Get Review Queue",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/review-summary": {
+      "get": {
+        "operationId": "get_review_summary_api_v2_admin_content_factory_review_summary_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewSummaryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Review Summary",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/review/bulk-approve": {
+      "post": {
+        "operationId": "bulk_approve_review_api_v2_admin_content_factory_review_bulk_approve_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Approve Review",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/review/bulk-quarantine": {
+      "post": {
+        "operationId": "bulk_quarantine_review_api_v2_admin_content_factory_review_bulk_quarantine_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Quarantine Review",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/review/bulk-reject": {
+      "post": {
+        "operationId": "bulk_reject_review_api_v2_admin_content_factory_review_bulk_reject_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Reject Review",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/reviewers/{reviewer_id}/workload": {
+      "get": {
+        "operationId": "get_reviewer_workload_api_v2_admin_content_factory_reviewers__reviewer_id__workload_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "reviewer_id",
+            "required": true,
+            "schema": {
+              "title": "Reviewer Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewerWorkloadResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Reviewer Workload",
         "tags": [
           "admin-content-factory"
         ]
@@ -5090,9 +7594,9 @@
         ]
       }
     },
-    "/api/v2/admin/content-factory/scopes/{scope_id}/dry-run-seed": {
+    "/api/v2/admin/content-factory/scopes/{scope_id}/dry-run-promotion": {
       "post": {
-        "operationId": "dry_run_seed_api_v2_admin_content_factory_scopes__scope_id__dry_run_seed_post",
+        "operationId": "dry_run_promotion_api_v2_admin_content_factory_scopes__scope_id__dry_run_promotion_post",
         "parameters": [
           {
             "in": "path",
@@ -5105,18 +7609,21 @@
           },
           {
             "in": "query",
-            "name": "layer",
+            "name": "layers",
             "required": false,
             "schema": {
               "anyOf": [
                 {
-                  "$ref": "#/components/schemas/app__domain__content_coverage__ContentLayer"
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
                 },
                 {
                   "type": "null"
                 }
               ],
-              "title": "Layer"
+              "title": "Layers"
             }
           }
         ],
@@ -5125,7 +7632,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentSeedRunResponse"
+                  "$ref": "#/components/schemas/ProductionPromotionPlanResponse"
                 }
               }
             },
@@ -5147,7 +7654,186 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Dry Run Seed",
+        "summary": "Dry Run Promotion",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/scopes/{scope_id}/dry-run-seed": {
+      "post": {
+        "operationId": "dry_run_scope_seed_api_v2_admin_content_factory_scopes__scope_id__dry_run_seed_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingSeedPlanResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Dry Run Scope Seed",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/scopes/{scope_id}/production-gate": {
+      "get": {
+        "operationId": "get_production_gate_api_v2_admin_content_factory_scopes__scope_id__production_gate_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionGateReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Production Gate",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/scopes/{scope_id}/production-read-verification": {
+      "get": {
+        "operationId": "verify_scope_production_api_v2_admin_content_factory_scopes__scope_id__production_read_verification_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScopeProductionReadReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Scope Production",
         "tags": [
           "admin-content-factory"
         ]
@@ -5167,12 +7853,22 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionPromotionRequest"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentFactoryActionResponse"
+                  "$ref": "#/components/schemas/ProductionPromotionResultResponse"
                 }
               }
             },
@@ -5202,7 +7898,7 @@
     },
     "/api/v2/admin/content-factory/scopes/{scope_id}/seed-staging": {
       "post": {
-        "operationId": "seed_staging_api_v2_admin_content_factory_scopes__scope_id__seed_staging_post",
+        "operationId": "seed_scope_staging_api_v2_admin_content_factory_scopes__scope_id__seed_staging_post",
         "parameters": [
           {
             "in": "path",
@@ -5212,6 +7908,16 @@
               "title": "Scope Id",
               "type": "string"
             }
+          },
+          {
+            "in": "query",
+            "name": "allow_partial",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Allow Partial",
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -5219,7 +7925,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentSeedRunResponse"
+                  "$ref": "#/components/schemas/StagingSeedRunResultResponse"
                 }
               }
             },
@@ -5241,7 +7947,54 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Seed Staging",
+        "summary": "Seed Scope Staging",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/scopes/{scope_id}/staging-read-verification": {
+      "get": {
+        "operationId": "verify_scope_staging_api_v2_admin_content_factory_scopes__scope_id__staging_read_verification_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingReadVerificationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Scope Staging",
         "tags": [
           "admin-content-factory"
         ]
@@ -5325,51 +8078,6 @@
       }
     },
     "/api/v2/admin/content-factory/scopes/{scope_id}/staging-verification": {
-      "get": {
-        "operationId": "verify_staging_seed_api_v2_admin_content_factory_scopes__scope_id__staging_verification_get",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "scope_id",
-            "required": true,
-            "schema": {
-              "title": "Scope Id",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContentFactoryActionResponse"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
-          }
-        },
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "summary": "Verify Staging Seed",
-        "tags": [
-          "admin-content-factory"
-        ]
-      },
       "post": {
         "operationId": "run_scope_staging_verification_api_v2_admin_content_factory_scopes__scope_id__staging_verification_post",
         "parameters": [
@@ -5492,6 +8200,424 @@
           }
         ],
         "summary": "Get Content Scope Targets",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/seed-runs": {
+      "get": {
+        "operationId": "list_seed_runs_api_v2_admin_content_factory_seed_runs_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingSeedRunPageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Seed Runs",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/seed-runs/{seed_run_id}": {
+      "get": {
+        "operationId": "get_seed_run_api_v2_admin_content_factory_seed_runs__seed_run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingSeedRunResultResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Seed Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/seed-runs/{seed_run_id}/items": {
+      "get": {
+        "operationId": "get_seed_run_items_api_v2_admin_content_factory_seed_runs__seed_run_id__items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StagingSeedItemResponse"
+                  },
+                  "title": "Response Get Seed Run Items Api V2 Admin Content Factory Seed Runs  Seed Run Id  Items Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Seed Run Items",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/seed-runs/{seed_run_id}/rollback": {
+      "post": {
+        "operationId": "rollback_seed_run_api_v2_admin_content_factory_seed_runs__seed_run_id__rollback_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reason",
+            "required": true,
+            "schema": {
+              "title": "Reason",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingRollbackResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Rollback Seed Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/seed-runs/{seed_run_id}/verify": {
+      "post": {
+        "operationId": "verify_seed_run_api_v2_admin_content_factory_seed_runs__seed_run_id__verify_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingReadVerificationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Seed Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/staging-preview/scopes/{scope_id}": {
+      "get": {
+        "description": "Get staging preview for a scope (admin-only).",
+        "operationId": "get_staging_preview_api_v2_admin_content_factory_staging_preview_scopes__scope_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Staging Preview",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/api/v2/admin/content-factory/staging-preview/scopes/{scope_id}/caps/{caps_ref}": {
+      "get": {
+        "description": "Get staging preview for a scope and CAPS reference (admin-only).",
+        "operationId": "get_staging_preview_by_caps_ref_api_v2_admin_content_factory_staging_preview_scopes__scope_id__caps__caps_ref__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Staging Preview By Caps Ref",
         "tags": [
           "admin-content-factory"
         ]
@@ -8040,6 +11166,352 @@
         ]
       }
     },
+    "/api/v2/learner/content/scopes/{scope_id}/caps/{caps_ref}/diagnostic-items": {
+      "get": {
+        "description": "Get learner-visible diagnostic items for a scope and CAPS reference.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: CAPS reference\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible diagnostic items",
+        "operationId": "get_diagnostic_items_by_caps_ref_api_v2_learner_content_scopes__scope_id__caps__caps_ref__diagnostic_items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerDiagnosticItem"
+                  },
+                  "title": "Response Get Diagnostic Items By Caps Ref Api V2 Learner Content Scopes  Scope Id  Caps  Caps Ref  Diagnostic Items Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Diagnostic Items By Caps Ref",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/api/v2/learner/content/scopes/{scope_id}/caps/{caps_ref}/lessons": {
+      "get": {
+        "description": "Get learner-visible lessons for a scope and CAPS reference.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: CAPS reference\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible lessons",
+        "operationId": "get_lessons_by_caps_ref_api_v2_learner_content_scopes__scope_id__caps__caps_ref__lessons_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerLesson"
+                  },
+                  "title": "Response Get Lessons By Caps Ref Api V2 Learner Content Scopes  Scope Id  Caps  Caps Ref  Lessons Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Lessons By Caps Ref",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/api/v2/learner/content/scopes/{scope_id}/diagnostic-items": {
+      "get": {
+        "description": "Get learner-visible diagnostic items for a scope.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: Optional CAPS reference filter\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible diagnostic items",
+        "operationId": "get_diagnostic_items_api_v2_learner_content_scopes__scope_id__diagnostic_items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "caps_ref",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Caps Ref"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerDiagnosticItem"
+                  },
+                  "title": "Response Get Diagnostic Items Api V2 Learner Content Scopes  Scope Id  Diagnostic Items Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Diagnostic Items",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/api/v2/learner/content/scopes/{scope_id}/lessons": {
+      "get": {
+        "description": "Get learner-visible lessons for a scope.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: Optional CAPS reference filter\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible lessons",
+        "operationId": "get_lessons_api_v2_learner_content_scopes__scope_id__lessons_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "caps_ref",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Caps Ref"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerLesson"
+                  },
+                  "title": "Response Get Lessons Api V2 Learner Content Scopes  Scope Id  Lessons Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Lessons",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/api/v2/learner/content/scopes/{scope_id}/summary": {
+      "get": {
+        "description": "Get summary of learner-visible content for a scope.\n\nArgs:\n    scope_id: Content scope ID\n\nReturns:\n    Summary of learner-visible content",
+        "operationId": "get_scope_summary_api_v2_learner_content_scopes__scope_id__summary_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearnerScopeContentSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Scope Summary",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
     "/api/v2/learners/": {
       "post": {
         "operationId": "create_learner_api_v2_learners__post",
@@ -10333,6 +13805,54 @@
         ]
       }
     },
+    "/v2/admin/content-factory/artifacts/{artifact_id}/review-bundle": {
+      "get": {
+        "operationId": "get_artifact_review_bundle_v2_admin_content_factory_artifacts__artifact_id__review_bundle_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "artifact_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Artifact Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArtifactReviewBundleResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Artifact Review Bundle",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/v2/admin/content-factory/artifacts/{artifact_id}/submit-review": {
       "post": {
         "operationId": "submit_artifact_for_review_v2_admin_content_factory_artifacts__artifact_id__submit_review_post",
@@ -10407,6 +13927,286 @@
         ]
       }
     },
+    "/v2/admin/content-factory/full-generation/plan": {
+      "post": {
+        "description": "Plan full generation for all configured scopes (admin-only).",
+        "operationId": "plan_full_generation_v2_admin_content_factory_full_generation_plan_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Plan Full Generation",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/full-generation/runs": {
+      "get": {
+        "description": "List full generation runs (admin-only).",
+        "operationId": "list_full_generation_runs_v2_admin_content_factory_full_generation_runs_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Full Generation Runs",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/full-generation/runs/{run_id}": {
+      "get": {
+        "description": "Get a full generation run (admin-only).",
+        "operationId": "get_full_generation_run_v2_admin_content_factory_full_generation_runs__run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Full Generation Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/full-generation/runs/{run_id}/cancel": {
+      "post": {
+        "description": "Cancel a full generation run (admin-only).",
+        "operationId": "cancel_full_generation_run_v2_admin_content_factory_full_generation_runs__run_id__cancel_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Cancel Full Generation Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/full-generation/runs/{run_id}/report": {
+      "get": {
+        "description": "Get a full generation run report (admin-only).",
+        "operationId": "get_full_generation_run_report_v2_admin_content_factory_full_generation_runs__run_id__report_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Full Generation Run Report",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/full-generation/runs/{run_id}/resume": {
+      "post": {
+        "description": "Resume a full generation run (admin-only).",
+        "operationId": "resume_full_generation_run_v2_admin_content_factory_full_generation_runs__run_id__resume_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Resume Full Generation Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/full-generation/start": {
+      "post": {
+        "description": "Start full generation run (admin-only).",
+        "operationId": "start_full_generation_v2_admin_content_factory_full_generation_start_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Request",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Start Full Generation",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
     "/v2/admin/content-factory/health": {
       "get": {
         "operationId": "content_factory_health_v2_admin_content_factory_health_get",
@@ -10428,6 +14228,384 @@
           }
         ],
         "summary": "Content Factory Health",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/production-preview/scopes/{scope_id}": {
+      "get": {
+        "description": "Get production preview for a scope (admin-only).",
+        "operationId": "get_production_preview_v2_admin_content_factory_production_preview_scopes__scope_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Production Preview",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/production-preview/scopes/{scope_id}/caps/{caps_ref}": {
+      "get": {
+        "description": "Get production preview for a scope and CAPS reference (admin-only).",
+        "operationId": "get_production_preview_by_caps_ref_v2_admin_content_factory_production_preview_scopes__scope_id__caps__caps_ref__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Production Preview By Caps Ref",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/promotion-events": {
+      "get": {
+        "operationId": "list_promotion_events_v2_admin_content_factory_promotion_events_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionPromotionPageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Promotion Events",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/promotion-events/{promotion_event_id}": {
+      "get": {
+        "operationId": "get_promotion_event_v2_admin_content_factory_promotion_events__promotion_event_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionPromotionResultResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Promotion Event",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/promotion-events/{promotion_event_id}/items": {
+      "get": {
+        "operationId": "get_promotion_event_items_v2_admin_content_factory_promotion_events__promotion_event_id__items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Promotion Event Items V2 Admin Content Factory Promotion Events  Promotion Event Id  Items Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Promotion Event Items",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/promotion-events/{promotion_event_id}/rollback": {
+      "post": {
+        "operationId": "rollback_promotion_event_v2_admin_content_factory_promotion_events__promotion_event_id__rollback_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionRollbackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionRollbackResultResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Rollback Promotion Event",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/promotion-events/{promotion_event_id}/verify": {
+      "post": {
+        "operationId": "verify_promotion_event_v2_admin_content_factory_promotion_events__promotion_event_id__verify_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_event_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionReadVerificationReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Promotion Event",
         "tags": [
           "admin-content-factory"
         ]
@@ -10528,23 +14706,314 @@
         ]
       }
     },
-    "/v2/admin/content-factory/review-queue": {
+    "/v2/admin/content-factory/review-assignments": {
       "get": {
-        "operationId": "get_review_queue_v2_admin_content_factory_review_queue_get",
+        "operationId": "list_review_assignments_v2_admin_content_factory_review_assignments_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "reviewer_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reviewer Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/ContentArtifactResponse"
+                    "$ref": "#/components/schemas/ReviewAssignmentResponse"
                   },
-                  "title": "Response Get Review Queue V2 Admin Content Factory Review Queue Get",
+                  "title": "Response List Review Assignments V2 Admin Content Factory Review Assignments Get",
                   "type": "array"
                 }
               }
             },
             "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Review Assignments",
+        "tags": [
+          "admin-content-factory"
+        ]
+      },
+      "post": {
+        "operationId": "assign_reviewer_v2_admin_content_factory_review_assignments_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewAssignmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewAssignmentResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Assign Reviewer",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/review-assignments/bulk": {
+      "post": {
+        "operationId": "bulk_assign_reviewer_v2_admin_content_factory_review_assignments_bulk_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewAssignmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Assign Reviewer",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/review-queue": {
+      "get": {
+        "operationId": "get_review_queue_v2_admin_content_factory_review_queue_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layer",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "caps_ref",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Caps Ref"
+            }
+          },
+          {
+            "in": "query",
+            "name": "artifact_type",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Artifact Type"
+            }
+          },
+          {
+            "in": "query",
+            "name": "risk_level",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Risk Level"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reviewer_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reviewer Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewQueuePageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
           }
         },
         "security": [
@@ -10553,6 +15022,245 @@
           }
         ],
         "summary": "Get Review Queue",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/review-summary": {
+      "get": {
+        "operationId": "get_review_summary_v2_admin_content_factory_review_summary_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewSummaryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Review Summary",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/review/bulk-approve": {
+      "post": {
+        "operationId": "bulk_approve_review_v2_admin_content_factory_review_bulk_approve_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Approve Review",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/review/bulk-quarantine": {
+      "post": {
+        "operationId": "bulk_quarantine_review_v2_admin_content_factory_review_bulk_quarantine_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Quarantine Review",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/review/bulk-reject": {
+      "post": {
+        "operationId": "bulk_reject_review_v2_admin_content_factory_review_bulk_reject_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkReviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Bulk Reject Review",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/reviewers/{reviewer_id}/workload": {
+      "get": {
+        "operationId": "get_reviewer_workload_v2_admin_content_factory_reviewers__reviewer_id__workload_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "reviewer_id",
+            "required": true,
+            "schema": {
+              "title": "Reviewer Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewerWorkloadResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Reviewer Workload",
         "tags": [
           "admin-content-factory"
         ]
@@ -11240,9 +15948,9 @@
         ]
       }
     },
-    "/v2/admin/content-factory/scopes/{scope_id}/dry-run-seed": {
+    "/v2/admin/content-factory/scopes/{scope_id}/dry-run-promotion": {
       "post": {
-        "operationId": "dry_run_seed_v2_admin_content_factory_scopes__scope_id__dry_run_seed_post",
+        "operationId": "dry_run_promotion_v2_admin_content_factory_scopes__scope_id__dry_run_promotion_post",
         "parameters": [
           {
             "in": "path",
@@ -11255,18 +15963,21 @@
           },
           {
             "in": "query",
-            "name": "layer",
+            "name": "layers",
             "required": false,
             "schema": {
               "anyOf": [
                 {
-                  "$ref": "#/components/schemas/app__domain__content_coverage__ContentLayer"
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
                 },
                 {
                   "type": "null"
                 }
               ],
-              "title": "Layer"
+              "title": "Layers"
             }
           }
         ],
@@ -11275,7 +15986,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentSeedRunResponse"
+                  "$ref": "#/components/schemas/ProductionPromotionPlanResponse"
                 }
               }
             },
@@ -11297,7 +16008,186 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Dry Run Seed",
+        "summary": "Dry Run Promotion",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/scopes/{scope_id}/dry-run-seed": {
+      "post": {
+        "operationId": "dry_run_scope_seed_v2_admin_content_factory_scopes__scope_id__dry_run_seed_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingSeedPlanResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Dry Run Scope Seed",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/scopes/{scope_id}/production-gate": {
+      "get": {
+        "operationId": "get_production_gate_v2_admin_content_factory_scopes__scope_id__production_gate_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionGateReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Production Gate",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/scopes/{scope_id}/production-read-verification": {
+      "get": {
+        "operationId": "verify_scope_production_v2_admin_content_factory_scopes__scope_id__production_read_verification_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScopeProductionReadReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Scope Production",
         "tags": [
           "admin-content-factory"
         ]
@@ -11317,12 +16207,22 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionPromotionRequest"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentFactoryActionResponse"
+                  "$ref": "#/components/schemas/ProductionPromotionResultResponse"
                 }
               }
             },
@@ -11352,7 +16252,7 @@
     },
     "/v2/admin/content-factory/scopes/{scope_id}/seed-staging": {
       "post": {
-        "operationId": "seed_staging_v2_admin_content_factory_scopes__scope_id__seed_staging_post",
+        "operationId": "seed_scope_staging_v2_admin_content_factory_scopes__scope_id__seed_staging_post",
         "parameters": [
           {
             "in": "path",
@@ -11362,6 +16262,16 @@
               "title": "Scope Id",
               "type": "string"
             }
+          },
+          {
+            "in": "query",
+            "name": "allow_partial",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Allow Partial",
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -11369,7 +16279,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContentSeedRunResponse"
+                  "$ref": "#/components/schemas/StagingSeedRunResultResponse"
                 }
               }
             },
@@ -11391,7 +16301,54 @@
             "HTTPBearer": []
           }
         ],
-        "summary": "Seed Staging",
+        "summary": "Seed Scope Staging",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/scopes/{scope_id}/staging-read-verification": {
+      "get": {
+        "operationId": "verify_scope_staging_v2_admin_content_factory_scopes__scope_id__staging_read_verification_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingReadVerificationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Scope Staging",
         "tags": [
           "admin-content-factory"
         ]
@@ -11475,51 +16432,6 @@
       }
     },
     "/v2/admin/content-factory/scopes/{scope_id}/staging-verification": {
-      "get": {
-        "operationId": "verify_staging_seed_v2_admin_content_factory_scopes__scope_id__staging_verification_get",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "scope_id",
-            "required": true,
-            "schema": {
-              "title": "Scope Id",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContentFactoryActionResponse"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
-          }
-        },
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "summary": "Verify Staging Seed",
-        "tags": [
-          "admin-content-factory"
-        ]
-      },
       "post": {
         "operationId": "run_scope_staging_verification_v2_admin_content_factory_scopes__scope_id__staging_verification_post",
         "parameters": [
@@ -11642,6 +16554,424 @@
           }
         ],
         "summary": "Get Content Scope Targets",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/seed-runs": {
+      "get": {
+        "operationId": "list_seed_runs_v2_admin_content_factory_seed_runs_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "scope_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingSeedRunPageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Seed Runs",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/seed-runs/{seed_run_id}": {
+      "get": {
+        "operationId": "get_seed_run_v2_admin_content_factory_seed_runs__seed_run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingSeedRunResultResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Seed Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/seed-runs/{seed_run_id}/items": {
+      "get": {
+        "operationId": "get_seed_run_items_v2_admin_content_factory_seed_runs__seed_run_id__items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StagingSeedItemResponse"
+                  },
+                  "title": "Response Get Seed Run Items V2 Admin Content Factory Seed Runs  Seed Run Id  Items Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Seed Run Items",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/seed-runs/{seed_run_id}/rollback": {
+      "post": {
+        "operationId": "rollback_seed_run_v2_admin_content_factory_seed_runs__seed_run_id__rollback_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reason",
+            "required": true,
+            "schema": {
+              "title": "Reason",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingRollbackResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Rollback Seed Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/seed-runs/{seed_run_id}/verify": {
+      "post": {
+        "operationId": "verify_seed_run_v2_admin_content_factory_seed_runs__seed_run_id__verify_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "seed_run_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Seed Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StagingReadVerificationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Verify Seed Run",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/staging-preview/scopes/{scope_id}": {
+      "get": {
+        "description": "Get staging preview for a scope (admin-only).",
+        "operationId": "get_staging_preview_v2_admin_content_factory_staging_preview_scopes__scope_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Staging Preview",
+        "tags": [
+          "admin-content-factory"
+        ]
+      }
+    },
+    "/v2/admin/content-factory/staging-preview/scopes/{scope_id}/caps/{caps_ref}": {
+      "get": {
+        "description": "Get staging preview for a scope and CAPS reference (admin-only).",
+        "operationId": "get_staging_preview_by_caps_ref_v2_admin_content_factory_staging_preview_scopes__scope_id__caps__caps_ref__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "layers",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Layers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Staging Preview By Caps Ref",
         "tags": [
           "admin-content-factory"
         ]
@@ -14190,6 +19520,352 @@
         ]
       }
     },
+    "/v2/learner/content/scopes/{scope_id}/caps/{caps_ref}/diagnostic-items": {
+      "get": {
+        "description": "Get learner-visible diagnostic items for a scope and CAPS reference.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: CAPS reference\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible diagnostic items",
+        "operationId": "get_diagnostic_items_by_caps_ref_v2_learner_content_scopes__scope_id__caps__caps_ref__diagnostic_items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerDiagnosticItem"
+                  },
+                  "title": "Response Get Diagnostic Items By Caps Ref V2 Learner Content Scopes  Scope Id  Caps  Caps Ref  Diagnostic Items Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Diagnostic Items By Caps Ref",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/v2/learner/content/scopes/{scope_id}/caps/{caps_ref}/lessons": {
+      "get": {
+        "description": "Get learner-visible lessons for a scope and CAPS reference.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: CAPS reference\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible lessons",
+        "operationId": "get_lessons_by_caps_ref_v2_learner_content_scopes__scope_id__caps__caps_ref__lessons_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "caps_ref",
+            "required": true,
+            "schema": {
+              "title": "Caps Ref",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerLesson"
+                  },
+                  "title": "Response Get Lessons By Caps Ref V2 Learner Content Scopes  Scope Id  Caps  Caps Ref  Lessons Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Lessons By Caps Ref",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/v2/learner/content/scopes/{scope_id}/diagnostic-items": {
+      "get": {
+        "description": "Get learner-visible diagnostic items for a scope.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: Optional CAPS reference filter\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible diagnostic items",
+        "operationId": "get_diagnostic_items_v2_learner_content_scopes__scope_id__diagnostic_items_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "caps_ref",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Caps Ref"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerDiagnosticItem"
+                  },
+                  "title": "Response Get Diagnostic Items V2 Learner Content Scopes  Scope Id  Diagnostic Items Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Diagnostic Items",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/v2/learner/content/scopes/{scope_id}/lessons": {
+      "get": {
+        "description": "Get learner-visible lessons for a scope.\n\nArgs:\n    scope_id: Content scope ID\n    caps_ref: Optional CAPS reference filter\n    limit: Maximum number of items to return\n\nReturns:\n    List of learner-visible lessons",
+        "operationId": "get_lessons_v2_learner_content_scopes__scope_id__lessons_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "caps_ref",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Caps Ref"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LearnerLesson"
+                  },
+                  "title": "Response Get Lessons V2 Learner Content Scopes  Scope Id  Lessons Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Lessons",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
+    "/v2/learner/content/scopes/{scope_id}/summary": {
+      "get": {
+        "description": "Get summary of learner-visible content for a scope.\n\nArgs:\n    scope_id: Content scope ID\n\nReturns:\n    Summary of learner-visible content",
+        "operationId": "get_scope_summary_v2_learner_content_scopes__scope_id__summary_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scope_id",
+            "required": true,
+            "schema": {
+              "title": "Scope Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearnerScopeContentSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Scope Summary",
+        "tags": [
+          "learner-content"
+        ]
+      }
+    },
     "/v2/learners/": {
       "post": {
         "operationId": "create_learner_v2_learners__post",
@@ -16120,6 +21796,10 @@
     {
       "description": "Admin-only read visibility into ETL source material",
       "name": "admin-etl"
+    },
+    {
+      "description": "Learner-facing production content from Content Factory",
+      "name": "learner-content"
     }
   ]
 }

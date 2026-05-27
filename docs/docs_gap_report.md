@@ -1,7 +1,7 @@
 # Documentation Gap Report
 
-Generated at: `2026-05-25T08:54:16Z`
-Commit: `6b687361f42f90878bdd93934578519294cf94f7`
+Generated at: `2026-05-26T18:38:29Z`
+Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 
 ## Important document coverage
 

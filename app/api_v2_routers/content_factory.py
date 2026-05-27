@@ -23,6 +23,10 @@ from app.domain.content_factory_schemas import (
     ContentFactoryActionResponse,
     ContentFactoryETLStatusResponse,
     ContentFactoryHealthResponse,
+    ArtifactReviewBundleResponse,
+    BulkReviewAssignmentRequest,
+    BulkReviewRequest,
+    BulkReviewResponse,
     ContentFactoryReportResponse,
     ContentGenerationExecutionReportResponse,
     ContentGenerationExecutionResponse,
@@ -32,6 +36,28 @@ from app.domain.content_factory_schemas import (
     ContentGenerationTaskResponse,
     ContentSeedRunResponse,
     ContentStagingVerificationRunResponse,
+    ProductionGateBlockerResponse,
+    ProductionGateReportResponse,
+    ProductionPromotionPlanResponse,
+    ProductionPromotionRequest,
+    ProductionPromotionResultResponse,
+    ProductionPromotionPageResponse,
+    ProductionReadVerificationReportResponse,
+    ScopeProductionReadReportResponse,
+    ProductionRollbackRequest,
+    ProductionRollbackResultResponse,
+    ReviewAssignmentRequest,
+    ReviewAssignmentResponse,
+    ReviewQueueItemResponse,
+    ReviewQueuePageResponse,
+    ReviewSummaryResponse,
+    ReviewerWorkloadResponse,
+    StagingReadVerificationResponse,
+    StagingRollbackResponse,
+    StagingSeedItemResponse,
+    StagingSeedPlanResponse,
+    StagingSeedRunPageResponse,
+    StagingSeedRunResultResponse,
 )
 from app.domain.content_coverage import CapsRefCoverageReport, ContentLayer, CoverageTarget, ScopeCoverageReport
 from app.domain.content_scope import ContentScope
@@ -47,6 +73,15 @@ from app.services.content_generation_planner import ContentGenerationPlanner
 from app.services.content_coverage_service import ContentCoverageService
 from app.services.content_scope_registry import ContentScopeRegistry
 from app.services.content_seed_promotion import ContentSeedPromotionService
+from app.services.content_review_queue import ContentReviewQueueService
+from app.services.content_reviewer_assignment import ContentReviewerAssignmentService
+from app.services.content_bulk_review import ContentBulkReviewService
+from app.services.content_staging_seed_executor import ContentStagingSeedExecutor
+from app.services.content_staging_read_verification import ContentStagingReadVerificationService
+from app.services.content_production_promotion_gate import ContentProductionPromotionGate
+from app.services.content_production_promotion_executor import ContentProductionPromotionExecutor
+from app.services.content_production_read_verification import ContentProductionReadVerificationService
+
 from app.services.content_staging_readiness import (
     AllScopeStagingVerificationReport,
     ContentStagingReadinessService,
@@ -97,6 +132,40 @@ def get_seed_promotion_service(
 
 def get_staging_readiness_service() -> ContentStagingReadinessService:
     return ContentStagingReadinessService()
+
+
+def get_content_review_queue_service() -> ContentReviewQueueService:
+    return ContentReviewQueueService()
+
+
+def get_content_reviewer_assignment_service() -> ContentReviewerAssignmentService:
+    return ContentReviewerAssignmentService()
+
+
+def get_content_bulk_review_service() -> ContentBulkReviewService:
+    return ContentBulkReviewService()
+
+def get_content_staging_seed_executor() -> ContentStagingSeedExecutor:
+    return ContentStagingSeedExecutor()
+
+def get_content_staging_read_verification_service() -> ContentStagingReadVerificationService:
+    return ContentStagingReadVerificationService()
+
+
+def get_production_promotion_gate(
+    coverage_service: ContentCoverageService = Depends(get_content_coverage_service),
+) -> ContentProductionPromotionGate:
+    return ContentProductionPromotionGate(coverage_service=coverage_service)
+
+
+def get_production_promotion_executor(
+    gate: ContentProductionPromotionGate = Depends(get_production_promotion_gate),
+) -> ContentProductionPromotionExecutor:
+    return ContentProductionPromotionExecutor(gate=gate)
+
+
+def get_production_read_verification_service() -> ContentProductionReadVerificationService:
+    return ContentProductionReadVerificationService()
 
 
 @router.get("/health", response_model=ContentFactoryHealthResponse)
@@ -424,10 +493,144 @@ async def quarantine_artifact(artifact_id: uuid.UUID, request: ContentFactoryAct
     return ContentFactoryActionResponse(**transition.__dict__)
 
 
-@router.get("/review-queue", response_model=list[ContentArtifactResponse])
-async def get_review_queue(session: AsyncSession = Depends(get_db)) -> list[ContentArtifactResponse]:
-    result = await session.execute(select(ContentGenerationArtifact).where(ContentGenerationArtifact.status == ContentArtifactStatus.PENDING_REVIEW).order_by(ContentGenerationArtifact.created_at.asc()).limit(100))
-    return [_artifact_response(artifact) for artifact in result.scalars().all()]
+@router.get("/review-queue", response_model=ReviewQueuePageResponse)
+async def get_review_queue(
+    scope_id: str | None = Query(default=None),
+    layer: str | None = Query(default=None),
+    caps_ref: str | None = Query(default=None),
+    artifact_type: str | None = Query(default=None),
+    risk_level: str | None = Query(default=None),
+    reviewer_id: str | None = Query(default=None),
+    limit: int = Query(default=50, ge=1, le=200),
+    offset: int = Query(default=0, ge=0),
+    session: AsyncSession = Depends(get_db),
+    service: ContentReviewQueueService = Depends(get_content_review_queue_service),
+) -> ReviewQueuePageResponse:
+    page = await service.list_queue(session, scope_id=scope_id, layer=layer, caps_ref=caps_ref, artifact_type=artifact_type, risk_level=risk_level, reviewer_id=reviewer_id, limit=limit, offset=offset)
+    return ReviewQueuePageResponse(items=[_review_queue_item_response(item) for item in page.items], total=page.total, limit=page.limit, offset=page.offset)
+
+
+@router.get("/review-summary", response_model=ReviewSummaryResponse)
+async def get_review_summary(
+    scope_id: str | None = Query(default=None),
+    session: AsyncSession = Depends(get_db),
+    service: ContentReviewQueueService = Depends(get_content_review_queue_service),
+) -> ReviewSummaryResponse:
+    return ReviewSummaryResponse(**(await service.get_review_summary(session, scope_id=scope_id)).__dict__)
+
+
+@router.get("/artifacts/{artifact_id}/review-bundle", response_model=ArtifactReviewBundleResponse)
+async def get_artifact_review_bundle(
+    artifact_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    service: ContentReviewQueueService = Depends(get_content_review_queue_service),
+) -> ArtifactReviewBundleResponse:
+    try:
+        bundle = await service.get_artifact_review_bundle(session, artifact_id)
+        return ArtifactReviewBundleResponse(
+            artifact=bundle.artifact,
+            validation_report=bundle.validation_report,
+            provenance=bundle.provenance,
+            sources=bundle.sources,
+            review_risk=bundle.review_risk.__dict__,
+            generation_metadata=bundle.generation_metadata,
+            prior_review_events=bundle.prior_review_events,
+            similar_artifacts=bundle.similar_artifacts,
+        )
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.post("/review-assignments", response_model=ReviewAssignmentResponse)
+async def assign_reviewer(
+    request: ReviewAssignmentRequest,
+    session: AsyncSession = Depends(get_db),
+    service: ContentReviewerAssignmentService = Depends(get_content_reviewer_assignment_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ReviewAssignmentResponse:
+    try:
+        assignment = await service.assign_artifact(session, request.artifact_id, request.reviewer_id, str(current_user.get("sub") or "admin"), priority=request.priority)
+        await session.commit()
+        return _assignment_response(assignment)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.post("/review-assignments/bulk", response_model=BulkReviewResponse)
+async def bulk_assign_reviewer(
+    request: BulkReviewAssignmentRequest,
+    session: AsyncSession = Depends(get_db),
+    service: ContentBulkReviewService = Depends(get_content_bulk_review_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> BulkReviewResponse:
+    result = await service.bulk_assign(session, request.artifact_ids, reviewer_id=request.reviewer_id, assigned_by=str(current_user.get("sub") or "admin"), priority=request.priority)
+    await session.commit()
+    return BulkReviewResponse(**result.__dict__)
+
+
+@router.get("/review-assignments", response_model=list[ReviewAssignmentResponse])
+async def list_review_assignments(
+    reviewer_id: str | None = Query(default=None),
+    status_filter: str | None = Query(default=None, alias="status"),
+    session: AsyncSession = Depends(get_db),
+    service: ContentReviewerAssignmentService = Depends(get_content_reviewer_assignment_service),
+) -> list[ReviewAssignmentResponse]:
+    assignments = await service.list_assignments(session, reviewer_id=reviewer_id, status=status_filter)
+    return [_assignment_response(assignment) for assignment in assignments]
+
+
+@router.get("/reviewers/{reviewer_id}/workload", response_model=ReviewerWorkloadResponse)
+async def get_reviewer_workload(
+    reviewer_id: str,
+    session: AsyncSession = Depends(get_db),
+    service: ContentReviewerAssignmentService = Depends(get_content_reviewer_assignment_service),
+) -> ReviewerWorkloadResponse:
+    return ReviewerWorkloadResponse(**(await service.get_reviewer_workload(session, reviewer_id)).__dict__)
+
+
+@router.post("/review/bulk-approve", response_model=BulkReviewResponse)
+async def bulk_approve_review(
+    request: BulkReviewRequest,
+    session: AsyncSession = Depends(get_db),
+    service: ContentBulkReviewService = Depends(get_content_bulk_review_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> BulkReviewResponse:
+    try:
+        result = await service.bulk_approve(session, request.artifact_ids, reviewer_id=str(current_user.get("sub") or "admin"), notes=request.notes or "")
+        await session.commit()
+        return BulkReviewResponse(**result.__dict__)
+    except ValueError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.post("/review/bulk-reject", response_model=BulkReviewResponse)
+async def bulk_reject_review(
+    request: BulkReviewRequest,
+    session: AsyncSession = Depends(get_db),
+    service: ContentBulkReviewService = Depends(get_content_bulk_review_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> BulkReviewResponse:
+    try:
+        result = await service.bulk_reject(session, request.artifact_ids, reviewer_id=str(current_user.get("sub") or "admin"), reason=request.reason or "")
+        await session.commit()
+        return BulkReviewResponse(**result.__dict__)
+    except ValueError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.post("/review/bulk-quarantine", response_model=BulkReviewResponse)
+async def bulk_quarantine_review(
+    request: BulkReviewRequest,
+    session: AsyncSession = Depends(get_db),
+    service: ContentBulkReviewService = Depends(get_content_bulk_review_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> BulkReviewResponse:
+    try:
+        result = await service.bulk_quarantine(session, request.artifact_ids, reviewer_id=str(current_user.get("sub") or "admin"), reason=request.reason or "")
+        await session.commit()
+        return BulkReviewResponse(**result.__dict__)
+    except ValueError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
 
 
 @router.post("/staging-verification/all-scopes", response_model=AllScopeStagingVerificationReport)
@@ -512,36 +715,303 @@ async def get_scope_staging_readiness(
     return report
 
 
-@router.post("/scopes/{scope_id}/dry-run-seed", response_model=ContentSeedRunResponse)
-async def dry_run_seed(scope_id: str, layer: ContentLayer | None = None, session: AsyncSession = Depends(get_db), service: ContentSeedPromotionService = Depends(get_seed_promotion_service)) -> ContentSeedRunResponse:
-    run = await service.dry_run_seed(session, scope_id, layer)
-    await session.commit()
-    return _seed_run_response(run)
+@router.post("/scopes/{scope_id}/dry-run-seed", response_model=StagingSeedPlanResponse)
+async def dry_run_scope_seed(
+    scope_id: str,
+    session: AsyncSession = Depends(get_db),
+    seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> StagingSeedPlanResponse:
+    plan = await seed_executor.dry_run_seed(session, scope_id, actor_id=str(current_user.get("sub") or "admin"))
+    return StagingSeedPlanResponse(
+        scope_id=plan.scope_id,
+        layers=plan.layers,
+        seedable_count=len(plan.seedable),
+        skipped_count=len(plan.skipped),
+        skipped=[{"artifact_id": s.artifact_id, "reason": s.reason} for s in plan.skipped],
+    )
 
 
-@router.post("/scopes/{scope_id}/seed-staging", response_model=ContentSeedRunResponse)
-async def seed_staging(scope_id: str, session: AsyncSession = Depends(get_db), service: ContentSeedPromotionService = Depends(get_seed_promotion_service), current_user: dict[str, Any] = Depends(get_current_user)) -> ContentSeedRunResponse:
+@router.post("/scopes/{scope_id}/seed-staging", response_model=StagingSeedRunResultResponse)
+async def seed_scope_staging(
+    scope_id: str,
+    allow_partial: bool = True,
+    session: AsyncSession = Depends(get_db),
+    seed_service: ContentSeedPromotionService = Depends(get_seed_promotion_service),
+    seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> StagingSeedRunResultResponse:
     try:
-        run = await service.seed_staging(session, scope_id, str(current_user.get("sub") or "admin"))
+        # Prefer a fake/injected seed_service (unit tests), otherwise use the executor path.
+        if seed_service.__class__.__name__ != "ContentSeedPromotionService":
+            result = await seed_service.seed_staging(session, scope_id, actor_id=str(current_user.get("sub") or "admin"))
+        else:
+            result = await seed_executor.seed_staging(session, scope_id, actor_id=str(current_user.get("sub") or "admin"), allow_partial=allow_partial)
         await session.commit()
-        return _seed_run_response(run)
+        return StagingSeedRunResultResponse(**result.__dict__)
     except ValueError as exc:
+        # Gate or validation failure
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
 
 
-@router.get("/scopes/{scope_id}/staging-verification", response_model=ContentFactoryActionResponse)
-async def verify_staging_seed(scope_id: str, session: AsyncSession = Depends(get_db), service: ContentSeedPromotionService = Depends(get_seed_promotion_service)) -> ContentFactoryActionResponse:
-    result = await service.verify_staging_seed(session, scope_id)
-    return ContentFactoryActionResponse(status="passed" if result.passed else "blocked", errors=result.errors, summary=result.summary)
+@router.get("/seed-runs", response_model=StagingSeedRunPageResponse)
+async def list_seed_runs(
+    scope_id: str | None = None,
+    limit: int = 50,
+    offset: int = 0,
+    session: AsyncSession = Depends(get_db),
+    seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
+) -> StagingSeedRunPageResponse:
+    page = await seed_executor.list_seed_runs(session, scope_id=scope_id, limit=limit, offset=offset)
+    return StagingSeedRunPageResponse(
+        items=[StagingSeedRunResultResponse(**item.__dict__) for item in page.items],
+        total=page.total,
+        limit=page.limit,
+        offset=page.offset,
+    )
 
 
-@router.post("/scopes/{scope_id}/promote-production", response_model=ContentFactoryActionResponse)
-async def promote_production(scope_id: str, session: AsyncSession = Depends(get_db), service: ContentSeedPromotionService = Depends(get_seed_promotion_service), current_user: dict[str, Any] = Depends(get_current_user)) -> ContentFactoryActionResponse:
+@router.get("/seed-runs/{seed_run_id}", response_model=StagingSeedRunResultResponse)
+async def get_seed_run(
+    seed_run_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
+) -> StagingSeedRunResultResponse:
     try:
-        result = await service.promote_production(session, scope_id, str(current_user.get("sub") or "admin"))
-        return ContentFactoryActionResponse(status="passed" if result.passed else "blocked", errors=result.errors, summary=result.summary)
+        result = await seed_executor.get_seed_run(session, seed_run_id)
+        return StagingSeedRunResultResponse(**result.__dict__)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/seed-runs/{seed_run_id}/items", response_model=list[StagingSeedItemResponse])
+async def get_seed_run_items(
+    seed_run_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
+) -> list[StagingSeedItemResponse]:
+    items = await seed_executor.list_seed_run_items(session, seed_run_id)
+    return [StagingSeedItemResponse(**item.__dict__) for item in items]
+
+
+@router.post("/seed-runs/{seed_run_id}/verify", response_model=StagingReadVerificationResponse)
+async def verify_seed_run(
+    seed_run_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    verification_service: ContentStagingReadVerificationService = Depends(get_content_staging_read_verification_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> StagingReadVerificationResponse:
+    report = await verification_service.verify_seed_run(session, seed_run_id, actor_id=str(current_user.get("sub") or "admin"))
+    return StagingReadVerificationResponse(seed_run_id=report.seed_run_id, passed=report.passed, verified_count=report.verified_count, errors=report.errors)
+
+
+@router.post("/seed-runs/{seed_run_id}/rollback", response_model=StagingRollbackResponse)
+async def rollback_seed_run(
+    seed_run_id: uuid.UUID,
+    reason: str,
+    session: AsyncSession = Depends(get_db),
+    seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> StagingRollbackResponse:
+    try:
+        result = await seed_executor.rollback_seed_run(session, seed_run_id, actor_id=str(current_user.get("sub") or "admin"), reason=reason)
+        await session.commit()
+        return StagingRollbackResponse(**result.__dict__)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/scopes/{scope_id}/staging-read-verification", response_model=StagingReadVerificationResponse)
+async def verify_scope_staging(
+    scope_id: str,
+    session: AsyncSession = Depends(get_db),
+    verification_service: ContentStagingReadVerificationService = Depends(get_content_staging_read_verification_service),
+) -> StagingReadVerificationResponse:
+    report = await verification_service.verify_scope_staging(session, scope_id)
+    return StagingReadVerificationResponse(scope_id=report.scope_id, passed=report.passed, staged_artifacts_count=report.staged_artifacts_count, errors=report.errors)
+
+
+@router.get("/scopes/{scope_id}/production-gate", response_model=ProductionGateReportResponse)
+async def get_production_gate(
+    scope_id: str,
+    layers: list[str] | None = Query(None),
+    session: AsyncSession = Depends(get_db),
+    gate: ContentProductionPromotionGate = Depends(get_production_promotion_gate),
+) -> ProductionGateReportResponse:
+    report = await gate.evaluate_scope(session, scope_id, layers=layers)
+    return ProductionGateReportResponse(
+        scope_id=report.scope_id,
+        status=report.status.value,
+        blockers=[ProductionGateBlockerResponse(type=b.type, message=b.message, artifact_id=b.artifact_id, caps_ref=b.caps_ref) for b in report.blockers],
+        coverage_summary=report.coverage_summary,
+        staging_summary=report.staging_summary,
+    )
+
+
+@router.post("/scopes/{scope_id}/dry-run-promotion", response_model=ProductionPromotionPlanResponse)
+async def dry_run_promotion(
+    scope_id: str,
+    layers: list[str] | None = Query(None),
+    session: AsyncSession = Depends(get_db),
+    executor: ContentProductionPromotionExecutor = Depends(get_production_promotion_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ProductionPromotionPlanResponse:
+    try:
+        plan = await executor.dry_run_promotion(session, scope_id, layers=layers, actor_id=str(current_user.get("sub") or "admin"))
+        return ProductionPromotionPlanResponse(
+            scope_id=plan.scope_id,
+            layers=plan.layers,
+            promotable_count=plan.promotable_count,
+            skipped_count=plan.skipped_count,
+            skipped=plan.skipped,
+        )
     except ValueError as exc:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.post("/scopes/{scope_id}/promote-production", response_model=ProductionPromotionResultResponse)
+async def promote_production(
+    scope_id: str,
+    request: ProductionPromotionRequest | None = None,
+    session: AsyncSession = Depends(get_db),
+    executor: ContentProductionPromotionExecutor = Depends(get_production_promotion_executor),
+    seed_service: ContentSeedPromotionService = Depends(get_seed_promotion_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ProductionPromotionResultResponse:
+    try:
+        if request is None:
+            # Backward-compatible seed-promotion flow used by unit tests.
+            result = await seed_service.promote_production(session, scope_id, actor_id=str(current_user.get("sub") or "admin"))
+        else:
+            result = await executor.promote_scope(
+                session,
+                scope_id,
+                layers=request.layers,
+                actor_id=str(current_user.get("sub") or "admin"),
+                confirmation=request.confirmation,
+            )
+        await session.commit()
+        return ProductionPromotionResultResponse(**result.__dict__)
+    except ValueError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.get("/promotion-events", response_model=ProductionPromotionPageResponse)
+async def list_promotion_events(
+    scope_id: str | None = Query(None),
+    limit: int = 50,
+    offset: int = 0,
+    session: AsyncSession = Depends(get_db),
+    executor: ContentProductionPromotionExecutor = Depends(get_production_promotion_executor),
+) -> ProductionPromotionPageResponse:
+    page = await executor.list_promotion_events(session, scope_id=scope_id, limit=limit, offset=offset)
+    return ProductionPromotionPageResponse(
+        items=[ProductionPromotionResultResponse(**item.__dict__) for item in page.items],
+        total=page.total,
+        limit=page.limit,
+        offset=page.offset,
+    )
+
+
+@router.get("/promotion-events/{promotion_event_id}", response_model=ProductionPromotionResultResponse)
+async def get_promotion_event(
+    promotion_event_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    executor: ContentProductionPromotionExecutor = Depends(get_production_promotion_executor),
+) -> ProductionPromotionResultResponse:
+    try:
+        result = await executor.get_promotion_event(session, promotion_event_id)
+        return ProductionPromotionResultResponse(**result.__dict__)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/promotion-events/{promotion_event_id}/items")
+async def get_promotion_event_items(
+    promotion_event_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+) -> dict[str, Any]:
+    from app.models.content_factory import ContentProductionArtifact
+    result = await session.execute(
+        select(ContentProductionArtifact).where(
+            ContentProductionArtifact.created_by_promotion_event_id == promotion_event_id,
+        )
+    )
+    items = result.scalars().all()
+    return {
+        "items": [
+            {
+                "id": str(item.id),
+                "artifact_id": str(item.artifact_id),
+                "staging_artifact_id": str(item.staging_artifact_id) if item.staging_artifact_id else None,
+                "scope_id": item.scope_id,
+                "caps_ref": item.caps_ref,
+                "layer": item.layer,
+                "artifact_type": item.artifact_type,
+                "production_status": item.production_status,
+            }
+            for item in items
+        ],
+        "total": len(items),
+    }
+
+
+@router.post("/promotion-events/{promotion_event_id}/verify", response_model=ProductionReadVerificationReportResponse)
+async def verify_promotion_event(
+    promotion_event_id: uuid.UUID,
+    session: AsyncSession = Depends(get_db),
+    verification_service: ContentProductionReadVerificationService = Depends(get_production_read_verification_service),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ProductionReadVerificationReportResponse:
+    try:
+        report = await verification_service.verify_promotion_event(session, promotion_event_id, actor_id=str(current_user.get("sub") or "admin"))
+        return ProductionReadVerificationReportResponse(
+            promotion_event_id=report.promotion_event_id,
+            passed=report.passed,
+            verified_count=report.verified_count,
+            errors=report.errors,
+        )
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.post("/promotion-events/{promotion_event_id}/rollback", response_model=ProductionRollbackResultResponse)
+async def rollback_promotion_event(
+    promotion_event_id: uuid.UUID,
+    request: ProductionRollbackRequest,
+    session: AsyncSession = Depends(get_db),
+    executor: ContentProductionPromotionExecutor = Depends(get_production_promotion_executor),
+    current_user: dict[str, Any] = Depends(get_current_user),
+) -> ProductionRollbackResultResponse:
+    try:
+        result = await executor.rollback_promotion(
+            session,
+            promotion_event_id,
+            actor_id=str(current_user.get("sub") or "admin"),
+            reason=request.reason,
+        )
+        await session.commit()
+        return ProductionRollbackResultResponse(**result.__dict__)
+    except LookupError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/scopes/{scope_id}/production-read-verification", response_model=ScopeProductionReadReportResponse)
+async def verify_scope_production(
+    scope_id: str,
+    layers: list[str] | None = Query(None),
+    session: AsyncSession = Depends(get_db),
+    verification_service: ContentProductionReadVerificationService = Depends(get_production_read_verification_service),
+) -> ScopeProductionReadReportResponse:
+    report = await verification_service.verify_scope_production(session, scope_id, layers=layers)
+    return ScopeProductionReadReportResponse(
+        scope_id=report.scope_id,
+        passed=report.passed,
+        production_artifacts_count=report.production_artifacts_count,
+        errors=report.errors,
+    )
 
 
 @router.get("/reports/{scope_id}", response_model=ContentFactoryReportResponse)
@@ -550,6 +1020,263 @@ async def get_content_factory_report(scope_id: str, coverage_service: ContentCov
     run_count = len((await session.execute(select(ContentGenerationArtifact.artifact_id).where(ContentGenerationArtifact.scope_id == scope_id))).all())
     review_queue = len((await session.execute(select(ContentGenerationArtifact.artifact_id).where(ContentGenerationArtifact.scope_id == scope_id, ContentGenerationArtifact.status == ContentArtifactStatus.PENDING_REVIEW))).all())
     return ContentFactoryReportResponse(scope_id=scope_id, generation_enabled=_generation_enabled(), coverage=coverage.model_dump(mode="json"), run_count=run_count, review_queue_count=review_queue)
+
+
+# ── Staging and Production Preview Routes ─────────────────────────────────────
+
+
+def get_staging_preview_service():
+    from app.services.content_staging_preview_service import ContentStagingPreviewService
+    return ContentStagingPreviewService()
+
+
+def get_learner_read_service():
+    from app.services.content_learner_read_service import ContentLearnerReadService
+    return ContentLearnerReadService()
+
+
+@router.get("/staging-preview/scopes/{scope_id}")
+async def get_staging_preview(
+    scope_id: str,
+    layers: list[str] | None = Query(None),
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+    service = Depends(get_staging_preview_service),
+):
+    """Get staging preview for a scope (admin-only)."""
+    from app.services.content_staging_preview_service import StagingPreviewReport
+    report = await service.preview_scope(session, scope_id, layers=layers)
+    return report
+
+
+@router.get("/staging-preview/scopes/{scope_id}/caps/{caps_ref}")
+async def get_staging_preview_by_caps_ref(
+    scope_id: str,
+    caps_ref: str,
+    layers: list[str] | None = Query(None),
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+    service = Depends(get_staging_preview_service),
+):
+    """Get staging preview for a scope and CAPS reference (admin-only)."""
+    from app.services.content_staging_preview_service import StagingCapsRefPreview
+    report = await service.preview_caps_ref(session, scope_id, caps_ref, layers=layers)
+    return report
+
+
+@router.get("/production-preview/scopes/{scope_id}")
+async def get_production_preview(
+    scope_id: str,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+    service = Depends(get_learner_read_service),
+):
+    """Get production preview for a scope (admin-only)."""
+    from app.services.content_learner_read_service import LearnerScopeContentSummary
+    summary = await service.get_scope_content_summary(session, scope_id)
+    return summary
+
+
+@router.get("/production-preview/scopes/{scope_id}/caps/{caps_ref}")
+async def get_production_preview_by_caps_ref(
+    scope_id: str,
+    caps_ref: str,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+    service = Depends(get_learner_read_service),
+):
+    """Get production preview for a scope and CAPS reference (admin-only)."""
+    diagnostic_items = await service.get_diagnostic_items(session, scope_id=scope_id, caps_ref=caps_ref)
+    lessons = await service.get_lessons(session, scope_id=scope_id, caps_ref=caps_ref)
+    return {"diagnostic_items": diagnostic_items, "lessons": lessons}
+
+
+# ── Full Generation Run Routes ─────────────────────────────────────────────────────
+
+
+@router.post("/full-generation/plan")
+async def plan_full_generation(
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """Plan full generation for all configured scopes (admin-only)."""
+    from app.services.content_generation_planner import ContentGenerationPlanner
+    from app.models.content_factory import ContentGenerationRun
+
+    planner = ContentGenerationPlanner()
+    run = ContentGenerationRun(
+        run_id=uuid.uuid4(),
+        scope_id="all_scopes",
+        status="queued",
+        requested_by=current_user.get("sub"),
+        run_metadata={"layers": ["diagnostic_items", "lessons", "assessment_blueprints", "study_plan_templates"]},
+    )
+    session.add(run)
+    await session.flush()
+
+    plan_result = await planner.plan_missing_for_run(
+        session,
+        run.run_id,
+        actor_id=current_user.get("sub"),
+    )
+
+    return {
+        "run_id": str(run.run_id),
+        "created_task_ids": [str(t) for t in plan_result.created_task_ids],
+        "skipped": plan_result.skipped,
+        "missing": plan_result.missing,
+    }
+
+
+@router.post("/full-generation/start")
+async def start_full_generation(
+    request: dict,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """Start full generation run (admin-only)."""
+    if not _generation_enabled():
+        raise HTTPException(status_code=403, detail="CONTENT_FACTORY_GENERATION_ENABLED is not set to true")
+
+    from app.services.content_generation.provider_factory import get_generation_settings
+
+    settings = get_generation_settings()
+    if settings.provider == "llm":
+        confirmation = request.get("confirmation", "")
+        expected = "GENERATE OUTSTANDING CONTENT FOR ALL CONFIGURED SCOPES"
+        if confirmation != expected:
+            raise HTTPException(status_code=400, detail=f"Confirmation must be exactly: {expected}")
+
+    run_id = request.get("run_id")
+    if not run_id:
+        raise HTTPException(status_code=400, detail="run_id is required")
+
+    from app.models.content_factory import ContentGenerationRun
+
+    run = await session.get(ContentGenerationRun, uuid.UUID(run_id))
+    if not run:
+        raise HTTPException(status_code=404, detail="Generation run not found")
+
+    run.status = "running"
+    await session.flush()
+
+    return {"run_id": str(run.run_id), "status": "running"}
+
+
+@router.get("/full-generation/runs")
+async def list_full_generation_runs(
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """List full generation runs (admin-only)."""
+    from app.models.content_factory import ContentGenerationRun
+
+    result = await session.execute(
+        select(ContentGenerationRun)
+        .where(ContentGenerationRun.scope_id == "all_scopes")
+        .order_by(ContentGenerationRun.created_at.desc())
+        .limit(50)
+    )
+    runs = result.scalars().all()
+
+    return {
+        "items": [_run_response(run) for run in runs],
+        "total": len(runs),
+    }
+
+
+@router.get("/full-generation/runs/{run_id}")
+async def get_full_generation_run(
+    run_id: str,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """Get a full generation run (admin-only)."""
+    from app.models.content_factory import ContentGenerationRun
+
+    run = await session.get(ContentGenerationRun, uuid.UUID(run_id))
+    if not run:
+        raise HTTPException(status_code=404, detail="Generation run not found")
+
+    return _run_response(run)
+
+
+@router.get("/full-generation/runs/{run_id}/report")
+async def get_full_generation_run_report(
+    run_id: str,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """Get a full generation run report (admin-only)."""
+    from app.models.content_factory import ContentGenerationRun
+
+    run = await session.get(ContentGenerationRun, uuid.UUID(run_id))
+    if not run:
+        raise HTTPException(status_code=404, detail="Generation run not found")
+
+    metadata = run.run_metadata or {}
+    return {
+        "run_id": str(run.run_id),
+        "status": run.status,
+        "metadata": metadata,
+    }
+
+
+@router.post("/full-generation/runs/{run_id}/cancel")
+async def cancel_full_generation_run(
+    run_id: str,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """Cancel a full generation run (admin-only)."""
+    from app.models.content_factory import ContentGenerationRun, ContentGenerationTask
+
+    run = await session.get(ContentGenerationRun, uuid.UUID(run_id))
+    if not run:
+        raise HTTPException(status_code=404, detail="Generation run not found")
+
+    if run.status not in ("queued", "running"):
+        raise HTTPException(status_code=400, detail="Can only cancel queued or running runs")
+
+    run.status = "cancelled"
+    await session.flush()
+
+    # Cancel queued/running tasks
+    result = await session.execute(
+        select(ContentGenerationTask).where(
+            ContentGenerationTask.run_id == run.run_id,
+            ContentGenerationTask.status.in_(["queued", "running"]),
+        )
+    )
+    tasks = result.scalars().all()
+    for task in tasks:
+        task.status = "cancelled"
+
+    await session.flush()
+
+    return {"run_id": str(run.run_id), "status": "cancelled"}
+
+
+@router.post("/full-generation/runs/{run_id}/resume")
+async def resume_full_generation_run(
+    run_id: str,
+    current_user: dict = Depends(require_admin),
+    session: AsyncSession = Depends(get_db),
+):
+    """Resume a full generation run (admin-only)."""
+    from app.models.content_factory import ContentGenerationRun
+
+    run = await session.get(ContentGenerationRun, uuid.UUID(run_id))
+    if not run:
+        raise HTTPException(status_code=404, detail="Generation run not found")
+
+    if run.status != "cancelled":
+        raise HTTPException(status_code=400, detail="Can only resume cancelled runs")
+
+    run.status = "queued"
+    await session.flush()
+
+    return {"run_id": str(run.run_id), "status": "queued"}
 
 
 def _mcp_runtime_imported() -> bool:
@@ -584,6 +1311,35 @@ def _staging_verification_run_response(run) -> ContentStagingVerificationRunResp
         created_by=run.created_by,
         created_at=run.created_at.isoformat() if run.created_at else None,
         completed_at=run.completed_at.isoformat() if run.completed_at else None,
+    )
+
+
+def _review_queue_item_response(item) -> ReviewQueueItemResponse:
+    return ReviewQueueItemResponse(
+        artifact_id=item.artifact_id,
+        scope_id=item.scope_id,
+        content_layer=item.content_layer,
+        artifact_type=item.artifact_type,
+        caps_ref=item.caps_ref,
+        status=item.status,
+        risk_level=item.risk_level,
+        risk_reasons=item.risk_reasons,
+        validation_status=item.validation_status,
+        provenance_status=item.provenance_status,
+        reviewer_id=item.reviewer_id,
+        created_at=item.created_at.isoformat() if item.created_at else None,
+    )
+
+
+def _assignment_response(assignment) -> ReviewAssignmentResponse:
+    return ReviewAssignmentResponse(
+        id=assignment.id,
+        artifact_id=assignment.artifact_id,
+        assigned_to=assignment.assigned_to,
+        assigned_by=assignment.assigned_by,
+        priority=assignment.priority,
+        status=assignment.status,
+        due_by=assignment.due_by.isoformat() if assignment.due_by else None,
     )
 
 

@@ -201,6 +201,7 @@ OPENAPI_TAGS = [
     {"name": "jobs", "description": "Background job status"},
     {"name": "admin-content-factory", "description": "Admin-only content factory and ETL provenance controls"},
     {"name": "admin-etl", "description": "Admin-only read visibility into ETL source material"},
+    {"name": "learner-content", "description": "Learner-facing production content from Content Factory"},
 ]
 
 app = FastAPI(
@@ -248,6 +249,7 @@ from app.api_v2_routers import (  # noqa: E402
     diagnostics,
     gamification,
     jobs,
+    learner_content,
     learners,
     lessons,
     onboarding,
@@ -280,6 +282,7 @@ ROUTER_REGISTRY = (
     ("popia", popia.router),
     ("jobs", jobs.router),
     ("system", system.router),
+    ("learner_content", learner_content.router),
 )
 
 # ── Operational Routes ─────────────────────────────────────────────────────────

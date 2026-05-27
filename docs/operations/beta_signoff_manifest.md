@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-19T23:04:35.602885+00:00`
-- branch: `codex/production_readiness`
-- commit: `9e706b9e0b787b0e4fb7324c9beefeb3fe35d2a4`
+- generated_at_utc: `2026-05-26T20:29:06.126469+00:00`
+- branch: `pr-cf-013-full-generation-runner`
+- commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 - release_candidate: `unset`
 
 ## Required Sign-Off Areas

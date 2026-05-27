@@ -1,33 +1,40 @@
 {
-  "generated_at": "2026-05-21T22:46:42Z",
-  "current_commit": "ecaab870ed5e171a5d8c5d58393ae80e64917ee5",
-  "current_branch": "codex/production_readiness",
-  "status": "diag-deep-health-runtime-accepted",
-  "deep_health_url": "https://eduboost-api.onrender.com/api/v2/health/deep",
-  "test_command": "curl -fsS https://eduboost-api.onrender.com/api/v2/health/deep",
-  "http_status_code": 200,
-  "http_body_excerpt": "{\"status\":\"ok\",\"critical\":{\"secrets\":{\"status\":\"ok\"},\"postgres\":{\"status\":\"ok\"},\"redis\":{\"status\":\"ok\"},\"migrations\":{\"status\":\"ok\",\"revision\":\"20260516_0100\"},\"audit_repository\":{\"status\":\"ok\"}},\"optional\":{\"llm_provider\":{\"status\":\"skipped\",\"detail\":\"No LLM provider credentials configured\"},\"judiciary\":{\"status\":\"ok\"}},\"message\":\"System is operational\"}",
+  "generated_at": "2026-05-26T18:36:32Z",
+  "current_commit": "3fd35da07070e6f6e8bc43ec0915d25ba53da6a7",
+  "current_branch": "pr-cf-013-full-generation-runner",
+  "status": "diag-deep-health-runtime-not-accepted",
+  "deep_health_url": "",
+  "test_command": "",
+  "http_status_code": null,
+  "http_body_excerpt": "",
   "github_run": {
-    "run_id": "26257276487",
-    "run_url": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26257276487",
-    "workflow_name": "Staging Smoke",
-    "run_status": "completed",
-    "conclusion": "success",
-    "head_sha": "ecaab870ed5e171a5d8c5d58393ae80e64917ee5",
-    "blockers": []
+    "run_id": "",
+    "run_url": "",
+    "workflow_name": "",
+    "run_status": "",
+    "conclusion": "",
+    "head_sha": "",
+    "blockers": [
+      "DIAG_DEEP_HEALTH_RUN_ID is required for accepted evidence"
+    ]
   },
   "component_results": {
-    "db": "passed",
-    "migration": "passed",
-    "audit": "passed",
-    "session": "passed"
+    "db": "",
+    "migration": "",
+    "audit": "",
+    "session": ""
   },
-  "inferred_component_signals": {
-    "db": "passed",
-    "migration": "passed",
-    "audit": "passed"
-  },
-  "verified_by": "github-actions",
-  "date_verified": "2026-05-21",
-  "blockers": []
+  "inferred_component_signals": {},
+  "verified_by": "unverified",
+  "date_verified": "2026-05-26",
+  "blockers": [
+    "deep health URL is missing, non-HTTPS, localhost/example, or placeholder",
+    "DIAG_DEEP_HEALTH_TEST_COMMAND is missing or placeholder",
+    "deep health HTTP probe was not attempted",
+    "DIAG_DEEP_HEALTH_DB_RESULT must be passed",
+    "DIAG_DEEP_HEALTH_MIGRATION_RESULT must be passed",
+    "DIAG_DEEP_HEALTH_AUDIT_RESULT must be passed",
+    "DIAG_DEEP_HEALTH_SESSION_RESULT must be passed",
+    "DIAG_DEEP_HEALTH_RUN_ID is required for accepted evidence"
+  ]
 }

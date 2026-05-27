@@ -286,6 +286,27 @@ class ContentArtifactReview(Base):
     artifact: Mapped[ContentGenerationArtifact] = relationship("ContentGenerationArtifact", back_populates="reviews")
 
 
+class ContentReviewAssignment(Base):
+    __tablename__ = "content_review_assignments"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=func.gen_random_uuid())
+    artifact_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content_generation_artifacts.artifact_id", ondelete="CASCADE"), nullable=False)
+    assigned_to: Mapped[str] = mapped_column(String(80), nullable=False)
+    assigned_by: Mapped[str] = mapped_column(String(80), nullable=False)
+    assigned_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    due_by: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    priority: Mapped[str] = mapped_column(String(20), nullable=False, server_default="normal")
+    status: Mapped[str] = mapped_column(String(20), nullable=False, server_default="assigned")
+    resolved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now())
+
+    __table_args__ = (
+        Index("ix_content_review_assignments_reviewer_status", "assigned_to", "status"),
+        Index("ix_content_review_assignments_artifact_status", "artifact_id", "status"),
+    )
+
+
 class ContentSeedRun(Base):
     __tablename__ = "content_seed_runs"
 
@@ -406,5 +427,59 @@ class StudyPlanTemplate(Base):
     validation_status: Mapped[str] = mapped_column(String(40), nullable=False, server_default="pending")
     created_by_run_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("content_generation_runs.run_id"), nullable=True)
     status: Mapped[str] = mapped_column(String(40), nullable=False, server_default="approved")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now())
+
+
+class ContentStagingSeedItem(Base):
+    __tablename__ = "content_staging_seed_items"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=func.gen_random_uuid())
+    seed_run_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content_seed_runs.run_id"), nullable=False)
+    artifact_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content_generation_artifacts.artifact_id"), nullable=False)
+    scope_id: Mapped[str] = mapped_column(String(80), nullable=False)
+    caps_ref: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    layer: Mapped[str] = mapped_column(String(40), nullable=False)
+    artifact_type: Mapped[str] = mapped_column(String(40), nullable=False)
+    target_table: Mapped[str] = mapped_column(String(80), nullable=False)
+    target_record_id: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    status: Mapped[str] = mapped_column(String(40), nullable=False, server_default="pending")
+    skip_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    seed_payload_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    rollback_payload_json: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
+
+
+class ContentStagingArtifact(Base):
+    __tablename__ = "content_staging_artifacts"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=func.gen_random_uuid())
+    artifact_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content_generation_artifacts.artifact_id"), nullable=False)
+    scope_id: Mapped[str] = mapped_column(String(80), nullable=False)
+    caps_ref: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    layer: Mapped[str] = mapped_column(String(40), nullable=False)
+    artifact_type: Mapped[str] = mapped_column(String(40), nullable=False)
+    payload_json: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False)
+    source_artifact_hash: Mapped[str] = mapped_column(String(64), nullable=False)
+    staging_status: Mapped[str] = mapped_column(String(40), nullable=False, server_default="pending")
+    created_by_seed_run_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("content_seed_runs.run_id"), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now())
+
+
+class ContentProductionArtifact(Base):
+    __tablename__ = "content_production_artifacts"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=func.gen_random_uuid())
+    artifact_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("content_generation_artifacts.artifact_id"), nullable=False)
+    staging_artifact_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("content_staging_artifacts.id"), nullable=True)
+    scope_id: Mapped[str] = mapped_column(String(80), nullable=False)
+    caps_ref: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    layer: Mapped[str] = mapped_column(String(40), nullable=False)
+    artifact_type: Mapped[str] = mapped_column(String(40), nullable=False)
+    payload_json: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False)
+    source_artifact_hash: Mapped[str] = mapped_column(String(64), nullable=False)
+    production_status: Mapped[str] = mapped_column(String(40), nullable=False, server_default="active")
+    created_by_promotion_event_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("content_promotion_events.event_id"), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now())

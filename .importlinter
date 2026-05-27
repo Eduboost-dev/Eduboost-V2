@@ -12,6 +12,7 @@ forbidden_modules =
     app.repositories
 ignore_imports =
     app.api_v2_routers.consent -> app.repositories.*
+    app.api_v2_routers.content_factory -> app.repositories.*
     app.api_v2_routers.gamification -> app.repositories.*
     app.api_v2_routers.learners -> app.repositories.*
     app.api_v2_routers.onboarding -> app.repositories.*

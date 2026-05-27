@@ -36,6 +36,9 @@ class Session:
     async def flush(self):
         return None
 
+    def add(self, obj):
+        pass
+
 
 @pytest.mark.asyncio
 async def test_submit_for_review_requires_validation_pass() -> None:
