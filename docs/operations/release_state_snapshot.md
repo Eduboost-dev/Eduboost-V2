@@ -2,21 +2,16 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-26T16:07:03.430339+00:00`
+- generated_at_utc: `2026-05-26T20:31:01.490181+00:00`
 - branch: `pr-cf-013-full-generation-runner`
-- commit: `f932279e2bf3d3524425915a4eb844816b078872`
+- commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 - release_candidate: `unset`
 
 ## Working Tree Status
 
 ```text
-M .importlinter
- M TODO.md
- M app/api_v2_routers/auth_extended.py
- M app/core/config.py
- M app/frontend/next.config.js
- M app/modules/lessons/lesson_coverage_router.py
- M docs/ai/ai_prompt_surface_inventory.md
+M app/api_v2_routers/content_factory.py
+ M app/domain/content_factory_schemas.py
  M docs/architecture/auth_boundary_debt_report.json
  M docs/architecture/auth_boundary_debt_report.md
  M docs/architecture/auth_service_extraction_followup.json
@@ -41,13 +36,10 @@ M .importlinter
  M docs/architecture/tx_route_wiring_inventory.md
  M docs/beta/beta_content_hard_gate.json
  M docs/beta/beta_content_hard_gate.md
- M docs/beta/beta_content_threshold_status.json
- M docs/diagnostics/item_bank_launch_coverage_contract.md
  M docs/docs_gap_report.md
  M docs/docs_generation_plan.md
  M docs/docs_inventory.json
  M docs/docs_inventory.md
- M docs/frontend/frontend_route_inventory.md
  M docs/operations/beta_release_evidence_bundle.md
  M docs/operations/beta_release_pr_body.md
  M docs/operations/beta_signoff_manifest.md
@@ -62,7 +54,6 @@ M .importlinter
  M docs/release/approval_evidence_status.md
  M docs/release/audit_baseline_refresh_status.json
  M docs/release/audit_baseline_refresh_status.md
- M docs/release/audit_callsite_inventory.md
  M docs/release/auth_db_lifecycle_proof_report.json
  M docs/release/auth_db_lifecycle_proof_report.md
  M docs/release/auth_http_success_scope_report.json
@@ -109,7 +100,6 @@ M .importlinter
  M docs/release/beta_no_go_handoff_packet.json
  M docs/release/beta_no_go_handoff_packet.md
  M docs/release/beta_readiness_status.json
- M docs/release/beta_readiness_status.md
  M docs/release/branch_protection_evidence.json
  M docs/release/branch_protection_evidence.md
  M docs/release/ci_auth_refresh_db_proof_workflow_status.json
@@ -117,12 +107,10 @@ M .importlinter
  M docs/release/ci_authority_status.json
  M docs/release/ci_authority_status.md
  M docs/release/ci_evidence.json
- M docs/release/ci_evidence.md
  M docs/release/ci_evidence_status.json
  M docs/release/ci_evidence_status.md
  M docs/release/ci_run_evidence_status.json
  M docs/release/ci_run_evidence_status.md
- M docs/release/consent_callsite_inventory.md
  M docs/release/db_live_only_table_ownership_status.json
  M docs/release/db_live_only_table_ownership_status.md
  M docs/release/db_migration_seed_repeatability_status.json
@@ -183,26 +171,22 @@ M .importlinter
  M docs/release/staging_smoke_workflow_status.md
  M docs/release/transaction_rollback_rollup_report.json
  M docs/release/transaction_rollback_rollup_report.md
- M docs/release/unit_test_evidence.md
- M docs/release/warning_cleanup_register.md
- M docs/security/PHASE2_AUTHORIZATION_CLOSURE.md
  M docs/security/dependency_pin_report.json
  M docs/security/dependency_pin_report.md
  M docs/security/jwt_rotation_introspection.json
  M docs/security/jwt_rotation_introspection.md
  M docs/security/jwt_rotation_repair_report.md
- M docs/security/popia_consent_boundary_matrix.md
- M playwright.config.ts
+ M package.json
+ M pytest.ini
+ M scripts/check_auth_refresh_db_proof.py
  M scripts/check_final_gate_refresh.py
- M scripts/check_learner_authz_coverage.py
- M scripts/check_popia_lifecycle_response_contract.py
- M scripts/content_factory/run_full_generation.py
- M scripts/evidence_registry.py
- M scripts/final_gate_classifier.py
- M tests/unit/test_config_key_vault.py
- M tests/unit/test_content_artifact_lifecycle.py
-?? reports/content_factory/
-?? scripts/content_factory/seed_local_sources.py
+ M scripts/check_popia_response_contract_no_skips.py
+ M scripts/check_prod_frontend_deployment.py
+ M scripts/check_prod_frontend_runtime.py
+ M scripts/popia_response_contract_no_skips.py
+?? docs/content_factory_overnight_batch_pipeline.md
+?? docs/input/
+?? reports/content_factory/full_generation/20260526_174919/review_bundles/
 ```
 
 ## State Artifacts

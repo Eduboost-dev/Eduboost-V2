@@ -1,9 +1,9 @@
 # Documentation Inventory
 
-Generated at: `2026-05-26T16:05:43Z`
-Commit: `f932279e2bf3d3524425915a4eb844816b078872`
+Generated at: `2026-05-26T18:38:29Z`
+Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 
-- Documents: `1099`
+- Documents: `1100`
 - Generated docs: `4`
 
 ## Categories
@@ -13,7 +13,7 @@ Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 | `adr` | 25 |
 | `api` | 6 |
 | `architecture` | 39 |
-| `general` | 504 |
+| `general` | 505 |
 | `release` | 427 |
 | `security` | 98 |
 
@@ -232,11 +232,12 @@ Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 | `docs/content_factory/admin_api.md` | `general` | Content Factory Admin API | 695 | False |
 | `docs/content_factory/control_plane.md` | `general` | Content Factory Control Plane | 657 | False |
 | `docs/content_factory/controlled_generation.md` | `general` | Content Factory Controlled Generation | 2068 | False |
-| `docs/content_factory/full_generation_runner.md` | `general` | Full Generation Runner | 2501 | False |
+| `docs/content_factory/full_generation_runner.md` | `general` | Full Generation Runner | 5479 | False |
 | `docs/content_factory/promotion_gates.md` | `general` | Content Factory Promotion Gates | 509 | False |
 | `docs/content_factory/release_gate_checklist.md` | `general` | Release Gate Checklist for Content Factory | 1461 | False |
 | `docs/content_factory/staging_seed_execution.md` | `general` | Content Factory Staging Seed Execution | 2429 | False |
 | `docs/content_factory/staging_verification.md` | `general` | Content Factory Staging Verification | 1522 | False |
+| `docs/content_factory_overnight_batch_pipeline.md` | `general` | Content Factory Full Generation System: Overnight Batch Pipeline — Complete Trace Text | 49537 | False |
 | `docs/current_state.md` | `general` | Failure Details | 2876 | False |
 | `docs/curriculum/caps_topic_map.md` | `general` | CAPS Topic Map MVP | 1137 | False |
 | `docs/curriculum/caps_topic_map_production_contract.md` | `general` | CAPS Topic Map Production Contract | 975 | False |
@@ -557,8 +558,8 @@ Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 | `docs/release/approval_evidence_status.md` | `release` | Approval Evidence Status | 1296 | False |
 | `docs/release/arq_consent_job_repair_report.md` | `release` | ARQ Consent Job Repair Report | 340 | False |
 | `docs/release/arq_dependency_worker_import_repair_report.md` | `release` | ARQ Dependency and Worker Import Repair Report | 520 | False |
-| `docs/release/audit_baseline_refresh_status.json` | `release` | Audit Baseline Refresh Status | 6521 | False |
-| `docs/release/audit_baseline_refresh_status.md` | `release` | Audit Baseline Refresh Status | 3715 | False |
+| `docs/release/audit_baseline_refresh_status.json` | `release` | Audit Baseline Refresh Status | 6511 | False |
+| `docs/release/audit_baseline_refresh_status.md` | `release` | Audit Baseline Refresh Status | 3705 | False |
 | `docs/release/audit_callsite_inventory.md` | `release` | Audit Call-Site Inventory | 390061 | False |
 | `docs/release/audit_callsite_migration_slice_002.md` | `release` | Audit Call-Site Migration Slice 002 | 482 | False |
 | `docs/release/audit_candidate_execution_ledger.md` | `release` | Audit Candidate Execution Ledger | 451 | False |
@@ -605,25 +606,25 @@ Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 | `docs/release/auth_token_claims_repair_report.md` | `release` | Auth Token Claims Repair Report | 502 | False |
 | `docs/release/backend_adapter_wiring_service_contract.md` | `release` | Backend Adapter Wiring Service Contract | 417 | False |
 | `docs/release/backend_consolidation_decision_record.md` | `release` | Backend Consolidation Decision Record | 1859 | False |
-| `docs/release/backend_consolidation_diagnostic_report.md` | `release` | Backend Consolidation Diagnostic Report | 8987 | False |
+| `docs/release/backend_consolidation_diagnostic_report.md` | `release` | Backend Consolidation Diagnostic Report | 8567 | False |
 | `docs/release/backend_consolidation_dragons.md` | `release` | Backend Consolidation Dragons | 2693 | False |
 | `docs/release/backend_consolidation_evidence_manifest.md` | `release` | Backend Consolidation Evidence Manifest | 3640 | False |
 | `docs/release/backend_consolidation_execution_packet.md` | `release` | Backend Consolidation Execution Packet | 1359 | False |
-| `docs/release/backend_consolidation_execution_report.md` | `release` | Backend Consolidation Execution Report | 7024 | False |
+| `docs/release/backend_consolidation_execution_report.md` | `release` | Backend Consolidation Execution Report | 6604 | False |
 | `docs/release/backend_consolidation_implementation_foundation.md` | `release` | Backend Consolidation Implementation Foundation | 1124 | False |
-| `docs/release/backend_consolidation_implementation_foundation_report.md` | `release` | Backend Consolidation Implementation Foundation Report | 12888 | False |
+| `docs/release/backend_consolidation_implementation_foundation_report.md` | `release` | Backend Consolidation Implementation Foundation Report | 12552 | False |
 | `docs/release/backend_consolidation_implementation_progress.md` | `release` | Backend Consolidation Implementation Progress | 960 | False |
-| `docs/release/backend_consolidation_progress_report.md` | `release` | Backend Consolidation Progress Report | 3893 | False |
+| `docs/release/backend_consolidation_progress_report.md` | `release` | Backend Consolidation Progress Report | 3557 | False |
 | `docs/release/backend_consolidation_readiness_matrix.md` | `release` | Backend Consolidation Readiness Matrix | 1795 | False |
-| `docs/release/backend_consolidation_readiness_report.md` | `release` | Backend Consolidation Readiness Report | 2850 | False |
+| `docs/release/backend_consolidation_readiness_report.md` | `release` | Backend Consolidation Readiness Report | 2514 | False |
 | `docs/release/backend_consolidation_terminal_packet.md` | `release` | Backend Consolidation Terminal Packet | 1481 | False |
-| `docs/release/backend_consolidation_terminal_report.md` | `release` | Backend Consolidation Terminal Report | 9156 | False |
+| `docs/release/backend_consolidation_terminal_report.md` | `release` | Backend Consolidation Terminal Report | 8736 | False |
 | `docs/release/backend_data_retention_approval_update.md` | `release` | Backend Data Retention Approval Update | 402 | False |
 | `docs/release/backend_data_retention_decision_checklist.md` | `release` | Backend Data Retention Decision Checklist | 1404 | False |
-| `docs/release/backend_deletion_candidate_inventory.md` | `release` | Backend Deletion Candidate Inventory | 104188698 | False |
+| `docs/release/backend_deletion_candidate_inventory.md` | `release` | Backend Deletion Candidate Inventory | 105866247 | False |
 | `docs/release/backend_first_wiring_candidate_registry.md` | `release` | Backend First Wiring Candidate Registry | 372 | False |
-| `docs/release/backend_first_wiring_candidates_report.md` | `release` | Backend First Wiring Candidates Report | 5947 | False |
-| `docs/release/backend_implementation_371_375_report.md` | `release` | Backend Implementation 371-375 Report | 3408 | False |
+| `docs/release/backend_first_wiring_candidates_report.md` | `release` | Backend First Wiring Candidates Report | 5695 | False |
+| `docs/release/backend_implementation_371_375_report.md` | `release` | Backend Implementation 371-375 Report | 3072 | False |
 | `docs/release/backend_implementation_decision_ledger.md` | `release` | Backend Implementation Decision Ledger | 1147 | False |
 | `docs/release/backend_implementation_manifest_401_420.md` | `release` | Backend Implementation Manifest 401-420 | 524 | False |
 | `docs/release/backend_implementation_slice_371_375.md` | `release` | Backend Implementation Slice 371-375 | 570 | False |
@@ -631,22 +632,22 @@ Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 | `docs/release/backend_implementation_slice_431_450.md` | `release` | Backend Implementation Slice 431-450 | 626 | False |
 | `docs/release/backend_implementation_terminal_progress_packet.md` | `release` | Backend Implementation Terminal Progress Packet | 1049 | False |
 | `docs/release/backend_runtime_compatibility_contract.md` | `release` | Backend Runtime Compatibility Contract | 1489 | False |
-| `docs/release/backend_runtime_compatibility_report.md` | `release` | Backend Runtime Compatibility Report | 3999 | False |
+| `docs/release/backend_runtime_compatibility_report.md` | `release` | Backend Runtime Compatibility Report | 3663 | False |
 | `docs/release/backend_runtime_enablement_checksum_manifest.md` | `release` | Backend Runtime Enablement Checksum Manifest | 1488 | False |
 | `docs/release/backend_runtime_enablement_closure_packet.md` | `release` | Backend Runtime Enablement Closure Packet | 347 | False |
 | `docs/release/backend_runtime_enablement_packet.md` | `release` | Backend Runtime Enablement Packet | 1285 | False |
-| `docs/release/backend_runtime_enablement_report.md` | `release` | Backend Runtime Enablement Report | 6881 | False |
+| `docs/release/backend_runtime_enablement_report.md` | `release` | Backend Runtime Enablement Report | 6545 | False |
 | `docs/release/backend_runtime_integration_checksum_manifest.md` | `release` | Backend Runtime Integration Checksum Manifest | 1109 | False |
 | `docs/release/backend_runtime_integration_next_pr_queue.md` | `release` | Backend Runtime Integration Next PR Queue | 405 | False |
 | `docs/release/backend_runtime_integration_readiness.md` | `release` | Backend Runtime Integration Readiness | 583 | False |
-| `docs/release/backend_runtime_integration_readiness_report.md` | `release` | Backend Runtime Integration Readiness Report | 5760 | False |
+| `docs/release/backend_runtime_integration_readiness_report.md` | `release` | Backend Runtime Integration Readiness Report | 5424 | False |
 | `docs/release/backend_runtime_integration_status_rollup.md` | `release` | Backend Runtime Integration Status Rollup | 412 | False |
 | `docs/release/backend_runtime_probe_contract.md` | `release` | Backend Runtime Probe Contract | 1140 | False |
-| `docs/release/backend_runtime_probe_report.md` | `release` | Backend Runtime Probe Report | 6524 | False |
-| `docs/release/backend_runtime_wiring_cases_report.md` | `release` | Backend Runtime Wiring Cases Report | 5374 | False |
+| `docs/release/backend_runtime_probe_report.md` | `release` | Backend Runtime Probe Report | 6188 | False |
+| `docs/release/backend_runtime_wiring_cases_report.md` | `release` | Backend Runtime Wiring Cases Report | 5122 | False |
 | `docs/release/backend_runtime_wiring_fixture_contract.md` | `release` | Backend Runtime Wiring Fixture Contract | 740 | False |
 | `docs/release/backend_runtime_wiring_preflight.md` | `release` | Backend Runtime Wiring Preflight | 699 | False |
-| `docs/release/backend_runtime_wiring_preflight_report.md` | `release` | Backend Runtime Wiring Preflight Report | 5144 | False |
+| `docs/release/backend_runtime_wiring_preflight_report.md` | `release` | Backend Runtime Wiring Preflight Report | 4682 | False |
 | `docs/release/backend_runtime_wiring_status_rollup.md` | `release` | Backend Runtime Wiring Status Rollup | 493 | False |
 | `docs/release/backend_runtime_wiring_test_pack.md` | `release` | Backend Runtime Wiring Test Pack | 713 | False |
 | `docs/release/backup_drill_evidence.json` | `release` | Backup Drill Evidence | 194 | False |
@@ -669,8 +670,8 @@ Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 | `docs/release/ci_authority_status.md` | `release` | CI Authority Status | 2574 | False |
 | `docs/release/ci_evidence.json` | `release` | Ci Evidence | 196 | False |
 | `docs/release/ci_evidence.md` | `release` | CI Authority Evidence | 731 | False |
-| `docs/release/ci_evidence_status.json` | `release` | Ci Evidence Status | 795 | False |
-| `docs/release/ci_evidence_status.md` | `release` | CI Evidence Status | 1198 | False |
+| `docs/release/ci_evidence_status.json` | `release` | Ci Evidence Status | 546 | False |
+| `docs/release/ci_evidence_status.md` | `release` | CI Evidence Status | 988 | False |
 | `docs/release/ci_run_evidence_status.json` | `release` | Ci Run Evidence Status | 766 | False |
 | `docs/release/ci_run_evidence_status.md` | `release` | CI Run Evidence Status | 801 | False |
 | `docs/release/ci_workflow_consolidation.md` | `release` | EduBoost V2 CI Workflow Consolidation Plan | 1293 | False |
@@ -696,7 +697,7 @@ Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 | `docs/release/deep_readiness_runtime_integration_target_map.md` | `release` | Deep-Readiness Runtime Integration Target Map | 371 | False |
 | `docs/release/diag_deep_health_runtime_status.json` | `release` | Diag Deep Health Runtime Status | 1245 | False |
 | `docs/release/diag_deep_health_runtime_status.md` | `release` | Diagnostic Deep Health Runtime Evidence Status | 1595 | False |
-| `docs/release/diagnostic_item_bank_canonicality_status.json` | `release` | Diagnostic Item Bank Canonicality Status | 44359 | False |
+| `docs/release/diagnostic_item_bank_canonicality_status.json` | `release` | Diagnostic Item Bank Canonicality Status | 44838 | False |
 | `docs/release/diagnostic_item_bank_canonicality_status.md` | `release` | Diagnostic Item-Bank Policy Status | 2550 | False |
 | `docs/release/diagnostic_score_live_audit_status.json` | `release` | Diagnostic Score Live Audit Status | 6070 | False |
 | `docs/release/diagnostic_score_live_audit_status.md` | `release` | Diagnostic Score Live Audit Status | 3632 | False |
@@ -933,11 +934,11 @@ Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 | `docs/release/runtime_integration_test_evidence_template.md` | `release` | Runtime Integration Test Evidence Template | 315 | False |
 | `docs/release/runtime_launch_content_evidence_status.json` | `release` | Runtime Launch Content Evidence Status | 5162 | False |
 | `docs/release/runtime_launch_content_evidence_status.md` | `release` | Runtime Launch Content Evidence Status | 4875 | False |
-| `docs/release/runtime_wiring_431_450_report.md` | `release` | Runtime Wiring 431-450 Report | 5699 | False |
+| `docs/release/runtime_wiring_431_450_report.md` | `release` | Runtime Wiring 431-450 Report | 5363 | False |
 | `docs/release/runtime_wiring_approval_checklist.md` | `release` | Runtime Wiring Approval Checklist | 529 | False |
 | `docs/release/schema_drift_db_execution_checklist.md` | `release` | Schema Drift DB Execution Checklist | 852 | False |
 | `docs/release/schema_drift_disposable_db_proof.md` | `release` | Schema Drift Disposable DB Proof | 963 | False |
-| `docs/release/schema_drift_disposable_latest.json` | `release` | Schema Drift Disposable Latest | 1109 | False |
+| `docs/release/schema_drift_disposable_latest.json` | `release` | Schema Drift Disposable Latest | 983 | False |
 | `docs/release/schema_drift_disposable_latest.md` | `release` | Schema Drift Disposable DB Latest Proof | 341 | False |
 | `docs/release/schema_drift_evidence_contract.md` | `release` | Schema Drift Evidence Contract | 898 | False |
 | `docs/release/schema_drift_execution_gate_hardening.md` | `release` | Schema Drift Execution Gate Hardening | 593 | False |
@@ -947,7 +948,7 @@ Commit: `f932279e2bf3d3524425915a4eb844816b078872`
 | `docs/release/schema_drift_real_db_execution_packet.md` | `release` | Schema Drift Real DB Execution Packet | 488 | False |
 | `docs/release/staging_acceptance_status.json` | `release` | Staging Acceptance Status | 1913 | False |
 | `docs/release/staging_acceptance_status.md` | `release` | Staging Acceptance Status | 1227 | False |
-| `docs/release/staging_smoke_evidence.md` | `release` | Staging Smoke Evidence Status | 1953 | False |
+| `docs/release/staging_smoke_evidence.md` | `release` | Staging Smoke Evidence Status | 1713 | False |
 | `docs/release/staging_smoke_evidence_status.json` | `release` | Staging Smoke Evidence Status | 1271 | False |
 | `docs/release/staging_smoke_evidence_status.md` | `release` | Staging Smoke Evidence Status | 1713 | False |
 | `docs/release/staging_smoke_final_evidence.json` | `release` | Staging Smoke Final Evidence | 221 | False |

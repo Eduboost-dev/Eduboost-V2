@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-26T16:07:02.845232+00:00`
+- generated_at_utc: `2026-05-26T20:31:00.829080+00:00`
 - branch: `pr-cf-013-full-generation-runner`
-- commit: `f932279e2bf3d3524425915a4eb844816b078872`
-- release_candidate: `beta-f932279`
+- commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+- release_candidate: `beta-3fd35da`
 
 ## Tagging Convention
 
@@ -26,8 +26,8 @@
 ## Example Commands
 
 ```bash
-git tag -a beta-f932279 -m "Beta release candidate beta-f932279"
-git push origin beta-f932279
+git tag -a beta-3fd35da -m "Beta release candidate beta-3fd35da"
+git push origin beta-3fd35da
 ```
 
 ## Safety Boundary

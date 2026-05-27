@@ -9,4 +9,4 @@
 | Waiver | None |
 | Waiver owner | None |
 | Blockers | None |
-| Captured at | 2026-05-26T16:03:05Z |
+| Captured at | 2026-05-26T18:33:37Z |

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T15:59:44Z",
+  "generated_at": "2026-05-26T18:26:45Z",
   "auth_router_exists": true,
   "imports": [
     "app.api_v2_deps.auth_runtime",

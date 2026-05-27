@@ -1,7 +1,7 @@
 # Diagnostic Deep Health Runtime Evidence Status
 
-Generated at: `2026-05-26T16:04:45Z`
-Commit: `f932279e2bf3d3524425915a4eb844816b078872`
+Generated at: `2026-05-26T18:36:32Z`
+Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 Branch: `pr-cf-013-full-generation-runner`
 
 **Status:** `diag-deep-health-runtime-not-accepted`
