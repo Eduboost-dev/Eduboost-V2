@@ -201,6 +201,7 @@ class ParentalConsent(Base):
 
     guardian: Mapped[Guardian] = relationship("Guardian", back_populates="consents")
     learner: Mapped[LearnerProfile] = relationship("LearnerProfile", back_populates="consents")
+    version_history: Mapped[list["ConsentVersionHistory"]] = relationship("ConsentVersionHistory", back_populates="consent", cascade="all, delete-orphan")
 
     @property
     def is_active(self) -> bool:
@@ -237,6 +238,35 @@ class ParentalConsent(Base):
             ),
         ),
     )
+
+
+# ── Consent Version History ───────────────────────────────────────────────────────
+
+
+class ConsentVersionHistory(Base):
+    """POPIA consent version history for tracking consent lifecycle and policy version changes."""
+
+    __tablename__ = "consent_version_history"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    consent_id: Mapped[str] = mapped_column(ForeignKey("parental_consents.id", ondelete="CASCADE"), nullable=False)
+    policy_version: Mapped[str] = mapped_column(String(20), nullable=False)
+    status: Mapped[str] = mapped_column(String(20), nullable=False)
+    granted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    transition_reason: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, nullable=False)
+
+    consent: Mapped[ParentalConsent] = relationship("ParentalConsent", back_populates="version_history")
+
+    __table_args__ = (
+        Index("ix_consent_version_history_consent_id", "consent_id"),
+        Index("ix_consent_version_history_created_at", "created_at"),
+    )
+
+
+# ── Audit Event ───────────────────────────────────────────────────────────────
 
 
 class AuditEvent(Base):
