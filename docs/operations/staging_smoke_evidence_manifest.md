@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-26T20:31:02.404012+00:00`
-- branch: `pr-cf-013-full-generation-runner`
-- commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+- generated_at_utc: `2026-05-28T12:44:01.655642+00:00`
+- branch: `remediation/phase0-phase1`
+- commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
 - target_environment: `test`
 
 ## Required Smoke Checks
