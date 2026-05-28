@@ -1,9 +1,9 @@
 # Documentation Inventory
 
-Generated at: `2026-05-28T12:33:33Z`
-Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
+Generated at: `2026-05-28T13:49:34Z`
+Commit: `6f43341eb282b7f4983fc1c5954cda205f6ad1b9`
 
-- Documents: `1125`
+- Documents: `1129`
 - Generated docs: `4`
 
 ## Categories
@@ -13,7 +13,7 @@ Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
 | `adr` | 28 |
 | `api` | 6 |
 | `architecture` | 39 |
-| `general` | 527 |
+| `general` | 531 |
 | `release` | 427 |
 | `security` | 98 |
 
@@ -229,15 +229,19 @@ Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
 | `docs/caps/grade4_maths_120_item_production_plan.md` | `general` | Grade 4 Mathematics 120-Item Production Plan | 1648 | False |
 | `docs/caps/grade4_maths_coverage_matrix.md` | `general` | Grade 4 Mathematics - CAPS Item Bank Coverage Matrix | 1872 | False |
 | `docs/caps/grade4_maths_lesson_coverage_matrix.md` | `general` | Grade 4 Mathematics - Lesson Coverage Matrix | 1546 | False |
-| `docs/codemaps/README.md` | `general` | Codemaps Documentation | 15507 | False |
+| `docs/codemaps/README.md` | `general` | Codemaps Documentation | 20495 | False |
 | `docs/codemaps/alembic_migration_and_ddl_management_startup_ddl_repairs_migration_integrity_and_alembic_workflow.md` | `general` | Alembic Migration and DDL Management: Startup DDL Repairs, Migration Integrity, and Alembic Workflow | 53294 | False |
 | `docs/codemaps/api_documentation_structure_sphinx_mkdocs_generation_pipeline.md` | `general` | API Documentation Structure: Sphinx & MkDocs Generation Pipeline | 41053 | False |
 | `docs/codemaps/base_repository_and_crud_operations_generic_async_crud_for_domain_aggregates.md` | `general` | Base Repository and CRUD Operations: Generic Async CRUD for Domain Aggregates | 39063 | False |
 | `docs/codemaps/base_repository_implementation_generic_async_crud_database_interactions.md` | `general` | Base Repository Implementation: Generic Async CRUD & Database Interactions | 53178 | False |
 | `docs/codemaps/content_factory_full_generation_system_overnight_batch_pipeline.md` | `general` | Content Factory Full Generation System: Overnight Batch Pipeline | 58990 | False |
 | `docs/codemaps/coverage_debt_management_and_recovery_system.md` | `general` | Coverage Debt Management and Recovery System | 46504 | False |
+| `docs/codemaps/eduboost_frontend_next_js_learner_platform_with_auth_ai_lessons_diagnostics_and_popia_compliance.md` | `general` | EduBoost Frontend: Next.js Learner Platform with Auth, AI Lessons, Diagnostics & POPIA Compliance | 55808 | False |
 | `docs/codemaps/eduboost_v2_core_infrastructure_runtime_primitives_and_cross_cutting_concerns.md` | `general` | EduBoost V2 Core Infrastructure: Runtime Primitives & Cross-Cutting Concerns | 58553 | False |
 | `docs/codemaps/eduboost_v2_domain_layer_pydantic_models_and_data_flow.md` | `general` | EduBoost V2 Domain Layer: Pydantic Models and Data Flow | 40648 | False |
+| `docs/codemaps/eduboost_v2_modular_architecture_core_domain_modules.md` | `general` | EduBoost V2 Modular Architecture: Core Domain Modules | 71681 | False |
+| `docs/codemaps/eduboost_v2_object_level_authorization_system_app_security.md` | `general` | EduBoost V2 Object-Level Authorization System (app/security/*) | 45145 | False |
+| `docs/codemaps/eduboost_v2_repository_layer_data_access_abstraction_and_domain_persistence.md` | `general` | EduBoost V2 Repository Layer: Data Access Abstraction & Domain Persistence | 40374 | False |
 | `docs/codemaps/eduboost_v2_service_layer_architecture.md` | `general` | EduBoost V2 Service Layer Architecture | 57121 | False |
 | `docs/codemaps/jwt_security_implementation_and_token_management.md` | `general` | JWT Security Implementation and Token Management | 52509 | False |
 | `docs/codemaps/jwt_security_implementation_dual_system_architecture.md` | `general` | JWT Security Implementation: Dual-System Architecture | 66446 | False |
@@ -497,7 +501,7 @@ Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
 | `docs/operations/release_owner_execution_guardrail.md` | `general` | Release Owner Execution Guardrail | 1946 | False |
 | `docs/operations/release_owner_post_closeout_decision_record.md` | `general` | Release Owner Post-Closeout Decision Record | 1668 | False |
 | `docs/operations/release_record_closure_ledger.md` | `general` | Release Record Closure Ledger | 1903 | False |
-| `docs/operations/release_state_snapshot.md` | `general` | Release State Snapshot | 124102 | False |
+| `docs/operations/release_state_snapshot.md` | `general` | Release State Snapshot | 124367 | False |
 | `docs/operations/render_frontend_backend_connectivity_report.md` | `general` | Render Frontend/Backend Connectivity Report | 4826 | False |
 | `docs/operations/reviewer_decision_capture_template.md` | `general` | Reviewer Decision Capture Template | 1964 | False |
 | `docs/operations/sealed_evidence_access_handoff.md` | `general` | Sealed Evidence Access Handoff | 1845 | False |
@@ -582,8 +586,8 @@ Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
 | `docs/release/approval_evidence_status.md` | `release` | Approval Evidence Status | 1296 | False |
 | `docs/release/arq_consent_job_repair_report.md` | `release` | ARQ Consent Job Repair Report | 340 | False |
 | `docs/release/arq_dependency_worker_import_repair_report.md` | `release` | ARQ Dependency and Worker Import Repair Report | 520 | False |
-| `docs/release/audit_baseline_refresh_status.json` | `release` | Audit Baseline Refresh Status | 6514 | False |
-| `docs/release/audit_baseline_refresh_status.md` | `release` | Audit Baseline Refresh Status | 3708 | False |
+| `docs/release/audit_baseline_refresh_status.json` | `release` | Audit Baseline Refresh Status | 6504 | False |
+| `docs/release/audit_baseline_refresh_status.md` | `release` | Audit Baseline Refresh Status | 3698 | False |
 | `docs/release/audit_callsite_inventory.md` | `release` | Audit Call-Site Inventory | 390232 | False |
 | `docs/release/audit_callsite_migration_slice_002.md` | `release` | Audit Call-Site Migration Slice 002 | 482 | False |
 | `docs/release/audit_candidate_execution_ledger.md` | `release` | Audit Candidate Execution Ledger | 451 | False |
@@ -645,7 +649,7 @@ Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
 | `docs/release/backend_consolidation_terminal_report.md` | `release` | Backend Consolidation Terminal Report | 9156 | False |
 | `docs/release/backend_data_retention_approval_update.md` | `release` | Backend Data Retention Approval Update | 402 | False |
 | `docs/release/backend_data_retention_decision_checklist.md` | `release` | Backend Data Retention Decision Checklist | 1404 | False |
-| `docs/release/backend_deletion_candidate_inventory.md` | `release` | Backend Deletion Candidate Inventory | 20258011 | False |
+| `docs/release/backend_deletion_candidate_inventory.md` | `release` | Backend Deletion Candidate Inventory | 21934081 | False |
 | `docs/release/backend_first_wiring_candidate_registry.md` | `release` | Backend First Wiring Candidate Registry | 372 | False |
 | `docs/release/backend_first_wiring_candidates_report.md` | `release` | Backend First Wiring Candidates Report | 5947 | False |
 | `docs/release/backend_implementation_371_375_report.md` | `release` | Backend Implementation 371-375 Report | 3408 | False |
@@ -721,7 +725,7 @@ Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
 | `docs/release/deep_readiness_runtime_integration_target_map.md` | `release` | Deep-Readiness Runtime Integration Target Map | 371 | False |
 | `docs/release/diag_deep_health_runtime_status.json` | `release` | Diag Deep Health Runtime Status | 1238 | False |
 | `docs/release/diag_deep_health_runtime_status.md` | `release` | Diagnostic Deep Health Runtime Evidence Status | 1588 | False |
-| `docs/release/diagnostic_item_bank_canonicality_status.json` | `release` | Diagnostic Item Bank Canonicality Status | 44838 | False |
+| `docs/release/diagnostic_item_bank_canonicality_status.json` | `release` | Diagnostic Item Bank Canonicality Status | 45111 | False |
 | `docs/release/diagnostic_item_bank_canonicality_status.md` | `release` | Diagnostic Item-Bank Policy Status | 2550 | False |
 | `docs/release/diagnostic_score_live_audit_status.json` | `release` | Diagnostic Score Live Audit Status | 6070 | False |
 | `docs/release/diagnostic_score_live_audit_status.md` | `release` | Diagnostic Score Live Audit Status | 3632 | False |

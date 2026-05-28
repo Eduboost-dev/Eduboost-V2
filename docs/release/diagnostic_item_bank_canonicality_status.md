@@ -1,7 +1,7 @@
 # Diagnostic Item-Bank Policy Status
 
-Generated at: `2026-05-28T12:31:53Z`
-Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
+Generated at: `2026-05-28T13:49:08Z`
+Commit: `6f43341eb282b7f4983fc1c5954cda205f6ad1b9`
 
 **Status:** `diagnostic-item-bank-policy-accepted`
 **Policy:** `docs/architecture/diagnostic_item_bank_canonicality.yml`
