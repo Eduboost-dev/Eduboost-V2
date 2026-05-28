@@ -124,28 +124,43 @@ not full business logic coverage.
 pytest tests/unit tests/smoke --cov=app --cov-report=term-missing --no-cov-on-fail
 ```
 
-**Result:** Not yet attempted. Given that smoke tests take ~81s, the full suite
-(~2,698 tests) may take 10–15 minutes. This should be run in CI or as a
-background job.
+**Result:** **2,252 passed, 6 failed, 11 skipped in 35:15 (2115.25s)**.
+Coverage: **57.5%** (full suite).
+
+**Analysis:** The timeout is resolved. Full suite now completes in ~35 minutes.
+The 57.5% coverage is the authoritative baseline. This is **below the 60% CI
+threshold**, meaning the CI gate would fail if run with coverage enforcement.
+
+**Failures (non-blocking for coverage baseline):**
+- `test_auth_refresh_db_proof.py::test_auth_refresh_db_release_check_fails_without_real_db` — missing file (renamed in T003)
+- `test_auth_refresh_db_proof.py::test_auth_refresh_db_checker_runs_local_mode` — missing file (renamed in T003)
+- `test_content_generation_executor.py::test_valid_deterministic_artifact_enters_pending_review_and_has_sources` — session fixture issue
+- `test_content_generation_executor.py::test_invalid_generated_artifact_enters_validation_failed` — session fixture issue
+- `test_runtime_release_evidence_contract.py::test_runtime_release_evidence_check_passes` — documentation status marker issue
+- `test_runtime_release_evidence_contract.py::test_runtime_evidence_files_do_not_claim_completion_without_data` — documentation status marker issue
 
 ---
 
-## Codebase size (measured from coverage XML)
+## Codebase size (measured from full-suite coverage)
 
-| Package | Executable lines |
-|---|---|
-| `app.core` | 2,188 |
-| `app.services` | 6,384 |
-| `app.modules.*` | ~4,500 (aggregated) |
-| `app.repositories` | 945 |
-| `app.api_v2_routers` | ~1,200 |
-| `app.api_v2_deps` | ~400 |
-| `app.domain` | ~800 |
-| `app.models` | ~500 |
-| `app.security` | 201 |
-| **Total** | **~22,237** |
+| Package | Executable lines | Coverage |
+|---|---|---|
+| `app.models` | 859 | 98.1% |
+| `app.security` | 201 | 94.0% |
+| `app.domain` | 1,011 | 93.5% |
+| `app.middleware` | 15 | 100.0% |
+| `app.legacy` | 13 | 92.3% |
+| `app.modules` | 6,577 | 70.8% |
+| `app.core` | 2,188 | 61.0% |
+| `app.services` | 8,498 | 53.9% |
+| `app.api_v2.py` | 122 | 50.0% |
+| `app.api_v2_deps` | 126 | 46.8% |
+| `app.repositories` | 945 | 41.5% |
+| `app.api_v2_routers` | 2,003 | 38.7% |
+| `app.jobs` | 18 | 0.0% |
+| **Total** | **45,152** | **57.5%** |
 
-See `audits/coverage/coverage_modules_20260527.txt` for the full per-package
+See `audits/coverage/coverage_modules_full_20260527.txt` for the full per-module
 breakdown.
 
 ---
@@ -165,8 +180,11 @@ And enforces it in the `unit-tests` and `v2-smoke` jobs:
 --cov-fail-under=${{ env.COVERAGE_THRESHOLD }}
 ```
 
-**Risk:** If the full test suite does not achieve 60% coverage, the CI gate will
-fail. The current timeout issue suggests this has not been validated recently.
+**Status:** The current coverage (57.5%) is **below the 60% CI threshold**. The CI
+gate would fail if run with coverage enforcement. The threshold should be either:
+1. Lowered to 55% to match current baseline, or
+2. Kept at 60% with a plan to add 2.5% coverage via quick-win tests (see
+   `docs/engineering/coverage_debt.md`).
 
 ---
 
@@ -187,12 +205,12 @@ coverage (previously timed out after 60s).
 | Task | Priority | Owner | Description |
 |---|---|---|---|
 | T130A | **Done** | Engineering | Fix coverage timeout (added `.coveragerc` with async concurrency) |
-| T130B | P1 | Engineering | Run full-suite coverage to get authoritative baseline (est. 10–15 min) |
+| T130B | **Done** | Engineering | Run full-suite coverage to get authoritative baseline (57.5%) |
 | T131 | P1 | Engineering | Create coverage debt report (per-module target vs actual) |
 | T132 | P2 | Engineering | Classify modules by coverage risk (P0/P1/P2) |
 | T133 | P2 | Engineering | Identify "quick win" tests that add most coverage per effort |
 | T134 | P2 | Engineering | Create coverage recovery sprint plan |
-| T135 | P2 | Engineering | Add coverage to CI with realistic threshold |
+| T135 | P1 | Engineering | Adjust CI coverage threshold to 55% or add 2.5% coverage |
 | T136 | P2 | Engineering | Document coverage exemptions (e.g., generated code, boilerplate) |
 
 ---
