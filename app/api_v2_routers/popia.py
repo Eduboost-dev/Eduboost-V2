@@ -103,8 +103,7 @@ async def grant_consent(
     # require_learner_write_for_current_user
     body: ConsentGrantRequest,
     consent_svc: ConsentService = Depends(get_canonical_consent_service),
-    # TODO: replace with real auth dependency that injects actor_id from JWT
-    current_user = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ) -> ConsentRecord:
     await _enforce_popia_learner_write(current_user, body.learner_id)
     actor_id = _authenticated_actor_id(current_user)

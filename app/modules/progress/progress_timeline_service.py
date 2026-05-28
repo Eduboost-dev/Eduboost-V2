@@ -24,7 +24,7 @@ class ProgressTimelineService:
         groups: dict[str, list] = defaultdict(list)
         for row in rows:
             if subject and subject not in row.caps_ref:
-                pass
+                continue
             groups[row.caps_ref.split('.')[1] if '.' in row.caps_ref else 'unknown'].append(row)
         summaries = []
         for key, values in groups.items():
