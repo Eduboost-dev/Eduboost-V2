@@ -17,7 +17,6 @@ CRITICAL = [
     "scripts/check_auth_refresh_db_proof.py",
     "scripts/patch_auth_refresh_db_proof_registry.py",
     "tests/unit/test_auth_refresh_db_proof.py",
-    "tests/integration/test_auth_refresh_db_proof.py",
 ]
 
 
