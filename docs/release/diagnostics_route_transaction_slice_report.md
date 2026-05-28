@@ -1,7 +1,7 @@
 # Diagnostics Route Transaction Slice Report
 
-Generated at: `2026-05-26T18:41:11Z`
-Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+Generated at: `2026-05-28T12:43:42Z`
+Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
 
 - Route file: `app/api_v2_routers/diagnostics.py`
 - Local status: `route-diagnostics-delegation-not-proven`
@@ -14,7 +14,7 @@ Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 |---|---:|---|---|---|
 | `submit_diagnostic` | 102 | `-` | `-` | `not-proven` |
 | `start_diagnostic_session` | 250 | `service.start_session` | `-` | `route-delegates-to-service-boundary` |
-| `diagnostic_respond` | 314 | `session_service.recover_session, session_service.submit_response` | `-` | `route-delegates-to-service-boundary` |
+| `diagnostic_respond` | 315 | `session_service.recover_session, session_service.submit_response` | `-` | `route-delegates-to-service-boundary` |
 
 ## Transaction service markers found
 

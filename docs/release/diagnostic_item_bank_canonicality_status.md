@@ -1,7 +1,7 @@
 # Diagnostic Item-Bank Policy Status
 
-Generated at: `2026-05-26T18:36:52Z`
-Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+Generated at: `2026-05-28T12:31:53Z`
+Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
 
 **Status:** `diagnostic-item-bank-policy-accepted`
 **Policy:** `docs/architecture/diagnostic_item_bank_canonicality.yml`
@@ -27,9 +27,9 @@ Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 
 | Path | Line | Excerpt |
 |---|---:|---|
-| `app/api_v2_routers/content_factory.py` | 1073 | `diagnostic_items = await service.get_diagnostic_items(session, scope_id=scope_id, caps_ref=caps_ref)` |
-| `app/api_v2_routers/content_factory.py` | 1075 | `return {"diagnostic_items": diagnostic_items, "lessons": lessons}` |
-| `app/api_v2_routers/content_factory.py` | 1096 | `run_metadata={"layers": ["diagnostic_items", "lessons", "assessment_blueprints", "study_plan_templates"]},` |
+| `app/api_v2_routers/content_factory.py` | 1089 | `diagnostic_items = await service.get_diagnostic_items(session, scope_id=scope_id, caps_ref=caps_ref)` |
+| `app/api_v2_routers/content_factory.py` | 1091 | `return {"diagnostic_items": diagnostic_items, "lessons": lessons}` |
+| `app/api_v2_routers/content_factory.py` | 1112 | `run_metadata={"layers": ["diagnostic_items", "lessons", "assessment_blueprints", "study_plan_templates"]},` |
 | `app/domain/content_coverage.py` | 11 | `DIAGNOSTIC_ITEMS = "diagnostic_items"` |
 | `app/models/content_factory.py` | 56 | `DIAGNOSTIC_ITEMS = "diagnostic_items"` |
 | `app/models/diagnostic_item.py` | 111 | `ORM representation of the diagnostic_items table.` |

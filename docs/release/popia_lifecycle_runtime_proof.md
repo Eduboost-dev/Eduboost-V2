@@ -1,6 +1,6 @@
 # POPIA Lifecycle Runtime Proof
 
-Generated at: `2026-05-26T18:41:13Z`
+Generated at: `2026-05-28T12:43:49Z`
 
 **Status:** runtime_proof_ready
 

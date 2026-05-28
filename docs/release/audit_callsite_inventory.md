@@ -999,7 +999,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/content_generation/study_plan_template_generator.py` | 134 | audit_append_call | `errors.append(f"caps_ref mismatch: expected {caps_ref}, got {payload.get('caps_ref')}")` |
 | `app/services/content_generation/study_plan_template_generator.py` | 137 | audit_append_call | `errors.append("Missing diagnostic_trigger_conditions")` |
 | `app/services/content_generation/study_plan_template_generator.py` | 140 | audit_append_call | `errors.append("Missing estimated_minutes")` |
-| `app/services/content_generation_executor.py` | 124 | audit_append_call | `artifact_ids.append(artifact.artifact_id)` |
+| `app/services/content_generation_executor.py` | 131 | audit_append_call | `errors.append("Artifact creation failed because a matching artifact hash already exists.")` |
+| `app/services/content_generation_executor.py` | 135 | audit_append_call | `artifact_ids.append(artifact.artifact_id)` |
 | `app/services/content_generation_planner.py` | 75 | audit_append_call | `skipped.append({"scope_id": scope.scope_id, "caps_ref": layer.caps_ref, "layer": layer.layer, "reason": "coverage_green"})` |
 | `app/services/content_generation_planner.py` | 79 | audit_append_call | `skipped.append({"scope_id": scope.scope_id, "caps_ref": layer.caps_ref, "layer": layer.layer, "reason": "missing_source_context", "errors": context.errors})` |
 | `app/services/content_generation_planner.py` | 86 | audit_append_call | `skipped.append({"scope_id": scope.scope_id, "caps_ref": layer.caps_ref, "layer": layer.layer, "reason": "duplicate_task"})` |
@@ -1436,9 +1437,9 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_auth_refresh_db_evidence_gate.py` | 36 | audit_append_call | `failures.append("release mode requires accepted auth refresh DB evidence")` |
 | `scripts/check_auth_refresh_db_evidence_gate.py` | 67 | audit_append_call | `failures.append("auth refresh DB evidence gate unit tests failed")` |
 | `scripts/check_auth_refresh_db_evidence_gate.py` | 80 | audit_append_call | `failures.append("focused Ruff failed")` |
-| `scripts/check_auth_refresh_db_proof.py` | 37 | audit_append_call | `failures.append("release mode requires accepted auth refresh DB proof")` |
-| `scripts/check_auth_refresh_db_proof.py` | 58 | audit_append_call | `failures.append("auth refresh DB proof unit tests failed")` |
-| `scripts/check_auth_refresh_db_proof.py` | 71 | audit_append_call | `failures.append("focused Ruff failed")` |
+| `scripts/check_auth_refresh_db_proof.py` | 36 | audit_append_call | `failures.append("release mode requires accepted auth refresh DB proof")` |
+| `scripts/check_auth_refresh_db_proof.py` | 57 | audit_append_call | `failures.append("auth refresh DB proof unit tests failed")` |
+| `scripts/check_auth_refresh_db_proof.py` | 70 | audit_append_call | `failures.append("focused Ruff failed")` |
 | `scripts/check_auth_repository_fixture_proof.py` | 43 | audit_append_call | `failures.append(f"{source_name} does not prefer {canonical}")` |
 | `scripts/check_auth_repository_fixture_proof.py` | 72 | audit_append_call | `failures.append("auth repository fixture proof tests failed")` |
 | `scripts/check_auth_repository_fixture_proof.py` | 93 | audit_append_call | `failures.append("focused Ruff failed")` |
@@ -1621,11 +1622,11 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_ci_cd_deployment_production_readiness.py` | 147 | audit_append_call | `results.append(` |
 | `scripts/check_ci_cd_deployment_production_readiness.py` | 158 | audit_append_call | `results.append(` |
 | `scripts/check_ci_cd_deployment_production_readiness.py` | 183 | audit_append_call | `results.append(DeploymentReadinessResult("deployment_contracts", False, f"contract check failed: {exc}"))` |
-| `scripts/check_ci_evidence_acceptance.py` | 80 | audit_append_call | `failures.append("CI evidence acceptance unit tests failed")` |
-| `scripts/check_ci_evidence_acceptance.py` | 102 | audit_append_call | `failures.append("focused Ruff failed")` |
-| `scripts/check_ci_evidence_acceptance.py` | 117 | audit_append_call | `failures.append(f"{item_id} missing {required}")` |
-| `scripts/check_ci_evidence_acceptance.py` | 119 | audit_append_call | `failures.append(f"{item_id} missing run ID {status.run_id}")` |
-| `scripts/check_ci_evidence_acceptance.py` | 121 | audit_append_call | `failures.append(f"{item_id} missing commit SHA {status.current_commit}")` |
+| `scripts/check_ci_evidence_acceptance.py` | 82 | audit_append_call | `failures.append("CI evidence acceptance unit tests failed")` |
+| `scripts/check_ci_evidence_acceptance.py` | 106 | audit_append_call | `failures.append("focused Ruff failed")` |
+| `scripts/check_ci_evidence_acceptance.py` | 121 | audit_append_call | `failures.append(f"{item_id} missing {required}")` |
+| `scripts/check_ci_evidence_acceptance.py` | 123 | audit_append_call | `failures.append(f"{item_id} missing run ID {status.run_id}")` |
+| `scripts/check_ci_evidence_acceptance.py` | 125 | audit_append_call | `failures.append(f"{item_id} missing commit SHA {status.current_commit}")` |
 | `scripts/check_ci_run_evidence.py` | 39 | audit_append_call | `failures.append("GitHub Actions run URL validator rejected canonical URL")` |
 | `scripts/check_ci_run_evidence.py` | 46 | audit_append_call | `failures.append(f"unexpected CI run evidence status: {status.status}")` |
 | `scripts/check_ci_run_evidence.py` | 49 | audit_append_call | `failures.append("release mode requires accepted CI run evidence")` |
@@ -2024,9 +2025,9 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_runtime_integration_proof.py` | 44 | audit_append_call | `failures.append("diagnostics contains require_items=False")` |
 | `scripts/check_runtime_integration_proof.py` | 52 | audit_append_call | `failures.append("missing validate_session_served_item_binding helper")` |
 | `scripts/check_runtime_integration_proof.py` | 78 | audit_append_call | `failures.append("focused ruff critical runtime check failed")` |
-| `scripts/check_runtime_release_evidence.py` | 73 | audit_append_call | `failures.append(f"missing file {path}")` |
-| `scripts/check_runtime_release_evidence.py` | 83 | audit_append_call | `failures.append(f"{path} missing {needle!r}")` |
-| `scripts/check_runtime_release_evidence.py` | 95 | audit_append_call | `failures.append(f"{path} pending status removed")` |
+| `scripts/check_runtime_release_evidence.py` | 67 | audit_append_call | `failures.append(f"missing file {path}")` |
+| `scripts/check_runtime_release_evidence.py` | 77 | audit_append_call | `failures.append(f"{path} missing {needle!r}")` |
+| `scripts/check_runtime_release_evidence.py` | 88 | audit_append_call | `failures.append(f"{path} pending status removed")` |
 | `scripts/check_runtime_wiring_no_destructive_actions.py` | 35 | audit_append_call | `failures.append(f"missing {relative}")` |
 | `scripts/check_runtime_wiring_no_destructive_actions.py` | 41 | audit_append_call | `failures.append(f"{relative}: {pattern}")` |
 | `scripts/check_schema_drift_contract.py` | 27 | audit_append_call | `failures.append(f"missing {path}")` |
