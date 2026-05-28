@@ -35,13 +35,11 @@ class Session:
         return None
     async def refresh(self, obj):
         return None
-    
     class NestedTransaction:
         async def __aenter__(self):
             return self
         async def __aexit__(self, exc_type, exc, tb):
             return None
-    
     def begin_nested(self):
         return self.NestedTransaction()
 

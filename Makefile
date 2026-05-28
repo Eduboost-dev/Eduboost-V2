@@ -515,6 +515,15 @@ frontend-api-client-inventory-check:
 frontend-auth-consent-denial-check:
 	$(PYTHON) scripts/check_frontend_auth_consent_denial_contract.py
 
+clean-next:
+	bash scripts/cleanup-next-artifacts.sh app/frontend
+
+fe-pr-002-verify:
+	bash -n scripts/cleanup-next-artifacts.sh
+	cd app/frontend && pnpm run type-check
+	cd app/frontend && pnpm run lint
+	cd app/frontend && pnpm run test
+
 frontend-build-test-lint-contract-check:
 	$(PYTHON) scripts/check_frontend_build_test_lint_contract.py
 

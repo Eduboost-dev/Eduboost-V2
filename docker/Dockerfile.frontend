@@ -7,21 +7,23 @@ WORKDIR /app
 
 # ── Dependencies Stage ────────────────────────────────────────────────────────
 FROM base AS deps
-COPY package*.json ./
-RUN npm install --legacy-peer-deps
+RUN corepack enable && corepack prepare pnpm@9.14.4 --activate
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
 # ── Build Stage ───────────────────────────────────────────────────────────────
 FROM base AS builder
+RUN corepack enable && corepack prepare pnpm@9.14.4 --activate
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Disable telemetry during build
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN npm run build
+RUN pnpm run build
 
 # ── Production Runner Stage ───────────────────────────────────────────────────
-FROM base AS production
+FROM base AS runner
 
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
