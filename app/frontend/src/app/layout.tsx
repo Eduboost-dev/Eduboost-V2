@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { LearnerProvider } from "@/context/LearnerContext";
+import { SkipLink } from "@/components/accessibility/A11y";
+import { ErrorBoundary } from "@/components/eduboost/ErrorBoundary";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -60,7 +62,12 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <LearnerProvider>
-          {children}
+          <SkipLink target="app-main" />
+          <ErrorBoundary title="This screen could not load.">
+            <main id="app-main" className="min-h-screen">
+              {children}
+            </main>
+          </ErrorBoundary>
         </LearnerProvider>
         <Toaster position="bottom-right" theme="dark" />
       </body>

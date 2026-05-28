@@ -31,6 +31,26 @@
     --ring:        185 100% 40%;
     --radius:      0.625rem;
   }
+
+  /* ── Skip link ───────────────────────────────────────────────────────────── */
+  .skip-link {
+    position: absolute;
+    left: 0.75rem;
+    top: -4rem;
+    z-index: 999;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    background: rgba(0, 207, 209, 0.95);
+    color: rgb(10, 22, 40);
+    font-weight: 600;
+    text-decoration: none;
+    transition: top 0.2s ease, transform 0.2s ease;
+  }
+  .skip-link:focus {
+    top: 0.75rem;
+    transform: translateY(0);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
 }
 
 /* ── Smooth base ────────────────────────────────────────────────────────────── */

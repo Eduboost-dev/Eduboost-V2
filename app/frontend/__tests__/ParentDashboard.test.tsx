@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import { ParentDashboard } from '../src/components/eduboost/ParentDashboard'
 import { ParentService, DataRightsService } from '../src/lib/api/services'
-import { vi } from 'vitest'
+import { beforeEach, expect, test, vi } from 'vitest'
 
 vi.mock('recharts', () => ({
   ResponsiveContainer: ({ children }: any) => <div>{children}</div>,
@@ -14,11 +14,8 @@ vi.mock('recharts', () => ({
 }))
 
 beforeEach(() => {
-  // @ts-ignore
-  global.window = Object.create(window)
-  const store: Record<string,string> = { guardian_id: 'G1' }
-  // @ts-ignore
-  global.window.localStorage = { getItem: (k:string)=>store[k]||null, setItem: (k:string,v:string)=>store[k]=v }
+  window.localStorage.clear()
+  window.localStorage.setItem('guardian_id', 'G1')
 })
 
 test('renders no learners when dashboard empty', async () => {

@@ -11,6 +11,11 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
+    environmentOptions: {
+      jsdom: {
+        url: 'https://eduboost.local',
+      },
+    },
     globals: true,
     setupFiles: ['./__tests__/setup.ts'],
     coverage: {
