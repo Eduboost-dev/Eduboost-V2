@@ -266,6 +266,42 @@ class ConsentVersionHistory(Base):
     )
 
 
+# ── Erasure Request State Machine ─────────────────────────────────────────────────
+
+
+class ErasureRequest(Base):
+    """POPIA Right to Erasure request state machine with safety checks and audit trail."""
+
+    __tablename__ = "erasure_request"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    learner_id: Mapped[str] = mapped_column(ForeignKey("learner_profiles.id", ondelete="CASCADE"), nullable=False)
+    requester_id: Mapped[str] = mapped_column(String(36), nullable=False)
+    requester_role: Mapped[str] = mapped_column(String(20), nullable=False)  # guardian, admin, data_subject
+    state: Mapped[str] = mapped_column(String(20), nullable=False, default="requested")  # requested, verified, scheduled, cancelled, executed, failed
+    reason: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    legal_basis: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    export_offered: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    export_waived: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    legal_hold: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    grace_period_end_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    scheduled_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    executed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    execution_method: Mapped[str | None] = mapped_column(String(20), nullable=True)  # soft, physical, purge
+    preflight_result: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    postflight_result: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    admin_override: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    admin_override_reason: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, onupdate=_now, nullable=False)
+
+    __table_args__ = (
+        Index("ix_erasure_request_learner_id", "learner_id"),
+        Index("ix_erasure_request_state", "state"),
+        Index("ix_erasure_request_grace_period_end", "grace_period_end_at"),
+    )
+
+
 # ── Audit Event ───────────────────────────────────────────────────────────────
 
 

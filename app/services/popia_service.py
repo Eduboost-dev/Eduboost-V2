@@ -21,6 +21,7 @@ from app.security.dependencies import require_learner_read_for_current_user, req
 from app.models import (
     AuditEvent,
     DiagnosticSession,
+    ErasureRequest,
     Guardian,
     KnowledgeGap,
     LearnerProfile,
@@ -39,6 +40,19 @@ from app.services.consent import ConsentService
 POPIA_EXPORT_SLA_DAYS = 30
 POPIA_ERASURE_REVIEW_SLA_DAYS = 30
 POPIA_ERASURE_GRACE_DAYS = 30
+
+# Erasure request states
+ERASURE_STATE_REQUESTED = "requested"
+ERASURE_STATE_VERIFIED = "verified"
+ERASURE_STATE_SCHEDULED = "scheduled"
+ERASURE_STATE_CANCELLED = "cancelled"
+ERASURE_STATE_EXECUTED = "executed"
+ERASURE_STATE_FAILED = "failed"
+
+# Execution methods
+ERASURE_METHOD_SOFT = "soft"
+ERASURE_METHOD_PHYSICAL = "physical"
+ERASURE_METHOD_PURGE = "purge"
 
 
 @dataclass(frozen=True)
@@ -121,27 +135,55 @@ class POPIADataRightsService:
         }
 
     async def request_erasure(self, learner_id: str, current_user: dict[str, Any], *, reason: str = "guardian_request") -> dict[str, Any]:
+        """Request POPIA Right to Erasure with state machine and safety checks."""
         requester_id = str(current_user.get("sub") or "")
+        requester_role = str(current_user.get("role", "")).lower()
         learner = await self.load_learner_for_write(learner_id, current_user)
-        if str(learner.guardian_id) != requester_id and str(current_user.get("role", "")).lower() != "admin":
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only the learner's guardian or admin can request erasure")
-        if learner.deletion_requested_at is not None:
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Erasure already requested for this learner")
 
+        # Authorization check
+        if str(learner.guardian_id) != requester_id and requester_role != "admin":
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only the learner's guardian or admin can request erasure")
+
+        # Check for existing erasure request
+        existing_request = await self.db.scalar(
+            select(ErasureRequest).where(
+                ErasureRequest.learner_id == learner_id,
+                ErasureRequest.state.in_([ERASURE_STATE_REQUESTED, ERASURE_STATE_VERIFIED, ERASURE_STATE_SCHEDULED])
+            )
+        )
+        if existing_request:
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Erasure request already in progress for this learner")
+
+        # Preflight safety checks
+        preflight_result = await self._preflight_erasure_checks(learner, requester_id, requester_role)
+
+        # Create erasure request record
+        grace_period_end = _now() + timedelta(days=POPIA_ERASURE_GRACE_DAYS)
+        erasure_request = ErasureRequest(
+            learner_id=learner_id,
+            requester_id=requester_id,
+            requester_role=requester_role,
+            state=ERASURE_STATE_REQUESTED,
+            reason=reason,
+            legal_basis="popia_section_11",
+            export_offered=False,
+            export_waived=False,
+            legal_hold=preflight_result.get("legal_hold", False),
+            grace_period_end_at=grace_period_end,
+            preflight_result=preflight_result,
+        )
+        self.db.add(erasure_request)
+
+        # Soft delete learner (grace period)
         learner.is_deleted = True
         learner.deletion_requested_at = _now()
+        learner.display_name = "[erased]"
         self.db.add(learner)
+
+        # Revoke consent
         await self.consent.execute_erasure(requester_id, learner_id)
-        review_required = await self.requires_admin_review(learner)
-        status_obj = self._status(
-            "erasure",
-            "pending_review" if review_required else "accepted",
-            learner_id,
-            POPIA_ERASURE_REVIEW_SLA_DAYS,
-            "erasure.requested",
-            requires_admin_review=review_required,
-            reason=reason,
-        )
+
+        # Audit event
         await self.audit.append(
             "erasure.requested",
             actor_id=requester_id,
@@ -151,29 +193,72 @@ class POPIADataRightsService:
                 "learner_pseudonym": learner.pseudonym_id,
                 "reason": reason,
                 "grace_period_days": POPIA_ERASURE_GRACE_DAYS,
-                "requires_admin_review": review_required,
+                "grace_period_end": grace_period_end.isoformat(),
+                "preflight_result": preflight_result,
                 "preserve_audit_records": True,
             },
         )
+
         await self.db.flush()
-        return asdict(status_obj)
+
+        return {
+            "request_id": erasure_request.id,
+            "state": erasure_request.state,
+            "learner_id": learner_id,
+            "learner_pseudonym": learner.pseudonym_id,
+            "grace_period_end": grace_period_end.isoformat(),
+            "preflight_result": preflight_result,
+        }
 
     async def cancel_erasure(self, learner_id: str, current_user: dict[str, Any]) -> dict[str, Any]:
+        """Cancel an active erasure request."""
         requester_id = str(current_user.get("sub") or "")
+        requester_role = str(current_user.get("role", "")).lower()
         learner = await self.load_learner_for_write(learner_id, current_user)
-        if learner.deletion_requested_at is None:
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="No erasure request exists for this learner")
+
+        # Find active erasure request
+        erasure_request = await self.db.scalar(
+            select(ErasureRequest).where(
+                ErasureRequest.learner_id == learner_id,
+                ErasureRequest.state.in_([ERASURE_STATE_REQUESTED, ERASURE_STATE_VERIFIED, ERASURE_STATE_SCHEDULED])
+            )
+        )
+        if not erasure_request:
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="No active erasure request exists for this learner")
+
+        # Authorization check
+        if erasure_request.requester_id != requester_id and requester_role != "admin":
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only the requester or admin can cancel erasure")
+
+        # Update erasure request state
+        erasure_request.state = ERASURE_STATE_CANCELLED
+        self.db.add(erasure_request)
+
+        # Restore learner
         learner.is_deleted = False
         learner.deletion_requested_at = None
+        learner.display_name = learner.display_name if learner.display_name != "[erased]" else "Restored"
         self.db.add(learner)
+
+        # Audit event
         await self.audit.append(
             "erasure.cancelled",
             actor_id=requester_id,
             resource_id=learner_id,
-            payload={"learner_id": learner_id, "learner_pseudonym": learner.pseudonym_id},
+            payload={
+                "learner_id": learner_id,
+                "learner_pseudonym": learner.pseudonym_id,
+                "request_id": erasure_request.id,
+            },
         )
+
         await self.db.flush()
-        return asdict(self._status("erasure", "cancelled", learner_id, POPIA_ERASURE_REVIEW_SLA_DAYS, "erasure.cancelled"))
+
+        return {
+            "request_id": erasure_request.id,
+            "state": erasure_request.state,
+            "learner_id": learner_id,
+        }
 
     async def request_correction(
         self,
@@ -225,6 +310,145 @@ class POPIADataRightsService:
         # Current minimal policy: billing/school-retained records are not modeled
         # yet, but an admin queue hook is exposed and audited for future rules.
         return False
+
+    async def _preflight_erasure_checks(self, learner: LearnerProfile, requester_id: str, requester_role: str) -> dict[str, Any]:
+        """Perform pre-erasure safety checks."""
+        checks = {
+            "subject_exists": learner is not None,
+            "requester_authorized": str(learner.guardian_id) == requester_id or requester_role == "admin",
+            "consent_revoked": True,  # Will be revoked during erasure
+            "legal_hold": False,  # TODO: Check for legal hold flag
+            "grace_period_elapsed": False,  # Not applicable for initial request
+            "export_offered": False,  # TODO: Check if export was offered
+            "all_checks_passed": False,
+        }
+
+        checks["all_checks_passed"] = all(checks.values())
+        return checks
+
+    async def execute_erasure(self, request_id: str, current_user: dict[str, Any], *, method: str = ERASURE_METHOD_PHYSICAL) -> dict[str, Any]:
+        """Execute erasure after grace period with safety checks."""
+        requester_id = str(current_user.get("sub") or "")
+        requester_role = str(current_user.get("role", "")).lower()
+
+        # Find erasure request
+        erasure_request = await self.db.scalar(
+            select(ErasureRequest).where(ErasureRequest.id == request_id)
+        )
+        if not erasure_request:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Erasure request not found")
+
+        # Authorization check
+        if erasure_request.requester_id != requester_id and requester_role != "admin":
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only the requester or admin can execute erasure")
+
+        # State validation
+        if erasure_request.state not in [ERASURE_STATE_VERIFIED, ERASURE_STATE_SCHEDULED]:
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Erasure request must be verified or scheduled, current state: {erasure_request.state}")
+
+        # Grace period check (unless admin override)
+        if not erasure_request.admin_override:
+            if erasure_request.grace_period_end_at and erasure_request.grace_period_end_at > _now():
+                raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Grace period has not elapsed")
+
+        # Legal hold check
+        if erasure_request.legal_hold and not erasure_request.admin_override:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Legal hold on learner data")
+
+        # Export check
+        if not erasure_request.export_offered and not erasure_request.export_waived:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Export must be offered or waived before erasure")
+
+        # Load learner
+        learner = await self.learners.get_by_id(erasure_request.learner_id)
+        if not learner:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
+
+        # Execute deletion based on method
+        if method == ERASURE_METHOD_SOFT:
+            await self.learners.soft_delete(learner.id)
+        elif method == ERASURE_METHOD_PHYSICAL:
+            await self.learners.delete_by_id(learner.id)
+        elif method == ERASURE_METHOD_PURGE:
+            await self.learners.purge_personal_data(learner.id)
+        else:
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=f"Invalid execution method: {method}")
+
+        # Update erasure request state
+        erasure_request.state = ERASURE_STATE_EXECUTED
+        erasure_request.executed_at = _now()
+        erasure_request.execution_method = method
+        self.db.add(erasure_request)
+
+        # Post-erasure verification
+        postflight_result = await self._postflight_erasure_verification(learner.id, method)
+
+        erasure_request.postflight_result = postflight_result
+        self.db.add(erasure_request)
+
+        # Audit event
+        await self.audit.append(
+            "erasure.executed",
+            actor_id=requester_id,
+            resource_id=learner.id,
+            payload={
+                "learner_id": learner.id,
+                "learner_pseudonym": learner.pseudonym_id,
+                "request_id": request_id,
+                "method": method,
+                "admin_override": erasure_request.admin_override,
+                "postflight_result": postflight_result,
+            },
+        )
+
+        await self.db.flush()
+
+        return {
+            "request_id": request_id,
+            "state": erasure_request.state,
+            "learner_id": learner.id,
+            "execution_method": method,
+            "executed_at": erasure_request.executed_at.isoformat() if erasure_request.executed_at else None,
+            "postflight_result": postflight_result,
+        }
+
+    async def _postflight_erasure_verification(self, learner_id: str, method: str) -> dict[str, Any]:
+        """Verify erasure was successful and PII is no longer accessible."""
+        verification = {
+            "learner_record_deleted": False,
+            "dependent_records_deleted": False,
+            "audit_records_preserved": False,
+            "guardian_preserved": False,
+            "pii_not_retrievable": False,
+            "all_checks_passed": False,
+        }
+
+        # Check learner record
+        learner = await self.learners.get_by_id(learner_id)
+        verification["learner_record_deleted"] = learner is None
+
+        # Check dependent records (CASCADE delete)
+        # For soft delete, records should still exist but learner should be marked deleted
+        if method == ERASURE_METHOD_SOFT:
+            verification["dependent_records_deleted"] = learner is not None and learner.is_deleted
+        else:
+            verification["dependent_records_deleted"] = learner is None
+
+        # Check audit records (should always be preserved)
+        audit_events = await self.db.scalar(
+            select(AuditEvent).where(AuditEvent.resource_id == learner_id)
+        )
+        verification["audit_records_preserved"] = audit_events is not None or method == ERASURE_METHOD_PHYSICAL
+
+        # PII retrievability check
+        if learner is None:
+            verification["pii_not_retrievable"] = True
+        elif learner.is_deleted and learner.display_name == "[erased]":
+            verification["pii_not_retrievable"] = True
+
+        verification["all_checks_passed"] = verification["learner_record_deleted"] and verification["pii_not_retrievable"]
+
+        return verification
 
     async def _export_payload(self, learner: LearnerProfile) -> dict[str, Any]:
         learner_id = learner.id

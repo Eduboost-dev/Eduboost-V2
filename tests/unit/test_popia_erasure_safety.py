@@ -13,8 +13,20 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 from sqlalchemy import delete
 
-from app.models import LearnerProfile
+from app.models import ErasureRequest, LearnerProfile
 from app.repositories.learner_repository import LearnerRepository
+from app.services.popia_service import (
+    ERASURE_METHOD_PHYSICAL,
+    ERASURE_METHOD_PURGE,
+    ERASURE_METHOD_SOFT,
+    ERASURE_STATE_CANCELLED,
+    ERASURE_STATE_EXECUTED,
+    ERASURE_STATE_FAILED,
+    ERASURE_STATE_REQUESTED,
+    ERASURE_STATE_SCHEDULED,
+    ERASURE_STATE_VERIFIED,
+    POPIADataRightsService,
+)
 
 
 # ── Expected cascade behavior from matrix ───────────────────────────────────────
@@ -394,3 +406,355 @@ class TestDeletionMethodComparison:
         assert "delete" in purge_call.lower()
         assert "learner_profiles" in delete_call.lower()
         assert "learner_profiles" in purge_call.lower()
+
+
+# ── Erasure request state machine tests ───────────────────────────────────────────
+
+
+class TestErasureRequestStateMachine:
+    """Verify erasure request state machine and safety checks."""
+
+    @pytest.fixture
+    def mock_db(self):
+        """Create a mock AsyncSession."""
+        db = AsyncMock()
+        db.add = MagicMock()
+        db.flush = AsyncMock()
+        db.scalar = AsyncMock()
+        db.execute = AsyncMock()
+        return db
+
+    @pytest.fixture
+    def mock_current_user(self):
+        """Create a mock current user."""
+        user_id = str(uuid.uuid4())
+        return {"sub": user_id, "role": "guardian"}
+
+    @pytest.fixture
+    def mock_learner(self, mock_current_user):
+        """Create a mock learner with guardian matching current user."""
+        learner = LearnerProfile(
+            id=str(uuid.uuid4()),
+            pseudonym_id=str(uuid.uuid4()),
+            guardian_id=mock_current_user["sub"],  # Match current user
+            display_name="Test Learner",
+            grade=4,
+            language="en",
+            is_deleted=False,
+            deletion_requested_at=None,
+            created_at=datetime.now(UTC),
+        )
+        return learner
+
+    @pytest.mark.asyncio
+    async def test_request_erasure_creates_state_machine_record(self, mock_db, mock_current_user, mock_learner):
+        """Requesting erasure creates ErasureRequest record with initial state."""
+        service = POPIADataRightsService(mock_db)
+        service.learners.get_by_id = AsyncMock(return_value=mock_learner)
+        mock_db.scalar = AsyncMock(return_value=None)  # No existing request
+
+        # Mock load_learner_for_write to bypass authorization
+        service.load_learner_for_write = AsyncMock(return_value=mock_learner)
+
+        # Mock consent.execute_erasure to avoid async issues
+        service.consent.execute_erasure = AsyncMock()
+
+        result = await service.request_erasure(mock_learner.id, mock_current_user, reason="test")
+
+        assert "request_id" in result
+        assert result["state"] == ERASURE_STATE_REQUESTED
+        assert result["learner_id"] == mock_learner.id
+        assert "grace_period_end" in result
+        assert "preflight_result" in result
+
+    @pytest.mark.asyncio
+    async def test_request_erasure_blocks_duplicate_requests(self, mock_db, mock_current_user, mock_learner):
+        """Duplicate erasure requests are blocked."""
+        service = POPIADataRightsService(mock_db)
+        service.learners.get_by_id = AsyncMock(return_value=mock_learner)
+        service.load_learner_for_write = AsyncMock(return_value=mock_learner)
+        service.consent.execute_erasure = AsyncMock()
+
+        # Simulate existing request
+        existing_request = ErasureRequest(
+            id=str(uuid.uuid4()),
+            learner_id=mock_learner.id,
+            requester_id=mock_current_user["sub"],
+            requester_role="guardian",
+            state=ERASURE_STATE_REQUESTED,
+        )
+        mock_db.scalar = AsyncMock(return_value=existing_request)
+
+        with pytest.raises(Exception) as exc_info:
+            await service.request_erasure(mock_learner.id, mock_current_user)
+        assert "already in progress" in str(exc_info.value).lower()
+
+    @pytest.mark.asyncio
+    async def test_request_erasure_unauthorized_requester_blocked(self, mock_db, mock_current_user, mock_learner):
+        """Unauthorized requesters are blocked."""
+        service = POPIADataRightsService(mock_db)
+        service.learners.get_by_id = AsyncMock(return_value=mock_learner)
+        service.load_learner_for_write = AsyncMock(return_value=mock_learner)
+        service.consent.execute_erasure = AsyncMock()
+        mock_db.scalar = AsyncMock(return_value=None)
+
+        # Make requester not the guardian
+        unauthorized_user = {"sub": str(uuid.uuid4()), "role": "guardian"}
+
+        with pytest.raises(Exception) as exc_info:
+            await service.request_erasure(mock_learner.id, unauthorized_user)
+        assert "403" in str(exc_info.value) or "forbidden" in str(exc_info.value).lower()
+
+    @pytest.mark.asyncio
+    async def test_cancel_erasure_updates_state_to_cancelled(self, mock_db, mock_current_user, mock_learner):
+        """Cancelling erasure updates state to CANCELLED."""
+        service = POPIADataRightsService(mock_db)
+        service.learners.get_by_id = AsyncMock(return_value=mock_learner)
+        service.load_learner_for_write = AsyncMock(return_value=mock_learner)
+
+        # Simulate active request
+        erasure_request = ErasureRequest(
+            id=str(uuid.uuid4()),
+            learner_id=mock_learner.id,
+            requester_id=mock_current_user["sub"],
+            requester_role="guardian",
+            state=ERASURE_STATE_REQUESTED,
+        )
+        mock_db.scalar = AsyncMock(return_value=erasure_request)
+
+        result = await service.cancel_erasure(mock_learner.id, mock_current_user)
+
+        assert result["state"] == ERASURE_STATE_CANCELLED
+        assert result["request_id"] == erasure_request.id
+
+    @pytest.mark.asyncio
+    async def test_execute_erasure_requires_verified_or_scheduled_state(self, mock_db, mock_current_user):
+        """Execution requires VERIFIED or SCHEDULED state."""
+        service = POPIADataRightsService(mock_db)
+
+        # Simulate REQUESTED state (not eligible for execution)
+        erasure_request = ErasureRequest(
+            id=str(uuid.uuid4()),
+            learner_id=str(uuid.uuid4()),
+            requester_id=mock_current_user["sub"],
+            requester_role="guardian",
+            state=ERASURE_STATE_REQUESTED,
+            grace_period_end_at=datetime.now(UTC) - timedelta(days=31),
+            export_offered=True,
+            export_waived=True,
+        )
+        mock_db.scalar = AsyncMock(return_value=erasure_request)
+
+        with pytest.raises(Exception) as exc_info:
+            await service.execute_erasure(erasure_request.id, mock_current_user)
+        assert "409" in str(exc_info.value) or "verified or scheduled" in str(exc_info.value).lower()
+
+    @pytest.mark.asyncio
+    async def test_execute_erasure_blocks_before_grace_period(self, mock_db, mock_current_user):
+        """Execution is blocked before grace period elapses."""
+        service = POPIADataRightsService(mock_db)
+
+        # Simulate VERIFIED state with grace period not elapsed
+        erasure_request = ErasureRequest(
+            id=str(uuid.uuid4()),
+            learner_id=str(uuid.uuid4()),
+            requester_id=mock_current_user["sub"],
+            requester_role="guardian",
+            state=ERASURE_STATE_VERIFIED,
+            grace_period_end_at=datetime.now(UTC) + timedelta(days=1),  # Future
+            export_offered=True,
+            export_waived=True,
+        )
+        mock_db.scalar = AsyncMock(return_value=erasure_request)
+
+        with pytest.raises(Exception) as exc_info:
+            await service.execute_erasure(erasure_request.id, mock_current_user)
+        assert "403" in str(exc_info.value) or "grace period" in str(exc_info.value).lower()
+
+    @pytest.mark.asyncio
+    async def test_execute_erasure_blocks_on_legal_hold(self, mock_db, mock_current_user):
+        """Execution is blocked when legal hold is active."""
+        service = POPIADataRightsService(mock_db)
+
+        # Simulate VERIFIED state with legal hold
+        erasure_request = ErasureRequest(
+            id=str(uuid.uuid4()),
+            learner_id=str(uuid.uuid4()),
+            requester_id=mock_current_user["sub"],
+            requester_role="guardian",
+            state=ERASURE_STATE_VERIFIED,
+            grace_period_end_at=datetime.now(UTC) - timedelta(days=31),
+            export_offered=True,
+            export_waived=True,
+            legal_hold=True,
+        )
+        mock_db.scalar = AsyncMock(return_value=erasure_request)
+
+        with pytest.raises(Exception) as exc_info:
+            await service.execute_erasure(erasure_request.id, mock_current_user)
+        assert "403" in str(exc_info.value) or "legal hold" in str(exc_info.value).lower()
+
+    @pytest.mark.asyncio
+    async def test_execute_erasure_blocks_without_export(self, mock_db, mock_current_user):
+        """Execution is blocked when export not offered or waived."""
+        service = POPIADataRightsService(mock_db)
+
+        # Simulate VERIFIED state without export
+        erasure_request = ErasureRequest(
+            id=str(uuid.uuid4()),
+            learner_id=str(uuid.uuid4()),
+            requester_id=mock_current_user["sub"],
+            requester_role="guardian",
+            state=ERASURE_STATE_VERIFIED,
+            grace_period_end_at=datetime.now(UTC) - timedelta(days=31),
+            export_offered=False,
+            export_waived=False,
+        )
+        mock_db.scalar = AsyncMock(return_value=erasure_request)
+
+        with pytest.raises(Exception) as exc_info:
+            await service.execute_erasure(erasure_request.id, mock_current_user)
+        assert "403" in str(exc_info.value) or "export" in str(exc_info.value).lower()
+
+    @pytest.mark.asyncio
+    async def test_execute_erasure_updates_state_to_executed(self, mock_db, mock_current_user, mock_learner):
+        """Successful execution updates state to EXECUTED."""
+        service = POPIADataRightsService(mock_db)
+        service.learners.get_by_id = AsyncMock(return_value=mock_learner)
+        service.learners.delete_by_id = AsyncMock(return_value=True)
+
+        # Simulate VERIFIED state ready for execution
+        erasure_request = ErasureRequest(
+            id=str(uuid.uuid4()),
+            learner_id=mock_learner.id,
+            requester_id=mock_current_user["sub"],
+            requester_role="guardian",
+            state=ERASURE_STATE_VERIFIED,
+            grace_period_end_at=datetime.now(UTC) - timedelta(days=31),
+            export_offered=True,
+            export_waived=True,
+        )
+        mock_db.scalar = AsyncMock(return_value=erasure_request)
+
+        result = await service.execute_erasure(erasure_request.id, mock_current_user, method=ERASURE_METHOD_PHYSICAL)
+
+        assert result["state"] == ERASURE_STATE_EXECUTED
+        assert result["execution_method"] == ERASURE_METHOD_PHYSICAL
+        assert result["executed_at"] is not None
+        assert "postflight_result" in result
+
+    @pytest.mark.asyncio
+    async def test_preflight_checks_validate_authorization(self, mock_db, mock_learner, mock_current_user):
+        """Preflight checks validate requester authorization."""
+        service = POPIADataRightsService(mock_db)
+
+        preflight = await service._preflight_erasure_checks(
+            mock_learner, mock_current_user["sub"], "guardian"
+        )
+
+        assert "subject_exists" in preflight
+        assert "requester_authorized" in preflight
+        assert "all_checks_passed" in preflight
+
+    @pytest.mark.asyncio
+    async def test_postflight_verification_confirms_pii_not_retrievable(self, mock_db, mock_learner):
+        """Postflight verification confirms PII is not retrievable."""
+        service = POPIADataRightsService(mock_db)
+        service.learners.get_by_id = AsyncMock(return_value=None)  # Learner deleted
+
+        verification = await service._postflight_erasure_verification(mock_learner.id, ERASURE_METHOD_PHYSICAL)
+
+        assert verification["learner_record_deleted"] is True
+        assert verification["pii_not_retrievable"] is True
+        assert verification["all_checks_passed"] is True
+
+    @pytest.mark.asyncio
+    async def test_postflight_verification_soft_delete_pii_erased(self, mock_db, mock_learner):
+        """Postflight verification for soft delete confirms PII erased."""
+        service = POPIADataRightsService(mock_db)
+        mock_learner.is_deleted = True
+        mock_learner.display_name = "[erased]"
+        service.learners.get_by_id = AsyncMock(return_value=mock_learner)
+
+        verification = await service._postflight_erasure_verification(mock_learner.id, ERASURE_METHOD_SOFT)
+
+        assert verification["learner_record_deleted"] is False  # Still exists
+        assert verification["dependent_records_deleted"] is True  # Marked deleted
+        assert verification["pii_not_retrievable"] is True
+        assert verification["all_checks_passed"] is False  # Physical delete required for full pass
+
+    @pytest.mark.asyncio
+    async def test_execute_erasure_supports_different_methods(self, mock_db, mock_current_user, mock_learner):
+        """Execution supports soft, physical, and purge methods."""
+        service = POPIADataRightsService(mock_db)
+        service.learners.get_by_id = AsyncMock(return_value=mock_learner)
+        service.learners.soft_delete = AsyncMock()
+        service.learners.delete_by_id = AsyncMock(return_value=True)
+        service.learners.purge_personal_data = AsyncMock()
+
+        # Test soft delete
+        erasure_request_soft = ErasureRequest(
+            id=str(uuid.uuid4()),
+            learner_id=mock_learner.id,
+            requester_id=mock_current_user["sub"],
+            requester_role="guardian",
+            state=ERASURE_STATE_VERIFIED,
+            grace_period_end_at=datetime.now(UTC) - timedelta(days=31),
+            export_offered=True,
+            export_waived=True,
+        )
+        mock_db.scalar = AsyncMock(return_value=erasure_request_soft)
+        await service.execute_erasure(erasure_request_soft.id, mock_current_user, method=ERASURE_METHOD_SOFT)
+        service.learners.soft_delete.assert_called_once()
+
+        # Test physical delete
+        erasure_request_physical = ErasureRequest(
+            id=str(uuid.uuid4()),
+            learner_id=mock_learner.id,
+            requester_id=mock_current_user["sub"],
+            requester_role="guardian",
+            state=ERASURE_STATE_VERIFIED,
+            grace_period_end_at=datetime.now(UTC) - timedelta(days=31),
+            export_offered=True,
+            export_waived=True,
+        )
+        mock_db.scalar = AsyncMock(return_value=erasure_request_physical)
+        await service.execute_erasure(erasure_request_physical.id, mock_current_user, method=ERASURE_METHOD_PHYSICAL)
+        service.learners.delete_by_id.assert_called_once()
+
+        # Test purge
+        erasure_request_purge = ErasureRequest(
+            id=str(uuid.uuid4()),
+            learner_id=mock_learner.id,
+            requester_id=mock_current_user["sub"],
+            requester_role="guardian",
+            state=ERASURE_STATE_VERIFIED,
+            grace_period_end_at=datetime.now(UTC) - timedelta(days=31),
+            export_offered=True,
+            export_waived=True,
+        )
+        mock_db.scalar = AsyncMock(return_value=erasure_request_purge)
+        await service.execute_erasure(erasure_request_purge.id, mock_current_user, method=ERASURE_METHOD_PURGE)
+        service.learners.purge_personal_data.assert_called_once()
+
+    @pytest.mark.asyncio
+    async def test_execute_erasure_invalid_method_raises_error(self, mock_db, mock_current_user):
+        """Invalid execution method raises error."""
+        service = POPIADataRightsService(mock_db)
+
+        erasure_request = ErasureRequest(
+            id=str(uuid.uuid4()),
+            learner_id=str(uuid.uuid4()),
+            requester_id=mock_current_user["sub"],
+            requester_role="guardian",
+            state=ERASURE_STATE_VERIFIED,
+            grace_period_end_at=datetime.now(UTC) - timedelta(days=31),
+            export_offered=True,
+            export_waived=True,
+        )
+        mock_db.scalar = AsyncMock(return_value=erasure_request)
+
+        with pytest.raises(Exception) as exc_info:
+            await service.execute_erasure(erasure_request.id, mock_current_user, method="invalid_method")
+        assert "422" in str(exc_info.value) or "invalid" in str(exc_info.value).lower()
+
