@@ -39,14 +39,10 @@ Each codemap contains one or more traces. Each trace represents a specific execu
 ##### Details Section
 ```markdown
 **Details:**
-- **Execution Flow:** [Step-by-step flow of execution]
-- **Concurrency Safety:** [Thread safety, locks, race conditions]
-- **Covered Objects:** [Objects, files, components covered]
-- **Timeouts:** [Timing information for operations]
-- **Migration Path:** [Steps to migrate from old to new system]
-- **Error Handling:** [How errors are handled]
-- **Security Considerations:** [Security-related considerations]
+[Trace-specific narrative subsections derived from what the trace actually does]
 ```
+
+The Details section should be adaptive, not a static checklist. Choose subsection names after reading the trace source and understanding the behavior being documented. Examples include `Registration Flow`, `Consent State Management`, `Fisher Information`, `Quality Gates`, `Spaced Repetition Scheduling`, `Worker Registration`, or `Router Imports`. Include concurrency, timing, migration, error handling, and security details only when they are relevant to that trace.
 
 ##### Trace Text Diagram
 ```markdown
@@ -68,10 +64,14 @@ Each codemap contains one or more traces. Each trace represents a specific execu
 ```markdown
 ### AI Guide: [Trace Title]
 
-**Overview:** [High-level overview of the trace]
+**Motivation:**
+[Why this trace matters in the product, architecture, compliance model, or developer workflow]
 
-[Additional sections as needed: Flow Components, Security Features, Best Practices, etc.]
+**Details:**
+[Adaptive narrative subsections tailored to the trace]
 ```
+
+AI Guides should not repeat a generic `Overview / Key Components / Best Practices / Common Issues` template across traces. They should explain the trace in prose, cite Location IDs such as `[1a]` or `[4f]`, and use subsections that match the actual source-backed flow.
 
 ### Required Sections
 
@@ -79,20 +79,18 @@ Every trace MUST include:
 1. **Title** - Descriptive name
 2. **Description** - What the trace covers
 3. **Motivation** - Why this system/component exists
-4. **Details** - Technical details with all subsections
+4. **Details** - Adaptive technical narrative with trace-specific subsections
 5. **Trace text diagram** - ASCII diagram of the flow
 6. **Location IDs** - Code references with paths and line numbers
-7. **AI Guide** - Comprehensive guide for understanding the trace
+7. **AI Guide** - Comprehensive guide with Motivation and adaptive narrative Details
 
 ### Optional Sections
 
 The following may be added as needed:
-- **Overview** (in AI Guide)
-- **Flow Components** (in AI Guide)
-- **Security Features** (in AI Guide)
-- **Best Practices** (in AI Guide)
-- **Common Issues** (in AI Guide)
-- **Code Examples** (in AI Guide)
+- **Trace-specific operational notes** (for example, job scheduling, retries, fallbacks)
+- **Trace-specific security properties** (for example, PII encryption, token handling, consent gates)
+- **Trace-specific edge cases** (for example, provider failure, stale sessions, duplicate registration)
+- **Trace-specific code examples** when they clarify implementation behavior
 
 ## Existing Codemaps
 
@@ -186,6 +184,18 @@ The following may be added as needed:
 - **Traces:** 9 traces covering guardian registration flow with PII encryption, consent grant lifecycle with audit trail, IRT diagnostic engine with Fisher information, AI lesson generation pipeline with validation, learner archetype profiling with Kabbalistic model, adaptive practice selection with spaced repetition, mastery model computation with risk signals, background job execution with cron schedules, and module integration with API router registration
 - **Key Components:** service.py (auth), service.py (consent), irt_engine.py, item_bank_service.py, lesson_generator.py, ether_service.py, practice_generator.py, spaced_repetition_scheduler.py, mastery_model.py, learning_velocity_service.py, jobs.py
 
+### 16. EduBoost V2 Repository Layer: Data Access Abstraction & Domain Persistence
+- **File:** `eduboost_v2_repository_layer_data_access_abstraction_and_domain_persistence.md`
+- **Description:** Repository pattern implementation across domain-specific persistence classes that encapsulate PostgreSQL access using async SQLAlchemy, append-only audit chains, POPIA consent tracking, diagnostic session state, item exposure control, dependency injection, and service-layer repository composition
+- **Traces:** 8 traces covering BaseRepository generic CRUD operations, learner creation from API to database, audit repository hash-chain verification, consent repository POPIA enforcement, diagnostic session lifecycle persistence, item bank exposure tracking, repository dependency injection, and service-layer repository composition
+- **Key Components:** base.py, repositories.py, auth_repository.py, audit_repository.py, consent_repository.py, diagnostic_session_repository.py, item_bank_repository.py, diagnostic_repositories.py, dependencies.py, popia_service.py, diagnostic_service_v2.py
+
+### 17. EduBoost V2 Object-Level Authorization System (app/security/*)
+- **File:** `eduboost_v2_object_level_authorization_system_app_security.md`
+- **Description:** Centralized object-level authorization policy engine with role-based access control for learner-scoped resources using Actor-based model with ownership scopes (self, guardian, educator, support, admin, system) and canonical permissions (read, write, delete, admin), FastAPI dependency adapters bridging HTTP headers and JWT claims to the policy engine, and route integration alongside POPIA consent enforcement for two-layer security
+- **Traces:** 8 traces covering core authorization policy evaluation, header-based actor construction for FastAPI, JWT claims to authorization actor adapter, route authorization enforcement for learner profile read, combined authorization and consent gate, authorization denial and HTTP 403 response, multi-role access pattern for guardian write access, and support role read-only access pattern
+- **Key Components:** object_authorization.py, dependencies.py, learners.py, diagnostics.py, study_plans.py, consent_policy.py, service.py
+
 ## Creating New Codemaps
 
 When creating a new codemap:
@@ -194,10 +204,10 @@ When creating a new codemap:
 2. **Define Traces:** Break down the system into logical execution flows or aspects
 3. **Follow Structure:** Use the standardized structure outlined above
 4. **Add Motivation:** Explain why each component exists
-5. **Provide Details:** Include all required subsections in the Details section
+5. **Provide Details:** Use adaptive subsections that match what the trace actually does
 6. **Create Diagrams:** Use ASCII diagrams to visualize flows
 7. **Reference Code:** Include accurate file paths and line numbers
-8. **Write AI Guides:** Provide comprehensive guides for each trace
+8. **Write AI Guides:** Provide Motivation and adaptive narrative Details for each trace
 
 ## Codemap Purpose
 
@@ -213,7 +223,7 @@ Codemaps serve as:
 - Keep codemaps up to date with code changes
 - Update line numbers when code is modified
 - Add new traces when systems evolve
-- Review and improve AI guides based on feedback
+- Review and improve AI guides based on feedback, especially when they become generic or repetitive
 - Ensure all paths and references remain accurate
 
 ## Related Documentation

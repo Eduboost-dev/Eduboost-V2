@@ -72,37 +72,34 @@ Guardian Registration Flow (Auth Module)
 - **Description:** Generate access and refresh tokens for authenticated session
 - **Path:LineNumber:** /home/nkgolol/Dev/Development/Eduboost-V2/app/modules/auth/service.py:193
 
-### AI Guide: Guardian Registration Flow
+### AI Guide: Guardian Registration and Authentication
 
-**Overview:** Secure guardian registration with POPIA-compliant PII protection, password hashing, and audit logging. This trace shows encryption, hashing, and audit compliance.
+**Motivation:**
+EduBoost is a South African educational platform serving children (grades R-7), which means parental consent is legally required under POPIA (Protection of Personal Information Act). The auth module solves the problem of securely creating and authenticating guardian (parent) accounts while ensuring all personally identifiable information is encrypted at rest and every security-relevant action is audit-logged for compliance.
 
-**Key Components:**
+The system must prevent duplicate accounts, protect passwords using industry-standard hashing, and maintain a complete audit trail for regulatory purposes.
 
-1. **Hash email for lookup (1a):** Deterministic hash. Duplicate detection. No plaintext storage.
+**Details:**
 
-2. **Create guardian record (1b):** Repository creation. Encrypted fields. Secure persistence.
+**Registration Flow**
+Guardian registration begins by hashing the email address [1a] to create a deterministic lookup key without storing plaintext. This hash is checked against existing guardians to prevent duplicates.
 
-3. **Encrypt PII at rest (1c):** POPIA compliance. Email and name encryption. Data protection.
+The system then creates the guardian record [1b] with multiple layers of protection:
 
-4. **Record audit event (1d):** AuditAction.USER_REGISTERED. Compliance trail. Audit logging.
+- Email addresses are encrypted using PII encryption [1c] before storage
+- Passwords are hashed with bcrypt (not encrypted—they're one-way hashed)
+- Full names and phone numbers are also PII-encrypted
+- A secure verification token is generated for email confirmation
+- Every registration is audit-logged [1d] with AuditAction.USER_REGISTERED for POPIA compliance tracking.
 
-5. **Issue JWT tokens (1e):** Access token. Refresh token. Session management.
+**Authentication Flow**
+When a guardian logs in, the system hashes their provided email to look up the account, then verifies the password against the stored bcrypt hash. If authentication succeeds, it updates the last_login_at timestamp and logs the event. The system then issues JWT tokens [1e]—both an access token (short-lived) and a refresh token (longer-lived)—containing the guardian's ID, role, and verification status. These tokens authorize subsequent API requests.
 
-**Best Practices:**
-- Encrypt PII at rest
-- Hash emails for lookup
-- Use bcrypt for passwords
-- Audit all actions
-- Validate inputs
-- Secure JWT tokens
-- Use transactions
-
-**Common Issues:**
-- Duplicate detection: Check hash
-- Encryption errors: Check keys
-- Hash errors: Check algorithm
-- Audit missing: Check logging
-- Token errors: Check JWT
+**Security Properties**
+- No plaintext PII: Email and names are encrypted; passwords are hashed
+- Audit trail: Every registration and login attempt is logged with actor ID and timestamp
+- Token-based auth: Stateless JWT tokens eliminate session storage requirements
+- Duplicate prevention: Email hashing enables duplicate checks without exposing plaintext
 
 ## Trace ID: 2
 **Title:** Consent Grant Lifecycle (Consent Module)
@@ -177,37 +174,33 @@ POPIA Consent Lifecycle (app/modules/consent/)
 
 ### AI Guide: Consent Grant Lifecycle
 
-**Overview:** POPIA consent service with audit trail manages parental consent lifecycle. This trace shows consent decision, enforcement, and audit logging.
+**Motivation:**
+The consent module implements POPIA-compliant parental consent management for South African learners. Under POPIA (Protection of Personal Information Act), platforms processing children's data must obtain and maintain verifiable parental consent before any data collection or processing can occur.
 
-**Key Components:**
+This module solves a critical legal requirement: every learner data access must be gated by active, non-expired parental consent. Without this enforcement, the platform cannot legally operate in South Africa. The consent service acts as a mandatory checkpoint that blocks unauthorized access and creates an auditable compliance trail.
 
-1. **Derive consent state (2a):** Canonical decision. Access control. State derivation.
+**Details:**
 
-2. **Fetch latest consent (2b):** Repository query. Latest record. Consent history.
+**Consent State Management**
+The service maintains consent records with three key states: granted, expired, and revoked [2a]. Each consent record includes the policy version agreed to, IP address, user agent, and timestamps for compliance auditing.
 
-3. **Grant consent record (2c):** Create record. Version tracking. Metadata.
+The consent_decision() method [2a] queries the latest consent record [2b] and derives the canonical state using policy rules. This decision determines whether a learner's data can be accessed.
 
-4. **Append audit event (2d):** Audit logging. FourthEstate. Compliance trail.
+**Enforcement Gate**
+The require_active_consent() method [2e] is the primary enforcement mechanism used throughout the application. It checks the consent decision and raises ConsentRequiredError [2f] if consent is missing, expired, or revoked. This method is called before any diagnostic session, lesson generation, or learner data retrieval.
 
-5. **Enforce active consent (2e):** Access gate. Consent check. Authorization.
+**Grant Workflow**
+When a guardian grants consent [2c], the service:
+- Creates a new consent record in the repository with version and metadata
+- Records a consent.granted audit event [2d] for compliance tracking
+- Returns the consent object to the caller
 
-6. **Block unauthorized access (2f):** Raise exception. Consent required. Security.
+The audit trail is critical—every consent state change is logged via either AuditRepository or FourthEstateService to ensure POPIA compliance officers can investigate any data access.
 
-**Best Practices:**
-- Enforce POPIA compliance
-- Audit consent actions
-- Validate consent state
-- Block unauthorized access
-- Protect learner data
-- Validate guardian access
-- Use transactions
+**Cross-Module Integration**
+The consent service is injected as a dependency into other domain modules (lessons, diagnostics, practice). For example, LessonService calls require_active_consent() before generating any AI content to ensure the learner has valid parental permission.
 
-**Common Issues:**
-- Consent errors: Check state
-- Audit missing: Check logging
-- Access denied: Check consent
-- Repository errors: Check DB
-- Compliance issues: Verify POPIA
+This consent-first architecture ensures legal compliance is enforced at the service layer, not just at API boundaries.
 
 ## Trace ID: 3
 **Title:** IRT Diagnostic Engine (Diagnostics Module)
@@ -270,35 +263,24 @@ IRT Diagnostic Engine (Trace 3)
 
 ### AI Guide: IRT Diagnostic Engine
 
-**Overview:** Item Response Theory 2PL adaptive assessment engine calculates learner ability and selects optimal items using Fisher information. This trace shows IRT functions and item selection.
+**Motivation:**
+EduBoost needs to accurately measure each learner's ability in mathematics to provide personalized instruction. Traditional fixed-difficulty tests fail because they waste time on questions that are too easy or too hard for the learner. The IRT (Item Response Theory) diagnostic engine solves this by adaptively selecting questions that maximize information gain about the learner's true ability level.
 
-**Key Components:**
+The system uses a 2-Parameter Logistic (2PL) model calibrated against the South African CAPS curriculum for grades R–7. Each diagnostic item has two parameters: discrimination (a) measuring how well it separates high and low ability learners, and difficulty (b) representing the ability level where 50% of learners answer correctly.
 
-1. **2PL probability function (3a):** Item Characteristic Curve. P(correct | theta, a, b). Logistic function.
+**Details:**
 
-2. **Compute IRT probability (3b):** Discrimination parameter. Difficulty parameter. Logistic computation.
+**IRT Probability Calculation**
+The core mathematical function [3a] computes the probability a learner with ability θ (theta) will answer an item correctly using the logistic curve: P = 1/(1 + e^(-a(θ-b))) [3b]. When θ equals b, the probability is exactly 0.5. Higher discrimination values (a) make the curve steeper, meaning the item better distinguishes ability levels.
 
-3. **Fisher information metric (3c):** Statistical information. Ability estimation. Item quality.
+**Fisher Information**
+The Fisher information metric [3c] quantifies how much statistical information an item provides about a learner's ability at a given θ level [3c at line 88]. Items with high discrimination and difficulty close to the learner's current θ estimate provide maximum information. This guides the adaptive item selection strategy.
 
-4. **Fetch candidate items (3d):** Theta window. Exposure control. Repository query.
+**Adaptive Item Selection**
+The ItemBankService [at line 46] orchestrates item selection for diagnostic sessions. When selecting the next item [at line 65], it queries the repository for unexposed items [3d] within a θ window (typically ±1.0 logit units) [at line 81]. This ensures items match the learner's ability level while preventing over-exposure.
 
-5. **3PL probability variant (3e):** Guessing parameter. Extended IRT. Item selection.
-
-**Best Practices:**
-- Use IRT for accuracy
-- Calibrate parameters
-- Control exposure
-- Rank by information
-- Validate theta estimates
-- Protect learner data
-- Audit results
-
-**Common Issues:**
-- IRT errors: Check parameters
-- Selection errors: Check theta
-- Repository errors: Check DB
-- Calibration issues: Recalibrate
-- Exposure issues: Check control
+**3PL Extension**
+For more sophisticated item selection, the system supports a 3-Parameter Logistic (3PL) model [3e] that adds a guessing parameter (c) [at line 31]. This accounts for the fact that learners can guess correctly on multiple-choice items even when their ability is far below the item's difficulty.
 
 ## Trace ID: 4
 **Title:** AI Lesson Generation Pipeline (Lessons Module)
@@ -384,40 +366,39 @@ Lesson Generation Pipeline (LessonGenerator.generate) <-- lesson_generator.py:11
 
 ### AI Guide: AI Lesson Generation Pipeline
 
-**Overview:** End-to-end lesson generation with CAPS validation, LLM gateway, PII redaction, schema validation, answer-key verification, and quality scoring. This trace shows the comprehensive pipeline.
+**Motivation:**
+The AI Lesson Generation Pipeline solves the problem of creating personalized, curriculum-aligned educational content at scale for South African primary school learners. Instead of manually writing thousands of lessons for different grades, topics, difficulty levels, and learner misconceptions, the system uses LLMs to generate CAPS-aligned lessons on demand while enforcing strict quality, safety, and correctness guarantees.
 
-**Key Components:**
+The pipeline must ensure that no lesson reaches the database without passing all validators [4e], and critically, that no lesson is marked as verified without a second independent LLM agreeing on every practice question answer [4f]. This prevents the propagation of incorrect educational content to learners.
 
-1. **Resolve CAPS reference (4a):** Validate topic. Fetch metadata. CAPS alignment.
+**Details:**
 
-2. **Render Jinja2 prompt (4b):** Structured prompt. Topic, difficulty. Template rendering.
+**CAPS Validation**
+Every lesson generation starts by validating the requested CAPS reference (e.g., "4.M.1.1" for Grade 4 Mathematics) against the canonical topic map [4a]. This ensures the system only generates content for topics that exist in the South African curriculum and provides the necessary metadata (grade, term, subject, learning objectives) for prompt construction.
 
-3. **Call LLM gateway (4c):** Groq primary. Anthropic fallback. Retry logic.
+**Prompt Construction**
+The system uses Jinja2 templates to render structured prompts [4b] that include the topic metadata, desired difficulty level (foundational/developing/on_level/extending), and any learner-specific misconception tags from previous diagnostic assessments. This templating approach ensures consistent, well-structured prompts across all lesson generations.
 
-4. **Redact PII from output (4d):** Safety layer. PII removal. Content sanitization.
+**LLM Gateway with Fallback**
+The pipeline calls the LLM gateway with error handling [4c], which implements a Groq primary / Anthropic fallback strategy. If the primary provider fails or times out, the system automatically retries with the fallback provider, ensuring high availability for lesson generation requests.
 
-5. **Run validation rules (4e):** 8 validators. Quality check. Safety check.
+**Safety Layer**
+Before parsing the LLM response, the system runs PII redaction [4d] to remove any personally identifiable information that might have been hallucinated by the model. This is a critical POPIA compliance step that prevents accidental data leakage.
 
-6. **Verify answer key (4f):** Second LLM call. Independent verification. Answer accuracy.
+**Schema Validation**
+The raw JSON from the LLM is parsed and validated against the LessonCreate Pydantic schema, which enforces the required structure: explanation, worked examples, practice questions, answer key, remediation hints, and metadata fields. Malformed responses are rejected immediately.
 
-7. **Persist lesson (4g):** Database commit. Metadata storage. Lesson record.
+**Quality Gates**
+The validator runs 8 distinct quality rules [4e] covering CAPS alignment, content safety, pedagogical completeness, readability, and inclusiveness. Any lesson failing these rules is rejected and never persisted.
 
-**Best Practices:**
-- Validate CAPS alignment
-- Use LLM fallback
-- Redact PII from output
-- Validate schema
-- Verify answer keys
-- Score quality
-- Use transactions
+**Answer Key Verification**
+The most critical quality gate is independent answer-key verification [4f]. The system makes a second LLM call without showing the original answer key, asking the model to solve each practice question independently. Only if the derived answers match the original answers for all questions is the lesson marked as answer_key_verified=true. Disagreements trigger human review.
 
-**Common Issues:**
-- CAPS errors: Check validation
-- LLM failures: Check gateway
-- PII leakage: Check redaction
-- Schema errors: Check validation
-- Answer errors: Check verification
-- Quality issues: Check scoring
+**Quality Scoring**
+A composite quality score (0.0–1.0) is computed using weighted dimensions: 35% correctness (answer key verification), 25% CAPS alignment, 20% clarity, 10% pedagogical completeness, and 10% safety. This score determines the lesson's review status: approved (≥0.85), ai_generated (≥0.70), or requires_review (<0.70).
+
+**Persistence**
+Only after passing all gates does the lesson get persisted to the database [4g] with full metadata including provider, model version, token usage, generation latency, and quality metrics. The database commit finalizes the transaction, making the lesson available to learners.
 
 ## Trace ID: 5
 **Title:** Learner Archetype Profiling (Learners Module)
@@ -484,31 +465,42 @@ Learner Archetype Profiling (Ether Service)
 
 ### AI Guide: Learner Archetype Profiling
 
-**Overview:** Ether service for psychological archetype classification using Kabbalistic model eliminates cold-start lag with 5-question micro-diagnostic. This trace shows classification and personalization.
+**Motivation:**
+EduBoost faces a cold-start problem: when a new learner first uses the platform, the system has no data about their learning style, preferences, or cognitive approach. Traditional adaptive systems require 8-10 interaction events before they can personalize content effectively, creating a poor initial experience.
 
-**Key Components:**
+The Ether service solves this by classifying learners into psychological archetypes during onboarding using a 5-question micro-diagnostic [5a]. This enables immediate personalization of lesson content tone and teaching approach from the very first session, eliminating the cold-start lag entirely.
 
-1. **Onboarding questions (5a):** Five-question diagnostic. Learning preference. Activity type.
+**Details:**
 
-2. **Scoring matrix (5b):** Answer mapping. Likelihood scores. Classification logic.
+**Onboarding Questions**
+The system presents five carefully designed questions [5a] that probe different dimensions of learning preference:
 
-3. **Archetype weights (5c):** Kabbalistic model. Ten archetypes. Likelihood scores.
+- Learning preference when confused (reflective vs. inquisitive vs. visual vs. hands-on)
+- Activity type preference (puzzles vs. creating vs. stories vs. competition)
+- Reward preference (badges vs. praise vs. progress charts vs. harder challenges)
+- Learning style (step-by-step vs. story-based vs. quick summary vs. observation)
+- Self-description (curious vs. determined vs. creative vs. caring)
 
-**Best Practices:**
-- Use micro-diagnostic
-- Score answers accurately
-- Aggregate scores properly
-- Personalize content
-- Validate classification
-- Protect learner data
-- Audit results
+**Kabbalistic Archetype Model**
+Each answer maps to likelihood scores for ten Kabbalistic archetypes [5b][5c]:
 
-**Common Issues:**
-- Diagnostic errors: Check questions
-- Scoring errors: Check matrix
-- Classification errors: Check weights
-- Personalization issues: Check prompts
-- Data errors: Validate inputs
+- Keter (Crown) - reflective, contemplative learners
+- Chokmah (Wisdom) - inquisitive, question-driven learners
+- Binah (Understanding) - analytical, systematic learners
+- Chesed (Kindness) - collaborative, socially-motivated learners
+- Gevurah (Strength) - competitive, challenge-seeking learners
+- Tiferet (Beauty) - creative, aesthetic learners
+- Netzach (Victory) - visual, spatial learners
+- Hod (Splendor) - structured, procedural learners
+- Yesod (Foundation) - hands-on, experiential learners
+- Malkuth (Kingdom) - practical, application-focused learners
+
+The scoring matrix [5b] maps each (question_id, answer) pair to archetype probabilities. For example, answering "Think about it quietly on my own" to question 1 gives Keter: 0.64, Binah: 0.23 [5c].
+
+**Personalization Impact**
+Once classified, the archetype modifies LLM prompt tone when generating lessons. A Keter learner receives more reflective, contemplative explanations, while a Yesod learner gets hands-on, activity-based content. This happens from the first lesson, not after weeks of usage data collection.
+
+The system aggregates scores across all five answers to determine the dominant archetype, enabling nuanced classification beyond simple binary categories.
 
 ## Trace ID: 6
 **Title:** Adaptive Practice Selection (Practice Module)
@@ -572,33 +564,36 @@ Adaptive Practice Selection Pipeline
 
 ### AI Guide: Adaptive Practice Selection
 
-**Overview:** Practice generator selecting items based on diagnostic gaps, IRT ability, and exposure control for spaced repetition. This trace shows adaptive selection and scheduling.
+**Motivation:**
+EduBoost's practice module implements adaptive practice selection to optimize learning efficiency. Instead of presenting random practice items, the system selects items based on diagnostic gaps, IRT ability estimates, and spaced repetition principles. This ensures learners practice topics they struggle with at an appropriate difficulty level, with review intervals optimized for long-term retention.
 
-**Key Components:**
+The system uses the SM-2 spaced repetition algorithm variant to schedule reviews: items answered incorrectly are reviewed sooner (interval=1), while correctly answered items have their review intervals multiplied by an easiness factor (EF) capped at 3.0. This balances practice frequency with cognitive load.
 
-1. **Select practice items (6a):** Adaptive selection. Gap targeting. Theta matching.
+**Details:**
 
-2. **Filter candidates (6b):** Match caps_ref. Exclude served. Theta window. Approval status.
+**Adaptive Item Selection**
+The PracticeGenerator.select_items() method [6a] orchestrates the selection process. For each gap topic identified from diagnostic results, it filters candidate items [6b] using multiple criteria:
 
-3. **Sort by difficulty match (6c):** Rank by proximity. Ability estimate. Difficulty matching.
+- Match the CAPS reference to the gap topic
+- Exclude items already served in the current session (served_ids)
+- Check the theta window (±0.5 logit units) to match learner ability
+- Verify review_status == "approved" to ensure quality
 
-4. **Update review schedule (6d):** SM-2 variant. Spaced repetition. Interval calculation.
+**Difficulty Matching**
+After filtering, items are sorted by difficulty match [6c]—the absolute difference between the item's difficulty parameter and the learner's current theta estimate. Items closest to the learner's ability level are selected first, ensuring practice is neither too easy nor too hard.
 
-**Best Practices:**
-- Target diagnostic gaps
-- Match IRT ability
-- Control exposure
-- Use spaced repetition
-- Validate theta estimates
-- Protect learner data
-- Audit practice results
+**Spaced Repetition Scheduling**
+The SpacedRepetitionScheduler.update_schedule() method [6d] implements an SM-2 variant optimized for primary school learners:
 
-**Common Issues:**
-- Selection errors: Check filtering
-- Theta errors: Check estimates
-- Exposure issues: Check control
-- Scheduling errors: Check SM-2
-- Gap errors: Validate data
+- If incorrect: interval=1 day, reduce EF by 0.2
+- If first review: interval=1 day
+- If second review: interval=3 days, boost EF by 0.1
+- Otherwise: interval *= EF, cap EF at 3.0
+
+This aggressive initial spacing (1-3 days) is appropriate for primary school learners who benefit from more frequent review, while the EF cap prevents intervals from becoming too long.
+
+**Exposure Control**
+The served_ids set prevents item repetition within a single practice session, ensuring variety and preventing over-exposure to specific items. This is particularly important for diagnostic items that should not be memorized.
 
 ## Trace ID: 7
 **Title:** Mastery Model Computation (Progress Module)
@@ -671,35 +666,41 @@ Progress Tracking & Mastery Model
 
 ### AI Guide: Mastery Model Computation
 
-**Overview:** Progress tracking with IRT-based mastery scoring, learning velocity, and risk signals for intervention. This trace shows mastery conversion, composite scoring, and risk classification.
+**Motivation:**
+EduBoost's progress module implements comprehensive mastery tracking to measure learner progress accurately and identify learners needing intervention. Instead of simple percentage scores, the system uses IRT-based ability estimates combined with practice performance, recency, consistency, and confidence to create a holistic mastery score.
 
-**Key Components:**
+The system also tracks learning velocity (rate of mastery change over time) and computes risk signals to classify learners as urgent, at-risk, or on-track. This enables proactive intervention by guardians and teachers before learners fall behind.
 
-1. **Convert theta to mastery (7a):** IRT ability. Error function. 0-1 mastery.
+**Details:**
 
-2. **Compute composite score (7b):** Weighted combination. Multiple dimensions. Comprehensive scoring.
+**IRT Ability to Mastery Conversion**
+The theta_to_mastery() function [7a] transforms IRT ability estimates (theta, typically ranging from -5 to +5) to a 0-1 mastery score using the error function: mastery = 0.5 * (1 + erf(θ / √2)). This normalization maps theta to a percentage-like score where 0.5 represents average ability, 0.0 represents very low ability, and 1.0 represents very high ability.
 
-3. **Weight mastery dimensions (7c):** 40% ability. 25% practice. 15% recency. 10% consistency. 10% confidence.
+**Composite Mastery Score**
+The compute_mastery_score() function [7b] combines multiple dimensions into a single mastery score:
 
-4. **Compute learning velocity (7d):** Delta mastery. Weeks elapsed. Rate of change.
+- mastery_theta (40%): IRT-based ability estimate
+- practice_accuracy (25%): Recent practice question accuracy
+- recency_days (15%): Decay factor based on days since last activity
+- consistency_ratio (10%): Ratio of consistent vs. inconsistent performance
+- confidence (10%): 1 - (standard_error / 2), measuring estimate reliability
 
-5. **Compute risk signal (7e):** Urgent classification. At-risk detection. On-track status.
+The weighted sum [7c] ensures that ability is the primary factor while still accounting for practice performance and engagement.
 
-**Best Practices:**
-- Use IRT for accuracy
-- Weight dimensions appropriately
-- Track learning velocity
-- Classify risk accurately
-- Validate theta estimates
-- Protect learner data
-- Audit results
+**Learning Velocity Tracking**
+The compute_velocity() function [7d] calculates the rate of mastery change per week by comparing mastery snapshots over time: velocity = delta_mastery / weeks_elapsed. Positive velocity indicates improvement, while negative velocity indicates regression. This metric helps identify whether a learner is accelerating, plateauing, or declining.
 
-**Common Issues:**
-- Conversion errors: Check theta
-- Scoring errors: Check weights
-- Velocity errors: Check snapshots
-- Risk errors: Check thresholds
-- Data errors: Validate inputs
+**Risk Signal Classification**
+The compute_risk_signal() function [7e] classifies learners into three categories for intervention:
+
+- urgent: mastery < 0.4 OR idle > 30 days OR velocity < -0.01
+- at_risk: mastery < 0.6 OR idle > 14 days OR velocity < 0
+- on_track: otherwise
+
+These thresholds are calibrated for primary school learners and trigger alerts to guardians and teachers when intervention is needed.
+
+**Next Best Activities**
+The system ranks recommended activities by priority and mastery score to guide learners toward the most impactful next steps—typically diagnostic gaps with low mastery scores.
 
 ## Trace ID: 8
 **Title:** Background Job Execution (Jobs Module)
@@ -780,37 +781,27 @@ ARQ Background Job System
 
 ### AI Guide: Background Job Execution
 
-**Overview:** ARQ async worker for consent reminders, RLHF batch processing, diagnostic session expiry, and database backups with Prometheus metrics. This trace shows job configuration and execution.
+**Motivation:**
+EduBoost needs reliable background processing for work that should not block learner-facing API requests. The jobs module solves this by using ARQ async workers for scheduled compliance reminders, diagnostic cleanup, RLHF batch processing, and encrypted database backups.
 
-**Key Components:**
+These jobs protect operational reliability and POPIA compliance: guardians must be reminded before consent expires, stale diagnostic sessions must not remain active indefinitely, and backups must run automatically with encryption.
 
-1. **Consent reminder job (8a):** Daily cron. Expiring consents. SendGrid notifications.
+**Details:**
 
-2. **Execute reminder cycle (8b):** Query consents. Decrypt emails. Send notifications.
+**Worker Registration**
+WorkerSettings registers the ARQ functions [8f] and cron schedules that drive the background system. The schedule includes daily database backups, daily consent reminders, and hourly diagnostic session expiry. This central registry makes job availability explicit and keeps operational tasks separate from request/response code.
 
-3. **Expire diagnostic sessions (8c):** Hourly job. 24h cutoff. Session cleanup.
+**Consent Renewal Reminders**
+The consent reminder job [8a] delegates to run_consent_reminder_cycle() [8b]. The cycle queries expiring consent records, decrypts guardian email addresses only when needed for delivery, and sends notifications through SendGrid. This supports POPIA compliance by giving guardians enough notice to renew consent before learner access is interrupted.
 
-4. **Update stale sessions (8d):** Bulk update. Cutoff timestamp. Database operation.
+**Diagnostic Session Expiry**
+The expire_stale_diagnostic_sessions() job [8c] runs hourly and computes a 24-hour cutoff timestamp. It bulk updates matching DiagnosticSession records [8d] to mark incomplete stale sessions as abandoned, then increments Prometheus metrics. This prevents old assessment state from affecting learner progress or analytics.
 
-5. **Database backup job (8e):** Daily backup. Encryption key. Shell script.
+**Encrypted Database Backups**
+The run_database_backup() job [8e] prepares the backup environment, injects the encryption key, executes scripts/backup_postgres.sh, and returns status metadata plus the output tail. Running backups through ARQ gives the platform a scheduled, auditable recovery mechanism without tying backups to API process uptime.
 
-6. **Register worker functions (8f):** ARQ WorkerSettings. Job registry. Cron schedules.
-
-**Best Practices:**
-- Use ARQ for scheduling
-- Encrypt backups
-- Secure email sending
-- Audit job execution
-- Use Prometheus metrics
-- Validate job payloads
-- Handle failures gracefully
-
-**Common Issues:**
-- Job failures: Check logs
-- Decryption errors: Check keys
-- Email errors: Check SendGrid
-- Backup errors: Check script
-- Cron errors: Check schedule
+**Operational Safety**
+Each job validates payloads before execution and reports meaningful results or metrics. Sensitive operations—such as decrypting guardian email addresses and passing backup encryption keys—are isolated to job execution paths, reducing accidental exposure in ordinary API flows.
 
 ## Trace ID: 9
 **Title:** Module Integration with API (Router Registration)
@@ -893,34 +884,27 @@ LessonService (modules/lessons/service.py)
 
 ### AI Guide: Module Integration with API
 
-**Overview:** FastAPI application integrates modules via routers, showing how domain modules expose HTTP endpoints through the V2 API. This trace shows router registration and dependency injection.
+**Motivation:**
+EduBoost V2 uses a modular monolith architecture: domain modules own business logic, while FastAPI routers expose those capabilities through HTTP endpoints. This trace explains how the application composes modules at startup, registers routers consistently, and delegates request handling into module services.
 
-**Key Components:**
+The architecture keeps domain logic out of API plumbing while still allowing modules to collaborate. For example, lesson generation is exposed through the lessons router, but the LessonService depends on ConsentService so POPIA gates are enforced inside the service layer, not only at the route boundary.
 
-1. **Import module routers (9a):** Load routers. Modules package. API routers.
+**Details:**
 
-2. **Router registry (9b):** Central registry. Module mapping. Router instances.
+**Router Imports**
+The FastAPI application imports module routers and API router packages at startup [9a]. This includes routers from app.api_v2_routers such as lessons and diagnostics, plus module-owned routers such as practice. Import-time failures surface early during application startup instead of during learner requests.
 
-3. **Import lesson service (9c):** Service dependency. Business logic. Module integration.
+**Central Router Registry**
+The ROUTER_REGISTRY [9b] maps stable module names to router instances, then the application includes each router through app.include_router(). This provides a single integration point for the API surface and makes it easier to audit which modules are exposed under /api/v2.
 
-4. **Invoke service method (9d):** Router delegation. Service call. Cross-module.
+**Route-to-Service Delegation**
+The lessons router imports LessonService [9c] and the POST /lessons/generate endpoint delegates generation to service.generate_lesson_for_learner() [9d]. The router handles transport concerns—request parsing, current user extraction, and response shaping—while the service owns business rules, persistence, and cross-module checks.
 
-5. **Import diagnostic services (9e):** IRT engine. Item bank service. Module services.
+**Diagnostics Module Integration**
+The diagnostics router imports ItemBankService and related diagnostic services [9e]. This exposes IRT-backed assessment capabilities through the V2 API while keeping the mathematical item-selection logic in app/modules/diagnostics rather than embedding it in endpoint handlers.
 
-6. **Cross-module dependency (9f):** ConsentService. POPIA gate. Dependency injection.
+**Cross-Module Consent Enforcement**
+LessonService constructs a ConsentService dependency [9f], allowing lesson generation to require active parental consent before AI content is created. This is a critical architectural boundary: modules may collaborate through explicit service dependencies, but legal and security gates remain enforced in the service layer where business workflows execute.
 
-**Best Practices:**
-- Use router registry
-- Inject dependencies
-- Enforce consent gates
-- Validate module boundaries
-- Secure cross-module calls
-- Use dependency injection
-- Audit router registration
-
-**Common Issues:**
-- Registration errors: Check imports
-- Dependency errors: Check injection
-- Consent errors: Check gates
-- Cross-module errors: Check calls
-- Boundary violations: Validate modules
+**Modular Boundary Rules**
+Routers should stay thin, services should own orchestration, and repositories should own persistence. New modules should follow the same integration pattern: define a module service, expose a router, register the router centrally, and use explicit dependencies for cross-module operations.

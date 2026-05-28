@@ -69,37 +69,19 @@ Pytest Test Execution Flow
 
 ### AI Guide: Pytest Configuration and Test Discovery
 
-**Overview:** The pytest configuration centralizes test execution behavior, async support, and test discovery paths. This trace shows how pytest is configured for the EduBoost V2 project.
+**Motivation:**
+The pytest configuration centralizes test execution behavior, async support, and test discovery paths. This configuration ensures that async tests run correctly, test discovery is restricted to the appropriate directories, and custom markers enable selective test execution.
 
-**Key Components:**
+**Details:**
 
-1. **Asyncio Auto Mode (1a):** Enables automatic async test detection. No decorator required. Essential for FastAPI and async database tests.
+**Async Support and Discovery**
+Asyncio auto mode enables automatic async test detection without requiring decorators, which is essential for FastAPI and async database tests [1a]. The test discovery root restricts discovery to the tests/ directory to prevent accidental collection of non-test files [1b].
 
-2. **Test Discovery Root (1b):** Restricts discovery to tests/ directory. Prevents accidental collection of non-test files.
+**Markers and Path Setup**
+Test marker registration defines custom markers for test categorization, enabling selective test execution [1c]. The LLM test marker marks expensive API tests that are conditionally skipped in CI to prevent API key exposure [1d]. Repository path setup ensures the repo root is on sys.path for consistent imports and critical module resolution [1e].
 
-3. **Test Marker Registration (1c):** Defines custom markers for test categorization. Enables selective test execution.
-
-4. **LLM Test Marker (1d):** Marks expensive API tests. Conditionally skipped in CI. Prevents API key exposure.
-
-5. **Repository Path Setup (1e):** Ensures repo root on sys.path. Enables consistent imports. Critical for module resolution.
-
-6. **Test Environment Configuration (1f):** Sets APP_ENV to test. Ensures controlled test environment. Happens before imports.
-
-**Best Practices:**
-- Use asyncio_mode=auto for async tests
-- Restrict test discovery to tests/ directory
-- Register all markers in pytest.ini
-- Set test environment in conftest.py
-- Ensure repo root on sys.path
-- Use descriptive marker names
-- Keep configuration centralized
-
-**Common Issues:**
-- Async tests not running: Check asyncio_mode
-- Tests not discovered: Check testpaths
-- Marker warnings: Register markers in pytest.ini
-- Import errors: Check sys.path setup
-- Environment issues: Check APP_ENV setting
+**Environment Configuration**
+The test environment configuration sets APP_ENV to test to ensure a controlled test environment before imports [1f]. This ensures that all tests run in a predictable environment with known configuration.
 
 ## Trace ID: 2
 **Title:** Coverage Collection and Threshold Enforcement
@@ -168,35 +150,16 @@ Pytest Configuration & Coverage Collection
 
 ### AI Guide: Coverage Collection and Threshold Enforcement
 
-**Overview:** Coverage configuration ensures code quality by measuring how much of the codebase is exercised by tests. The pytest-cov plugin integrates coverage collection with test execution.
+**Motivation:**
+Coverage configuration ensures code quality by measuring how much of the codebase is exercised by tests. The pytest-cov plugin integrates coverage collection with test execution, providing multiple report formats and threshold enforcement to prevent coverage regression.
 
-**Key Components:**
+**Details:**
 
-1. **Coverage Measurement Scope (2a):** Measures coverage for app/ package. Excludes test code. Focuses on production code quality.
+**Measurement and Thresholds**
+The coverage measurement scope measures coverage for the app/ package while excluding test code to focus on production code quality [2a]. The coverage threshold gate fails the test run if coverage is below 80%, enforcing a minimum coverage quality gate to prevent coverage regression [2b].
 
-2. **Coverage Threshold Gate (2b):** Fails test run if coverage < 80%. Enforces minimum coverage quality gate. Prevents coverage regression.
-
-3. **Terminal Coverage Report (2c):** Shows coverage in terminal. Highlights missing lines. Provides immediate feedback.
-
-4. **HTML Coverage Report (2d):** Generates browsable HTML. Interactive with source highlighting. Excellent for detailed analysis.
-
-5. **XML Coverage Export (2e):** Exports coverage data for CI. Used by Codecov. Enables tracking over time.
-
-**Best Practices:**
-- Set realistic coverage thresholds
-- Use HTML reports for detailed analysis
-- Review term-missing for quick gaps
-- Keep coverage reports out of git
-- Use coverage in CI for quality gates
-- Track coverage trends over time
-- Focus on critical path coverage
-
-**Common Issues:**
-- Coverage below threshold: Add tests or adjust threshold
-- Missing coverage data: Check pytest-cov installation
-- Slow coverage collection: Use --no-cov for speed
-- False negatives: Exclude test files from coverage
-- HTML not generating: Check directory permissions
+**Report Generation**
+The terminal coverage report shows coverage in the terminal with highlighted missing lines for immediate feedback [2c]. The HTML coverage report generates browsable HTML with interactive source highlighting for detailed analysis [2d]. The XML coverage export exports coverage data for CI, used by Codecov to enable tracking over time [2e].
 
 ## Trace ID: 3
 **Title:** CI Core Unit Test Execution
@@ -258,33 +221,16 @@ CI Core Workflow (ci-core.yml) <-- ci-core.yml:1
 
 ### AI Guide: CI Core Unit Test Execution
 
-**Overview:** The CI core workflow provides fast feedback by running unit and integration tests with coverage disabled. This trace shows how the workflow is configured for speed and reliability.
+**Motivation:**
+The CI core workflow provides fast feedback by running unit and integration tests with coverage disabled. Using service containers for dependencies and separating unit from integration tests ensures reliable execution while keeping workflow time minimal.
 
-**Key Components:**
+**Details:**
 
-1. **PostgreSQL Service Container (3a):** Spins up Postgres 16 for integration tests. Uses official Docker image. Health check ensures readiness.
+**Service Container Setup**
+The PostgreSQL service container spins up Postgres 16 for integration tests using the official Docker image [3a]. A health check ensures the database is ready before tests run. The test database connection configures an async PostgreSQL connection using environment variables to connect to the service container [3b].
 
-2. **Test Database Connection (3b):** Configures async PostgreSQL connection. Uses environment variables. Connects to service container.
-
-3. **Unit Test Execution (3c):** Runs unit tests with --no-cov. Optimized for speed. Provides fast feedback.
-
-4. **Integration Test Execution (3d):** Runs integration tests against live services. Validates component interactions. Uses real database and Redis.
-
-**Best Practices:**
-- Use service containers for dependencies
-- Implement health checks for services
-- Separate unit and integration tests
-- Disable coverage for fast feedback
-- Use environment variables for configuration
-- Keep workflow execution time minimal
-- Monitor workflow performance
-
-**Common Issues:**
-- Service container failures: Check image and configuration
-- Health check timeouts: Increase timeout values
-- Connection errors: Check environment variables
-- Test failures: Review logs in GitHub Actions
-- Slow execution: Optimize test suite
+**Test Execution**
+Unit test execution runs unit tests with --no-cov for speed optimization and fast feedback [3c]. Integration test execution runs integration tests against live services to validate component interactions using real database and Redis [3d]. This separation allows unit tests to run quickly while integration tests validate real-world interactions.
 
 ## Trace ID: 4
 **Title:** Integration Test Database Fixture Setup
@@ -352,35 +298,19 @@ Integration Test Database Setup
 
 ### AI Guide: Integration Test Database Fixture Setup
 
-**Overview:** The fixture hierarchy provides clean database state for integration tests while optimizing performance through session-level schema setup. This pattern ensures test isolation with real database connections.
+**Motivation:**
+The fixture hierarchy provides clean database state for integration tests while optimizing performance through session-level schema setup. This pattern ensures test isolation with real database connections by using session-scoped fixtures for expensive setup and function-scoped fixtures for test isolation.
 
-**Key Components:**
+**Details:**
 
-1. **Integration Marker Auto-Apply (4a):** Automatically marks all tests in integration/ directory. Module-level pytestmark. No manual marker needed.
+**Marker and Fixture Setup**
+The integration marker auto-apply automatically marks all tests in the integration/ directory using a module-level pytestmark, eliminating the need for manual marker application [4a]. The integration DB fixture is a session-scoped fixture for schema setup that depends on root test_db_setup to ensure the schema exists for all tests [4b].
 
-2. **Integration DB Fixture (4b):** Session-scoped fixture for schema setup. Depends on root test_db_setup. Ensures schema exists for all tests.
+**Database State**
+The clean database state drops all tables before the session to ensure a clean starting state and prevent data leakage between sessions [4c]. Schema creation creates a fresh schema from models using SQLAlchemy metadata to match the production schema [4d].
 
-3. **Clean Database State (4c):** Drops all tables before session. Ensures clean starting state. Prevents data leakage between sessions.
-
-4. **Schema Creation (4d):** Creates fresh schema from models. Uses SQLAlchemy metadata. Matches production schema.
-
-5. **Redis Mock Injection (4e):** Patches Redis with in-memory fake. Autouse fixture applies automatically. No external Redis needed.
-
-**Best Practices:**
-- Use session-scoped fixtures for expensive setup
-- Use function-scoped fixtures for test isolation
-- Apply markers at module level
-- Use autouse for cross-cutting concerns
-- Keep fixture dependencies minimal
-- Test fixture behavior with smoke tests
-- Ensure schema matches production
-
-**Common Issues:**
-- Tests sharing data: Check fixture scope
-- Slow test runs: Check schema recreation frequency
-- Redis connection errors: Verify patching
-- Schema mismatches: Update models or migrations
-- Fixture not found: Check conftest.py location
+**Redis Mocking**
+The Redis mock injection patches Redis with an in-memory fake using an autouse fixture that applies automatically, eliminating the need for external Redis [4e]. This allows integration tests to run without external dependencies while still testing Redis interactions.
 
 ## Trace ID: 5
 **Title:** Contract Smoke Test Validation
@@ -458,37 +388,19 @@ Contract Smoke Test Validation Flow
 
 ### AI Guide: Contract Smoke Test Validation
 
-**Overview:** Contract smoke tests validate that FastAPI routers are correctly registered and expose expected endpoints. This trace shows how TestClient-based tests validate API contracts.
+**Motivation:**
+Contract smoke tests validate that FastAPI routers are correctly registered and expose expected endpoints. Using TestClient-based tests validates API contracts without network overhead, ensuring that routers are properly included and endpoints are accessible.
 
-**Key Components:**
+**Details:**
 
-1. **TestClient Fixture (5a):** Creates FastAPI TestClient. Enables HTTP requests without network. Wraps app for synchronous calls.
+**TestClient Setup**
+The TestClient fixture creates a FastAPI TestClient that enables HTTP requests without network overhead by wrapping the app for synchronous calls [5a]. The TestClient instantiation instantiates TestClient with the app and returns a client instance used by all tests [5b].
 
-2. **TestClient Instantiation (5b):** Instantiates TestClient with app. Returns client instance. Used by all tests.
+**Schema Validation**
+OpenAPI schema generation generates the schema from routes to validate endpoint registration and check contract compliance [5c]. Route registration validation verifies that the endpoint exists in the schema, checks that the path exists, and validates HTTP methods [5d].
 
-3. **OpenAPI Schema Generation (5c):** Generates schema from routes. Validates endpoint registration. Checks contract compliance.
-
-4. **Route Registration Validation (5d):** Verifies endpoint in schema. Checks path exists. Validates HTTP methods.
-
-5. **HTTP Request Execution (5e):** Makes GET request through TestClient. Simulates HTTP call. No network overhead.
-
-6. **Response Validation (5f):** Asserts HTTP status code. Validates response. Checks contract compliance.
-
-**Best Practices:**
-- Use TestClient for API contract tests
-- Validate OpenAPI schema registration
-- Test HTTP responses with TestClient
-- Cover all routers with smoke tests
-- Keep smoke tests fast
-- Run smoke tests first in CI
-- Validate critical endpoints
-
-**Common Issues:**
-- Endpoint not in schema: Check router registration
-- Import errors: Check app import
-- Response failures: Check endpoint implementation
-- Missing routes: Check router inclusion
-- Schema generation errors: Check FastAPI configuration
+**Request and Response Validation**
+HTTP request execution makes a GET request through TestClient to simulate an HTTP call without network overhead [5e]. Response validation asserts the HTTP status code, validates the response, and checks contract compliance [5f]. This ensures that endpoints respond correctly to requests.
 
 ## Trace ID: 6
 **Title:** CI Coverage Threshold Enforcement
@@ -559,37 +471,19 @@ CI/CD Pipeline - Unit Test Job
 
 ### AI Guide: CI Coverage Threshold Enforcement
 
-**Overview:** The CI workflow enforces coverage thresholds and uploads reports to Codecov for tracking. This trace shows how coverage quality gates are implemented in CI.
+**Motivation:**
+The CI workflow enforces coverage thresholds and uploads reports to Codecov for tracking. Using different thresholds for local vs CI accommodates PRs while still maintaining quality gates, and uploading to Codecov enables historical tracking and visualization.
 
-**Key Components:**
+**Details:**
 
-1. **Coverage Threshold Variable (6a):** Defines minimum coverage for CI. More lenient than local threshold. Accommodates PRs.
+**Threshold Configuration**
+The coverage threshold variable defines the minimum coverage for CI, which is more lenient than the local threshold to accommodate PRs [6a]. The full test suite execution runs all tests with coverage for comprehensive validation including all test categories [6b].
 
-2. **Full Test Suite Execution (6b):** Runs all tests with coverage. Comprehensive validation. Includes all test categories.
+**Scope and Enforcement**
+The coverage scope definition measures coverage for the app package to focus on production code and exclude test code [6c]. Threshold enforcement fails the build if coverage is below the threshold using an environment variable to enforce the quality gate [6d].
 
-3. **Coverage Scope Definition (6c):** Measures coverage for app package. Focuses on production code. Excludes test code.
-
-4. **Threshold Enforcement (6d):** Fails build if coverage < threshold. Uses environment variable. Enforces quality gate.
-
-5. **Codecov Upload (6e):** Uploads coverage to Codecov. Enables historical tracking. Provides visualization.
-
-6. **Coverage Artifact (6f):** Specifies XML report file. Used by Codecov. Machine-readable format.
-
-**Best Practices:**
-- Use different thresholds for local vs CI
-- Upload coverage to Codecov for tracking
-- Use environment variables for thresholds
-- Keep CI threshold realistic
-- Monitor coverage trends over time
-- Set fail_ci_if_error to false for Codecov
-- Review coverage reports regularly
-
-**Common Issues:**
-- Coverage below threshold: Add tests or adjust threshold
-- Codecov upload failures: Check token and configuration
-- Threshold not applied: Check environment variable
-- Missing coverage data: Check pytest-cov installation
-- Slow coverage collection: Optimize test suite
+**Codecov Integration**
+The Codecov upload uploads coverage to Codecov to enable historical tracking and provide visualization [6e]. The coverage artifact specifies the XML report file used by Codecov in a machine-readable format [6f]. This enables tracking coverage trends over time and identifying regressions.
 
 ## Trace ID: 7
 **Title:** Runtime Entrypoint Contract Validation
@@ -664,37 +558,19 @@ Runtime Entrypoint Contract Validation
 
 ### AI Guide: Runtime Entrypoint Contract Validation
 
-**Overview:** Runtime contract tests ensure the FastAPI app imports correctly and exposes required operational routes. This trace shows how deployment contracts are validated.
+**Motivation:**
+Runtime contract tests ensure the FastAPI app imports correctly and exposes required operational routes. Validating the production entrypoint and operational routes before deployment catches import failures early and ensures monitoring endpoints are available.
 
-**Key Components:**
+**Details:**
 
-1. **App Loader Function (7a):** Loads app from module:attribute spec. Uses dynamic import. Validates uvicorn-style specs.
+**App Loading**
+The app loader function loads the app from a module:attribute spec using dynamic import to validate uvicorn-style specs [7a]. Dynamic module import imports the module using importlib to load at runtime and validate importability [7b]. The canonical app import loads the production entrypoint to verify the app imports without errors and validates configuration [7c].
 
-2. **Dynamic Module Import (7b):** Imports module using importlib. Loads at runtime. Validates importability.
+**Route Validation**
+Route extraction collects registered route paths by extracting from app.routes to validate route registration [7d]. Operational routes validation verifies that health/ready/metrics routes exist, which are required for deployment and enable monitoring [7e].
 
-3. **Canonical App Import (7c):** Loads production entrypoint. Verifies app imports without errors. Validates configuration.
-
-4. **Route Extraction (7d):** Collects registered route paths. Extracts from app.routes. Validates route registration.
-
-5. **Operational Routes Validation (7e):** Verifies health/ready/metrics routes. Required for deployment. Enables monitoring.
-
-6. **Runtime Contract CI Execution (7f):** Runs tests in CI workflow. Catches import failures early. Validates before deployment.
-
-**Best Practices:**
-- Validate entrypoint imports in CI
-- Test operational routes exist
-- Use dynamic import for validation
-- Separate workflow for contract tests
-- Run contract tests before deployment
-- Validate app configuration
-- Ensure monitoring endpoints exist
-
-**Common Issues:**
-- Import failures: Check module path and dependencies
-- Missing routes: Check router registration
-- App loading errors: Check FastAPI configuration
-- CI failures: Check workflow configuration
-- Route extraction errors: Check app.routes
+**CI Execution**
+The runtime contract CI execution runs these tests in the CI workflow to catch import failures early and validate before deployment [7f]. This ensures that the application can be imported and started correctly before being deployed to production.
 
 **Deployment Requirements:**
 - Health endpoint for health checks

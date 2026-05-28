@@ -80,37 +80,19 @@ EduBoost V2 Application Bootstrap
 
 ### AI Guide: Application Bootstrap & Initialization
 
-**Overview:** The application bootstrap process initializes all cross-cutting concerns before handling requests. This trace shows how configuration, logging, database, exception handling, and middleware are set up.
+**Motivation:**
+The application bootstrap process initializes all cross-cutting concerns before handling requests. This ensures that configuration, logging, database connections, exception handling, and middleware are all properly set up before the application begins serving traffic.
 
-**Key Components:**
+**Details:**
 
-1. **Settings Singleton Creation (1a):** Pydantic settings from environment. Type-safe configuration. Singleton pattern.
+**Configuration and Logging**
+The bootstrap creates a settings singleton using Pydantic settings from environment variables, providing type-safe configuration [1a]. Structured logging is configured early using structlog, with JSON output for production and console output for development [1b]. The structlog configuration adds processors for context, timestamps, and JSON formatting to support distributed tracing [1c].
 
-2. **Structured Logging Initialization (1b):** Configures structlog early. JSON for production. Console for dev.
+**Exception Handling**
+Global exception handlers are registered once to provide consistent error responses across all endpoints [1d]. Handlers are set up for specific error types including EduBoostError, HTTPException, and ValidationError [1e]. This ensures that all errors are caught and converted to standardized API responses.
 
-3. **Structlog Configuration (1c):** Processors for context. Timestamps and JSON. Distributed tracing.
-
-4. **Exception Handler Registration (1d):** Global error handling. Consistent responses. Registered once.
-
-5. **Exception Handler Setup (1e):** Handlers for specific errors. EduBoostError, HTTPException, ValidationError.
-
-6. **Database Engine Creation (1f):** SQLAlchemy async engine. Connection pooling. Session factory.
-
-**Best Practices:**
-- Use Pydantic for configuration
-- Configure logging early
-- Initialize database before routes
-- Register exception handlers globally
-- Add middleware for cross-cutting concerns
-- Use environment variables for secrets
-- Keep bootstrap fast and reliable
-
-**Common Issues:**
-- Configuration errors: Check environment variables
-- Logging not working: Verify structlog setup
-- Database connection failures: Check connection string
-- Exception handlers not firing: Check registration order
-- Middleware not executing: Check registration order
+**Database and Middleware**
+The database engine is created with SQLAlchemy async engine, connection pooling, and session factory [1f]. Middleware is added for cross-cutting concerns like request ID injection, timing, and metrics recording. The bootstrap process must complete before routes are registered to ensure all dependencies are available.
 
 ## Trace ID: 2
 **Title:** JWT Token Creation & Storage (Login Flow)
@@ -181,35 +163,19 @@ Login/Authentication Flow
 
 ### AI Guide: JWT Token Creation & Storage (Login Flow)
 
-**Overview:** The login flow creates JWT tokens with secure storage in Redis. This trace shows password verification, token generation, and secure token storage.
+**Motivation:**
+The login flow creates JWT tokens with secure storage in Redis for session management. Using bcrypt for password verification prevents timing attacks, while JWT tokens signed with a keyring enable key rotation without invalidating all tokens.
 
-**Key Components:**
+**Details:**
 
-1. **Password Verification (2a):** bcrypt constant-time comparison. Prevents timing attacks. Secure password check.
+**Password Verification**
+Password verification uses bcrypt.checkpw() for constant-time comparison, preventing timing attacks [2a]. This ensures that password verification cannot be used to extract password information through timing analysis.
 
-2. **Access Token Creation (2b):** JWT with user claims. Signed with keyring. Short expiration.
+**Token Generation**
+Access tokens are JWT-encoded with claims (sub, role, jti, exp) and signed using the current JWT signing key from the keyring [2b]. Refresh tokens are JWT-encoded with a 7-day expiration and family_id for token rotation detection [2c]. The keyring enables key rotation without invalidating all tokens.
 
-3. **Refresh Token Creation (2c):** JWT with family_id. 7-day expiration. Enables rotation.
-
-4. **Refresh Token Storage (2d):** Hashed in Redis. TTL for expiration. Secure storage.
-
-5. **User Session Tracking (2e):** Maps user to family. Session management. Rotation detection.
-
-**Best Practices:**
-- Use bcrypt for passwords
-- Constant-time comparison
-- Hash tokens in storage
-- Use keyring for signing
-- Implement key rotation
-- Set appropriate TTLs
-- Never log tokens
-
-**Common Issues:**
-- Password failures: Check bcrypt hashing
-- Token encoding errors: Verify keyring
-- Redis failures: Check connection
-- Token leaks: Verify hashing
-- Rotation issues: Check family_id
+**Secure Storage**
+Tokens are stored in Redis as SHA-256 hashes to prevent token leakage if Redis is compromised [2d]. The refresh token is stored with a TTL matching its expiration. User session tracking maps users to their refresh token families for session management and rotation detection [2e].
 
 ## Trace ID: 3
 **Title:** JWT Validation & Revocation Check (Protected Route)
@@ -286,37 +252,19 @@ JWT Validation & Revocation Check Flow
 
 ### AI Guide: JWT Validation & Revocation Check (Protected Route)
 
-**Overview:** JWT validation with revocation checks ensures secure authentication. This trace shows token extraction, decoding, and revocation verification.
+**Motivation:**
+JWT validation with revocation checks ensures secure authentication by verifying token signatures and checking for token revocation on every request. This provides both per-token and user-level revocation capabilities.
 
-**Key Components:**
+**Details:**
 
-1. **Token Decoding Entry Point (3a):** FastAPI dependency. Extracts Bearer token. Entry point for validation.
+**Token Decoding**
+The FastAPI dependency extracts the Bearer token as the entry point for validation [3a]. The decode operation delegates to the keyring service for multi-key validation, enabling key rotation [3b]. This ensures that tokens signed with old keys can still be validated during the rotation period.
 
-2. **Keyring-Based JWT Decode (3b):** Delegates to keyring service. Multi-key validation. Enables rotation.
+**Revocation Checks**
+The JTI revocation check uses a Redis lookup to verify per-token revocation [3c]. The Redis check uses the revoked_jti prefix for atomic operation [3d]. User-level revocation checks enable global token invalidation for mass revocation scenarios [3e].
 
-3. **JTI Revocation Check (3c):** Checks token revocation. Redis lookup. Per-token revocation.
-
-4. **Redis Revocation Lookup (3d):** Fast Redis check. revoked_jti prefix. Atomic operation.
-
-5. **User-Level Revocation Check (3e):** Checks user revocation. Global token invalidation. Mass revocation.
-
-6. **Return Validated Claims (3f):** Returns user payload. Contains role and claims. Used by routes.
-
-**Best Practices:**
-- Always verify signature
-- Check revocation on every request
-- Use Redis for fast lookups
-- Implement key rotation
-- Support per-token revocation
-- Support user-level revocation
-- Log validation failures
-
-**Common Issues:**
-- Invalid tokens: Check signature
-- Revocation not working: Check Redis
-- Key rotation issues: Verify keyring
-- Performance: Cache Redis client
-- Token leaks: Never log tokens
+**Claims Return**
+After successful validation, the dependency returns the validated user payload containing role and claims for use by routes [3f]. This provides the route handler with authenticated user information without exposing the raw token.
 
 ## Trace ID: 4
 **Title:** Authorization Policy Enforcement (RBAC)
@@ -362,35 +310,19 @@ EduBoost V2 implements role-based access control (RBAC) with object-level author
 
 ### AI Guide: Authorization Policy Enforcement (RBAC)
 
-**Overview:** RBAC with object-level authorization ensures users can only access resources they're authorized for. This trace shows policy evaluation and audit logging.
+**Motivation:**
+RBAC with object-level authorization ensures users can only access resources they're authorized for. The policy evaluation checks role permissions, object ownership, and logs all authorization decisions for security auditing and POPIA compliance.
 
-**Key Components:**
+**Details:**
 
-1. **Authorization Assertion (4a):** Dependency helper. Enforces policy before route. Pre-execution check.
+**Policy Enforcement**
+The authorization assertion dependency helper enforces policy before route execution as a pre-execution check [4a]. The policy evaluation entry evaluates role permissions, performs object-level checks, and verifies ownership [4b]. This ensures that authorization decisions are made before any business logic executes.
 
-2. **Policy Evaluation Entry (4b):** Evaluates role permissions. Object-level checks. Ownership verification.
+**Audit Logging**
+Privileged access is logged for admin access to maintain POPIA compliance and a security audit trail [4c]. The structured audit event includes event context with actor and resource details [4d]. This provides a complete record of who accessed what and when.
 
-3. **Privileged Access Audit (4c):** Logs admin access. POPIA compliance. Security audit trail.
-
-4. **Structured Audit Event (4d):** Structured log entry. Event context. Actor and resource details.
-
-5. **Authorization Failure (4e):** Raises HTTP 403. Access denied. Clear error message.
-
-**Best Practices:**
-- Enforce least privilege
-- Audit privileged access
-- Use structured logging
-- Log all decisions
-- Implement role hierarchy
-- Check object ownership
-- Fail securely
-
-**Common Issues:**
-- Access denied: Check role assignments
-- Audit missing: Verify logging
-- Policy errors: Check evaluation logic
-- Performance: Cache role checks
-- Compliance: Review audit logs
+**Failure Handling**
+Authorization failure raises HTTP 403 with a clear error message [4e]. This fails securely by denying access by default and providing clear feedback to the client about why access was denied.
 
 ## Trace ID: 5
 **Title:** LLM Lesson Generation Pipeline
@@ -446,40 +378,19 @@ EduBoost V2 implements an AI lesson generation pipeline with quota enforcement, 
 
 ### AI Guide: LLM Lesson Generation Pipeline
 
-**Overview:** The AI lesson generation pipeline provides cost-effective, reliable content generation with safety controls. This trace shows caching, quota enforcement, and validation.
+**Motivation:**
+The AI lesson generation pipeline provides cost-effective, reliable content generation with safety controls. Semantic caching reduces API costs and improves response time, while quota enforcement prevents abuse and validation ensures content safety.
 
-**Key Components:**
+**Details:**
 
-1. **Cache Key Generation (5a):** SHA-256 hash of parameters. Semantic caching. Deterministic keys.
+**Caching**
+Cache key generation uses SHA-256 hash of parameters for semantic caching with deterministic keys [5a]. The semantic cache lookup checks Redis to reduce API costs and improve response time [5a]. This ensures that identical generation requests return cached results instead of calling the LLM provider.
 
-2. **Semantic Cache Lookup (5a):** Redis cache check. Reduces API costs. Improves response time.
+**Quota Enforcement**
+AI quota enforcement uses atomic counter increment with a daily limit check to prevent abuse [5c]. The Redis pipeline creation enables atomic INCR + EXPIRE operations to prevent race conditions [5c]. This ensures that quota limits are enforced accurately even under concurrent load.
 
-3. **AI Quota Enforcement (5c):** Atomic counter increment. Daily limit check. Prevents abuse.
-
-4. **LLM Provider Call (5d):** Provider abstraction. Fallback and retry. Reliability.
-
-5. **Judiciary Validation (5e):** Pydantic schema validation. Content policy check. Safety.
-
-6. **Content Policy Check (5f):** Scans for blocked patterns. Harmful content detection. Policy enforcement.
-
-7. **Cache Validated Lesson (5g):** Stores in Redis. 7-day TTL. Reuse validated content.
-
-**Best Practices:**
-- Use semantic caching
-- Enforce quota limits
-- Implement fallback
-- Validate all outputs
-- Scan for harmful content
-- Monitor API costs
-- Use atomic operations
-
-**Common Issues:**
-- Cache misses: Check key generation
-- Quota exceeded: Check limits
-- LLM failures: Check fallback
-- Validation errors: Check schema
-- Policy violations: Check content filters
-- Cost overruns: Monitor usage
+**Generation and Validation**
+The LLM provider call uses provider abstraction with fallback and retry for reliability [5d]. Judiciary validation uses Pydantic schema validation and content policy checks for safety [5e]. The content policy check scans for blocked patterns to detect harmful content [5f]. Validated lessons are cached in Redis with a 7-day TTL for reuse [5g].
 
 ## Trace ID: 6
 **Title:** Deep Health Check Execution
@@ -557,37 +468,22 @@ Deep Health Check System
 
 ### AI Guide: Deep Health Check Execution
 
-**Overview:** Deep health checks provide comprehensive system monitoring for readiness probes. This trace shows critical and optional health checks with metrics recording.
+**Motivation:**
+Deep health checks provide comprehensive system monitoring for readiness probes. They check critical dependencies like PostgreSQL and Redis, verify migration status, and record metrics for monitoring integration.
 
-**Key Components:**
+**Details:**
 
-1. **Health Check Orchestration (6a):** Coordinates all checks. Determines overall status. Orchestrates execution.
+**Orchestration**
+The health check orchestration coordinates all checks and determines the overall status [6a]. This ensures that the application reports a single health status that reflects the state of all critical dependencies.
 
-2. **Postgres Connectivity Check (6b):** SELECT 1 query. Verifies connection. Updates pool metrics.
+**Dependency Checks**
+The PostgreSQL connectivity check uses a SELECT 1 query to verify connection and updates pool metrics [6b]. The Redis connectivity check uses a PING command to verify availability and updates metrics [6c]. These checks ensure that the application can communicate with its critical dependencies.
 
-3. **Redis Connectivity Check (6c):** PING command. Verifies availability. Updates metrics.
+**Compliance Checks**
+The migration status check queries alembic_version to verify migrations and ensure compliance [6d]. The audit repository check queries audit_events for POPIA compliance and accessibility verification [6e]. These checks ensure that the database schema is up to date and audit trails are accessible.
 
-4. **Migration Status Check (6d):** Queries alembic_version. Verifies migrations. Compliance check.
-
-5. **Audit Repository Check (6e):** Queries audit_events. POPIA compliance. Accessibility check.
-
-6. **Prometheus Metrics Recording (6f):** Updates gauges. Monitoring integration. Status tracking.
-
-**Best Practices:**
-- Check critical dependencies
-- Add optional checks
-- Use appropriate timeouts
-- Record metrics
-- Determine overall status
-- Monitor check failures
-- Limit check frequency
-
-**Common Issues:**
-- Database failures: Check connection
-- Redis failures: Check connectivity
-- Migration issues: Check alembic
-- Audit failures: Check table access
-- Metrics not updating: Check Prometheus
+**Metrics Recording**
+Prometheus metrics recording updates gauges for monitoring integration and status tracking [6f]. This enables the monitoring system to track health check results over time and alert on failures.
 
 ## Trace ID: 7
 **Title:** POPIA Consent Gate Enforcement
@@ -638,37 +534,19 @@ EduBoost V2 implements POPIA (Protection of Personal Information Act) consent en
 
 ### AI Guide: POPIA Consent Gate Enforcement
 
-**Overview:** POPIA consent enforcement ensures parental consent before accessing learner data. This trace shows consent lookup, policy evaluation, and access blocking.
+**Motivation:**
+POPIA consent enforcement ensures parental consent before accessing learner data. The consent gate checks for active consent records, evaluates consent policy including expiration, and blocks access when consent is not valid.
 
-**Key Components:**
+**Details:**
 
-1. **Consent Gate Invocation (7a):** FastAPI dependency. Enforces before access. Consistent enforcement.
+**Consent Gate**
+The consent gate invocation is a FastAPI dependency that enforces consent before access consistently across all protected endpoints [7a]. The consent record lookup performs a database query for the learner-specific active consent record [7b].
 
-2. **Consent Record Lookup (7b):** Database query. Active consent record. Learner-specific.
+**Policy Evaluation**
+The consent policy evaluation determines the consent state using policy logic and a state machine [7c]. The expiration check uses timestamp comparison with the current time to detect expired consent [7d]. This ensures that consent is only considered valid if it is both active and not expired.
 
-3. **Consent Policy Evaluation (7c):** Determines consent state. Policy logic. State machine.
-
-4. **Expiration Check (7d):** Timestamp comparison. Current time check. Expiration detection.
-
-5. **Metrics Recording (7e):** Prometheus counter. Block tracking. Monitoring.
-
-6. **Access Denial (7f):** HTTP 403 response. Clear error message. Access blocked.
-
-**Best Practices:**
-- Enforce consent before access
-- Log all consent checks
-- Monitor consent blocks
-- Use appropriate error messages
-- Comply with POPIA
-- Audit consent decisions
-- Keep policy simple
-
-**Common Issues:**
-- Access denied: Check consent status
-- Consent not found: Check database
-- Expiration errors: Check timestamps
-- Metrics not recording: Check Prometheus
-- Policy errors: Check evaluation logic
+**Metrics and Access Control**
+Metrics recording uses a Prometheus counter to track consent blocks for monitoring [7e]. Access denial returns an HTTP 403 response with a clear error message when consent is not valid [7f]. This provides clear feedback to the client while maintaining POPIA compliance.
 
 ## Trace ID: 8
 **Title:** Exception to Standardized API Response
@@ -714,35 +592,19 @@ EduBoost V2 implements standardized error handling to ensure consistent API resp
 
 ### AI Guide: Exception to Standardized API Response
 
-**Overview:** Standardized error handling ensures consistent API responses across all endpoints. This trace shows exception catching, error construction, and response generation.
+**Motivation:**
+Standardized error handling ensures consistent API responses across all endpoints. By catching exceptions, constructing error envelopes with field-level details, and returning appropriate HTTP status codes, the system provides clear, actionable error responses to clients.
 
-**Key Components:**
+**Details:**
 
-1. **Domain Error Handler (8a):** Catches EduBoostError subclasses. Domain-specific errors. Consistent handling.
+**Exception Handlers**
+The domain error handler catches EduBoostError subclasses for domain-specific errors with consistent handling [8a]. The validation error handler transforms Pydantic errors to provide field-level messages and validation feedback [8b]. These handlers ensure that all errors are converted to a standardized format.
 
-2. **Validation Error Handler (8b):** Transforms Pydantic errors. Field-level messages. Validation feedback.
+**Error Construction**
+Field error construction extracts field information including path, message, and error codes [8c]. The error envelope creation wraps errors in ApiEnvelope with a standardized format and remediation information [8d]. This provides clients with structured error data they can use to fix issues.
 
-3. **Field Error Construction (8c):** Extracts field information. Path and message. Error codes.
-
-4. **Error Envelope Creation (8d):** Wraps in ApiEnvelope. Standardized format. Remediation info.
-
-5. **JSON Response Return (8e):** Returns HTTP response. Appropriate status code. JSON format.
-
-**Best Practices:**
-- Use consistent error format
-- Provide field-level errors
-- Include error codes
-- Add remediation info
-- Use appropriate status codes
-- Log errors with context
-- Don't expose sensitive data
-
-**Common Issues:**
-- Errors not caught: Check handler registration
-- Format inconsistent: Check envelope creation
-- Status codes wrong: Check error mapping
-- Sensitive data exposed: Filter error messages
-- Remediation missing: Add helpful messages
+**Response Generation**
+The JSON response return returns an HTTP response with the appropriate status code and JSON format [8e]. This ensures that errors are returned with the correct HTTP semantics while maintaining a consistent response structure across all endpoints.
 
 ## Trace ID: 9
 **Title:** Request Lifecycle Middleware Chain
@@ -793,38 +655,22 @@ EduBoost V2 implements a middleware chain for request lifecycle management, obse
 
 ### AI Guide: Request Lifecycle Middleware Chain
 
-**Overview:** The middleware chain provides request lifecycle management, observability, and performance monitoring. This trace shows request ID injection, timing, and metrics recording.
+**Motivation:**
+The middleware chain provides request lifecycle management, observability, and performance monitoring. Request ID injection enables distributed tracing, while timing measurement and metrics recording provide visibility into system performance.
 
-**Key Components:**
+**Details:**
 
-1. **Request ID Generation (9a):** Creates or extracts ID. Distributed tracing. Correlation across services.
+**Request ID and Context**
+Request ID generation creates or extracts an ID for distributed tracing and correlation across services [9a]. Context variables binding attaches request_id, app_env, and app_version to logs for structured context [9b]. This ensures that all log entries can be correlated to specific requests.
 
-2. **Context Variables Binding (9b):** Attaches to logs. request_id, app_env, app_version. Structured context.
+**Timing Measurement**
+The timing start uses a high-precision timestamp for latency measurement and performance tracking [9c]. This enables accurate measurement of request processing time for performance monitoring and SLA compliance.
 
-3. **Timing Start (9c):** High-precision timestamp. Latency measurement. Performance tracking.
+**Metrics Recording**
+The request counter increment uses a Prometheus counter for volume tracking with method and status labels [9d]. The latency histogram recording uses a Prometheus histogram for percentile tracking including p50, p95, and p99 [9e]. These metrics enable comprehensive monitoring of request volume and performance.
 
-4. **Request Counter Increment (9d):** Prometheus counter. Volume tracking. Method and status labels.
-
-5. **Latency Histogram Recording (9e):** Prometheus histogram. Percentile tracking. p50, p95, p99.
-
-6. **Structured Request Log (9f):** JSON log entry. Request lifecycle. Debugging support.
-
-**Best Practices:**
-- Use request IDs for tracing
-- Bind context to logs
-- Measure latency accurately
-- Record comprehensive metrics
-- Use structured logging
-- Monitor performance
-- Filter sensitive data
-
-**Common Issues:**
-- Request ID missing: Check header extraction
-- Context not bound: Check contextvars
-- Timing inaccurate: Check precision
-- Metrics not recording: Check Prometheus
-- Logs not structured: Check structlog
-- Performance degradation: Check middleware overhead
+**Structured Logging**
+The structured request log creates a JSON log entry with request lifecycle information for debugging support [9f]. This provides a complete record of each request for troubleshooting and analysis.
 
 ## Trace ID: 10
 **Title:** AI Quota Enforcement (Rate Limiting)
@@ -870,33 +716,16 @@ EduBoost V2 implements AI quota enforcement to control API costs and prevent abu
 
 ### AI Guide: AI Quota Enforcement (Rate Limiting)
 
-**Overview:** AI quota enforcement controls API costs and prevents abuse through daily request limits. This trace shows atomic counter increment, limit comparison, and 429 responses.
+**Motivation:**
+AI quota enforcement controls API costs and prevents abuse through daily request limits. Using atomic Redis operations ensures accurate quota tracking even under concurrent load, while clear 429 responses provide feedback to clients.
 
-**Key Components:**
+**Details:**
 
-1. **Quota Check Entry (10a):** Validates quota limit. User-specific check. Daily enforcement.
+**Quota Check**
+The quota check entry validates the quota limit with a user-specific check for daily enforcement [10a]. The atomic counter increment uses a Redis counter with a 24-hour TTL as an atomic operation [10b]. This ensures that quota tracking is accurate even when multiple requests arrive simultaneously.
 
-2. **Atomic Counter Increment (10b):** Redis counter increment. 24-hour TTL. Atomic operation.
+**Redis Pipeline**
+The Redis pipeline creation enables atomic INCR + EXPIRE operations with pipeline execution to prevent race conditions [10c]. This ensures that the counter increment and TTL setting happen atomically, preventing the counter from existing without an expiration time.
 
-3. **Redis Pipeline Creation (10c):** Atomic INCR + EXPIRE. Pipeline execution. Race condition prevention.
-
-4. **Limit Comparison (10d):** Checks against quota. FREE_DAILY_REQUEST_QUOTA. Limit enforcement.
-
-5. **Quota Exceeded Exception (10e):** HTTP 429 response. Retry-After header. Clear feedback.
-
-**Best Practices:**
-- Use atomic operations
-- Set appropriate TTLs
-- Provide clear feedback
-- Monitor quota usage
-- Set reasonable limits
-- Use Redis pipelines
-- Prevent race conditions
-
-**Common Issues:**
-- Quota not enforced: Check logic
-- Race conditions: Use pipelines
-- TTL not set: Check expiration
-- 429 not returned: Check exception
-- Retry-after missing: Check header
-- Counter drift: Check atomicity
+**Limit Enforcement**
+The limit comparison checks against the FREE_DAILY_REQUEST_QUOTA for limit enforcement [10d]. When the quota is exceeded, a quota exceeded exception returns an HTTP 429 response with a Retry-After header for clear feedback [10e]. This provides clients with actionable information about when they can retry.

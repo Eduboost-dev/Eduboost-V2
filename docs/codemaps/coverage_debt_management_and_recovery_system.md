@@ -71,33 +71,19 @@ Coverage Configuration & Timeout Resolution
 
 ### AI Guide: Coverage Configuration and Timeout Resolution
 
-**Overview:** The coverage configuration system enables async-aware coverage measurement, resolving a critical timeout blocker. This trace shows how the .coveragerc configuration with async concurrency support enables full-suite coverage runs.
+**Motivation:**
+The coverage configuration system enables async-aware coverage measurement, resolving a critical timeout blocker. The .coveragerc configuration with async concurrency support enables full-suite coverage runs by properly tracing async code.
 
-**Key Components:**
+**Details:**
 
-1. **Async Concurrency (1a):** Critical fix adding `concurrency = greenlet,thread`. Enables async code tracing. Resolves 60s timeout.
+**Async Concurrency and Source Scope**
+Async concurrency is a critical fix adding `concurrency = greenlet,thread` to enable async code tracing and resolve the 60s timeout [1a]. The source scope defines app/ as the coverage target, excluding tests and dependencies to focus on production code [1b].
 
-2. **Source Scope (1b):** Defines app/ as coverage target. Excludes tests and dependencies. Focuses on production code.
+**Pytest Integration**
+Pytest integration uses --cov=app to activate coverage and --cov-fail-under=80 to enforce the local threshold, which is stricter than CI [1c][1d]. Test execution uses .coveragerc settings to apply async-aware tracing and generate coverage reports.
 
-3. **Pytest Integration (1c, 1d):** --cov=app activates coverage. --cov-fail-under=80 enforces local threshold. Stricter than CI.
-
-4. **Test Execution:** Uses .coveragerc settings. Applies async-aware tracing. Generates coverage reports.
-
-5. **Results Documentation (1e, 1f):** Smoke tests: 32 passed in 81s. Full suite: 2,252 passed, 57.5%. Establishes baseline.
-
-**Best Practices:**
-- Enable async concurrency for async code
-- Set local threshold higher than CI
-- Document baseline measurements
-- Use .coveragerc for configuration
-- Generate multiple report formats
-- Verify timeout resolution
-
-**Common Issues:**
-- Timeout failures: Add async concurrency
-- Low coverage: Check source scope
-- Configuration errors: Validate .coveragerc
-- Slow runs: Profile slow tests
+**Results Documentation**
+Results documentation establishes baselines: smoke tests show 32 passed in 81s, and the full suite shows 2,252 passed with 57.5% coverage [1e][1f]. This provides a baseline for measuring progress toward coverage goals.
 
 ## Trace ID: 2
 **Title:** CI Coverage Threshold Enforcement
@@ -166,33 +152,19 @@ CI Coverage Enforcement Pipeline
 
 ### AI Guide: CI Coverage Threshold Enforcement
 
-**Overview:** The CI coverage threshold enforcement system maintains code quality standards through automated gates. This trace shows how the CI pipeline enforces coverage thresholds and handles coverage gaps.
+**Motivation:**
+The CI coverage threshold enforcement system maintains code quality standards through automated gates. The CI pipeline enforces coverage thresholds and handles coverage gaps by using environment variables for configurable thresholds and uploading to Codecov for tracking.
 
-**Key Components:**
+**Details:**
 
-1. **Threshold Configuration (2a):** COVERAGE_THRESHOLD environment variable. Set to 60% in CI. Configurable per environment.
+**Threshold Configuration**
+The threshold configuration uses the COVERAGE_THRESHOLD environment variable, set to 60% in CI and configurable per environment [2a]. This allows different thresholds for different environments while maintaining quality standards.
 
-2. **Unit Test Gate (2b):** pytest with --cov-fail-under. Fails build if below threshold. Uploads to Codecov.
+**Test Gates**
+The unit test gate uses pytest with --cov-fail-under to fail the build if below threshold and uploads to Codecov [2b]. The V2 module gate is a separate gate for V2 modules that tests api_v2, repositories, services, and domain with the same threshold enforcement [2c].
 
-3. **V2 Module Gate (2c):** Separate gate for V2 modules. Tests api_v2, repositories, services, domain. Same threshold enforcement.
-
-4. **Gap Analysis (2d):** Identifies 2.5% gap (57.5% vs 60%). Documents in coverage baseline. Triggers recovery strategy.
-
-5. **Recovery Strategy (2e):** Option 1: Lower threshold to 55%. Option 2: Add 2.5% via quick-wins. Chose Option 2 for quality.
-
-**Best Practices:**
-- Use environment variables for thresholds
-- Enforce at multiple levels (unit, module)
-- Upload to Codecov for tracking
-- Document gaps and recovery plans
-- Maintain threshold for quality
-- Provide clear recovery path
-
-**Common Issues:**
-- CI failures: Check coverage report
-- Gap too large: Plan incremental recovery
-- Upload failures: Check Codecov integration
-- Threshold too strict: Adjust based on baseline
+**Gap Analysis and Recovery**
+Gap analysis identifies the 2.5% gap (57.5% vs 60%), documents it in the coverage baseline, and triggers the recovery strategy [2d]. The recovery strategy offers Option 1 (lower threshold to 55%) or Option 2 (add 2.5% via quick-wins), with Option 2 chosen for quality [2e].
 
 ## Trace ID: 3
 **Title:** Coverage Baseline Measurement and Module Breakdown
@@ -268,33 +240,19 @@ Coverage Baseline Measurement System
 
 ### AI Guide: Coverage Baseline Measurement and Module Breakdown
 
-**Overview:** The coverage baseline measurement system establishes an authoritative understanding of code coverage across all modules. This trace shows how the full-suite run provides per-module breakdown for targeted improvement.
+**Motivation:**
+The coverage baseline measurement system establishes an authoritative understanding of code coverage across all modules. The full-suite run provides per-module breakdown for targeted improvement by identifying high, medium, and low coverage areas.
 
-**Key Components:**
+**Details:**
 
-1. **Full Suite Execution (3a, 3b):** 2,252 tests in 35:15. 57.5% baseline coverage. 45,152 executable lines. Authoritative measurement.
+**Full Suite Execution**
+Full suite execution runs 2,252 tests in 35:15 with 57.5% baseline coverage across 45,152 executable lines, providing an authoritative measurement [3a][3b]. This establishes the baseline for all future coverage improvements.
 
-2. **High Coverage (3c):** Models at 98.1%. Comprehensive ORM tests. Schema validation. Well-covered foundation.
+**Coverage Levels**
+High coverage shows models at 98.1% with comprehensive ORM tests, schema validation, and a well-covered foundation [3c]. Medium coverage includes modules at 70.8% (business logic) and services at 53.9% (largest package), showing room for improvement [3d][3e]. Low coverage includes repositories at 41.5% (data access) and routers at 38.7% (API layer), identifying critical gaps [3f][3g].
 
-3. **Medium Coverage (3d, 3e):** Modules at 70.8% (business logic). Services at 53.9% (largest package). Room for improvement.
-
-4. **Low Coverage (3f, 3g):** Repositories at 41.5% (data access). Routers at 38.7% (API layer). Critical gaps identified.
-
-5. **Module Breakdown:** Per-module percentages. Lines of code per module. Identifies coverage debt. Enables prioritization.
-
-**Best Practices:**
-- Run full-suite for baseline
-- Document per-module breakdown
-- Identify high/medium/low coverage
-- Focus on critical gaps first
-- Track lines of code
-- Use baseline for planning
-
-**Common Issues:**
-- Low coverage in critical modules: Prioritize for improvement
-- Large modules with low coverage: Break down into smaller targets
-- Inconsistent measurement: Use same configuration
-- Test failures: Fix before establishing baseline
+**Module Breakdown**
+The module breakdown provides per-module percentages and lines of code per module to identify coverage debt and enable prioritization. This allows the team to focus improvement efforts on the most critical gaps.
 
 ## Trace ID: 4
 **Title:** Module Risk Classification and Priority Assignment
@@ -364,33 +322,19 @@ Coverage Debt Management System
 
 ### AI Guide: Module Risk Classification and Priority Assignment
 
-**Overview:** The risk classification system prioritizes coverage improvement efforts based on module criticality and coverage gaps. This trace shows how the P0/P1/P2 priority matrix focuses resources on high-impact areas.
+**Motivation:**
+The risk classification system prioritizes coverage improvement efforts based on module criticality and coverage gaps. The P0/P1/P2 priority matrix focuses resources on high-impact areas by combining criticality levels with risk levels.
 
-**Key Components:**
+**Details:**
 
-1. **Baseline Data (4a, 4b, 4c, 4d, 4e):** Coverage percentages per module. Security at 94% (low risk). Auth/POPIA at 38.7% (high risk). JWT keyring at 53.9% (medium risk). Repositories at 41.5% (medium risk).
+**Baseline Data**
+Baseline data provides coverage percentages per module: security at 94% (low risk), auth/POPIA at 38.7% (high risk), JWT keyring at 53.9% (medium risk), and repositories at 41.5% (medium risk) [4a][4b][4c][4d][4e]. This data informs the risk classification.
 
-2. **Criticality Levels:** P0 (critical security/legal). P1 (core product). P2 (nice-to-have). Based on business impact.
+**Criticality and Risk Levels**
+Criticality levels are P0 (critical security/legal), P1 (core product), and P2 (nice-to-have) based on business impact. Risk levels are high (critical gaps), medium (moderate gaps), and low (minor gaps) based on coverage percentage.
 
-3. **Risk Levels:** High (critical gaps). Medium (moderate gaps). Low (minor gaps). Based on coverage percentage.
-
-4. **Classification Matrix:** Combines criticality and risk. Assigns sprint priorities. Ensures focused effort.
-
-5. **Sprint Assignments:** Sprint 2: Security, auth router, JWT keyring. Sprint 3: POPIA router. Sprint 4: Services, content factory. Sprint 5: Repositories.
-
-**Best Practices:**
-- Prioritize P0 high-risk modules
-- Balance security/legal with product
-- Use matrix for consistent classification
-- Schedule sprints based on priority
-- Document rationale for assignments
-- Re-evaluate after each sprint
-
-**Common Issues:**
-- Conflicting priorities: Re-evaluate criticality
-- Sprint overload: Adjust capacity
-- Changing requirements: Update classification
-- Coverage drift: Re-measure baseline
+**Classification Matrix and Sprint Assignments**
+The classification matrix combines criticality and risk to assign sprint priorities, ensuring focused effort. Sprint assignments are: Sprint 2 (security, auth router, JWT keyring), Sprint 3 (POPIA router), Sprint 4 (services, content factory), and Sprint 5 (repositories).
 
 ## Trace ID: 5
 **Title:** Quick-Win Test Opportunities and Coverage Impact
@@ -466,33 +410,19 @@ Coverage Debt Quick-Win Test Opportunities
 
 ### AI Guide: Quick-Win Test Opportunities and Coverage Impact
 
-**Overview:** The quick-win identification system targets high-impact, low-effort test additions to close the coverage gap efficiently. This trace shows how strategic test additions can exceed the 2.5% gap to reach the 60% threshold.
+**Motivation:**
+The quick-win identification system targets high-impact, low-effort test additions to close the coverage gap efficiently. Strategic test additions can exceed the 2.5% gap to reach the 60% threshold by focusing on critical modules with measurable impact.
 
-**Key Components:**
+**Details:**
 
-1. **Auth Router Tests (5a):** FastAPI TestClient with mocks. ~120 lines (~0.3% impact). Critical for security.
+**Auth and POPIA Router Tests**
+Auth router tests use FastAPI TestClient with mocks, covering ~120 lines with ~0.3% impact and critical for security [5a]. POPIA router tests use TestClient with ConsentService mock, covering ~150 lines with ~0.3% impact and critical for compliance [5b].
 
-2. **POPIA Router Tests (5b):** TestClient with ConsentService mock. ~150 lines (~0.3% impact). Critical for compliance.
+**Repository and Service Tests**
+Repository tests use in-memory DB tests, covering ~400 lines with ~0.9% impact for data access coverage [5c]. Service tests use targeted unit tests, covering ~600 lines with ~1.3% impact for business logic coverage [5d].
 
-3. **Repository Tests (5c):** In-memory DB tests. ~400 lines (~0.9% impact). Data access coverage.
-
-4. **Service Tests (5d):** Targeted unit tests. ~600 lines (~1.3% impact). Business logic coverage.
-
-5. **Total Impact (5e):** ~1,270 lines covered. ~2.8% overall gain. Exceeds 2.5% gap.
-
-**Best Practices:**
-- Focus on high-impact, low-effort
-- Estimate coverage impact accurately
-- Prioritize critical modules
-- Use mocks for isolation
-- Implement incrementally
-- Verify coverage gain
-
-**Common Issues:**
-- Impact overestimated: Re-measure after implementation
-- Test failures: Debug and fix
-- Longer than estimated: Adjust timeline
-- Coverage gain lower: Add more tests
+**Total Impact**
+The total impact is ~1,270 lines covered with ~2.8% overall gain, exceeding the 2.5% gap [5e]. This provides a clear path to reaching the 60% threshold through focused test additions.
 
 ## Trace ID: 6
 **Title:** Recovery Sprint Plan Execution Roadmap
@@ -566,33 +496,25 @@ Coverage Debt Recovery Sprint Plan
 
 ### AI Guide: Recovery Sprint Plan Execution Roadmap
 
-**Overview:** The recovery sprint plan provides a structured path to systematically close the coverage gap. This trace shows how the five-sprint plan prioritizes critical modules and tracks progress toward the 60% threshold.
+**Motivation:**
+The recovery sprint plan provides a structured path to systematically close the coverage gap. The five-sprint plan prioritizes critical modules and tracks progress toward the 60% threshold by executing sprints sequentially and verifying coverage gain after each sprint.
 
-**Key Components:**
+**Details:**
 
-1. **Sprint 1 (6a):** Unblock measurement - COMPLETE. Added .coveragerc async config. Ran full-suite coverage. Established 57.5% baseline.
+**Sprint 1: Unblock Measurement**
+Sprint 1 is complete and focused on unblocking measurement by adding .coveragerc async config, running full-suite coverage, and establishing the 57.5% baseline [6a]. This was the foundational sprint that enabled accurate coverage measurement.
 
-2. **Sprint 2 (6b):** P0 security/auth. JWT keyring tests. Token config tests. Security helper tests. Auth router contract tests.
+**Sprint 2: P0 Security/Auth**
+Sprint 2 focuses on P0 security/auth with JWT keyring tests, token config tests, security helper tests, and auth router contract tests [6b]. This addresses critical security gaps.
 
-3. **Sprint 3 (6c):** P0 POPIA/consent. POPIA router tests. Consent service tests. Consent repository tests. Legal compliance.
+**Sprint 3: P0 POPIA/Consent**
+Sprint 3 focuses on P0 POPIA/consent with POPIA router tests, consent service tests, consent repository tests for legal compliance [6c]. This addresses critical compliance gaps.
 
-4. **Sprint 4 (6d):** P1 core product. Content factory service tests. Lesson generation pipeline tests. Assessment service tests.
+**Sprint 4: P1 Core Product**
+Sprint 4 focuses on P1 core product with content factory service tests, lesson generation pipeline tests, and assessment service tests [6d]. This addresses core product functionality.
 
-5. **Sprint 5 (6e):** P1 repositories. Direct repository tests (in-memory). Integration tests (critical paths).
-
-**Best Practices:**
-- Execute sprints sequentially
-- Prioritize P0 modules first
-- Track deliverables per sprint
-- Verify coverage gain after each sprint
-- Adjust plan based on progress
-- Document sprint outcomes
-
-**Common Issues:**
-- Sprint delays: Adjust timeline
-- Coverage shortfalls: Add more tests
-- Test failures: Debug and fix
-- Resource constraints: Re-prioritize
+**Sprint 5: P1 Repositories**
+Sprint 5 focuses on P1 repositories with direct repository tests (in-memory) and integration tests (critical paths) [6e]. This addresses data access coverage gaps.
 
 ## Trace ID: 7
 **Title:** Coverage Exemptions and Quality Thresholds
@@ -648,30 +570,16 @@ Coverage Quality & Exemption Policy System
 
 ### AI Guide: Coverage Exemptions and Quality Thresholds
 
-**Overview:** The coverage exemption policy and quality threshold contract balance coverage requirements with practical constraints. This trace shows how exemptions are governed and production readiness is defined.
+**Motivation:**
+The coverage exemption policy and quality threshold contract balance coverage requirements with practical constraints. Exemptions are governed through an approval process, and production readiness is defined with a higher threshold than CI to ensure quality.
 
-**Key Components:**
+**Details:**
 
-1. **Exemption Categories (7a, 7b):** Auto-generated code (Pydantic schemas). Database migrations (Alembic). Dev-only fixtures. Boilerplate code. Health check endpoints.
+**Exemption Categories and Rationale**
+Exemption categories include auto-generated code (Pydantic schemas), database migrations (Alembic), dev-only fixtures, boilerplate code, and health check endpoints [7a][7b]. Exemption rationale includes implicit testing (schemas), alternative testing (migrations), environment guards (dev-only), framework wrappers (boilerplate), and always exercised (health checks).
 
-2. **Exemption Rationale:** Implicit testing (schemas). Alternative testing (migrations). Environment guards (dev-only). Framework wrappers (boilerplate). Always exercised (health checks).
+**Governance Process**
+The governance process requires engineering lead approval, documented rationale, and a review process to prevent abuse [7c]. This ensures that exemptions are only granted for valid reasons and are properly documented.
 
-3. **Governance Process (7c):** Engineering lead approval required. Documented rationale. Review process. Prevents abuse.
-
-4. **Quality Threshold (7d):** 70% production target. Higher than CI (60%). Long-term contract. Production readiness.
-
-5. **Balance:** Exemptions for practical constraints. Higher threshold for production. Governance for control. Clear documentation.
-
-**Best Practices:**
-- Document exemption rationale
-- Require approval for exemptions
-- Keep exemptions minimal
-- Define higher production threshold
-- Review exemptions periodically
-- Communicate policy to team
-
-**Common Issues:**
-- Exemption abuse: Strengthen governance
-- Missing approval: Reject exemption
-- Threshold too high: Adjust based on reality
-- Unclear rationale: Require documentation
+**Quality Threshold**
+The quality threshold sets a 70% production target, which is higher than CI (60%) as a long-term contract for production readiness [7d]. This balance provides exemptions for practical constraints while maintaining a higher production threshold for quality through governance and clear documentation.

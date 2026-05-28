@@ -66,35 +66,19 @@ Database Infrastructure Initialization
 
 ### AI Guide: Database Engine & Session Factory Initialization
 
-**Overview:** The database infrastructure setup initializes SQLAlchemy async engine, session factory, and declarative base for async database operations. This trace shows how the database layer is configured for use with FastAPI.
+**Motivation:**
+The database infrastructure setup initializes SQLAlchemy async engine, session factory, and declarative base for async database operations. Using SQLAlchemy 2.0 with asyncpg driver provides high-performance async database access while connection pooling manages database connections efficiently.
 
-**Key Components:**
+**Details:**
 
-1. **Async Engine Creation (1a):** Creates SQLAlchemy async engine with asyncpg driver. Configures connection pooling. Loads settings from environment.
+**Engine and Session Factory**
+The async engine uses the asyncpg driver for PostgreSQL [1a]. The async session factory creates session instances with expire_on_commit=False, allowing ORM objects to remain accessible after transaction commit [1b]. This is important for async operations where objects might be accessed after the transaction completes.
 
-2. **Session Factory Creation (1b):** Configures async session maker with expire_on_commit=False. Enables async operations. Binds to engine.
+**Declarative Base**
+The declarative base class provides shared metadata for all ORM models, enabling automatic table mapping and relationship management [1c]. All models inherit from this base, ensuring consistent ORM configuration across the application.
 
-3. **Declarative Base Definition (1c):** Shared ORM base class for all models. Provides metadata tracking. Enables automatic table mapping.
-
-4. **FastAPI Dependency Function (1d):** Async generator for dependency injection. Provides sessions to routes. Manages session lifecycle.
-
-5. **Session Context Manager (1e):** Creates new async session per request. Yields session to route handler. Handles commit/rollback automatically.
-
-**Best Practices:**
-- Use asyncpg driver for PostgreSQL
-- Configure connection pooling appropriately
-- Set expire_on_commit=False for async
-- Use dependency injection for sessions
-- Handle commit/rollback automatically
-- Use environment variables for credentials
-- Enable SSL/TLS for production
-
-**Common Issues:**
-- Connection pool exhaustion: Increase pool size
-- Session not committed: Check exception handling
-- Expired objects: Ensure expire_on_commit=False
-- Connection timeout: Check database connectivity
-- Memory leaks: Ensure sessions are closed
+**FastAPI Dependency Injection**
+The FastAPI dependency function get_db() provides request-scoped sessions with automatic commit/rollback [1d][1e]. The session context manager creates a new async session for each request, yields it to the route handler, commits on success, and rolls back on exception. This ensures transaction boundaries are properly managed at the HTTP request level.
 
 ## Trace ID: 2
 **Title:** Generic BaseRepository CRUD Operations
@@ -168,36 +152,22 @@ BaseRepository Generic CRUD Layer
 
 ### AI Guide: Generic BaseRepository CRUD Operations
 
-**Overview:** The BaseRepository class provides generic async CRUD operations for any ORM model, ensuring consistent data access patterns across the codebase. This trace shows how the generic foundation is implemented.
+**Motivation:**
+The BaseRepository class provides generic async CRUD operations for any ORM model, reducing code duplication and ensuring consistent data access patterns. Using Python's Generic type system with a TypeVar bound to Base provides type safety for all operations.
 
-**Key Components:**
+**Details:**
 
-1. **Generic Repository Class (2a):** Type-parameterized base repository with ModelT bound to Base. Provides standard async operations. Extended by concrete repositories.
+**Generic Type Safety**
+The BaseRepository[ModelT] class uses a TypeVar bound to Base, providing type safety for all operations [2a]. This generic foundation is extended by all concrete repositories, ensuring consistent patterns across the codebase.
 
-2. **Generic Get Operation (2b):** Async select query using SQLAlchemy 2.0 syntax. Filters by ID. Returns single instance or None.
+**Read Operations**
+The get() method performs async select queries using SQLAlchemy 2.0 syntax, returning a single instance or None [2b]. The get_or_404() method wraps get() with domain exception raising, providing 404 responses for missing entities [2f].
 
-3. **Model Instantiation (2c):** Creates new model instance from kwargs. Uses model constructor. Validates types automatically.
+**Create Operations**
+The create() method instantiates models from kwargs, adds to session, flushes to get ID without committing, and refreshes to load database-generated defaults [2c][2d]. This pattern balances performance (flush without commit) with data integrity.
 
-4. **Flush Without Commit (2d):** Persists to database without committing. Gets database-generated ID. Enables subsequent operations.
-
-5. **Dynamic Attribute Update (2e):** Updates model attributes from kwargs. Enables partial updates. Uses setattr for flexibility.
-
-6. **404 Error Handling (2f):** Raises domain exception when not found. Caught by FastAPI handlers. Returns 404 response.
-
-**Best Practices:**
-- Use generic repository for common operations
-- Implement type parameters for type safety
-- Use flush before commit for ID generation
-- Refresh after flush for database defaults
-- Use get_or_404 for required entities
-- Implement custom queries in concrete repositories
-- Keep generic methods simple and focused
-
-**Common Issues:**
-- Type errors: Check TypeVar binding
-- Entity not found: Use get_or_404
-- Missing defaults: Refresh after flush
-- Partial updates: Use update method
+**Update Operations**
+The update() method dynamically updates model attributes from kwargs using setattr, enabling partial updates [2e]. This flexibility allows services to update only the fields they need without reconstructing the entire entity.
 - Query performance: Add indexes
 
 ## Trace ID: 3
@@ -262,35 +232,19 @@ Repository Pattern Architecture
 
 ### AI Guide: Concrete Repository Implementation Pattern
 
-**Overview:** Concrete repositories extend the generic BaseRepository with domain-specific queries and business logic. This trace shows how the repository pattern is implemented for domain-specific data access.
+**Motivation:**
+Concrete repositories extend the generic BaseRepository with domain-specific queries and business logic. This inheritance pattern eliminates code duplication while allowing domain-specific customization, ensuring all repositories share a consistent data access interface.
 
-**Key Components:**
+**Details:**
 
-1. **Concrete Repository Class (3a):** Domain repository for learner operations. Accepts AsyncSession in constructor. Provides domain-specific methods.
+**Repository Construction**
+Concrete repositories like LearnerRepository accept an AsyncSession in their constructor and provide domain-specific methods [3a]. The constructor stores the session for use in all repository methods, enabling request-scoped data access.
 
-2. **Domain Model Creation (3b):** Instantiates ORM model with provided data. Uses model constructor. Validates types automatically.
+**Domain Model Operations**
+Repositories instantiate ORM models with provided data using the model constructor, which validates types automatically [3b]. They then add entities to the session using session.add() to stage them for persistence [3c].
 
-3. **Add to Session (3c):** Stages entity in session for persistence. Uses session.add(). Enables transaction management.
-
-4. **Repository Extending Base (3d):** Guardian repository inherits generic CRUD. Extends BaseRepository[Guardian]. Adds custom queries.
-
-5. **Custom Domain Query (3e):** Domain-specific query for authentication. Uses SQLAlchemy 2.0 select syntax. Returns single instance or None.
-
-**Best Practices:**
-- Extend BaseRepository for code reuse
-- Implement domain-specific queries
-- Use dependency injection for sessions
-- Keep repositories focused on data access
-- Move business logic to service layer
-- Use type-safe ORM models
-- Test repositories with test sessions
-
-**Common Issues:**
-- Code duplication: Extend BaseRepository
-- Business logic in repositories: Move to services
-- Missing dependencies: Inject via constructor
-- Query performance: Add indexes
-- Type errors: Check ORM model types
+**Inheritance and Custom Queries**
+The Guardian repository inherits generic CRUD by extending BaseRepository[Guardian] [3d]. It adds custom queries like authentication lookups using SQLAlchemy 2.0 select syntax [3e]. These domain-specific queries provide specialized data access while inheriting all base CRUD operations.
 
 ## Trace ID: 4
 **Title:** FastAPI Session Lifecycle & Transaction Management
@@ -360,35 +314,19 @@ FastAPI Request Lifecycle
 
 ### AI Guide: FastAPI Session Lifecycle & Transaction Management
 
-**Overview:** FastAPI's dependency injection system manages database session lifecycle per HTTP request with automatic commit/rollback. This trace shows how transaction boundaries are managed at the HTTP request level.
+**Motivation:**
+FastAPI's dependency injection system manages database session lifecycle per HTTP request with automatic commit/rollback. This pattern ensures proper transaction boundaries, automatic cleanup, and error handling for all database operations.
 
-**Key Components:**
+**Details:**
 
-1. **Dependency Injection (4a):** FastAPI injects database session into route handler. Uses Depends(get_db). Provides session to route.
+**Dependency Injection**
+FastAPI injects the database session into route handlers using Depends(get_db) [4a]. This provides the session to the route without manual session management.
 
-2. **Session Creation (4b):** Opens new async session for request. Uses session factory. Creates isolated transaction.
+**Session Creation and Yield**
+The dependency opens a new async session for the request using the session factory, creating an isolated transaction [4b]. It then yields the session to the route handler, pausing the generator during processing and resuming after the handler completes [4c].
 
-3. **Session Yield to Route (4c):** Yields session to route handler. Pauses generator during processing. Resumes after handler completes.
-
-4. **Auto-Commit on Success (4d):** Commits transaction if no exception. Persists changes to database. Closes session.
-
-5. **Auto-Rollback on Error (4e):** Rolls back transaction on exception. Reverts changes. Re-raises exception.
-
-**Best Practices:**
-- Use dependency injection for sessions
-- Let FastAPI manage commit/rollback
-- Keep transactions request-scoped
-- Avoid manual session management
-- Test transaction boundaries
-- Handle exceptions appropriately
-- Ensure session cleanup
-
-**Common Issues:**
-- Transaction not committed: Check for exceptions
-- Partial updates: Ensure rollback on error
-- Connection leaks: Ensure session cleanup
-- Concurrent modifications: Use proper isolation
-- Long transactions: Keep transactions short
+**Transaction Management**
+On success, the transaction commits automatically, persisting changes to the database and closing the session [4d]. On exception, the transaction rolls back, reverting changes and re-raising the exception [4e]. This ensures data integrity and proper resource cleanup.
 
 ## Trace ID: 5
 **Title:** Repository Usage in API Endpoint
@@ -456,35 +394,19 @@ FastAPI Learner Creation Flow
 
 ### AI Guide: Repository Usage in API Endpoint
 
-**Overview:** The complete flow from API endpoint through repository to database demonstrates how the repository pattern integrates with FastAPI. This trace shows the learner creation flow with transaction management.
+**Motivation:**
+The complete flow from API endpoint through repository to database demonstrates how the repository pattern integrates with FastAPI. This pattern ensures clean separation of concerns, proper transaction management, and type-safe API responses.
 
-**Key Components:**
+**Details:**
 
-1. **API Endpoint Definition (5a):** FastAPI route for creating learner. Uses POST method. Defines response model. Requires authentication.
+**Endpoint Definition**
+The FastAPI route for creating learners uses the POST method, defines a response model, and requires authentication [5a]. The route handler receives the database session via dependency injection.
 
-2. **Repository Instantiation (5b):** Creates repository instance with injected session. Passes session to constructor. Enables repository operations.
+**Repository Instantiation and Call**
+The handler creates a repository instance with the injected session [5b]. It then invokes the repository's create method with request data, which returns an ORM instance [5c]. The repository adds the entity to the session to stage it for persistence [5d].
 
-3. **Async Repository Call (5c):** Invokes repository create method. Passes request data. Returns ORM instance.
-
-4. **Entity Persistence (5d):** Adds entity to session. Stages for persistence. Enables transaction management.
-
-5. **Flush for ID Generation (5e):** Flushes to get database-generated ID. Persists without commit. Enables subsequent operations.
-
-6. **Response Serialization (5f):** Validates ORM model to response schema. Converts to JSON. Returns to client.
-
-**Best Practices:**
-- Use dependency injection for sessions
-- Instantiate repositories in route handlers
-- Call repository methods with await
-- Use flush for ID generation
-- Serialize responses with Pydantic
-- Let FastAPI manage transactions
-- Handle errors appropriately
-
-**Common Issues:**
-- Repository not instantiated: Check constructor
-- Entity not persisted: Check session operations
-- ID not generated: Use flush before commit
+**ID Generation and Response**
+The repository flushes to get the database-generated ID without committing, enabling subsequent operations [5e]. The resulting ORM model is validated to a response schema using Pydantic, converting it to JSON for the client [5f]. FastAPI manages the transaction commit/rollback automatically.
 - Serialization errors: Check response model
 - Transaction not committed: Check for exceptions
 
@@ -554,35 +476,19 @@ ORM Model → Repository Query Flow
 
 ### AI Guide: ORM Model to Repository Connection
 
-**Overview:** SQLAlchemy ORM models integrate with repositories through the declarative base class. This trace shows how ORM models are defined and used in repository queries.
+**Motivation:**
+SQLAlchemy ORM models integrate with repositories through the declarative base class. This integration provides type-safe database access, automatic table mapping, and relationship management across the application.
 
-**Key Components:**
+**Details:**
 
-1. **ORM Model Definition (6a):** Domain model extending declarative Base. Defines table mapping. Inherits metadata tracking.
+**Model Definition**
+ORM models extend the declarative Base, defining table mappings and inheriting metadata tracking [6a]. SQLAlchemy 2.0 typed mappings use Mapped[] annotations to provide type safety [6b].
 
-2. **Typed Column Mapping (6b):** SQLAlchemy 2.0 typed mappings. Uses Mapped[] annotations. Provides type safety.
+**Shared Base Class**
+All models inherit from the shared declarative base, which provides metadata tracking and enables automatic table mapping [6c]. This ensures consistent ORM configuration across all domain models.
 
-3. **Shared Declarative Base (6c):** All models inherit from this base. Provides metadata tracking. Enables automatic table mapping.
-
-4. **Query Execution (6d):** Executes async select query. Uses ORM model class. Returns result object.
-
-5. **Result Extraction (6e):** Extracts single instance or None. Uses scalar_one_or_none(). Returns ORM instance.
-
-**Best Practices:**
-- Use typed column mappings
-- Inherit from declarative base
-- Define relationships explicitly
-- Use SQLAlchemy 2.0 select syntax
-- Extract results appropriately
-- Keep models in domain layer
-- Use type-safe queries
-
-**Common Issues:**
-- Type errors: Check Mapped[] annotations
-- Mapping errors: Check table name
-- Query errors: Check select syntax
-- Result errors: Check extraction method
-- Relationship errors: Check foreign keys
+**Query Execution**
+Repositories execute async select queries using the ORM model class [6d]. The query returns a result object which is extracted using scalar_one_or_none() to return a single ORM instance or None [6e]. This pattern provides type-safe query results while maintaining clean separation between ORM and repository layers.
 
 ## Trace ID: 7
 **Title:** Advanced Repository Pattern - ItemBankRepository
@@ -656,35 +562,22 @@ ItemBankRepository Advanced Operations
 
 ### AI Guide: Advanced Repository Pattern - ItemBankRepository
 
-**Overview:** ItemBankRepository demonstrates advanced SQLAlchemy patterns including subqueries, exposure tracking, atomic operations, and upsert logic. This trace shows how to handle complex data access requirements.
+**Motivation:**
+ItemBankRepository demonstrates advanced SQLAlchemy patterns for complex data access requirements. These patterns include subqueries for filtering, exposure tracking for adaptive testing, atomic operations for counters, and upsert logic for idempotency.
 
-**Key Components:**
+**Details:**
 
-1. **Repository Initialization (7a):** Stores async session for operations. Accepts session in constructor. Enables all repository methods.
+**Repository Initialization**
+The repository stores an async session for operations, accepting it in the constructor to enable all repository methods [7a].
 
-2. **Subquery Construction (7b):** Builds subquery to filter seen items. Uses select() with where clause. Returns item_id list.
+**Subquery Filtering**
+The repository builds a subquery to filter seen items using select() with a where clause, returning an item_id list [7b]. This subquery is applied in the WHERE clause using the NOT IN operator to filter the main query [7c]. This pattern efficiently excludes previously seen items from adaptive testing.
 
-3. **Subquery Filter Application (7c):** Uses subquery in WHERE clause. Exposes NOT IN operator. Filters main query.
+**Exposure Tracking**
+The repository adds exposure tracking records by creating ItemExposure instances and staging them in the session [7d]. It atomically increments the exposure count using an UPDATE statement, preventing race conditions [7e].
 
-4. **Exposure Record Creation (7d):** Adds exposure tracking record. Creates ItemExposure instance. Stages in session.
-
-5. **Atomic Counter Increment (7e):** Atomically increments exposure count. Uses UPDATE statement. Prevents race conditions.
-
-6. **Upsert Logic (7f):** Checks for existing item. Updates if exists. Creates if new. Ensures idempotency.
-
-**Best Practices:**
-- Use subqueries for complex filters
-- Track exposure for adaptive testing
-- Use atomic updates for counters
-- Implement upsert for idempotency
-- Test concurrency scenarios
-- Use database-level operations
-- Keep logic in repository layer
-
-**Common Issues:**
-- Subquery performance: Add indexes
-- Race conditions: Use atomic updates
-- Duplicate inserts: Use upsert logic
+**Upsert Logic**
+The repository implements upsert logic by checking for existing items, updating if they exist, and creating them if they're new [7f]. This ensures idempotency, allowing the same operation to be repeated safely.
 - Exposure tracking: Check learner_id
 - Query complexity: Simplify when possible
 
@@ -755,32 +648,16 @@ Exception Handling Flow
 
 ### AI Guide: Exception Handling & Error Responses
 
-**Overview:** Repository errors propagate to FastAPI exception handlers which convert them to appropriate HTTP responses. This trace shows how the exception handling system works.
+**Motivation:**
+Repository errors propagate to FastAPI exception handlers which convert them to appropriate HTTP responses. This system ensures that database errors are translated to user-friendly API responses with proper status codes and error messages.
 
-**Key Components:**
+**Details:**
 
-1. **Entity Lookup (8a):** Attempts to fetch entity by ID. Calls get() method. Returns instance or None.
+**Entity Lookup and Domain Exceptions**
+The repository attempts to fetch an entity by ID using the get() method, returning an instance or None [8a]. When the entity is not found, the repository raises a typed domain exception using the NotFoundError class with an error message [8b].
 
-2. **Domain Exception Raised (8b):** Raises typed domain exception when not found. Uses NotFoundError class. Includes error message.
+**Exception Class Definition**
+Domain exceptions inherit from EduBoostError and define error codes and status codes [8c]. This hierarchy allows specific exception types to be caught and handled appropriately.
 
-3. **Exception Class Definition (8c):** Domain exception with status code. Inherits from EduBoostError. Defines error code.
-
-4. **Exception Handler Registration (8d):** FastAPI handler for domain exceptions. Catches EduBoostError. Converts to JSON response.
-
-5. **Database Constraint Handler (8e):** Catches SQLAlchemy integrity errors. Returns 409 Conflict. Handles constraint violations.
-
-**Best Practices:**
-- Use domain exceptions for business errors
-- Define exception hierarchy
-- Register FastAPI handlers
-- Return appropriate status codes
-- Provide clear error messages
-- Hide implementation details
-- Log errors appropriately
-
-**Common Issues:**
-- Exceptions not caught: Check handler registration
-- Wrong status code: Check exception definition
-- Missing error details: Check response serialization
-- Integrity errors not handled: Add IntegrityError handler
-- Generic exceptions: Use specific exception types
+**FastAPI Exception Handlers**
+FastAPI handlers catch domain exceptions like EduBoostError and convert them to JSON responses [8d]. A separate handler catches SQLAlchemy integrity errors and returns 409 Conflict for constraint violations [8e]. This ensures that database-level errors are translated to appropriate HTTP responses.

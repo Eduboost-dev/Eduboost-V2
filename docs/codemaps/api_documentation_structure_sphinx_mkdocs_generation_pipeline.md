@@ -77,37 +77,19 @@ Sphinx API Documentation Build Pipeline
 
 ### AI Guide: Sphinx API Documentation Build Flow
 
-**Overview:** Sphinx generates comprehensive HTML API reference from Python docstrings using autodoc extensions. This trace shows how the Sphinx build pipeline is configured and executed.
+**Motivation:**
+Sphinx generates comprehensive HTML API reference from Python docstrings using autodoc extensions. The Sphinx build pipeline is configured and executed to produce structured documentation from source code docstrings.
 
-**Key Components:**
+**Details:**
 
-1. **Sphinx Extensions Configuration (1a):** Registers autodoc, napoleon, viewcode, and intersphinx. Enables automatic docstring extraction. Configures parsing behavior.
+**Sphinx Extensions and Docstring Parser**
+Sphinx extensions configuration registers autodoc, napoleon, viewcode, and intersphinx to enable automatic docstring extraction and configure parsing behavior [1a]. The Google-style docstring parser enables parsing of Google-format docstrings, which is the standard format used in the codebase and provides structured parameter documentation [1b].
 
-2. **Google-Style Docstring Parser (1b):** Enables parsing of Google-format docstrings. Standard format used in codebase. Provides structured parameter documentation.
+**Navigation and Autodoc**
+The navigation tree definition defines hierarchical navigation structure using the toctree directive to organize API reference into sections [1c]. Autodoc module extraction extracts all members from modules using the automodule directive and configures member inclusion/exclusion [1d].
 
-3. **Navigation Tree Definition (1c):** Defines hierarchical navigation structure. Uses toctree directive. Organizes API reference into sections.
-
-4. **Autodoc Module Extraction (1d):** Extracts all members from modules. Uses automodule directive. Configures member inclusion/exclusion.
-
-5. **HTML Build Execution (1e):** Generates HTML from RST and docstrings. Uses sphinx-build command. Outputs to build directory.
-
-6. **Generated Navigation Sidebar (1f):** Rendered HTML sidebar with navigation. Uses wy-menu-vertical class. Provides hierarchical links.
-
-**Best Practices:**
-- Use Google-style docstrings consistently
-- Organize toctree logically
-- Exclude internal members with :exclude-members:
-- Use -W flag for strict builds
-- Keep docstrings up to date with code
-- Add examples in docstrings
-- Use type hints for better documentation
-
-**Common Issues:**
-- Missing docstrings: Add docstrings to code
-- Invalid RST syntax: Check RST formatting
-- Build failures: Check error messages
-- Missing modules: Verify import paths
-- Navigation issues: Check toctree structure
+**HTML Build and Navigation**
+HTML build execution generates HTML from RST and docstrings using the sphinx-build command and outputs to the build directory [1e]. The generated navigation sidebar is a rendered HTML sidebar with navigation using the wy-menu-vertical class to provide hierarchical links [1f].
 
 ## Trace ID: 2
 **Title:** MkDocs Site Generation with mkdocstrings
@@ -180,37 +162,19 @@ MkDocs Documentation Generation Pipeline
 
 ### AI Guide: MkDocs Site Generation with mkdocstrings
 
-**Overview:** MkDocs with mkdocstrings plugin builds an operational documentation site with inline API references. This trace shows how the MkDocs pipeline is configured and executed.
+**Motivation:**
+MkDocs with mkdocstrings plugin builds an operational documentation site with inline API references. The MkDocs pipeline is configured and executed to produce a user-friendly documentation site with integrated API documentation.
 
-**Key Components:**
+**Details:**
 
-1. **mkdocstrings Plugin Registration (2a):** Enables inline Python API documentation. Registers plugin in mkdocs.yml. Configures extraction behavior.
+**Plugin Registration and Handler Configuration**
+The mkdocstrings plugin registration enables inline Python API documentation by registering the plugin in mkdocs.yml and configuring extraction behavior [2a]. The Python handler configuration configures Python-specific extraction, sets Google-style parsing, and specifies source paths [2b].
 
-2. **Python Handler Configuration (2b):** Configures Python-specific extraction. Sets Google-style parsing. Specifies source paths.
+**Navigation and Directives**
+The navigation structure definition defines the site navigation hierarchy, organizes into logical sections, and includes API Reference [2c]. The mkdocstrings directive uses triple-colon syntax to trigger extraction, specifies module path, and renders inline documentation [2d].
 
-3. **Navigation Structure Definition (2c):** Defines site navigation hierarchy. Organizes into logical sections. Includes API Reference.
-
-4. **mkdocstrings Directive (2d):** Triple-colon syntax triggers extraction. Specifies module path. Renders inline documentation.
-
-5. **Router Documentation Extraction (2e):** Extracts FastAPI router endpoints. Includes endpoint docstrings. Renders API documentation.
-
-6. **MkDocs Development Server (2f):** Launches live-reload server. Enables local preview. Auto-rebuilds on changes.
-
-**Best Practices:**
-- Use triple-colon syntax for references
-- Organize navigation logically
-- Keep docstrings consistent with Sphinx
-- Use Material theme features
-- Enable search integration
-- Test with live-reload server
-- Keep markdown files organized
-
-**Common Issues:**
-- Module not found: Check Python path
-- Docstring parsing errors: Check format
-- Build failures: Check error messages
-- Navigation issues: Check mkdocs.yml
-- Theme issues: Check Material config
+**Router Extraction and Development Server**
+Router documentation extraction extracts FastAPI router endpoints, includes endpoint docstrings, and renders API documentation [2e]. The MkDocs development server launches a live-reload server, enables local preview, and auto-rebuilds on changes [2f].
 
 ## Trace ID: 3
 **Title:** Python Docstring to HTML Rendering
@@ -277,35 +241,19 @@ Python Source to HTML Documentation Pipeline
 
 ### AI Guide: Python Docstring to HTML Rendering
 
-**Overview:** Google-style docstrings in Python modules are extracted by Sphinx autodoc and rendered into structured HTML. This trace shows the flow from source code to generated documentation.
+**Motivation:**
+Google-style docstrings in Python modules are extracted by Sphinx autodoc and rendered into structured HTML. The flow from source code to generated documentation ensures that API documentation is automatically kept in sync with the codebase.
 
-**Key Components:**
+**Details:**
 
-1. **Module-Level Docstring (3a):** Google-style module documentation. Includes mathematical notation. Provides examples and usage.
+**Module and Function Documentation**
+The module-level docstring uses Google-style module documentation including mathematical notation and provides examples and usage [3a]. The function with type hints uses a function signature with type annotations to improve autodoc extraction and enhance IDE support [3b].
 
-2. **Function with Type Hints (3b):** Function signature with type annotations. Improves autodoc extraction. Enhances IDE support.
+**Args Section and Autodoc**
+The Google-style args section provides structured parameter documentation that is parsed by the napoleon extension and rendered as formatted HTML [3c]. The autodoc module directive triggers extraction of members, configures inclusion options, and specifies module path [3d].
 
-3. **Google-Style Args Section (3c):** Structured parameter documentation. Parsed by napoleon extension. Rendered as formatted HTML.
-
-4. **Autodoc Module Directive (3d):** Triggers extraction of members. Configures inclusion options. Specifies module path.
-
-5. **Rendered Function Link (3e):** Generated HTML navigation link. Enables quick navigation. Links to function documentation.
-
-**Best Practices:**
-- Use Google-style docstrings consistently
-- Include type hints in signatures
-- Document parameters and return values
-- Add examples in docstrings
-- Use mathematical notation where appropriate
-- Keep docstrings up to date with code
-- Use napoleon for parsing
-
-**Common Issues:**
-- Missing docstrings: Add docstrings to code
-- Invalid format: Check Google-style syntax
-- Type errors: Add type hints
-- Parsing errors: Check napoleon config
-- Missing links: Check automodule config
+**Rendered Navigation**
+The rendered function link is a generated HTML navigation link that enables quick navigation and links to function documentation [3e]. This ensures that documentation is easily navigable and linked to the source code.
 
 ## Trace ID: 4
 **Title:** Documentation Inventory Generation
@@ -381,35 +329,19 @@ Documentation Inventory Generation Pipeline
 
 ### AI Guide: Documentation Inventory Generation
 
-**Overview:** The documentation inventory system scans all docs files, extracts metadata, and generates inventory artifacts for freshness tracking. This trace shows how the inventory generation pipeline works.
+**Motivation:**
+The documentation inventory system scans all docs files, extracts metadata, and generates inventory artifacts for freshness tracking. The inventory generation pipeline ensures that documentation coverage can be monitored and gaps identified.
 
-**Key Components:**
+**Details:**
 
-1. **Inventory Builder Entry Point (4a):** Main function orchestrates scanning. Coordinates extraction functions. Builds inventory object.
+**Inventory Builder and File Iteration**
+The inventory builder entry point is the main function that orchestrates scanning, coordinates extraction functions, and builds the inventory object [4a]. Documentation file iteration discovers all documentation files using glob patterns and supports multiple file types [4b].
 
-2. **Documentation File Iteration (4b):** Discovers all documentation files. Uses glob patterns. Supports multiple file types.
+**Heading Extraction and JSON Output**
+Heading extraction parses Markdown headings, builds structure metadata, and tracks heading hierarchy [4c]. JSON inventory output writes structured inventory in a machine-readable format to enable automated analysis [4d].
 
-3. **Heading Extraction (4c):** Parses Markdown headings. Builds structure metadata. Tracks heading hierarchy.
-
-4. **JSON Inventory Output (4d):** Writes structured inventory. Machine-readable format. Enables automated analysis.
-
-5. **Inventory Generation Command (4e):** Makefile target for execution. Refreshes metadata. Integrates with build process.
-
-**Best Practices:**
-- Run inventory regularly
-- Track documentation coverage
-- Monitor gap reports
-- Integrate with CI
-- Keep metadata accurate
-- Use JSON for automation
-- Review gap reports
-
-**Common Issues:**
-- Missing files: Check glob patterns
-- Parsing errors: Check Markdown syntax
-- Outdated inventory: Run generation
-- Classification errors: Update rules
-- Gap report issues: Review categories
+**Inventory Generation Command**
+The inventory generation command is a Makefile target for execution that refreshes metadata and integrates with the build process [4e]. This ensures that the inventory is kept up to date with the documentation.
 
 ## Trace ID: 5
 **Title:** CI Documentation Build Pipeline
@@ -472,33 +404,16 @@ CI Documentation Build Pipeline
 
 ### AI Guide: CI Documentation Build Pipeline
 
-**Overview:** GitHub Actions workflow builds Sphinx HTML documentation with strict warnings-as-errors and uploads artifacts for deployment. This trace shows how CI integration ensures documentation quality.
+**Motivation:**
+GitHub Actions workflow builds Sphinx HTML documentation with strict warnings-as-errors and uploads artifacts for deployment. CI integration ensures documentation quality by enforcing strict build standards.
 
-**Key Components:**
+**Details:**
 
-1. **CI Documentation Job (5a):** GitHub Actions job for docs. Runs on ubuntu-latest. Isolated from other jobs.
+**CI Job and Dependencies**
+The CI documentation job is a GitHub Actions job for docs that runs on ubuntu-latest and is isolated from other jobs [5a]. Sphinx dependencies installation installs Sphinx and themes using a requirements file to ensure consistent versions [5b].
 
-2. **Sphinx Dependencies Installation (5b):** Installs Sphinx and themes. Uses requirements file. Ensures consistent versions.
-
-3. **Strict Sphinx Build (5c):** Builds HTML with -W flag. Treats warnings as errors. Enforces quality standards.
-
-4. **Documentation Artifact Upload (5d):** Uploads generated HTML. Publishes to GitHub Actions. Enables deployment/review.
-
-**Best Practices:**
-- Use strict warnings in CI
-- Build documentation on every change
-- Upload artifacts for review
-- Monitor build failures
-- Keep dependencies updated
-- Use consistent versions
-- Enable deployment automation
-
-**Common Issues:**
-- Build failures: Check error logs
-- Missing dependencies: Update requirements
-- Warnings as errors: Fix docstrings
-- Artifact upload fails: Check permissions
-- Timeout issues: Optimize build
+**Strict Build and Artifact Upload**
+The strict Sphinx build builds HTML with the -W flag, treats warnings as errors, and enforces quality standards [5c]. Documentation artifact upload uploads generated HTML, publishes to GitHub Actions, and enables deployment/review [5d]. This ensures that documentation is built with strict quality controls and made available for review.
 
 ## Trace ID: 6
 **Title:** Navigation Structure Assembly in Sphinx
@@ -575,34 +490,16 @@ Sphinx Navigation Structure Assembly
 
 ### AI Guide: Navigation Structure Assembly in Sphinx
 
-**Overview:** Sphinx toctree directives define hierarchical navigation structure that gets transformed into HTML sidebar navigation with search integration. This trace shows how navigation is assembled.
+**Motivation:**
+Sphinx toctree directives define hierarchical navigation structure that gets transformed into HTML sidebar navigation with search integration. The navigation assembly ensures that documentation is organized and easily navigable.
 
-**Key Components:**
+**Details:**
 
-1. **Core Module in Toctree (6a):** References core.rst in navigation. Includes in toctree directive. Organizes into Core section.
+**Toctree References**
+The core module in toctree references core.rst in navigation, includes it in the toctree directive, and organizes it into the Core section [6a]. Domain modules in toctree reference modules.rst for domains, include diagnostics, lessons, and consent, and organize them into the Modules section [6b].
 
-2. **Domain Modules in Toctree (6b):** References modules.rst for domains. Includes diagnostics, lessons, consent. Organizes into Modules section.
+**Navigation Levels**
+The top-level navigation item is a rendered HTML list item that uses the toctree-l1 class and contains nested subsections [6c]. The second-level navigation is a configuration subsection that uses the toctree-l2 class and links to specific modules [6d].
 
-3. **Top-Level Navigation Item (6a):** Rendered HTML list item. Uses toctree-l1 class. Contains nested subsections.
-
-4. **Second-Level Navigation (6d):** Configuration subsection. Uses toctree-l2 class. Links to specific module.
-
-5. **Search Index Generation (6e):** JavaScript search index. Built from all documentation. Enables full-text search.
-
-6. **General Index Page (6f):** Alphabetical symbol index. Quick reference lookup. Organized by symbol name.
-
-**Best Practices:**
-- Organize toctree logically
-- Use appropriate maxdepth
-- Keep navigation shallow
-- Test navigation structure
-- Enable search integration
-- Use descriptive titles
-- Maintain consistency
-
-**Common Issues:**
-- Missing references: Check toctree
-- Navigation too deep: Reduce maxdepth
-- Search not working: Check index generation
-- Broken links: Check anchor references
-- Circular references: Check toctree structure
+**Search and Index**
+Search index generation is a JavaScript search index built from all documentation that enables full-text search [6e]. The general index page is an alphabetical symbol index for quick reference lookup organized by symbol name [6f]. This provides comprehensive search and indexing capabilities for the documentation.

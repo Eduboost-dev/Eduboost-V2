@@ -66,49 +66,19 @@ pytest.ini Configuration File
 
 ### AI Guide: Pytest Initialization and Core Configuration
 
-**Overview:** This trace covers the fundamental pytest configuration that controls how tests are discovered, executed, and reported. The `pytest.ini` file is the central configuration file that pytest reads automatically when run from the project root.
+**Motivation:**
+The fundamental pytest configuration controls how tests are discovered, executed, and reported. The `pytest.ini` file is the central configuration file that pytest reads automatically when run from the project root, ensuring consistent test behavior across the project.
 
-**Key Configuration Areas:**
+**Details:**
 
-1. **Async Test Support (1a):**
-   - `asyncio_mode = auto` enables pytest-asyncio to automatically detect and run async test functions
-   - No need to decorate with `@pytest.mark.asyncio` when using this mode
-   - Essential for testing FastAPI endpoints and async database operations
-   - Best practice: Keep this enabled for consistency across the test suite
+**Async Test Support**
+Async test support uses `asyncio_mode = auto` to enable pytest-asyncio to automatically detect and run async test functions without the need to decorate with `@pytest.mark.asyncio` [1a]. This is essential for testing FastAPI endpoints and async database operations and should be kept enabled for consistency across the test suite.
 
-2. **Test Discovery (1b-1d):**
-   - `testpaths = tests` restricts discovery to the tests/ directory
-   - `python_files = test_*.py` ensures only files matching this pattern are collected
-   - `python_classes = Test*` and `python_functions = test_*` define naming conventions
-   - These settings prevent accidental collection of non-test files
-   - Tip: Use descriptive test names that clearly indicate what is being tested
+**Test Discovery and Directory Exclusion**
+Test discovery uses `testpaths = tests` to restrict discovery to the tests/ directory, `python_files = test_*.py` to ensure only files matching this pattern are collected, and `python_classes = Test*` and `python_functions = test_*` to define naming conventions [1b-1d]. Directory exclusion uses `norecursedirs` to exclude build artifacts, virtual environments, and legacy test directories to prevent pytest from wasting time scanning irrelevant directories [1c].
 
-3. **Directory Exclusion (1c):**
-   - `norecursedirs` excludes build artifacts, virtual environments, and legacy test directories
-   - Prevents pytest from wasting time scanning irrelevant directories
-   - Important for performance in large projects
-   - Customize this list if you have additional directories to exclude
-
-4. **Marker Validation (1e):**
-   - `--strict-markers` ensures all markers are registered in pytest.ini
-   - Prevents typos in marker names (e.g., `@pytest.mark.integraiton`)
-   - Enforces consistency across the team
-   - Always register new markers in the `[markers]` section before use
-
-**Common Issues and Solutions:**
-
-- **Tests not being discovered:** Check that your test files match `test_*.py` pattern and are in the `tests/` directory
-- **Async tests hanging:** Ensure `asyncio_mode = auto` is set and pytest-asyncio is installed
-- **Marker warnings:** Register all custom markers in the `[markers]` section of pytest.ini
-- **Slow test collection:** Review `norecursedirs` to ensure unnecessary directories are excluded
-
-**Best Practices:**
-
-- Keep pytest.ini in the project root for automatic discovery
-- Use descriptive test names that follow the `test_*` pattern
-- Register all markers before using them in tests
-- Periodically review and update `norecursedirs` as project structure evolves
-- Use `pytest --collect-only` to verify test discovery without running tests
+**Marker Validation**
+Marker validation uses `--strict-markers` to ensure all markers are registered in pytest.ini, preventing typos in marker names and enforcing consistency across the team [1e]. Always register new markers in the `[markers]` section before use. Best practices include keeping pytest.ini in the project root for automatic discovery, using descriptive test names that follow the `test_*` pattern, registering all markers before using them in tests, periodically reviewing and updating `norecursedirs` as project structure evolves, and using `pytest --collect-only` to verify test discovery without running tests.
 
 ## Trace ID: 2
 **Title:** Test categorization with custom markers
@@ -184,60 +154,19 @@ Pytest Test Categorization System
 
 ### AI Guide: Test Categorization with Custom Markers
 
-**Overview:** Custom markers enable selective test execution based on test characteristics such as speed, dependencies, or purpose. This system allows running specific test subsets during development, CI pipelines, or debugging.
+**Motivation:**
+Custom markers enable selective test execution based on test characteristics such as speed, dependencies, or purpose. This system allows running specific test subsets during development, CI pipelines, or debugging to optimize test execution efficiency.
 
-**Marker Categories and Usage:**
+**Details:**
 
-1. **Unit Tests (2b):**
-   - Fast, isolated tests with no external I/O dependencies
-   - Run frequently during development with `pytest -m unit`
-   - Should complete in milliseconds to seconds
-   - Use mocks for external dependencies (database, APIs, file system)
-   - Ideal for TDD and rapid feedback loops
+**Unit and Integration Tests**
+Unit tests are fast, isolated tests with no external I/O dependencies that run frequently during development with `pytest -m unit`, should complete in milliseconds to seconds, use mocks for external dependencies, and are ideal for TDD and rapid feedback loops [2b]. Integration tests require live database or Redis connections, test interactions between components, are slower than unit tests but faster than E2E tests, run with `pytest -m integration` or `pytest tests/integration`, and use a module-level marker that automatically applies to all tests in integration/ [2c][2f].
 
-2. **Integration Tests (2c):**
-   - Require live database or Redis connections
-   - Test interactions between components
-   - Slower than unit tests but faster than E2E tests
-   - Run with `pytest -m integration` or `pytest tests/integration`
-   - Module-level marker (2f) automatically applies to all tests in integration/
+**E2E and LLM Tests**
+E2E tests are Playwright-based browser tests requiring full stack that test complete user flows from UI to database, are the slowest test category and run sparingly, require a running application stack, and execute with `pytest -m e2e` or `npx playwright test` [2d]. LLM tests make real LLM API calls, are conditionally skipped in CI unless `ALLOW_LLM_TESTS` is set, are expensive and potentially flaky due to external API dependencies, are used for validating LLM integration behavior, and run with `pytest -m llm -k "not ci"` locally [2e].
 
-3. **E2E Tests (2d):**
-   - Playwright-based browser tests requiring full stack
-   - Test complete user flows from UI to database
-   - Slowest test category, run sparingly
-   - Require running application stack
-   - Execute with `pytest -m e2e` or `npx playwright test`
-
-4. **LLM Tests (2e):**
-   - Make real LLM API calls
-   - Conditionally skipped in CI unless `ALLOW_LLM_TESTS` is set
-   - Expensive and potentially flaky due to external API dependencies
-   - Use for validating LLM integration behavior
-   - Run with `pytest -m llm -k "not ci"` locally
-
-5. **Smoke Tests (2g):**
-   - Critical-path tests that verify core functionality
-   - Run first in CI pipelines to catch breaking changes early
-   - Should cover essential user journeys
-   - Module-level marker applied at file level
-   - Execute with `pytest -m smoke` for quick validation
-
-**Applying Markers:**
-
-```python
-# Function-level marker
-@pytest.mark.integration
-async def test_user_creation():
-    pass
-
-# Class-level marker
-@pytest.mark.unit
-class TestUserService:
-    pass
-
-# Module-level marker (in conftest.py or test file)
-pytestmark = pytest.mark.integration
+**Smoke Tests**
+Smoke tests are critical-path tests that verify core functionality and should pass before any deployment [2g]. This categorization enables selective test execution based on test characteristics and dependencies. Best practices include always registering markers in pytest.ini before use, using module-level markers for directory-wide categorization, keeping unit tests fast and isolated, running smoke tests first in CI for fast feedback, documenting marker purpose in pytest.ini descriptions, using marker combinations for complex selection logic, and considering test speed when assigning markers. Common patterns include development with `pytest -m unit` for rapid iteration, pre-commit with `pytest -m "unit and not slow"` for quick checks, CI fast lane with `pytest -m smoke` for critical path validation, CI full suite with `pytest tests/` with appropriate markers, and debugging with `pytest -m "integration and test_name"` for targeted testing.
 ```
 
 **Selective Test Execution:**
@@ -255,24 +184,6 @@ pytest -m "not slow"
 # Run smoke tests only
 pytest -m smoke
 ```
-
-**Best Practices:**
-
-- Always register markers in pytest.ini before use
-- Use module-level markers for directory-wide categorization
-- Keep unit tests fast and isolated
-- Run smoke tests first in CI for fast feedback
-- Document marker purpose in pytest.ini descriptions
-- Use marker combinations for complex selection logic
-- Consider test speed when assigning markers
-
-**Common Patterns:**
-
-- Development: `pytest -m unit` for rapid iteration
-- Pre-commit: `pytest -m "unit and not slow"` for quick checks
-- CI fast lane: `pytest -m smoke` for critical path validation
-- CI full suite: `pytest tests/` with appropriate markers
-- Debugging: `pytest -m "integration and test_name"` for targeted testing
 
 ## Trace ID: 3
 **Title:** Database fixture hierarchy for test isolation
@@ -347,60 +258,16 @@ Pytest Test Database Fixture Hierarchy
 
 ### AI Guide: Database Fixture Hierarchy for Test Isolation
 
-**Overview:** The fixture hierarchy provides clean database state for each test while optimizing performance through session-level schema setup. This pattern ensures test isolation without the overhead of recreating the database schema for every test.
+**Motivation:**
+The fixture hierarchy provides clean database state for each test while optimizing performance through session-level schema setup. This pattern ensures test isolation without the overhead of recreating the database schema for every test.
 
-**Fixture Architecture:**
+**Details:**
 
-1. **Session-Scoped Schema Setup (3a-3c):**
-   - `test_db_setup` runs once per pytest session
-   - Drops all existing tables to ensure clean state
-   - Creates fresh schema from Alembic migrations
-   - Yields control to all tests in the session
-   - Cleanup happens after all tests complete
-   - Performance optimization: schema creation is expensive
+**Session-Scoped Schema Setup**
+Session-scoped schema setup uses `test_db_setup` that runs once per pytest session, drops all existing tables to ensure clean state, creates fresh schema from Alembic migrations, yields control to all tests in the session, and cleanup happens after all tests complete [3a-3c]. This is a performance optimization since schema creation is expensive.
 
-2. **Function-Scoped Session (3d):**
-   - `db_session` provides fresh database session for each test
-   - Wraps each test in a transaction that rolls back on completion
-   - Ensures tests don't leak data to each other
-   - Depends on `test_db_setup` (fixture dependency chain)
-   - AsyncSession compatible with SQLAlchemy async operations
-   - Critical for test isolation
-
-3. **Integration-Specific Fixtures (3e-3f):**
-   - `integration_db` extends root fixture for integration tests
-   - `patch_redis` uses autouse=True to automatically patch Redis
-   - Replaces real Redis with in-memory fake for speed and isolation
-   - Patches multiple modules that import Redis
-   - Ensures integration tests don't require external Redis
-
-**Using Database Fixtures in Tests:**
-
-```python
-# Unit test with database access
-async def test_user_creation(db_session):
-    user = User(name="Test User")
-    db_session.add(user)
-    await db_session.commit()
-    
-    result = await db_session.get(User, user.id)
-    assert result.name == "Test User"
-
-# Integration test automatically gets db_session
-@pytest.mark.integration
-async def test_api_endpoint():
-    # Test uses real database via integration fixtures
-    pass
-```
-
-**Fixture Dependency Chain:**
-
-```
-test_db_setup (session)
-    └── db_session (function)
-        └── integration_db (session)
-            └── integration tests use db_session
-```
+**Function-Scoped Session and Integration Fixtures**
+Function-scoped session uses `db_session` to provide a fresh database session for each test, wraps each test in a transaction that rolls back on completion, ensures tests don't leak data to each other, depends on `test_db_setup` (fixture dependency chain), is AsyncSession compatible with SQLAlchemy async operations, and is critical for test isolation [3d]. Integration-specific fixtures use `integration_db` to extend root fixture for integration tests and `patch_redis` with autouse=True to automatically patch Redis, replacing real Redis with in-memory fake for speed and isolation, patching multiple modules that import Redis, and ensuring integration tests don't require external Redis [3e-3f]. Best practices include always using `db_session` fixture for database access in tests, never committing transactions in tests (rely on rollback), using session-scoped fixtures for expensive setup (schema), using function-scoped fixtures for test isolation (sessions), leveraging autouse for cross-cutting concerns (Redis patching), keeping fixture dependencies minimal and clear, and testing fixture behavior with simple smoke tests. Common issues include tests sharing data (ensure db_session is function-scoped), slow test runs (check if schema is being recreated per test), Redis connection errors (verify patching is applied in conftest), async test failures (use pytest-asyncio fixtures for async tests), and fixture not found (check fixture scope and conftest.py location). Performance considerations include session-scoped fixtures running once per test session, function-scoped fixtures running per test, balancing between isolation and performance, database schema creation being expensive (session-scoped), and session creation being cheap (function-scoped for isolation).
 
 **Transaction Rollback Pattern:**
 
@@ -418,32 +285,6 @@ test_db_setup (session)
 - Autouse=True applies to all integration tests automatically
 - No test code changes required
 - Faster and more reliable than external Redis
-
-**Best Practices:**
-
-- Always use `db_session` fixture for database access in tests
-- Never commit transactions in tests (rely on rollback)
-- Use session-scoped fixtures for expensive setup (schema)
-- Use function-scoped fixtures for test isolation (sessions)
-- Leverage autouse for cross-cutting concerns (Redis patching)
-- Keep fixture dependencies minimal and clear
-- Test fixture behavior with simple smoke tests
-
-**Common Issues:**
-
-- **Tests sharing data:** Ensure db_session is function-scoped
-- **Slow test runs:** Check if schema is being recreated per test
-- **Redis connection errors:** Verify patching is applied in conftest
-- **Async test failures:** Use pytest-asyncio fixtures for async tests
-- **Fixture not found:** Check fixture scope and conftest.py location
-
-**Performance Considerations:**
-
-- Session-scoped fixtures run once per test session
-- Function-scoped fixtures run per test
-- Balance between isolation and performance
-- Database schema creation is expensive (session-scoped)
-- Session creation is cheap (function-scoped for isolation)
 
 ## Trace ID: 4
 **Title:** Coverage measurement and reporting configuration
@@ -510,59 +351,19 @@ Pytest Configuration & Execution
 
 ### AI Guide: Coverage Measurement and Reporting Configuration
 
-**Overview:** Coverage configuration ensures code quality by measuring how much of the codebase is exercised by tests. The pytest-cov plugin integrates coverage collection with test execution, providing multiple report formats and quality gates.
+**Motivation:**
+Coverage configuration ensures code quality by measuring how much of the codebase is exercised by tests. The pytest-cov plugin integrates coverage collection with test execution, providing multiple report formats and quality gates to maintain code quality standards.
 
-**Coverage Configuration Components:**
+**Details:**
 
-1. **Coverage Target (4a):**
-   - `--cov=app` measures coverage for the app/ package
-   - Excludes test code from coverage measurements
-   - Focuses on production code quality
-   - Can specify multiple packages: `--cov=app --cov=scripts`
-   - Use `--cov=` with no value to cover all Python files
+**Coverage Target and Reports**
+The coverage target uses `--cov=app` to measure coverage for the app/ package, excludes test code from coverage measurements, focuses on production code quality, can specify multiple packages, and can use `--cov=` with no value to cover all Python files [4a]. The terminal report uses `--cov-report=term-missing` to show coverage in terminal, highlights line numbers not covered by tests, provides immediate feedback during development, and is useful for identifying gaps in test coverage [4b].
 
-2. **Terminal Report (4b):**
-   - `--cov-report=term-missing` shows coverage in terminal
-   - Highlights line numbers not covered by tests
-   - Provides immediate feedback during development
-   - Format: `filename.py: line numbers not covered`
-   - Useful for identifying gaps in test coverage
+**HTML and XML Reports**
+The HTML report uses `--cov-report=html:coverage_html` to generate browsable HTML with interactive report with source code highlighting, color-coded coverage (green=covered, red=uncovered), click-to-navigate through uncovered lines, and is excellent for detailed coverage analysis [4c]. The XML report uses `--cov-report=xml:coverage.xml` to generate machine-readable report used by CI tools (Codecov, Coveralls), enables coverage tracking over time, and is required for coverage badges and dashboards.
 
-3. **HTML Report (4c):**
-   - `--cov-report=html:coverage_html` generates browsable HTML
-   - Interactive report with source code highlighting
-   - Color-coded coverage (green=covered, red=uncovered)
-   - Click-to-navigate through uncovered lines
-   - Excellent for detailed coverage analysis
-   - Open with: `open coverage_html/index.html` or browser
-
-4. **XML Report (added in codemap):**
-   - `--cov-report=xml:coverage.xml` generates machine-readable report
-   - Used by CI tools (Codecov, Coveralls)
-   - Enables coverage tracking over time
-   - Required for coverage badges and dashboards
-
-5. **Coverage Threshold (4d):**
-   - `--cov-fail-under=80` fails test run if coverage < 80%
-   - Enforces minimum coverage quality gate
-   - Prevents coverage regression
-   - Can be overridden with `--cov-fail-under=0` for debugging
-   - CI may use different threshold (see Trace 5)
-
-6. **Git Exclusion (4e):**
-   - `coverage_html/` in .gitignore prevents commit of reports
-   - HTML reports are generated artifacts, not source code
-   - Reduces repository size and noise
-   - Regenerated on each test run
-
-**Running Coverage:**
-
-```bash
-# Run tests with coverage (uses pytest.ini settings)
-pytest
-
-# Run specific test suite with coverage
-pytest tests/unit --cov=app
+**Coverage Threshold**
+The coverage threshold uses `--cov-fail-under=80` to fail test run if coverage < 80%, enforcing quality standards and preventing coverage regression [4d]. Best practices include setting realistic coverage thresholds based on project maturity, using HTML reports for detailed coverage analysis, reviewing term-missing output for quick gap identification, keeping coverage reports out of version control, using coverage in CI for quality gates, tracking coverage trends over time, excluding truly untestable code with pragma comments, and focusing on critical path coverage over blanket percentage. Common issues include coverage below threshold (add tests for uncovered lines or adjust threshold), missing coverage data (ensure pytest-cov is installed and configured), slow coverage collection (use `--no-cov` for speed during development), false negatives (check that test files are excluded from coverage), and HTML report not generating (verify directory permissions and disk space). Integration with CI includes coverage running automatically in CI/CD workflow, XML report uploaded to Codecov for tracking, threshold enforced via environment variable, coverage badges displaying status in README, and historical data showing coverage trends. Git exclusion uses `coverage_html/` in .gitignore to prevent commit of reports since HTML reports are generated artifacts not source code, reduces repository size and noise, and is regenerated on each test run [4e].
 
 # Generate coverage without running tests (if .coverage exists)
 coverage report
@@ -600,33 +401,6 @@ if __name__ == "__main__":  # pragma: no cover
 def debug_function():  # pragma: no cover
     print("Debugging code")
 ```
-
-**Best Practices:**
-
-- Set realistic coverage thresholds based on project maturity
-- Use HTML reports for detailed coverage analysis
-- Review term-missing output for quick gap identification
-- Keep coverage reports out of version control
-- Use coverage in CI for quality gates
-- Track coverage trends over time
-- Exclude truly untestable code with pragma comments
-- Focus on critical path coverage over blanket percentage
-
-**Common Issues:**
-
-- **Coverage below threshold:** Add tests for uncovered lines or adjust threshold
-- **Missing coverage data:** Ensure pytest-cov is installed and configured
-- **Slow coverage collection:** Use `--no-cov` for speed during development
-- **False negatives:** Check that test files are excluded from coverage
-- **HTML report not generating:** Verify directory permissions and disk space
-
-**Integration with CI:**
-
-- Coverage runs automatically in CI/CD workflow
-- XML report uploaded to Codecov for tracking
-- Threshold enforced via environment variable
-- Coverage badges can display status in README
-- Historical data shows coverage trends
 
 ## Trace ID: 5
 **Title:** CI workflow test execution strategies
@@ -689,50 +463,16 @@ GitHub Actions CI Workflows
 
 ### AI Guide: CI Workflow Test Execution Strategies
 
-**Overview:** CI workflows implement different test execution strategies for various purposes: fast feedback in core CI, comprehensive coverage in CD pipelines, and selective testing based on workflow goals.
+**Motivation:**
+CI workflows implement different test execution strategies for various purposes: fast feedback in core CI, comprehensive coverage in CD pipelines, and selective testing based on workflow goals to optimize CI pipeline efficiency and effectiveness.
 
-**Workflow Architecture:**
+**Details:**
 
-1. **ci-core.yml Workflow (5a-5b):**
-   - **Purpose:** Fast feedback on every push/PR
-   - **Unit Tests (5a):** `pytest tests/unit --no-cov`
-     - Runs without coverage for speed
-     - Focuses on fast, isolated tests
-     - Provides quick validation of code changes
-     - Ideal for catching obvious bugs early
-   - **Integration Tests (5b):** `pytest tests/integration --no-cov`
-     - Runs without coverage for speed
-     - Tests component interactions
-     - Requires database but not full stack
-     - Slower than unit tests but still relatively fast
-   - **Strategy:** Separate jobs for parallel execution
-   - **Coverage:** Disabled to reduce CI time
+**ci-core.yml Workflow**
+The ci-core.yml workflow provides fast feedback on every push/PR with unit tests running `pytest tests/unit --no-cov` without coverage for speed, focusing on fast isolated tests for quick validation of code changes and catching obvious bugs early [5a]. Integration tests run `pytest tests/integration --no-cov` without coverage for speed, test component interactions, require database but not full stack, and are slower than unit tests but still relatively fast [5b]. The strategy uses separate jobs for parallel execution with coverage disabled to reduce CI time.
 
-2. **ci-cd.yml Workflow (5c-5e):**
-   - **Purpose:** Comprehensive validation before deployment
-   - **Environment Variables (5c):**
-     - `COVERAGE_THRESHOLD: "60"` - Lower than local 80%
-     - More lenient for PRs to avoid blocking contributions
-     - Can be tightened for main branch protection
-   - **Full Test Suite (5d):** `pytest tests/ --cov=app`
-     - Runs all tests (unit, integration, smoke)
-     - Includes coverage measurement
-     - Slower but comprehensive
-     - Only runs on merge to main or deployment
-   - **Coverage Upload (5e):** `codecov/codecov-action@v4`
-     - Uploads coverage.xml to Codecov
-     - Tracks coverage over time
-     - Enables coverage badges and trends
-     - Provides PR comments with coverage changes
-
-**Execution Strategy Comparison:**
-
-| Aspect | ci-core.yml | ci-cd.yml |
-|--------|-------------|-----------|
-| Trigger | Every push/PR | Merge/deployment |
-| Test Scope | Unit + Integration | Full suite |
-| Coverage | Disabled (--no-cov) | Enabled (--cov=app) |
-| Speed | Fast (minutes) | Slower (10+ minutes) |
+**ci-cd.yml Workflow**
+The ci-cd.yml workflow provides comprehensive validation before deployment with environment variables including `COVERAGE_THRESHOLD: "60"` which is lower than local 80% for more lenient PRs to avoid blocking contributions and can be tightened for main branch protection [5c]. The full test suite runs `pytest tests/ --cov=app` to run all tests (unit, integration, smoke), includes coverage measurement, is slower but comprehensive, and only runs on merge to main or deployment [5d]. Coverage upload uses `codecov/codecov-action@v4` to upload coverage.xml to Codecov, tracks coverage over time, and enables coverage badges and trends [5e]. The execution strategy comparison shows ci-core.yml triggers on every push/PR with unit + integration test scope, disabled coverage for speed, and fast (minutes) execution, while ci-cd.yml triggers on merge/deployment with full test suite, enabled coverage, and slower (10+ minutes) execution.
 | Purpose | Quick feedback | Comprehensive validation |
 | Parallel Jobs | Yes (unit + integration) | Single job |
 
@@ -821,17 +561,6 @@ pytest tests/unit/modules/auth/
 - Historical tracking shows trends
 - Can block PRs if coverage drops significantly
 
-**Best Practices:**
-
-- Separate fast feedback from comprehensive validation
-- Use appropriate coverage thresholds for each workflow
-- Upload coverage for tracking but not for fast feedback
-- Parallelize independent test suites
-- Cache dependencies to reduce CI time
-- Monitor CI duration and optimize bottlenecks
-- Use matrix strategy for multiple environments
-- Keep workflows simple and maintainable
-
 ## Trace ID: 6
 **Title:** Playwright E2E test configuration (separate system)
 
@@ -904,50 +633,19 @@ Playwright E2E Test Configuration
 
 ### AI Guide: Playwright E2E Test Configuration
 
-**Overview:** Playwright provides a separate TypeScript-based testing system for end-to-end browser testing. Unlike pytest, Playwright tests run in real browsers and validate complete user flows from UI to backend.
+**Motivation:**
+Playwright provides a separate TypeScript-based testing system for end-to-end browser testing. Unlike pytest, Playwright tests run in real browsers and validate complete user flows from UI to backend to ensure the application works as expected for end users.
 
-**Playwright vs Pytest:**
+**Details:**
 
-| Aspect | Playwright E2E | Pytest |
-|--------|----------------|--------|
-| Language | TypeScript | Python |
-| Execution | Real browsers | In-memory |
-| Scope | Full user flows | Unit/integration |
-| Speed | Slow (seconds to minutes) | Fast (milliseconds) |
-| Dependencies | Running application stack | Database only |
-| Use Case | UI validation | Logic validation |
+**Playwright vs Pytest**
+The comparison between Playwright E2E and pytest shows differences in language (TypeScript vs Python), execution (real browsers vs in-memory), scope (full user flows vs unit/integration), speed (slow seconds to minutes vs fast milliseconds), dependencies (running application stack vs database only), and use case (UI validation vs logic validation).
 
-**Configuration Components:**
+**Configuration Components**
+Test discovery uses `testDir: "./tests/e2e"` for E2E test location and `testMatch: "**/*.spec.ts"` for file pattern discovery, separate from pytest test discovery with TypeScript files requiring compilation and naming convention like `auth.spec.ts`, `diagnostic.spec.ts` [6a-6b]. Execution strategy uses `timeout: 60_000ms` for global test timeout (60 seconds), `retries: process.env.CI ? 2 : 0` to retry flaky tests in CI, and `workers: process.env.CI ? 2 : undefined` to limit parallelism in CI, balancing speed with resource usage and preventing CI resource exhaustion.
 
-1. **Test Discovery (6a-6b):**
-   - `testDir: "./tests/e2e"` - E2E test location
-   - `testMatch: "**/*.spec.ts"` - File pattern for discovery
-   - Separate from pytest test discovery
-   - TypeScript files require compilation
-   - Naming convention: `auth.spec.ts`, `diagnostic.spec.ts`
-
-2. **Execution Strategy:**
-   - `timeout: 60_000ms` - Global test timeout (60 seconds)
-   - `retries: process.env.CI ? 2 : 0` - Retry flaky tests in CI
-   - `workers: process.env.CI ? 2 : undefined` - Limit parallelism in CI
-   - Balances speed with resource usage
-   - Prevents CI resource exhaustion
-
-3. **Browser Matrix (6c):**
-   - **Chromium:** Desktop Chrome (primary browser)
-   - **Firefox:** Desktop Firefox (secondary browser)
-   - **WebKit:** Desktop Safari (macOS/iOS rendering)
-   - **Mobile Chrome:** Pixel 5 (Android testing)
-   - **Mobile Safari:** iPhone 13 (iOS testing)
-   - Cross-browser compatibility validation
-   - Can run all or subset based on CI constraints
-
-4. **Reporting:**
-   - `list` reporter - Console output during test run
-   - `html` reporter - Interactive HTML report in playwright-report/
-   - Screenshots on failure
-   - Video recording (optional)
-   - Trace files for debugging
+**Browser Matrix**
+The browser matrix includes Chromium for desktop Chrome (primary browser), Firefox for desktop Firefox (secondary browser), WebKit for desktop Safari (macOS/iOS rendering), and Mobile Chrome for Pixel 5 (Android testing) [6c]. This ensures cross-browser compatibility testing. Additional browsers include Mobile Safari for iPhone 13 (iOS testing) and the system can run all or subset based on CI constraints. Reporting uses the list reporter for console output during test run, the html reporter for interactive HTML report in playwright-report/, screenshots on failure, video recording (optional), and trace files for debugging.
 
 **Running Playwright Tests:**
 
@@ -1043,35 +741,6 @@ const test = base.extend<TestFixtures>({
     path: playwright-report/
 ```
 
-**Best Practices:**
-
-- Keep E2E tests focused on critical user journeys
-- Use page objects for reusable test logic
-- Run E2E tests in CI with retries for flakiness
-- Limit browser matrix to essential browsers
-- Use headed mode for local debugging
-- Leverage Playwright's auto-waiting for stability
-- Isolate E2E tests from each other (cleanup after each)
-- Mock external services when possible
-- Run E2E tests only when necessary (slow)
-
-**Common Issues:**
-
-- **Tests timing out:** Increase timeout or optimize test speed
-- **Flaky tests:** Implement retries and auto-waiting
-- **Browser not launching:** Install Playwright browsers with `npx playwright install`
-- **Tests failing in CI:** Check CI environment and resource limits
-- **Slow test execution:** Reduce browser matrix or parallelize intelligently
-
-**Debugging Strategies:**
-
-- Use `--debug` mode for step-by-step execution
-- Run with `--headed` to see browser actions
-- Enable trace files for detailed debugging
-- Use Playwright Inspector for element selection
-- Check screenshots and videos on failure
-- Use browser dev tools during headed runs
-
 ## Trace ID: 7
 **Title:** Module-specific fixture strategies for optional dependencies
 
@@ -1133,160 +802,19 @@ Module-Specific Fixture Strategy (Diagnostics)
 
 ### AI Guide: Module-Specific Fixture Strategies for Optional Dependencies
 
-**Overview:** This trace demonstrates two contrasting strategies for handling optional dependencies in tests: graceful skipping in unit tests vs. hard failures in integration tests. The approach chosen depends on the test category and development workflow.
+**Motivation:**
+This trace demonstrates two contrasting strategies for handling optional dependencies in tests: graceful skipping in unit tests vs. hard failures in integration tests. The approach chosen depends on the test category and development workflow to optimize test execution and developer experience.
 
-**Strategy Comparison:**
+**Details:**
 
-| Aspect | Unit Tests (Graceful Skip) | Integration Tests (Hard Fail) |
-|--------|---------------------------|-----------------------------|
-| Purpose | Run tests when possible | Ensure environment is ready |
-| DB Unavailable | Skip with message | Fail with error |
-| Developer Experience | Tests run locally without DB | Clear signal to start DB |
-| CI Behavior | Skips in CI if DB not available | Fails CI if DB not available |
-| Use Case | Optional DB-dependent tests | Required DB-dependent tests |
+**Strategy Comparison**
+The strategy comparison shows unit tests (graceful skip) with purpose to run tests when possible, skipping with message when DB unavailable, tests running locally without DB for developer experience, skipping in CI if DB not available, and use case for optional DB-dependent tests. Integration tests (hard fail) have purpose to ensure environment is ready, failing with error when DB unavailable, clear signal to start DB for developer experience, failing CI if DB not available, and use case for required DB-dependent tests.
 
-**Unit Test Strategy (Graceful Skip):**
+**Unit Test Strategy (Graceful Skip)**
+The database reachability check tests TCP connection to Postgres with a 1-second timeout for fast check, returns boolean for fixture logic, and has no SQLAlchemy dependency (lightweight) [7a-7b]. The DB available fixture is module-scoped for efficiency, caches result for all tests in module, and can be used directly or by other fixtures [7c]. The skip if no DB fixture is opt-in where tests must request this fixture, skips entire module if DB unavailable, provides clear message about why skipped, and suggests moving to integration tests [7c-7d]. The DB session fixture depends on skip_if_no_db and only creates session if DB available, so tests requesting db_session get automatic skip.
 
-1. **Database Reachability Check (7a-7b):**
-   ```python
-   def _postgres_is_reachable() -> bool:
-       """Return True when a TCP connection to the configured Postgres host/port
-       succeeds within 1 second."""
-       host = os.environ.get("PGHOST", "localhost")
-       port = int(os.environ.get("PGPORT", "5432"))
-       try:
-           with socket.create_connection((host, port), timeout=1.0):
-               return True
-       except OSError:
-           return False
-   ```
-   - Tests TCP connection to Postgres
-   - 1-second timeout for fast check
-   - Returns boolean for fixture logic
-   - No SQLAlchemy dependency (lightweight)
-
-2. **DB Available Fixture (7c):**
-   ```python
-   @pytest.fixture(scope="module")
-   def db_available() -> bool:
-       """Check if Postgres is reachable."""
-       return _postgres_is_reachable()
-   ```
-   - Module-scoped for efficiency
-   - Caches result for all tests in module
-   - Can be used directly or by other fixtures
-
-3. **Skip If No DB Fixture (7c-7d):**
-   ```python
-   @pytest.fixture(scope="module")
-   def skip_if_no_db(db_available: bool) -> None:
-       """Opt-in fixture: skip the entire module when Postgres is absent."""
-       if not db_available:
-           pytest.skip(
-               "Postgres not reachable – skipping DB-dependent test "
-               "(move to tests/integration/ for guaranteed execution)."
-           )
-   ```
-   - Opt-in: tests must request this fixture
-   - Skips entire module if DB unavailable
-   - Provides clear message about why skipped
-   - Suggests moving to integration tests
-
-4. **DB Session Fixture (Opt-in):**
-   ```python
-   @pytest.fixture(scope="function")
-   async def db_session(skip_if_no_db):
-       """Provide DB session only if Postgres is reachable."""
-       # Actual session creation logic
-       pass
-   ```
-   - Depends on skip_if_no_db
-   - Only creates session if DB available
-   - Tests requesting db_session get automatic skip
-
-**Integration Test Strategy (Hard Fail):**
-
-```python
-def integration_engine():
-    """Session-scoped engine – created once per pytest session."""
-    engine = create_engine(DATABASE_URL, pool_pre_ping=True)
-    yield engine
-    engine.dispose()
-```
-
-- No reachability check
-- Attempts connection directly
-- Fails immediately if DB unavailable
-- Clear signal that environment is misconfigured
-- Integration tests should run in proper environment
-
-**When to Use Each Strategy:**
-
-**Use Graceful Skip (Unit Tests) when:**
-
-- Tests can run without the dependency
-- Dependency is optional for development
-- Want tests to run in CI even without DB
-- Developers may not have DB running locally
-- Tests are primarily logic-focused with optional DB validation
-- Module contains both DB-dependent and DB-independent tests
-
-**Use Hard Fail (Integration Tests) when:**
-
-- Dependency is required for test execution
-- Integration tests should guarantee environment is ready
-- Want immediate feedback on environment issues
-- CI should fail if dependencies are missing
-- Tests are specifically for integration validation
-- Environment should be controlled (Docker, CI)
-
-**Implementation Patterns:**
-
-```python
-# Pattern 1: Opt-in skip (unit tests)
-@pytest.fixture(scope="module")
-def skip_if_no_service():
-    if not _service_is_reachable():
-        pytest.skip("Service not available")
-
-@pytest.fixture
-def client(skip_if_no_service):
-    return ServiceClient()
-
-# Pattern 2: Autouse skip (module-wide)
-@pytest.fixture(scope="module", autouse=True)
-def skip_module_if_no_db():
-    if not _postgres_is_reachable():
-        pytest.skip("Postgres not available")
-
-# Pattern 3: Conditional fixture
-@pytest.fixture
-def maybe_db():
-    if _postgres_is_reachable():
-        return create_db_session()
-    return None
-
-def test_something(maybe_db):
-    if maybe_db:
-        # Test with DB
-    else:
-        # Test without DB
-```
-
-**Best Practices:**
-
-- Use graceful skip for optional dependencies in unit tests
-- Use hard fail for required dependencies in integration tests
-- Provide clear skip messages explaining why tests were skipped
-- Suggest alternative test locations in skip messages
-- Keep reachability checks lightweight (TCP socket, not full connection)
-- Use appropriate fixture scope (module for efficiency, function for isolation)
-- Document fixture behavior in docstrings
-- Consider environment variables for controlling skip behavior
-
-**Common Issues:**
-
-- **Tests always skipping:** Check that dependency is actually available
+**Integration Test Strategy (Hard Fail)**
+The integration test strategy has no reachability check, attempts connection directly, fails immediately if DB unavailable, provides clear signal that environment is misconfigured, and integration tests should run in proper environment. Use graceful skip for optional dependencies in unit tests when tests can run without the dependency, dependency is optional for development, want tests to run in CI even without DB, developers may not have DB running locally, tests are primarily logic-focused with optional DB validation, or module contains both DB-dependent and DB-independent tests. Use hard fail for required dependencies in integration tests when dependency is required for test execution, integration tests should guarantee environment is ready, want immediate feedback on environment issues, CI should fail if dependencies are missing, tests are specifically for integration validation, or environment should be controlled (Docker, CI). Best practices include providing clear skip messages explaining why tests were skipped, suggesting alternative test locations in skip messages, keeping reachability checks lightweight (TCP socket, not full connection), using appropriate fixture scope (module for efficiency, function for isolation), documenting fixture behavior in docstrings, and considering environment variables for controlling skip behavior.
 - **Tests never skipping:** Verify reachability check is correct
 - **Flaky reachability:** Increase timeout or check multiple times
 - **Silent failures:** Ensure skip messages are informative

@@ -82,39 +82,22 @@ BaseRepository[ModelT] Generic CRUD
 
 ### AI Guide: BaseRepository Generic CRUD Operations
 
-**Overview:** The BaseRepository class provides type-safe async CRUD operations for all domain entities using Python generics. This trace shows the core infrastructure that all domain repositories inherit from.
+**Motivation:**
+The BaseRepository class exists to standardize common persistence operations across EduBoost's domain model. It prevents each repository from re-implementing the same SQLAlchemy create/read/update/delete mechanics and makes repository behavior easier for agents and developers to predict.
 
-**Key Components:**
+**Details:**
 
-1. **Generic Repository Base Class (1a):** Type-safe generic using ModelT parameter. Binds to SQLAlchemy models. Provides inherited CRUD methods.
+**Generic Type Safety**
+The BaseRepository class uses Python generics (TypeVar ModelT bound to Base) to provide type-safe async CRUD operations for all domain entities [1a]. This generic binding ensures that concrete repositories inherit type-safe operations while eliminating code duplication.
 
-2. **Get Operation (1b):** Executes SQLAlchemy 2.0 select query. Uses async/await pattern. Returns optional result.
+**Read Operations**
+The get method executes SQLAlchemy 2.0 select queries with async support, returning scalar_one_or_none() for optional results [1b]. The get_or_404 method wraps get() and raises a typed NotFoundError when the entity is not found [1f][1g], converting database nulls to domain exceptions for proper API error handling.
 
-3. **Create Operation (1c):** Instantiates model from kwargs. Type-safe model creation. Prepares for persistence.
+**Create Operations**
+The create method instantiates models from kwargs, adds them to the session, flushes to get the ID without committing, and refreshes the instance [1c][1d][1e]. This pattern balances performance (flush without commit) with data integrity (transaction management). The add operation stages the instance in the session without immediate commit, enabling transaction control.
 
-4. **Add to Session (1d):** Stages instance in session. Does not commit immediately. Enables transaction management.
-
-5. **Flush Without Commit (1e):** Persists to database. Gets ID without committing. Balances performance and integrity.
-
-6. **Get or 404 Pattern (1f):** Wraps get() method. Provides existence check. Returns 404 for missing entities.
-
-7. **Raise Domain Exception (1g):** Converts None to NotFoundError. Typed exception for API layer. Proper error handling.
-
-**Best Practices:**
-- Use generic type parameters for type safety
-- Flush without commit for performance
-- Refresh after flush to get generated values
-- Use get_or_404 for API endpoints
-- Keep repository methods simple
-- Let service layer handle business logic
-- Use SQLAlchemy 2.0 syntax
-
-**Common Issues:**
-- Type errors: Check ModelT binding
-- Missing ID after create: Call refresh after flush
-- Not found errors: Use get_or_404 in API routes
-- Transaction issues: Check session management
-- Performance: Optimize queries with indexes
+**Update and Delete Operations**
+The update method uses setattr for each field, adds to session, and flushes & refreshes. The delete method calls db.delete() and flushes. These operations follow the same flush-without-commit pattern as create, ensuring consistent transaction boundaries.
 
 ## Trace ID: 2
 **Title:** Concrete Repository Extensions
@@ -185,35 +168,19 @@ Repository Pattern Hierarchy
 
 ### AI Guide: Concrete Repository Extensions
 
-**Overview:** Concrete repositories extend BaseRepository to provide domain-specific data access while inheriting generic CRUD operations. This trace shows the inheritance pattern and custom method implementation.
+**Motivation:**
+Concrete repository classes extend BaseRepository to provide domain-specific data access while inheriting generic CRUD operations. This inheritance pattern eliminates code duplication while allowing domain-specific customization, ensuring all repositories share a consistent data access interface.
 
-**Key Components:**
+**Details:**
 
-1. **Learner Repository Declaration (2a):** Extends BaseRepository with type parameter. Binds to Learner model. Inherits CRUD methods.
+**Type Binding and Inheritance**
+The LearnerRepository extends BaseRepository[Learner] and binds the generic ModelT to the concrete Learner ORM model [2a][2b]. This binding provides type-safe operations for learner entities while inheriting all BaseRepository methods. The DiagnosticRepository similarly extends BaseRepository[DiagnosticSession] with its own model binding [2d].
 
-2. **Model Binding (2b):** Binds generic ModelT to concrete model. Provides type safety. Enables IDE support.
+**Custom Method Wrappers**
+The get_by_id method wraps the inherited get() method with UUID conversion, providing a convenient API for string-based IDs [2c]. The create_session method wraps inherited create() with domain-specific parameters [2e]. These wrappers provide domain-specific convenience while delegating to the base implementation.
 
-3. **Custom Get Method (2c):** Wraps inherited get() method. Converts string to UUID. Provides convenient API.
-
-4. **Diagnostic Repository (2d):** Another concrete repository. Extends BaseRepository pattern. Domain-specific implementation.
-
-5. **Domain-Specific Create (2e):** Wraps inherited create() method. Accepts domain parameters. Simplifies service layer calls.
-
-**Best Practices:**
-- Extend BaseRepository for type safety
-- Bind model class explicitly
-- Add custom methods for domain logic
-- Keep methods thin and focused
-- Delegate to inherited methods
-- Use UUID conversion for string IDs
-- Maintain consistent naming
-
-**Common Issues:**
-- Type errors: Check model binding
-- Missing methods: Verify inheritance
-- UUID conversion errors: Validate input
-- Method not found: Check BaseRepository
-- Type hints not working: Check generic parameter
+**Inheritance Benefits**
+All BaseRepository methods are available to concrete repositories, providing a consistent data access interface across the application. This inheritance ensures that new repositories automatically get CRUD operations without re-implementation.
 
 ## Trace ID: 3
 **Title:** Async Database Session Lifecycle
@@ -280,35 +247,19 @@ Database Configuration & Session Lifecycle
 
 ### AI Guide: Async Database Session Lifecycle
 
-**Overview:** The async database session lifecycle manages connection pooling, session creation, and transaction boundaries for all database operations. This trace shows how sessions are created, injected, and managed.
+**Motivation:**
+The async database session lifecycle manages connection pooling, session creation, and transaction boundaries for all database operations. Using SQLAlchemy 2.0 with asyncpg driver provides async support while the session factory and dependency injection ensure proper resource management and transaction control.
 
-**Key Components:**
+**Details:**
 
-1. **Async Engine Creation (3a):** Initializes asyncpg-backed engine. Configures connection pooling. Handles async connections.
+**Engine and Session Factory**
+The create_async_engine function initializes the asyncpg-backed SQLAlchemy engine with connection pooling [3a]. The async_sessionmaker creates a session factory with expire_on_commit=False to prevent detached instance errors, autocommit=False for transaction control, and autoflush=False for explicit flush control [3b].
 
-2. **Session Factory (3b):** Creates async session factory. Configures session behavior. Controls transaction management.
+**Dependency Injection**
+The get_db function is a FastAPI dependency that yields an async session per request, managing the request-scoped transaction lifecycle [3c]. The session context manager ensures resources are released even if exceptions occur.
 
-3. **Session Context Manager (3c):** FastAPI dependency injection. Yields session per request. Manages request lifecycle.
-
-4. **Auto-Commit on Success (3d):** Commits transaction on success. Automatic cleanup. No manual commit needed.
-
-5. **Auto-Rollback on Error (3e):** Rolls back on exception. Ensures data integrity. Re-raises for handling.
-
-**Best Practices:**
-- Use asyncpg for async operations
-- Configure expire_on_commit=False
-- Disable autocommit for control
-- Use dependency injection for sessions
-- Let framework handle commit/rollback
-- Configure connection pool appropriately
-- Use environment variables for credentials
-
-**Common Issues:**
-- Connection errors: Check asyncpg installation
-- Session errors: Verify session configuration
-- Transaction issues: Check commit/rollback logic
-- Pool exhaustion: Configure pool size
-- Detached instances: Check expire_on_commit
+**Transaction Management**
+On success, the session commits automatically [3d]. On exception, the session rolls back and re-raises the exception [3e]. This pattern ensures proper transaction boundaries, automatic cleanup, and error handling for all database operations.
 
 ## Trace ID: 4
 **Title:** Repository Usage in API Routes
@@ -367,33 +318,19 @@ FastAPI Request Lifecycle
 
 ### AI Guide: Repository Usage in API Routes
 
-**Overview:** API routes use dependency injection to receive async sessions and instantiate repositories for data access. This trace shows the complete request lifecycle from dependency injection to response validation.
+**Motivation:**
+API routes use dependency injection to receive async sessions and instantiate repositories for data access. This pattern ensures clean separation of concerns, proper transaction management, and type-safe API responses while keeping route handlers thin.
 
-**Key Components:**
+**Details:**
 
-1. **Session Dependency Injection (4a):** FastAPI injects async session. Uses get_db dependency. Per-request session.
+**Session Injection**
+The get_db dependency yields an AsyncSession per request, which is injected into route handlers [4a]. This ensures each request gets an isolated session with proper lifecycle management.
 
-2. **Repository Instantiation (4b):** Creates repository with session. Request-scoped instance. Type-safe operations.
+**Repository Instantiation**
+The create_learner route handler receives the session via dependency injection and instantiates a LearnerRepository with the injected session [4b]. The repository's create method is called to persist the learner [4c], which internally uses BaseRepository.create() to instantiate the model, add it to the session, flush to get the ID, and refresh the instance.
 
-3. **Repository Create Call (4c):** Calls inherited create method. Delegates to BaseRepository. Persists data.
-
-4. **Response Model Validation (4c):** Converts ORM to Pydantic. Type-safe serialization. Filters sensitive data.
-
-**Best Practices:**
-- Use dependency injection for sessions
-- Instantiate repositories in handlers
-- Use Pydantic for response validation
-- Let framework handle transactions
-- Keep route handlers thin
-- Validate inputs before repository calls
-- Use type hints for IDE support
-
-**Common Issues:**
-- Session not injected: Check dependency
-- Repository errors: Check session state
-- Validation errors: Check Pydantic models
-- Transaction issues: Check commit/rollback
-- Type errors: Verify model binding
+**Response Validation**
+The resulting ORM model is converted to a Pydantic response schema using model_validate() for type-safe serialization [4d]. After the route handler completes, the get_db dependency automatically commits the transaction on success or rolls back on exception.
 
 ## Trace ID: 5
 **Title:** Repository Usage in Service Layer
@@ -455,33 +392,19 @@ Service Layer Repository Usage
 
 ### AI Guide: Repository Usage in Service Layer
 
-**Overview:** Services use constructor injection to receive repositories, enabling testability and separation of concerns. This trace shows how services delegate data access to repositories.
+**Motivation:**
+Services use constructor injection to receive repositories, enabling testability and separation of concerns. This pattern allows unit testing with mock repositories, keeps business logic clean of data access details, and provides a clear separation between service layer and data access layer.
 
-**Key Components:**
+**Details:**
 
-1. **Service Constructor Injection (5a):** Accepts repositories as dependencies. Stores as instance variables. Enables testability.
+**Constructor Injection**
+The DiagnosticServiceV2 accepts repositories as constructor dependencies, storing them as instance variables for use in business logic methods [5a]. The GamificationServiceV2 similarly accepts repositories and stores them as instance variables.
 
-2. **Repository Query in Service (5b):** Delegates data access to repository. Keeps business logic clean. Separates concerns.
+**Data Access Delegation**
+The run_diagnostic method delegates data access to the learner_repository.get_by_id() method [5b], keeping business logic separate from data access. The get_profile method calls domain-specific repository methods like get_profile_rows() [5c].
 
-3. **Custom Repository Method (5c):** Calls domain-specific methods. Provides specialized queries. Encapsulates data access.
-
-4. **Repository Factory Function (5d):** FastAPI dependency for repositories. Injects session. Returns repository instance.
-
-**Best Practices:**
-- Use constructor injection for repositories
-- Keep services focused on business logic
-- Delegate all data access to repositories
-- Enable unit testing with mock repositories
-- Use factory functions for FastAPI injection
-- Keep service methods focused
-- Validate inputs in services
-
-**Common Issues:**
-- Circular dependencies: Refactor service design
-- Repository not injected: Check constructor
-- Business logic in repositories: Move to services
-- Testing issues: Use mock repositories
-- Type errors: Check repository interfaces
+**Factory Functions**
+FastAPI dependency injection is used to create repository instances via factory functions like get_lesson_repository() [5d], which receives an AsyncSession via Depends(get_db) and returns a LessonRepository(db). This enables services to receive pre-configured repository instances while maintaining testability.
 
 ## Trace ID: 6
 **Title:** Alternative Repository Patterns
@@ -556,40 +479,19 @@ Class-Based Without Inheritance
 
 ### AI Guide: Alternative Repository Patterns
 
-**Overview:** The codebase contains alternative repository patterns that deviate from BaseRepository for legacy, performance, or specialized reasons. This trace shows these patterns and their use cases.
+**Motivation:**
+The codebase contains alternative repository patterns that deviate from BaseRepository for legacy, performance, or specialized reasons. These patterns exist due to historical code, performance requirements for complex queries, or specialized use cases that benefit from direct database access.
 
-**Key Components:**
+**Details:**
 
-1. **Manual Repository Pattern (6a):** Legacy pattern without inheritance. Direct session management. Manual add/flush operations.
+**Manual Pattern Without Inheritance**
+The GuardianRepository uses a manual pattern without BaseRepository inheritance, directly managing session operations like db.add() and db.flush() [6a][6b]. This legacy pattern lacks the benefits of the base class but remains in the codebase for historical reasons.
 
-2. **Direct Session Usage (6b):** Manages session without helpers. Explicit lifecycle management. No base class benefits.
+**Raw SQL for Performance**
+The AssessmentRepository uses raw SQL with text() for complex queries that are difficult to express in ORM [6c]. This provides performance optimization for specific use cases where ORM query generation would be inefficient.
 
-3. **Raw SQL Execution (6c):** Uses text() for raw SQL. Performance optimization. Complex queries.
+**AsyncPG Pool Pattern**
+The ConsentRepository uses asyncpg connection pools instead of SQLAlchemy for specialized async operations [6d], bypassing the ORM layer for direct database access. This pattern offers performance benefits for specific async operations.
 
-4. **AsyncPG Pool Pattern (6d):** Uses asyncpg connection pool. Bypasses SQLAlchemy. Direct database access.
-
-5. **Class-Based Without Inheritance (6e):** Session-based repository. Manual session management. No BaseRepository extension.
-
-**Best Practices:**
-- Migrate to BaseRepository when possible
-- Use raw SQL only for performance
-- Parameterize all raw SQL queries
-- Audit legacy code for security
-- Document reasons for alternative patterns
-- Gradually migrate to standard pattern
-- Keep alternative patterns isolated
-
-**Common Issues:**
-- Session leaks: Check manual cleanup
-- SQL injection: Parameterize queries
-- Connection exhaustion: Configure pools
-- Inconsistent patterns: Migrate to BaseRepository
-- Type safety lost: Use type hints
-
-**Migration Strategy:**
-- Identify alternative patterns
-- Create BaseRepository extensions
-- Migrate methods incrementally
-- Update service layer
-- Remove legacy code
-- Test thoroughly
+**Class-Based Without BaseRepository**
+The ItemBankRepository uses a class-based pattern without BaseRepository extension, managing sessions manually [6e]. These alternative patterns are gradually being migrated to BaseRepository for consistency, but remain where they provide specific value.

@@ -74,38 +74,19 @@ Authentication Flow (AuthService)
 
 ### AI Guide: User Authentication Flow
 
-**Overview:** The authentication service handles user login with security best practices including password verification, account lockout, and JWT token issuance. This trace shows the complete login flow from credential verification to token generation.
+**Motivation:**
+The authentication service handles user login with security best practices including password verification, account lockout, and JWT token issuance. The complete login flow from credential verification to token generation ensures secure authentication while protecting against brute force attacks.
 
-**Key Components:**
+**Details:**
 
-1. **Login Entry (1a):** Main authentication method accepting email and password. Returns LoginResponse with tokens on success. Raises AuthError on failure.
+**Login Entry and User Lookup**
+The login entry is the main authentication method accepting email and password, returning LoginResponse with tokens on success and raising AuthError on failure [1a]. User lookup is a repository call to fetch user by email, returning the user record with password hash or None if the user is not found [1b].
 
-2. **User Lookup (1b):** Repository call to fetch user by email. Returns user record with password hash. Returns None if user not found.
+**Lockout Check and Password Verification**
+The lockout check enforces business rules for account lockout by checking failed attempt count and lockout time, raising AuthError if locked [1c]. Password verification uses cryptographic hash comparison with bcrypt to verify the password against the stored hash [1d].
 
-3. **Lockout Check (1c):** Business rule enforcement for account lockout. Checks failed attempt count and lockout time. Raises AuthError if locked.
-
-4. **Password Verification (1d):** Cryptographic hash comparison using bcrypt. Verifies password against stored hash. Returns boolean.
-
-5. **Token Issuance (1e):** Generate JWT access and refresh tokens. Access token short-lived (15 min). Refresh token long-lived with rotation.
-
-6. **Access Token Creation (1f):** Core token creation with user claims. Includes user_id, role, and other claims. Uses kid-based keyring.
-
-7. **Refresh Token Storage (1g):** Persist refresh token for rotation tracking. Stores hashed token with user_id and family_id.
-
-**Best Practices:**
-- Use bcrypt for password hashing
-- Implement account lockout after failed attempts
-- Return same error for nonexistent vs wrong password
-- Use short-lived access tokens with rotation
-- Store refresh tokens hashed
-- Rotate password hashes on successful login
-- Track failed attempts by IP (optional)
-
-**Common Issues:**
-- Account locked out: Wait for lockout expiry or manual unlock
-- Password verification fails: Check password hash format
-- Token issuance fails: Check keyring configuration
-- Refresh token storage fails: Check Redis connection
+**Token Issuance and Storage**
+Token issuance generates JWT access and refresh tokens, with the access token being short-lived (15 min) and the refresh token long-lived with rotation [1e]. Access token creation is the core token creation with user claims including user_id, role, and other claims using kid-based keyring [1f]. Refresh token storage persists the refresh token for rotation tracking by storing the hashed token with user_id and family_id [1g].
 
 ## Trace ID: 2
 **Title:** Content Artifact Creation & Validation
@@ -183,39 +164,19 @@ Content Factory Artifact Creation Flow
 
 ### AI Guide: Content Artifact Creation & Validation
 
-**Overview:** The content factory service creates and validates content artifacts with strict provenance requirements. This trace shows how artifacts are validated against ETL sources and stored with full traceability.
+**Motivation:**
+The content factory service creates and validates content artifacts with strict provenance requirements. Artifacts are validated against ETL sources and stored with full traceability to ensure content quality and compliance with provenance requirements.
 
-**Key Components:**
+**Details:**
 
-1. **Artifact Creation Entry (2a):** Main service method for creating content artifacts. Accepts payload with artifact JSON and sources. Returns ContentGenerationArtifact.
+**Artifact Creation and Validation**
+The artifact creation entry is the main service method for creating content artifacts, accepting a payload with artifact JSON and sources and returning ContentGenerationArtifact [2a]. Validation orchestration delegates to the validation service for business rule checks, validating schema, answer key, and source provenance [2b].
 
-2. **Validation Orchestration (2b):** Delegate to validation service for business rule checks. Validates schema, answer key, and source provenance. Returns validation result.
+**Source Provenance and Status**
+The source provenance gate performs ETL provenance validation ensuring approved source citations by checking document_id, chunk_id, status, license, and quality, and building a source snapshot hash [2c]. The source status check enforces that sources are approved/indexed/training_ready, only allowing approved sources for content generation [2d].
 
-3. **Source Provenance Gate (2c):** ETL provenance validation ensuring approved source citations. Checks document_id, chunk_id, status, license, quality. Builds source snapshot hash.
-
-4. **Source Status Check (2d):** Enforce that sources are approved/indexed/training_ready. Only allows approved sources for content generation.
-
-5. **Artifact Instantiation (2e):** Create artifact model with validation-based status. Sets status based on validation result. Stores artifact hash.
-
-6. **Source Citation Persistence (2f):** Store ETL source citations for traceability. Links artifacts to source chunks. Stores citation metadata.
-
-7. **Validation Report Storage (2g):** Persist validation results for audit trail. Stores validation errors and warnings. Enables compliance auditing.
-
-**Best Practices:**
-- Validate all artifacts before creation
-- Enforce source provenance requirements
-- Check license compatibility
-- Apply quality score thresholds
-- Store validation reports for audit
-- Use source snapshot hash for traceability
-- Fail fast on validation errors
-
-**Common Issues:**
-- Validation failures: Check payload structure
-- Source not approved: Verify source status in ETL
-- License incompatibility: Check source license
-- Quality score too low: Improve source quality
-- Missing schema: Add schema to payload
+**Artifact and Citation Persistence**
+Artifact instantiation creates the artifact model with validation-based status, setting status based on validation result and storing the artifact hash [2e]. Source citation persistence stores ETL source citations for traceability by linking artifacts to source chunks and storing citation metadata [2f]. Validation report storage persists validation results for the audit trail by storing validation errors and warnings to enable compliance auditing [2g].
 
 ## Trace ID: 3
 **Title:** Diagnostic Session Lifecycle
@@ -297,39 +258,22 @@ Diagnostic Session Service
 
 ### AI Guide: Diagnostic Session Lifecycle
 
-**Overview:** The diagnostic session service orchestrates IRT-based adaptive assessments with Redis state management. This trace shows how sessions are created, items are delivered adaptively, and responses are recorded.
+**Motivation:**
+The diagnostic session service orchestrates IRT-based adaptive assessments with Redis state management. Sessions are created, items are delivered adaptively, and responses are recorded to provide accurate ability estimation through Item Response Theory.
 
-**Key Components:**
+**Details:**
 
-1. **Session Creation Entry (3a):** Initialize new diagnostic session for learner. Accepts learner_id and prior_theta. Returns session_id.
+**Session Creation and IRT Initialization**
+The session creation entry initializes a new diagnostic session for the learner, accepting learner_id and prior_theta and returning session_id [3a]. IRT engine initialization delegates to the IRT engine for session state creation, creating the initial theta estimate and setting item exposure tracking [3b].
 
-2. **IRT Engine Initialization (3b):** Delegate to IRT engine for session state creation. Creates initial theta estimate. Sets item exposure tracking.
+**Redis State Persistence**
+Redis state persistence stores the session state in Redis with 24h TTL to enable fast state retrieval and automatic cleanup after expiry [3c]. This ensures that session state is quickly accessible and automatically cleaned up.
 
-3. **Redis State Persistence (3c):** Store session state in Redis with 24h TTL. Enables fast state retrieval. Automatic cleanup after expiry.
+**Adaptive Item Selection and Response Recording**
+Adaptive item selection uses the IRT engine to select the next item based on the current ability estimate, maximizing information gain and tracking item exposure [3d]. Response recording updates the ability estimate and records exposure using the IRT model to update theta and records response history [3e].
 
-4. **Adaptive Item Selection (3d):** IRT engine selects next item based on current ability estimate. Maximizes information gain. Tracks item exposure.
-
-5. **Response Recording (3e):** Update ability estimate and record exposure. Uses IRT model to update theta. Records response history.
-
-6. **State Update Persistence (3f):** Save updated theta and response history to Redis. Atomic state update. Maintains session consistency.
-
-7. **Session Finalization (3g):** Generate final result with ability estimate and gap topics. Marks session as completed. Returns diagnostic result.
-
-**Best Practices:**
-- Use Redis for fast state management
-- Set TTL for automatic cleanup
-- Implement adaptive item selection
-- Track item exposure to prevent reuse
-- Update theta after each response
-- Enable session recovery for UX
-- Use IRT for accurate ability estimation
-
-**Common Issues:**
-- Session not found: Check Redis connection and TTL
-- IRT engine failure: Check IRT configuration
-- Item selection fails: Check item pool availability
-- State update fails: Check Redis write operations
-- Session recovery fails: Check session ID validity
+**State Update and Finalization**
+State update persistence saves the updated theta and response history to Redis with atomic state update to maintain session consistency [3f]. Session finalization generates the final result with ability estimate and gap topics, marks the session as completed, and returns the diagnostic result [3g].
 
 ## Trace ID: 4
 **Title:** POPIA Data Export Request
@@ -399,37 +343,22 @@ POPIA Data Export Flow
 
 ### AI Guide: POPIA Data Export Request
 
-**Overview:** The POPIA service handles data subject rights requests with authorization checks, consent verification, and audit logging. This trace shows how data exports are performed in compliance with POPIA requirements.
+**Motivation:**
+The POPIA service handles data subject rights requests with authorization checks, consent verification, and audit logging. Data exports are performed in compliance with POPIA requirements to ensure that data subject rights are respected and all actions are auditable.
 
-**Key Components:**
+**Details:**
 
-1. **Export Request Entry (4a):** Main method for POPIA data export requests. Accepts learner_id and format. Returns export payload.
+**Export Entry and Authorization**
+The export request entry is the main method for POPIA data export requests, accepting learner_id and format and returning the export payload [4a]. The authorization check verifies that the user has read access to learner data by checking user permissions and raising an error if unauthorized [4b].
 
-2. **Authorization Check (4b):** Verify user has read access to learner data. Checks user permissions. Raises error if unauthorized.
+**Consent Verification**
+Consent verification ensures that active consent exists before exporting data by checking consent status and raising an error if no consent [4c]. This ensures that data is only exported with proper consent.
 
-3. **Consent Verification (4c):** Ensure active consent exists before exporting data. Checks consent status. Raises error if no consent.
+**Data Aggregation and Query**
+Data aggregation collects learner data from multiple tables including diagnostic sessions, lessons, knowledge gaps, and parental consent to build a comprehensive export [4d]. The session data query fetches diagnostic sessions for the export payload by querying the session table and including session metadata and results [4e].
 
-4. **Data Aggregation (4d):** Collect learner data from multiple tables. Includes diagnostic sessions, lessons, knowledge gaps, parental consent. Builds comprehensive export.
-
-5. **Session Data Query (4e):** Fetch diagnostic sessions for export payload. Queries session table. Includes session metadata and results.
-
-6. **Audit Event Recording (4f):** Log export request for compliance trail. Records actor, timestamp, data exported. Enables regulatory audits.
-
-**Best Practices:**
-- Verify authorization before export
-- Check consent status
-- Log all export requests
-- Support multiple export formats
-- Limit data to learner's own data
-- Provide clear audit trail
-- Handle sensitive data carefully
-
-**Common Issues:**
-- Authorization failure: Check user permissions
-- Consent failure: Verify consent status
-- Data aggregation failure: Check database queries
-- Audit logging failure: Check audit repository
-- CSV generation failure: Check data formatting
+**Audit Logging**
+Audit event recording logs the export request for the compliance trail by recording the actor, timestamp, and data exported to enable regulatory audits [4f]. This provides a complete audit trail for all data export operations.
 
 ## Trace ID: 5
 **Title:** LLM Gateway with Fallback
@@ -497,37 +426,19 @@ LLM Gateway Request Flow
 
 ### AI Guide: LLM Gateway with Fallback
 
-**Overview:** The LLM gateway orchestrates requests across multiple LLM providers with retry, timeout, and fallback capabilities. This trace shows how the gateway provides resilience and development flexibility for LLM integration.
+**Motivation:**
+The LLM gateway orchestrates requests across multiple LLM providers with retry, timeout, and fallback capabilities. The gateway provides resilience and development flexibility for LLM integration by using health checks, fallback mechanisms, and deterministic mock providers.
 
-**Key Components:**
+**Details:**
 
-1. **Gateway Entry Point (5a):** Main completion method with provider orchestration. Accepts LLMGatewayRequest. Returns LLMGatewayResponse.
+**Gateway Entry and Health Check**
+The gateway entry point is the main completion method with provider orchestration, accepting LLMGatewayRequest and returning LLMGatewayResponse [5a]. The health check verifies provider availability before request by checking provider health status and skipping unhealthy providers [5b].
 
-2. **Health Check (5b):** Verify provider availability before request. Checks provider health status. Skips unhealthy providers.
+**Provider Request and Response**
+The provider request executes LLM completion with timeout policy by calling provider.complete() with timeout and handling provider-specific errors [5c]. The success response returns the result with comprehensive metadata including content, latency, provider info, and fallback status [5d].
 
-3. **Provider Request (5c):** Execute LLM completion with timeout policy. Calls provider.complete() with timeout. Handles provider-specific errors.
-
-4. **Success Response (5d):** Return result with comprehensive metadata. Includes content, latency, provider info, fallback status.
-
-5. **Fallback Activation (5e):** Use deterministic mock provider when all providers fail. Ensures development and CI can run without external dependencies.
-
-6. **Mock Provider Implementation (5f):** Deterministic provider for development and CI. Returns predictable responses. No external API calls.
-
-**Best Practices:**
-- Use health checks to avoid unhealthy providers
-- Implement retry logic for transient failures
-- Set appropriate timeout policies
-- Use fallback for development and CI
-- Log all provider failures
-- Track provider performance
-- Use generation enabled flag for cost control
-
-**Common Issues:**
-- All providers failing: Check provider configuration
-- Health check failures: Check provider status
-- Timeout failures: Increase timeout or optimize request
-- Fallback not working: Check mock provider configuration
-- Generation disabled: Check environment variable
+**Fallback and Mock Provider**
+Fallback activation uses a deterministic mock provider when all providers fail to ensure development and CI can run without external dependencies [5e]. The mock provider implementation is a deterministic provider for development and CI that returns predictable responses without external API calls [5f].
 
 ## Trace ID: 6
 **Title:** Content Generation Execution
@@ -602,37 +513,19 @@ Content Generation Task Execution
 
 ### AI Guide: Content Generation Execution
 
-**Overview:** The content generation executor orchestrates LLM-based content generation with source context and artifact persistence. This trace shows how tasks are validated, executed, and tracked.
+**Motivation:**
+The content generation executor orchestrates LLM-based content generation with source context and artifact persistence. Tasks are validated, executed, and tracked to ensure high-quality content generation with full traceability.
 
-**Key Components:**
+**Details:**
 
-1. **Task Execution Entry (6a):** Execute a single content generation task. Accepts task_id. Updates task status during execution.
+**Task Execution and Source Context**
+The task execution entry executes a single content generation task, accepting task_id and updating task status during execution [6a]. Source context building fetches ETL source chunks for generation context to provide context for LLM generation and improve content quality [6b].
 
-2. **Source Context Building (6b):** Fetch ETL source chunks for generation context. Provides context for LLM generation. Improves content quality.
+**Provider Factory and LLM Generation**
+The provider factory gets the configured LLM or deterministic provider, selecting the provider based on configuration to enable development flexibility [6c]. The LLM generation call generates content using the provider with source context by calling provider.complete() with chunks and returning generated content [6d].
 
-3. **Provider Factory (6c):** Get configured LLM or deterministic provider. Selects provider based on configuration. Enables development flexibility.
-
-4. **LLM Generation Call (6d):** Generate content using provider with source context. Calls provider.complete() with chunks. Returns generated content.
-
-5. **Artifact Persistence (6e):** Create artifact with source citations via content factory. Validates artifacts before persistence. Stores source citations for traceability.
-
-6. **Task Status Update (6f):** Mark task as succeeded or failed based on results. Updates task metadata. Enables tracking of generation progress.
-
-**Best Practices:**
-- Validate tasks before execution
-- Build source context from approved sources
-- Use provider factory for flexibility
-- Validate artifacts before persistence
-- Track task status for monitoring
-- Handle failures gracefully
-- Log all generation events
-
-**Common Issues:**
-- Task validation failure: Check task configuration
-- Source context failure: Check ETL source availability
-- Provider failure: Check provider configuration
-- Artifact creation failure: Check validation rules
-- Task status update failure: Check database connection
+**Artifact Persistence and Task Status**
+Artifact persistence creates an artifact with source citations via the content factory, validating artifacts before persistence and storing source citations for traceability [6e]. The task status update marks the task as succeeded or failed based on results, updating task metadata to enable tracking of generation progress [6f].
 
 ## Trace ID: 7
 **Title:** Consent Lifecycle Management
@@ -707,39 +600,19 @@ Consent Service - Grant/Withdraw Flow
 
 ### AI Guide: Consent Lifecycle Management
 
-**Overview:** The consent service manages POPIA consent grants, renewals, and withdrawals with full audit trail. This trace shows how consent operations are performed with domain model transitions and audit logging.
+**Motivation:**
+The consent service manages POPIA consent grants, renewals, and withdrawals with full audit trail. Consent operations are performed with domain model transitions and audit logging to ensure compliance with POPIA requirements and maintain a complete audit trail.
 
-**Key Components:**
+**Details:**
 
-1. **Grant Consent Entry (7a):** Main method for granting parental consent. Accepts learner_id, actor_id, privacy_notice_version. Returns ConsentRecord.
+**Grant Consent and Existing Check**
+The grant consent entry is the main method for granting parental consent, accepting learner_id, actor_id, and privacy_notice_version and returning ConsentRecord [7a]. The existing consent check queries the repository for an active consent record to check if consent already exists and enable consent renewal [7b].
 
-2. **Existing Consent Check (7b):** Query repository for active consent record. Checks if consent already exists. Enables consent renewal.
+**Domain Model and Repository Persistence**
+The domain model update applies the grant transition on the existing consent domain object, updating the privacy notice version and ensuring valid state transition [7c]. Repository persistence saves the updated consent record to the database to persist consent state and return the updated record [7d].
 
-3. **Domain Model Update (7c):** Apply grant transition on existing consent domain object. Updates privacy notice version. Ensures valid state transition.
-
-4. **Repository Persistence (7d):** Save updated consent record to database. Persists consent state. Returns updated record.
-
-5. **Audit Event Recording (7e):** Log consent grant for compliance audit trail. Records actor, timestamp, consent details. Enables regulatory audits.
-
-6. **Withdraw Consent (7f):** Handle consent withdrawal request. Accepts learner_id, actor_id. Returns updated ConsentRecord.
-
-7. **Withdrawal Transition (7g):** Apply withdrawal state transition on domain model. Changes consent status to withdrawn. Ensures valid state transition.
-
-**Best Practices:**
-- Use domain model for state transitions
-- Check for existing consent before grant
-- Log all consent operations
-- Require authorization for consent operations
-- Track privacy notice version
-- Provide clear audit trail
-- Handle consent renewals gracefully
-
-**Common Issues:**
-- Consent not found: Check learner_id
-- Invalid state transition: Check domain model
-- Repository failure: Check database connection
-- Audit logging failure: Check audit repository
-- Authorization failure: Check user permissions
+**Audit Logging and Withdrawal**
+Audit event recording logs the consent grant for the compliance audit trail by recording the actor, timestamp, and consent details to enable regulatory audits [7e]. Withdraw consent handles the consent withdrawal request by accepting learner_id and actor_id and returning the updated ConsentRecord [7f]. The withdrawal transition applies the withdrawal state transition on the domain model, changing consent status to withdrawn and ensuring valid state transition [7g].
 
 ## Trace ID: 8
 **Title:** Lesson Generation with Quota Control
@@ -813,36 +686,19 @@ Lesson Generation Flow
 
 ### AI Guide: Lesson Generation with Quota Control
 
-**Overview:** The lesson generation service orchestrates LLM generation with quota checks, semantic caching, and audit logging. This trace shows how lessons are generated efficiently with cost control and traceability.
+**Motivation:**
+The lesson generation service orchestrates LLM generation with quota checks, semantic caching, and audit logging. Lessons are generated efficiently with cost control and traceability by using semantic caching to reduce costs and enforcing quota limits to prevent overruns.
 
-**Key Components:**
+**Details:**
 
-1. **Lesson Generation Entry (8a):** Main method for generating personalized lessons. Accepts learner_id, subject_code, topic. Returns lesson dict with content.
+**Lesson Generation and Cache Lookup**
+The lesson generation entry is the main method for generating personalized lessons, accepting learner_id, subject_code, and topic and returning a lesson dict with content [8a]. Cache lookup checks the semantic cache for an existing lesson by building a cache key from subject, topic, and learner profile and returning the cached lesson if found [8b].
 
-2. **Cache Lookup (8b):** Check semantic cache for existing lesson. Builds cache key from subject, topic, learner profile. Returns cached lesson if found.
+**Quota Enforcement and Redis Increment**
+Quota enforcement checks and reserves the daily token quota before generation to prevent cost overruns and raises an error if quota is exceeded [8c]. The Redis quota increment performs an atomic increment of the daily token usage counter to ensure thread-safe quota tracking and sets expiry on the first increment [8d].
 
-3. **Quota Enforcement (8c):** Check and reserve daily token quota before generation. Prevents cost overruns. Raises error if quota exceeded.
+**LLM Generation and Lesson Persistence**
+LLM generation calls the LLM provider to generate lesson content by passing context and parameters and returning generated content [8e]. Lesson persistence stores the generated lesson in the repository to persist lesson metadata and content and enable future retrieval [8f].
 
-4. **Redis Quota Increment (8d):** Atomic increment of daily token usage counter. Ensures thread-safe quota tracking. Sets expiry on first increment.
-
-5. **LLM Generation (8e):** Call LLM provider to generate lesson content. Passes context and parameters. Returns generated content.
-
-6. **Lesson Persistence (8f):** Store generated lesson in repository. Persists lesson metadata and content. Enables future retrieval.
-
-7. **Audit Logging (8g):** Record lesson generation event for analytics. Logs learner, subject, topic, tokens used. Enables cost tracking.
-
-**Best Practices:**
-- Use semantic caching to reduce costs
-- Enforce quota limits to prevent overruns
-- Use atomic operations for quota tracking
-- Log all generation events
-- Persist lessons for future reference
-- Handle cache misses gracefully
-- Monitor quota usage regularly
-
-**Common Issues:**
-- Cache miss: Normal, continues to generation
-- Quota exceeded: Check quota limits or increase quota
-- LLM generation failure: Check provider configuration
-- Lesson persistence failure: Check database connection
-- Audit logging failure: Check audit repository
+**Audit Logging**
+Audit logging records the lesson generation event for analytics by logging the learner, subject, topic, and tokens used to enable cost tracking [8g]. This provides a complete audit trail for all lesson generation events.

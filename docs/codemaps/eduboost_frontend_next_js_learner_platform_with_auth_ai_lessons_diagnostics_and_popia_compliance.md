@@ -76,39 +76,19 @@ Guardian Login Flow
 
 ### AI Guide: Guardian Login Flow
 
-**Overview:** The guardian login flow authenticates parents/guardians and initializes learner context for dashboard navigation. This trace shows authentication, token storage, and context initialization.
+**Motivation:**
+The guardian login flow authenticates parents/guardians and initializes learner context for dashboard navigation. This flow ensures that authenticated users can access their children's learning data while maintaining session persistence across page reloads.
 
-**Key Components:**
+**Details:**
 
-1. **Login Form Submission (1a):** User submits credentials. Form handler processes. Authentication request.
+**Authentication**
+The login form submission processes user credentials through a form handler [1a]. The API login request POSTs to /auth/login for credential validation and receives a JWT token response [1b]. The JWT token is stored in localStorage for session persistence and authenticated requests [1c].
 
-2. **API Login Request (1b):** POST to /auth/login. Credential validation. JWT token response.
+**Dashboard and Context**
+After authentication, the parent dashboard is fetched to get the learner list, subscription info, and guardian data [1d]. The learner context is initialized by setting the active learner in global context for state management [1e]. The learner is persisted to storage using localStorage.setItem() for session persistence and context sync [1f].
 
-3. **JWT Token Storage (1c):** Store in localStorage. Session persistence. Authenticated requests.
-
-4. **Fetch Parent Dashboard (1d):** Get learner list. Subscription info. Guardian data.
-
-5. **Initialize Learner Context (1d):** Set active learner. Global context. State management.
-
-6. **Persist Learner to Storage (1f):** localStorage.setItem(). Session persistence. Context sync.
-
-7. **Navigate to Dashboard (1g):** router.push(). Redirect to dashboard. Navigation.
-
-**Best Practices:**
-- Store tokens securely
-- Validate credentials
-- Use HTTPS
-- Implement token refresh
-- Clear tokens on logout
-- Validate learner access
-- Handle errors gracefully
-
-**Common Issues:**
-- Login failures: Check credentials
-- Token storage errors: Check localStorage
-- Dashboard errors: Check API
-- Context errors: Check state management
-- Navigation errors: Check router
+**Navigation**
+The user is navigated to the dashboard using router.push() for redirect to dashboard [1g]. This completes the login flow and provides access to the guardian's dashboard.
 
 ## Trace ID: 2
 **Title:** AI Lesson Generation → Job Polling → Interactive Display → XP Award
@@ -193,40 +173,16 @@ Lesson Generation Flow (Trace 2)
 
 ### AI Guide: AI Lesson Generation
 
-**Overview:** Async AI lesson generation with job polling provides optimal user experience with progress feedback and offline caching. This trace shows generation, polling, caching, and XP award.
+**Motivation:**
+Async AI lesson generation with job polling provides optimal user experience with progress feedback and offline caching. The async job pattern prevents long-running requests from blocking the UI, while polling provides status updates and offline caching ensures lessons are available without network connectivity.
 
-**Key Components:**
+**Details:**
 
-1. **Request Lesson Generation (2a):** Submit generation request. Learner parameters. Service call.
+**Job Submission and Polling**
+The lesson generation request submits learner parameters via a service call [2a]. The backend accepts the job via POST and returns a job_id for async processing [2b]. The client polls the job until complete using a polling loop with 500ms intervals for status checks [2c]. The job status check fetches the status, result payload, and completion check [2d].
 
-2. **POST Lesson Job (2b):** Backend accepts job. Returns job_id. Async processing.
-
-3. **Poll Job Until Complete (2c):** Polling loop. 500ms intervals. Status check.
-
-4. **Check Job Status (2d):** Fetch job status. Result payload. Completion check.
-
-5. **Cache Lesson for Offline (2e):** Store in localStorage. Offline access. Sync later.
-
-6. **Award Completion XP (2f):** Grant 35 XP. Gamification update. Server-side validation.
-
-7. **Refresh Learner State (2g):** Update context. Mastery data. Gamification profile.
-
-8. **Fetch Updated Progress (2h):** Parallel fetch. Efficiency. Context update.
-
-**Best Practices:**
-- Use async job pattern
-- Poll at reasonable intervals
-- Cache for offline access
-- Award XP server-side
-- Update context efficiently
-- Handle timeouts gracefully
-- Validate lesson content
-
-**Common Issues:**
-- Generation failures: Check backend
-- Polling timeouts: Adjust intervals
-- Caching errors: Check localStorage
-- XP not awarded: Check service
+**Caching and XP**
+The lesson is cached in localStorage for offline access and later sync [2e]. Completion XP is awarded (35 XP) with gamification update and server-side validation [2f]. The learner state is refreshed to update context, mastery data, and gamification profile [2g]. Updated progress is fetched in parallel for efficiency and context update [2h].
 - Context stale: Check refresh
 
 ## Trace ID: 3
@@ -312,40 +268,19 @@ Diagnostic Assessment Flow
 
 ### AI Guide: Diagnostic Assessment
 
-**Overview:** Adaptive diagnostic assessments use IRT for accurate ability estimation and gap analysis. This trace shows item selection, answer collection, theta estimation, and study plan navigation.
+**Motivation:**
+Adaptive diagnostic assessments use IRT (Item Response Theory) for accurate ability estimation and gap analysis. This psychometric approach provides precise measurement of learner ability and identifies knowledge gaps for personalized remediation.
 
-**Key Components:**
+**Details:**
 
-1. **Fetch Diagnostic Items (3a):** Retrieve adaptive items. Subject selection. IRT-calibrated.
+**Item Fetching**
+Diagnostic items are retrieved with subject selection for IRT-calibrated adaptive items [3a]. The GET diagnostic items API returns items with difficulty parameters for adaptive selection [3b]. These items are selected based on the learner's estimated ability to maximize information gain.
 
-2. **GET Diagnostic Items API (3b):** Backend returns items. Difficulty parameters. Adaptive selection.
+**Answer Collection and Scoring**
+Answers are accumulated in an array with per-question flow [3c]. The answers are submitted for IRT scoring via POST for theta estimation and gap identification [3d]. The diagnostic submit endpoint uses the backend IRT algorithm to compute theta_after and rank gaps [3e].
 
-3. **Collect Answer (3d):** Accumulate answers. Per-question flow. Array storage.
-
-4. **Submit for IRT Scoring (3d):** POST answers. Theta estimation. Gap identification.
-
-5. **Diagnostic Submit Endpoint (3e):** Backend IRT algorithm. Compute theta_after. Ranked gaps.
-
-6. **Convert Theta to Mastery % (3f):** Transform theta. 0-100 mastery. UI display.
-
-7. **Update Mastery Context (3g):** Store in context. Global state. Mastery score.
-
-8. **Navigate to Study Plan (3h):** Redirect to plan. Personalized path. Remediation.
-
-**Best Practices:**
-- Use IRT for accuracy
-- Adaptive item selection
-- Secure answer submission
-- Validate theta calculation
-- Display mastery clearly
-- Update context efficiently
-- Navigate to remediation
-
-**Common Issues:**
-- Item fetch errors: Check backend
-- Submit failures: Check API
-- Theta conversion errors: Check formula
-- Context stale: Check update
+**Mastery and Navigation**
+Theta is converted to mastery percentage (0-100) for UI display [3f]. The mastery context is updated by storing in context for global state and mastery score [3g]. The user is navigated to the study plan for personalized path and remediation [3h].
 - Navigation errors: Check router
 
 ## Trace ID: 4
@@ -430,40 +365,16 @@ API Request Flow with Token Refresh
 
 ### AI Guide: API Error Handling
 
-**Overview:** Resilient API client with automatic token refresh and normalized error handling provides seamless user experience. This trace shows token refresh, retry logic, and error normalization.
+**Motivation:**
+Resilient API client with automatic token refresh and normalized error handling provides seamless user experience. The automatic token refresh prevents session expiration from interrupting the user, while normalized error handling provides consistent error messages across all API failures.
 
-**Key Components:**
+**Details:**
 
-1. **Execute API Request (4a):** Send HTTP request. JWT in header. Authorization.
+**Token Refresh**
+The API request executes with JWT in the header for authorization [4a]. Token expiry is detected by intercepting 401 responses, checking the retry flag, and triggering refresh [4b]. The token refresh attempts a POST to refresh with httpOnly cookie for new token [4c]. The refresh token request validates on the backend, issues a new token, and uses cookie-based storage [4d]. The new token is stored in localStorage for fresh token and authenticated requests [4e].
 
-2. **Detect Token Expiry (4b):** Intercept 401. Check retry flag. Trigger refresh.
-
-3. **Attempt Token Refresh (4c):** POST to refresh. httpOnly cookie. New token.
-
-4. **Refresh Token Request (4d):** Backend validates. Issue new token. Cookie-based.
-
-5. **Store New Token (4e):** Update localStorage. Fresh token. Authenticated requests.
-
-6. **Retry Original Request (4f):** Re-execute with new token. Prevent infinite loops. Sequential retry.
-
-7. **Normalize Error Response (4g):** Transform errors. Consistent structure. ApiError object.
-
-8. **Extract Error Message (4h):** Parse FastAPI errors. Detail strings. Validation errors.
-
-**Best Practices:**
-- Use httpOnly cookies
-- Prevent infinite retries
-- Normalize errors consistently
-- Handle token expiry gracefully
-- Log errors with context
-- Filter sensitive data
-- Validate refresh tokens
-
-**Common Issues:**
-- Token refresh failures: Check backend
-- Infinite retries: Check retry flag
-- Normalization errors: Check parsing
-- 401 loops: Check refresh logic
+**Retry and Error Normalization**
+The original request is retried with the new token, preventing infinite loops with sequential retry [4f]. Error responses are normalized to transform errors into a consistent structure with ApiError object [4g]. Error messages are extracted by parsing FastAPI errors, detail strings, and validation errors [4h]. This provides consistent error handling across all API failures.
 - Error display: Check normalization
 
 ## Trace ID: 5
@@ -546,40 +457,16 @@ Offline Lesson Completion Flow
 
 ### AI Guide: Offline Sync
 
-**Overview:** Offline-first sync ensures lesson completions work without network connectivity, with automatic sync when connection is restored. This trace shows queue management and backend sync.
+**Motivation:**
+Offline-first sync ensures lesson completions work without network connectivity, with automatic sync when connection is restored. This pattern allows users to continue learning even without internet access, with their progress automatically synchronized when connectivity returns.
 
-**Key Components:**
+**Details:**
 
-1. **Detect Offline State (5a):** Check navigator.onLine. Network detection. Status check.
+**Offline Detection and Queuing**
+The offline state is detected by checking navigator.onLine for network detection and status check [5a]. Offline events are queued by adding to the sync queue in localStorage for event persistence [5b]. Events are appended to an in-memory array for queue management [5c]. The queue is persisted to storage by serializing to JSON in localStorage for data persistence [5d].
 
-2. **Queue Offline Event (5b):** Add to sync queue. localStorage. Event persistence.
-
-3. **Append to Queue (5c):** In-memory array. Event append. Queue management.
-
-4. **Persist Queue to Storage (5d):** Serialize to JSON. localStorage. Data persistence.
-
-5. **Check Online Before Flush (5e):** Verify connectivity. Network check. Sync trigger.
-
-6. **Bulk Sync to Backend (5f):** POST queued events. Bulk operation. Backend sync.
-
-7. **Sync Endpoint Call (5g):** Backend processing. XP award. Completion handling.
-
-8. **Clear Synced Queue (5h):** Remove synced events. Queue cleanup. localStorage update.
-
-**Best Practices:**
-- Detect network status
-- Queue events reliably
-- Persist to localStorage
-- Sync when online
-- Handle conflicts
-- Validate queued events
-- Clear synced events
-
-**Common Issues:**
-- Network detection errors: Check navigator API
-- Queue persistence errors: Check localStorage
-- Sync failures: Check backend
-- Conflicts: Implement resolution
+**Sync and Cleanup**
+Connectivity is checked before flushing to verify network status and trigger sync [5e]. Queued events are bulk synced to the backend via POST for bulk operation and backend sync [5f]. The sync endpoint call handles backend processing, XP award, and completion handling [5g]. Synced events are cleared from the queue to remove synced events, perform queue cleanup, and update localStorage [5h].
 - XP not awarded: Check sync
 
 ## Trace ID: 6
@@ -657,39 +544,19 @@ Parent Dashboard POPIA Compliance Flow
 
 ### AI Guide: POPIA Data Export
 
-**Overview:** POPIA compliance features enable data export and erasure for data subject rights. This trace shows parent dashboard, export generation, and erasure requests.
+**Motivation:**
+POPIA compliance features enable data export and erasure for data subject rights. These features ensure that the platform complies with South Africa's Protection of Personal Information Act by giving guardians control over their children's data.
 
-**Key Components:**
+**Details:**
 
-1. **Load Parent Dashboard (6a):** Parallel fetch. Trust dashboard. Export bundle.
+**Dashboard Loading**
+The parent dashboard is loaded with parallel fetch for trust dashboard and export bundle [6a]. The trust dashboard fetches learner progress, IRT theta, and knowledge gaps [6b]. This provides guardians with visibility into their children's learning progress.
 
-2. **Fetch Trust Dashboard (6b):** GET learner progress. IRT theta. Knowledge gaps.
+**Data Export**
+Data export is requested to trigger export for POPIA compliance with learner-specific data [6c]. The data export API call uses GET export endpoint with format parameter for JSON/CSV [6d]. The export status is displayed in the UI with filename and download availability [6e].
 
-3. **Request Data Export (6c):** Trigger export. POPIA compliance. Learner-specific.
-
-4. **Data Export API Call (6d):** GET export endpoint. Format parameter. JSON/CSV.
-
-5. **Display Export Status (6e):** Update UI. Filename. Download availability.
-
-6. **Request Data Erasure (6f):** POST erasure request. POPIA Section 24. Right to be forgotten.
-
-7. **Erasure Request API (6g):** POST deletion endpoint. Audit reason. Deletion queue.
-
-**Best Practices:**
-- Validate guardian access
-- Audit all requests
-- Secure export generation
-- Validate erasure requests
-- Comply with POPIA
-- Filter sensitive data
-- Provide download links
-
-**Common Issues:**
-- Fetch errors: Check API
-- Export failures: Check backend
-- Erasure errors: Check validation
-- Audit missing: Add logging
-- Compliance issues: Verify POPIA
+**Data Erasure**
+Data erasure is requested via POST for POPIA Section 24 right to be forgotten [6f]. The erasure request API uses POST deletion endpoint with audit reason and deletion queue [6g]. All requests are audited for compliance verification.
 
 ## Trace ID: 7
 **Title:** App Initialization → Context Provider → localStorage Hydration → Route Guard
@@ -768,39 +635,19 @@ Next.js App Initialization & Route Protection
 
 ### AI Guide: App Initialization
 
-**Overview:** Application bootstrap with context provider, localStorage hydration, and route guards ensures session persistence and protected routes. This trace shows initialization and authentication checks.
+**Motivation:**
+Application bootstrap with context provider, localStorage hydration, and route guards ensures session persistence and protected routes. This initialization process restores the user's session from previous visits and ensures that protected routes are only accessible to authenticated users.
 
-**Key Components:**
+**Details:**
 
-1. **Mount Context Provider (7a):** Wrap app in provider. Global state. Context management.
+**Context and Hydration**
+The context provider is mounted to wrap the app in provider for global state and context management [7a]. The persisted learner is read from localStorage using getItem() for session restoration and data persistence [7b]. The learner state is hydrated by JSON parsing and calling setLearner() for context update [7c].
 
-2. **Read Persisted Learner (7b):** localStorage.getItem(). Session restoration. Data persistence.
+**State Refresh**
+Fresh state is fetched via refreshState() call with Promise.all() for backend fetch [7d]. This ensures that the frontend has the latest data from the backend while still providing instant session restoration from localStorage.
 
-3. **Hydrate Learner State (7c):** JSON parse. setLearner(). Context update.
-
-4. **Fetch Fresh State (7d):** refreshState() call. Promise.all(). Backend fetch.
-
-5. **Check Learner Session (7e):** Verify learner exists. Protected routes. Authentication check.
-
-6. **Evaluate Route Permission (7f):** Check required auth. Boolean evaluation. Permission logic.
-
-7. **Redirect Unauthorized (7g):** router.push(). Login redirect. Access denied.
-
-**Best Practices:**
-- Use context providers
-- Hydrate from localStorage
-- Validate persisted data
-- Protect routes with guards
-- Check authentication
-- Redirect appropriately
-- Clear on logout
-
-**Common Issues:**
-- localStorage errors: Check storage
-- Parse errors: Validate JSON
-- Context stale: Check refresh
-- Guard failures: Check logic
-- Redirect loops: Check conditions
+**Route Guards**
+The learner session is checked to verify learner exists for protected routes and authentication check [7e]. Route permission is evaluated by checking required auth with boolean evaluation and permission logic [7f]. Unauthorized users are redirected using router.push() for login redirect and access denied [7g].
 
 ## Trace ID: 8
 **Title:** Study Plan Generation → Job Polling → Schedule Normalization → Weekly View Render
@@ -878,36 +725,16 @@ Study Plan Page Load
 
 ### AI Guide: Study Plan Generation
 
-**Overview:** Personalized study plan generation with async job processing and schedule normalization provides adaptive scheduling. This trace shows generation, polling, normalization, and calendar rendering.
+**Motivation:**
+Personalized study plan generation with async job processing and schedule normalization provides adaptive scheduling. The study plan is generated based on diagnostic results with gap prioritization, using async job processing to prevent long-running requests from blocking the UI.
 
-**Key Components:**
+**Details:**
 
-1. **Request Study Plan (8a):** Trigger generation. Diagnostic-based. Gap prioritization.
+**Job Submission and Polling**
+The study plan is requested to trigger generation with diagnostic-based gap prioritization [8a]. The backend accepts the job via POST with gap_ratio=0.4 for async processing [8b]. The client polls until the plan is ready by polling job status, waiting for completion, and checking ready status [8c].
 
-2. **POST Study Plan Job (8b):** Backend accepts job. gap_ratio=0.4. Async processing.
+**Schedule Normalization**
+The schedule format is normalized to unify fields and handle variations between days and schedule formats [8d]. The weekly schedule is extracted to get the schedule object with day mapping and activity data [8e]. Day activities are retrieved to get items, per-day lists, and study items [8f].
 
-3. **Poll Until Plan Ready (8c):** Poll job status. Wait for completion. Ready check.
-
-4. **Normalize Schedule Format (8d):** Unify fields. Handle variations. days vs schedule.
-
-5. **Extract Weekly Schedule (8e):** Get schedule object. Day mapping. Activity data.
-
-6. **Get Day Activities (8f):** Retrieve items. Per-day list. Study items.
-
-7. **Navigate to Lesson (8g):** Click handler. router.push(). Pre-filled params.
-
-**Best Practices:**
-- Use async job pattern
-- Poll at reasonable intervals
-- Normalize schedule data
-- Render calendar clearly
-- Validate plan data
-- Handle variations gracefully
-- Provide clear navigation
-
-**Common Issues:**
-- Generation failures: Check backend
-- Polling timeouts: Adjust intervals
-- Normalization errors: Check fields
-- Rendering errors: Check data
-- Navigation errors: Check router
+**Navigation**
+Users navigate to lessons via click handler using router.push() with pre-filled params [8g]. This provides seamless navigation from the study plan calendar to individual lessons.
