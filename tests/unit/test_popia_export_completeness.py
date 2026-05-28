@@ -14,16 +14,18 @@ import pytest
 from sqlalchemy import select
 
 from app.models import (
+    AuditEvent,
     DiagnosticSession,
+    Guardian,
     KnowledgeGap,
     LearnerProfile,
     Lesson,
-    ParentalConsent,
-    SubjectMastery,
-    TopicMastery,
     MasterySnapshot,
+    ParentalConsent,
     PracticeQueue,
     SpacedReviewSchedule,
+    SubjectMastery,
+    TopicMastery,
 )
 from app.services.popia_service import POPIADataRightsService
 
@@ -33,6 +35,7 @@ from app.services.popia_service import POPIADataRightsService
 EXPECTED_LEARNER_FIELDS = {
     "id",
     "pseudonym_id",
+    "guardian_id",
     "display_name",
     "grade",
     "language",
@@ -40,27 +43,67 @@ EXPECTED_LEARNER_FIELDS = {
     "theta",
     "xp",
     "streak_days",
-    "created_at",
     "last_active",
+    "is_deleted",
+    "deletion_requested_at",
+    "created_at",
+    "updated_at",
 }
 
 EXPECTED_DIAGNOSTIC_SESSION_FIELDS = {
     "id",
     "theta_before",
     "theta_after",
+    "se_estimate",
+    "session_state",
+    "gap_topics",
+    "misconception_tags",
+    "items_served",
+    "theta_history",
+    "items_correct",
     "completed_at",
     "created_at",
 }
 
 EXPECTED_LESSON_FIELDS = {
     "id",
+    "knowledge_gap_id",
     "grade",
     "subject",
     "topic",
     "language",
     "archetype",
-    "feedback_score",
+    "content",
+    "caps_ref",
+    "caps_reference",
+    "term",
+    "subtopic",
+    "learning_objectives",
+    "explanation",
+    "worked_examples",
+    "practice_questions",
+    "answer_key",
+    "remediation_hints",
+    "difficulty_level",
+    "language_level",
+    "safety_classification",
+    "pii_check_passed",
+    "answer_key_verified",
+    "alignment_confidence",
+    "quality_score",
+    "trust_label",
+    "review_status",
+    "reviewed_at",
+    "prompt_template_version",
+    "provider",
+    "model_version",
+    "generation_latency_ms",
+    "token_usage",
+    "variant_type",
+    "llm_provider",
     "served_from_cache",
+    "feedback_score",
+    "completed_at",
     "created_at",
 }
 
@@ -76,11 +119,14 @@ EXPECTED_KNOWLEDGE_GAP_FIELDS = {
 
 EXPECTED_CONSENT_FIELDS = {
     "id",
+    "guardian_id",
     "policy_version",
+    "status",
     "granted_at",
     "expires_at",
     "revoked_at",
-    "is_active",
+    "created_at",
+    "updated_at",
 }
 
 # Fields that must NOT appear in export (PII/internal)
@@ -99,12 +145,17 @@ PROHIBITED_FIELDS = {
 def _mock_db_session():
     """Create a mock AsyncSession with minimal query support."""
     session = AsyncMock()
-    
+
     async def mock_scalars(stmt):
         # Return empty list for all queries
         return MagicMock(all=lambda: [])
-    
+
+    async def mock_get(model, key):
+        # Return None for all queries (Guardian not mocked in tests)
+        return None
+
     session.scalars = mock_scalars
+    session.get = mock_get
     session.flush = AsyncMock()
     session.add = MagicMock()
     return session
@@ -127,6 +178,7 @@ def _mock_learner():
         is_deleted=False,
         deletion_requested_at=None,
         created_at=datetime.now(UTC),
+        updated_at=datetime.now(UTC),
     )
     return learner
 
@@ -141,18 +193,13 @@ class TestExportPayloadCompleteness:
         """Export must include all learner profile fields from inventory."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
-        # Mock the get to return our learner
-        async def mock_get(model, key):
-            return learner
-        db.get = mock_get
-        
+
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
-        
+
         assert "learner" in payload
         learner_data = payload["learner"]
-        
+
         # Check all expected fields are present
         missing_fields = EXPECTED_LEARNER_FIELDS - set(learner_data.keys())
         assert not missing_fields, f"Missing learner fields: {missing_fields}"
@@ -162,11 +209,7 @@ class TestExportPayloadCompleteness:
         """Export should include pseudonym_id for external reference."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
-        async def mock_get(model, key):
-            return learner
-        db.get = mock_get
-        
+
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
         
@@ -181,11 +224,7 @@ class TestExportPayloadCompleteness:
         """Export must include diagnostic sessions with correct fields."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
-        async def mock_get(model, key):
-            return learner
-        db.get = mock_get
-        
+
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
         
@@ -197,11 +236,7 @@ class TestExportPayloadCompleteness:
         """Export must include lessons with correct fields."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
-        async def mock_get(model, key):
-            return learner
-        db.get = mock_get
-        
+
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
         
@@ -213,11 +248,7 @@ class TestExportPayloadCompleteness:
         """Export must include knowledge gaps with correct fields."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
-        async def mock_get(model, key):
-            return learner
-        db.get = mock_get
-        
+
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
         
@@ -229,11 +260,7 @@ class TestExportPayloadCompleteness:
         """Export must include parental consents with correct fields."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
-        async def mock_get(model, key):
-            return learner
-        db.get = mock_get
-        
+
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
         
@@ -245,11 +272,7 @@ class TestExportPayloadCompleteness:
         """Export must include export_date timestamp."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
-        async def mock_get(model, key):
-            return learner
-        db.get = mock_get
-        
+
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
         
@@ -261,11 +284,7 @@ class TestExportPayloadCompleteness:
         """Export must not contain prohibited PII fields."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
-        async def mock_get(model, key):
-            return learner
-        db.get = mock_get
-        
+
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
         
@@ -278,11 +297,7 @@ class TestExportPayloadCompleteness:
         """All timestamp fields must be in ISO 8601 format."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
-        async def mock_get(model, key):
-            return learner
-        db.get = mock_get
-        
+
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
         
@@ -298,11 +313,7 @@ class TestExportPayloadCompleteness:
         """CSV export must have proper structure."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
-        async def mock_get(model, key):
-            return learner
-        db.get = mock_get
-        
+
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
         csv_data = service._to_csv(payload)
@@ -322,6 +333,13 @@ class TestExportDataCategories:
         "lessons",
         "knowledge_gaps",
         "parental_consents",
+        "subject_mastery",
+        "topic_mastery",
+        "mastery_snapshots",
+        "practice_queue",
+        "spaced_review_schedule",
+        "guardian",
+        "audit_events",
     }
 
     @pytest.mark.asyncio
@@ -329,11 +347,7 @@ class TestExportDataCategories:
         """Export must include all required data categories."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
-        async def mock_get(model, key):
-            return learner
-        db.get = mock_get
-        
+
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
         

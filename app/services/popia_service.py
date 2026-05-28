@@ -18,7 +18,20 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.security.dependencies import require_learner_read_for_current_user, require_learner_write_for_current_user
-from app.models import DiagnosticSession, KnowledgeGap, LearnerProfile, Lesson, ParentalConsent
+from app.models import (
+    AuditEvent,
+    DiagnosticSession,
+    Guardian,
+    KnowledgeGap,
+    LearnerProfile,
+    Lesson,
+    MasterySnapshot,
+    ParentalConsent,
+    PracticeQueue,
+    SpacedReviewSchedule,
+    SubjectMastery,
+    TopicMastery,
+)
 from app.repositories.audit_repository import AuditRepository
 from app.repositories.repositories import LearnerRepository
 from app.services.consent import ConsentService
@@ -219,11 +232,19 @@ class POPIADataRightsService:
         lessons = list((await self.db.scalars(select(Lesson).where(Lesson.learner_id == learner_id))).all())
         gaps = list((await self.db.scalars(select(KnowledgeGap).where(KnowledgeGap.learner_id == learner_id))).all())
         consents = list((await self.db.scalars(select(ParentalConsent).where(ParentalConsent.learner_id == learner_id))).all())
+        subject_mastery = list((await self.db.scalars(select(SubjectMastery).where(SubjectMastery.learner_id == learner_id))).all())
+        topic_mastery = list((await self.db.scalars(select(TopicMastery).where(TopicMastery.learner_id == learner_id))).all())
+        mastery_snapshots = list((await self.db.scalars(select(MasterySnapshot).where(MasterySnapshot.learner_id == learner_id))).all())
+        practice_queue = list((await self.db.scalars(select(PracticeQueue).where(PracticeQueue.learner_id == learner_id))).all())
+        spaced_review = list((await self.db.scalars(select(SpacedReviewSchedule).where(SpacedReviewSchedule.learner_id == learner_id))).all())
+        guardian = await self.db.get(Guardian, learner.guardian_id)
+        audit_events = list((await self.db.scalars(select(AuditEvent).where(AuditEvent.resource_id == learner_id))).all())
         return {
             "export_date": _now().isoformat(),
             "learner": {
-                "id": learner.id,
+                "id": learner.pseudonym_id,
                 "pseudonym_id": learner.pseudonym_id,
+                "guardian_id": learner.guardian_id,
                 "display_name": learner.display_name,
                 "grade": learner.grade,
                 "language": str(learner.language),
@@ -231,15 +252,71 @@ class POPIADataRightsService:
                 "theta": learner.theta,
                 "xp": learner.xp,
                 "streak_days": learner.streak_days,
-                "created_at": _iso(learner.created_at),
                 "last_active": _iso(learner.last_active),
+                "is_deleted": learner.is_deleted,
+                "deletion_requested_at": _iso(learner.deletion_requested_at),
+                "created_at": _iso(learner.created_at),
+                "updated_at": _iso(learner.updated_at),
             },
             "diagnostic_sessions": [
-                {"id": row.id, "theta_before": row.theta_before, "theta_after": row.theta_after, "completed_at": _iso(row.completed_at), "created_at": _iso(row.created_at)}
+                {
+                    "id": row.id,
+                    "theta_before": row.theta_before,
+                    "theta_after": row.theta_after,
+                    "se_estimate": row.se_estimate,
+                    "session_state": row.session_state,
+                    "gap_topics": row.gap_topics,
+                    "misconception_tags": row.misconception_tags,
+                    "items_served": row.items_served,
+                    "theta_history": row.theta_history,
+                    "items_correct": row.items_correct,
+                    "completed_at": _iso(row.completed_at),
+                    "created_at": _iso(row.created_at),
+                }
                 for row in diagnostic_sessions
             ],
             "lessons": [
-                {"id": row.id, "grade": row.grade, "subject": row.subject, "topic": row.topic, "language": str(row.language), "archetype": str(row.archetype) if row.archetype else None, "feedback_score": row.feedback_score, "served_from_cache": row.served_from_cache, "created_at": _iso(row.created_at)}
+                {
+                    "id": row.id,
+                    "knowledge_gap_id": row.knowledge_gap_id,
+                    "grade": row.grade,
+                    "subject": row.subject,
+                    "topic": row.topic,
+                    "language": str(row.language),
+                    "archetype": str(row.archetype) if row.archetype else None,
+                    "content": row.content,
+                    "caps_ref": row.caps_ref,
+                    "caps_reference": row.caps_reference,
+                    "term": row.term,
+                    "subtopic": row.subtopic,
+                    "learning_objectives": row.learning_objectives,
+                    "explanation": row.explanation,
+                    "worked_examples": row.worked_examples,
+                    "practice_questions": row.practice_questions,
+                    "answer_key": row.answer_key,
+                    "remediation_hints": row.remediation_hints,
+                    "difficulty_level": row.difficulty_level,
+                    "language_level": row.language_level,
+                    "safety_classification": row.safety_classification,
+                    "pii_check_passed": row.pii_check_passed,
+                    "answer_key_verified": row.answer_key_verified,
+                    "alignment_confidence": row.alignment_confidence,
+                    "quality_score": row.quality_score,
+                    "trust_label": row.trust_label,
+                    "review_status": row.review_status,
+                    "reviewed_at": _iso(row.reviewed_at),
+                    "prompt_template_version": row.prompt_template_version,
+                    "provider": row.provider,
+                    "model_version": row.model_version,
+                    "generation_latency_ms": row.generation_latency_ms,
+                    "token_usage": row.token_usage,
+                    "variant_type": row.variant_type,
+                    "llm_provider": row.llm_provider,
+                    "served_from_cache": row.served_from_cache,
+                    "feedback_score": row.feedback_score,
+                    "completed_at": _iso(row.completed_at),
+                    "created_at": _iso(row.created_at),
+                }
                 for row in lessons
             ],
             "knowledge_gaps": [
@@ -247,8 +324,102 @@ class POPIADataRightsService:
                 for row in gaps
             ],
             "parental_consents": [
-                {"id": row.id, "policy_version": row.policy_version, "granted_at": _iso(row.granted_at), "expires_at": _iso(row.expires_at), "revoked_at": _iso(row.revoked_at), "is_active": row.is_active}
+                {
+                    "id": row.id,
+                    "guardian_id": row.guardian_id,
+                    "policy_version": row.policy_version,
+                    "status": "granted" if row.is_active else ("revoked" if row.revoked_at else "expired"),
+                    "granted_at": _iso(row.granted_at),
+                    "expires_at": _iso(row.expires_at),
+                    "revoked_at": _iso(row.revoked_at),
+                    "created_at": _iso(row.created_at),
+                    "updated_at": _iso(row.updated_at),
+                }
                 for row in consents
+            ],
+            "subject_mastery": [
+                {
+                    "id": row.id,
+                    "subject": row.subject,
+                    "topic": row.topic,
+                    "theta": row.theta,
+                    "standard_error": row.standard_error,
+                    "created_at": _iso(row.created_at),
+                    "last_updated": _iso(row.last_updated),
+                }
+                for row in subject_mastery
+            ],
+            "topic_mastery": [
+                {
+                    "id": row.id,
+                    "caps_ref": row.caps_ref,
+                    "mastery_score": row.mastery_score,
+                    "mastery_label": row.mastery_label,
+                    "theta_estimate": row.theta_estimate,
+                    "theta_se": row.theta_se,
+                    "last_updated_at": _iso(row.last_updated_at),
+                }
+                for row in topic_mastery
+            ],
+            "mastery_snapshots": [
+                {
+                    "id": row.id,
+                    "caps_ref": row.caps_ref,
+                    "mastery_score": row.mastery_score,
+                    "mastery_label": row.mastery_label,
+                    "theta_estimate": row.theta_estimate,
+                    "theta_se": row.theta_se,
+                    "practice_accuracy": row.practice_accuracy,
+                    "trigger": row.trigger,
+                    "snapshot_at": _iso(row.snapshot_at),
+                }
+                for row in mastery_snapshots
+            ],
+            "practice_queue": [
+                {
+                    "id": row.id,
+                    "caps_ref": row.caps_ref,
+                    "item_id": str(row.item_id) if row.item_id else None,
+                    "scheduled_at": _iso(row.scheduled_at),
+                    "completed_at": _iso(row.completed_at),
+                    "response": row.response,
+                    "correct": row.correct,
+                }
+                for row in practice_queue
+            ],
+            "spaced_review_schedule": [
+                {
+                    "id": row.id,
+                    "caps_ref": row.caps_ref,
+                    "next_review_at": _iso(row.next_review_at),
+                    "interval_days": row.interval_days,
+                    "easiness_factor": row.easiness_factor,
+                    "updated_at": _iso(row.updated_at),
+                }
+                for row in spaced_review
+            ],
+            "guardian": {
+                "id": guardian.id if guardian else None,
+                "display_name": guardian.display_name if guardian else None,
+                "role": str(guardian.role) if guardian else None,
+                "subscription_tier": str(guardian.subscription_tier) if guardian else None,
+                "is_active": guardian.is_active if guardian else None,
+                "email_verified": guardian.email_verified if guardian else None,
+                "created_at": _iso(guardian.created_at) if guardian else None,
+                "updated_at": _iso(guardian.updated_at) if guardian else None,
+            } if guardian else {},
+            "audit_events": [
+                {
+                    "id": row.id,
+                    "event_type": row.event_type,
+                    "resource_id": row.resource_id,
+                    "payload": row.payload,
+                    "previous_event_hash": row.previous_event_hash,
+                    "event_hash": row.event_hash,
+                    "hmac_signature": row.hmac_signature,
+                    "created_at": _iso(row.created_at),
+                }
+                for row in audit_events
             ],
         }
 
@@ -258,10 +429,23 @@ class POPIADataRightsService:
         writer.writerow(["section", "field", "value"])
         for key, value in payload.get("learner", {}).items():
             writer.writerow(["learner", key, value])
-        for section in ("diagnostic_sessions", "lessons", "knowledge_gaps", "parental_consents"):
+        for section in (
+            "diagnostic_sessions",
+            "lessons",
+            "knowledge_gaps",
+            "parental_consents",
+            "subject_mastery",
+            "topic_mastery",
+            "mastery_snapshots",
+            "practice_queue",
+            "spaced_review_schedule",
+            "audit_events",
+        ):
             for row in payload.get(section, []):
                 for key, value in row.items():
                     writer.writerow([section, key, value])
+        for key, value in payload.get("guardian", {}).items():
+            writer.writerow(["guardian", key, value])
         return output.getvalue()
 
     def _status(
