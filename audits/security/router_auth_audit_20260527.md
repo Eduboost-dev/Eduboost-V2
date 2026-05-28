@@ -124,17 +124,44 @@ async def stripe_webhook(request: Request, ...):
 # TODO: replace with real auth dependency that injects actor_id from JWT
 ```
 
-### Investigation
+### Investigation — dependency chain evidence
 
-The code already uses `current_user = Depends(get_current_user)` (the real
-JWT dependency). The `_authenticated_actor_id(current_user)` helper in
-`app/api_v2_deps/consent_lifecycle.py` extracts `sub`, `id`, or `user_id`
-from the JWT claims. The `_enforce_popia_learner_write(current_user,
-learner_id)` helper dynamically loads `require_learner_write_for_current_user`
-from `app.security.dependencies` and performs role-based authorization.
+**Dependency used:** `current_user = Depends(get_current_user)`  
+`get_current_user` is defined in `app/core/security.py:93`. It uses
+`HTTPBearer` to extract the `Authorization: Bearer <token>` header, calls
+`decode_token()` which uses `jwt_keyring.py` for verification, and returns a
+dict of JWT claims (the "principal").
 
-**Conclusion:** The TODO was stale — the auth it described was already
-implemented. The TODO comment has been removed in this PR.
+**Principal object/type:** `dict[str, Any]` containing at minimum:
+- `sub` (subject UUID string)
+- `role` (UserRole enum value)
+- `exp`, `iat`, `jti`, `type` (standard JWT claims)
+
+**401 behavior:** `get_current_user` raises `HTTPException(status_code=401)`
+when:
+- No `Authorization` header is present.
+- Token decode fails (expired, invalid signature, malformed).
+- Token type is not `"access"` (e.g., a refresh token is presented).
+- Token JTI is in the Redis revocation list.
+- User's global revocation epoch is set and token predates it.
+
+**403 behavior:** `_enforce_popia_learner_write(current_user, learner_id)`
+(defined in `app/api_v2_deps/consent_lifecycle.py:55`) dynamically loads
+`require_learner_write_for_current_user` from `app/security/dependencies.py:263`.
+This builds an `Actor` from the JWT claims and calls `can_access_learner()`
+with `Permission.WRITE`. If the actor is not a guardian of the learner, an
+admin, or an educator with an assignment, it raises `HTTPException(status_code=403)`.
+
+**Audit actor propagation:** `_authenticated_actor_id(current_user)`
+(`app/api_v2_deps/consent_lifecycle.py:39`) extracts the actor ID for POPIA
+audit events by reading `sub`, `id`, or `user_id` from the JWT claims dict.
+This actor_id is passed to every ConsentService mutation (`grant`, `deny`,
+`withdraw`, `renew`) as the `actor_id` parameter and is stored in the
+`ConsentRecord.audit_actor_id` column.
+
+**Conclusion:** The TODO was stale — the auth it described was already fully
+implemented with attributable actor identity, 401/403 enforcement, and POPIA
+audit propagation. The TODO comment has been removed in this PR.
 
 ### Changes applied
 

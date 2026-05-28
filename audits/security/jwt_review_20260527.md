@@ -43,6 +43,21 @@ should be addressed in the next sprint), 4 findings marked `tracked-issue`,
 
 ---
 
+## Findings summary
+
+| Finding | Severity | Release blocker? | Classification | Follow-up |
+|---|---|---|---|---|
+| F1 — Two competing JWT subsystems | Medium | No | `tracked-issue` | Consolidate to single canonical module (post-launch) |
+| F2 — Missing `iss` and `aud` claims | Medium | No | `fix-now` | Add `iss` and `aud` to token payloads (next sprint) |
+| F3 — No token binding (DPoP) | Low | No | `accepted-with-rationale` | Evaluate for Phase 2 hardening |
+| F4 — Refresh-token format inconsistency | Medium | No | `tracked-issue` | Unify to opaque bytes format (post-launch) |
+| F5 — No minimum key length enforcement | Medium | No | `fix-now` | Add min-length check to `validate_jwt_keyring_environment()` |
+| F6 — Encryption key default is placeholder | Medium | No | `tracked-issue` | Add production placeholder check for `ENCRYPTION_KEY` |
+
+**Zero findings are release-blockers.** All are either accepted (F3) or tracked for next sprint / post-launch (F1, F2, F4, F5, F6).
+
+---
+
 ## Findings
 
 ### F1 — Two competing JWT subsystems (architectural debt)

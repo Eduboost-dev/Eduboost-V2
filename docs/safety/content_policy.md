@@ -4,6 +4,11 @@
 **Last updated:** 2026-05-27 (Phase 1 T101)
 **Status:** Draft — **pending T050 decision on content filter implementation.**
 
+> **Enforcement disclaimer:** This document defines the *target* content-safety
+> policy. Runtime enforcement is **not active** until T100 (content filter
+> middleware wiring) is completed. Until then, AI-generated content is produced
+> without automated safety filtering. This is a known gap tracked by T050.
+
 This document defines the content safety policy for EduBoost V2. It governs
 all AI-mediated content served to learners (minors, Grade R–7). The policy
 must be implemented in code before any public launch that includes
