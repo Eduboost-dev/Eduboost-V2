@@ -73,33 +73,19 @@ Login Flow: Credentials → Token Pair
 
 ### AI Guide: Login Flow
 
-**Overview:** The login flow transforms user credentials into a dual-token authentication system. This trace shows how the system validates credentials, generates JWT tokens, stores refresh tokens securely, and delivers tokens via secure HTTP-only cookies.
+**Motivation:**
+The login flow transforms user credentials into a dual-token authentication system. The system validates credentials, generates JWT tokens, stores refresh tokens securely, and delivers tokens via secure HTTP-only cookies to provide secure authentication.
 
-**Key Components:**
+**Details:**
 
-1. **Password Verification (1b):** Uses bcrypt for constant-time comparison. Prevents timing attacks. Validates against stored hash.
+**Password Verification and Token Generation**
+Password verification uses bcrypt for constant-time comparison to prevent timing attacks and validates against stored hash [1b]. Token generation creates refresh token with family_id for rotation and creates access token with claims (role, learner IDs) with short-lived access (15 min) for security [1c][1d].
 
-2. **Token Generation (1c, 1d):** Creates refresh token with family_id for rotation. Creates access token with claims (role, learner IDs). Short-lived access (15 min) for security.
+**Token Storage and Cookie Delivery**
+Token storage hashes refresh token with SHA-256, stores in Redis with TTL, and uses triple-key storage (JTI, family, user) for tracking [1e]. Cookie delivery returns refresh token in HTTP-only cookie with SameSite=strict to prevent CSRF and Secure flag for HTTPS [1f].
 
-3. **Token Storage (1e):** Hashes refresh token with SHA-256. Stores in Redis with TTL. Triple-key storage (JTI, family, user) for tracking.
-
-4. **Cookie Delivery (1f):** Returns refresh token in HTTP-only cookie. SameSite=strict prevents CSRF. Secure flag for HTTPS.
-
-5. **Dual-Token Pattern:** Separates access (stateless, short-lived) from refresh (stateful, single-use). Balances security with UX.
-
-**Best Practices:**
-- Use constant-time password comparison
-- Hash tokens before storage
-- Use HTTP-only, SameSite cookies
-- Implement rate limiting
-- Log all authentication events
-- Fail closed on Redis failures
-
-**Common Issues:**
-- Login failures: Check credentials and bcrypt hash
-- Redis failures: Fail closed, don't issue tokens
-- Cookie issues: Verify HTTPS and cookie settings
-- Token generation errors: Check keyring configuration
+**Dual-Token Pattern**
+The dual-token pattern separates access (stateless, short-lived) from refresh (stateful, single-use) to balance security with UX.
 
 ## Trace ID: 2
 **Title:** Access Token Creation with Kid-Based Keyring
@@ -168,33 +154,19 @@ Access Token Creation with Keyring
 
 ### AI Guide: Access Token Creation with Keyring
 
-**Overview:** The access token creation system uses a kid-based keyring to enable seamless key rotation. This trace shows how tokens are signed with the current key while including the kid header for verification compatibility.
+**Motivation:**
+The access token creation system uses a kid-based keyring to enable seamless key rotation. Tokens are signed with the current key while including the kid header for verification compatibility to support key rotation without breaking existing tokens.
 
-**Key Components:**
+**Details:**
 
-1. **Payload Building (2b, 2c):** Constructs JWT payload with standard claims (sub, role, exp, iat). Generates unique JTI for revocation tracking. Adds type="access" and extra claims.
+**Payload Building and Keyring Selection**
+Payload building constructs JWT payload with standard claims (sub, role, exp, iat), generates unique JTI for revocation tracking, and adds type="access" and extra claims [2b][2c]. Keyring selection selects current signing key from keyring where the key has status="current" and supports multiple keys for rotation [2e].
 
-2. **Keyring Selection (2e):** Selects current signing key from keyring. Key has status="current". Supports multiple keys for rotation.
+**Algorithm Extraction and Kid Header**
+Algorithm extraction extracts algorithm from current key (typically HS256 or RS256) which is configured per key. The kid header adds kid to JWT header to enable verification to select correct key, which is critical for rotation support [2f].
 
-3. **Algorithm Extraction:** Extracts algorithm from current key. Typically HS256 or RS256. Configured per key.
-
-4. **Kid Header (2f):** Adds kid to JWT header. Enables verification to select correct key. Critical for rotation support.
-
-5. **JWT Encoding (2d):** Signs token with selected key. Includes kid in header. Returns encoded JWT string.
-
-**Best Practices:**
-- Use keyring for key rotation
-- Include kid in JWT headers
-- Generate unique JTI for revocation
-- Keep access tokens short-lived
-- Support previous keys for compatibility
-- Validate keyring at startup
-
-**Common Issues:**
-- Missing current key: Check keyring configuration
-- Invalid keyring JSON: Validate environment variable
-- Encoding failures: Check key and algorithm
-- Missing kid: Ensure header includes kid
+**JWT Encoding**
+JWT encoding signs token with selected key, includes kid in header, and returns encoded JWT string [2d].
 
 ## Trace ID: 3
 **Title:** Token Verification with Multi-Layer Revocation Checks
@@ -271,33 +243,19 @@ Token Verification Flow
 
 ### AI Guide: Token Verification with Multi-Layer Revocation Checks
 
-**Overview:** The token verification system implements multi-layer security checks to ensure comprehensive token validation. This trace shows how the system verifies signatures, checks revocation at multiple levels, and supports key rotation.
+**Motivation:**
+The token verification system implements multi-layer security checks to ensure comprehensive token validation. The system verifies signatures, checks revocation at multiple levels, and supports key rotation to provide robust token validation.
 
-**Key Components:**
+**Details:**
 
-1. **Token Extraction (3a):** FastAPI dependency extracts Bearer token. From Authorization header. Returns 401 if missing.
+**Token Extraction and Signature Verification**
+Token extraction uses FastAPI dependency to extract Bearer token from Authorization header and returns 401 if missing [3a]. Signature verification decodes JWT with keyring, tries keys in order (kid, current, previous), verifies cryptographic signature, and checks expiry [3b][3c][3d][3e].
 
-2. **Signature Verification (3b, 3c, 3d, 3e):** Decodes JWT with keyring. Tries keys in order (kid, current, previous). Verifies cryptographic signature. Checks expiry.
+**JTI and User Revocation**
+JTI revocation checks per-token revocation blacklist by querying Redis for revoked_jti:{jti} to enable logout and forced invalidation [3f]. User revocation checks user-level revocation by querying Redis for revoked_user:{id} to enable password reset revocation [3g].
 
-3. **JTI Revocation (3f):** Checks per-token revocation blacklist. Queries Redis for revoked_jti:{jti}. Enables logout and forced invalidation.
-
-4. **User Revocation (3g):** Checks user-level revocation. Queries Redis for revoked_user:{id}. Enables password reset revocation.
-
-5. **Multi-Layer Defense:** Signature verification prevents tampering. JTI revocation enables per-token invalidation. User revocation enables forced invalidation. Keyring supports rotation.
-
-**Best Practices:**
-- Verify signature before revocation checks
-- Check revocation at multiple levels
-- Use Redis for fast revocation checks
-- Support key rotation for compatibility
-- Log all verification failures
-- Fail closed on Redis unavailability
-
-**Common Issues:**
-- Invalid signature: Check keyring and key status
-- Expired token: Refresh or re-authenticate
-- Revoked token: Re-authenticate
-- Redis failures: Fail closed for security
+**Multi-Layer Defense**
+The multi-layer defense includes signature verification to prevent tampering, JTI revocation to enable per-token invalidation, user revocation to enable forced invalidation, and keyring to support rotation.
 
 ## Trace ID: 4
 **Title:** Refresh Token Rotation: Single-Use Consumption with Family Reuse Detection
@@ -383,33 +341,19 @@ Refresh Token Rotation Flow
 
 ### AI Guide: Refresh Token Rotation
 
-**Overview:** The refresh token rotation system implements single-use tokens with family-based reuse detection. This trace shows how the system validates tokens, detects replay attacks, and issues new token pairs.
+**Motivation:**
+The refresh token rotation system implements single-use tokens with family-based reuse detection. The system validates tokens, detects replay attacks, and issues new token pairs to maintain security while providing a good user experience.
 
-**Key Components:**
+**Details:**
 
-1. **Token Consumption (4b):** Validates and deletes token atomically. Ensures single-use property. Prevents replay attacks.
+**Token Consumption and Family Check**
+Token consumption validates and deletes token atomically to ensure single-use property and prevent replay attacks [4b]. Family check checks if family is revoked which indicates previous reuse and returns 401 if revoked [4c].
 
-2. **Family Check (4c):** Checks if family is revoked. Indicates previous reuse. Returns 401 if revoked.
+**Hash Comparison and Revoke on Reuse**
+Hash comparison uses constant-time comparison to prevent timing attacks and validates token integrity [4d]. Revoke on reuse revokes entire family on reuse as a fail-secure approach to detect replay attacks [4e].
 
-3. **Hash Comparison (4d):** Uses constant-time comparison. Prevents timing attacks. Validates token integrity.
-
-4. **Revoke on Reuse (4e):** Revokes entire family on reuse. Fail-secure approach. Detects replay attacks.
-
-5. **New Token Issuance (4g, 4h):** Creates new refresh token with same family_id. Creates new access token. Stores in Redis.
-
-**Best Practices:**
-- Use constant-time hash comparison
-- Revoke family on reuse detection
-- Delete tokens atomically
-- Preserve family_id across rotation
-- Log reuse attempts for monitoring
-- Fail secure on suspicious activity
-
-**Common Issues:**
-- Token already consumed: Client using old token
-- Family revoked: Replay attack detected
-- Hash mismatch: Token tampering
-- Redis failures: Log but allow rotation
+**New Token Issuance**
+New token issuance creates new refresh token with same family_id, creates new access token, and stores in Redis [4g][4h].
 
 ## Trace ID: 5
 **Title:** Building Canonical Access Token Claims with Authorization Scope
@@ -481,33 +425,19 @@ Access Token Claims Building Flow
 
 ### AI Guide: Building Canonical Access Token Claims
 
-**Overview:** The canonical claims building system ensures consistent authorization scope across token refresh. This trace shows how the system builds claims from user data while preserving authorization-relevant information.
+**Motivation:**
+The canonical claims building system ensures consistent authorization scope across token refresh. The system builds claims from user data while preserving authorization-relevant information to maintain consistent authorization.
 
-**Key Components:**
+**Details:**
 
-1. **Claims Builder (5b):** Centralized claims building logic. Used by login and refresh. Ensures consistency.
+**Claims Builder and User ID Extraction**
+The claims builder is centralized claims building logic used by login and refresh to ensure consistency [5b]. User ID extraction extracts stable user_id from user object or existing claims and preserves it across refresh [5c].
 
-2. **User ID Extraction (5c):** Extracts stable user_id. From user object or existing claims. Preserves across refresh.
+**Guardian Learner IDs and Claims Object**
+Guardian learner IDs extracts authorization scope, normalizes to string tuple, and merges user + existing claims [5d]. The claims object creates AuthTokenClaims object as a canonical representation including all auth-relevant fields [5e].
 
-3. **Guardian Learner IDs (5d):** Extracts authorization scope. Normalizes to string tuple. Merges user + existing claims.
-
-4. **Claims Object (5e):** Creates AuthTokenClaims object. Canonical representation. Includes all auth-relevant fields.
-
-5. **Serialization (5f):** Converts to payload dict. For JWT encoding. Maintains structure.
-
-**Best Practices:**
-- Centralize claims building logic
-- Preserve authorization scope
-- Normalize claims for consistency
-- Validate required fields
-- Use typed claims objects
-- Document claim purposes
-
-**Common Issues:**
-- Missing user_id: Validate user object
-- Scope drift: Preserve existing claims
-- Type errors: Normalize to strings
-- Missing fields: Validate before building
+**Serialization**
+Serialization converts to payload dict for JWT encoding and maintains structure [5f].
 
 ## Trace ID: 6
 **Title:** Refresh Token Storage: Triple-Key Redis Persistence with Hashing
@@ -578,33 +508,19 @@ Refresh Token Storage Flow
 
 ### AI Guide: Refresh Token Storage
 
-**Overview:** The refresh token storage system uses triple-key Redis persistence with hashing for security. This trace shows how tokens are hashed and stored with multiple keys for efficient lookup and family tracking.
+**Motivation:**
+The refresh token storage system uses triple-key Redis persistence with hashing for security. Tokens are hashed and stored with multiple keys for efficient lookup and family tracking to ensure secure and efficient token storage.
 
-**Key Components:**
+**Details:**
 
-1. **Token Validation (6b):** Decodes and validates token. Ensures it's a refresh token. Extracts required claims.
+**Token Validation and Hashing**
+Token validation decodes and validates token to ensure it's a refresh token and extracts required claims [6b]. Hashing uses SHA-256 hash of token to prevent plaintext storage and provide cryptographic security [6c].
 
-2. **Hashing (6c):** SHA-256 hash of token. Prevents plaintext storage. Cryptographic security.
+**TTL Calculation and Triple-Key Storage**
+TTL calculation is calculated from token expiry for automatic cleanup to prevent stale data. Triple-key storage uses JTI key for consumption, family key for tracking, and user session key for listing to enable different lookups [6d][6e][6f].
 
-3. **TTL Calculation:** Calculated from token expiry. Automatic cleanup. Prevents stale data.
-
-4. **Triple-Key Storage (6d, 6e, 6f):** JTI key for consumption. Family key for tracking. User session key for listing. Enables different lookups.
-
-5. **Redis Persistence:** Atomic SET operations. Fast lookups. Automatic expiration.
-
-**Best Practices:**
-- Hash tokens before storage
-- Use SHA-256 for cryptographic security
-- Calculate TTL from expiry
-- Use multiple keys for different lookups
-- Fail closed on Redis failures
-- Automatic cleanup via TTL
-
-**Common Issues:**
-- Invalid token: Validate before storage
-- Hash failures: Check token format
-- Redis failures: Log but don't block
-- TTL calculation: Check expiry timestamp
+**Redis Persistence**
+Redis persistence uses atomic SET operations for fast lookups and automatic expiration.
 
 ## Trace ID: 7
 **Title:** JWT Keyring Validation: Startup Guard Against Placeholder Secrets
@@ -668,33 +584,19 @@ JWT Keyring Startup Validation
 
 ### AI Guide: JWT Keyring Validation
 
-**Overview:** The JWT keyring validation system prevents deployment with placeholder secrets. This trace shows how the system validates keyring configuration at startup and fails closed in production.
+**Motivation:**
+The JWT keyring validation system prevents deployment with placeholder secrets. The system validates keyring configuration at startup and fails closed in production to ensure secure deployments.
 
-**Key Components:**
+**Details:**
 
-1. **Startup Validation (7a):** Called at application startup. Validates keyring configuration. Prevents insecure deployments.
+**Startup Validation and Keyring Parsing**
+Startup validation is called at application startup to validate keyring configuration and prevent insecure deployments [7a]. Keyring parsing loads JWT_KEYRING from environment, falls back to JWT_SECRET, and supports both formats [7b].
 
-2. **Keyring Parsing (7b):** Loads JWT_KEYRING from environment. Falls back to JWT_SECRET. Supports both formats.
+**Placeholder Detection and Production Guard**
+Placeholder detection detects common placeholder values like "change_me" and "placeholder" to identify insecure secrets [7c]. Production guard only enforces in production, allows placeholders in dev/test, and prevents production deployment with defaults [7d].
 
-3. **Placeholder Detection (7c):** Detects common placeholder values. Checks for "change_me", "placeholder". Identifies insecure secrets.
-
-4. **Production Guard (7d):** Only enforces in production. Allows placeholders in dev/test. Prevents production deployment with defaults.
-
-5. **Fail Closed (7e):** Raises JWTKeyringError on failure. Prevents application startup. Clear error message.
-
-**Best Practices:**
-- Validate at startup
-- Fail closed on security issues
-- Detect common placeholder values
-- Production-only enforcement
-- Support legacy fallbacks
-- Clear error messages
-
-**Common Issues:**
-- Placeholder in production: Update environment variable
-- Invalid keyring JSON: Validate format
-- Missing keyring: Set JWT_KEYRING or JWT_SECRET
-- Validation failures: Check configuration
+**Fail Closed**
+Fail closed raises JWTKeyringError on failure to prevent application startup and provide a clear error message [7e].
 
 ## Trace ID: 8
 **Title:** Token Revocation: Redis-Backed JTI Blacklist with TTL
@@ -759,30 +661,16 @@ Token Revocation Flow
 
 ### AI Guide: Token Revocation
 
-**Overview:** The token revocation system uses a Redis-backed JTI blacklist with TTL for per-token invalidation. This trace shows how tokens are revoked and verified against the blacklist.
+**Motivation:**
+The token revocation system uses a Redis-backed JTI blacklist with TTL for per-token invalidation. Tokens are revoked and verified against the blacklist to enable logout and forced invalidation.
 
-**Key Components:**
+**Details:**
 
-1. **Revocation (8a):** Entry point for token revocation. Takes JTI and expiry timestamp. Adds to blacklist.
+**Revocation and TTL Calculation**
+Revocation is the entry point for token revocation that takes JTI and expiry timestamp and adds to blacklist [8a]. TTL calculation calculates remaining TTL from expiry to ensure automatic cleanup and prevent unbounded growth [8b].
 
-2. **TTL Calculation (8b):** Calculates remaining TTL from expiry. Ensures automatic cleanup. Prevents unbounded growth.
+**Redis Storage and Verification**
+Redis storage stores revoked_jti:{jti} with TTL using SETEX for atomic operation and fast persistence [8c]. Verification checks if token is revoked by querying Redis blacklist and returns boolean [8d].
 
-3. **Redis Storage (8c):** Stores revoked_jti:{jti} with TTL. Uses SETEX for atomic operation. Fast persistence.
-
-4. **Verification (8d):** Checks if token is revoked. Queries Redis blacklist. Returns boolean.
-
-5. **Redis Lookup (8e):** Fast GET operation. Returns None if not revoked. O(1) lookup time.
-
-**Best Practices:**
-- Use TTL for automatic cleanup
-- Calculate TTL from token expiry
-- Fast Redis lookups for verification
-- Fail open on Redis failures
-- Log revocation events
-- Support per-token granularity
-
-**Common Issues:**
-- Redis failures: Log but allow verification
-- TTL calculation: Check expiry timestamp
-- Revocation not working: Verify Redis connection
-- Stale entries: Ensure TTL is correct
+**Redis Lookup**
+Redis lookup is a fast GET operation that returns None if not revoked with O(1) lookup time [8e].

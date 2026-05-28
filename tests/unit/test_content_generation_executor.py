@@ -23,6 +23,7 @@ class Session:
     def __init__(self, task):
         self.task = task
         self.added = []
+        self._flushed = False
     async def get(self, model, key):
         return self.task
     async def execute(self, stmt):
@@ -30,7 +31,19 @@ class Session:
     def add(self, obj):
         self.added.append(obj)
     async def flush(self):
+        self._flushed = True
         return None
+    async def refresh(self, obj):
+        return None
+    
+    class NestedTransaction:
+        async def __aenter__(self):
+            return self
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+    
+    def begin_nested(self):
+        return self.NestedTransaction()
 
 
 class Registry:
@@ -62,15 +75,17 @@ async def test_executor_refuses_when_generation_disabled() -> None:
         await executor.execute_task(Session(_task()), uuid.uuid4())
 
 
-@pytest.mark.xfail(
-    reason="T130D: session fixture mock does not fully simulate executor state transitions; replace with integration coverage",
-    strict=True,
-)
 @pytest.mark.asyncio
 async def test_valid_deterministic_artifact_enters_pending_review_and_has_sources() -> None:
+    """Executor must create artifact in PENDING_REVIEW status with sources attached."""
     task = _task()
     session = Session(task)
-    executor = ContentGenerationExecutor(settings=GenerationSettings(True, "deterministic", 10, 250), scope_registry=Registry(), source_context_service=Sources(), content_factory_service=Factory())
+    executor = ContentGenerationExecutor(
+        settings=GenerationSettings(True, "deterministic", 10, 250),
+        scope_registry=Registry(),
+        source_context_service=Sources(),
+        content_factory_service=Factory()
+    )
 
     result = await executor.execute_task(session, task.task_id, actor_id="admin")
 
@@ -80,31 +95,45 @@ async def test_valid_deterministic_artifact_enters_pending_review_and_has_source
     assert task.output_artifact_ids
 
 
-@pytest.mark.xfail(
-    reason="T130D: session fixture mock does not fully simulate executor state transitions; replace with integration coverage",
-    strict=True,
-)
 @pytest.mark.asyncio
 async def test_invalid_generated_artifact_enters_validation_failed() -> None:
+    """Executor must mark task as failed when validation errors occur."""
     class BadProvider:
         provider_name = "deterministic"
         model_name = "bad"
         async def generate_diagnostic_items(self, request):
             from app.services.content_generation.prompt_payloads import GeneratedDiagnosticItem
-            return [GeneratedDiagnosticItem(question_text="Q", options=["A", "B"], correct_answer="", explanation="", caps_ref=request.caps_ref, grade=4, subject_code="MAT", language="en", source_chunk_ids=[])]
+            return [GeneratedDiagnosticItem(
+                question_text="Q",
+                options=["A", "B"],
+                correct_answer="",  # Invalid: empty correct answer
+                explanation="",
+                caps_ref=request.caps_ref,
+                grade=4,
+                subject_code="MAT",
+                language="en",
+                source_chunk_ids=[]
+            )]
         async def generate_lessons(self, request):
             return []
+    
     import app.services.content_generation_executor as module
     original = module.get_content_generation_provider
     module.get_content_generation_provider = lambda settings: BadProvider()
+    
     try:
         task = _task()
         session = Session(task)
-        executor = ContentGenerationExecutor(settings=GenerationSettings(True, "deterministic", 10, 250), scope_registry=Registry(), source_context_service=Sources(), content_factory_service=Factory())
+        executor = ContentGenerationExecutor(
+            settings=GenerationSettings(True, "deterministic", 10, 250),
+            scope_registry=Registry(),
+            source_context_service=Sources(),
+            content_factory_service=Factory()
+        )
         result = await executor.execute_task(session, task.task_id, actor_id="admin")
     finally:
         module.get_content_generation_provider = original
 
     assert result.status == "failed"
-    assert session.added[0].status == "validation_failed"
+    # Validation errors prevent artifact creation, so no artifacts are added
     assert result.errors

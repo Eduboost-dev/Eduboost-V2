@@ -74,33 +74,19 @@ FastAPI Application Startup
 
 ### AI Guide: Startup DDL Repair Execution
 
-**Overview:** The startup DDL repair execution is a transitional mechanism that applies idempotent schema repairs at application startup. This trace shows how the system ensures production systems can start even with schema inconsistencies while preventing concurrent DDL execution.
+**Motivation:**
+The startup DDL repair execution is a transitional mechanism that applies idempotent schema repairs at application startup. This ensures production systems can start even with schema inconsistencies while preventing concurrent DDL execution through advisory locks.
 
-**Key Components:**
+**Details:**
 
-1. **Production Guard (1b):** Only runs in production environments. Skipped in dev/test to avoid schema drift. Controlled by environment variable.
+**Production Guard and Locking**
+The production guard only runs in production environments, skipping in dev/test to avoid schema drift and controlled by environment variable [1b]. The advisory lock uses PostgreSQL advisory lock to prevent concurrent execution with session-level lock (pg_try_advisory_lock), skipping if the lock is not acquired because another worker is handling it [1c].
 
-2. **Advisory Lock (1c):** PostgreSQL advisory lock prevents concurrent execution. Session-level lock (pg_try_advisory_lock). If lock not acquired, skips (another worker handling it).
+**Idempotent Repairs**
+Idempotent repairs check existence before DDL using IF NOT EXISTS guards and skip if the object already exists [1d][1e]. The execution loop iterates through the repair tuple, executes DDL if needed, and logs applied repairs for visibility.
 
-3. **Idempotent Repairs (1d, 1e):** Each repair checks existence before DDL. Uses IF NOT EXISTS guards. Skips if object already exists.
-
-4. **Execution Loop:** Iterates through repair tuple. Executes DDL if needed. Logs applied repairs for visibility.
-
-5. **Cleanup (1f):** Advisory unlock in finally block. Connection close. Ensures cleanup even on failure.
-
-**Best Practices:**
-- Use advisory locks for concurrent DDL prevention
-- Make DDL idempotent with existence checks
-- Log all DDL operations for visibility
-- Use production-only guards for dangerous operations
-- Document transitional mechanisms with deprecation plan
-- Handle lock contention gracefully (skip if locked)
-
-**Common Issues:**
-- Lock contention: Multiple workers starting simultaneously, one wins
-- DDL failures: Check statement_timeout and lock availability
-- Schema drift: Ensure repairs match actual schema state
-- Missing repairs: Verify repair tuple is complete
+**Cleanup**
+The cleanup includes advisory unlock in a finally block and connection close to ensure cleanup even on failure [1f]. This ensures that locks are always released and connections are properly closed.
 
 ## Trace ID: 2
 **Title:** Alembic Migration Execution (Primary Schema Management)
@@ -178,35 +164,19 @@ Alembic Migration Execution Flow
 
 ### AI Guide: Alembic Migration Execution
 
-**Overview:** The Alembic migration execution system is the authoritative schema management mechanism. This trace shows how Alembic manages versioned migrations, ensures single-head linear graph, and provides autogenerate capability for drift detection.
+**Motivation:**
+The Alembic migration execution system is the authoritative schema management mechanism. It manages versioned migrations, ensures single-head linear graph, and provides autogenerate capability for drift detection to maintain consistency between code and schema.
 
-**Key Components:**
+**Details:**
 
-1. **Configuration (2a, 2b):** Reads DATABASE_URL from environment (security). Imports ORM models to populate Base.metadata. Enables autogenerate for drift detection.
+**Configuration**
+The configuration reads DATABASE_URL from environment for security and imports ORM models to populate Base.metadata [2a][2b]. This enables autogenerate for drift detection by comparing ORM models to the current database schema.
 
-2. **Context Setup (2c):** Configures migration context with target metadata. Sets drift detection filters. Configures transaction behavior.
+**Context Setup and Execution**
+The context setup configures the migration context with target metadata, sets drift detection filters, and configures transaction behavior [2c]. Migration execution executes pending migrations in transaction, runs upgrades sequentially, and handles rollback on failure [2d].
 
-3. **Migration Execution (2d):** Executes pending migrations in transaction. Runs upgrades sequentially. Handles rollback on failure.
-
-4. **Migration Files (2e, 2f, 2g):** Versioned migration files in alembic/versions/. Use op.create_table(), enum.create(), etc. Include IF NOT EXISTS guards for idempotency.
-
-5. **Base Metadata:** ORM models define target schema. Used for autogenerate comparison. Ensures consistency between code and schema.
-
-**Best Practices:**
-- Always use DATABASE_URL from environment
-- Import all ORM models for autogenerate
-- Use transactions for atomic migration execution
-- Include IF NOT EXISTS guards in migrations
-- Maintain single-head linear migration graph
-- Review migrations in PR before merging
-- Test migrations on empty database
-
-**Common Issues:**
-- Missing DATABASE_URL: Set environment variable
-- Model import failures: Check imports and dependencies
-- Migration execution failures: Check DDL syntax and constraints
-- Drift detection failures: Review ORM model changes
-- Multiple heads: Resolve divergent branches
+**Migration Files and Metadata**
+Migration files are versioned files in alembic/versions/ that use op.create_table(), enum.create(), etc., with IF NOT EXISTS guards for idempotency [2e][2f][2g]. Base metadata from ORM models defines the target schema, used for autogenerate comparison to ensure consistency between code and schema.
 
 ## Trace ID: 3
 **Title:** Migration Integrity CI Validation
@@ -276,35 +246,19 @@ Migration Integrity CI Validation Pipeline
 
 ### AI Guide: Migration Integrity CI Validation
 
-**Overview:** The migration integrity CI validation system ensures migration quality through automated testing. This trace shows how the GitHub Actions workflow validates migration graph integrity, upgrade paths, and schema drift.
+**Motivation:**
+The migration integrity CI validation system ensures migration quality through automated testing. The GitHub Actions workflow validates migration graph integrity, upgrade paths, and schema drift to prevent broken migrations from reaching production.
 
-**Key Components:**
+**Details:**
 
-1. **Single Head Check (3a, 3b):** Asserts exactly one migration head. Prevents divergent branches. Uses grep to count heads. Fails if count != 1.
+**Single Head and Empty DB**
+The single head check asserts exactly one migration head to prevent divergent branches using grep to count heads, failing if count != 1 [3a][3b]. The empty DB upgrade validates the fresh deployment path by upgrading an empty database to head to ensure new deployments work and catch migration errors early [3c].
 
-2. **Empty DB Upgrade (3c):** Validates fresh deployment path. Upgrades empty database to head. Ensures new deployments work. Catches migration errors early.
+**Drift and Seed Validation**
+Drift detection compares ORM models to database schema using the alembic check command to detect unauthorized schema changes, failing if drift is detected [3d]. Seed validation validates seed file syntax using --dry-run mode to ensure seed files work with the current schema.
 
-3. **Drift Detection (3d):** Compares ORM models to database schema. Uses alembic check command. Detects unauthorized schema changes. Fails if drift detected.
-
-4. **Seed Validation:** Validates seed file syntax. Uses --dry-run mode. Ensures seed files work with current schema.
-
-5. **Rollback Test (3e):** Tests downgrade capability. Downgrades 2 steps, re-upgrades. Verifies reversibility. Catches non-reversible migrations.
-
-**Best Practices:**
-- Enforce single-head requirement
-- Test empty DB upgrade path
-- Detect schema drift automatically
-- Validate seed files in CI
-- Test rollback capability
-- Use branch protection for CI gates
-- Keep CI fast for feedback
-
-**Common Issues:**
-- Multiple heads: Resolve divergent branches
-- Upgrade failures: Fix migration DDL
-- Drift detection: Run alembic revision --autogenerate
-- Seed failures: Fix seed file syntax
-- Rollback failures: Make migrations reversible
+**Rollback Testing**
+The rollback test tests downgrade capability by downgrading 2 steps and re-upgrading to verify reversibility and catch non-reversible migrations [3e]. This ensures that migrations can be safely rolled back if needed.
 
 ## Trace ID: 4
 **Title:** Runtime Migration Health Check
@@ -371,33 +325,19 @@ Runtime Migration Health Check
 
 ### AI Guide: Runtime Migration Health Check
 
-**Overview:** The runtime migration health check verifies that Alembic migrations have been applied correctly. This trace shows how the health check queries the alembic_version table and excludes sentinel values to detect migration state issues.
+**Motivation:**
+The runtime migration health check verifies that Alembic migrations have been applied correctly. By querying the alembic_version table and excluding sentinel values, it detects migration state issues and integrates with the readiness endpoint for load balancer health checks.
 
-**Key Components:**
+**Details:**
 
-1. **Health Check Invocation (4a):** Called by gather_deep_health(). Part of deep health check system. Critical component for readiness.
+**Health Check Invocation**
+The health check invocation is called by gather_deep_health() as part of the deep health check system and is a critical component for readiness [4a]. This ensures that migration state is checked during health assessments.
 
-2. **Version Query (4b):** Queries alembic_version table. Gets current migration state. Returns recent revisions (LIMIT 10).
+**Version Query and Exclusion**
+The version query queries the alembic_version table to get the current migration state, returning recent revisions with LIMIT 10 for performance [4b]. The base exclusion excludes the 'base' sentinel value to detect improper stamping and ensure real migrations have been applied [4c].
 
-3. **Base Exclusion (4c):** Excludes 'base' sentinel value. Detects improper stamping. Ensures real migrations applied.
-
-4. **Error Detection (4d):** Returns error if no rows found. Indicates empty or only base sentinel. Triggers monitoring alerts.
-
-5. **Health Endpoint (4e):** Integrates with /ready endpoint. Returns 200 (ok/degraded) or 503 (error). Enables load balancer health checks.
-
-**Best Practices:**
-- Exclude base sentinel value
-- Query with LIMIT for performance
-- Return error for empty results
-- Integrate with monitoring/alerting
-- Use read-only queries
-- Don't block application startup
-
-**Common Issues:**
-- Empty results: Database not migrated or improperly stamped
-- Query failures: Check database connectivity
-- Base sentinel only: Run alembic stamp head
-- Health check slow: Optimize query or add caching
+**Error Detection and Endpoint**
+Error detection returns an error if no rows are found, indicating an empty or only base sentinel database, which triggers monitoring alerts [4d]. The health endpoint integrates with the /ready endpoint, returning 200 (ok/degraded) or 503 (error) to enable load balancer health checks [4e].
 
 ## Trace ID: 5
 **Title:** Migration Graph Static Validation
@@ -461,34 +401,19 @@ Migration Graph Static Validation
 
 ### AI Guide: Migration Graph Static Validation
 
-**Overview:** The migration graph static validation script catches migration issues without database connectivity. This trace shows how the script validates graph integrity, naming conventions, and single-head requirement using AST parsing.
+**Motivation:**
+The migration graph static validation script catches migration issues without database connectivity. Using AST parsing to validate graph integrity, naming conventions, and single-head requirement provides fast, safe validation that can run in CI and pre-commit hooks.
 
-**Key Components:**
+**Details:**
 
-1. **File Discovery (5a):** Scans alembic/versions/ directory. Uses glob pattern matching. Loads all migration files.
+**File Discovery and Parsing**
+File discovery scans the alembic/versions/ directory using glob pattern matching to load all migration files [5a]. AST parsing parses migration files with AST to extract revision and down_revision, using safe parsing without code execution [5b].
 
-2. **AST Parsing (5b):** Parses migration files with AST. Extracts revision and down_revision. Safe parsing (no code execution).
+**Link and Naming Validation**
+Link validation validates down_revision references by checking if the target exists to detect broken links [5c]. Naming convention enforcement enforces the YYYYMMDD_HHMM_description.py format using regex matching, with exemptions for legacy migrations [5d].
 
-3. **Link Validation (5c):** Validates down_revision references. Checks if target exists. Detects broken links.
-
-4. **Naming Convention (5d):** Enforces YYYYMMDD_HHMM_description.py format. Uses regex matching. Exempts legacy migrations.
-
-5. **Topology Validation (5e):** Counts base revisions (expect 1). Counts head revisions (expect 1). Detects divergent branches.
-
-**Best Practices:**
-- Use AST parsing for safety
-- Validate naming conventions
-- Enforce single-head requirement
-- Run in CI and pre-commit
-- Provide clear error messages
-- Support legacy exemptions
-
-**Common Issues:**
-- Broken links: Fix down_revision references
-- Naming violations: Rename migration files
-- Multiple heads: Resolve divergent branches
-- Multiple bases: Fix base revisions
-- Parse errors: Check migration file syntax
+**Topology Validation**
+Topology validation counts base revisions (expecting 1) and head revisions (expecting 1) to detect divergent branches [5e]. This ensures the migration graph maintains a single-head linear structure.
 
 ## Trace ID: 6
 **Title:** Schema Integrity ORM Validation
@@ -556,34 +481,19 @@ Schema Integrity ORM Validation Script
 
 ### AI Guide: Schema Integrity ORM Validation
 
-**Overview:** The schema integrity ORM validation script ensures SQLAlchemy models define all required schema elements. This trace shows how the script validates tables, primary keys, indexes, and constraints without database connectivity.
+**Motivation:**
+The schema integrity ORM validation script ensures SQLAlchemy models define all required schema elements. By validating tables, primary keys, indexes, and constraints without database connectivity, it provides fast validation that can run in CI and pre-commit hooks.
 
-**Key Components:**
+**Details:**
 
-1. **Model Import (6a):** Imports app.models as side effect. Populates Base.metadata. Enables schema inspection.
+**Model Import**
+The model import imports app.models as a side effect to populate Base.metadata, enabling schema inspection [6a]. This loads all ORM models so their metadata can be validated.
 
-2. **Table Validation (6b):** Checks for missing required tables. Compares REQUIRED_TABLES to metadata.tables. Reports missing tables.
+**Table and Primary Key Validation**
+Table validation checks for missing required tables by comparing REQUIRED_TABLES to metadata.tables and reports missing tables [6b]. Primary key validation extracts primary key columns to ensure every table has a PK and reports missing PKs [6c].
 
-3. **Primary Key Validation (6c):** Extracts primary key columns. Ensures every table has PK. Reports missing PKs.
-
-4. **Index Validation (6d):** Validates required indexes exist. Compares required to actual. Reports missing indexes.
-
-5. **Constraint Validation (6e):** Validates check constraints exist. Ensures data integrity rules. Reports missing constraints.
-
-**Best Practices:**
-- Define required tables explicitly
-- Validate primary keys, indexes, constraints
-- Run in CI and pre-commit
-- Provide clear error messages
-- Keep validation fast
-- Update requirements as schema evolves
-
-**Common Issues:**
-- Missing tables: Add table to ORM models
-- Missing PKs: Add primary key to table
-- Missing indexes: Add index to ORM model
-- Missing constraints: Add constraint to ORM model
-- Import failures: Check model dependencies
+**Index and Constraint Validation**
+Index validation validates that required indexes exist by comparing required to actual and reports missing indexes [6d]. Constraint validation validates that check constraints exist to ensure data integrity rules and reports missing constraints [6e].
 
 ## Trace ID: 7
 **Title:** Migration Smoke Test Workflow
@@ -651,34 +561,22 @@ Migration Smoke Test Workflow
 
 ### AI Guide: Migration Smoke Test Workflow
 
-**Overview:** The migration smoke test workflow validates migration idempotency and rollback capability. This trace shows how the script performs an upgrade/downgrade/re-upgrade cycle on a disposable database.
+**Motivation:**
+The migration smoke test workflow validates migration idempotency and rollback capability. By performing an upgrade/downgrade/re-upgrade cycle on a disposable database, it ensures migrations are safe to deploy and can be rolled back if needed.
 
-**Key Components:**
+**Details:**
 
-1. **Database Readiness (7a):** Waits for PostgreSQL to be ready. Uses wait_for_db.py with timeout. Ensures database is accessible.
+**Database Readiness and Initial Upgrade**
+Database readiness waits for PostgreSQL to be ready using wait_for_db.py with a timeout to ensure the database is accessible [7a]. The initial upgrade applies all migrations to an empty database to test the upgrade path and validate migration execution [7b].
 
-2. **Initial Upgrade (7b):** Applies all migrations to empty database. Tests upgrade path. Validates migration execution.
+**Rollback Test**
+The rollback test downgrades one step and re-upgrades to head to test reversibility and validate rollback capability [7c][7d]. This ensures that migrations can be safely rolled back in production if needed.
 
-3. **Rollback Test (7c, 7d):** Downgrades one step. Re-upgrades to head. Tests reversibility. Validates rollback capability.
+**Idempotency Check**
+The idempotency check runs upgrade head again and checks for "Running upgrade" output, failing if migrations are applied (non-idempotent) [7e][7f]. This ensures that migrations can be run multiple times without causing errors.
 
-4. **Idempotency Check (7e, 7f):** Runs upgrade head again. Checks for "Running upgrade" output. Fails if migrations applied (non-idempotent).
-
-5. **Exit Status:** Returns 0 for success, 1 for failure. Enables CI integration. Provides clear test result.
-
-**Best Practices:**
-- Use disposable database for testing
-- Wait for database readiness
-- Test upgrade/downgrade cycle
-- Validate idempotency
-- Run in CI before deployment
-- Provide clear error messages
-
-**Common Issues:**
-- Database timeout: Check database availability
-- Upgrade failures: Fix migration DDL
-- Downgrade failures: Make migrations reversible
-- Idempotency failures: Add IF NOT EXISTS guards
-- Script errors: Check script syntax
+**Exit Status**
+The exit status returns 0 for success and 1 for failure to enable CI integration and provide clear test results.
 
 ## Trace ID: 8
 **Title:** ADR-002: Startup DDL Deprecation Plan
@@ -748,30 +646,19 @@ ADR-002: Startup DDL to Alembic Migration Plan <-- ADR-002-startup-ddl-repair.md
 
 ### AI Guide: ADR-002 Startup DDL Deprecation Plan
 
-**Overview:** ADR-002 documents the startup DDL deprecation plan with a three-phase migration path. This trace shows how the ADR inventories DDL repairs, documents rationale, and outlines the plan to achieve pure Alembic ownership.
+**Motivation:**
+ADR-002 documents the startup DDL deprecation plan with a three-phase migration path to achieve pure Alembic ownership. By inventorying DDL repairs, documenting rationale, and outlining a clear plan, it ensures a safe transition from the transitional startup DDL mechanism to authoritative Alembic management.
 
-**Key Components:**
+**Details:**
 
-1. **Inventory (8a, 8b):** Documents all 7 DDL repairs. Includes DDL, rationale, risk, migration plan. Provides complete picture of startup DDL.
+**Inventory and Decision**
+The inventory documents all 7 DDL repairs including DDL, rationale, risk, and migration plan to provide a complete picture of startup DDL [8a][8b]. The decision declares Alembic as the single source of truth, establishing the ownership principle to prevent future startup DDL proliferation [8c].
 
-2. **Decision (8c):** Declares Alembic as single source of truth. Establishes ownership principle. Prevents future startup DDL proliferation.
+**Phase A: Consolidation**
+Phase A creates a consolidated Alembic migration that includes all startup DDL with IF NOT EXISTS guards, deploying to production before removal [8d]. This ensures that all startup DDL is captured in a single migration before the transitional mechanism is removed.
 
-3. **Phase A: Consolidation (8d):** Create consolidated Alembic migration. Include all startup DDL with IF NOT EXISTS guards. Deploy to production before removal.
+**Phase B: Removal**
+Phase B removes run_startup_migrations() from api_v2.py only after Phase A is in production to eliminate the transitional mechanism [8e]. This ensures that the consolidated migration is in place before removing the startup DDL execution.
 
-4. **Phase B: Removal (8e):** Remove run_startup_migrations() from api_v2.py. Only after Phase A is in production. Eliminates transitional mechanism.
-
-5. **Phase C: Prevention (8f):** Add CI gate blocking non-Alembic DDL. Update developer documentation. Prevents future startup DDL.
-
-**Best Practices:**
-- Document all transitional mechanisms
-- Create clear deprecation plan
-- Use incremental phases for safety
-- Get team consensus on plan
-- Update documentation continuously
-- Add CI gates for enforcement
-
-**Common Issues:**
-- Missing repairs: Update inventory
-- Phase failures: Revert and fix issues
-- CI gate bypass: Enforce branch protection
-- Documentation drift: Keep ADR current
+**Phase C: Prevention**
+Phase C adds a CI gate blocking non-Alembic DDL and updates developer documentation to prevent future startup DDL [8f]. This ensures that the team follows the new process and prevents the reintroduction of startup DDL.

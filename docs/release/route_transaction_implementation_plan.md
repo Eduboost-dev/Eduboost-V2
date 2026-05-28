@@ -1,7 +1,7 @@
 # Route Transaction Implementation Plan
 
-Generated at: `2026-05-26T18:41:12Z`
-Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+Generated at: `2026-05-28T12:43:44Z`
+Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
 
 - Source inventory: `docs/architecture/tx_route_wiring_inventory.json`
 - Source status: `production-route-transaction-wiring-not-proven`
@@ -15,13 +15,13 @@ Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 | `P0` | `ROUTE-TX-001-auth-register` | `auth` | `register` | `app/api_v2_routers/auth.py` | 87 | `TransactionalAuthRegistrationService` | True |
 | `P0` | `ROUTE-TX-002-auth-create_dev_session` | `auth` | `create_dev_session` | `app/api_v2_routers/auth.py` | 124 | `TransactionalAuthRegistrationService` | True |
 | `P0` | `ROUTE-TX-003-popia-grant_consent` | `popia` | `grant_consent` | `app/api_v2_routers/popia.py` | 102 | `TransactionalPOPIAConsentLifecycleService` | True |
-| `P0` | `ROUTE-TX-004-popia-deny_consent` | `popia` | `deny_consent` | `app/api_v2_routers/popia.py` | 120 | `TransactionalPOPIAConsentLifecycleService` | True |
-| `P0` | `ROUTE-TX-005-popia-withdraw_consent` | `popia` | `withdraw_consent` | `app/api_v2_routers/popia.py` | 138 | `TransactionalPOPIAConsentLifecycleService` | True |
-| `P0` | `ROUTE-TX-006-popia-renew_consent` | `popia` | `renew_consent` | `app/api_v2_routers/popia.py` | 153 | `TransactionalPOPIAConsentLifecycleService` | True |
-| `P0` | `ROUTE-TX-007-popia-create_export_request` | `popia` | `create_export_request` | `app/api_v2_routers/popia.py` | 173 | `TransactionalPOPIAConsentLifecycleService` | True |
+| `P0` | `ROUTE-TX-004-popia-deny_consent` | `popia` | `deny_consent` | `app/api_v2_routers/popia.py` | 119 | `TransactionalPOPIAConsentLifecycleService` | True |
+| `P0` | `ROUTE-TX-005-popia-withdraw_consent` | `popia` | `withdraw_consent` | `app/api_v2_routers/popia.py` | 137 | `TransactionalPOPIAConsentLifecycleService` | True |
+| `P0` | `ROUTE-TX-006-popia-renew_consent` | `popia` | `renew_consent` | `app/api_v2_routers/popia.py` | 152 | `TransactionalPOPIAConsentLifecycleService` | True |
+| `P0` | `ROUTE-TX-007-popia-create_export_request` | `popia` | `create_export_request` | `app/api_v2_routers/popia.py` | 172 | `TransactionalPOPIAConsentLifecycleService` | True |
 | `P1` | `ROUTE-TX-008-diagnostics-submit_diagnostic` | `diagnostics` | `submit_diagnostic` | `app/api_v2_routers/diagnostics.py` | 102 | `TransactionalDiagnosticResponseService` | True |
 | `P1` | `ROUTE-TX-009-diagnostics-start_diagnostic_session` | `diagnostics` | `start_diagnostic_session` | `app/api_v2_routers/diagnostics.py` | 250 | `TransactionalDiagnosticResponseService` | True |
-| `P1` | `ROUTE-TX-010-diagnostics-diagnostic_respond` | `diagnostics` | `diagnostic_respond` | `app/api_v2_routers/diagnostics.py` | 314 | `TransactionalDiagnosticResponseService` | True |
+| `P1` | `ROUTE-TX-010-diagnostics-diagnostic_respond` | `diagnostics` | `diagnostic_respond` | `app/api_v2_routers/diagnostics.py` | 315 | `TransactionalDiagnosticResponseService` | True |
 | `P2` | `ROUTE-TX-011-lessons-generate_lesson` | `lessons` | `generate_lesson` | `app/api_v2_routers/lessons.py` | 33 | `TransactionalLessonCompletionService` | True |
 | `P2` | `ROUTE-TX-012-lessons-generate_lesson_stream` | `lessons` | `generate_lesson_stream` | `app/api_v2_routers/lessons.py` | 58 | `TransactionalLessonCompletionService` | True |
 | `P2` | `ROUTE-TX-013-lessons-get_lesson` | `lessons` | `get_lesson` | `app/api_v2_routers/lessons.py` | 81 | `TransactionalLessonCompletionService` | True |

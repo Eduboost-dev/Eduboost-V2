@@ -1,7 +1,7 @@
 # POPIA Route Transaction Slice Report
 
-Generated at: `2026-05-26T18:41:12Z`
-Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+Generated at: `2026-05-28T12:43:46Z`
+Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
 
 - Route file: `app/api_v2_routers/popia.py`
 - Local status: `route-popia-delegation-passing`
@@ -13,10 +13,10 @@ Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 | Route function | Line | Delegate calls | Direct DB mutations | Status |
 |---|---:|---|---|---|
 | `grant_consent` | 102 | `consent_svc.grant` | `-` | `route-delegates-to-service-boundary` |
-| `deny_consent` | 120 | `consent_svc.deny` | `-` | `route-delegates-to-service-boundary` |
-| `withdraw_consent` | 138 | `consent_svc.withdraw` | `-` | `route-delegates-to-service-boundary` |
-| `renew_consent` | 153 | `consent_svc.renew` | `-` | `route-delegates-to-service-boundary` |
-| `create_export_request` | 173 | `dsr_svc.build_learner_export` | `-` | `route-delegates-to-service-boundary` |
+| `deny_consent` | 119 | `consent_svc.deny` | `-` | `route-delegates-to-service-boundary` |
+| `withdraw_consent` | 137 | `consent_svc.withdraw` | `-` | `route-delegates-to-service-boundary` |
+| `renew_consent` | 152 | `consent_svc.renew` | `-` | `route-delegates-to-service-boundary` |
+| `create_export_request` | 172 | `dsr_svc.build_learner_export` | `-` | `route-delegates-to-service-boundary` |
 
 ## Transaction service markers found
 

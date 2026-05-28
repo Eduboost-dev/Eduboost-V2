@@ -1,14 +1,14 @@
 # Backend Consolidation Diagnostic Report
 
-Generated at: `2026-05-26T18:31:07Z`
+Generated at: `2026-05-28T12:13:38Z`
 
 | Check | Return code | Command |
 |---|---:|---|
-| backend dragons | 0 | `/usr/bin/python3 scripts/check_backend_consolidation_dragons.py` |
-| audit inventory | 0 | `/usr/bin/python3 scripts/generate_audit_callsite_inventory.py --fail-empty` |
-| consent inventory | 0 | `/usr/bin/python3 scripts/generate_consent_callsite_inventory.py --fail-empty` |
-| health readiness contract | 0 | `/usr/bin/python3 scripts/check_health_readiness_contract.py` |
-| schema drift contract | 0 | `/usr/bin/python3 scripts/check_schema_drift_contract.py` |
+| backend dragons | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_dragons.py` |
+| audit inventory | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty` |
+| consent inventory | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty` |
+| health readiness contract | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py` |
+| schema drift contract | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_schema_drift_contract.py` |
 
 ## Interpretation
 
@@ -19,7 +19,7 @@ Generated at: `2026-05-26T18:31:07Z`
 
 ## backend dragons
 
-Command: `/usr/bin/python3 scripts/check_backend_consolidation_dragons.py`
+Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_dragons.py`
 
 Return code: `0`
 
@@ -108,46 +108,46 @@ Backend consolidation dragon diagnostic
   - app/security/dependencies.py
   - app/services/consent.py
   - ... 36 more file(s)
-- deep_health: 42 match(es)
+- deep_health: 41 match(es)
   - app/api_v2.py
   - app/core/health.py
   - scripts/check_backend_consolidation_dragons.py
   - scripts/check_diag_deep_health_runtime.py
   - scripts/check_runtime_entrypoints.py
-  - scripts/check_runtime_release_evidence.py
   - scripts/diag_deep_health_runtime_evidence.py
   - scripts/generate_route_inventory.py
   - scripts/run_staging_smoke.py
   - tests/integration/test_deep_health.py
   - tests/test_entrypoints.py
   - tests/test_health_checks.py
-  - ... 3 more file(s)
+  - tests/test_ready_endpoint.py
+  - ... 2 more file(s)
 - PASS backend consolidation dragons documented and inventoried
 ```
 
 ## audit inventory
 
-Command: `/usr/bin/python3 scripts/generate_audit_callsite_inventory.py --fail-empty`
+Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty`
 
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/Development/Eduboost-V2/docs/release/audit_callsite_inventory.md (2924 row(s))
+Wrote /home/nkgolol/Dev/Development/Eduboost-V2/docs/release/audit_callsite_inventory.md (2925 row(s))
 ```
 
 ## consent inventory
 
-Command: `/usr/bin/python3 scripts/generate_consent_callsite_inventory.py --fail-empty`
+Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty`
 
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/Development/Eduboost-V2/docs/release/consent_callsite_inventory.md (477 row(s))
+Wrote /home/nkgolol/Dev/Development/Eduboost-V2/docs/release/consent_callsite_inventory.md (487 row(s))
 ```
 
 ## health readiness contract
 
-Command: `/usr/bin/python3 scripts/check_health_readiness_contract.py`
+Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py`
 
 Return code: `0`
 
@@ -171,7 +171,7 @@ Health/readiness diagnostic contract check
 
 ## schema drift contract
 
-Command: `/usr/bin/python3 scripts/check_schema_drift_contract.py`
+Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_schema_drift_contract.py`
 
 Return code: `0`
 

@@ -68,34 +68,19 @@ Overnight Batch Run Entry Point
 
 ### AI Guide: Overnight Run Orchestration
 
-**Overview:** The overnight run orchestration is the main entry point for the content generation pipeline, coordinating all phases from lock acquisition through report generation. This trace shows how the system ensures safe, non-concurrent execution while providing flexibility for optional staging and reporting phases.
+**Motivation:**
+The overnight run orchestration is the main entry point for the content generation pipeline, coordinating all phases from lock acquisition through report generation. The system ensures safe, non-concurrent execution while providing flexibility for optional staging and reporting phases.
 
-**Key Components:**
+**Details:**
 
-1. **Lock Management (1b, 1e):** Distributed lock prevents concurrent runs, ensuring data integrity. Lock includes holder identifier (hostname:pid) for tracking. Finally block ensures lock release even on failure.
+**Lock Management and Run Tracking**
+Lock management uses a distributed lock to prevent concurrent runs, ensuring data integrity with a holder identifier (hostname:pid) for tracking and a finally block to ensure lock release even on failure [1b][1e]. Run tracking uses a ContentGenerationRun record to track metadata, status, and timing for auditability, enabling monitoring and debugging of generation runs [1c].
 
-2. **Run Tracking (1c):** ContentGenerationRun record tracks metadata, status, and timing for auditability. Enables monitoring and debugging of generation runs.
+**Planning and Execution**
+The planning phase delegates to the ContentGenerationPlanner to analyze coverage gaps and create tasks, centralizing gap analysis logic [1d]. The execution loop sequentially executes tasks created during planning, updates task status as tasks complete, and handles failures gracefully without stopping the entire run.
 
-3. **Planning Phase (1d):** Delegates to ContentGenerationPlanner to analyze coverage gaps and create tasks. Centralizes gap analysis logic.
-
-4. **Execution Loop:** Sequentially executes tasks created during planning. Updates task status as tasks complete. Handles failures gracefully without stopping entire run.
-
-5. **Optional Phases:** Staging seeding and verification are optional based on CLI flags. Report generation is optional for debugging and audit purposes.
-
-**Best Practices:**
-- Always acquire lock before starting generation
-- Use finally block for lock release
-- Track run metadata for auditability
-- Handle task failures gracefully
-- Use environment variables for configuration
-- Log all phases for debugging
-- Validate environment before starting
-
-**Common Issues:**
-- Lock already held: Another run is in progress, wait or investigate
-- Planning failures: Check source data availability and configuration
-- Task execution failures: Check provider configuration and source quality
-- Staging failures: Verify staging readiness and artifact approval status
+**Optional Phases**
+Optional phases include staging seeding and verification based on CLI flags, and report generation for debugging and audit purposes. This provides flexibility for different deployment scenarios while maintaining core pipeline functionality.
 
 ## Trace ID: 2
 **Title:** Content Gap Planning: Readiness Analysis to Task Creation
@@ -165,33 +150,19 @@ Content Gap Planning Pipeline
 
 ### AI Guide: Content Gap Planning
 
-**Overview:** The content gap planning system analyzes coverage gaps, validates source availability, and creates generation tasks. This trace shows how the planner ensures efficient resource utilization by only generating missing content while preventing duplicate work through idempotency.
+**Motivation:**
+The content gap planning system analyzes coverage gaps, validates source availability, and creates generation tasks. The planner ensures efficient resource utilization by only generating missing content while preventing duplicate work through idempotency.
 
-**Key Components:**
+**Details:**
 
-1. **Readiness Verification (2a):** ContentStagingReadinessService analyzes current coverage against targets. Identifies which layers need generation. Ensures staging readiness before planning.
+**Readiness Verification and Gap Calculation**
+Readiness verification uses the ContentStagingReadinessService to analyze current coverage against targets, identifying which layers need generation and ensuring staging readiness before planning [2a]. Gap calculation computes the missing count as target minus approved, handling edge cases (negative gaps, zero gaps) and skipping layers with no missing content [2b].
 
-2. **Gap Calculation (2b):** Computes missing count as target - approved. Handles edge cases (negative gaps, zero gaps). Skips layers with no missing content.
+**Source Context Validation and Idempotency**
+Source context validation uses the SourceContextService to validate ETL source chunks, ensuring approved sources are available and validating quality and licensing [2c]. The idempotency check uses a composite key (scope, layer, source chunks) to prevent duplicate tasks, enabling safe re-running of the planning phase.
 
-3. **Source Context Validation (2c):** SourceContextService validates ETL source chunks. Ensures approved sources are available. Validates quality and licensing.
-
-4. **Idempotency Check:** Uses composite key (scope, layer, source chunks) to prevent duplicate tasks. Enables safe re-running of planning phase.
-
-5. **Task Creation (2d, 2e):** Creates ContentGenerationTask with metadata. Batch persists to database for efficiency. Tracks provenance and configuration.
-
-**Best Practices:**
-- Always validate source availability before creating tasks
-- Use idempotency keys to prevent duplicates
-- Batch database operations for efficiency
-- Log skipped tasks for transparency
-- Handle edge cases (zero gaps, negative gaps)
-- Validate scope and layer configuration
-
-**Common Issues:**
-- No tasks created: Check source availability and configuration
-- Duplicate tasks: Verify idempotency key logic
-- Planning slow: Optimize database queries, batch operations
-- Source validation failures: Check ETL pipeline and source quality
+**Task Creation**
+Task creation creates ContentGenerationTask with metadata, batch persists to the database for efficiency, and tracks provenance and configuration [2d][2e]. This ensures that tasks are created efficiently with full traceability.
 
 ## Trace ID: 3
 **Title:** Task Execution: Provider Invocation to Artifact Creation
@@ -263,35 +234,19 @@ Task Execution Flow (Trace 3)
 
 ### AI Guide: Task Execution
 
-**Overview:** The task execution system manages the lifecycle of generation tasks, coordinating provider invocation with artifact creation. This trace shows how the executor ensures safe, isolated task execution while supporting multiple provider types and maintaining comprehensive validation.
+**Motivation:**
+The task execution system manages the lifecycle of generation tasks, coordinating provider invocation with artifact creation. The executor ensures safe, isolated task execution while supporting multiple provider types and maintaining comprehensive validation.
 
-**Key Components:**
+**Details:**
 
-1. **Task Locking (3a):** Locks task with expiration to prevent concurrent execution. Includes holder identifier for tracking. Expiration prevents stale locks.
+**Task Locking and Source Re-validation**
+Task locking locks the task with expiration to prevent concurrent execution, includes a holder identifier for tracking, and uses expiration to prevent stale locks [3a]. Source context re-validation re-validates source availability at execution time, handles changes since the planning phase, and ensures sources are still approved and available [3b].
 
-2. **Source Context Re-validation (3b):** Re-validates source availability at execution time. Handles changes since planning phase. Ensures sources still approved and available.
+**Provider Invocation and Artifact Creation**
+Provider invocation abstracts the provider interface (deterministic, LLM), builds provider-specific requests, and returns validation lambdas for deferred validation [3c]. The artifact creation loop iterates through generated payloads, creates artifacts with validation, handles duplicate detection via hash, and tracks source citations [3d].
 
-3. **Provider Invocation (3c):** Abstracts provider interface (deterministic, LLM). Builds provider-specific requests. Returns validation lambdas for deferred validation.
-
-4. **Artifact Creation Loop (3d):** Iterates through generated payloads. Creates artifacts with validation. Handles duplicate detection via hash. Tracks source citations.
-
-5. **Task Status Updates (3e):** Updates task status based on overall success. Tracks output artifact IDs. Enables monitoring and debugging.
-
-**Best Practices:**
-- Always lock tasks before execution
-- Re-validate source context at execution time
-- Use provider abstraction for flexibility
-- Limit artifacts per task to prevent runaway generation
-- Handle provider failures gracefully
-- Track provenance via source citations
-- Update task status accurately
-
-**Common Issues:**
-- Task lock failures: Task already running, investigate holder
-- Source context failures: Sources changed since planning
-- Provider failures: Check provider configuration and credentials
-- Artifact creation failures: Check validation rules and data quality
-- Task stuck in running state: Check lock expiration
+**Task Status Updates**
+Task status updates update the task status based on overall success, track output artifact IDs, and enable monitoring and debugging [3e]. This ensures that task execution is tracked comprehensively throughout the lifecycle.
 
 ## Trace ID: 4
 **Title:** Diagnostic Item Generation: Provider to Validation
@@ -362,33 +317,19 @@ Diagnostic Item Generation Flow
 
 ### AI Guide: Diagnostic Item Generation
 
-**Overview:** The diagnostic item generation flow demonstrates how the DeterministicContentGenerationProvider creates structured assessment items. This trace shows the layer-specific generation approach, deferred validation via lambdas, and quality checks for diagnostic items.
+**Motivation:**
+The diagnostic item generation flow demonstrates how the DeterministicContentGenerationProvider creates structured assessment items. The layer-specific generation approach uses deferred validation via lambdas and quality checks for diagnostic items to ensure consistent, high-quality content.
 
-**Key Components:**
+**Details:**
 
-1. **Request Building:** DiagnosticGenerationRequest includes scope, chunks, counts, and metadata. Standardizes input for provider. Enables deterministic generation.
+**Request Building and Provider Invocation**
+Request building uses DiagnosticGenerationRequest including scope, chunks, counts, and metadata to standardize input for the provider and enable deterministic generation. Provider invocation calls the deterministic provider with the request, where the provider implements item generation logic and returns a list of GeneratedDiagnosticItem [4a].
 
-2. **Provider Invocation (4a):** Calls deterministic provider with request. Provider implements item generation logic. Returns list of GeneratedDiagnosticItem.
+**Item Creation and JSON Conversion**
+Item creation uses GeneratedDiagnosticItem including question, options, answer, and source citations, uses deterministic algorithms for consistency, and tracks provenance via source chunk IDs [4b]. JSON conversion uses to_artifact_json() to transform the typed item to JSON, standardizing the artifact format and enabling storage and validation [4c].
 
-3. **Item Creation (4b):** GeneratedDiagnosticItem includes question, options, answer, source citations. Uses deterministic algorithms for consistency. Tracks provenance via source chunk IDs.
-
-4. **JSON Conversion (4c):** to_artifact_json() transforms typed item to JSON. Standardizes artifact format. Enables storage and validation.
-
-5. **Deferred Validation (4d, 4e):** Validation lambda returned with payload. Validates after generation. Checks answer keys, options, duplicates. Enables batch validation.
-
-**Best Practices:**
-- Use deterministic generation for consistent items
-- Validate after generation for efficiency
-- Track source citations for provenance
-- Check answer keys and options
-- Detect duplicates via hash
-- Use validation lambdas for flexibility
-
-**Common Issues:**
-- Invalid items: Check validation rules and source quality
-- Duplicate items: Verify hash detection logic
-- Missing source citations: Check source chunk IDs
-- Invalid answer keys: Validate provider logic
+**Deferred Validation**
+Deferred validation returns a validation lambda with the payload, validates after generation, checks answer keys, options, and duplicates, and enables batch validation [4d][4e]. This ensures efficient validation while maintaining quality control.
 
 ## Trace ID: 5
 **Title:** Artifact Creation and Validation: Factory Service Flow
@@ -463,33 +404,19 @@ Artifact Creation and Validation Flow
 
 ### AI Guide: Artifact Creation and Validation
 
-**Overview:** The artifact creation and validation system ensures content quality through comprehensive validation before human review. This trace shows how the ContentFactoryService validates payloads, verifies provenance, and creates artifacts with pending_review status.
+**Motivation:**
+The artifact creation and validation system ensures content quality through comprehensive validation before human review. The ContentFactoryService validates payloads, verifies provenance, and creates artifacts with pending_review status to maintain quality control.
 
-**Key Components:**
+**Details:**
 
-1. **Payload Validation (5a):** ContentValidationService checks artifact structure. Verifies required fields exist. Validates diagnostic-specific fields (answer_key). Returns validation result with errors.
+**Payload and Provenance Validation**
+Payload validation uses the ContentValidationService to check artifact structure, verifies required fields exist, validates diagnostic-specific fields (answer_key), and returns a validation result with errors [5a]. Provenance validation uses the ETLProvenanceService to validate the source bundle, checks document approval status, verifies license compatibility, validates quality thresholds, and computes the source snapshot hash [5b].
 
-2. **Provenance Validation (5b):** ETLProvenanceService validates source bundle. Checks document approval status. Verifies license compatibility. Validates quality thresholds. Computes source snapshot hash.
+**Artifact Creation and Status Setting**
+Artifact creation creates ContentGenerationArtifact with hashes, using artifact hash for deduplication and source snapshot hash for provenance tracking, with status set based on validation [5c]. Status setting sets PENDING_REVIEW if validation passed, VALIDATION_FAILED if errors, never auto-approves (human review required), and enables quality control [5d].
 
-3. **Artifact Creation (5c):** ContentGenerationArtifact created with hashes. Artifact hash for deduplication. Source snapshot hash for provenance tracking. Status set based on validation.
-
-4. **Status Setting (5d):** PENDING_REVIEW if validation passed. VALIDATION_FAILED if errors. Never auto-approves (human review required). Enables quality control.
-
-5. **Source Citations (5e):** ContentArtifactSource records link artifact to sources. Tracks provenance. Enables source tracking and attribution.
-
-**Best Practices:**
-- Always validate before creating artifacts
-- Never auto-approve (human review required)
-- Track source provenance and licensing
-- Compute hashes for deduplication
-- Create validation reports for audit
-- Link artifacts to sources
-
-**Common Issues:**
-- Validation failures: Check payload structure and source quality
-- Provenance failures: Verify source approval and licensing
-- Status errors: Ensure validation logic correct
-- Missing source citations: Check source extraction logic
+**Source Citations**
+Source citations use ContentArtifactSource records to link artifacts to sources, track provenance, and enable source tracking and attribution [5e]. This ensures full traceability of content sources.
 
 ## Trace ID: 6
 **Title:** Staging Readiness Verification: Coverage Analysis
@@ -561,33 +488,19 @@ Staging Readiness Verification Flow
 
 ### AI Guide: Staging Readiness Verification
 
-**Overview:** The staging readiness verification system analyzes scope coverage to determine which artifacts are ready for staging. This trace shows how the ContentStagingReadinessService checks provenance, licensing, and quality to identify blockers and calculate stageable counts.
+**Motivation:**
+The staging readiness verification system analyzes scope coverage to determine which artifacts are ready for staging. The ContentStagingReadinessService checks provenance, licensing, and quality to identify blockers and calculate stageable counts for informed staging decisions.
 
-**Key Components:**
+**Details:**
 
-1. **Data Loading (6a, 6b):** Loads all artifacts for scope. Builds source index for provenance checks. Efficient batch loading for performance.
+**Data Loading and Layer Analysis**
+Data loading loads all artifacts for the scope, builds a source index for provenance checks, and uses efficient batch loading for performance [6a][6b]. Layer analysis uses _layer_summary() to analyze each layer, counts artifacts by status, filters approved artifacts, and checks provenance, license, and quality [6c].
 
-2. **Layer Analysis (6c):** _layer_summary() analyzes each layer. Counts artifacts by status. Filters approved artifacts. Checks provenance, license, quality.
+**Stageable Calculation and Blocker Identification**
+Stageable calculation calculates the stageable count as approved minus issues, subtracts invalid provenance, invalid license, and low quality, and handles edge cases (negative counts) [6d]. Blocker identification uses _layer_blockers() to generate blocker records, identifies insufficient coverage and quality issues, and enables targeted fixes [6e].
 
-3. **Stageable Calculation (6d):** Calculates stageable count as approved minus issues. Subtracts invalid provenance, invalid license, low quality. Handles edge cases (negative counts).
-
-4. **Blocker Identification (6e):** _layer_blockers() generates blocker records. Identifies insufficient coverage. Identifies quality issues. Enables targeted fixes.
-
-5. **Verification Report:** Returns comprehensive report with status, can_seed_staging flag, blockers, and layer summaries. Enables informed staging decisions.
-
-**Best Practices:**
-- Load data efficiently in batches
-- Check all quality dimensions (provenance, license, quality)
-- Calculate stageable counts accurately
-- Identify specific blockers for fixes
-- Provide comprehensive verification reports
-- Handle edge cases (zero targets, negative counts)
-
-**Common Issues:**
-- No artifacts loaded: Check scope configuration and artifact status
-- All blocked: Check source quality and licensing
-- Stageable count wrong: Verify calculation logic
-- Missing blockers: Check blocker identification logic
+**Verification Report**
+The verification report returns a comprehensive report with status, can_seed_staging flag, blockers, and layer summaries to enable informed staging decisions. This ensures that only high-quality, properly licensed artifacts are promoted to staging.
 
 ## Trace ID: 7
 **Title:** Staging Seed Execution: Approved Artifacts to Staging Tables
@@ -646,33 +559,19 @@ Staging Seed Execution Pipeline
 
 ### AI Guide: Staging Seed Execution
 
-**Overview:** The staging seed execution system promotes approved artifacts to staging tables for preview. This trace shows how the ContentStagingSeedExecutor identifies seedable artifacts, tracks seed operations, and updates artifact status.
+**Motivation:**
+The staging seed execution system promotes approved artifacts to staging tables for preview. The ContentStagingSeedExecutor identifies seedable artifacts, tracks seed operations, and updates artifact status to ensure controlled promotion to staging.
 
-**Key Components:**
+**Details:**
 
-1. **Seed Gate Validation (7a):** _seed_gate() validates stageable count. Prevents seeding if no artifacts ready. Ensures meaningful seeding operations.
+**Seed Gate Validation and Planning**
+Seed gate validation uses _seed_gate() to validate the stageable count, prevents seeding if no artifacts are ready, and ensures meaningful seeding operations [7a]. Seed planning uses _plan_seed() to identify seedable artifacts, distinguishes seedable vs skipped artifacts, and supports partial seeding (skip issues).
 
-2. **Seed Planning:** _plan_seed() identifies seedable artifacts. Distinguishes seedable vs skipped artifacts. Supports partial seeding (skip issues).
+**Seed Run Tracking and Artifact Promotion**
+Seed run tracking uses ContentSeedRun to track the operation, records status and metadata, and enables auditability and debugging [7c]. Artifact promotion creates ContentStagingArtifact records, promotes to staging tables, and links to the original artifact.
 
-3. **Seed Run Tracking (7c):** ContentSeedRun tracks operation. Records status and metadata. Enables auditability and debugging.
-
-4. **Artifact Promotion:** Creates ContentStagingArtifact records. Promotes to staging tables. Links to original artifact.
-
-5. **Status Update (7d):** Transitions artifact status (APPROVED → SEEDED_STAGING). Tracks seeding history. Prevents re-seeding.
-
-**Best Practices:**
-- Validate before seeding (seed gate)
-- Track all seed operations for audit
-- Support partial seeding (skip issues)
-- Update artifact status accurately
-- Isolate staging from production
-- Log all seeding operations
-
-**Common Issues:**
-- Seed gate failures: Check stageable count and readiness
-- No artifacts seeded: Check planning logic and artifact status
-- Status update failures: Verify status transition logic
-- Staging table errors: Check table structure and permissions
+**Status Update**
+Status update transitions artifact status (APPROVED → SEEDED_STAGING), tracks seeding history, and prevents re-seeding [7d]. This ensures that artifacts are promoted to staging in a controlled, auditable manner with proper status tracking.
 
 ## Trace ID: 8
 **Title:** Report Generation: Summary and Evidence Export
@@ -743,30 +642,16 @@ Overnight Run Orchestration (run_full_generation.py)
 
 ### AI Guide: Report Generation
 
-**Overview:** The report generation system creates comprehensive documentation of generation runs. This trace shows how the ContentGenerationReporter produces markdown summaries, JSON metadata, CSV exports, and error logs for auditability and debugging.
+**Motivation:**
+The report generation system creates comprehensive documentation of generation runs. The ContentGenerationReporter produces markdown summaries, JSON metadata, CSV exports, and error logs for auditability and debugging to ensure full traceability of generation operations.
 
-**Key Components:**
+**Details:**
 
-1. **Directory Creation (8b):** Creates timestamped directory. Organizes reports by time. Prevents overwriting previous reports.
+**Directory Creation and Markdown Summary**
+Directory creation creates a timestamped directory, organizes reports by time, and prevents overwriting previous reports [8b]. The markdown summary uses _write_summary_md() to generate a human-readable summary, includes run status and metrics, and enables quick human review [8c].
 
-2. **Markdown Summary (8c):** _write_summary_md() generates human-readable summary. Includes run status and metrics. Enables quick human review.
+**JSON Metadata and CSV Exports**
+JSON metadata uses _write_summary_json() to export machine-readable data, enables programmatic analysis, and includes all run metadata. CSV exports use _write_csv() to export data to spreadsheets with separate CSVs for tasks, artifacts, and pending review to enable data analysis [8d].
 
-3. **JSON Metadata:** _write_summary_json() exports machine-readable data. Enables programmatic analysis. Includes all run metadata.
-
-4. **CSV Exports (8d):** _write_csv() exports data to spreadsheets. Separate CSVs for tasks, artifacts, pending review. Enables data analysis.
-
-5. **Error Log (8e):** _write_errors_log() logs all errors. Includes stack traces. Enables debugging and troubleshooting.
-
-**Best Practices:**
-- Use timestamped directories for organization
-- Generate both human and machine-readable formats
-- Export all relevant data (tasks, artifacts, errors)
-- Include metadata for programmatic analysis
-- Log errors with context for debugging
-- Handle missing data gracefully
-
-**Common Issues:**
-- Directory creation failures: Check permissions and disk space
-- File write failures: Check disk space and permissions
-- Missing data: Handle gracefully, log warnings
-- Large reports: Consider pagination or compression
+**Error Log**
+The error log uses _write_errors_log() to log all errors, includes stack traces, and enables debugging and troubleshooting [8e]. This comprehensive reporting ensures that all aspects of the generation run are documented for audit and debugging purposes.

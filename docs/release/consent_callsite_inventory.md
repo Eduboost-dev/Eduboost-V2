@@ -73,10 +73,10 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `app/api_v2_routers/popia.py` | 4 | require_active_consent | `All learner-data routes use the require_active_consent dependency (§4.2).` |
 | `app/api_v2_routers/popia.py` | 23 | consent_service | `from app.modules.consent.service import ConsentService` |
 | `app/api_v2_routers/popia.py` | 105 | consent_service | `consent_svc: ConsentService = Depends(get_canonical_consent_service),` |
-| `app/api_v2_routers/popia.py` | 111 | consent_grant | `return await consent_svc.grant(` |
-| `app/api_v2_routers/popia.py` | 123 | consent_service | `consent_svc: ConsentService = Depends(get_canonical_consent_service),` |
-| `app/api_v2_routers/popia.py` | 141 | consent_service | `consent_svc: ConsentService = Depends(get_canonical_consent_service),` |
-| `app/api_v2_routers/popia.py` | 156 | consent_service | `consent_svc: ConsentService = Depends(get_canonical_consent_service),` |
+| `app/api_v2_routers/popia.py` | 110 | consent_grant | `return await consent_svc.grant(` |
+| `app/api_v2_routers/popia.py` | 122 | consent_service | `consent_svc: ConsentService = Depends(get_canonical_consent_service),` |
+| `app/api_v2_routers/popia.py` | 140 | consent_service | `consent_svc: ConsentService = Depends(get_canonical_consent_service),` |
+| `app/api_v2_routers/popia.py` | 155 | consent_service | `consent_svc: ConsentService = Depends(get_canonical_consent_service),` |
 | `app/core/consent_gate.py` | 10 | require_active_consent | `_: ConsentRecord = Depends(require_active_consent),` |
 | `app/core/consent_gate.py` | 26 | consent_service | `from app.services.consent_service import ConsentService` |
 | `app/core/consent_gate.py` | 52 | require_active_consent | `async def require_active_consent(` |
@@ -460,6 +460,16 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `tests/unit/test_consent_policy.py` | 93 | consent_service | `service = ConsentService(` |
 | `tests/unit/test_consent_policy.py` | 94 | consent_repository | `consent_repo=FakeRepo(consent(expires_at=datetime(2020, 1, 1, tzinfo=UTC))),` |
 | `tests/unit/test_consent_policy.py` | 99 | require_active_consent | `await service.require_active_consent("learner-1", actor_id="guardian-1")` |
+| `tests/unit/test_consent_repository_contract.py` | 4 | consent_repository | `Task 135A: ConsentRepository contract tests` |
+| `tests/unit/test_consent_repository_contract.py` | 26 | consent_repository | `from app.repositories.consent_repository import ConsentRepository` |
+| `tests/unit/test_consent_repository_contract.py` | 54 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 68 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 98 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 110 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 138 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 167 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 198 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 211 | consent_repository | `repo = ConsentRepository(pool)` |
 | `tests/unit/test_diagnostics_central_consent_source.py` | 17 | consent_service | `assert "ConsentService(db).require_active_consent" not in source` |
 | `tests/unit/test_diagnostics_central_consent_source.py` | 17 | require_active_consent | `assert "ConsentService(db).require_active_consent" not in source` |
 | `tests/unit/test_diagnostics_central_consent_source.py` | 18 | consent_service | `assert "from app.services.consent import ConsentService" not in source` |

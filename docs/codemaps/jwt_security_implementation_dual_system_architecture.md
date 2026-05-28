@@ -73,32 +73,19 @@ Login Flow: Credentials → Token Pair
 
 ### AI Guide: Login Flow - Credentials to Token Pair
 
-**Overview:** The login flow implements a secure authentication mechanism that transforms user credentials into a token pair (access + refresh) with multiple security layers including password verification, JWT token generation, Redis-backed storage, and HTTP-only cookie delivery.
+**Motivation:**
+The login flow implements a secure authentication mechanism that transforms user credentials into a token pair (access + refresh) with multiple security layers including password verification, JWT token generation, Redis-backed storage, and HTTP-only cookie delivery to ensure comprehensive security against common attack vectors.
 
-**Flow Components:**
+**Details:**
 
-1. **API Endpoint (1a):** FastAPI route at `/auth/login` receives POST request with credentials and delegates to auth service layer
-2. **Password Verification (1b):** Uses bcrypt for constant-time password comparison to prevent timing attacks
-3. **Refresh Token Generation (1c):** Creates JWT refresh token with `family_id` claim for rotation tracking
-4. **Access Token Generation (1d):** Creates short-lived JWT access token (15 minutes) with user claims
-5. **Token Storage (1e):** Hashes refresh token before storage in Redis with TTL matching token expiry
-6. **HTTP-Only Cookie (1f):** Returns refresh token in secure, HTTP-only, SameSite=strict cookie
+**API Endpoint and Password Verification**
+The API endpoint is a FastAPI route at `/auth/login` that receives POST requests with credentials and delegates to the auth service layer [1a]. Password verification uses bcrypt for constant-time password comparison to prevent timing attacks [1b].
 
-**Security Features:**
-- Constant-time password comparison prevents timing attacks
-- JWT with kid header enables key rotation without breaking existing tokens
-- Family-based refresh tokens detect token reuse (replay attacks)
-- HTTP-only cookies protect against XSS token theft
-- Redis-backed storage enables fast token validation and revocation
-- Token hashing ensures tokens never stored in plaintext
+**Token Generation**
+Refresh token generation creates a JWT refresh token with `family_id` claim for rotation tracking [1c]. Access token generation creates a short-lived JWT access token (15 minutes) with user claims [1d].
 
-**Best Practices:**
-- Always use HTTPS in production for cookie security
-- Implement rate limiting on login endpoint
-- Log failed login attempts for security monitoring
-- Use short access token expiry (15 minutes recommended)
-- Rotate refresh tokens on each use (single-use property)
-- Implement account lockout after repeated failures
+**Token Storage and Cookie Delivery**
+Token storage hashes the refresh token before storage in Redis with TTL matching token expiry [1e]. The HTTP-only cookie returns the refresh token in a secure, HTTP-only, SameSite=strict cookie [1f]. This provides constant-time password comparison to prevent timing attacks, JWT with kid header for key rotation, family-based refresh tokens to detect reuse, HTTP-only cookies for XSS protection, Redis-backed storage for fast validation, and token hashing to prevent plaintext storage.
 
 ## Trace ID: 2
 **Title:** Access Token Creation with Keyring
@@ -163,32 +150,19 @@ Access Token Creation Flow
 
 ### AI Guide: Access Token Creation with Keyring
 
-**Overview:** Access token creation demonstrates a sophisticated JWT signing system using a keyring with key rotation support. The system uses a `kid` (key ID) header to identify which key signed the token, enabling graceful key rotation without invalidating existing tokens.
+**Motivation:**
+Access token creation demonstrates a sophisticated JWT signing system using a keyring with key rotation support. The system uses a `kid` (key ID) header to identify which key signed the token, enabling graceful key rotation without invalidating existing tokens.
 
-**Keyring Architecture:**
-- JSON-based configuration stored in `JWT_KEYRING` environment variable
-- Multiple keys with status: `current`, `previous`, `next`
-- Each key has: `kid` (unique ID), `secret` (signing key), `algorithm` (e.g., HS256)
-- Supports key rotation by marking new key as `current`
+**Details:**
 
-**Key Rotation Strategy:**
-1. **Pre-Rotation:** Key A marked as `current`, all tokens signed with Key A
-2. **Rotation Initiation:** Add Key B as `next`, keep Key A as `current`
-3. **Rotation Complete:** Mark Key B as `current`, Key A as `previous`
-4. **Post-Rotation:** Remove Key A after all tokens expire
+**Keyring Architecture**
+The keyring architecture uses JSON-based configuration stored in the `JWT_KEYRING` environment variable with multiple keys having status: `current`, `previous`, and `next` [2a]. Each key has a `kid` (unique ID), `secret` (signing key), and `algorithm` (e.g., HS256), supporting key rotation by marking the new key as `current` [2b].
 
-**Verification with kid:**
-- Verifier extracts `kid` from JWT header
-- Searches keyring for matching key
-- Tries matching key first for efficiency
-- Falls back to other keys if match fails
+**Key Rotation Strategy**
+The key rotation strategy follows a four-phase process: Pre-Rotation (Key A marked as `current`, all tokens signed with Key A), Rotation Initiation (Add Key B as `next`, keep Key A as `current`), Rotation Complete (Mark Key B as `current`, Key A as `previous`), and Post-Rotation (Remove Key A after all tokens expire) [2c].
 
-**Best Practices:**
-- Rotate keys regularly (e.g., every 90 days)
-- Keep previous keys until all tokens expire
-- Use strong random secrets for signing keys
-- Document key rotation schedule
-- Test rotation in staging before production
+**Verification with kid**
+Verification with kid extracts the `kid` from the JWT header, searches the keyring for the matching key, tries the matching key first for efficiency, and falls back to other keys if the match fails [2d]. This ensures that tokens signed with previous keys can still be validated during the rotation period.
 
 ## Trace ID: 3
 **Title:** Token Verification with Revocation Checks
@@ -264,33 +238,19 @@ Token Verification Flow
 
 ### AI Guide: Token Verification with Revocation Checks
 
-**Overview:** Token verification implements a multi-layered security approach combining cryptographic signature verification with runtime revocation checks. This ensures tokens are both cryptographically valid and haven't been revoked since issuance.
+**Motivation:**
+Token verification implements a multi-layered security approach combining cryptographic signature verification with runtime revocation checks. This ensures tokens are both cryptographically valid and haven't been revoked since issuance, providing defense in depth.
 
-**Verification Layers:**
-1. **Token Extraction (3a):** FastAPI dependency extracts `Authorization: Bearer <token>` header
-2. **Signature Verification (3b-3d):** Validates signature with keyring, tries matching kid first
-3. **Per-Token Revocation (3e-3f):** Checks Redis blacklist for revoked JTI
-4. **User-Level Revocation (3g):** Checks if user's all tokens have been revoked
+**Details:**
 
-**Revocation Strategies:**
-- **Per-Token Revocation:** Revokes individual token by JTI (use case: logout from specific device)
-- **User-Level Revocation:** Revokes all tokens for a user (use case: password reset)
-- **Family-Based Revocation:** Revokes refresh token family (use case: reuse detected)
-- **Global Revocation:** Revokes all tokens issued before timestamp (use case: security incident)
+**Verification Layers**
+The verification layers include token extraction where a FastAPI dependency extracts the `Authorization: Bearer <token>` header [3a], signature verification that validates the signature with the keyring and tries the matching kid first [3b-3d], per-token revocation that checks the Redis blacklist for revoked JTI [3e-3f], and user-level revocation that checks if the user's all tokens have been revoked [3g].
 
-**Security Benefits:**
-- Cryptographic validation ensures token hasn't been tampered with
-- Key rotation support verifies tokens signed with previous keys
-- Runtime revocation can invalidate tokens before expiry
-- Multi-layer checks provide defense in depth
-- Fast revocation via Redis sub-millisecond lookups
+**Revocation Strategies**
+Revocation strategies include per-token revocation (revokes individual token by JTI for logout from specific device), user-level revocation (revokes all tokens for a user for password reset), family-based revocation (revokes refresh token family for reuse detection), and global revocation (revokes all tokens issued before timestamp for security incidents).
 
-**Best Practices:**
-- Always check revocation after signature verification
-- Use appropriate TTL for revocation entries
-- Implement Redis fallback for high availability
-- Log revocation checks for security monitoring
-- Cache keyring for performance
+**Security Benefits**
+Security benefits include cryptographic validation ensuring the token hasn't been tampered with, key rotation support verifying tokens signed with previous keys, runtime revocation invalidating tokens before expiry, multi-layer checks providing defense in depth, and fast revocation via Redis sub-millisecond lookups.
 
 ## Trace ID: 4
 **Title:** Refresh Token Rotation: Consume and Reissue
@@ -370,34 +330,19 @@ Refresh Token Rotation Flow
 
 ### AI Guide: Refresh Token Rotation: Consume and Reissue
 
-**Overview:** Refresh token rotation implements a security-critical single-use token pattern that detects replay attacks through family-based tracking. Each refresh token can only be used once; reuse triggers immediate family revocation to prevent token theft exploitation.
+**Motivation:**
+Refresh token rotation implements a security-critical single-use token pattern that detects replay attacks through family-based tracking. Each refresh token can only be used once; reuse triggers immediate family revocation to prevent token theft exploitation.
 
-**Rotation Security Model:**
-- **Single-Use Property:** Each refresh token can be used exactly once, deleted immediately after use
-- **Family-Based Tracking:** All tokens in rotation chain share same `family_id` for reuse detection
-- **Reuse Detection:** If hash doesn't match or token missing, indicates reuse and triggers family revocation
-- **Atomic Consumption:** Validates token and deletes in single operation to prevent race conditions
+**Details:**
 
-**Attack Scenario:**
-1. Attacker steals refresh token from XSS
-2. Attacker attempts to use token
-3. Legitimate user refreshes first (token consumed)
-4. Attacker's reuse attempt triggers family revocation
-5. Both user and attacker must re-authenticate
+**Rotation Security Model**
+The rotation security model includes the single-use property where each refresh token can be used exactly once and is deleted immediately after use [4a], family-based tracking where all tokens in the rotation chain share the same `family_id` for reuse detection [4b], reuse detection where if the hash doesn't match or token is missing it indicates reuse and triggers family revocation [4c], and atomic consumption that validates the token and deletes it in a single operation to prevent race conditions [4d].
 
-**Security Benefits:**
-- Replay attack prevention via single-use tokens
-- Theft detection through family revocation
-- Graceful degradation (valid users can re-authenticate)
-- Audit trail via family revocation event logging
-- Constant-time comparison prevents timing attacks
+**Attack Scenario**
+The attack scenario demonstrates the security: an attacker steals the refresh token from XSS, attempts to use the token, the legitimate user refreshes first (token consumed), the attacker's reuse attempt triggers family revocation, and both the user and attacker must re-authenticate.
 
-**Best Practices:**
-- Always rotate refresh tokens on use
-- Use constant-time comparison for hash checks
-- Log family revocation events for security monitoring
-- Implement rate limiting on refresh endpoint
-- Use short refresh token expiry (7-30 days)
+**Security Benefits**
+Security benefits include replay attack prevention via single-use tokens, theft detection through family revocation, graceful degradation (valid users can re-authenticate), audit trail via family revocation event logging, and constant-time comparison preventing timing attacks.
 
 ## Trace ID: 5
 **Title:** Key Rotation: Validation and Multi-Key Support
@@ -473,51 +418,19 @@ JWT Key Rotation & Validation System
 
 ### AI Guide: Key Rotation: Validation and Multi-Key Support
 
-**Overview:** The keyring system implements a robust key rotation mechanism with startup validation, placeholder detection, and multi-key verification. This ensures cryptographic keys are properly configured and enables graceful key rotation without service interruption.
+**Motivation:**
+The keyring system implements a robust key rotation mechanism with startup validation, placeholder detection, and multi-key verification. This ensures cryptographic keys are properly configured and enables graceful key rotation without service interruption.
 
-**Startup Validation:**
-- **Environment Check:** Determines if running in production for stricter validation
-- **Keyring Parsing:** Loads JWT_KEYRING JSON or falls back to legacy JWT_SECRET
-- **Placeholder Detection:** Checks for "change_me", "placeholder", "default" patterns
-- **Production Guard:** Fails application startup if placeholders detected in production
+**Details:**
 
-**Keyring Structure:**
-```json
-{
-  "JWT_KEYRING": [
-    {
-      "kid": "key_2024_01",
-      "secret": "cryptographically_random_secret_1",
-      "algorithm": "HS256",
-      "status": "previous"
-    },
-    {
-      "kid": "key_2024_02",
-      "secret": "cryptographically_random_secret_2",
-      "algorithm": "HS256",
-      "status": "current"
-    }
-  ]
-}
-```
+**Startup Validation**
+Startup validation includes environment check to determine if running in production for stricter validation [5a], keyring parsing to load JWT_KEYRING JSON or fall back to legacy JWT_SECRET [5b], placeholder detection to check for "change_me", "placeholder", "default" patterns [5c], and production guard that fails application startup if placeholders are detected in production [5d].
 
-**Rotation Procedure:**
-1. **Preparation:** Generate new secret, add as `next`, test in staging
-2. **Rotation:** Deploy, mark new as `current`, old as `previous`
-3. **Cleanup:** Wait for token expiry, remove old key
+**Keyring Structure**
+The keyring structure is a JSON-based configuration stored in the JWT_KEYRING environment variable with multiple keys having status: `current`, `previous`, and `next`. Each key has a `kid` (unique ID), `secret` (signing key), and `algorithm` (e.g., HS256).
 
-**Multi-Key Verification:**
-- Extracts kid from JWT header
-- Sorts keys by kid match (optimization)
-- Tries each key until success
-- Supports tokens signed with previous keys
-
-**Best Practices:**
-- Rotate keys regularly (every 90 days recommended)
-- Use cryptographically random secrets (256-bit minimum)
-- Test rotation in staging before production
-- Keep previous keys until all tokens expire
-- Document rotation schedule and procedures
+**Rotation Procedure**
+The rotation procedure includes preparation (generate new secret, add as `next`, test in staging), rotation (deploy, mark new as `current`, old as `previous`), and cleanup (wait for token expiry, remove old key). Multi-key verification ensures that tokens signed with previous keys can still be validated during the rotation period by extracting the kid from the JWT header, sorting keys by kid match for optimization, trying each key until success, and supporting tokens signed with previous keys.
 
 ## Trace ID: 6
 **Title:** Token Revocation: Redis with DB Fallback
@@ -591,53 +504,19 @@ Token Revocation System
 
 ### AI Guide: Token Revocation: Redis with DB Fallback
 
-**Overview:** The revocation system implements a dual-layer approach combining fast Redis lookups for runtime performance with persistent database storage for resilience against Redis restarts. Multiple revocation strategies support different security scenarios.
+**Motivation:**
+The revocation system implements a dual-layer approach combining fast Redis lookups for runtime performance with persistent database storage for resilience against Redis restarts. Multiple revocation strategies support different security scenarios including per-token, user-level, family-based, and emergency global revocation.
 
-**Revocation Strategies:**
-- **Per-Token Revocation:** Revokes individual token by JTI (use case: logout from specific device)
-- **User-Level Revocation:** Revokes all tokens for a user (use case: password reset)
-- **Family-Based Revocation:** Revokes entire refresh token family (use case: reuse detected)
-- **Emergency Global Revocation:** Revokes all tokens issued before timestamp (use case: security incident)
+**Details:**
 
-**Dual-Layer Storage:**
-- **Layer 1 (Redis):** Fast storage with TTL for automatic cleanup
-- **Layer 2 (Database):** Persistent storage for Redis restart resilience
+**Revocation Strategies**
+Revocation strategies include per-token revocation (revokes individual token by JTI for logout from specific device), user-level revocation (revokes all tokens for a user for password reset), family-based revocation (revokes entire refresh token family for reuse detection), and emergency global revocation (revokes all tokens issued before timestamp for security incidents).
 
-**Redis Storage Structure:**
-```
-revoked_jti:{jti} = "1" (TTL: token expiry)
-revoked_user:{user_id} = "1" (TTL: 30 days)
-revoked_family:{family_id} = "1" (TTL: 30 days)
-revoke_all_epoch = "2024-01-15T10:30:00Z"
-```
+**Dual-Layer Storage**
+Dual-layer storage includes Layer 1 (Redis) for fast storage with TTL for automatic cleanup and Layer 2 (Database) for persistent storage for Redis restart resilience. The Redis storage structure uses keys like `revoked_jti:{jti}`, `revoked_user:{user_id}`, `revoked_family:{family_id}`, and `revoke_all_epoch` with appropriate TTL values.
 
-**Database Schema:**
-```sql
-CREATE TABLE revoked_tokens (
-    jti VARCHAR(255) PRIMARY KEY,
-    revoked_at TIMESTAMP NOT NULL,
-    expires_at TIMESTAMP NOT NULL,
-    INDEX idx_expires_at (expires_at)
-);
-```
-
-**Redis Restart Recovery:**
-On Redis startup, load revocations from database to rebuild Redis state.
-
-**Security Benefits:**
-- Fast revocation via Redis sub-millisecond lookups
-- Persistence via DB fallback survives Redis restarts
-- Multiple strategies for different scenarios
-- Automatic cleanup via TTL prevents memory bloat
-- Mass invalidation via global revocation
-
-**Best Practices:**
-- Use Redis for fast runtime checks
-- Use DB for persistence and recovery
-- Set appropriate TTL for revocation entries
-- Implement Redis restart recovery
-- Log all revocation events
-- Monitor Redis memory usage
+**Database Schema and Recovery**
+The database schema includes a `revoked_tokens` table with jti as primary key, revoked_at timestamp, expires_at timestamp, and an index on expires_at. Redis restart recovery loads revocations from the database to rebuild Redis state on startup, ensuring resilience against Redis restarts. This provides fast revocation via Redis sub-millisecond lookups, persistence via DB fallback to survive Redis restarts, multiple strategies for different scenarios, automatic cleanup via TTL to prevent memory bloat, and mass invalidation via global revocation.
 
 ## Trace ID: 7
 **Title:** Alternative System: Opaque Refresh Tokens
@@ -707,67 +586,19 @@ Alternative JWT System (token_config.py)
 
 ### AI Guide: Alternative System: Opaque Refresh Tokens
 
-**Overview:** The alternative system implements opaque refresh tokens using cryptographically random bytes instead of JWT format. This approach provides simpler token structure while maintaining security through SHA-256 hashing and database persistence.
+**Motivation:**
+The alternative system implements opaque refresh tokens using cryptographically random bytes instead of JWT format. This approach provides simpler token structure while maintaining security through SHA-256 hashing and database persistence, offering a simpler alternative to the primary JWT-based system.
 
-**Opaque vs JWT Refresh Tokens:**
+**Details:**
 
-| Aspect | Opaque Tokens | JWT Refresh Tokens |
-|--------|---------------|-------------------|
-| Format | Random bytes | JSON Web Token |
-| Structure | No claims | Contains claims |
-| Verification | Hash comparison | Signature verification |
-| Storage | Database only | Redis + DB fallback |
-| Complexity | Simpler | More complex |
+**Opaque vs JWT Refresh Tokens**
+The comparison between opaque tokens and JWT refresh tokens shows differences in format (random bytes vs JSON Web Token), structure (no claims vs contains claims), verification (hash comparison vs signature verification), storage (database only vs Redis + DB fallback), and complexity (simpler vs more complex).
 
-**Token Creation:**
-```python
-def create_refresh_token(family_id: str = None):
-    # Generate random token (7a)
-    raw = secrets.token_urlsafe(64)
-    
-    # Hash token for storage (7b, 7c)
-    hashed = hashlib.sha256(raw.encode()).hexdigest()
-    
-    # Create metadata record (7d)
-    record = RefreshTokenRecord(
-        family_id=family_id or str(uuid.uuid4()),
-        hashed_token=hashed,
-        expires_at=datetime.now() + timedelta(days=30)
-    )
-    
-    return raw, hashed, record
-```
+**Token Creation**
+Token creation generates a random token using `secrets.token_urlsafe(64)` for cryptographic randomness [7a], hashes the token for storage using SHA-256 [7b][7c], and creates a metadata record with family_id, hashed_token, and expires_at [7d].
 
-**Security Properties:**
-- **Cryptographic Randomness:** 64 bytes = 512 bits of entropy
-- **One-Way Hashing:** SHA-256 hash before storage
-- **Single-Use Property:** Token deleted after successful refresh
-- **Family Tracking:** family_id enables rotation chain
-
-**Advantages:**
-- Simpler structure, no JWT claims or signature verification
-- Smaller size (64 bytes vs JWT with claims)
-- No key management required
-- Database-centric for easier auditing
-
-**Disadvantages:**
-- Database dependency for verification
-- Slower verification (DB query vs Redis lookup)
-- No embedded claims, must query database for user info
-- Scalability concerns for high traffic
-
-**When to Use:**
-- Simpler token structure preferred
-- Database lookup performance acceptable
-- Lower traffic volume
-- Want direct token management in database
-
-**Best Practices:**
-- Use cryptographically secure random generation
-- Hash tokens before storage
-- Implement single-use property
-- Use appropriate token expiry (7-30 days)
-- Index database for fast lookups
+**Security Properties**
+Security properties include cryptographic randomness (64 bytes = 512 bits of entropy), one-way hashing with SHA-256 before storage, and database persistence for token storage. This provides a simpler alternative to JWT refresh tokens while maintaining strong security through cryptographic randomness and one-way hashing. The single-use property ensures the token is deleted after successful refresh, and family tracking via family_id enables the rotation chain. Advantages include simpler structure with no JWT claims or signature verification, smaller size (64 bytes vs JWT with claims), no key management required, and database-centric for easier auditing. Disadvantages include database dependency for verification, slower verification (DB query vs Redis lookup), no embedded claims requiring database queries for user info, and scalability concerns for high traffic. This system is appropriate when simpler token structure is preferred, database lookup performance is acceptable, traffic volume is lower, and direct token management in database is desired.
 
 ## Trace ID: 8
 **Title:** Password Security: Bcrypt Hashing and Strength Validation
@@ -842,74 +673,22 @@ Password Security Flow
 
 ### AI Guide: Password Security: Bcrypt Hashing and Strength Validation
 
-**Overview:** The password security system implements defense-in-depth with bcrypt hashing, comprehensive strength validation, and breach checking via Have I Been Pwned (HIBP) API. This ensures passwords are stored securely and users cannot choose weak or compromised passwords.
+**Motivation:**
+The password security system implements defense-in-depth with bcrypt hashing, comprehensive strength validation, and breach checking via Have I Been Pwned (HIBP) API. This ensures passwords are stored securely and users cannot choose weak or compromised passwords.
 
-**Password Hashing (8a):**
-```python
-from passlib.context import CryptContext
+**Details:**
 
-_pwd_context = CryptContext(
-    schemes=["bcrypt"],
-    deprecated="auto",
-    bcrypt__rounds=12  # 12 rounds for production
-)
+**Password Hashing**
+Password hashing uses passlib with bcrypt algorithm, 12 rounds for production, automatic salt generation, and the format `$2b$12$<salt><hash>` with a work factor of 2^12 = 4,096 iterations [8a]. This provides slow, salted hashing that is resistant to brute force attacks.
 
-def hash_password(plain: str) -> str:
-    return _pwd_context.hash(plain)
-```
+**Password Verification**
+Password verification uses the passlib context to verify passwords against stored hashes with constant-time comparison to prevent timing attacks [8b]. This ensures that password verification cannot be used to extract password information through timing analysis.
 
-**Bcrypt Configuration:**
-- **Algorithm:** bcrypt (blowfish-based)
-- **Rounds:** 12 (current recommendation for production)
-- **Salt:** Automatically generated and included in hash
-- **Format:** `$2b$12$<salt><hash>`
-- **Work factor:** 2^12 = 4,096 iterations
+**Password Strength Validation**
+Password strength validation enforces minimum 10 characters, uppercase and lowercase letters, at least one digit, special character required, and a common password blocklist [8c]. This ensures users choose strong, complex passwords.
 
-**Password Verification (8b):**
-```python
-def verify_password(plain: str, hashed: str) -> bool:
-    return _pwd_context.verify(plain, hashed)
-```
-
-**Password Strength Validation (8c):**
-- Minimum 10 characters
-- Uppercase and lowercase letters
-- At least one digit
-- Special character required
-- Common password blocklist
-
-**HIBP Breach Checking (8d-8e):**
-Uses k-anonymity protocol to check if password appears in known data breaches without revealing the full password to the API.
-
-**K-Anonymity Protocol:**
-1. Hash password with SHA-1
-2. Send first 5 characters (prefix) to HIBP API
-3. HIBP returns all hash suffixes matching that prefix
-4. Client checks if remaining suffix matches
-5. HIBP never sees full hash, only prefix
-
-**Registration Flow:**
-1. Check password strength requirements
-2. Check if password appears in HIBP database
-3. Hash password with bcrypt
-4. Create user with hashed password
-
-**Security Benefits:**
-- Bcrypt hashing is slow and salted
-- Strength validation enforces complex passwords
-- Breach checking prevents compromised passwords
-- Constant-time comparison prevents timing attacks
-- K-anonymity preserves privacy during breach checking
-- Fail open doesn't block registration on API failure
-
-**Best Practices:**
-- Use bcrypt with 12+ rounds
-- Enforce minimum 10-character passwords
-- Require mix of character types
-- Check against breach databases
-- Implement rate limiting on registration
-- Log failed registration attempts
-- Educate users on password security
+**HIBP Breach Checking**
+HIBP breach checking uses the k-anonymity protocol to check if a password appears in known data breaches without revealing the full password to the API [8d][8e]. The k-anonymity protocol hashes the password with SHA-1, sends the first 5 characters (prefix) to the HIBP API, receives all hash suffixes matching that prefix, and checks if the remaining suffix matches. HIBP never sees the full hash, only the prefix, preserving privacy during breach checking.
 
 ---
 

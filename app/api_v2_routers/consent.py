@@ -16,6 +16,7 @@ from app.core.dependencies import get_current_guardian_id
 from app.core.security import get_current_user
 from app.repositories.repositories import LearnerRepository
 from app.modules.consent.service import ConsentService
+from app.services.popia_service import POPIADataRightsService
 from app.security.dependencies import require_learner_write_for_current_user
 from app.security.dependencies import require_learner_read_for_current_user
 
@@ -30,6 +31,8 @@ class ConsentGrantRequest(BaseModel):
 class ConsentRevokeRequest(BaseModel):
     learner_id: UUID
     reason: str = "guardian_request"
+    request_export: bool = False
+    request_erasure: bool = False
 
 
 @router.post("/grant", status_code=status.HTTP_201_CREATED)
@@ -83,12 +86,35 @@ async def revoke_consent(
         guardian_id=str(current_user["sub"]),
         reason=body.reason,
     )
+
+    # Optional: create export/erasure requests if requested
+    popia_service = POPIADataRightsService(db)
+    export_request_id = None
+    erasure_request_id = None
+
+    if body.request_export:
+        export_result = await popia_service.request_export(learner_id, current_user)
+        export_request_id = export_result.get("request_id")
+
+    if body.request_erasure:
+        erasure_result = await popia_service.request_erasure(learner_id, current_user, reason="consent_withdrawal")
+        erasure_request_id = erasure_result.get("request_id")
+
     request.state.analytics = {
         "event": "consent_revoked",
         "pseudonym_id": f"learner:{body.learner_id}",
-        "properties": {"reason": body.reason},
+        "properties": {
+            "reason": body.reason,
+            "request_export": body.request_export,
+            "request_erasure": body.request_erasure,
+        },
     }
-    return {"revoked": 1, "message": "Consent revoked. Learner data access has been suspended."}
+    return {
+        "revoked": 1,
+        "message": "Consent revoked. Learner data access has been suspended.",
+        "export_request_id": export_request_id,
+        "erasure_request_id": erasure_request_id,
+    }
 
 
 @router.get("/status/{learner_id}")
