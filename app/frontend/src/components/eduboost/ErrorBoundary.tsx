@@ -9,17 +9,17 @@ interface State {
 }
 
 export class ErrorBoundary extends React.Component<{ children: React.ReactNode; title?: string }, State> {
-  state: State = { hasError: false, message: "" };
+  override state: State = { hasError: false, message: "" };
 
   static getDerivedStateFromError(error: Error): State {
     return { hasError: true, message: error.message };
   }
 
-  componentDidCatch(error: Error, info: React.ErrorInfo) {
+  override componentDidCatch(error: Error, info: React.ErrorInfo) {
     console.error("Frontend route boundary caught an error", error, info.componentStack);
   }
 
-  render() {
+  override render() {
     if (this.state.hasError) {
       return (
         <main id="main-content" className="min-h-screen flex items-center justify-center p-6">

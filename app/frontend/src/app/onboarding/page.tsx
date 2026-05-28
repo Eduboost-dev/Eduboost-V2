@@ -150,7 +150,7 @@ export default function OnboardingPage() {
     );
   }
 
-  const currentStep = STEPS[activeStep];
+  const currentStep = STEPS[activeStep] ?? STEPS[0];
 
   return (
     <div style={s.page}>

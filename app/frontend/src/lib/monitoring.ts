@@ -61,10 +61,9 @@ export function captureEvent(event: MonitoringEvent) {
 
   if (_backend) {
     _backend.captureEvent(scrubbedEvent);
-  } else {
-    if (process.env.NODE_ENV !== "production") {
-      console.log(`[monitoring:${scrubbedEvent.level}]`, scrubbedEvent.message);
-    }
+  } else if (process.env.NODE_ENV !== "production") {
+    const fallback = scrubbedEvent.level === "error" ? console.error : console.warn;
+    fallback(`[monitoring:${scrubbedEvent.level}]`, scrubbedEvent.message);
   }
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   dryRunStagingSeed,
   fetchStagingSeedRunItems,
@@ -33,13 +33,13 @@ export default function StagingSeedPanel({ scopes }: Props) {
   const selectedRun = useMemo(() => runs.find((run) => run.seed_run_id === selectedRunId) ?? runs[0], [runs, selectedRunId]);
   const blockers = plan?.skipped ?? [];
 
-  async function refreshRuns(nextScopeId = scopeId) {
+  const refreshRuns = useCallback(async (nextScopeId: string) => {
     const page = await fetchStagingSeedRuns(nextScopeId || undefined);
     setRuns(page.items);
     const nextRunId = page.items[0]?.seed_run_id ?? "";
     setSelectedRunId((current) => current || nextRunId);
     if (nextRunId) setItems(await fetchStagingSeedRunItems(nextRunId));
-  }
+  }, []);
 
   async function runAction(action: () => Promise<void>) {
     setLoading(true);
@@ -59,7 +59,7 @@ export default function StagingSeedPanel({ scopes }: Props) {
 
   useEffect(() => {
     if (scopeId) void refreshRuns(scopeId).catch(() => undefined);
-  }, [scopeId]);
+  }, [refreshRuns, scopeId]);
 
   useEffect(() => {
     if (!selectedRunId) return;
@@ -80,7 +80,7 @@ export default function StagingSeedPanel({ scopes }: Props) {
           <button disabled={!scopeId || loading} className="rounded bg-cyan-500 px-3 py-2 text-sm font-semibold text-slate-950 disabled:bg-slate-700 disabled:text-slate-400" onClick={() => void runAction(async () => setPlan(await dryRunStagingSeed(scopeId)))}>
             Dry run seed
           </button>
-          <button disabled={!scopeId || loading} className="rounded bg-emerald-500 px-3 py-2 text-sm font-semibold text-slate-950 disabled:bg-slate-700 disabled:text-slate-400" onClick={() => void runAction(async () => { await seedStaging(scopeId, true); await refreshRuns(); })}>
+          <button disabled={!scopeId || loading} className="rounded bg-emerald-500 px-3 py-2 text-sm font-semibold text-slate-950 disabled:bg-slate-700 disabled:text-slate-400" onClick={() => void runAction(async () => { await seedStaging(scopeId, true); await refreshRuns(scopeId); })}>
             Seed staging
           </button>
           <button disabled className="rounded border border-slate-700 px-3 py-2 text-sm text-slate-500">
@@ -131,7 +131,7 @@ export default function StagingSeedPanel({ scopes }: Props) {
               <button disabled={!scopeId || loading} className="rounded border border-slate-700 px-3 py-2 text-sm" onClick={() => void runAction(async () => setVerification(await verifyScopeStagingRead(scopeId)))}>
                 Verify scope
               </button>
-              <button disabled={!selectedRun || loading} className="rounded bg-red-500 px-3 py-2 text-sm font-semibold text-white disabled:bg-slate-700 disabled:text-slate-400" onClick={() => selectedRun && void runAction(async () => { await rollbackStagingSeedRun(selectedRun.seed_run_id, "admin rollback from staging seed panel"); await refreshRuns(); })}>
+              <button disabled={!selectedRun || loading} className="rounded bg-red-500 px-3 py-2 text-sm font-semibold text-white disabled:bg-slate-700 disabled:text-slate-400" onClick={() => selectedRun && void runAction(async () => { await rollbackStagingSeedRun(selectedRun.seed_run_id, "admin rollback from staging seed panel"); await refreshRuns(scopeId); })}>
                 Rollback
               </button>
             </div>

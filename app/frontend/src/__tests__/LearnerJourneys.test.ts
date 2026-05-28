@@ -59,9 +59,11 @@ describe("learner journey contracts", () => {
       } as Response);
 
     const plan = await LearnerService.getStudyPlan("learner-1");
+    const mondayDay = plan.days?.Mon?.[0];
+    const mondaySchedule = plan.schedule?.Mon?.[0];
 
-    expect(plan.days?.Mon[0].label).toBe("Fractions");
-    expect(plan.schedule?.Mon[0].type).toBe("gap-fill");
+    expect(mondayDay?.label).toBe("Fractions");
+    expect(mondaySchedule?.type).toBe("gap-fill");
     expect(plan.week_focus).toBe("Balanced revision and grade-level progress");
   });
 

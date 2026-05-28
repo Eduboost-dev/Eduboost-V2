@@ -87,28 +87,41 @@ function isEnvelope<T>(payload: unknown): payload is ApiEnvelope<T> {
   return Boolean(payload && typeof payload === "object" && ("data" in payload || "error" in payload || "request_id" in payload));
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value && typeof value === "object");
+}
+
+function isNormalizedApiError(value: unknown): value is NormalizedApiError {
+  return isRecord(value) && typeof value.message === "string";
+}
+
 function normalizeApiError(payload: unknown, response: Response): NormalizedApiError {
-  if (payload && typeof payload === "object") {
-    const candidate = payload as Record<string, any>;
-    const envelopeError = candidate.error as NormalizedApiError | undefined;
-    const requestId = candidate.request_id || envelopeError?.request_id;
+  if (isRecord(payload)) {
+    const envelopeError = isNormalizedApiError(payload.error) ? payload.error : undefined;
+    const requestId = (typeof payload.request_id === "string" ? payload.request_id : undefined) || envelopeError?.request_id;
+    const detail = payload.detail;
     if (envelopeError?.message) {
       return { ...envelopeError, request_id: requestId, status: response.status };
     }
-    if (typeof candidate.detail === "string") {
-      return { message: candidate.detail, code: candidate.error_code, details: candidate.details, request_id: requestId, status: response.status };
+    if (typeof detail === "string") {
+      return { message: detail, code: typeof payload.error_code === "string" ? payload.error_code : undefined, details: isRecord(payload.details) ? payload.details : undefined, request_id: requestId, status: response.status };
     }
-    if (Array.isArray(candidate.detail)) {
+    if (Array.isArray(detail)) {
       return {
         message: "Request validation failed",
         code: "validation_error",
-        field_errors: candidate.detail.map((item: any) => ({ field: Array.isArray(item.loc) ? item.loc.join(".") : undefined, message: item.msg || "Invalid value" })),
+        field_errors: detail.map((item) => {
+          if (!isRecord(item)) return { field: undefined, message: "Invalid value" };
+          const location = Array.isArray(item.loc) ? item.loc.join(".") : undefined;
+          const message = typeof item.msg === "string" ? item.msg : "Invalid value";
+          return { field: location, message };
+        }),
         request_id: requestId,
         status: response.status,
       };
     }
-    if (typeof candidate.message === "string") {
-      return { message: candidate.message, code: candidate.error_code, details: candidate.details, request_id: requestId, status: response.status };
+    if (typeof payload.message === "string") {
+      return { message: payload.message, code: typeof payload.error_code === "string" ? payload.error_code : undefined, details: isRecord(payload.details) ? payload.details : undefined, request_id: requestId, status: response.status };
     }
   }
 
@@ -138,7 +151,12 @@ async function refreshAccessToken(): Promise<string | null> {
     storeAccessToken(null);
     return null;
   }
-  const token = (isEnvelope<{ access_token: string }>(payload) ? payload.data?.access_token : (payload as any)?.access_token) as string | undefined;
+  let token: string | undefined;
+  if (isEnvelope<{ access_token: string }>(payload) && payload.data?.access_token) {
+    token = payload.data.access_token;
+  } else if (isRecord(payload) && typeof payload.access_token === "string") {
+    token = payload.access_token;
+  }
   if (token) storeAccessToken(token);
   return token || null;
 }

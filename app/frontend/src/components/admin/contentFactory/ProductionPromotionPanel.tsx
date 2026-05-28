@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   dryRunProductionPromotion,
   fetchProductionGate,
@@ -24,6 +24,24 @@ type Props = {
   scopes: ContentScope[];
 };
 
+type PromotionEventItem = {
+  artifact_id: string | number;
+  layer?: string;
+  caps_ref?: string | null;
+  artifact_type?: string;
+  production_status?: string;
+};
+
+function toPromotionEventItems(rawItems: Array<Record<string, unknown>>): PromotionEventItem[] {
+  return rawItems.map((item) => ({
+    artifact_id: typeof item.artifact_id === "string" || typeof item.artifact_id === "number" ? item.artifact_id : "",
+    layer: typeof item.layer === "string" ? item.layer : undefined,
+    caps_ref: typeof item.caps_ref === "string" ? item.caps_ref : null,
+    artifact_type: typeof item.artifact_type === "string" ? item.artifact_type : undefined,
+    production_status: typeof item.production_status === "string" ? item.production_status : undefined,
+  }));
+}
+
 export default function ProductionPromotionPanel({ scopes }: Props) {
   const [scopeId, setScopeId] = useState(scopes[0]?.scope_id ?? "");
   const [gateReport, setGateReport] = useState<ProductionGateReport | null>(null);
@@ -31,7 +49,7 @@ export default function ProductionPromotionPanel({ scopes }: Props) {
   const [events, setEvents] = useState<ProductionPromotionResult[]>([]);
   const [selectedEventId, setSelectedEventId] = useState("");
   const [selectedEvent, setSelectedEvent] = useState<ProductionPromotionResult | null>(null);
-  const [eventItems, setEventItems] = useState<Array<Record<string, unknown>>>([]);
+  const [eventItems, setEventItems] = useState<PromotionEventItem[]>([]);
   const [verification, setVerification] = useState<ProductionReadVerificationReport | null>(null);
   const [scopeVerification, setScopeVerification] = useState<ScopeProductionReadReport | null>(null);
   const [confirmation, setConfirmation] = useState("");
@@ -42,7 +60,7 @@ export default function ProductionPromotionPanel({ scopes }: Props) {
   const expectedConfirmation = `PROMOTE ${scopeId} TO PRODUCTION`;
   const canPromote = gateReport?.status === "promotable" && confirmation === expectedConfirmation;
 
-  async function refreshEvents(nextScopeId = scopeId) {
+  const refreshEvents = useCallback(async (nextScopeId: string) => {
     const page = await fetchPromotionEvents(nextScopeId || undefined);
     setEvents(page.items);
     const nextEventId = page.items[0]?.promotion_event_id ?? "";
@@ -51,9 +69,9 @@ export default function ProductionPromotionPanel({ scopes }: Props) {
       const event = await fetchPromotionEvent(nextEventId);
       setSelectedEvent(event);
       const items = await fetchPromotionEventItems(nextEventId);
-      setEventItems(items.items);
+      setEventItems(toPromotionEventItems(items.items));
     }
-  }
+  }, []);
 
   async function runAction(action: () => Promise<void>) {
     setLoading(true);
@@ -77,12 +95,14 @@ export default function ProductionPromotionPanel({ scopes }: Props) {
       void verifyScopeProductionRead(scopeId).then(setScopeVerification).catch(() => setScopeVerification(null));
       void refreshEvents(scopeId).catch(() => undefined);
     }
-  }, [scopeId]);
+  }, [refreshEvents, scopeId]);
 
   useEffect(() => {
     if (!selectedEventId) return;
     void fetchPromotionEvent(selectedEventId).then(setSelectedEvent).catch(() => setSelectedEvent(null));
-    void fetchPromotionEventItems(selectedEventId).then((items) => setEventItems(items.items)).catch(() => setEventItems([]));
+    void fetchPromotionEventItems(selectedEventId)
+      .then((items) => setEventItems(toPromotionEventItems(items.items)))
+      .catch(() => setEventItems([]));
   }, [selectedEventId]);
 
   return (
@@ -142,7 +162,7 @@ export default function ProductionPromotionPanel({ scopes }: Props) {
           onClick={() => void runAction(async () => {
             await promoteProduction(scopeId, { confirmation });
             setConfirmation("");
-            await refreshEvents();
+            await refreshEvents(scopeId);
           })}
         >
           Promote production
@@ -170,7 +190,7 @@ export default function ProductionPromotionPanel({ scopes }: Props) {
               <button disabled={!selectedEvent || loading} className="rounded bg-cyan-500 px-3 py-2 text-sm font-semibold text-slate-950 disabled:bg-slate-700 disabled:text-slate-400" onClick={() => selectedEvent && void runAction(async () => setVerification(await verifyPromotionEvent(selectedEvent.promotion_event_id)))}>
                 Verify event
               </button>
-              <button disabled={!selectedEvent || loading} className="rounded bg-red-500 px-3 py-2 text-sm font-semibold text-white disabled:bg-slate-700 disabled:text-slate-400" onClick={() => selectedEvent && void runAction(async () => { await rollbackPromotionEvent(selectedEvent.promotion_event_id, "admin rollback from production promotion panel"); await refreshEvents(); })}>
+              <button disabled={!selectedEvent || loading} className="rounded bg-red-500 px-3 py-2 text-sm font-semibold text-white disabled:bg-slate-700 disabled:text-slate-400" onClick={() => selectedEvent && void runAction(async () => { await rollbackPromotionEvent(selectedEvent.promotion_event_id, "admin rollback from production promotion panel"); await refreshEvents(scopeId); })}>
                 Rollback
               </button>
             </div>
@@ -178,7 +198,7 @@ export default function ProductionPromotionPanel({ scopes }: Props) {
           <table className="w-full min-w-[760px] text-left text-sm">
             <thead className="border-b border-slate-800 text-slate-400"><tr><th className="py-2 pr-4">Artifact</th><th className="py-2 pr-4">Layer</th><th className="py-2 pr-4">CAPS</th><th className="py-2 pr-4">Type</th><th className="py-2 pr-4">Status</th></tr></thead>
             <tbody>
-              {eventItems.map((item: any, idx) => (
+              {eventItems.map((item: Record<string, unknown>, idx) => (
                 <tr key={idx} className="border-b border-slate-900">
                   <td className="py-2 pr-4 font-mono text-xs">{String(item.artifact_id)}</td>
                   <td className="py-2 pr-4">{String(item.layer)}</td>

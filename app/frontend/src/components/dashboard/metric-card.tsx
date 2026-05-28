@@ -5,6 +5,7 @@ import { type LucideIcon, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type TrendDirection = "up" | "down" | "neutral";
+type MetricVariant = "default" | "electric" | "aqua" | "teal";
 
 interface MetricCardProps {
   title: string;
@@ -16,14 +17,21 @@ interface MetricCardProps {
     direction: TrendDirection;
     label?: string;
   };
-  variant?: "default" | "electric" | "aqua" | "teal";
+  variant?: MetricVariant;
   className?: string;
   /** Numeric value for the animated counter (uses `value` as fallback display) */
   numericValue?: number;
 }
 
 // ── Variant tokens ──────────────────────────────────────────────────────────
-const VARIANT = {
+const VARIANT: Record<MetricVariant, {
+  icon: string;
+  border: string;
+  glow: string;
+  sparkColor: string;
+  sparkFill: string;
+  accentLine: string;
+}> = {
   default: {
     icon:         "bg-gradient-to-br from-navy-700 to-navy-800 text-seafoam border border-navy-600/50",
     border:       "border-navy-700/60 hover:border-navy-500/70",
@@ -65,7 +73,7 @@ const TREND_STYLES: Record<TrendDirection, { text: string; bg: string; Icon: typ
 };
 
 // ── Deterministic sparkline data per variant ─────────────────────────────────
-const SPARK_DATA: Record<string, number[]> = {
+const SPARK_DATA: Record<MetricVariant, number[]> = {
   default:  [28, 42, 36, 58, 45, 62, 55, 74, 66, 80],
   electric: [35, 28, 50, 42, 65, 55, 78, 68, 85, 90],
   aqua:     [48, 60, 52, 72, 65, 80, 70, 88, 78, 95],
@@ -73,20 +81,31 @@ const SPARK_DATA: Record<string, number[]> = {
 };
 
 /** Convert sparkline numbers to a smooth SVG cubic-bezier path */
-function buildSparkPath(data: number[], w: number, h: number): { line: string; area: string } {
-  const max  = Math.max(...data);
-  const min  = Math.min(...data) * 0.6;
+function buildSparkPath(data: number[], w: number, h: number): { line: string; area: string; endX: number; endY: number } {
+  const safeData = data.length >= 2 ? data : [...data, data[0] ?? 0];
+  const max  = Math.max(...safeData);
+  const min  = Math.min(...safeData) * 0.6;
   const norm = (v: number) => h - ((v - min) / (max - min)) * (h * 0.82) - h * 0.06;
-  const xs   = data.map((_, i) => (i / (data.length - 1)) * w);
-  const ys   = data.map(norm);
+  const segments = Math.max(safeData.length - 1, 1);
+  const xs   = safeData.map((_, i) => (i / segments) * w);
+  const ys   = safeData.map(norm);
 
-  let line = `M ${xs[0].toFixed(1)} ${ys[0].toFixed(1)}`;
+  const firstX = xs[0] ?? 0;
+  const firstY = ys[0] ?? h;
+
+  let line = `M ${firstX.toFixed(1)} ${firstY.toFixed(1)}`;
   for (let i = 1; i < xs.length; i++) {
-    const cpx = (xs[i - 1] + xs[i]) / 2;
-    line += ` C ${cpx.toFixed(1)} ${ys[i - 1].toFixed(1)}, ${cpx.toFixed(1)} ${ys[i].toFixed(1)}, ${xs[i].toFixed(1)} ${ys[i].toFixed(1)}`;
+    const currentX = xs[i] ?? firstX;
+    const prevX = xs[i - 1] ?? firstX;
+    const prevY = ys[i - 1] ?? firstY;
+    const currentY = ys[i] ?? firstY;
+    const cpx = (prevX + currentX) / 2;
+    line += ` C ${cpx.toFixed(1)} ${prevY.toFixed(1)}, ${cpx.toFixed(1)} ${currentY.toFixed(1)}, ${currentX.toFixed(1)} ${currentY.toFixed(1)}`;
   }
-  const area = `${line} L ${xs[xs.length - 1].toFixed(1)} ${h} L ${xs[0].toFixed(1)} ${h} Z`;
-  return { line, area };
+  const lastX = xs[xs.length - 1] ?? firstX;
+  const lastY = ys[ys.length - 1] ?? firstY;
+  const area = `${line} L ${lastX.toFixed(1)} ${h} L ${firstX.toFixed(1)} ${h} Z`;
+  return { line, area, endX: lastX, endY: lastY };
 }
 
 // ── Animated numeric counter ──────────────────────────────────────────────────
@@ -123,7 +142,7 @@ export function MetricCard({
   const v         = VARIANT[variant];
   const trendSty  = trend ? TREND_STYLES[trend.direction] : null;
   const sparkData = SPARK_DATA[variant];
-  const { line, area } = buildSparkPath(sparkData, 120, 32);
+  const { line, area, endX, endY } = buildSparkPath(sparkData, 120, 32);
 
   // Optional animated counter
   const animated = useCountUp(numericValue ?? 0, 1100);
@@ -198,8 +217,8 @@ export function MetricCard({
         />
         {/* End-point dot */}
         <circle
-          cx={(sparkData.length - 1) / (sparkData.length - 1) * 120}
-          cy={buildSparkPath(sparkData, 120, 32).line.split(" ").at(-1)!}
+          cx={endX}
+          cy={endY}
           r="2.5"
           fill={v.sparkColor}
           className="transition-opacity duration-300 opacity-0 group-hover:opacity-100"

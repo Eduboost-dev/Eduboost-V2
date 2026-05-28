@@ -237,8 +237,10 @@ describe("API layer", () => {
     } as Response);
 
     const items = await DiagnosticService.getItems("learner-1");
-    expect(items[0].item_id).toBe("item-1");
-    expect(items[0].question_text).toBe("Question?");
+    expect(items).toHaveLength(1);
+    const firstItem = items[0];
+    expect(firstItem?.item_id).toBe("item-1");
+    expect(firstItem?.question_text).toBe("Question?");
   });
 
   it("retrieves the parent dashboard bundle", async () => {

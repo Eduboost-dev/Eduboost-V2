@@ -14,6 +14,8 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
+type ApiDetail = { detail?: string };
+
 type Status = "verifying" | "success" | "error" | "resent";
 
 export default function VerifyEmailPage() {
@@ -38,9 +40,9 @@ export default function VerifyEmailPage() {
         if (res.ok) {
           setStatus("success");
         } else {
-          const data = await res.json().catch(() => ({}));
+          const data: ApiDetail = await res.json().catch(() => ({}));
           setStatus("error");
-          setMessage((data as any).detail ?? "This link is invalid or has expired.");
+          setMessage(data.detail ?? "This link is invalid or has expired.");
         }
       } catch {
         setStatus("error");
@@ -60,8 +62,8 @@ export default function VerifyEmailPage() {
       if (res.ok) {
         setStatus("resent");
       } else {
-        const data = await res.json().catch(() => ({}));
-        setMessage((data as any).detail ?? "Could not resend. Please try again.");
+        const data: ApiDetail = await res.json().catch(() => ({}));
+        setMessage(data.detail ?? "Could not resend. Please try again.");
       }
     } catch {
       setMessage("Network error — please try again.");
