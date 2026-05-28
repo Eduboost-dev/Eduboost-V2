@@ -150,6 +150,42 @@ The following may be added as needed:
 - **Traces:** 6 traces covering Sphinx API documentation build flow, MkDocs site generation with mkdocstrings, Python docstring to HTML rendering, documentation inventory generation, CI documentation build pipeline, and navigation structure assembly in Sphinx
 - **Key Components:** conf.py, index.rst, mkdocs.yml, docs_inventory.py, ci-cd.yml, Makefile, irt_engine.py
 
+### 10. Test Coverage and CI Pipeline Configuration
+- **File:** `test_coverage_and_ci_pipeline_configuration.md`
+- **Description:** Pytest configuration, coverage reporting, and CI execution across the EduBoost-V2 testing infrastructure with async test auto-detection, marker-based categorization, coverage threshold enforcement, service containers for integration tests, and contract smoke test validation
+- **Traces:** 7 traces covering pytest configuration and test discovery, coverage collection and threshold enforcement, CI core unit test execution, integration test database fixture setup, contract smoke test validation, CI coverage threshold enforcement, and runtime entrypoint contract validation
+- **Key Components:** pytest.ini, conftest.py, ci-core.yml, ci-cd.yml, runtime-contract.yml, test_api_v2_routers_contract_smoke.py, test_entrypoints.py
+
+### 11. Base Repository and CRUD Operations: Generic Async CRUD for Domain Aggregates
+- **File:** `base_repository_and_crud_operations_generic_async_crud_for_domain_aggregates.md`
+- **Description:** Repository pattern implementation from the generic BaseRepository class through concrete implementations to API/service usage with Python generics, SQLAlchemy 2.0 async operations, dependency injection, transaction management, and alternative patterns for legacy code
+- **Traces:** 6 traces covering BaseRepository generic CRUD operations, concrete repository extensions, async database session lifecycle, repository usage in API routes, repository usage in service layer, and alternative repository patterns
+- **Key Components:** base.py, learner_repository.py, diagnostic_repository.py, database.py, learners.py, diagnostic_service_v2.py, gamification_service_v2.py, repositories.py
+
+### 12. EduBoost V2 Core Infrastructure: Runtime Primitives & Cross-Cutting Concerns
+- **File:** `eduboost_v2_core_infrastructure_runtime_primitives_and_cross_cutting_concerns.md`
+- **Description:** Foundational layer covering application bootstrap, authentication/authorization, LLM orchestration, health monitoring, POPIA consent enforcement, and error handling with JWT tokens, RBAC policies, semantic caching, health checks, and middleware chains
+- **Traces:** 10 traces covering application bootstrap & initialization, JWT token creation & storage, JWT validation & revocation check, authorization policy enforcement, LLM lesson generation pipeline, deep health check execution, POPIA consent gate enforcement, exception to standardized API response, request lifecycle middleware chain, and AI quota enforcement
+- **Key Components:** config.py, logging.py, database.py, exceptions.py, middleware.py, security.py, refresh_tokens.py, token_revocation.py, authorization.py, dependencies.py, llm_gateway.py, judiciary.py, health.py, consent_policy.py, rate_limiter.py
+
+### 13. EduBoost V2 Domain Layer: Pydantic Models and Data Flow
+- **File:** `eduboost_v2_domain_layer_pydantic_models_and_data_flow.md`
+- **Description:** Domain models in app/domain/ flowing through the architecture from API transport schemas to business entities to persistence with API envelopes, consent state machines, content factory validation, diagnostic item queries, RBAC policies, coverage reports, data subject rights, and error envelopes
+- **Traces:** 8 traces covering API envelope response construction, POPIA consent state transition, content factory artifact validation, diagnostic item repository query with domain schema, role-based authorization policy check, content coverage report generation, data subject rights request processing, and API error envelope construction
+- **Key Components:** api_v2_models.py, schemas.py, consent.py, content_factory_schemas.py, item_schema.py, roles.py, content_coverage.py, data_subject_rights.py
+
+### 14. EduBoost Frontend: Next.js Learner Platform with Auth, AI Lessons, Diagnostics & POPIA Compliance
+- **File:** `eduboost_frontend_next_js_learner_platform_with_auth_ai_lessons_diagnostics_and_popia_compliance.md`
+- **Description:** Next.js 15 TypeScript frontend featuring authentication flows, AI-generated lesson delivery, adaptive diagnostics with IRT scoring, gamification, parent dashboards with POPIA data rights, offline sync capabilities, and admin content factory tooling
+- **Traces:** 8 traces covering guardian login flow, AI lesson generation with job polling, diagnostic assessment with IRT scoring, API error handling with token refresh, offline lesson completion sync, POPIA data export and erasure, app initialization with context providers, and study plan generation
+- **Key Components:** page.tsx, services.ts, client.ts, offlineSync.ts, LearnerContext.tsx, RouteGuard.tsx, ParentDashboard.tsx, InteractiveDiagnostic.tsx
+
+### 15. EduBoost V2 Modular Architecture: Core Domain Modules
+- **File:** `eduboost_v2_modular_architecture_core_domain_modules.md`
+- **Description:** Modular monolith's domain modules including authentication, POPIA consent management, IRT-based diagnostics, AI lesson generation, learner profiling, adaptive practice, and background jobs with ARQ async worker
+- **Traces:** 9 traces covering guardian registration flow with PII encryption, consent grant lifecycle with audit trail, IRT diagnostic engine with Fisher information, AI lesson generation pipeline with validation, learner archetype profiling with Kabbalistic model, adaptive practice selection with spaced repetition, mastery model computation with risk signals, background job execution with cron schedules, and module integration with API router registration
+- **Key Components:** service.py (auth), service.py (consent), irt_engine.py, item_bank_service.py, lesson_generator.py, ether_service.py, practice_generator.py, spaced_repetition_scheduler.py, mastery_model.py, learning_velocity_service.py, jobs.py
+
 ## Creating New Codemaps
 
 When creating a new codemap:
