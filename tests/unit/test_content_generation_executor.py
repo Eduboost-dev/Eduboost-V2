@@ -62,7 +62,10 @@ async def test_executor_refuses_when_generation_disabled() -> None:
         await executor.execute_task(Session(_task()), uuid.uuid4())
 
 
-@pytest.mark.xfail(reason="Session fixture mock does not fully simulate executor state transitions; requires integration test with real DB")
+@pytest.mark.xfail(
+    reason="T130D: session fixture mock does not fully simulate executor state transitions; replace with integration coverage",
+    strict=True,
+)
 @pytest.mark.asyncio
 async def test_valid_deterministic_artifact_enters_pending_review_and_has_sources() -> None:
     task = _task()
@@ -77,7 +80,10 @@ async def test_valid_deterministic_artifact_enters_pending_review_and_has_source
     assert task.output_artifact_ids
 
 
-@pytest.mark.xfail(reason="Session fixture mock does not fully simulate executor state transitions; requires integration test with real DB")
+@pytest.mark.xfail(
+    reason="T130D: session fixture mock does not fully simulate executor state transitions; replace with integration coverage",
+    strict=True,
+)
 @pytest.mark.asyncio
 async def test_invalid_generated_artifact_enters_validation_failed() -> None:
     class BadProvider:
