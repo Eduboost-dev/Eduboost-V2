@@ -1,6 +1,6 @@
 # Router Service Dependency Map
 
-Generated at: `2026-05-26T18:25:30Z`
+Generated at: `2026-05-28T12:09:07Z`
 
 | Router | Dependencies | Services/modules | Repositories | Database imports |
 |---|---|---|---|---|
