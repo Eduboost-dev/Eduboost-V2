@@ -17,6 +17,24 @@ from app.services.study_plan_service_v2 import (
 
 
 @pytest.mark.unit
+def test_study_plan_service_init_with_defaults():
+    """Verify constructor uses default repositories when None provided."""
+    service = StudyPlanServiceV2()
+    assert service.learner_repository is not None
+    assert service.study_plan_repository is not None
+
+
+@pytest.mark.unit
+def test_study_plan_service_init_with_custom_repos():
+    """Verify constructor uses provided repositories."""
+    mock_learner = AsyncMock()
+    mock_plan = AsyncMock()
+    service = StudyPlanServiceV2(learner_repository=mock_learner, study_plan_repository=mock_plan)
+    assert service.learner_repository is mock_learner
+    assert service.study_plan_repository is mock_plan
+
+
+@pytest.mark.unit
 async def test_generate_plan_raises_when_learner_not_found():
     """Verify generate_plan raises ValueError when learner not found."""
     service = StudyPlanServiceV2()
