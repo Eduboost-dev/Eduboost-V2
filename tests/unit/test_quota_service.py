@@ -164,11 +164,13 @@ async def test_semantic_cache_get_returns_cached_value():
     mock_redis = AsyncMock()
     mock_redis.get = AsyncMock(return_value=b'{"lesson": "data"}')
     service = SemanticCacheService(mock_redis)
-    
-    with patch("app.services.quota_service.settings") as mock_settings:
+
+    with patch("app.services.quota_service.settings") as mock_settings, \
+         patch("app.services.quota_service.logger") as mock_logger:
         mock_settings.semantic_cache_enabled = True
         result = await service.get("cache-key-123")
         assert result == '{"lesson": "data"}'
+        mock_logger.debug.assert_called_once()
 
 
 @pytest.mark.unit
@@ -190,12 +192,14 @@ async def test_semantic_cache_set_stores_with_ttl():
     mock_redis = AsyncMock()
     mock_redis.setex = AsyncMock()
     service = SemanticCacheService(mock_redis)
-    
-    with patch("app.services.quota_service.settings") as mock_settings:
+
+    with patch("app.services.quota_service.settings") as mock_settings, \
+         patch("app.services.quota_service.logger") as mock_logger:
         mock_settings.semantic_cache_enabled = True
         mock_settings.redis_cache_ttl_seconds = 3600
         await service.set("cache-key-123", '{"lesson": "data"}')
         mock_redis.setex.assert_called_once_with("cache-key-123", 3600, '{"lesson": "data"}')
+        mock_logger.debug.assert_called_once()
 
 
 @pytest.mark.unit
@@ -221,14 +225,16 @@ async def test_check_and_reserve_rolls_back_on_exceed():
     mock_redis = AsyncMock()
     mock_redis.incrby = AsyncMock(return_value=15000)
     mock_redis.decrby = AsyncMock()
-    
+
     service = QuotaService(mock_redis)
-    
-    with patch("app.services.quota_service.settings") as mock_settings:
+
+    with patch("app.services.quota_service.settings") as mock_settings, \
+         patch("app.services.quota_service.logger") as mock_logger:
         mock_settings.daily_token_quota_free = 10000
         with pytest.raises(Exception):  # HTTPException
             await service.check_and_reserve("guardian-123", 5000, "free")
         mock_redis.decrby.assert_called_once()
+        mock_logger.warning.assert_called_once()
 
 
 @pytest.mark.unit
