@@ -11,6 +11,14 @@ from app.services.subscription_service import SubscriptionService
 
 
 @pytest.mark.unit
+def test_subscription_service_init_stores_db():
+    """Verify constructor stores database session."""
+    db = AsyncMock()
+    service = SubscriptionService(db)
+    assert service.guardians is not None
+
+
+@pytest.mark.unit
 async def test_activate_premium_updates_guardian_and_cache():
     """Verify activate_premium updates guardian tier and cache."""
     db = AsyncMock()
