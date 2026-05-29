@@ -2,9 +2,9 @@ import React from "react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { LearnerProvider, useLearner } from "../src/context/LearnerContext";
-import DashboardPage from "../src/app/(learner)/dashboard/page";
-import LessonPage from "../src/app/(learner)/lesson/page";
-import DiagnosticPage from "../src/app/(learner)/diagnostic/page";
+import { DashboardClient } from "../src/components/learner/DashboardClient";
+import { LessonEntryClient } from "../src/components/learner/LessonEntryClient";
+import { DiagnosticEntryClient } from "../src/components/learner/DiagnosticEntryClient";
 import { LearnerService } from "../src/lib/api/services";
 import type { SubjectCode } from "../src/lib/api/types";
 
@@ -99,6 +99,29 @@ const mockLearner = {
   avatar: 0,
 };
 
+const dashboardShell = {
+  initialLearner: mockLearner,
+  initialMastery: { MATH: 70 },
+  initialGamification: {
+    learner_id: mockLearner.learner_id,
+    total_xp: 120,
+    level: 3,
+    streak_days: 5,
+    earned_badges: [],
+  },
+};
+
+const lessonShell = {
+  initialLearner: mockLearner,
+  recommendedSubject: "MATH" as SubjectCode,
+  recommendedTopic: "Fractions",
+  initialLesson: null,
+};
+
+const diagnosticShell = {
+  initialLearner: mockLearner,
+};
+
 function LearnerInitializer({ children }: { children: React.ReactNode }) {
   const { setLearner } = useLearner();
   React.useEffect(() => {
@@ -157,7 +180,7 @@ describe("Routing Integration", () => {
   it("Dashboard routes to /lesson and /diagnostic (NOT /learner/*)", async () => {
     render(
       <LearnerWrapper>
-        <DashboardPage />
+        <DashboardClient {...dashboardShell} />
       </LearnerWrapper>
     );
 
@@ -175,7 +198,7 @@ describe("Routing Integration", () => {
   it("Lesson page completion routes back to /dashboard", async () => {
     render(
       <LearnerWrapper>
-        <LessonPage />
+        <LessonEntryClient {...lessonShell} />
       </LearnerWrapper>
     );
 
@@ -193,7 +216,7 @@ describe("Routing Integration", () => {
   it("Diagnostic page routes to /plan and /dashboard", () => {
     render(
       <LearnerWrapper>
-        <DiagnosticPage />
+        <DiagnosticEntryClient {...diagnosticShell} />
       </LearnerWrapper>
     );
 

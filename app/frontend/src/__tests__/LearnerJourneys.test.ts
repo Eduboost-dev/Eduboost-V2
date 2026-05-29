@@ -116,10 +116,10 @@ describe("learner journey contracts", () => {
   });
 
   it("keeps learner pages wired for failed and empty states", () => {
-    const dashboard = readFileSync(sourcePath("app", "(learner)", "dashboard", "page.tsx"), "utf8");
+    const dashboard = readFileSync(sourcePath("components", "learner", "DashboardClient.tsx"), "utf8");
     const plan = readFileSync(sourcePath("app", "(learner)", "plan", "page.tsx"), "utf8");
     const badges = readFileSync(sourcePath("app", "(learner)", "badges", "page.tsx"), "utf8");
-    const lesson = readFileSync(sourcePath("app", "(learner)", "lesson", "page.tsx"), "utf8");
+    const lesson = readFileSync(sourcePath("components", "learner", "LessonEntryClient.tsx"), "utf8");
 
     expect(dashboard).toContain("error && !gamification");
     expect(plan).toContain("error && !plan");
