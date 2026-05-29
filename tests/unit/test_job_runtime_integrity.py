@@ -257,6 +257,18 @@ def test_assert_json_serializable_payload_with_datetime():
 
 
 @pytest.mark.unit
+def test_assert_json_serializable_payload_raises_on_unserializable():
+    """Verify assert_json_serializable_payload raises on truly unserializable object."""
+    class Unserializable:
+        def __str__(self):
+            raise RuntimeError("Cannot convert to string")
+    
+    payload = {"item": Unserializable()}
+    with pytest.raises(JobRuntimeIntegrityError, match="not JSON serializable"):
+        assert_json_serializable_payload(payload)
+
+
+@pytest.mark.unit
 def test_module_exports_all_public_symbols():
     """Verify __all__ contains expected public symbols."""
     from app.services import job_runtime_integrity
