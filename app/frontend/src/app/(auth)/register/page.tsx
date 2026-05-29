@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Card } from "../../../components/ui/Card-legacy";
 import { Button } from "../../../components/ui/Button-legacy";
 import { AuthService, ConsentService, LearnerService } from "../../../lib/api/services";
-import { decodeJwtPayload, extractErrorMessage } from "../../../lib/api/client";
+import { extractErrorMessage } from "../../../lib/api/client";
 import { useLearner } from "../../../context/LearnerContext";
 import {
   ValidationMessage,
@@ -37,6 +37,7 @@ const errorId = (field: FieldKey) => `${FIELD_IDS[field]}-error`;
 
 export default function RegisterPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { setLearner } = useLearner();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -67,14 +68,12 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      const auth = await AuthService.registerGuardian({ email, password, display_name: fullName });
-      const payload = decodeJwtPayload(auth.access_token);
-      if (payload?.sub) localStorage.setItem("guardian_id", String(payload.sub));
-
+      await AuthService.registerGuardian({ email, password, display_name: fullName });
       const learner = await LearnerService.registerLearner({ display_name: learnerName, grade, language });
       await ConsentService.grant(learner.id || learner.learner_id);
       setLearner({ ...learner, nickname: learner.nickname || learner.display_name || learnerName, avatar: 0 });
-      router.push("/diagnostic");
+      const redirect = searchParams?.get("redirect") || "/diagnostic";
+      router.push(redirect);
     } catch (err) {
       setError(extractErrorMessage(err, "Registration failed"));
     } finally {
@@ -203,7 +202,7 @@ export default function RegisterPage() {
       </form>
 
       <p className="text-center mt-4 text-sm text-gray-600">
-        Already have an account? <button type="button" onClick={() => router.push("/login")} className="text-blue-600 font-bold hover:underline">Log In</button>
+        Already have an account? <button type="button" onClick={() => router.push(`/login${searchParams?.get("redirect") ? `?redirect=${encodeURIComponent(searchParams.get("redirect") as string)}` : ""}`)} className="text-blue-600 font-bold hover:underline">Log In</button>
       </p>
     </Card>
   );

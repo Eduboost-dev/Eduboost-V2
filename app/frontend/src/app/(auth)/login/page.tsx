@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -17,8 +16,9 @@ import {
   Form, FormControl, FormField, FormItem, FormLabel,
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AuthService, ParentService } from "@/lib/api/services";
-import { decodeJwtPayload, extractErrorMessage } from "@/lib/api/client";
+import { extractErrorMessage } from "@/lib/api/client";
 import { useLearner } from "@/context/LearnerContext";
 import {
   ValidationMessage,
@@ -69,6 +69,7 @@ function SocialButton({ children, ...props }: React.ButtonHTMLAttributes<HTMLBut
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { setLearner } = useLearner();
   const [showPassword, setShowPassword] = useState(false);
   const [success, setSuccess]           = useState(false);
@@ -84,13 +85,10 @@ export default function LoginPage() {
   async function onSubmit(values: LoginFormValues) {
     setError("");
     try {
-      const auth = await AuthService.loginGuardian({
+      await AuthService.loginGuardian({
         email: values.email,
         password: values.password,
       });
-      const payload = decodeJwtPayload(auth.access_token);
-      if (payload?.sub) localStorage.setItem("guardian_id", String(payload.sub));
-
       const dashboard = await ParentService.getDashboard();
       const active = dashboard.learners?.[0];
       if (!active) {
@@ -109,7 +107,8 @@ export default function LoginPage() {
         archetype: active.archetype ?? null,
       });
       setSuccess(true);
-      router.push("/dashboard");
+      const redirect = searchParams?.get("redirect") || "/dashboard";
+      router.push(redirect);
     } catch (err) {
       setError(extractErrorMessage(err, "Sign in failed. Please check your details and try again."));
     }

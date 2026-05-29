@@ -8,8 +8,6 @@ const sourcePath = (...parts: string[]) => join(process.cwd(), "src", ...parts);
 describe("learner journey contracts", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
-    window.localStorage.clear();
-    window.localStorage.setItem("guardian_token", "token-123");
   });
 
   it("loads dashboard data from mastery and gamification contracts", async () => {

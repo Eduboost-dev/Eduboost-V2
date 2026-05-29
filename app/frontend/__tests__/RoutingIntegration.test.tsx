@@ -1,7 +1,7 @@
 import React from "react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { LearnerProvider } from "../src/context/LearnerContext";
+import { LearnerProvider, useLearner } from "../src/context/LearnerContext";
 import DashboardPage from "../src/app/(learner)/dashboard/page";
 import LessonPage from "../src/app/(learner)/lesson/page";
 import DiagnosticPage from "../src/app/(learner)/diagnostic/page";
@@ -88,9 +88,46 @@ vi.mock("../src/components/eduboost/InteractiveLesson", () => {
   return { __esModule: true, default: InteractiveLesson };
 });
 
+const originalFetch = global.fetch;
+
+const mockLearner = {
+  learner_id: "learner-1",
+  id: "learner-1",
+  nickname: "Test Learner",
+  display_name: "Test Learner",
+  grade: 3,
+  avatar: 0,
+};
+
+function LearnerInitializer({ children }: { children: React.ReactNode }) {
+  const { setLearner } = useLearner();
+  React.useEffect(() => {
+    setLearner(mockLearner);
+  }, [setLearner]);
+  return <>{children}</>;
+}
+
+function LearnerWrapper({ children }: { children: React.ReactNode }) {
+  return (
+    <LearnerProvider>
+      <LearnerInitializer>{children}</LearnerInitializer>
+    </LearnerProvider>
+  );
+}
+
 describe("Routing Integration", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    global.fetch = vi.fn(async (input: RequestInfo | URL) => {
+      const url = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
+      if (url.includes("/api/auth/session")) {
+        return new Response(JSON.stringify({ authenticated: true }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+      return new Response(JSON.stringify({}), { status: 200, headers: { "Content-Type": "application/json" } });
+    }) as typeof global.fetch;
     serviceMocks.getMastery.mockResolvedValue({
       learner_id: "learner-1",
       mastery: [{ subject_code: "MATH", mastery_score: 0.75 }],
@@ -115,23 +152,13 @@ describe("Routing Integration", () => {
       lesson_completed: true,
       profile: { learner_id: "learner-1", total_xp: 115, level: 2, streak_days: 4, earned_badges: [] },
     });
-    window.localStorage.setItem(
-      "eb_active_learner",
-      JSON.stringify({
-        learner_id: "learner-1",
-        id: "learner-1",
-        nickname: "Test Learner",
-        grade: 3,
-        avatar: 0,
-      })
-    );
   });
 
   it("Dashboard routes to /lesson and /diagnostic (NOT /learner/*)", async () => {
     render(
-      <LearnerProvider>
+      <LearnerWrapper>
         <DashboardPage />
-      </LearnerProvider>
+      </LearnerWrapper>
     );
 
     fireEvent.click(await screen.findByText("Start New Lesson"));
@@ -142,14 +169,14 @@ describe("Routing Integration", () => {
   });
 
   afterEach(() => {
-    window.localStorage.clear();
+    global.fetch = originalFetch;
   });
 
   it("Lesson page completion routes back to /dashboard", async () => {
     render(
-      <LearnerProvider>
+      <LearnerWrapper>
         <LessonPage />
-      </LearnerProvider>
+      </LearnerWrapper>
     );
 
     fireEvent.click(await screen.findByText("Mathematics"));
@@ -165,9 +192,9 @@ describe("Routing Integration", () => {
 
   it("Diagnostic page routes to /plan and /dashboard", () => {
     render(
-      <LearnerProvider>
+      <LearnerWrapper>
         <DiagnosticPage />
-      </LearnerProvider>
+      </LearnerWrapper>
     );
 
     fireEvent.click(screen.getByText("Back"));
