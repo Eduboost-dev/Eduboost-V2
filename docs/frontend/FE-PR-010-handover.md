@@ -51,5 +51,5 @@
 
 ## Follow-ups / Next steps
 1. **Surfacing Low Data toggle**: integrate `LowDataMode` component into guardian/learner dashboards once UX approves placement.
-2. **Lighthouse evidence**: run targeted Lighthouse audit once staging environment available (headless run blocked locally by auth wall).
+2. **Lighthouse evidence**: run targeted Lighthouse PWA audit on staging environment. Local audit blocked by missing Chrome/Chromium in development environment. Staging audit should be performed once staging URL is available and then appended to this handover.
 3. **RC4 queueing**: FE-PR-011 will implement offline progress queue after POPIA approval; reuse service worker + guardrails defined here.
