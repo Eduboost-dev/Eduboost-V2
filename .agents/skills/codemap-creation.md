@@ -15,6 +15,8 @@ Codemaps serve as:
 
 Every codemap MUST follow the standardized structure outlined in `docs/codemaps/README.md`.
 
+**CRITICAL: Adaptiveness applies to EVERY aspect of the document.** All sections (Motivation, Details subsections, AI Guide subsections, etc.) must be adaptive to the actual system being documented. Do not use static templates or generic subsections - choose subsection names and content that match the actual behavior, components, and concerns of the specific trace.
+
 ### File Format
 
 - **Extension:** `.md` (Markdown)

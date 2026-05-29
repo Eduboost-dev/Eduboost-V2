@@ -69,18 +69,18 @@ API Request Flow: Domain Schema to Envelope
 ### AI Guide: API Envelope Response Construction
 
 **Motivation:**
-The API envelope pattern exists to provide consistent response structure across all endpoints. It ensures that every response includes typed data, metadata, and a predictable envelope format, which simplifies client integration and enables request tracking.
+The API envelope pattern exists to provide consistent response structure across all endpoints. It ensures that every response includes typed data, metadata, and a predictable envelope format, which simplifies client integration and enables request tracking. The HTTP POST /learners endpoint receives a LearnerCreate schema for request validation, ensuring type-safe input. The repository creates an ORM model (LearnerProfile entity) which is persisted to the database. Response construction uses model_validate() to convert the ORM model to a domain response schema (LearnerResponse), which extends OrmBase for ORM compatibility via from_attributes. The EnvelopedRoute wrapper invokes the envelope helper, calling ok(data) to wrap the typed response. The ApiSuccessEnvelope[T] generic type builds the envelope with data: LearnerResponse and meta: ApiMeta attached, including API version and request tracking. This pattern ensures consistent API contracts, type safety, and metadata attachment across all endpoints.
 
 **Details:**
 
-**Request and Response Schemas**
-The route receives a typed request via LearnerCreate schema [1a], which validates input before any business logic runs. After the repository persists the ORM model, the route uses model_validate() to convert the ORM instance to a domain response schema [1b]. The LearnerResponse schema extends OrmBase with from_attributes for ORM compatibility [1c], ensuring clean conversion between persistence and API layers.
+**Request and Response Schemas with Type Safety**
+The route receives a typed request via LearnerCreate schema [1a], which validates input before any business logic runs. After the repository persists the ORM model, the route uses model_validate() to convert the ORM instance to a domain response schema [1b]. The LearnerResponse schema extends OrmBase with from_attributes for ORM compatibility [1c], ensuring clean conversion between persistence and API layers. The type-safe schema approach ensures compile-time safety and clear API contracts, preventing runtime errors due to type mismatches.
 
-**Envelope Construction**
-The EnvelopedRoute wrapper invokes the envelope helper, calling ok(data) to wrap the typed response [1d]. The ApiSuccessEnvelope[T] generic builds the envelope with data: LearnerResponse and meta: ApiMeta attached [1e]. The meta field includes API version and request tracking, giving clients consistent metadata for observability.
+**Envelope Construction and Metadata Attachment**
+The EnvelopedRoute wrapper invokes the envelope helper, calling ok(data) to wrap the typed response [1d]. The ApiSuccessEnvelope[T] generic builds the envelope with data: LearnerResponse and meta: ApiMeta attached [1e]. The meta field includes API version and request tracking, giving clients consistent metadata for observability. The envelope pattern adds a uniform outer structure without losing type information, making it easier for clients to parse responses and for the platform to evolve the API without breaking changes.
 
-**Type Safety and Consistency**
-Using typed schemas for both request and response ensures compile-time safety and clear API contracts. The envelope pattern adds a uniform outer structure without losing type information, making it easier for clients to parse responses and for the platform to evolve the API without breaking changes.
+**ORM Compatibility and Layer Bridging**
+The OrmBase base class with from_attributes configuration enables seamless conversion between ORM models and Pydantic schemas. This bridging between persistence and API layers ensures that the domain models can be used directly in API responses without manual transformation, reducing boilerplate code and ensuring consistency. The model_validate() method handles the conversion, ensuring that only valid data is included in the API response.
 
 ## Trace ID: 2
 **Title:** POPIA Consent State Transition
@@ -127,21 +127,21 @@ EduBoost V2 implements an immutable domain pattern for POPIA consent management,
 ### AI Guide: POPIA Consent State Transition
 
 **Motivation:**
-The immutable domain pattern for consent management ensures data integrity and auditability for POPIA compliance. By making state transitions return new instances rather than mutating in place, the system prevents accidental changes and provides a clear audit trail of consent lifecycle events.
+The immutable domain pattern for consent management ensures data integrity and auditability for POPIA compliance. By making state transitions return new instances rather than mutating in place, the system prevents accidental changes and provides a clear audit trail of consent lifecycle events. The HTTP request flows to the ConsentService.grant() method, which checks for existing consent and calls existing.grant(version) on the domain entity. The ConsentRecord domain model implements a state machine with initial state PENDING. The grant() method invokes _assert_transition() to validate the transition against ALLOWED_TRANSITIONS, ensuring only valid state changes occur. The method returns a new immutable instance via model_copy(update={...}), transitioning state to GRANTED, setting granted_at to now, and expires_at to +365 days. The repository persists the updated domain entity via ConsentRepository.update(), executing an UPDATE statement on the consent_records table. This immutable pattern prevents accidental mutations, ensures auditability, and provides clear state transition rules for compliance.
 
 **Details:**
 
-**Service Orchestration**
-The ConsentService.grant() method orchestrates the consent grant flow [2a]. It checks for existing consent and calls the domain entity's grant() method, keeping business logic in the service layer while state transition rules live in the domain.
+**Service Orchestration and Domain Logic Separation**
+The ConsentService.grant() method orchestrates the consent grant flow [2a]. It checks for existing consent and calls the domain entity's grant() method, keeping business logic in the service layer while state transition rules live in the domain. This separation of concerns ensures that business logic and domain rules are properly separated, making the codebase more maintainable and testable.
 
-**Immutable State Transitions**
-The ConsentRecord domain model implements a state machine with initial state PENDING [2b]. The grant() method invokes _assert_transition() to validate the transition against ALLOWED_TRANSITIONS [2d], ensuring only valid state changes occur. The method returns a new immutable instance via model_copy(update={...}) [2c], transitioning state to GRANTED, setting granted_at to now, and expires_at to +365 days.
+**Immutable State Transitions and State Machine Validation**
+The ConsentRecord domain model implements a state machine with initial state PENDING [2b]. The grant() method invokes _assert_transition() to validate the transition against ALLOWED_TRANSITIONS [2d], ensuring only valid state changes occur. The method returns a new immutable instance via model_copy(update={...}) [2c], transitioning state to GRANTED, setting granted_at to now, and expires_at to +365 days. The immutable pattern prevents accidental mutations and ensures that state changes are explicit and auditable.
 
-**Persistence and Auditability**
-The repository persists the updated domain entity via ConsentRepository.update() [2e], executing an UPDATE statement on the consent_records table. Because each transition creates a new instance, the audit trail is implicit: the database record reflects the latest state, and any change history can be reconstructed from domain events or audit logs.
+**Persistence and Auditability for Compliance**
+The repository persists the updated domain entity via ConsentRepository.update() [2e], executing an UPDATE statement on the consent_records table. Because each transition creates a new instance, the audit trail is implicit: the database record reflects the latest state, and any change history can be reconstructed from domain events or audit logs. This pattern supports POPIA compliance by ensuring consent state changes are explicit, validated, and auditable.
 
-**Compliance Implications**
-This pattern supports POPIA compliance by ensuring consent state changes are explicit, validated, and auditable. The state machine prevents invalid transitions, and immutability prevents accidental mutations that could obscure the true consent state.
+**Compliance Implications and State Machine Guarantees**
+The state machine prevents invalid transitions, and immutability prevents accidental mutations that could obscure the true consent state. The ALLOWED_TRANSITIONS dictionary defines the valid state transitions, ensuring that only compliant state changes are allowed. This approach provides clear guarantees about consent state integrity, which is critical for regulatory compliance.
 
 ## Trace ID: 3
 **Title:** Content Factory Artifact Validation
@@ -188,21 +188,21 @@ EduBoost V2 implements type-safe content artifact validation using domain schema
 ### AI Guide: Content Factory Artifact Validation
 
 **Motivation:**
-Type-safe content artifact validation ensures consistency and provenance tracking for the content factory. By using domain schemas for validation requests and responses, the platform can validate artifacts before they enter the content pipeline and track their lineage through ETL source citations.
+Type-safe content artifact validation ensures consistency and provenance tracking for the content factory. By using domain schemas for validation requests and responses, the platform can validate artifacts before they enter the content pipeline and track their lineage through ETL source citations. The admin API router at /admin/content-factory endpoint imports validation schemas for request validation. The ContentArtifactValidationRequest schema defines the validation payload with artifact_type field, artifact_json field, and sources: list[ETLSourceCitation] for provenance tracking. The ContentArtifactValidationResponse schema defines the response contract with passed: bool, checks: dict, and errors: list[str] for validation feedback. The ContentArtifactCreate schema provides comprehensive artifact creation with scope_id, content_layer, artifact_json payload, quality_score, safety_status, and sources with provenance. The ContentValidationService.validate() method processes the request and returns the response. This type-safe schema approach ensures validation consistency, provenance tracking, and clear API contracts for content artifact lifecycle management.
 
 **Details:**
 
-**Validation Request and Response Schemas**
-The admin API router imports validation schemas for request validation [3a]. The ContentArtifactValidationRequest schema defines the validation payload with artifact_type, artifact_json, and sources: list[ETLSourceCitation] for provenance tracking [3b]. The ContentArtifactValidationResponse schema defines the response contract with passed: bool, checks: dict, and errors: list[str] for validation feedback [3c].
+**Validation Request and Response Schemas with Type Safety**
+The admin API router imports validation schemas for request validation [3a]. The ContentArtifactValidationRequest schema defines the validation payload with artifact_type, artifact_json, and sources: list[ETLSourceCitation] for provenance tracking [3b]. The ContentArtifactValidationResponse schema defines the response contract with passed: bool, checks: dict, and errors: list[str] for validation feedback [3c]. The type-safe schema approach ensures that validation requests and responses are validated at the API boundary, preventing invalid data from entering the content pipeline.
 
-**Artifact Creation Schema**
-The ContentArtifactCreate schema provides comprehensive artifact creation with scope_id, content_layer, artifact_json payload, quality_score, safety_status, and sources with provenance [3d]. This schema captures all metadata needed for content lifecycle management.
+**Artifact Creation Schema and Comprehensive Metadata**
+The ContentArtifactCreate schema provides comprehensive artifact creation with scope_id, content_layer, artifact_json payload, quality_score, safety_status, and sources with provenance [3d]. This schema captures all metadata needed for content lifecycle management. The comprehensive metadata ensures that artifacts have all the necessary information for quality tracking, safety validation, and provenance tracing throughout their lifecycle.
 
-**Source Provenance Tracking**
-The sources field embeds ETL source citations for content lineage and audit trail [3e]. This ensures that every artifact can be traced back to its data sources, which is critical for content quality assurance and regulatory compliance.
+**Source Provenance Tracking and Audit Trail**
+The sources field embeds ETL source citations for content lineage and audit trail [3e]. This ensures that every artifact can be traced back to its data sources, which is critical for content quality assurance and regulatory compliance. The provenance tracking enables content quality assurance teams to understand the origin of content artifacts and validate their sources, which is essential for maintaining content quality and regulatory compliance.
 
-**Service Processing**
-The ContentValidationService.validate() method processes the request and returns the response. The type-safe schema approach ensures validation consistency, provenance tracking, and clear API contracts for content artifact lifecycle management.
+**Service Processing and Validation Consistency**
+The ContentValidationService.validate() method processes the request and returns the response. The type-safe schema approach ensures validation consistency, provenance tracking, and clear API contracts for content artifact lifecycle management. The service layer provides the business logic for validation, while the domain schemas ensure type safety and clear contracts, separating concerns and improving maintainability.
 
 ## Trace ID: 4
 **Title:** Diagnostic Item Repository Query with Domain Schema
@@ -249,24 +249,24 @@ EduBoost V2 bridges domain and ORM layers using shared enum definitions for type
 ### AI Guide: Diagnostic Item Repository Query with Domain Schema
 
 **Motivation:**
-Shared enum definitions bridge domain and ORM layers for type-safe repository queries. By defining enums in the domain layer and mirroring them in the ORM, the platform ensures type safety, prevents mismatches between domain and database layers, and provides clear state definitions across the application.
+Shared enum definitions bridge domain and ORM layers for type-safe repository queries. By defining enums in the domain layer and mirroring them in the ORM, the platform ensures type safety, prevents mismatches between domain and database layers, and provides clear state definitions across the application. The repository layer's list_by_caps_ref() method accepts a ReviewStatus parameter from the domain schema, extracting the enum value for SQLAlchemy query compatibility. The method builds a SQLAlchemy query filtering by status_val. The domain schema layer defines the ReviewStatus enum with states DRAFT, AI_GENERATED, APPROVED, etc., shared across domain and ORM. The ItemCreate schema provides full item validation contract for creation and seed file I/O. The ORM model layer defines the DiagnosticItem table mapping with ReviewStatusEnum mirroring the domain enum for database persistence. This shared enum approach ensures type safety, prevents mismatches between domain and database layers, and provides clear state definitions across the application.
 
 **Details:**
 
-**Domain Enum Parameter**
-The repository layer's list_by_caps_ref() method accepts a ReviewStatus parameter from the domain schema [4a]. This allows the repository to accept type-safe enum values rather than raw strings, reducing the risk of invalid state values.
+**Domain Enum Parameter and Type Safety**
+The repository layer's list_by_caps_ref() method accepts a ReviewStatus parameter from the domain schema [4a]. This allows the repository to accept type-safe enum values rather than raw strings, reducing the risk of invalid state values. The type-safe parameter ensures that only valid enum values can be passed to the repository, preventing runtime errors due to invalid state values.
 
-**Domain to ORM Conversion**
-The repository extracts the enum value for SQLAlchemy query compatibility [4b]. This conversion bridges the domain enum to the ORM enum, allowing the query to filter by status_val while maintaining type safety at the domain boundary.
+**Domain to ORM Conversion and Layer Bridging**
+The repository extracts the enum value for SQLAlchemy query compatibility [4b]. This conversion bridges the domain enum to the ORM enum, allowing the query to filter by status_val while maintaining type safety at the domain boundary. The conversion ensures that the domain enum can be used in SQLAlchemy queries without losing type safety, bridging the domain and ORM layers seamlessly.
 
-**Domain Enum Definition**
-The domain schema layer defines the ReviewStatus enum with states DRAFT, AI_GENERATED, APPROVED, etc. [4c]. This canonical definition is shared across domain and ORM layers, ensuring consistent state semantics.
+**Domain Enum Definition and Canonical State Semantics**
+The domain schema layer defines the ReviewStatus enum with states DRAFT, AI_GENERATED, APPROVED, etc. [4c]. This canonical definition is shared across domain and ORM layers, ensuring consistent state semantics. The canonical definition serves as the single source of truth for state values, preventing inconsistencies between different layers of the application.
 
-**Item Creation Schema**
-The ItemCreate schema provides full item validation contract for creation and seed file I/O [4d]. This schema ensures that diagnostic items are validated before they enter the database or are loaded from seed files.
+**Item Creation Schema and Validation Contract**
+The ItemCreate schema provides full item validation contract for creation and seed file I/O [4d]. This schema ensures that diagnostic items are validated before they enter the database or are loaded from seed files. The validation contract ensures that items are validated consistently across different contexts, whether they are being created via API or loaded from seed files.
 
-**ORM Enum Mirror**
-The ORM model layer defines the DiagnosticItem table mapping with ReviewStatusEnum mirroring the domain enum for database persistence [4e]. This mirroring ensures that the database column uses the same state values as the domain enum, preventing mismatches.
+**ORM Enum Mirror and Database Consistency**
+The ORM model layer defines the DiagnosticItem table mapping with ReviewStatusEnum mirroring the domain enum for database persistence [4e]. This mirroring ensures that the database column uses the same state values as the domain enum, preventing mismatches. The mirroring ensures that the database layer uses the same state semantics as the domain layer, preventing inconsistencies between the application and the database.
 
 ## Trace ID: 5
 **Title:** Role-Based Authorization Policy Check
@@ -313,24 +313,24 @@ EduBoost V2 implements role-based access control (RBAC) using domain enums from 
 ### AI Guide: Role-Based Authorization Policy Check
 
 **Motivation:**
-Domain enums drive RBAC authorization decisions across the application. By defining roles and permissions in the domain layer, the platform ensures consistent role definitions, centralized permission management, and type-safe authorization checks.
+Domain enums drive RBAC authorization decisions across the application. By defining roles and permissions in the domain layer, the platform ensures consistent role definitions, centralized permission management, and type-safe authorization checks. The API request with JWT flows through get_current_user dependency, which returns a CurrentUser dataclass containing a role: Role field from the domain layer. The authorization policy check can_view_learner(actor, learner_id) uses pattern matching on actor.role with match actor.role, handling Role.ADMIN, Role.GUARDIAN (checking linked_learner_ids), and Role.TEACHER (checking assigned_learner_ids). The domain layer defines the Role enum with LEARNER, GUARDIAN, ADMIN, and four more roles. The role_has_permission(role, permission) function maps the Role enum to permission sets via ROLE_PERMISSIONS.get(role) for fine-grained access control. This domain-driven RBAC ensures consistent role definitions, centralized permission management, and type-safe authorization checks across the application.
 
 **Details:**
 
-**CurrentUser Role Field**
-The API request with JWT flows through get_current_user dependency, which returns a CurrentUser dataclass containing a role: Role field from the domain layer [5a]. This gives authorization logic access to a type-safe role enum rather than raw strings.
+**CurrentUser Role Field and Type-Safe Authorization**
+The API request with JWT flows through get_current_user dependency, which returns a CurrentUser dataclass containing a role: Role field from the domain layer [5a]. This gives authorization logic access to a type-safe role enum rather than raw strings. The type-safe role field ensures that authorization logic can rely on compile-time type checking, preventing runtime errors due to invalid role values.
 
-**Role Pattern Matching**
-The authorization policy check can_view_learner(actor, learner_id) uses pattern matching on actor.role with match actor.role [5b]. This pattern handles Role.ADMIN, Role.GUARDIAN (checking linked_learner_ids), and Role.TEACHER (checking assigned_learner_ids), making authorization logic explicit and type-safe.
+**Role Pattern Matching and Explicit Authorization Logic**
+The authorization policy check can_view_learner(actor, learner_id) uses pattern matching on actor.role with match actor.role [5b]. This pattern handles Role.ADMIN, Role.GUARDIAN (checking linked_learner_ids), and Role.TEACHER (checking assigned_learner_ids), making authorization logic explicit and type-safe. The pattern matching approach makes authorization logic explicit and easy to understand, while the type safety ensures that all role cases are handled.
 
-**Admin Role Check**
-The Admin role case grants full access without checking learner relationships [5c]. This reflects the elevated privileges of admin users while still using the domain enum for type safety.
+**Admin Role Check and Elevated Privileges**
+The Admin role case grants full access without checking learner relationships [5c]. This reflects the elevated privileges of admin users while still using the domain enum for type safety. The elevated privileges are implemented as a special case in the pattern matching, ensuring that admin users have the necessary access while maintaining type safety.
 
-**Role Enum Definition**
-The domain layer defines the Role enum with LEARNER, GUARDIAN, ADMIN, and four more roles [5d]. This canonical definition is the single source of truth for role values across the application.
+**Role Enum Definition and Canonical Role Values**
+The domain layer defines the Role enum with LEARNER, GUARDIAN, ADMIN, and four more roles [5d]. This canonical definition is the single source of truth for role values across the application. The canonical definition ensures that role values are consistent across the application, preventing inconsistencies that could lead to security vulnerabilities.
 
-**Permission Matrix Lookup**
-The role_has_permission(role, permission) function maps the Role enum to permission sets via ROLE_PERMISSIONS.get(role) [5e]. This centralized permission matrix enables fine-grained access control while keeping permission logic in one place.
+**Permission Matrix Lookup and Centralized Permission Management**
+The role_has_permission(role, permission) function maps the Role enum to permission sets via ROLE_PERMISSIONS.get(role) [5e]. This centralized permission matrix enables fine-grained access control while keeping permission logic in one place. The centralized permission matrix makes it easy to manage permissions and ensures that permission logic is consistent across the application.
 
 ## Trace ID: 6
 **Title:** Content Coverage Report Generation
@@ -377,24 +377,24 @@ EduBoost V2 implements content coverage reporting using domain types in content_
 ### AI Guide: Content Coverage Report Generation
 
 **Motivation:**
-Domain types enable structured, type-safe content coverage reporting with status enums. By defining coverage models and status calculation logic in the domain layer, the platform ensures consistent report generation, clear status semantics, and traffic-light signaling for coverage quality.
+Domain types enable structured, type-safe content coverage reporting with status enums. By defining coverage models and status calculation logic in the domain layer, the platform ensures consistent report generation, clear status semantics, and traffic-light signaling for coverage quality. The ContentCoverageService.get_scope_coverage() orchestrates report generation by getting scope from registry, looping through caps_refs, calling get_caps_ref_coverage() with _layer_counts() per layer, and summarizing caps_refs and layers. The service constructs a ScopeCoverageReport domain model with scope_id, grade fields, summary: ScopeCoverageSummary, layers: dict mapping, and per_caps_ref: list. The domain model defines CoverageLayerCounts with target: int, approved: int, status field, and coverage_ratio: float. The coverage_status() pure function computes RED/AMBER/GREEN status from counts: NOT_CONFIGURED if target <= 0, RED if approved <= 0, AMBER if approved < target, else GREEN. The CoverageLayerStatus enum defines the traffic light status for coverage quality signaling. This domain-driven approach ensures type safety, clear status semantics, and structured report generation.
 
 **Details:**
 
-**Domain Report Construction**
-The ContentCoverageService.get_scope_coverage() orchestrates report generation by getting scope from registry, looping through caps_refs, calling get_caps_ref_coverage() with _layer_counts() per layer, and summarizing caps_refs and layers [6a]. The service constructs a ScopeCoverageReport domain model with scope_id, grade fields, summary: ScopeCoverageSummary, layers: dict mapping, and per_caps_ref: list.
+**Domain Report Construction and Service Orchestration**
+The ContentCoverageService.get_scope_coverage() orchestrates report generation by getting scope from registry, looping through caps_refs, calling get_caps_ref_coverage() with _layer_counts() per layer, and summarizing caps_refs and layers [6a]. The service constructs a ScopeCoverageReport domain model with scope_id, grade fields, summary: ScopeCoverageSummary, layers: dict mapping, and per_caps_ref: list. The service orchestration ensures that report generation is centralized and consistent, with all business logic in one place.
 
-**Coverage Report Schema**
-The ScopeCoverageReport is a nested domain model containing summary and per-layer breakdowns [6b]. This hierarchical structure allows the report to capture both high-level metrics and detailed layer-specific coverage data.
+**Coverage Report Schema and Hierarchical Structure**
+The ScopeCoverageReport is a nested domain model containing summary and per-layer breakdowns [6b]. This hierarchical structure allows the report to capture both high-level metrics and detailed layer-specific coverage data. The hierarchical structure enables the report to provide both high-level summaries and detailed breakdowns, meeting the needs of different stakeholders.
 
-**Layer Counts Model**
-The CoverageLayerCounts model tracks target: int, approved: int, status field, and coverage_ratio: float [6c]. This model captures the essential coverage metrics for each layer, enabling both absolute counts and relative ratios.
+**Layer Counts Model and Computed Metrics**
+The CoverageLayerCounts model tracks target: int, approved: int, status field, and coverage_ratio: float [6c]. This model captures the essential coverage metrics for each layer, enabling both absolute counts and relative ratios. The encapsulation of calculation logic ensures that coverage metrics are calculated consistently across the report, preventing inconsistencies.
 
-**Status Calculation Function**
-The coverage_status() pure function computes RED/AMBER/GREEN status from counts [6d]: NOT_CONFIGURED if target <= 0, RED if approved <= 0, AMBER if approved < target, else GREEN. This deterministic logic ensures consistent status calculation across all reports.
+**Status Calculation Function and Deterministic Logic**
+The coverage_status() pure function computes RED/AMBER/GREEN status from counts [6d]: NOT_CONFIGURED if target <= 0, RED if approved <= 0, AMBER if approved < target, else GREEN. This deterministic logic ensures consistent status calculation across all reports. The pure function approach ensures that status calculation is deterministic and testable, with no side effects.
 
-**Status Enum Definition**
-The CoverageLayerStatus enum defines the traffic light status for coverage quality signaling [6e]. This enum provides clear semantics for coverage quality, making it easy for stakeholders to interpret report results.
+**Status Enum Definition and Traffic Light Signaling**
+The CoverageLayerStatus enum defines the traffic light status for coverage quality signaling [6e]. This enum provides clear semantics for coverage quality, making it easy for stakeholders to interpret report results. The traffic light signaling provides clear, intuitive status communication, making it easy for stakeholders to understand coverage quality at a glance.
 
 ## Trace ID: 7
 **Title:** Data Subject Rights Request Processing
@@ -441,21 +441,21 @@ EduBoost V2 implements POPIA data subject rights using domain models in data_sub
 ### AI Guide: Data Subject Rights Request Processing
 
 **Motivation:**
-Domain models support POPIA compliance workflows for export and erasure requests. By embedding business logic such as SLA calculation and legal hold enforcement in domain entities, the platform ensures POPIA compliance, automatic SLA tracking, and clear business rules for data subject rights.
+Domain models support POPIA compliance workflows for export and erasure requests. By embedding business logic such as SLA calculation and legal hold enforcement in domain entities, the platform ensures POPIA compliance, automatic SLA tracking, and clear business rules for data subject rights. The DataExportRequest entity includes SLA deadline auto-calculation (30 days per POPIA) and is_overdue() business logic for identifying breached SLAs. The ErasureRequest entity includes a legal_hold flag and can_execute() guard method preventing erasure during legal holds. The service layer in data_subject_rights_service.py provides create_export_request() which instantiates DataExportRequest, and process_erasure_request() which checks can_execute(). The API layer in popia.py provides POST /export and POST /erasure endpoints. This domain-driven approach ensures POPIA compliance, automatic SLA tracking, legal hold enforcement, and clear business logic encapsulation for data subject rights.
 
 **Details:**
 
-**Export Request Model**
-The DataExportRequest entity includes SLA deadline auto-calculation (30 days per POPIA) and is_overdue() business logic for identifying breached SLAs [7a][7b][7c]. This ensures that export requests automatically track compliance deadlines and flag overdue requests.
+**Export Request Model and SLA Auto-Calculation**
+The DataExportRequest entity includes SLA deadline auto-calculation (30 days per POPIA) and is_overdue() business logic for identifying breached SLAs [7a][7b][7c]. This ensures that export requests automatically track compliance deadlines and flag overdue requests. The automatic SLA calculation ensures that compliance deadlines are set correctly without manual intervention, reducing the risk of human error.
 
-**Erasure Request Model**
-The ErasureRequest entity includes a legal_hold flag and can_execute() guard method preventing erasure during legal holds [7d][7e]. This business rule ensures that right-to-be-forgotten requests respect legal holds, preventing data deletion when it would violate legal obligations.
+**Erasure Request Model and Legal Hold Enforcement**
+The ErasureRequest entity includes a legal_hold flag and can_execute() guard method preventing erasure during legal holds [7d][7e]. This business rule ensures that right-to-be-forgotten requests respect legal holds, preventing data deletion when it would violate legal obligations. The guard method ensures that erasure operations are only executed when it is legally permissible, preventing violations of legal obligations.
 
-**Service Layer Integration**
-The service layer in data_subject_rights_service.py provides create_export_request() which instantiates DataExportRequest, and process_erasure_request() which checks can_execute(). The API layer in popia.py provides POST /export and POST /erasure endpoints, exposing these compliance workflows through the API.
+**Service Layer Integration and API Exposure**
+The service layer in data_subject_rights_service.py provides create_export_request() which instantiates DataExportRequest, and process_erasure_request() which checks can_execute(). The API layer in popia.py provides POST /export and POST /erasure endpoints, exposing these compliance workflows through the API. The service layer encapsulates the business logic, while the API layer provides a clean interface for external systems to initiate data subject rights requests.
 
-**Compliance Implications**
-This domain-driven approach ensures POPIA compliance by embedding compliance requirements directly in the domain models. SLA tracking, legal hold enforcement, and business logic encapsulation make it difficult to accidentally violate data subject rights.
+**Compliance Implications and Business Logic Encapsulation**
+This domain-driven approach ensures POPIA compliance by embedding compliance requirements directly in the domain models. SLA tracking, legal hold enforcement, and business logic encapsulation make it difficult to accidentally violate data subject rights. The encapsulation of compliance logic in domain models ensures that compliance requirements are enforced consistently across the application, reducing the risk of compliance violations.
 
 ## Trace ID: 8
 **Title:** API Error Envelope Construction
@@ -502,21 +502,21 @@ EduBoost V2 implements consistent error responses using the fail() helper in api
 ### AI Guide: API Error Envelope Construction
 
 **Motivation:**
-The fail() helper produces consistent error responses with field-level validation details and remediation guidance. By standardizing error envelope construction, the platform ensures that all errors have a predictable structure, include machine-readable error codes, and provide user-facing remediation guidance.
+The fail() helper produces consistent error responses with field-level validation details and remediation guidance. By standardizing error envelope construction, the platform ensures that all errors have a predictable structure, include machine-readable error codes, and provide user-facing remediation guidance. The domain layer defines FieldError model for machine-readable validation detail, ApiError model with code, message, field_errors, and remediation field for user guidance. The fail() helper function returns ApiErrorEnvelope with error: ApiError(...), data: None, and meta: ApiMeta(...). The test layer demonstrates fail() usage with code="forbidden", message, remediation, and details. The router layer uses HTTPException handler to convert exceptions to envelope via fail(), returning JSONResponse with error payload. This pattern ensures consistent error responses, field-level validation details, user-friendly remediation guidance, and machine-readable error codes across all endpoints.
 
 **Details:**
 
-**Error Envelope Construction**
-The fail() helper function returns ApiErrorEnvelope with error: ApiError(...), data: None, and meta: ApiMeta(...) [8a]. This function is the single entry point for constructing error envelopes, ensuring consistency across all error paths.
+**Error Envelope Construction and Consistency**
+The fail() helper function returns ApiErrorEnvelope with error: ApiError(...), data: None, and meta: ApiMeta(...) [8a]. This function is the single entry point for constructing error envelopes, ensuring consistency across all error paths. The single entry point ensures that all error envelopes are constructed consistently, preventing inconsistencies in error response structure.
 
-**Error Model Definition**
-The domain layer defines FieldError model for machine-readable validation detail, ApiError model with code, message, field_errors, and remediation field for user guidance [8b][8c]. These models provide the canonical error structure used throughout the application.
+**Error Model Definition and Canonical Structure**
+The domain layer defines FieldError model for machine-readable validation detail, ApiError model with code, message, field_errors, and remediation field for user guidance [8b][8c]. These models provide the canonical error structure used throughout the application. The canonical error structure ensures that error responses are consistent across the application, making it easier for clients to handle errors.
 
-**Field Error Model**
-The FieldError model captures machine-readable validation detail for individual request fields [8c]. This allows the error envelope to include field-specific validation errors, helping clients understand exactly which fields failed validation.
+**Field Error Model and Validation Detail**
+The FieldError model captures machine-readable validation detail for individual request fields [8c]. This allows the error envelope to include field-specific validation errors, helping clients understand exactly which fields failed validation. The field-level validation detail enables clients to provide precise error feedback to users, improving the user experience.
 
-**Error Envelope Usage**
-The test layer demonstrates fail() usage with code="forbidden", message, remediation, and details [8d]. This example shows how to construct error envelopes with all relevant information for client consumption.
+**Error Envelope Usage and Remediation Guidance**
+The test layer demonstrates fail() usage with code="forbidden", message, remediation, and details [8d]. This example shows how to construct error envelopes with all relevant information for client consumption. The remediation field provides user-facing guidance for resolving the error [8e], helping users understand how to fix the issue. The combination of machine-readable error codes and user-facing remediation guidance makes error responses both machine-parseable and user-friendly.
 
 **Remediation Guidance**
 The remediation field provides optional user-facing guidance for resolving the error [8e]. This helps users understand how to fix the error, improving the user experience and reducing support burden.

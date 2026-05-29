@@ -196,6 +196,12 @@ The following may be added as needed:
 - **Traces:** 8 traces covering core authorization policy evaluation, header-based actor construction for FastAPI, JWT claims to authorization actor adapter, route authorization enforcement for learner profile read, combined authorization and consent gate, authorization denial and HTTP 403 response, multi-role access pattern for guardian write access, and support role read-only access pattern
 - **Key Components:** object_authorization.py, dependencies.py, learners.py, diagnostics.py, study_plans.py, consent_policy.py, service.py
 
+### 18. EduBoost Frontend: Next.js Learning Platform with Auth, AI Lessons, Diagnostics & PWA
+- **File:** `eduboost_frontend_next_js_learning_platform_with_auth_ai_lessons_diagnostics_and_pwa.md`
+- **Description:** Next.js 15 TypeScript frontend providing guardian authentication, AI-powered adaptive lessons, IRT diagnostics, gamification, POPIA-compliant parent dashboards, and offline PWA capabilities
+- **Traces:** 7 traces covering guardian login with JWT token and learner context initialization, client API call through proxy route to backend with envelope unwrapping, dashboard page load with server loader and client hydration, async lesson generation with job polling and result caching, diagnostic assessment with IRT scoring and gap analysis, service worker lifecycle with cache strategies for offline PWA, and Next.js middleware authentication guard for route protection
+- **Key Components:** page.tsx, services.ts, client.ts, server-client.ts, DashboardClient.tsx, InteractiveDiagnostic.tsx, sw.ts, middleware.ts, RouteGuard.tsx, LearnerContext.tsx
+
 ## Creating New Codemaps
 
 When creating a new codemap:
