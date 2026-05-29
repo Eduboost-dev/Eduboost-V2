@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import asdict
 from datetime import datetime, timezone
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, MagicMock, patch
@@ -187,3 +188,135 @@ def test_module_exports_all_public_symbols():
         "RightsRequestStatus",
     }
     assert set(popia_service.__all__) == expected
+
+
+@pytest.mark.asyncio
+async def test_request_correction_with_allowed_fields():
+    """Verify request_correction updates allowed fields."""
+    db = AsyncMock()
+    service = POPIADataRightsService(db)
+    learner = SimpleNamespace(id="learner-123", display_name="Old Name", grade=4, language="en")
+    
+    class FakeService(POPIADataRightsService):
+        def __init__(self, learner, audit_mock):
+            self.learner = learner
+            self.audit = audit_mock
+            self.db = db
+        
+        async def load_learner_for_write(self, learner_id, current_user):
+            return self.learner
+    
+    audit_mock = AsyncMock()
+    fake_service = FakeService(learner, audit_mock)
+    
+    result = await fake_service.request_correction(
+        "learner-123",
+        {"sub": "guardian-1"},
+        fields={"display_name": "New Name", "grade": 5},
+        reason="typo_fix"
+    )
+    
+    assert learner.display_name == "New Name"
+    assert learner.grade == 5
+    assert result["request_type"] == "correction"
+    assert result["status"] == "completed"
+
+
+@pytest.mark.asyncio
+async def test_request_correction_rejects_unsupported_fields():
+    """Verify request_correction raises on unsupported fields."""
+    db = AsyncMock()
+    service = POPIADataRightsService(db)
+    learner = SimpleNamespace(id="learner-123")
+    
+    class FakeService(POPIADataRightsService):
+        def __init__(self, learner):
+            self.learner = learner
+        
+        async def load_learner_for_write(self, learner_id, current_user):
+            return self.learner
+    
+    fake_service = FakeService(learner)
+    
+    with pytest.raises(HTTPException) as exc:
+        await fake_service.request_correction(
+            "learner-123",
+            {"sub": "guardian-1"},
+            fields={"unsupported_field": "value"},
+            reason="test"
+        )
+    assert exc.value.status_code == 422
+    assert "unsupported_fields" in exc.value.detail
+
+
+@pytest.mark.asyncio
+async def test_restrict_processing_calls_consent_revoke():
+    """Verify restrict_processing calls consent.revoke."""
+    db = AsyncMock()
+    service = POPIADataRightsService(db)
+    learner = SimpleNamespace(id="learner-123", pseudonym_id="pseudo-123")
+    consent_mock = AsyncMock()
+    audit_mock = AsyncMock()
+    
+    class FakeService(POPIADataRightsService):
+        def __init__(self, learner, consent_mock, audit_mock, db):
+            self.learner = learner
+            self.consent = consent_mock
+            self.audit = audit_mock
+            self.db = db
+        
+        async def load_learner_for_write(self, learner_id, current_user):
+            return self.learner
+    
+    fake_service = FakeService(learner, consent_mock, audit_mock, db)
+    
+    await fake_service.restrict_processing(
+        "learner-123",
+        {"sub": "guardian-1"},
+        reason="user_request"
+    )
+    
+    consent_mock.revoke.assert_called_once_with(
+        "learner-123",
+        guardian_id="guardian-1",
+        reason="processing_restricted"
+    )
+
+
+@pytest.mark.asyncio
+async def test_cancel_erasure_restores_learner():
+    """Verify cancel_erasure restores learner and updates state."""
+    db = AsyncMock()
+    erasure_request = SimpleNamespace(
+        id="erasure-1",
+        requester_id="guardian-1",
+        state="requested"
+    )
+    learner = SimpleNamespace(
+        id="learner-123",
+        pseudonym_id="pseudo-123",
+        is_deleted=True,
+        deletion_requested_at=datetime.now(timezone.utc),
+        display_name="[erased]"
+    )
+    audit_mock = AsyncMock()
+    
+    class FakeService(POPIADataRightsService):
+        def __init__(self, learner, erasure_request, audit_mock, db):
+            self.learner = learner
+            self._erasure_request = erasure_request
+            self.audit = audit_mock
+            self.db = db
+        
+        async def load_learner_for_write(self, learner_id, current_user):
+            return self.learner
+    
+    fake_service = FakeService(learner, erasure_request, audit_mock, db)
+    db.scalar.return_value = erasure_request
+    
+    result = await fake_service.cancel_erasure("learner-123", {"sub": "guardian-1"})
+    
+    assert learner.is_deleted is False
+    assert learner.deletion_requested_at is None
+    assert learner.display_name == "Restored"
+    assert result["state"] == "cancelled"
