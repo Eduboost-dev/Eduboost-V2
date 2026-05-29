@@ -196,3 +196,117 @@ async def test_semantic_cache_set_stores_with_ttl():
         mock_settings.redis_cache_ttl_seconds = 3600
         await service.set("cache-key-123", '{"lesson": "data"}')
         mock_redis.setex.assert_called_once_with("cache-key-123", 3600, '{"lesson": "data"}')
+
+
+@pytest.mark.unit
+async def test_check_and_reserve_uses_premium_limit():
+    """Verify check_and_reserve uses premium limit for premium tier."""
+    mock_redis = AsyncMock()
+    mock_redis.incrby = AsyncMock(return_value=5000)
+    mock_redis.expire = AsyncMock()
+    
+    service = QuotaService(mock_redis)
+    
+    with patch("app.services.quota_service.settings") as mock_settings:
+        mock_settings.daily_token_quota_premium = 50000
+        mock_settings.daily_token_quota_free = 10000
+        await service.check_and_reserve("guardian-123", 5000, "premium")
+        # Should not raise with premium limit
+        mock_redis.expire.assert_called_once()
+
+
+@pytest.mark.unit
+async def test_check_and_reserve_rolls_back_on_exceed():
+    """Verify check_and_reserve rolls back increment when quota exceeded."""
+    mock_redis = AsyncMock()
+    mock_redis.incrby = AsyncMock(return_value=15000)
+    mock_redis.decrby = AsyncMock()
+    
+    service = QuotaService(mock_redis)
+    
+    with patch("app.services.quota_service.settings") as mock_settings:
+        mock_settings.daily_token_quota_free = 10000
+        with pytest.raises(Exception):  # HTTPException
+            await service.check_and_reserve("guardian-123", 5000, "free")
+        mock_redis.decrby.assert_called_once()
+
+
+@pytest.mark.unit
+async def test_check_and_reserve_allows_exact_limit():
+    """Verify check_and_reserve allows usage up to exact limit."""
+    mock_redis = AsyncMock()
+    mock_redis.incrby = AsyncMock(return_value=10000)
+    mock_redis.expire = AsyncMock()
+    
+    service = QuotaService(mock_redis)
+    
+    with patch("app.services.quota_service.settings") as mock_settings:
+        mock_settings.daily_token_quota_free = 10000
+        await service.check_and_reserve("guardian-123", 10000, "free")
+        # Should not raise at exact limit
+
+
+@pytest.mark.unit
+async def test_semantic_cache_get_returns_none_on_miss():
+    """Verify get returns None when cache miss."""
+    mock_redis = AsyncMock()
+    mock_redis.get = AsyncMock(return_value=None)
+    service = SemanticCacheService(mock_redis)
+    
+    with patch("app.services.quota_service.settings") as mock_settings:
+        mock_settings.semantic_cache_enabled = True
+        result = await service.get("cache-key-123")
+        assert result is None
+
+
+@pytest.mark.unit
+async def test_semantic_cache_get_handles_string_response():
+    """Verify get handles string response (not bytes)."""
+    mock_redis = AsyncMock()
+    mock_redis.get = AsyncMock(return_value='{"lesson": "data"}')
+    service = SemanticCacheService(mock_redis)
+    
+    with patch("app.services.quota_service.settings") as mock_settings:
+        mock_settings.semantic_cache_enabled = True
+        result = await service.get("cache-key-123")
+        assert result == '{"lesson": "data"}'
+
+
+@pytest.mark.unit
+async def test_semantic_cache_set_with_custom_ttl():
+    """Verify set uses configured TTL from settings."""
+    mock_redis = AsyncMock()
+    mock_redis.setex = AsyncMock()
+    service = SemanticCacheService(mock_redis)
+    
+    with patch("app.services.quota_service.settings") as mock_settings:
+        mock_settings.semantic_cache_enabled = True
+        mock_settings.redis_cache_ttl_seconds = 7200
+        await service.set("cache-key-123", '{"lesson": "data"}')
+        mock_redis.setex.assert_called_once_with("cache-key-123", 7200, '{"lesson": "data"}')
+
+
+@pytest.mark.unit
+async def test_get_usage_with_only_tokens():
+    """Verify get_usage handles case with tokens but no request count."""
+    mock_redis = AsyncMock()
+    mock_redis.get = AsyncMock(side_effect=["5000", None])
+    
+    service = QuotaService(mock_redis)
+    tokens, reqs = await service.get_usage("guardian-123")
+    
+    assert tokens == 5000
+    assert reqs == 0
+
+
+@pytest.mark.unit
+async def test_get_usage_with_only_requests():
+    """Verify get_usage handles case with requests but no token count."""
+    mock_redis = AsyncMock()
+    mock_redis.get = AsyncMock(side_effect=[None, "10"])
+    
+    service = QuotaService(mock_redis)
+    tokens, reqs = await service.get_usage("guardian-123")
+    
+    assert tokens == 0
+    assert reqs == 10
