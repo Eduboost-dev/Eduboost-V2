@@ -126,7 +126,7 @@ describe("learner journey contracts", () => {
     expect(plan).toContain("lessonHrefForPlanItem");
     expect(badges).toContain("error && !profile");
     expect(badges).toContain("No badges yet!");
-    expect(lesson).toContain("completionError");
-    expect(lesson).toContain("Reconnect to generate this lesson");
+    expect(lesson).toContain("completionState");
+    expect(lesson).toContain("Lesson saved offline and will sync when you reconnect.");
   });
 });

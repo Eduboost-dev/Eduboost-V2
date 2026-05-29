@@ -1,11 +1,12 @@
 import React from "react";
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { LearnerProvider, useLearner } from "../src/context/LearnerContext";
 import { DashboardClient } from "../src/components/learner/DashboardClient";
 import { LessonEntryClient } from "../src/components/learner/LessonEntryClient";
 import { DiagnosticEntryClient } from "../src/components/learner/DiagnosticEntryClient";
 import { LearnerService } from "../src/lib/api/services";
+import type { LessonCompletionResponse } from "../src/lib/learner/lesson-completion-boundary";
 import type { SubjectCode } from "../src/lib/api/types";
 
 interface DashboardPanelProps {
@@ -16,6 +17,8 @@ interface DashboardPanelProps {
 interface LessonPanelProps {
   onComplete?: () => void;
   onBack?: () => void;
+  completionState?: { status?: string; message?: string };
+  isCompleting?: boolean;
 }
 
 interface DiagnosticPanelProps {
@@ -37,8 +40,16 @@ const serviceMocks = vi.hoisted(() => ({
   getMastery: vi.fn(),
   getGamificationProfile: vi.fn(),
   generateLesson: vi.fn(),
-  markLessonComplete: vi.fn(),
-  awardXP: vi.fn(),
+}));
+
+const completionBoundaryMocks = vi.hoisted(() => ({
+  completeLessonTransaction: vi.fn<[], Promise<LessonCompletionResponse>>(),
+}));
+
+const offlineSyncMocks = vi.hoisted(() => ({
+  cacheLessonSnapshot: vi.fn(),
+  getCachedLessonSnapshot: vi.fn().mockReturnValue(null),
+  queueLessonSync: vi.fn(),
 }));
 
 vi.mock("../src/lib/api/services", () => ({
@@ -46,10 +57,14 @@ vi.mock("../src/lib/api/services", () => ({
     getMastery: serviceMocks.getMastery,
     getGamificationProfile: serviceMocks.getGamificationProfile,
     generateLesson: serviceMocks.generateLesson,
-    markLessonComplete: serviceMocks.markLessonComplete,
-    awardXP: serviceMocks.awardXP,
   },
 }));
+
+vi.mock("@/lib/learner/lesson-completion-boundary", () => ({
+  completeLessonTransaction: completionBoundaryMocks.completeLessonTransaction,
+}));
+
+vi.mock("@/lib/api/offlineSync", () => offlineSyncMocks);
 
 // Mock the components used in pages to avoid massive dependency chain
 vi.mock("../src/components/eduboost/FeaturePanels", () => {
@@ -79,9 +94,12 @@ vi.mock("../src/components/eduboost/InteractiveDiagnostic", () => {
 });
 
 vi.mock("../src/components/eduboost/InteractiveLesson", () => {
-  const InteractiveLesson = ({ onComplete, onBack }: LessonPanelProps) => (
+  const InteractiveLesson = ({ onComplete, onBack, completionState, isCompleting }: LessonPanelProps) => (
     <div>
-      <button onClick={onComplete}>Complete Lesson</button>
+      {completionState?.message ? <p>{completionState.message}</p> : null}
+      <button disabled={isCompleting} onClick={onComplete}>
+        Complete Lesson
+      </button>
       <button onClick={onBack}>Back</button>
     </div>
   );
@@ -116,6 +134,14 @@ const lessonShell = {
   recommendedSubject: "MATH" as SubjectCode,
   recommendedTopic: "Fractions",
   initialLesson: null,
+  completionContract: {
+    xpAward: 35,
+    auditActorId: "actor",
+    auditStreamId: "stream",
+    completionWindowMinutes: 10,
+    offlineQueueEnabled: true,
+    source: "fixture",
+  },
 };
 
 const diagnosticShell = {
@@ -139,8 +165,11 @@ function LearnerWrapper({ children }: { children: React.ReactNode }) {
 }
 
 describe("Routing Integration", () => {
+  const originalNavigatorOnLine = Object.getOwnPropertyDescriptor(window.navigator, "onLine");
+
   beforeEach(() => {
     vi.clearAllMocks();
+    Object.defineProperty(window.navigator, "onLine", { value: true, configurable: true });
     global.fetch = vi.fn(async (input: RequestInfo | URL) => {
       const url = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
       if (url.includes("/api/auth/session")) {
@@ -168,13 +197,17 @@ describe("Routing Integration", () => {
       content: "A quick fractions lesson.",
       summary: "Fractions made friendly.",
     });
-    serviceMocks.markLessonComplete.mockResolvedValue({ detail: "completed" });
-    serviceMocks.awardXP.mockResolvedValue({
-      awarded: true,
-      xp_amount: 35,
-      lesson_completed: true,
-      profile: { learner_id: "learner-1", total_xp: 115, level: 2, streak_days: 4, earned_badges: [] },
+    completionBoundaryMocks.completeLessonTransaction.mockResolvedValue({
+      lessonId: "lesson-1",
+      learnerId: "learner-1",
+      xpAward: 35,
+      auditEventId: "audit-123",
+      completedAt: new Date().toISOString(),
+      completionStatus: "completed",
+      xpStatus: "awarded",
+      source: "fixture",
     });
+    offlineSyncMocks.queueLessonSync.mockReset();
   });
 
   it("Dashboard routes to /lesson and /diagnostic (NOT /learner/*)", async () => {
@@ -206,10 +239,46 @@ describe("Routing Integration", () => {
     fireEvent.click(await screen.findByText("Fractions"));
     fireEvent.click(screen.getByText("Start Adventure"));
 
-    fireEvent.click(await screen.findByText("Complete Lesson"));
+    fireEvent.click(await screen.findByText(/Complete Lesson/i));
     await waitFor(() => expect(mockPush).toHaveBeenCalledWith("/dashboard"));
-    expect(serviceMocks.markLessonComplete).toHaveBeenCalledWith("lesson-1");
-    expect(serviceMocks.awardXP).toHaveBeenCalledWith(expect.objectContaining({ learner_id: "learner-1", xp_amount: 35 }));
+    expect(completionBoundaryMocks.completeLessonTransaction).toHaveBeenCalledWith(
+      expect.objectContaining({ lessonId: "lesson-1", learnerId: "learner-1", xpAward: 35 })
+    );
+    expect(mockPush).toHaveBeenCalledWith("/dashboard");
+  });
+
+  it("surfaces completion error states when the boundary fails", async () => {
+    completionBoundaryMocks.completeLessonTransaction.mockRejectedValueOnce(new Error("boom"));
+
+    render(
+      <LearnerWrapper>
+        <LessonEntryClient {...lessonShell} />
+      </LearnerWrapper>
+    );
+
+    fireEvent.click(await screen.findByText("Mathematics"));
+    fireEvent.click(await screen.findByText("Fractions"));
+    fireEvent.click(screen.getByText("Start Adventure"));
+
+    fireEvent.click(await screen.findByText(/Complete Lesson/i));
+    await waitFor(() => expect(screen.getByText(/could not sync your XP yet/i)).toBeInTheDocument());
+  });
+
+  it("queues lesson completion offline when navigator is offline", async () => {
+    Object.defineProperty(window.navigator, "onLine", { value: false, configurable: true });
+    render(
+      <LearnerWrapper>
+        <LessonEntryClient {...lessonShell} />
+      </LearnerWrapper>
+    );
+
+    fireEvent.click(await screen.findByText("Mathematics"));
+    fireEvent.click(await screen.findByText("Fractions"));
+    fireEvent.click(screen.getByText("Start Adventure"));
+
+    fireEvent.click(await screen.findByText(/Complete Lesson/i));
+
+    await waitFor(() => expect(offlineSyncMocks.queueLessonSync).toHaveBeenCalled());
     expect(mockPush).toHaveBeenCalledWith("/dashboard");
   });
 
@@ -225,5 +294,11 @@ describe("Routing Integration", () => {
 
     fireEvent.click(screen.getByText("Complete Diagnostic"));
     expect(mockPush).toHaveBeenCalledWith("/plan");
+  });
+
+  afterAll(() => {
+    if (originalNavigatorOnLine) {
+      Object.defineProperty(window.navigator, "onLine", originalNavigatorOnLine);
+    }
   });
 });

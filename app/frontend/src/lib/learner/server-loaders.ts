@@ -4,6 +4,15 @@ import "server-only";
 
 import type { ActiveLearner, GamificationProfile, LessonPayload, SubjectCode } from "@/lib/api/types";
 
+export interface LessonCompletionContract {
+  xpAward: number;
+  auditActorId: string;
+  auditStreamId: string;
+  completionWindowMinutes: number;
+  offlineQueueEnabled: boolean;
+  source: ShellDataSource;
+}
+
 export type ShellDataSource = "api" | "fixture";
 
 export interface DashboardShellData {
@@ -26,6 +35,7 @@ export interface LessonShellData {
   recommendedSubject: SubjectCode;
   recommendedTopic: string;
   initialLesson: LessonPayload | null;
+  completionContract: LessonCompletionContract;
   fetchedAt: string;
   source: ShellDataSource;
 }
@@ -40,6 +50,15 @@ const LEARNER_FIXTURE: ActiveLearner = {
   avatar: 2,
   streak_days: 4,
   archetype: "trailblazer",
+};
+
+const LESSON_COMPLETION_CONTRACT_FIXTURE: LessonCompletionContract = {
+  xpAward: 35,
+  auditActorId: "fixture-audit-actor",
+  auditStreamId: "audit-fixture-stream",
+  completionWindowMinutes: 10,
+  offlineQueueEnabled: true,
+  source: "fixture",
 };
 
 const GAMIFICATION_FIXTURE: GamificationProfile = {
@@ -107,6 +126,7 @@ export async function getLessonShellData(): Promise<LessonShellData> {
     recommendedSubject: "MATH",
     recommendedTopic: "Fractions",
     initialLesson: LESSON_FIXTURE,
+    completionContract: LESSON_COMPLETION_CONTRACT_FIXTURE,
     fetchedAt: new Date().toISOString(),
     source: "fixture",
   };

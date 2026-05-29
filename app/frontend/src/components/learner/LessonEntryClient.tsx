@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { Card } from "@/components/ui/Card-legacy";
@@ -14,19 +14,30 @@ import { useLearner } from "@/context/LearnerContext";
 import { LearnerService } from "@/lib/api/services";
 import { cacheLessonSnapshot, getCachedLessonSnapshot, queueLessonSync } from "@/lib/api/offlineSync";
 import type { ActiveLearner, LessonPayload, SubjectCode } from "@/lib/api/types";
+import type { LessonCompletionContract } from "@/lib/learner/server-loaders";
+import { completeLessonTransaction } from "@/lib/learner/lesson-completion-boundary";
 
 interface LessonEntryClientProps {
   initialLearner: ActiveLearner | null;
   recommendedSubject?: SubjectCode;
   recommendedTopic?: string;
   initialLesson?: LessonPayload | null;
+  completionContract: LessonCompletionContract;
 }
+
+type CompletionState =
+  | { status: "idle" }
+  | { status: "pending" }
+  | { status: "queued"; message: string }
+  | { status: "success"; message: string; auditEventId: string }
+  | { status: "error"; message: string };
 
 export function LessonEntryClient({
   initialLearner,
   recommendedSubject,
   recommendedTopic,
   initialLesson,
+  completionContract,
 }: LessonEntryClientProps) {
   const { learner, setLearner, setBadge, refreshState } = useLearner();
   const searchParams = useSearchParams();
@@ -36,10 +47,11 @@ export function LessonEntryClient({
 
   const [subject, setSubject] = useState<SubjectCode | null>(subjectFromQuery || recommendedSubject || null);
   const [topic, setTopic] = useState(topicFromQuery || recommendedTopic || "");
-  const [loading, setLoading] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [lessonData, setLessonData] = useState<LessonPayload | null>(initialLesson ?? null);
   const [error, setError] = useState("");
-  const [completionError, setCompletionError] = useState("");
+  const [completionState, setCompletionState] = useState<CompletionState>({ status: "idle" });
+  const [isCompleting, startCompletion] = useTransition();
 
   useEffect(() => {
     if (!learner && initialLearner) {
@@ -65,9 +77,9 @@ export function LessonEntryClient({
       return;
     }
 
-    setLoading(true);
+    setIsGenerating(true);
     setError("");
-    setCompletionError("");
+    setCompletionState({ status: "idle" });
     setLessonData(null);
 
     try {
@@ -100,44 +112,50 @@ export function LessonEntryClient({
         );
       }
     } finally {
-      setLoading(false);
+      setIsGenerating(false);
     }
   };
 
   const handleComplete = async () => {
-    setLoading(true);
-    setCompletionError("");
-    try {
-      const xpAmount = 35;
-      if (typeof navigator !== "undefined" && !navigator.onLine && lessonData?.id) {
-        queueLessonSync({
-          lesson_id: lessonData.id,
-          event_type: "complete",
-          completed_at: new Date().toISOString(),
-        });
-        setBadge("Lesson saved offline and will sync when you reconnect.");
-        router.push("/dashboard");
-        return;
-      }
-      if (lessonData?.id) {
-        await LearnerService.markLessonComplete(lessonData.id);
-      }
-      await LearnerService.awardXP({
-        learner_id: learner.id || learner.learner_id,
-        xp_amount: xpAmount,
-        event_type: "lesson_completed",
-        lesson_id: lessonData?.id || null,
-      });
-
-      setBadge(`You earned ${xpAmount} XP!`);
-      await refreshState();
-      router.push("/dashboard");
-    } catch (err) {
-      console.error("Award XP error:", err);
-      setCompletionError("The lesson is complete, but we could not sync your XP yet. Please try again.");
-    } finally {
-      setLoading(false);
+    if (!lessonData?.id) {
+      return;
     }
+
+    if (typeof navigator !== "undefined" && !navigator.onLine && completionContract.offlineQueueEnabled) {
+      queueLessonSync({
+        lesson_id: lessonData.id,
+        event_type: "complete",
+        completed_at: new Date().toISOString(),
+      });
+      const offlineMessage = "Lesson saved offline and will sync when you reconnect.";
+      setBadge(offlineMessage);
+      setCompletionState({ status: "queued", message: offlineMessage });
+      router.push("/dashboard");
+      return;
+    }
+
+    startCompletion(async () => {
+      try {
+        setCompletionState({ status: "pending" });
+        const result = await completeLessonTransaction({
+          lessonId: lessonData.id!,
+          learnerId: learner.id || learner.learner_id,
+          xpAward: completionContract.xpAward,
+        });
+
+        const successMessage = `XP synced • Audit ref ${result.auditEventId}`;
+        setBadge(`You earned ${result.xpAward} XP!`);
+        setCompletionState({ status: "success", message: successMessage, auditEventId: result.auditEventId });
+        await refreshState();
+        router.push("/dashboard");
+      } catch (err) {
+        console.error("Lesson completion boundary error:", err);
+        setCompletionState({
+          status: "error",
+          message: "The lesson is complete, but we could not sync your XP yet. Please try again.",
+        });
+      }
+    });
   };
 
   if (lessonData) {
@@ -148,8 +166,10 @@ export function LessonEntryClient({
         topic={topic}
         onBack={() => setLessonData(null)}
         onComplete={handleComplete}
-        loading={loading}
-        error={completionError}
+        completionState={completionState}
+        xpAward={completionContract.xpAward}
+        offlineQueueEnabled={completionContract.offlineQueueEnabled}
+        isCompleting={completionState.status === "pending" || isCompleting}
       />
     );
   }
@@ -249,8 +269,12 @@ export function LessonEntryClient({
               <div className="text-sm font-medium text-[var(--muted)] italic">
                 {topic ? `Ready to start learning about ${topic}!` : "Select a topic to continue..."}
               </div>
-              <Button disabled={!subject || !topic || loading} onClick={handleGenerate} className="px-12 py-4 shadow-lg shadow-blue-600/20">
-                {loading ? <LoadingSpinner size="sm" /> : "Start Adventure"}
+              <Button
+                disabled={!subject || !topic || isGenerating}
+                onClick={handleGenerate}
+                className="px-12 py-4 shadow-lg shadow-blue-600/20"
+              >
+                {isGenerating ? <LoadingSpinner size="sm" /> : "Start Adventure"}
               </Button>
             </div>
           </Card>

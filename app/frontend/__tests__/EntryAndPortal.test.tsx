@@ -100,7 +100,10 @@ describe("Entry and portal components", () => {
         topic="Fractions"
         onBack={vi.fn()}
         onComplete={vi.fn()}
-        loading={false}
+        completionState={{ status: "idle" }}
+        xpAward={35}
+        offlineQueueEnabled
+        isCompleting={false}
       />
     );
     expect(screen.getAllByText("Fractions").length).toBeGreaterThan(0);
@@ -117,7 +120,10 @@ describe("Entry and portal components", () => {
         topic="Energy"
         onBack={vi.fn()}
         onComplete={vi.fn()}
-        loading
+        completionState={{ status: "pending", message: "Syncing" }}
+        xpAward={20}
+        offlineQueueEnabled={false}
+        isCompleting={true}
       />
     );
     expect(screen.getByText("Starter")).toBeInTheDocument();
