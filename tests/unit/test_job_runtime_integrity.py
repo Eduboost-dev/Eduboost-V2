@@ -254,3 +254,16 @@ def test_assert_json_serializable_payload_with_datetime():
     from datetime import datetime
     payload = {"timestamp": datetime.now()}
     assert_json_serializable_payload(payload)  # Should not raise with default=str
+
+
+@pytest.mark.unit
+def test_module_exports_all_public_symbols():
+    """Verify __all__ contains expected public symbols."""
+    from app.services import job_runtime_integrity
+    expected = {
+        "JobRuntimeIntegrityError",
+        "assert_json_serializable_payload",
+        "assert_no_runtime_objects",
+        "validate_arq_job_payload",
+    }
+    assert set(job_runtime_integrity.__all__) == expected
