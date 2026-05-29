@@ -7,7 +7,13 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from app.services.quota_service import QuotaExceededError, QuotaService, SemanticCacheService
+from app.services.quota_service import (
+    _CACHE_KEY,
+    _QUOTA_KEY,
+    QuotaExceededError,
+    QuotaService,
+    SemanticCacheService,
+)
 
 
 @pytest.mark.unit
@@ -316,3 +322,21 @@ async def test_get_usage_with_only_requests():
     
     assert tokens == 0
     assert reqs == 10
+
+
+@pytest.mark.unit
+def test_quota_key_constant_defined():
+    """Verify _QUOTA_KEY constant is defined correctly."""
+    assert _QUOTA_KEY == "quota:{guardian_id}:{date}"
+
+
+@pytest.mark.unit
+def test_cache_key_constant_defined():
+    """Verify _CACHE_KEY constant is defined correctly."""
+    assert _CACHE_KEY == "semcache:{hash}"
+
+
+@pytest.mark.unit
+def test_quota_exceeded_error_defined():
+    """Verify QuotaExceededError is defined as RuntimeError subclass."""
+    assert issubclass(QuotaExceededError, RuntimeError)
