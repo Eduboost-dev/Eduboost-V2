@@ -1,11 +1,23 @@
 from __future__ import annotations
 
 from types import SimpleNamespace
+from unittest.mock import AsyncMock
 
 import pytest
 from fastapi import HTTPException
 
 from app.services.popia_service import POPIADataRightsService
+
+
+@pytest.mark.unit
+def test_popia_service_init_stores_dependencies():
+    """Verify constructor stores database session and repositories."""
+    db = AsyncMock()
+    service = POPIADataRightsService(db)
+    assert service.db is db
+    assert service.learners is not None
+    assert service.audit is not None
+    assert service.consent is not None
 
 
 class FakeService(POPIADataRightsService):
