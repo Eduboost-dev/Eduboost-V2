@@ -320,3 +320,122 @@ async def test_cancel_erasure_restores_learner():
     assert learner.deletion_requested_at is None
     assert learner.display_name == "Restored"
     assert result["state"] == "cancelled"
+
+
+@pytest.mark.asyncio
+async def test_build_learner_export_json_returns_payload_and_status():
+    """Verify build_learner_export returns JSON payload and logs audit."""
+    db = AsyncMock()
+    audit_mock = AsyncMock()
+    consent_mock = AsyncMock()
+
+    learner = SimpleNamespace(id="learner-123", pseudonym_id="pseudo-123")
+
+    class FakeService(POPIADataRightsService):
+        def __init__(self, db, learner, audit_mock, consent_mock):
+            self.db = db
+            self.learner = learner
+            self.audit = audit_mock
+            self.consent = consent_mock
+
+        async def load_learner_for_read(self, learner_id, current_user):
+            return self.learner
+
+        async def _export_payload(self, learner):
+            return {"learner": {"id": learner.pseudonym_id}}
+
+    svc = FakeService(db, learner, audit_mock, consent_mock)
+
+    with patch("app.services.popia_service._now") as mock_now:
+        mock_now.return_value.strftime.return_value = "20240101_120000"
+        result = await svc.build_learner_export(
+            "learner-123",
+            {"sub": "guardian-1"},
+            export_format="json",
+        )
+
+    assert result["content_type"] == "application/json"
+    assert result["filename"].endswith(".json")
+    assert result["data"] == {"learner": {"id": "pseudo-123"}}
+    # status is a dict with request_type and audit_event_type
+    assert result["status"]["request_type"] == "export"
+    assert result["status"]["audit_event_type"] == "data_export.requested"
+    audit_mock.append.assert_called_once()
+
+
+@pytest.mark.asyncio
+async def test_build_learner_export_csv_branch():
+    """Verify build_learner_export handles CSV branch and _to_csv output."""
+    db = AsyncMock()
+    audit_mock = AsyncMock()
+    consent_mock = AsyncMock()
+
+    learner = SimpleNamespace(id="learner-123", pseudonym_id="pseudo-123")
+
+    class FakeService(POPIADataRightsService):
+        def __init__(self, db, learner, audit_mock, consent_mock):
+            self.db = db
+            self.learner = learner
+            self.audit = audit_mock
+            self.consent = consent_mock
+
+        async def load_learner_for_read(self, learner_id, current_user):
+            return self.learner
+
+        async def _export_payload(self, learner):
+            return {"learner": {"id": learner.pseudonym_id, "name": "Test"}}
+
+    svc = FakeService(db, learner, audit_mock, consent_mock)
+
+    with patch("app.services.popia_service._now") as mock_now:
+        mock_now.return_value.strftime.return_value = "20240101_120000"
+        result = await svc.build_learner_export(
+            "learner-123",
+            {"sub": "guardian-1"},
+            export_format="csv",
+        )
+
+    assert result["content_type"] == "text/csv"
+    assert result["filename"].endswith(".csv")
+    assert isinstance(result["data"], str)
+    # CSV header present and learner id row included
+    assert "section,field,value" in result["data"].splitlines()[0]
+    assert "learner,id,pseudo-123" in result["data"]
+    audit_mock.append.assert_called_once()
+
+
+@pytest.mark.asyncio
+async def test_postflight_erasure_verification_physical_deleted():
+    """Verify postflight verification passes when learner fully deleted (physical)."""
+    db = AsyncMock()
+    svc = POPIADataRightsService(db)
+    # Mock learners repo on service
+    svc.learners = SimpleNamespace(get_by_id=AsyncMock(return_value=None))
+    # Any scalar return indicates audit records preserved
+    db.scalar = AsyncMock(return_value=SimpleNamespace(id="evt-1"))
+
+    result = await svc._postflight_erasure_verification("learner-123", method="physical")
+
+    assert result["learner_record_deleted"] is True
+    assert result["dependent_records_deleted"] is True
+    assert result["pii_not_retrievable"] is True
+    assert result["all_checks_passed"] is True
+
+
+@pytest.mark.asyncio
+async def test_postflight_erasure_verification_soft_marked_erased():
+    """Verify postflight verification for soft delete retains record but marks erased."""
+    db = AsyncMock()
+    svc = POPIADataRightsService(db)
+    # Soft-deleted learner remains but is flagged and display_name is placeholder
+    soft_learner = SimpleNamespace(is_deleted=True, display_name="[erased]")
+    svc.learners = SimpleNamespace(get_by_id=AsyncMock(return_value=soft_learner))
+    db.scalar = AsyncMock(return_value=None)
+
+    result = await svc._postflight_erasure_verification("learner-123", method="soft")
+
+    assert result["learner_record_deleted"] is False
+    assert result["dependent_records_deleted"] is True
+    assert result["pii_not_retrievable"] is True
+    # all_checks_passed requires full deletion; for soft delete this is False
+    assert result["all_checks_passed"] is False
