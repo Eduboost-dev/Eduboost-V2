@@ -52,6 +52,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const MAIN_CONTENT_ID = "main-content";
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -59,17 +61,30 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground`}
+        data-theme="night"
         suppressHydrationWarning
       >
         <LearnerProvider>
-          <SkipLink target="app-main" />
+          <SkipLink target={MAIN_CONTENT_ID} />
           <ErrorBoundary title="This screen could not load.">
-            <main id="app-main" className="min-h-screen">
-              {children}
-            </main>
+            <div className="app-shell" data-app-shell>
+              <div className="app-shell__background" aria-hidden="true">
+                <div className="app-shell__glow" />
+                <div className="app-shell__grid" />
+                <div className="app-shell__dots" />
+              </div>
+              <main
+                id={MAIN_CONTENT_ID}
+                className="relative z-10 min-h-screen focus:outline-none"
+                tabIndex={-1}
+                role="main"
+              >
+                {children}
+              </main>
+            </div>
           </ErrorBoundary>
         </LearnerProvider>
-        <Toaster position="bottom-right" theme="dark" />
+        <Toaster position="bottom-right" theme="dark" richColors closeButton duration={5000} />
       </body>
     </html>
   );

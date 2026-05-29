@@ -1,14 +1,39 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card } from "../../../components/ui/Card-legacy";
 import { Button } from "../../../components/ui/Button-legacy";
 import { AuthService, ConsentService, LearnerService } from "../../../lib/api/services";
 import { decodeJwtPayload, extractErrorMessage } from "../../../lib/api/client";
 import { useLearner } from "../../../context/LearnerContext";
+import {
+  ValidationMessage,
+  ValidationSummary,
+} from "@/components/forms/ValidationMessage";
+import type { SummaryItem } from "@/components/forms/ValidationMessage";
 
 const passwordHint = "Use at least 12 characters with upper/lowercase letters, a number, and a symbol.";
+
+const FIELD_IDS = {
+  fullName: "guardian-name",
+  email: "guardian-email",
+  password: "guardian-password",
+  learnerName: "learner-name",
+  consent: "guardian-consent",
+} as const;
+
+const FIELD_LABELS = {
+  fullName: "Guardian full name",
+  email: "Guardian email",
+  password: "Guardian password",
+  learnerName: "Learner display name",
+  consent: "Guardian consent",
+} as const;
+
+type FieldKey = keyof typeof FIELD_IDS;
+
+const errorId = (field: FieldKey) => `${FIELD_IDS[field]}-error`;
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -22,10 +47,10 @@ export default function RegisterPage() {
   const [consentAccepted, setConsentAccepted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<FieldKey, string>>>({});
 
   const validate = () => {
-    const nextErrors: Record<string, string> = {};
+    const nextErrors: Partial<Record<FieldKey, string>> = {};
     if (fullName.trim().length < 2) nextErrors.fullName = "Enter the guardian's full name.";
     if (!email.includes("@")) nextErrors.email = "Enter a valid email address.";
     if (password.length < 12) nextErrors.password = passwordHint;
@@ -57,6 +82,22 @@ export default function RegisterPage() {
     }
   };
 
+  const summaryItems: SummaryItem[] = useMemo(
+    () => Object.entries(fieldErrors)
+      .flatMap(([key, message]) => {
+        if (!message) return [];
+        const typedKey = key as FieldKey;
+        const id = FIELD_IDS[typedKey];
+        if (!id) return [];
+        return [{
+          id,
+          label: FIELD_LABELS[typedKey] ?? typedKey,
+          description: message,
+        } satisfies SummaryItem];
+      }),
+    [fieldErrors]
+  );
+
   return (
     <Card className="p-8 shadow-xl bg-white">
       <div className="text-center mb-6">
@@ -64,26 +105,46 @@ export default function RegisterPage() {
         <p className="text-[var(--muted)]">Guardian registration, learner setup, and POPIA consent</p>
       </div>
 
-      {error && <div role="alert" className="bg-red-50 text-red-700 p-3 rounded-md mb-4 text-sm">{error}</div>}
+      {error && (
+        <ValidationMessage
+          title={error}
+          tone="error"
+          className="mb-4"
+          autoFocus
+        />
+      )}
 
       <form onSubmit={handleRegister} className="space-y-4" noValidate>
+        <ValidationSummary
+          items={summaryItems}
+          heading="Please review these details"
+          description="All information is required to create a guardian and learner profile."
+          className="mb-2"
+          autoFocus={Boolean(summaryItems.length)}
+        />
         <fieldset className="space-y-4">
           <legend className="font-black text-gray-800">Guardian details</legend>
           <div>
             <label htmlFor="guardian-name" className="block text-sm font-bold text-gray-700 mb-1">Full name</label>
-            <input id="guardian-name" type="text" required minLength={2} autoComplete="name" aria-invalid={Boolean(fieldErrors.fullName)} aria-describedby={fieldErrors.fullName ? "guardian-name-error" : undefined} className="w-full border-2 border-gray-200 rounded-lg p-3 outline-none focus:border-[var(--gold)]" value={fullName} onChange={(e) => setFullName(e.target.value)} />
-            {fieldErrors.fullName && <p id="guardian-name-error" className="form-error">{fieldErrors.fullName}</p>}
+            <input id="guardian-name" type="text" required minLength={2} autoComplete="name" aria-invalid={Boolean(fieldErrors.fullName)} aria-describedby={fieldErrors.fullName ? errorId("fullName") : undefined} className="w-full border-2 border-gray-200 rounded-lg p-3 outline-none focus:border-[var(--gold)]" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+            {fieldErrors.fullName && (
+              <ValidationMessage id={errorId("fullName")} title={fieldErrors.fullName} tone="error" />
+            )}
           </div>
           <div>
             <label htmlFor="guardian-email" className="block text-sm font-bold text-gray-700 mb-1">Email</label>
-            <input id="guardian-email" type="email" required autoComplete="email" aria-invalid={Boolean(fieldErrors.email)} aria-describedby={fieldErrors.email ? "guardian-email-error" : undefined} className="w-full border-2 border-gray-200 rounded-lg p-3 outline-none focus:border-[var(--gold)]" value={email} onChange={(e) => setEmail(e.target.value)} />
-            {fieldErrors.email && <p id="guardian-email-error" className="form-error">{fieldErrors.email}</p>}
+            <input id="guardian-email" type="email" required autoComplete="email" aria-invalid={Boolean(fieldErrors.email)} aria-describedby={fieldErrors.email ? errorId("email") : undefined} className="w-full border-2 border-gray-200 rounded-lg p-3 outline-none focus:border-[var(--gold)]" value={email} onChange={(e) => setEmail(e.target.value)} />
+            {fieldErrors.email && (
+              <ValidationMessage id={errorId("email")} title={fieldErrors.email} tone="error" />
+            )}
           </div>
           <div>
             <label htmlFor="guardian-password" className="block text-sm font-bold text-gray-700 mb-1">Password</label>
-            <input id="guardian-password" type="password" required minLength={12} autoComplete="new-password" aria-invalid={Boolean(fieldErrors.password)} aria-describedby="password-hint guardian-password-error" className="w-full border-2 border-gray-200 rounded-lg p-3 outline-none focus:border-[var(--gold)]" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input id="guardian-password" type="password" required minLength={12} autoComplete="new-password" aria-invalid={Boolean(fieldErrors.password)} aria-describedby={fieldErrors.password ? `password-hint ${errorId("password")}` : "password-hint"} className="w-full border-2 border-gray-200 rounded-lg p-3 outline-none focus:border-[var(--gold)]" value={password} onChange={(e) => setPassword(e.target.value)} />
             <p id="password-hint" className="form-hint">{passwordHint}</p>
-            {fieldErrors.password && <p id="guardian-password-error" className="form-error">{fieldErrors.password}</p>}
+            {fieldErrors.password && (
+              <ValidationMessage id={errorId("password")} title={fieldErrors.password} tone="error" />
+            )}
           </div>
         </fieldset>
 
@@ -91,8 +152,10 @@ export default function RegisterPage() {
           <legend className="font-black text-gray-800">Learner setup</legend>
           <div>
             <label htmlFor="learner-name" className="block text-sm font-bold text-gray-700 mb-1">Learner display name</label>
-            <input id="learner-name" type="text" required minLength={2} autoComplete="off" aria-invalid={Boolean(fieldErrors.learnerName)} aria-describedby={fieldErrors.learnerName ? "learner-name-error" : undefined} className="w-full border-2 border-gray-200 rounded-lg p-3 outline-none focus:border-[var(--gold)]" value={learnerName} onChange={(e) => setLearnerName(e.target.value)} />
-            {fieldErrors.learnerName && <p id="learner-name-error" className="form-error">{fieldErrors.learnerName}</p>}
+            <input id="learner-name" type="text" required minLength={2} autoComplete="off" aria-invalid={Boolean(fieldErrors.learnerName)} aria-describedby={fieldErrors.learnerName ? errorId("learnerName") : undefined} className="w-full border-2 border-gray-200 rounded-lg p-3 outline-none focus:border-[var(--gold)]" value={learnerName} onChange={(e) => setLearnerName(e.target.value)} />
+            {fieldErrors.learnerName && (
+              <ValidationMessage id={errorId("learnerName")} title={fieldErrors.learnerName} tone="error" />
+            )}
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -115,13 +178,23 @@ export default function RegisterPage() {
 
         <div className="rounded-xl border border-blue-100 bg-blue-50 p-4">
           <label htmlFor="guardian-consent" className="flex items-start gap-3 text-sm text-blue-950">
-            <input id="guardian-consent" type="checkbox" className="mt-1 h-5 w-5" checked={consentAccepted} onChange={(e) => setConsentAccepted(e.target.checked)} aria-invalid={Boolean(fieldErrors.consent)} aria-describedby="consent-help consent-error" />
+            <input
+              id="guardian-consent"
+              type="checkbox"
+              className="mt-1 h-5 w-5"
+              checked={consentAccepted}
+              onChange={(e) => setConsentAccepted(e.target.checked)}
+              aria-invalid={Boolean(fieldErrors.consent)}
+              aria-describedby={fieldErrors.consent ? `consent-help ${errorId("consent")}` : "consent-help"}
+            />
             <span>
               I am the learner&apos;s guardian and consent to EduBoost processing this learner&apos;s information for diagnostics, lessons, progress tracking, and parent reporting.
             </span>
           </label>
           <p id="consent-help" className="form-hint">You can export, restrict, or request erasure of learner data from the parent dashboard.</p>
-          {fieldErrors.consent && <p id="consent-error" className="form-error">{fieldErrors.consent}</p>}
+          {fieldErrors.consent && (
+            <ValidationMessage id={errorId("consent")} title={fieldErrors.consent} tone="error" />
+          )}
         </div>
 
         <Button type="submit" fullWidth disabled={loading} aria-busy={loading}>

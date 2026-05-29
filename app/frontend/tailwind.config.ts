@@ -1,4 +1,13 @@
 import type { Config } from "tailwindcss";
+import {
+  brandPalette,
+  elevationTokens,
+  fontStacks,
+  radiusScale,
+  semanticColorVariables,
+  spacingScale,
+  statusPalette,
+} from "./src/design/tokens";
 
 const config: Config = {
   darkMode: ["class"],
@@ -17,170 +26,29 @@ const config: Config = {
     extend: {
       // ── Deep Tech Ocean: Tech Innovation × Ocean Depths ──────────────
       colors: {
-        navy: {
-          950: "#050d1a",
-          900: "#0a1628",
-          800: "#1a2332",
-          700: "#1e2d40",
-          600: "#243550",
-          500: "#2a3e60",
-          400: "#3a5070",
-        },
-        teal: {
-          DEFAULT: "#2d8b8b",
-          50:  "#e6f7f7",
-          100: "#b3e5e5",
-          200: "#80d4d4",
-          300: "#4dc2c2",
-          400: "#26b0b0",
-          500: "#2d8b8b",
-          600: "#226a6a",
-          700: "#1a5050",
-          800: "#113535",
-          900: "#091b1b",
-        },
-        electric: {
-          DEFAULT: "#0d7fc0",
-          50:  "#e0f2fb",
-          100: "#b3dff5",
-          200: "#80c9ee",
-          300: "#4db3e7",
-          400: "#26a2e0",
-          500: "#0d7fc0",
-          600: "#0a6396",
-          700: "#07486d",
-          800: "#042d43",
-          900: "#021220",
-        },
-        aqua: {
-          DEFAULT: "#00cfd1",
-          50:  "#e0fafa",
-          100: "#b3f2f2",
-          200: "#80e9ea",
-          300: "#4de0e1",
-          400: "#26d8d9",
-          500: "#00cfd1",
-          600: "#00a1a3",
-          700: "#007476",
-          800: "#004748",
-          900: "#001a1b",
-        },
-        seafoam: {
-          DEFAULT: "#a8dadc",
-          light:   "#d4eef0",
-          dark:    "#6db8bb",
-        },
-        cream: {
-          DEFAULT: "#f1faee",
-          muted:   "#c8ddd5",
-          dark:    "#9ab8b0",
-        },
-
-        // ── shadcn/ui semantic aliases ──────────────────────────────────
-        border:      "hsl(var(--border))",
-        input:       "hsl(var(--input))",
-        ring:        "hsl(var(--ring))",
-        background:  "hsl(var(--background))",
-        foreground:  "hsl(var(--foreground))",
-        primary: {
-          DEFAULT:    "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT:    "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT:    "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT:    "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT:    "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT:    "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT:    "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-
-        // ── Status colours ──────────────────────────────────────────────
-        success: {
-          DEFAULT: "#22c55e",
-          foreground: "#052e16",
-          muted: "#dcfce7",
-          dark: "#16a34a",
-        },
-        warning: {
-          DEFAULT: "#f59e0b",
-          foreground: "#451a03",
-          muted: "#fef3c7",
-        },
-        error: {
-          DEFAULT: "#ef4444",
-          foreground: "#450a0a",
-          muted: "#fee2e2",
-          dark: "#dc2626",
-        },
-        info: {
-          DEFAULT: "#0d7fc0",
-          foreground: "#f1faee",
-          muted: "#e0f2fb",
-        },
+        ...brandPalette,
+        ...semanticColorVariables,
+        success: statusPalette.success,
+        warning: statusPalette.warning,
+        error: statusPalette.error,
+        info: statusPalette.info,
       },
 
       // ── Typography ────────────────────────────────────────────────────
-      fontFamily: {
-        sans:    ["DM Sans", "var(--font-geist-sans)", "system-ui", "sans-serif"],
-        mono:    ["JetBrains Mono", "var(--font-geist-mono)", "monospace"],
-        display: ["Bricolage Grotesque", "var(--font-geist-sans)", "system-ui", "sans-serif"],
-      },
+      fontFamily: fontStacks,
       fontSize: {
         "2xs": ["0.625rem", { lineHeight: "0.875rem" }],
         "3xs": ["0.5rem",   { lineHeight: "0.75rem"  }],
       },
 
       // ── Spacing ───────────────────────────────────────────────────────
-      spacing: {
-        "4.5": "1.125rem",
-        "13":  "3.25rem",
-        "18":  "4.5rem",
-        "22":  "5.5rem",
-        "26":  "6.5rem",
-        sidebar: "16rem",
-        topbar:  "3.5rem",
-      },
+      spacing: spacingScale,
 
       // ── Border radius ─────────────────────────────────────────────────
-      borderRadius: {
-        "4xl": "2rem",
-        "3xl": "1.5rem",
-        "2xl": "1rem",
-        xl: "calc(var(--radius) + 4px)",
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
+      borderRadius: radiusScale,
 
       // ── Box shadows ───────────────────────────────────────────────────
-      boxShadow: {
-        "card":        "0 1px 3px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.4)",
-        "card-hover":  "0 8px 32px rgba(0,207,209,0.18), 0 4px 12px rgba(0,0,0,0.5)",
-        "card-lift":   "0 16px 48px rgba(0,207,209,0.22), 0 6px 20px rgba(0,0,0,0.6)",
-        "glow":        "0 0 24px rgba(0,207,209,0.4), 0 0 8px rgba(13,127,192,0.2)",
-        "glow-sm":     "0 0 12px rgba(13,127,192,0.5)",
-        "glow-lg":     "0 0 48px rgba(0,207,209,0.3), 0 0 20px rgba(13,127,192,0.25)",
-        "electric":    "0 0 20px rgba(13,127,192,0.45)",
-        "inner-glow":  "inset 0 1px 0 rgba(0,207,209,0.12), inset 0 -1px 0 rgba(0,0,0,0.1)",
-        "inner-border":"inset 0 0 0 1px rgba(0,207,209,0.15)",
-      },
+      boxShadow: elevationTokens,
 
       // ── Backdrop blur ─────────────────────────────────────────────────
       backdropBlur: {
