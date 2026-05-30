@@ -10,16 +10,18 @@ function Bomb() {
 // Prevent jsdom from turning expected render-time errors into uncaught exceptions
 // during these tests. We add/remove the listener around each test to avoid
 // masking other failures.
-let _errListener: ((e: Event) => void) | null = null
+let _errListener: ((e: ErrorEvent) => void) | null = null
 beforeEach(() => {
-  _errListener = (e: Event) => {
-    // suppress the default logging/exception propagation for expected errors
-    e.preventDefault()
+  _errListener = (e: ErrorEvent) => {
+    // suppress only the expected `boom` error so other errors remain visible
+    if (e.error instanceof Error && e.error.message === 'boom') {
+      e.preventDefault()
+    }
   }
-  window.addEventListener('error', _errListener)
+  window.addEventListener('error', _errListener as EventListener)
 })
 afterEach(() => {
-  if (_errListener) window.removeEventListener('error', _errListener)
+  if (_errListener) window.removeEventListener('error', _errListener as EventListener)
   _errListener = null
 })
 
