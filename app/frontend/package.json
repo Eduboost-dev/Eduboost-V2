@@ -18,7 +18,8 @@
     "env-check": "python ../../scripts/validate_frontend_env.py",
     "a11y-check": "vitest run src/__tests__/AccessibilityContracts.test.tsx",
     "analyze": "ANALYZE=true pnpm run build",
-    "pr-007-check": "pnpm run env-check && pnpm run type-check && pnpm run test"
+    "pr-007-check": "pnpm run env-check && pnpm run type-check && pnpm run test",
+    "ci:lighthouse": "npx -y lighthouse@10 --output html --output json --output-path=./tmp/lh-staging --chrome-flags=\"--headless\" \"$STAGING_URL\""
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
