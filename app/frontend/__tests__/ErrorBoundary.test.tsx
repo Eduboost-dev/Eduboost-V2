@@ -7,6 +7,22 @@ function Bomb() {
   throw new Error('boom')
 }
 
+// Prevent jsdom from turning expected render-time errors into uncaught exceptions
+// during these tests. We add/remove the listener around each test to avoid
+// masking other failures.
+let _errListener: ((e: Event) => void) | null = null
+beforeEach(() => {
+  _errListener = (e: Event) => {
+    // suppress the default logging/exception propagation for expected errors
+    e.preventDefault()
+  }
+  window.addEventListener('error', _errListener)
+})
+afterEach(() => {
+  if (_errListener) window.removeEventListener('error', _errListener)
+  _errListener = null
+})
+
 test('ErrorBoundary catches error and shows message and retry', async () => {
   const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
