@@ -20,10 +20,10 @@ Non-goals / Boundaries
 - No live EskomSePush integration in this PR.
 
 Verification checklist
-- [x] `pnpm run type-check` (app/frontend) - ✅
-- [x] `pnpm run lint` (app/frontend) - ✅ (fixed `any` type errors)
-- [x] `pnpm test` (app/frontend) - ✅ (113 tests, including 4 new cache API tests)
-- [x] `pnpm run build` (app/frontend) - ✅
+- [x] `pnpm run type-check` (app/frontend) - ✅ Passes (May 30, 2026)
+- [x] `pnpm run lint` (app/frontend) - ✅ Passes (May 30, 2026; fixed `any` type ESLint errors)
+- [x] `pnpm test -- --run src/__tests__/db/cache-api.test.ts` - ✅ 4/4 tests pass (May 30, 2026)
+- [x] `pnpm run build` (app/frontend) - ✅ (verified in Docker build for staging deploy)
 
 Static grep guards (run from repo root)
 ```
