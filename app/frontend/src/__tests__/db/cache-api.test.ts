@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { CachedLessonShell } from '../../lib/db/schema';
 
 // Provide an in-memory fake DB for tests to avoid relying on IndexedDB during
 // test discovery and to make these unit tests deterministic.
@@ -43,11 +44,12 @@ vi.mock('../../lib/db/schema', () => ({
   db: { cachedLessons: makeFakeTable(), metadata: { clear: async () => {} } },
 }));
 
-let db: Record<string, unknown>;
-let saveCachedLessonShell: (lesson: unknown) => Promise<string>;
-let getCachedLessonShell: (id: string) => Promise<unknown>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let db: any;
+let saveCachedLessonShell: (lesson: CachedLessonShell) => Promise<void>;
+let getCachedLessonShell: (id: string) => Promise<CachedLessonShell | null>;
 let deleteCachedLessonShell: (id: string) => Promise<void>;
-let listCachedLessonShells: () => Promise<unknown[]>;
+let listCachedLessonShells: () => Promise<CachedLessonShell[]>;
 let cacheStatusSummary: () => Promise<{ totalBytes: number; count: number }>;
 let enforceCacheBudget: () => Promise<{ afterBytes: number; evictedLessonIds: string[] } | null>;
 let CACHE_BUDGET_BYTES: number;
@@ -109,7 +111,8 @@ describe('FE-PR-011 cache API', () => {
 
       const got = await getCachedLessonShell('l1');
       expect(got).not.toBeNull();
-      expect((got as Record<string, unknown>).title).toBe('Fractions');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      expect((got as any).title).toBe('Fractions');
 
       const list = await listCachedLessonShells();
       expect(Array.isArray(list)).toBe(true);
