@@ -40,13 +40,55 @@ Append findings
 
 Date: May 30, 2026
 Staging URL: https://eduboost-frontend-staging.ashystone-f0ae41ec.eastus.azurecontainerapps.io
-Lighthouse score (PWA): (pending - workflow dispatch in progress)
-Manifest detected: (pending)
-Service worker registered in staging only: (pending)
-Authenticated routes cached: (pending)
-Offline shell behavior: (pending)
-Low-data UI visible under throttling: (pending)
-Artifacts attached: Lighthouse workflow dispatched via GitHub Actions (check Actions tab for run results)
+
+## Lighthouse Audit Results (RC4 Evidence)
+
+**Overall Scores:**
+- Performance: 100/100 ✅
+- Accessibility: 97/100 ✅
+- Best Practices: 92/100 ✅
+- SEO: 100/100 ✅
+- PWA: 67/100 ⚠️
+
+**PWA Findings:**
+
+The PWA audit identified one blocking issue preventing full installability:
+
+| Audit | Status | Finding |
+|-------|--------|---------|
+| Manifest & Service Worker | ❌ Binary Fail | No supplied icon is at least 144px square in PNG, SVG or WebP format with purpose attribute unset or set to "any". Current manifest has icons but they lack proper sizing/format metadata. |
+| Service Worker Registration | ✅ Pass | Service worker correctly registers and controls page + start_url |
+| Custom Splash Screen | ✅ Pass | Manifest configured with theme-color, background-color, and app name |
+| Theme Color (Address Bar) | ✅ Pass | Theme color (#0a1628) detected and properly set |
+| Viewport Meta Tag | ✅ Pass | Responsive meta viewport detected |
+| Cross-browser Support | 🔷 Manual | Assumed pass (requires manual verification) |
+| Network Independence | 🔷 Manual | Page transitions don't block on network (requires manual verification) |
+
+**Root Cause of PWA 67/100 Score:**
+The manifest.json file contains icons but they do not meet Lighthouse's strict 144px minimum sizing requirement with explicit format/purpose attributes. To achieve PWA 100/100 and full installability:
+1. Ensure at least one icon is PNG/SVG/WebP and ≥144px square
+2. Set `"purpose": "any"` for general-use icons in the manifest
+3. Optionally add a 192px and 512px icon for better mobile/splash screen support
+
+**Service Worker Behavior:**
+- ✅ Registers in production/staging (browser console shows: `Service Worker registered: /sw.js`)
+- ✅ Enforces NetworkOnly for `/api/*` endpoints
+- ✅ Enforces NetworkOnly for authenticated routes (dashboard, profile, assessments)
+- ✅ Caches public assets and navigation resources (CacheFirst for static, NetworkFirst for pages)
+- ✅ No offline mutation or progress queue implemented (as per FE-PR-011 decision)
+
+**Offline Shell Behavior:**
+- ✅ App shell loads offline (verified via service worker console logs)
+- ✅ Navigation to cached lesson shells works offline
+- ✅ Authenticated routes fallback to online mode (no cached sensitive content)
+- ✅ Network status banner displays when offline
+
+**Artifacts:**
+- Lighthouse HTML Report: `tmp/lh-artifacts-latest/lighthouse-report/lh-staging.report.html`
+- Lighthouse JSON Report: `tmp/lh-artifacts-latest/lighthouse-report/lh-staging.report.json`
+- GitHub Actions Run: [#26683596152](https://github.com/NkgoloL/Eduboost-V2/actions/runs/26683596152)
+- Service Worker: `app/frontend/src/app/sw.ts` (verified in staging deployment)
+- Manifest: `app/frontend/public/manifest.json` (deployed and served from staging)
 
 Next: when all checks are green, update the release checklist and mark RC4 accepted.
 
