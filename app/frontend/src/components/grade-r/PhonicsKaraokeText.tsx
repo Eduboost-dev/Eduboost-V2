@@ -16,7 +16,7 @@ export const PhonicsKaraokeText: React.FC<{
           <span
             key={s.id}
             aria-current={isActive ? 'true' : undefined}
-            data-test-id={`segment-${i}`}
+            data-testid={`segment-${i}`}
             style={{
               padding: '8px 12px',
               borderRadius: 8,

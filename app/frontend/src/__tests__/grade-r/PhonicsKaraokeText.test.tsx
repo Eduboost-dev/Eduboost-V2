@@ -1,4 +1,7 @@
+/// <reference types="vitest" />
 import React from 'react'
+import { test, expect } from 'vitest'
+import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import { PhonicsKaraokeText } from '../../../src/components/grade-r/PhonicsKaraokeText'
 

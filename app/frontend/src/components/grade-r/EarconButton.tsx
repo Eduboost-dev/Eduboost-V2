@@ -2,15 +2,21 @@
 
 import React from 'react'
 import { useEarcons } from './EarconProvider'
+import { playEarcon } from '../../lib/grade-r/earcons'
+import { EarconName } from '../../lib/grade-r/types'
 
-export const EarconButton: React.FC<{ name: string; label?: string }> = ({ name, label }) => {
+export const EarconButton: React.FC<{ name: EarconName; label?: string }> = ({ name, label }) => {
   const { play, enabled, setEnabled } = useEarcons()
 
   const handleClick = () => {
     // if user hasn't enabled, turn on (user action)
-    if (!enabled) setEnabled(true)
-    // play the named earcon (string typed) if available
-    try { play(name as any) } catch (e) { /* degrade silently */ }
+    if (!enabled) {
+      setEnabled(true)
+      try { playEarcon(name) } catch (e) { /* degrade silently */ }
+      return
+    }
+    // play via provider when already enabled
+    try { play(name) } catch (e) { /* degrade silently */ }
   }
 
   return (

@@ -7,9 +7,10 @@ export const EARCON_NAMES: EarconName[] = ['success', 'retry', 'start', 'complet
 
 export function playEarcon(name: EarconName) {
   try {
-    const AudioCtx = (window as any).AudioContext || (window as any).webkitAudioContext
-    if (!AudioCtx) return
-    const ctx = new AudioCtx()
+    const w = window as unknown as { AudioContext?: typeof AudioContext; webkitAudioContext?: typeof AudioContext }
+    const AudioCtxCtor = w.AudioContext ?? w.webkitAudioContext
+    if (!AudioCtxCtor) return
+    const ctx = new AudioCtxCtor()
     const osc = ctx.createOscillator()
     const gain = ctx.createGain()
     osc.type = 'sine'

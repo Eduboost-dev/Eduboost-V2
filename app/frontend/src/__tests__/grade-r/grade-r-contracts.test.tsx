@@ -1,4 +1,7 @@
+/// <reference types="vitest" />
 import React from 'react'
+import { test, expect } from 'vitest'
+import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import { GradeRShell } from '../../../src/components/grade-r/GradeRShell'
 
