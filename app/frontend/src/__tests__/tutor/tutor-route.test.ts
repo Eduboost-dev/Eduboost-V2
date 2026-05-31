@@ -1,18 +1,4 @@
-import { validateTutorRequest } from '../../lib/tutor/safety'
-
-describe('tutor route safety', () => {
-  test('rejects missing lessonId', () => {
-    const r = validateTutorRequest({ prompt: 'what is 2+2' })
-    expect(r.ok).toBe(false)
-    expect(r.reason).toBe('missing_lesson_id')
-  })
-
-  test('rejects free chat prompts', () => {
-    const r = validateTutorRequest({ lessonId: 'L1', prompt: 'tell me about yourself' })
-    expect(r.ok).toBe(false)
-    expect(r.reason).toBe('free_chat_not_allowed')
-  })
-})
+// Tutor route integration tests (full suite below)
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import type { NextRequest } from "next/server";
 import { POST as tutorRoute } from "@/app/api/tutor/route";
