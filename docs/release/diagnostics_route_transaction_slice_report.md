@@ -1,7 +1,7 @@
 # Diagnostics Route Transaction Slice Report
 
-Generated at: `2026-05-28T12:43:42Z`
-Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
+Generated at: `2026-05-28T13:53:10Z`
+Commit: `6f43341eb282b7f4983fc1c5954cda205f6ad1b9`
 
 - Route file: `app/api_v2_routers/diagnostics.py`
 - Local status: `route-diagnostics-delegation-not-proven`

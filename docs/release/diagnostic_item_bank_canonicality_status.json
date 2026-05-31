@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-28T12:31:53Z",
-  "current_commit": "80170cbc24b1379aeaf351f1c4f387c65bc502ca",
+  "generated_at": "2026-05-28T13:49:08Z",
+  "current_commit": "6f43341eb282b7f4983fc1c5954cda205f6ad1b9",
   "status": "diagnostic-item-bank-policy-accepted",
   "policy_path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
   "decision": "diagnostic_items-runtime-required",
@@ -298,6 +298,12 @@
       "path": "docs/backlog/pr_cf_013_full_generation_runner.md",
       "line_number": 15,
       "line_excerpt": "- Extended `ContentGenerationPlanner` to support all layers (diagnostic_items, lessons, assessment_blueprints, study_plan_templates)",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/codemaps/eduboost_v2_repository_layer_data_access_abstraction_and_domain_persistence.md",
+      "line_number": 492,
+      "line_excerpt": "\u2502   \u2502   \u2514\u2500\u2500 UPDATE diagnostic_items <-- 6f",
       "runtime_surface": false
     },
     {

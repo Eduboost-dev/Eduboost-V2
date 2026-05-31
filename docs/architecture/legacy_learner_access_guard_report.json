@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-28T12:18:27Z",
+  "generated_at": "2026-05-28T13:39:16Z",
   "remaining_legacy_guard_references": [
     {
       "path": "app/api_v2_routers/learners.py",

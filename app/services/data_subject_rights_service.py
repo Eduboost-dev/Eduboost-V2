@@ -2,6 +2,20 @@
 app/services/data_subject_rights_service.py
 §4.3 – Data Subject Rights: export, erasure, correction, restriction.
 All actions are audited (§4.5) and SLA-tracked.
+
+⚠️ DEPRECATION NOTICE ⚠️
+
+This service is LEGACY/COMPATIBILITY ONLY for FastAPI v2.
+
+The authoritative POPIA data rights service for FastAPI v2 is:
+    app/services/popia_service.py::POPIADataRightsService
+
+DO NOT use this service for new v2 routes or features.
+All new POPIA-related endpoints must route through POPIADataRightsService.
+
+See ADR-004: https://github.com/your-org/Eduboost-V2/docs/adr/ADR-004-popia-data-rights-service-authority.md
+
+Follow-up task: T111D - Deprecate or reconcile legacy DataSubjectRightsService erasure path
 """
 from __future__ import annotations
 
