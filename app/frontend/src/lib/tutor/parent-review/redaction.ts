@@ -2,9 +2,15 @@ import type { ParentReviewRecord } from './types'
 
 const EMAIL_REGEX = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi
 const PHONE_REGEX = /\+?\d[\d\s-]{6,}\d/g
+// Conservative single-token capitalized name matcher (may over-redact common
+// capitalized words; acceptable within this safety-first boundary)
+const NAME_REGEX = /\b[A-Z][a-z]{1,20}\b/g
 
 export function redactString(input: string): string {
-  return input.replace(EMAIL_REGEX, '[REDACTED]').replace(PHONE_REGEX, '[REDACTED]')
+  return input
+    .replace(EMAIL_REGEX, '[REDACTED]')
+    .replace(PHONE_REGEX, '[REDACTED]')
+    .replace(NAME_REGEX, '[REDACTED]')
 }
 
 export function redactObjectForStorage(obj: Record<string, unknown>): ParentReviewRecord | null {
