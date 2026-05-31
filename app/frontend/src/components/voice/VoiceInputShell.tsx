@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { detectVoiceSupport } from '@/lib/voice/capability'
-import { getGuardianConsent, setGuardianConsent as persistGuardianConsent } from '@/lib/voice/consent'
+import { getGuardianConsent, setGuardianConsent } from '@/lib/voice/consent'
 import { canUseVoice } from '@/lib/voice/guardrails'
 
 type Props = { learnerId?: string }
@@ -28,12 +28,15 @@ export default function VoiceInputShell({ learnerId }: Props) {
 
   useEffect(() => {
     // reflect updated consent in local storage when changed
-    if (learnerId) persistGuardianConsent(learnerId, consent)
+    if (learnerId) setGuardianConsent(learnerId, consent)
   }, [consent, learnerId])
 
   const guard = canUseVoice(cap, consent, online)
 
-  // no-op local setter; persistence handled in effect
+  function setGuardianConsent(id: string, v: boolean) {
+    setConsent(v)
+    setGuardianConsent(id, v)
+  }
 
   function handleStartClick() {
     // Explicit user action only — do not request permission on mount.
