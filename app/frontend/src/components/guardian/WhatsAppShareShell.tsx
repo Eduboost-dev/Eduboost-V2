@@ -18,8 +18,12 @@ export default function WhatsAppShareShell({ redactedSummary, learnerId, guardia
     emitShareAudit({ event: "attempt", learnerId, guardianId, timestamp: new Date().toISOString() })
 
     try {
-      if (typeof navigator !== "undefined" && (navigator as any).share) {
-        await shareViaNavigator(text)
+      const nav = (typeof navigator !== "undefined")
+        ? (navigator as unknown as { share?: (data: { text?: string }) => Promise<void> })
+        : undefined
+
+      if (nav?.share) {
+        await nav.share({ text })
         emitShareAudit({ event: "approved", method: "navigator.share", learnerId, guardianId, timestamp: new Date().toISOString() })
       } else {
         // Build a client-only wa.me link without a phone number

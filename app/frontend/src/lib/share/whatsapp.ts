@@ -8,10 +8,14 @@ export function buildWaMeUrl(text: string): string {
 }
 
 export async function shareViaNavigator(text: string): Promise<void> {
-  if (typeof navigator !== "undefined" && (navigator as any).share) {
+  const nav = (typeof navigator !== "undefined")
+    ? (navigator as unknown as { share?: (data: { text?: string }) => Promise<void> })
+    : undefined
+
+  if (nav?.share) {
     // This is a client-side native share; message content is handled by the platform.
     // We intentionally do not record message contents.
-    await (navigator as any).share({ text })
+    await nav.share({ text })
   } else {
     throw new Error("navigator.share not available")
   }
@@ -27,7 +31,7 @@ export function emitShareAudit(metadata: WhatsAppShareMetadata) {
     // In production, hook this to a privacy-safe audit pipeline that stores metadata-only.
     // eslint-disable-next-line no-console
     console.info("whatsapp-share-audit", metadata)
-  } catch (e) {
+  } catch (_e) {
     // swallow errors to avoid disrupting the share UX
   }
 }

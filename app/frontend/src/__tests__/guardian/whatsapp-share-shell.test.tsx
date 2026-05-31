@@ -1,6 +1,7 @@
 import React from "react"
 import { render, screen, fireEvent, waitFor } from "@testing-library/react"
 import "@testing-library/jest-dom"
+import { describe, it, expect, vi } from "vitest"
 import WhatsAppShareShell from "../../components/guardian/WhatsAppShareShell"
 
 describe("WhatsAppShareShell", () => {
@@ -8,11 +9,14 @@ describe("WhatsAppShareShell", () => {
     const redacted = "Redacted summary"
 
     // Mock window.open
-    const openSpy = vi.spyOn(window, "open").mockImplementation(() => null as any)
+    const openSpy = vi.spyOn(window, "open").mockImplementation(() => null as unknown as Window | null)
 
     // Listen for audit events
-    const events: any[] = []
-    const handler = (e: any) => events.push(e.detail)
+    const events: Array<Record<string, unknown>> = []
+    const handler = (e: Event) => {
+      const ce = e as CustomEvent<Record<string, unknown>>
+      events.push(ce.detail)
+    }
     window.addEventListener("whatsapp-share-event", handler)
 
     render(<WhatsAppShareShell redactedSummary={redacted} learnerId="learner-1" guardianId="g-1" />)
