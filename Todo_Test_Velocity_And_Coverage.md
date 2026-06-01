@@ -12,37 +12,37 @@ Goal: **faster feedback on every PR** and **steady progress toward 80%+ meaningf
 
 ### 1.1 Split coverage from default pytest
 
-- [ ] Remove `--cov=app`, HTML/XML reports, and `--cov-fail-under=80` from default `pytest.ini` `addopts`
-- [ ] Add `pytest-coverage.ini` (or document env `PYTEST_ADDOPTS`) with full coverage settings
-- [ ] Keep `.coveragerc` (`concurrency = greenlet,thread`) for async-safe instrumentation
-- [ ] Document in `CONTRIBUTING.md` or `docs/testing/README.md`: when to use fast vs coverage runs
+- [x] Remove `--cov=app`, HTML/XML reports, and `--cov-fail-under=80` from default `pytest.ini` `addopts`
+- [x] Add `pytest-coverage.ini` with full coverage settings
+- [x] Keep `.coveragerc` (`concurrency = greenlet,thread`) for async-safe instrumentation
+- [x] Document in `docs/testing/README.md`: when to use fast vs coverage runs
 
 ### 1.2 Makefile / developer commands
 
-- [ ] `make test-fast` → `pytest tests/unit -n auto --no-cov -m "not governance and not slow and not llm and not e2e"`
-- [ ] `make test-integration` → `pytest tests/integration --no-cov -q`
-- [ ] `make test-coverage` → `pytest tests/unit tests/integration --cov=app --cov-report=term --cov-report=xml:coverage.xml --cov-fail-under=0`
-- [ ] `make test-coverage-full` → nightly-style `pytest tests/ --cov=app` (or exclude `governance` only)
-- [ ] Change default `make test` from `pytest tests/` to `make test-fast` (or alias)
+- [x] `make test-fast` → `pytest tests/unit -n auto --no-cov -m "not governance and not slow and not llm and not e2e"`
+- [x] `make test-integration` → `pytest tests/integration --no-cov -q`
+- [x] `make test-coverage` → unit+integration with `pytest-coverage.ini` and `COVERAGE_THRESHOLD`
+- [x] `make test-coverage-full` → `pytest tests/` with coverage, fail-under 0
+- [x] Change default `make test` to alias `test-fast`
 
 ### 1.3 Parallel unit execution (pytest-xdist)
 
-- [ ] Add `-n auto` to CI unit job (`ci-core.yml`, `ci-cd.yml` unit step)
-- [ ] Confirm xdist + asyncio (`pytest-asyncio`) stability on representative unit subset
-- [ ] Keep integration job **serial** or use DB-per-worker if parallelizing later
+- [x] Add `-n auto` to CI unit job (`ci-core.yml`, `ci-cd.yml` unit step)
+- [ ] Confirm xdist + asyncio stability on full fast gate (run `make test-fast` locally/CI)
+- [x] Keep integration job **serial**
 
 ### 1.4 Marker discipline
 
-- [ ] Register `@pytest.mark.governance` in `pytest.ini` (release/evidence/doc-contract tests)
-- [ ] Tag existing evidence/contract meta-tests (files matching `*evidence*`, `*release*`, `*staging*`, `*cluster_*`, `*contract*` that only read repo files)
-- [ ] Default PR filter: `-m "not governance and not slow and not llm and not e2e"`
-- [ ] Add `make test-governance` for nightly / docs-gate workflow
+- [x] Register `@pytest.mark.governance` in `pytest.ini`
+- [x] Auto-tag governance tests via `tests/governance_markers.py` (882 unit tests tagged)
+- [x] Default PR filter: `-m "not governance and not slow and not llm and not e2e"`
+- [x] Add `make test-governance` for nightly / docs-gate workflow
 
 ### 1.5 CI job tiering
 
-- [ ] **PR fast gate**: unit parallel `--no-cov` + integration `--no-cov` (match `ci-core` pattern)
-- [ ] **PR coverage gate**: bounded or full `tests/unit` + `tests/integration` with `--cov` and ratchet threshold
-- [ ] **Nightly**: full suite + governance + coverage artifact upload (`coverage.xml`, `coverage_html`)
+- [x] **PR fast gate**: unit parallel `--no-cov` + integration `--no-cov`
+- [x] **PR coverage gate**: `backend-coverage` job runs `make test-coverage`
+- [ ] **Nightly**: full suite + governance + coverage artifact upload (workflow_dispatch / scheduled — optional)
 - [ ] Align `COVERAGE_THRESHOLD` ratchet: 67 → 70 → 75 → 80 (document dates in `coverage_debt.md`)
 
 ---

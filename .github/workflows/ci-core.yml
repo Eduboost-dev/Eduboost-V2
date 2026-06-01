@@ -84,7 +84,7 @@ jobs:
         run: make openapi-check
 
       - name: Unit tests
-        run: pytest -c pytest.ini tests/unit -q --no-cov
+        run: make test-fast
 
       - name: Integration tests
-        run: pytest -c pytest.ini tests/integration -q --no-cov
+        run: make test-integration
