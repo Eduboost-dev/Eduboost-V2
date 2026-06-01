@@ -193,10 +193,10 @@ async def test_submit_response_raises_after_response_insert():
     
     mock_session.execute = mock_execute
     
-    async def mock_aenter():
+    async def mock_aenter(*args, **kwargs):
         return mock_session
-    
-    async def mock_aexit(*args):
+
+    async def mock_aexit(*args, **kwargs):
         return None
     
     mock_session.begin().__aenter__ = mock_aenter
@@ -251,10 +251,10 @@ async def test_submit_response_raises_after_mastery_insert():
     
     mock_session.execute = mock_execute
     
-    async def mock_aenter():
+    async def mock_aenter(*args, **kwargs):
         return mock_session
-    
-    async def mock_aexit(*args):
+
+    async def mock_aexit(*args, **kwargs):
         return None
     
     mock_session.begin().__aenter__ = mock_aenter
@@ -309,10 +309,10 @@ async def test_submit_response_raises_after_audit_insert():
     
     mock_session.execute = mock_execute
     
-    async def mock_aenter():
+    async def mock_aenter(*args, **kwargs):
         return mock_session
-    
-    async def mock_aexit(*args):
+
+    async def mock_aexit(*args, **kwargs):
         return None
     
     mock_session.begin().__aenter__ = mock_aenter
