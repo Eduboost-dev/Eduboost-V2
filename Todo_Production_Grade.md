@@ -44,6 +44,10 @@ Branch: remediation/phase0-phase1
 - [x] Sprint 6: added assessment production-path integration test coverage
 - [x] Sprint 6: restored `.coveragerc` and raised CI coverage floor from 60% to 67%
 
+## Test velocity & coverage plan
+
+See **`Todo_Test_Velocity_And_Coverage.md`** for the full phased checklist (fast pytest defaults, xdist, governance marker, router/service coverage, CI ratchet).
+
 ## Remaining To Reach Production Grade
 
 - [ ] Expand coverage for remaining critical low-coverage modules (continue beyond Sprint 6 additions)
