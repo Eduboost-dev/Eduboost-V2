@@ -332,7 +332,7 @@ async def send_consent_renewal_reminders(ctx: dict | None = None) -> None
 1. ✅ Router already uses canonical service via adapter
 2. Remove or archive `app/services/consent_service.py` (asyncpg-style duplicate)
 3. ✅ Versioning logic already present in canonical service
-4. Fix ARQ job to construct service with DB session
+4. ✅ ARQ job already constructs service with DB session
 5. ✅ Audit events already integrated in canonical service
 
 ---
