@@ -1,8 +1,24 @@
 # Coverage Debt Register
 
 **Owner:** Engineering
-**Last updated:** 2026-05-27 (Phase 1 T131)
+**Last updated:** 2026-06-02 (Phase 1 committed: aa51898e)
 **Status:** Baseline established; recovery plan pending
+
+---
+
+## Coverage threshold ratchet plan
+
+| Date | Coverage floor | Gate |
+|---|---|---|
+| 2026-06-02 | 67% | Active in CI (COVERAGE_THRESHOLD=67) |
+| 2026-06-16 | 70% | Raise in .github/workflows/ci-cd.yml after fast-gate cleanup |
+| 2026-06-30 | 75% | Raise after ETL/repository tranche is stable |
+| 2026-07-14 | 80% | Production target floor |
+
+Ratchet policy:
+- Raise only when the previous floor is green for at least 3 consecutive CI runs on main.
+- If CI regresses after a ratchet, fix tests/coverage first instead of lowering floor, unless release owner approves an exception.
+- Every ratchet change requires a matching evidence update in audits/reports/Coverage_Audit_VM_YYYY-MM-DD.md.
 
 ---
 
@@ -12,13 +28,12 @@
 |---|---|---|---|
 | Tests collected | 2,698 | — | — |
 | Smoke tests passing | 32 | 32 | 0 |
-| CI coverage threshold | 60% | 60% | 0 |
-| Actual coverage | **57.5%** | 60% | **-2.5%** |
+| CI coverage threshold | 67% | 67% | 0 |
+| Actual coverage | **57.5%** | 67% | **-9.5%** |
 | Full-suite coverage run | **Complete** | Required | Done |
 
 **Status:** Coverage baseline is established at 57.5%. The CI gate would fail
-if run with coverage enforcement. The threshold should be lowered to 55% or
-2.5% coverage should be added via quick-win tests.
+if run with coverage enforcement. The threshold is now 67%, so additional coverage uplift work is required before the next ratchet.
 
 ---
 

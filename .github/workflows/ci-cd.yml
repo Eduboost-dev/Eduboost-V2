@@ -273,6 +273,12 @@ jobs:
         run: alembic upgrade head
       - name: Run backend coverage
         run: make test-coverage COVERAGE_THRESHOLD=${{ env.COVERAGE_THRESHOLD }}
+      - name: Upload coverage XML artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-coverage-xml
+          path: coverage.xml
+
       - name: Upload coverage report
         uses: codecov/codecov-action@v4
         with:

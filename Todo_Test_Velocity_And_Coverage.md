@@ -10,6 +10,8 @@ Goal: **faster feedback on every PR** and **steady progress toward 80%+ meaningf
 
 ## Phase 1 — Fast feedback (highest ROI)
 
+Status: IMPLEMENTED and committed in aa51898e.
+
 ### 1.1 Split coverage from default pytest
 
 - [x] Remove `--cov=app`, HTML/XML reports, and `--cov-fail-under=80` from default `pytest.ini` `addopts`
@@ -42,8 +44,16 @@ Goal: **faster feedback on every PR** and **steady progress toward 80%+ meaningf
 
 - [x] **PR fast gate**: unit parallel `--no-cov` + integration `--no-cov`
 - [x] **PR coverage gate**: `backend-coverage` job runs `make test-coverage`
-- [ ] **Nightly**: full suite + governance + coverage artifact upload (workflow_dispatch / scheduled — optional)
-- [ ] Align `COVERAGE_THRESHOLD` ratchet: 67 → 70 → 75 → 80 (document dates in `coverage_debt.md`)
+- [x] **Nightly**: full suite + governance + coverage artifact upload (workflow_dispatch / scheduled — optional)
+- [x] Align COVERAGE_THRESHOLD ratchet: 67 -> 70 -> 75 -> 80 (document dates in coverage_debt.md)
+
+
+### 1.6 Phase 1 validation snapshot
+
+- [x] make test-fast local validation executed with -n auto
+- [x] Result: 1886 passed, 11 skipped, approximately 8 min
+- [ ] Current cleanup item: 69 failing/errored concentrated around tests/unit/test_json_completion.py (likely env/settings or mock setup)
+- [ ] Remaining Phase 1 follow-ups stay open: xdist CI stability confirmation and cleanup of failing json_completion tests
 
 ---
 
@@ -101,8 +111,8 @@ One happy-path per critical journey; mock persistence unless testing transaction
 
 ### 3.1 Authoritative coverage runs
 
-- [ ] CI job publishes `coverage.xml` + HTML as workflow artifacts
-- [ ] Stop committing stale `coverage.xml` to repo (or regenerate on release only)
+- [x] CI job publishes coverage.xml + HTML as workflow artifacts
+- [x] Stop committing stale coverage.xml to repo (or regenerate on release only)
 - [ ] Record baseline in `audits/reports/Coverage_Audit_VM_YYYY-MM-DD.md` after each ratchet
 - [ ] Fix/disable tests that prevent full-suite completion (track failure count trend)
 
@@ -111,7 +121,7 @@ One happy-path per critical journey; mock persistence unless testing transaction
 - [x] CI floor 67% — `.github/workflows/ci-cd.yml`
 - [ ] Per-package `--cov-fail-under` for `app.api_v2_routers`, `app.services`, `app.repositories`
 - [ ] PR diff coverage (optional: `diff-cover` or Codecov) — new/changed lines ≥ 70%
-- [ ] Branch coverage reporting enabled and reviewed (`.coveragerc` `branch = True`)
+- [x] Branch coverage reporting enabled and reviewed (.coveragerc branch = True)
 
 ### 3.3 Slow test hygiene
 
@@ -168,6 +178,10 @@ make test-governance
 ---
 
 ## Done (Sprint 6 baseline)
+
+- [x] Nightly coverage/governance workflow scaffold added (.github/workflows/backend-nightly-coverage.yml)
+
+- [x] Phase 1 infrastructure split and fast-gate optimization committed (aa51898e)
 
 - [x] `.coveragerc` restored
 - [x] CI `COVERAGE_THRESHOLD` raised to 67
