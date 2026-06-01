@@ -123,9 +123,9 @@ Updated with actual coverage data. High-impact, low-effort targets to reach 60%:
 
 ### Sprint 3: P0 POPIA/consent coverage
 
-- [ ] Add POPIA router contract tests.
-- [ ] Add consent service unit tests.
-- [ ] Add consent repository unit tests.
+- [x] Add POPIA router contract tests.
+- [x] Add consent service unit tests.
+- [x] Add consent repository unit tests.
 
 ### Sprint 4: P1 core product coverage
 
