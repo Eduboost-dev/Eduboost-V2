@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-01T14:40:47Z",
-  "current_commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
+  "generated_at": "2026-06-01T15:08:24Z",
+  "current_commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
   "current_branch": "remediation/phase0-phase1",
   "status": "staging-smoke-evidence-not-accepted",
   "run_id": "",
@@ -22,7 +22,7 @@
     "run ID is missing or non-numeric",
     "GitHub Actions run status is missing, expected completed",
     "GitHub Actions run conclusion is missing, expected success",
-    "GitHub Actions run SHA missing does not match current commit 150d81e059f119a41073a7bbe6523b6f11661dea",
+    "GitHub Actions run SHA missing does not match current commit 7a24a9a7f59c5fba6ec62b983203d8e268932af4",
     "workflow name is missing",
     "staging base URL is missing, non-HTTPS, localhost/example, or placeholder",
     "staging smoke test command is missing or placeholder",

@@ -1,6 +1,6 @@
 # Backend Runtime Wiring Preflight Report
 
-Generated at: `2026-06-01T14:33:15Z`
+Generated at: `2026-06-01T15:00:47Z`
 
 | Check | Return code | Command |
 |---|---:|---|
@@ -74,7 +74,7 @@ Return code: `0`
 
 ```text
 {
-  "captured_at": "2026-06-01T14:33:15Z",
+  "captured_at": "2026-06-01T15:00:47Z",
   "database_url_redacted": "postgresql+asyncpg://real_user:***@localhost:5432/eduboost_test",
   "dry_run": true,
   "passed": true,

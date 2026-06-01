@@ -1,7 +1,7 @@
 # Documentation Inventory
 
-Generated at: `2026-06-01T14:37:10Z`
-Commit: `150d81e059f119a41073a7bbe6523b6f11661dea`
+Generated at: `2026-06-01T15:04:44Z`
+Commit: `7a24a9a7f59c5fba6ec62b983203d8e268932af4`
 
 - Documents: `1150`
 - Generated docs: `4`
@@ -516,7 +516,7 @@ Commit: `150d81e059f119a41073a7bbe6523b6f11661dea`
 | `docs/operations/release_owner_execution_guardrail.md` | `general` | Release Owner Execution Guardrail | 1946 | False |
 | `docs/operations/release_owner_post_closeout_decision_record.md` | `general` | Release Owner Post-Closeout Decision Record | 1668 | False |
 | `docs/operations/release_record_closure_ledger.md` | `general` | Release Record Closure Ledger | 1903 | False |
-| `docs/operations/release_state_snapshot.md` | `general` | Release State Snapshot | 129750 | False |
+| `docs/operations/release_state_snapshot.md` | `general` | Release State Snapshot | 129924 | False |
 | `docs/operations/render_frontend_backend_connectivity_report.md` | `general` | Render Frontend/Backend Connectivity Report | 4826 | False |
 | `docs/operations/reviewer_decision_capture_template.md` | `general` | Reviewer Decision Capture Template | 1964 | False |
 | `docs/operations/sealed_evidence_access_handoff.md` | `general` | Sealed Evidence Access Handoff | 1845 | False |
@@ -607,8 +607,8 @@ Commit: `150d81e059f119a41073a7bbe6523b6f11661dea`
 | `docs/release/approval_evidence_status.md` | `release` | Approval Evidence Status | 1296 | False |
 | `docs/release/arq_consent_job_repair_report.md` | `release` | ARQ Consent Job Repair Report | 340 | False |
 | `docs/release/arq_dependency_worker_import_repair_report.md` | `release` | ARQ Dependency and Worker Import Repair Report | 520 | False |
-| `docs/release/audit_baseline_refresh_status.json` | `release` | Audit Baseline Refresh Status | 6514 | False |
-| `docs/release/audit_baseline_refresh_status.md` | `release` | Audit Baseline Refresh Status | 3708 | False |
+| `docs/release/audit_baseline_refresh_status.json` | `release` | Audit Baseline Refresh Status | 6504 | False |
+| `docs/release/audit_baseline_refresh_status.md` | `release` | Audit Baseline Refresh Status | 3698 | False |
 | `docs/release/audit_callsite_inventory.md` | `release` | Audit Call-Site Inventory | 385845 | False |
 | `docs/release/audit_callsite_migration_slice_002.md` | `release` | Audit Call-Site Migration Slice 002 | 482 | False |
 | `docs/release/audit_candidate_execution_ledger.md` | `release` | Audit Candidate Execution Ledger | 451 | False |
@@ -670,7 +670,7 @@ Commit: `150d81e059f119a41073a7bbe6523b6f11661dea`
 | `docs/release/backend_consolidation_terminal_report.md` | `release` | Backend Consolidation Terminal Report | 9016 | False |
 | `docs/release/backend_data_retention_approval_update.md` | `release` | Backend Data Retention Approval Update | 402 | False |
 | `docs/release/backend_data_retention_decision_checklist.md` | `release` | Backend Data Retention Decision Checklist | 1404 | False |
-| `docs/release/backend_deletion_candidate_inventory.md` | `release` | Backend Deletion Candidate Inventory | 36750061 | False |
+| `docs/release/backend_deletion_candidate_inventory.md` | `release` | Backend Deletion Candidate Inventory | 38090611 | False |
 | `docs/release/backend_first_wiring_candidate_registry.md` | `release` | Backend First Wiring Candidate Registry | 372 | False |
 | `docs/release/backend_first_wiring_candidates_report.md` | `release` | Backend First Wiring Candidates Report | 5887 | False |
 | `docs/release/backend_implementation_371_375_report.md` | `release` | Backend Implementation 371-375 Report | 3328 | False |
@@ -724,7 +724,7 @@ Commit: `150d81e059f119a41073a7bbe6523b6f11661dea`
 | `docs/release/ci_run_evidence_status.json` | `release` | Ci Run Evidence Status | 766 | False |
 | `docs/release/ci_run_evidence_status.md` | `release` | CI Run Evidence Status | 801 | False |
 | `docs/release/ci_workflow_consolidation.md` | `release` | EduBoost V2 CI Workflow Consolidation Plan | 1293 | False |
-| `docs/release/consent_callsite_inventory.md` | `release` | Consent Call-Site Inventory | 74264 | False |
+| `docs/release/consent_callsite_inventory.md` | `release` | Consent Call-Site Inventory | 74438 | False |
 | `docs/release/consent_candidate_execution_ledger.md` | `release` | Consent Candidate Execution Ledger | 428 | False |
 | `docs/release/consent_runtime_compatibility_slice_001.md` | `release` | Consent Runtime Compatibility Slice 001 | 640 | False |
 | `docs/release/consent_runtime_integration_target_map.md` | `release` | Consent Runtime Integration Target Map | 365 | False |

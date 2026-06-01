@@ -1,6 +1,6 @@
 # Backend Consolidation Diagnostic Report
 
-Generated at: `2026-06-01T14:31:17Z`
+Generated at: `2026-06-01T14:58:47Z`
 
 | Check | Return code | Command |
 |---|---:|---|
@@ -142,7 +142,7 @@ Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/generate_cons
 Return code: `0`
 
 ```text
-Wrote /home/azureuser/Dev/Eduboost-V2/docs/release/consent_callsite_inventory.md (535 row(s))
+Wrote /home/azureuser/Dev/Eduboost-V2/docs/release/consent_callsite_inventory.md (536 row(s))
 ```
 
 ## health readiness contract

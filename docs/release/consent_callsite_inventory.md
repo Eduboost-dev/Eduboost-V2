@@ -534,6 +534,7 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `tests/unit/test_popia_export_completeness.py` | 267 | parental_consents_table | `assert "parental_consents" in payload` |
 | `tests/unit/test_popia_export_completeness.py` | 268 | parental_consents_table | `assert isinstance(payload["parental_consents"], list)` |
 | `tests/unit/test_popia_export_completeness.py` | 335 | parental_consents_table | `"parental_consents",` |
+| `tests/unit/test_popia_transactional_lifecycle_contracts.py` | 268 | consent_grant | `result = await service.grant(learner_id="learner-123", guardian_id="guardian-456")` |
 | `tests/unit/test_runtime_blockers_after_followup_audit.py` | 15 | consent_grant | `async def grant(self, guardian_id, learner_id, consent_version, actor_id=None):` |
 | `tests/unit/test_runtime_blockers_after_followup_audit.py` | 19 | consent_revoke | `async def revoke(self, guardian_id=None, learner_id=None, actor_id=None, reason=None):` |
 | `tests/unit/test_runtime_blockers_after_followup_audit.py` | 28 | consent_grant | `await adapter.grant(guardian_id="guardian-1", learner_id="learner-1", privacy_notice_version="v1", actor_id="actor-1")` |

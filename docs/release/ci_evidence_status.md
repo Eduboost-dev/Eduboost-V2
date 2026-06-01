@@ -1,7 +1,7 @@
 # CI Evidence Status
 
-Generated at: `2026-06-01T14:33:46Z`
-Commit: `150d81e059f119a41073a7bbe6523b6f11661dea`
+Generated at: `2026-06-01T15:01:17Z`
+Commit: `7a24a9a7f59c5fba6ec62b983203d8e268932af4`
 Branch: `remediation/phase0-phase1`
 
 **Status:** `ci-evidence-not-accepted`
@@ -20,7 +20,7 @@ Branch: `remediation/phase0-phase1`
 - run ID is missing or non-numeric
 - GitHub Actions run status is missing, expected completed
 - GitHub Actions run conclusion is missing, expected success
-- GitHub Actions run SHA missing does not match current commit 150d81e059f119a41073a7bbe6523b6f11661dea
+- GitHub Actions run SHA missing does not match current commit 7a24a9a7f59c5fba6ec62b983203d8e268932af4
 - workflow name is missing
 
 ## No false-closure rules

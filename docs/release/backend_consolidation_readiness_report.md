@@ -1,6 +1,6 @@
 # Backend Consolidation Readiness Report
 
-Generated at: `2026-06-01T14:31:33Z`
+Generated at: `2026-06-01T14:59:04Z`
 
 | Check | Return code | Command |
 |---|---:|---|
@@ -40,7 +40,7 @@ Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/generate_back
 Return code: `0`
 
 ```text
-Wrote /home/azureuser/Dev/Eduboost-V2/docs/release/backend_deletion_candidate_inventory.md (112441 candidate row(s))
+Wrote /home/azureuser/Dev/Eduboost-V2/docs/release/backend_deletion_candidate_inventory.md (116491 candidate row(s))
 ```
 
 ## no-op guard
