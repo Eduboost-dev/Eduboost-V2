@@ -129,3 +129,16 @@ async def test_sessions_logout_and_revoke_all_paths(monkeypatch: pytest.MonkeyPa
         auth_service=service,
     )
     assert revoke_response.status_code == 204
+
+
+def test_set_refresh_cookie_sets_expected_security_flags():
+    response = Response()
+
+    auth._set_refresh_cookie(response, "refresh-token-value")
+
+    cookie = response.headers["set-cookie"]
+    assert f"{auth.REFRESH_COOKIE}=refresh-token-value" in cookie
+    assert "HttpOnly" in cookie
+    assert "Secure" in cookie
+    assert "SameSite=strict" in cookie
+    assert "Path=/api/v2/auth" in cookie

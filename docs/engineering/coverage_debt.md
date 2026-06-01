@@ -116,10 +116,10 @@ Updated with actual coverage data. High-impact, low-effort targets to reach 60%:
 
 ### Sprint 2: P0 security/auth coverage
 
-- [ ] Add JWT keyring unit tests.
-- [ ] Add token config unit tests.
-- [ ] Add security helper unit tests.
-- [ ] Add auth router contract tests.
+- [x] Add JWT keyring unit tests.
+- [x] Add token config unit tests.
+- [x] Add security helper unit tests.
+- [x] Add auth router contract tests.
 
 ### Sprint 3: P0 POPIA/consent coverage
 

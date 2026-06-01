@@ -96,3 +96,26 @@ def test_decode_keyring_tries_other_keys_and_raises_last_error(monkeypatch: pyte
     bad_token = jwt.encode({"sub": "u-2"}, "wrong-secret", algorithm="HS256", headers={"kid": "current"})
     with pytest.raises(Exception):
         keyring.decode_jwt_with_keyring(bad_token)
+
+
+def test_parse_semicolon_entry_rejects_blank_kid_or_secret(monkeypatch: pytest.MonkeyPatch):
+    keyring = _reload(monkeypatch)
+
+    with pytest.raises(keyring.JWTKeyringError, match="Invalid JWT key-ring entry"):
+        keyring.parse_jwt_keyring(":secret-a:HS256:current")
+
+    with pytest.raises(keyring.JWTKeyringError, match="Invalid JWT key-ring entry"):
+        keyring.parse_jwt_keyring("kid-a::HS256:current")
+
+
+def test_current_jwt_key_raises_without_current_key(monkeypatch: pytest.MonkeyPatch):
+    keyring = _reload(monkeypatch)
+
+    with pytest.raises(keyring.JWTKeyringError, match="No current JWT key configured"):
+        keyring.current_jwt_key([keyring.JWTKey(kid="old", secret="s", status="previous")])
+
+
+def test_is_placeholder_secret_handles_none(monkeypatch: pytest.MonkeyPatch):
+    keyring = _reload(monkeypatch)
+
+    assert keyring.is_placeholder_secret(None) is True
