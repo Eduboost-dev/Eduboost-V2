@@ -1,9 +1,9 @@
 # Database Backup Manifest
 
-Manifest ID: `c57347c6beecc256`
-Generated: `2026-05-28T13:50:15Z`
+Manifest ID: `1f63b5661fbc3842`
+Generated: `2026-06-01T14:37:52Z`
 Branch: `remediation/phase0-phase1`
-Commit: `6f43341eb282b7f4983fc1c5954cda205f6ad1b9`
+Commit: `150d81e059f119a41073a7bbe6523b6f11661dea`
 
 ## Backup Metadata
 

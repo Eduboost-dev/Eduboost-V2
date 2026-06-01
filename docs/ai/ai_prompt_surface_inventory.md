@@ -149,7 +149,7 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `app/services/llm/gateway.py` | `prompt, llm` |
 | `app/services/llm/json_completion.py` | `prompt, llm, anthropic, groq` |
 | `app/services/pii_sweep.py` | `anthropic` |
-| `app/services/popia_service.py` | `diagnostic` |
+| `app/services/popia_service.py` | `prompt, llm, diagnostic, remediation` |
 | `app/services/quota_service.py` | `llm` |
 | `app/services/rlhf_service.py` | `anthropic` |
 | `app/services/study_plan_updater.py` | `diagnostic, remediation` |

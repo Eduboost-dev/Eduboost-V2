@@ -1,10 +1,10 @@
 # CI Authority Status
 
-Generated at: `2026-05-28T13:39:49Z`
+Generated at: `2026-06-01T14:33:45Z`
 
 **Status:** `external-blocked`
 
-- Current commit: `6f43341eb282b7f4983fc1c5954cda205f6ad1b9`
+- Current commit: `150d81e059f119a41073a7bbe6523b6f11661dea`
 - Workflow files: `['.github/workflows/api-envelope-error-contract.yml', '.github/workflows/architecture-gates.yml', '.github/workflows/audit-write-runtime-evidence.yml', '.github/workflows/auth-boundary.yml', '.github/workflows/auth-refresh-db-proof.yml', '.github/workflows/backend-consolidation.yml', '.github/workflows/beta-release-approval.yml', '.github/workflows/ci-cd.yml', '.github/workflows/ci-core.yml', '.github/workflows/ci_diagnostics_assessment.yml', '.github/workflows/ci_lesson_quality.yml', '.github/workflows/cluster-d-ci.yml', '.github/workflows/cluster-e-data-resilience.yml', '.github/workflows/cluster-f-ai-safety.yml', '.github/workflows/cluster-g-frontend.yml', '.github/workflows/cluster-h-release-readiness.yml', '.github/workflows/db-backup-dryrun.yml', '.github/workflows/db-backup-matrix.yml', '.github/workflows/db-backup-restore-rollback-evidence.yml', '.github/workflows/diag-score-live-audit.yml', '.github/workflows/frontend-e2e.yml', '.github/workflows/item_bank_ci.yml', '.github/workflows/learner-authz-coverage.yml', '.github/workflows/learning-evidence.yml', '.github/workflows/legacy-route-guard.yml', '.github/workflows/migration_check.yml', '.github/workflows/observability_check.yml', '.github/workflows/openapi-contract.yml', '.github/workflows/openapi-drift.yml', '.github/workflows/persistence-resilience.yml', '.github/workflows/popia-consent-audit.yml', '.github/workflows/privacy-boundary.yml', '.github/workflows/release.yml', '.github/workflows/repo-state.yml', '.github/workflows/runtime-contract.yml', '.github/workflows/staging-smoke.yml']`
 - CI evidence file exists: `True`
 - CI run URL present: `False`

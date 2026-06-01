@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-28T15:28:13Z",
-  "current_commit": "07abdd28d73ed48c836b8b3eba892cc792f35593",
+  "generated_at": "2026-06-01T14:40:19Z",
+  "current_commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
   "source_report": "docs/release/popia_route_transaction_slice_report.json",
   "source_local_status": "route-popia-delegation-passing",
   "source_live_db_status": "external-blocked",

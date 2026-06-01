@@ -1,31 +1,7 @@
 # Import-Linter Contract Run
 
-Generated at: `2026-05-28T13:28:11Z`
+Generated at: `2026-06-01T14:28:07Z`
 
-**Status:** pass
+**Status:** skipped_missing_tool
 
-```text
-
-╔══╗─────────▶╔╗ ╔╗      ╔╗◀───┐
-╚╣╠╝◀─────┐  ╔╝╚╗║║────▶╔╝╚╗   │
- ║║   ╔══╦══╦╩╗╔╝║║  ╔╦═╩╗╔╝╔═╦══╗
- ║║╔══╣╔╗║╔╗║╔╣║ ║║ ╔╬╣╔╗║║ ║│║╔═╝
-╔╣╠╣║║║╚╝║╚╝║║║╚╗║╚═╝║║║║║╚╗║═╣║
-╚══╩╩╩╣╔═╩══╩╝╚═╝╚═══╩╩╝╚╩═╩╩═╩╝
-  └──▶║║                    ▲ 
-      ╚╝────────────────────┘
-
-
----------
-Contracts
----------
-
-Analyzed 381 files, 1849 dependencies.
---------------------------------------
-
-FastAPI v2 routers should not import repositories directly KEPT
-POPIA router uses dependency layer rather than repository construction KEPT
-Lessons router uses authorization service layer rather than repositories KEPT
-
-Contracts: 3 kept, 0 broken.
-```
+Install `import-linter` in the project virtual environment to enforce `.importlinter` contracts in CI.

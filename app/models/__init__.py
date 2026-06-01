@@ -6,8 +6,21 @@ HTTP objects, LLM clients, or any infrastructure code.
 from __future__ import annotations
 
 import uuid
-from datetime import UTC, datetime, timedelta
-from enum import StrEnum
+from datetime import datetime, timedelta
+try:
+    # Python 3.11+ exposes datetime.UTC
+    from datetime import UTC  # type: ignore
+except Exception:
+    from datetime import timezone as _timezone
+
+    UTC = _timezone.utc
+try:
+    from enum import StrEnum
+except Exception:
+    from enum import Enum as _Enum
+
+    class StrEnum(str, _Enum):
+        pass
 
 import sqlalchemy as sa
 from sqlalchemy import (

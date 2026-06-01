@@ -1,14 +1,14 @@
 # Backend Consolidation Diagnostic Report
 
-Generated at: `2026-05-28T13:33:49Z`
+Generated at: `2026-06-01T14:31:17Z`
 
 | Check | Return code | Command |
 |---|---:|---|
-| backend dragons | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_dragons.py` |
-| audit inventory | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty` |
-| consent inventory | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty` |
-| health readiness contract | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py` |
-| schema drift contract | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_schema_drift_contract.py` |
+| backend dragons | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_dragons.py` |
+| audit inventory | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty` |
+| consent inventory | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty` |
+| health readiness contract | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py` |
+| schema drift contract | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_schema_drift_contract.py` |
 
 ## Interpretation
 
@@ -19,7 +19,7 @@ Generated at: `2026-05-28T13:33:49Z`
 
 ## backend dragons
 
-Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_dragons.py`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_dragons.py`
 
 Return code: `0`
 
@@ -39,7 +39,7 @@ Backend consolidation dragon diagnostic
   - scripts/audit_write_flow_command.py
   - scripts/check_auth_service_extraction.py
   - ... 9 more file(s)
-- audit_events: 139 match(es)
+- audit_events: 148 match(es)
   - alembic/versions/0006_v2_audit_events.py
   - alembic/versions/20260507_1200_popia_consent_audit_hardening.py
   - alembic/versions/20260507_1330_database_integrity_constraints.py
@@ -52,8 +52,8 @@ Backend consolidation dragon diagnostic
   - app/models/__init__.py
   - app/repositories/audit_repository.py
   - app/services/data_subject_rights_service.py
-  - ... 20 more file(s)
-- audit_logs: 24 match(es)
+  - ... 23 more file(s)
+- audit_logs: 26 match(es)
   - alembic/versions/0001_v2_consolidated_schema.py
   - app/models/__init__.py
   - app/modules/disaster_recovery/production_readiness_contracts.py
@@ -66,7 +66,7 @@ Backend consolidation dragon diagnostic
   - scripts/generate_backend_deletion_candidate_inventory.py
   - scripts/generate_release_owner_beta_go_no_go.py
   - scripts/generate_truthful_release_owner_beta_go_no_go.py
-  - ... 2 more file(s)
+  - ... 3 more file(s)
 - consent_records: 20 match(es)
   - alembic/env.py
   - alembic/versions/20260510_0300_popia_consent_audit_dsr.py
@@ -80,11 +80,12 @@ Backend consolidation dragon diagnostic
   - scripts/generate_consent_callsite_inventory.py
   - tests/legacy/integration/test_api_contracts.py
   - tests/legacy/integration/test_parent_portal_integration.py
-- parental_consents: 48 match(es)
+- parental_consents: 54 match(es)
   - alembic/versions/0001_v2_consolidated_schema.py
   - alembic/versions/20260505_1734_add_missing_production_indexes.py
   - alembic/versions/20260507_1200_popia_consent_audit_hardening.py
   - alembic/versions/20260507_1330_database_integrity_constraints.py
+  - alembic/versions/20260528_1600_popia_consent_versioning.py
   - alembic/versions/_deprecated/0001_initial_consolidated_schema.py
   - alembic/versions/_deprecated/0001_schema_from_technical_report.py
   - app/models/__init__.py
@@ -92,9 +93,8 @@ Backend consolidation dragon diagnostic
   - scripts/check_backend_consolidation_dragons.py
   - scripts/check_first_audit_runtime_wiring_no_destructive_actions.py
   - scripts/check_runtime_wiring_no_destructive_actions.py
-  - scripts/db_backup_restore_rollback_evidence.py
-  - ... 4 more file(s)
-- consent_service: 141 match(es)
+  - ... 7 more file(s)
+- consent_service: 154 match(es)
   - app/api_v2_deps/consent_lifecycle.py
   - app/api_v2_routers/consent.py
   - app/api_v2_routers/learners.py
@@ -107,7 +107,7 @@ Backend consolidation dragon diagnostic
   - app/modules/lessons/service.py
   - app/security/dependencies.py
   - app/services/consent.py
-  - ... 36 more file(s)
+  - ... 38 more file(s)
 - deep_health: 41 match(es)
   - app/api_v2.py
   - app/core/health.py
@@ -127,27 +127,27 @@ Backend consolidation dragon diagnostic
 
 ## audit inventory
 
-Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty`
 
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/Development/Eduboost-V2/docs/release/audit_callsite_inventory.md (2925 row(s))
+Wrote /home/azureuser/Dev/Eduboost-V2/docs/release/audit_callsite_inventory.md (2894 row(s))
 ```
 
 ## consent inventory
 
-Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty`
 
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/Development/Eduboost-V2/docs/release/consent_callsite_inventory.md (487 row(s))
+Wrote /home/azureuser/Dev/Eduboost-V2/docs/release/consent_callsite_inventory.md (535 row(s))
 ```
 
 ## health readiness contract
 
-Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py`
 
 Return code: `0`
 
@@ -171,7 +171,7 @@ Health/readiness diagnostic contract check
 
 ## schema drift contract
 
-Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_schema_drift_contract.py`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_schema_drift_contract.py`
 
 Return code: `0`
 
@@ -184,6 +184,7 @@ ORM tables
 - audit_events
 - audit_logs
 - calibration_audits
+- consent_version_history
 - content_artifact_reviews
 - content_artifact_sources
 - content_coverage_targets
@@ -202,6 +203,7 @@ ORM tables
 - content_validation_reports
 - diagnostic_items
 - diagnostic_sessions
+- erasure_request
 - guardians
 - irt_items
 - item_exposures
