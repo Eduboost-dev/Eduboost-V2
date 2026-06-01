@@ -1,6 +1,6 @@
 # JWT Rotation Introspection
 
-Generated at: `2026-05-28T12:42:39Z`
+Generated at: `2026-05-28T13:52:27Z`
 
 | Check | Value |
 |---|---|

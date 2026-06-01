@@ -1,6 +1,6 @@
 # Auth DB Lifecycle Proof Report
 
-Generated at: `2026-05-28T12:09:17Z`
+Generated at: `2026-05-28T13:28:33Z`
 
 **Status:** transactional_sqlite_auth_lifecycle_proof
 

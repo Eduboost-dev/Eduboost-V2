@@ -2903,7 +2903,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/unit/test_content_factory_table_reconciliation.py` | 84 | audit_append_call | `mismatches.append(` |
 | `tests/unit/test_content_factory_table_reconciliation.py` | 98 | audit_append_call | `undeclared.append(` |
 | `tests/unit/test_content_factory_table_reconciliation.py` | 125 | audit_append_call | `missing.append(table_name)` |
-| `tests/unit/test_content_generation_executor.py` | 31 | audit_append_call | `self.added.append(obj)` |
+| `tests/unit/test_content_generation_executor.py` | 32 | audit_append_call | `self.added.append(obj)` |
 | `tests/unit/test_content_generation_planner.py` | 32 | audit_append_call | `self.added.append(obj)` |
 | `tests/unit/test_content_generation_runs.py` | 23 | audit_append_call | `self.objects.append(obj)` |
 | `tests/unit/test_content_reviewer_assignment.py` | 33 | audit_append_call | `self.added.append(obj)` |

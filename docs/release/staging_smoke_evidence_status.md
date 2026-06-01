@@ -1,7 +1,7 @@
 # Staging Smoke Evidence Status
 
-Generated at: `2026-05-28T12:44:00Z`
-Commit: `80170cbc24b1379aeaf351f1c4f387c65bc502ca`
+Generated at: `2026-05-28T13:53:20Z`
+Commit: `6f43341eb282b7f4983fc1c5954cda205f6ad1b9`
 Branch: `remediation/phase0-phase1`
 
 **Status:** `staging-smoke-evidence-not-accepted`
@@ -26,7 +26,7 @@ Branch: `remediation/phase0-phase1`
 - run ID is missing or non-numeric
 - GitHub Actions run status is missing, expected completed
 - GitHub Actions run conclusion is missing, expected success
-- GitHub Actions run SHA missing does not match current commit 80170cbc24b1379aeaf351f1c4f387c65bc502ca
+- GitHub Actions run SHA missing does not match current commit 6f43341eb282b7f4983fc1c5954cda205f6ad1b9
 - workflow name is missing
 - staging base URL is missing, non-HTTPS, localhost/example, or placeholder
 - staging smoke test command is missing or placeholder

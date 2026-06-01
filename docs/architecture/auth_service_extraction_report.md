@@ -1,6 +1,6 @@
 # Auth Service Extraction Report
 
-Generated at: `2026-05-28T12:10:15Z`
+Generated at: `2026-05-28T13:30:19Z`
 
 Repository imports remaining in auth router: `0`
 

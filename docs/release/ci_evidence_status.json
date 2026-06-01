@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-28T12:19:15Z",
-  "current_commit": "80170cbc24b1379aeaf351f1c4f387c65bc502ca",
+  "generated_at": "2026-05-28T13:39:54Z",
+  "current_commit": "6f43341eb282b7f4983fc1c5954cda205f6ad1b9",
   "current_branch": "remediation/phase0-phase1",
   "status": "ci-evidence-not-accepted",
   "run_id": "",
@@ -16,7 +16,7 @@
     "run ID is missing or non-numeric",
     "GitHub Actions run status is missing, expected completed",
     "GitHub Actions run conclusion is missing, expected success",
-    "GitHub Actions run SHA missing does not match current commit 80170cbc24b1379aeaf351f1c4f387c65bc502ca",
+    "GitHub Actions run SHA missing does not match current commit 6f43341eb282b7f4983fc1c5954cda205f6ad1b9",
     "workflow name is missing"
   ]
 }

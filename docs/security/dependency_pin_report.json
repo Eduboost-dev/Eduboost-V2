@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-28T12:42:40Z",
+  "generated_at": "2026-05-28T13:52:27Z",
   "status": "blocked_unpinned_dependencies",
   "blockers": [
     "requirements.txt:4: arq>=0.25.0",
