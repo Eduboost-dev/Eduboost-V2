@@ -298,9 +298,11 @@ async def send_consent_renewal_reminders(ctx: dict | None = None) -> None
 - No auto-renewal logic
 - **Impact:** POPIA consent versioning not operational
 
-### 5. Broken Background Job
-- ARQ consent reminder job constructs service without DB session
-- **Impact:** Scheduled consent renewal reminders will fail
+### 5. Broken Background Job - RESOLVED
+- **Status:** Already resolved in current codebase
+- ARQ consent reminder job uses `app.services.job_dependency_factory.build_consent_service_for_job`
+- This properly constructs ConsentService with DB session and repositories
+- **Impact:** Scheduled consent renewal reminders will work correctly
 
 ### 6. Audit Integration Missing
 - Audit event methods exist but not called by consent service
@@ -327,11 +329,11 @@ async def send_consent_renewal_reminders(ctx: dict | None = None) -> None
 - Co-located with other module services
 
 ### Migration Path
-1. Update `app/api_v2_routers/popia.py` to use `app.modules.consent.service.ConsentService`
-2. Remove or archive `app/services/consent_service.py`
-3. Add versioning logic to canonical service
+1. ✅ Router already uses canonical service via adapter
+2. Remove or archive `app/services/consent_service.py` (asyncpg-style duplicate)
+3. ✅ Versioning logic already present in canonical service
 4. Fix ARQ job to construct service with DB session
-5. Integrate audit events into service methods
+5. ✅ Audit events already integrated in canonical service
 
 ---
 

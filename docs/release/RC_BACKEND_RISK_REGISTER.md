@@ -13,11 +13,11 @@
 
 ## P0 Blockers
 
-### 1. POPIA consent lifecycle wired to incompatible runtime components
+### 1. POPIA consent lifecycle wired to incompatible runtime components - RESOLVED
 - **Location:** `app/api_v2_routers/popia.py`, `app/services/consent_service.py`, `app/modules/consent/service.py`
 - **Issue:** POPIA router imports `ConsentService` from `app.services.consent_service` but injects SQLAlchemy aggregate repositories that expect asyncpg-style consent repository
-- **Impact:** Consent lifecycle endpoints can fail at runtime; undermines POPIA compliance claims
-- **Remediation phase:** Phase 3
+- **Status:** Already resolved - router uses canonical service via adapter pattern
+- **Remediation phase:** Phase 3 (completed)
 
 ### 2. Lesson routes lack object authorization
 - **Location:** `app/api_v2_routers/lessons.py`
