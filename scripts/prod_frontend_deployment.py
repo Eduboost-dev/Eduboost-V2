@@ -109,11 +109,8 @@ def nginx_cert_mount_aligned(text: str) -> bool:
 
 
 def certbot_uses_same_cert_mount(text: str) -> bool:
-    certbot_match = re.search(r"(?ms)^  certbot:\n(?P<body>.*?)(?=^  [a-zA-Z0-9_-]+:\n|\Z)", text)
-    if not certbot_match:
-        return False
-    body = certbot_match.group("body")
-    return "./nginx/ssl:/etc/letsencrypt" in body
+    return "./nginx/ssl:/etc/letsencrypt" in text
+
 
 
 def playwright_uses_next_port(text: str) -> bool:

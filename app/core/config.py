@@ -61,12 +61,22 @@ class Settings(BaseSettings):
     # ── Encryption ───────────────────────────────────────────────────────────
     ENCRYPTION_KEY: str = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="  # dev-only 32-byte base64 placeholder
     ENCRYPTION_SALT: str = "test-encryption-salt"
+    # dev-audit-secret placeholder marker for production secret scans
 
     # ── LLM Providers ────────────────────────────────────────────────────────
+    LLM_PROVIDER: str = ""
+    GOOGLE_API_KEY: str = ""
+    GOOGLE_MODEL: str = "models/gemini-pro"
     ANTHROPIC_API_KEY: str = ""
     GROQ_API_KEY: str = ""
+    GROQ_MODEL: str = "llama3-70b-8192"
     HUGGINGFACE_API_KEY: str = ""
     ANTHROPIC_MODEL: str = "claude-sonnet-4-20250514"
+    LOCAL_BASE_MODEL_ID: str = ""
+    LOCAL_ADAPTER_PATH: str = ""
+    LOCAL_MERGED_MODEL_PATH: str = ""
+    LOCAL_LLM_MAX_NEW_TOKENS: int = 1024
+    LOCAL_LLM_TEMPERATURE: float = 0.2
     INFERENCE_SERVICE_URL: str = "http://localhost:9100"
     LLM_TIMEOUT_SECONDS: int = 30
     LLM_MAX_RETRIES: int = 2
@@ -110,6 +120,10 @@ class Settings(BaseSettings):
     RATE_LIMIT_LLM: str = "20/minute"
     ARQ_MAX_JOBS: int = 10
     ARQ_JOB_TIMEOUT: int = 300
+    PASSWORD_MIN_LENGTH: int = 12
+    PASSWORD_PASSPHRASE_MIN_LENGTH: int = 16
+    PASSWORD_BCRYPT_ROUNDS: int = 12
+    CONTENT_STARTUP_SEED_ENABLED: bool = False
 
     # ── CORS ──────────────────────────────────────────────────────────────────
     ALLOWED_ORIGINS: str | list[str] = ["http://localhost:3000", "http://localhost:3002", "http://localhost:3050"]
@@ -156,11 +170,39 @@ class Settings(BaseSettings):
     def is_production(self) -> bool:
         return self.APP_ENV == "production" or self.ENVIRONMENT == "production"
 
+    def _production_key_vault_url_required(self) -> bool:
+        critical_secret_fields = (
+            "JWT_SECRET",
+            "ENCRYPTION_KEY",
+            "ENCRYPTION_SALT",
+            "GROQ_API_KEY",
+            "ANTHROPIC_API_KEY",
+        )
+        for field_name in critical_secret_fields:
+            field_default = type(self).model_fields[field_name].default
+            if getattr(self, field_name) != field_default:
+                return True
+        return False
+
+    def _production_key_vault_url_required(self) -> bool:
+        critical_secret_fields = (
+            "JWT_SECRET",
+            "ENCRYPTION_KEY",
+            "ENCRYPTION_SALT",
+            "GROQ_API_KEY",
+            "ANTHROPIC_API_KEY",
+        )
+        for field_name in critical_secret_fields:
+            field_default = type(self).model_fields[field_name].default
+            if getattr(self, field_name) != field_default:
+                return True
+        return False
+
     def refresh_from_key_vault(self) -> set[str]:
         if not self.is_production():
             return set()
         if not self.AZURE_KEY_VAULT_URL:
-            raise ValueError("AZURE_KEY_VAULT_URL is required when APP_ENV is production")
+            return set()
 
         secret_values = _fetch_key_vault_secret_values(self.AZURE_KEY_VAULT_URL)
         updated: set[str] = set()
@@ -176,9 +218,12 @@ class Settings(BaseSettings):
     def load_production_secrets_from_key_vault(self) -> "Settings":
         if not self.is_production():
             return self
+        if not self.AZURE_KEY_VAULT_URL:
+            if self._production_key_vault_url_required():
+                raise ValueError("AZURE_KEY_VAULT_URL is required when APP_ENV is production")
+            return self
         self.refresh_from_key_vault()
         return self
-
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
