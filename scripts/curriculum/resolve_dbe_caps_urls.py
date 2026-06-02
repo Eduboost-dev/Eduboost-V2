@@ -53,14 +53,16 @@ SOURCE_TARGETS = {
 
 @dataclass
 class Link:
+    phase: str
     section: str
     label: str
     href: str
 
 
 class CapsLinkParser(HTMLParser):
-    def __init__(self, base_url: str) -> None:
+    def __init__(self, phase: str, base_url: str) -> None:
         super().__init__()
+        self.phase = phase
         self.base_url = base_url
         self.current_section = ""
         self._in_h2 = False
@@ -84,7 +86,7 @@ class CapsLinkParser(HTMLParser):
             self._current_text = []
         if tag.lower() == "a" and self._current_href:
             label = " ".join(self._current_text).strip()
-            self.links.append(Link(self.current_section, label, self._current_href))
+            self.links.append(Link(self.phase, self.current_section, label, self._current_href))
             self._current_href = None
             self._current_text = []
 
@@ -101,17 +103,17 @@ def normalize(value: str) -> str:
 
 def load_links() -> list[Link]:
     links: list[Link] = []
-    for url in PHASE_URLS.values():
+    for phase, url in PHASE_URLS.items():
         with urlopen(url, timeout=30) as response:
             html = response.read().decode("utf-8", errors="replace")
-        parser = CapsLinkParser(url)
+        parser = CapsLinkParser(phase, url)
         parser.feed(html)
         # Convert DBE table pattern: content anchor followed by Download anchor.
         pending_label: tuple[str, str] | None = None
         for link in parser.links:
             if normalize(link.label) == "download" and pending_label:
                 section, label = pending_label
-                links.append(Link(section, label, link.href))
+                links.append(Link(phase, section, label, link.href))
                 pending_label = None
             elif link.section:
                 pending_label = (link.section, link.label)
@@ -125,7 +127,9 @@ def resolve_targets(links: list[Link]) -> dict[str, str]:
         expected_label = normalize(label)
         candidates = [
             link for link in links
-            if normalize(link.section) == expected_section and normalize(link.label) == expected_label
+            if link.phase == phase
+            and normalize(link.section) == expected_section
+            and normalize(link.label) == expected_label
         ]
         if candidates:
             resolved[document_id] = candidates[0].href

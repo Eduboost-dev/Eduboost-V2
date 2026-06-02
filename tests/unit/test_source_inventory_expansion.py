@@ -50,9 +50,11 @@ def test_source_manifest_contains_sepedi_and_coding_documents() -> None:
     assert sepedi.language_code == "nso"
 
     coding = documents["caps_senior_coding_and_robotics_en"]
-    assert coding.status == SourceDocumentStatus.PLANNED
+    assert coding.status == SourceDocumentStatus.SOURCE_LOADED
     assert coding.subjects == ["Coding and Robotics"]
     assert coding.language_role == "content_subject"
+    assert coding.source_path == "data/caps/source_documents/raw/caps_senior_coding_and_robotics_en.pdf"
+    assert coding.source_sha256
 
 
 def test_source_manifest_validation_passes_after_scope_expansion() -> None:
@@ -70,7 +72,9 @@ def test_source_inventory_reports_generation_ready_and_missing_source_gaps() -> 
     assert rows["grade4_mathematics_en"]["gap_reason"] == "missing_object_store_uri"
     assert rows["grade4_mathematics_en"]["is_generation_ready"] is True
     assert rows["grade7_coding_and_robotics_en"]["has_url"] is True
-    assert rows["grade7_coding_and_robotics_en"]["gap_reason"] == "missing_sha256"
+    assert rows["grade7_coding_and_robotics_en"]["has_hash"] is True
+    assert rows["grade7_coding_and_robotics_en"]["gap_reason"] == "missing_object_store_uri"
     assert rows["grade7_coding_and_robotics_en"]["is_generation_ready"] is False
     assert report["summary"].get("missing_canonical_source_url", 0) == 0
-    assert report["summary"]["missing_sha256"] > 0
+    assert report["summary"].get("missing_sha256", 0) == 0
+    assert report["summary"]["missing_object_store_uri"] == 51
