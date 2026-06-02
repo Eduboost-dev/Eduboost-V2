@@ -97,7 +97,7 @@ jobs:
 
       - name: Upload DB rollback status only
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: db-backup-restore-rollback-evidence-status
           path: |
