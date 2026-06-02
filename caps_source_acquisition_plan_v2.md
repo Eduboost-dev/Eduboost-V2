@@ -432,7 +432,7 @@ Behaviour:
   - Upload is content-addressed: if object key exists with matching ETag/MD5, skip.
   - Sets object metadata: document_id, sha256, phase, canonical_source_url.
   - Updates manifest object_store_uri on success.
-  - Status advances to source_loaded (uri now populated); topic_map_extracted set by extract script.
+  - Status remains source_loaded after upload; review is required before topic_map_approved.
 ```
 
 ### 8.4 `extract_topic_maps.py`
@@ -455,7 +455,7 @@ Behaviour:
   - For multi-grade documents, generates one .draft.json per grade in applicable_grades.
   - Scope ID used as output filename: {scope_id}.draft.json
   - Does NOT advance topic_map_approved; human review required.
-  - Updates manifest source_status to topic_map_extracted.
+  - Leaves manifest source_status as source_loaded until review approval.
   - Appends topic_map_paths list in manifest.
 
 Draft output path: data/caps/topic_maps/{scope_id}.draft.json
@@ -826,7 +826,7 @@ If a validated topic map is found to be incorrect post-review:
 
 1. Set `review_status: rejected` in the map JSON.
 2. Open a Curriculum Issue with the error description.
-3. Scope reverts to `topic_map_extracted` status automatically (enforced by validator).
+3. Source record reverts to `source_loaded` and the topic map `review_status` becomes `rejected` (enforced by validator).
 4. Content generation for that scope is gated until re-review.
 5. Do not delete the rejected file; append `.rejected.<timestamp>.json` suffix for audit trail.
 
