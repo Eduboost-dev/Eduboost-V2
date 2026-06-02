@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": "1.0.0-draft",
     "status": "draft_unreviewed",
-    "generated_at": "2026-06-02T20:27:37Z",
+    "generated_at": "2026-06-02T20:52:38Z",
     "scope_id": "grade7_coding_and_robotics_en",
     "scope": "Grade 7 Coding and Robotics",
     "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade7_coding_and_robotics_en.json",
@@ -18,7 +18,9 @@
     "canonical_source_urls": [
       "https://www.education.gov.za/LinkClick.aspx?fileticket=1M7krZtYs24%3d&tabid=573&portalid=0&mid=13088&forcedownload=true"
     ],
-    "object_store_uris": [],
+    "object_store_uris": [
+      "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/coding-and-robotics/en/caps_senior_coding_and_robotics_en-04ae21e3899fa9df.pdf"
+    ],
     "text_extract_paths": [
       "data/caps/source_documents/text/caps_senior_coding_and_robotics_en.txt"
     ],
@@ -26,7 +28,6 @@
       "efedbdecb16a8e94a05b24baed59741095017e8125fe42ebdab3d4035b84c36c"
     ],
     "outstanding_tasks": [
-      "upload_source_pdf_to_object_store",
       "extract_topic_map",
       "approve_scope_caps_refs",
       "approve_topic_map",

@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": "1.0.0-draft",
     "status": "draft_unreviewed",
-    "generated_at": "2026-06-02T20:27:37Z",
+    "generated_at": "2026-06-02T20:52:38Z",
     "scope_id": "grade7_sepedi_first_additional_language_en",
     "scope": "Grade 7 Sepedi First Additional Language",
     "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade7_sepedi_first_additional_language_en.json",
@@ -18,7 +18,9 @@
     "canonical_source_urls": [
       "https://www.education.gov.za/LinkClick.aspx?fileticket=0sgecFQ5YUk%3d&tabid=573&portalid=0&mid=1570&forcedownload=true"
     ],
-    "object_store_uris": [],
+    "object_store_uris": [
+      "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/sepedi-first-additional-language/nso/caps_senior_sepedi_first_additional_language_en-d1e0e400d811af12.pdf"
+    ],
     "text_extract_paths": [
       "data/caps/source_documents/text/caps_senior_sepedi_first_additional_language_en.txt"
     ],
@@ -26,7 +28,6 @@
       "1c6afca6d7a33ee328d9cac896a0c4473ab1e2a1817f6216fabb9c53ab970944"
     ],
     "outstanding_tasks": [
-      "upload_source_pdf_to_object_store",
       "extract_topic_map",
       "approve_scope_caps_refs",
       "approve_topic_map",

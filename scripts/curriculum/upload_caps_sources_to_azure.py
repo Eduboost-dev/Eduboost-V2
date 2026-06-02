@@ -61,7 +61,14 @@ def run_az(args: list[str]) -> None:
     subprocess.run(["az", *args], check=True)
 
 
-def upload_document(document: dict[str, Any], *, storage_account: str, container: str, dry_run: bool) -> dict[str, Any]:
+def upload_document(
+    document: dict[str, Any],
+    *,
+    storage_account: str,
+    container: str,
+    dry_run: bool,
+    auth_mode: str,
+) -> dict[str, Any]:
     status = document.get("status")
     if status not in {SourceDocumentStatus.SOURCE_LOADED.value, SourceDocumentStatus.TOPIC_MAP_APPROVED.value}:
         raise ValueError(f"{document['document_id']} is not source_loaded/topic_map_approved")
@@ -85,7 +92,7 @@ def upload_document(document: dict[str, Any], *, storage_account: str, container
             "--container-name", container,
             "--name", blob,
             "--file", str(absolute_path),
-            "--auth-mode", "login",
+            "--auth-mode", auth_mode,
             "--overwrite", "true",
             "--metadata",
             f"document_id={document['document_id']}",
@@ -114,6 +121,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--storage-account", required=True, help="Azure Storage account name.")
     parser.add_argument("--container", default="caps-sources", help="Azure Blob container name.")
+    parser.add_argument("--auth-mode", choices=["login", "key"], default="login", help="Azure Storage auth mode for uploads.")
     parser.add_argument("--create-container", action="store_true", help="Create the container before uploading.")
     parser.add_argument("--commit", action="store_true", help="Upload files and update manifest object_store_uri values.")
     parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON.")
@@ -129,7 +137,7 @@ def main() -> int:
                 "storage", "container", "create",
                 "--account-name", args.storage_account,
                 "--name", args.container,
-                "--auth-mode", "login",
+                "--auth-mode", args.auth_mode,
             ])
         except subprocess.CalledProcessError as exc:
             errors.append(f"container create failed: {exc}")
@@ -143,6 +151,7 @@ def main() -> int:
                     storage_account=args.storage_account,
                     container=args.container,
                     dry_run=not args.commit,
+                    auth_mode=args.auth_mode,
                 )
             except Exception as exc:
                 errors.append(f"{document.get('document_id')}: {exc}")
@@ -167,6 +176,7 @@ def main() -> int:
         "storage_account": args.storage_account,
         "container": args.container,
         "commit": args.commit,
+        "auth_mode": args.auth_mode,
         "uploadable_documents": len(uploads),
         "errors": errors,
         "uploads": uploads,

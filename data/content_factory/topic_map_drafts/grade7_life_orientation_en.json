@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": "1.0.0-draft",
     "status": "draft_unreviewed",
-    "generated_at": "2026-06-02T20:27:37Z",
+    "generated_at": "2026-06-02T20:52:38Z",
     "scope_id": "grade7_life_orientation_en",
     "scope": "Grade 7 Life Orientation",
     "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade7_life_orientation_en.json",
@@ -18,7 +18,9 @@
     "canonical_source_urls": [
       "https://www.education.gov.za/LinkClick.aspx?fileticket=ANFLxkl-Hgk%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
     ],
-    "object_store_uris": [],
+    "object_store_uris": [
+      "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/life-orientation/en/caps_senior_life_orientation_en-7904a388b6dfda1c.pdf"
+    ],
     "text_extract_paths": [
       "data/caps/source_documents/text/caps_senior_life_orientation_en.txt"
     ],
@@ -26,7 +28,6 @@
       "f47c2ff9f780eefb3a43486bbf0a6b6ab15b146a090c05591002eef78d1b4d7f"
     ],
     "outstanding_tasks": [
-      "upload_source_pdf_to_object_store",
       "extract_topic_map",
       "approve_scope_caps_refs",
       "approve_topic_map",

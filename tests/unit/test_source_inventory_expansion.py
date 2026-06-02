@@ -69,12 +69,16 @@ def test_source_inventory_reports_generation_ready_and_missing_source_gaps() -> 
     rows = {row["scope_id"]: row for row in report["rows"]}
 
     assert report["validation_passed"] is True
-    assert rows["grade4_mathematics_en"]["gap_reason"] == "missing_object_store_uri"
+    assert rows["grade4_mathematics_en"]["has_object_uri"] is True
+    assert rows["grade4_mathematics_en"]["gap_reason"] == "ok"
     assert rows["grade4_mathematics_en"]["is_generation_ready"] is True
     assert rows["grade7_coding_and_robotics_en"]["has_url"] is True
     assert rows["grade7_coding_and_robotics_en"]["has_hash"] is True
-    assert rows["grade7_coding_and_robotics_en"]["gap_reason"] == "missing_object_store_uri"
+    assert rows["grade7_coding_and_robotics_en"]["has_object_uri"] is True
+    assert rows["grade7_coding_and_robotics_en"]["gap_reason"] == "not_generation_ready"
     assert rows["grade7_coding_and_robotics_en"]["is_generation_ready"] is False
     assert report["summary"].get("missing_canonical_source_url", 0) == 0
     assert report["summary"].get("missing_sha256", 0) == 0
-    assert report["summary"]["missing_object_store_uri"] == 51
+    assert report["summary"].get("missing_object_store_uri", 0) == 0
+    assert report["summary"]["not_generation_ready"] == 50
+    assert report["summary"]["ok"] == 1

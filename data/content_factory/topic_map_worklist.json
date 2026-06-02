@@ -10,8 +10,7 @@
     "tasks.activate_scope": 50,
     "tasks.approve_scope_caps_refs": 50,
     "tasks.approve_topic_map": 48,
-    "tasks.extract_topic_map": 50,
-    "tasks.upload_source_pdf_to_object_store": 51
+    "tasks.extract_topic_map": 50
   },
   "items": [
     {
@@ -36,7 +35,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=JWRqJtLQntQ%3d&tabid=571&portalid=0&mid=13003&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/coding-and-robotics/en/caps_foundation_coding_and_robotics_en-570e1d87f30d0664.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_coding_and_robotics_en.txt"
       ],
@@ -45,7 +46,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -74,7 +74,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=D86-onzL9kg%3d&tabid=571&portalid=0&mid=1560&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/home-language/en/caps_foundation_home_language_en-c939a3a9dcce92ed.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_home_language_en.txt"
       ],
@@ -83,7 +85,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -112,7 +113,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=PCBnG0tzI14%3d&tabid=571&portalid=0&mid=1563&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/life-skills/en/caps_foundation_life_skills_en-4d4df1e5c4eb7db4.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_life_skills_en.txt"
       ],
@@ -121,7 +124,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -150,7 +152,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=HdHiU122n1w%3d&tabid=571&portalid=0&mid=1562&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/mathematics/en/caps_foundation_mathematics_en-e3b5bc415912b6f0.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_mathematics_en.txt"
       ],
@@ -159,7 +163,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -188,7 +191,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tpfZQfcmfDg%3d&tabid=571&portalid=0&mid=1561&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/sepedi-first-additional-language/nso/caps_foundation_sepedi_first_additional_language_en-0ed523790e54016c.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_sepedi_first_additional_language_en.txt"
       ],
@@ -197,7 +202,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -226,7 +230,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=JWRqJtLQntQ%3d&tabid=571&portalid=0&mid=13003&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/coding-and-robotics/en/caps_foundation_coding_and_robotics_en-570e1d87f30d0664.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_coding_and_robotics_en.txt"
       ],
@@ -235,7 +241,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -264,7 +269,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=D86-onzL9kg%3d&tabid=571&portalid=0&mid=1560&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/home-language/en/caps_foundation_home_language_en-c939a3a9dcce92ed.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_home_language_en.txt"
       ],
@@ -273,7 +280,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -302,7 +308,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=PCBnG0tzI14%3d&tabid=571&portalid=0&mid=1563&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/life-skills/en/caps_foundation_life_skills_en-4d4df1e5c4eb7db4.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_life_skills_en.txt"
       ],
@@ -311,7 +319,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -340,7 +347,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=HdHiU122n1w%3d&tabid=571&portalid=0&mid=1562&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/mathematics/en/caps_foundation_mathematics_en-e3b5bc415912b6f0.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_mathematics_en.txt"
       ],
@@ -349,7 +358,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -378,7 +386,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tpfZQfcmfDg%3d&tabid=571&portalid=0&mid=1561&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/sepedi-first-additional-language/nso/caps_foundation_sepedi_first_additional_language_en-0ed523790e54016c.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_sepedi_first_additional_language_en.txt"
       ],
@@ -387,7 +397,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -416,7 +425,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=JWRqJtLQntQ%3d&tabid=571&portalid=0&mid=13003&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/coding-and-robotics/en/caps_foundation_coding_and_robotics_en-570e1d87f30d0664.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_coding_and_robotics_en.txt"
       ],
@@ -425,7 +436,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -454,7 +464,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=D86-onzL9kg%3d&tabid=571&portalid=0&mid=1560&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/home-language/en/caps_foundation_home_language_en-c939a3a9dcce92ed.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_home_language_en.txt"
       ],
@@ -463,7 +475,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -492,7 +503,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=PCBnG0tzI14%3d&tabid=571&portalid=0&mid=1563&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/life-skills/en/caps_foundation_life_skills_en-4d4df1e5c4eb7db4.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_life_skills_en.txt"
       ],
@@ -501,7 +514,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -530,7 +542,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=HdHiU122n1w%3d&tabid=571&portalid=0&mid=1562&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/mathematics/en/caps_foundation_mathematics_en-e3b5bc415912b6f0.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_mathematics_en.txt"
       ],
@@ -539,7 +553,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -568,7 +581,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tpfZQfcmfDg%3d&tabid=571&portalid=0&mid=1561&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/sepedi-first-additional-language/nso/caps_foundation_sepedi_first_additional_language_en-0ed523790e54016c.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_sepedi_first_additional_language_en.txt"
       ],
@@ -577,7 +592,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -606,7 +620,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=O1vKQbbwwy0%3d&tabid=572&portalid=0&mid=13087&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/coding-and-robotics/en/caps_intermediate_coding_and_robotics_en-0d87e20bcc5d3ea8.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_coding_and_robotics_en.txt"
       ],
@@ -615,7 +631,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -644,7 +659,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=ze6JhhFYdCg%3d&tabid=572&portalid=0&mid=1564&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/home-language/en/caps_intermediate_home_language_en-b3c330f27b30be42.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_home_language_en.txt"
       ],
@@ -653,7 +670,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -682,7 +698,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=OX12620gNnw%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/life-skills/en/caps_intermediate_life_skills_en-4113b006498494cd.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_life_skills_en.txt"
       ],
@@ -691,7 +709,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -720,7 +737,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=dr7zg3CFCr8%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/mathematics/en/caps_intermediate_phase_mathematics_grade4_6-7fec668a6d3b0ed4.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_phase_mathematics_grade4_6.txt"
       ],
@@ -728,9 +747,7 @@
         "e291455486c67cd2da7f4c76ee815d47a498a7d4886f397385cea07c73b7c390"
       ],
       "generation_ready": true,
-      "outstanding_tasks": [
-        "upload_source_pdf_to_object_store"
-      ]
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade4_natural_sciences_and_technology_en",
@@ -754,7 +771,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=IzbFrpzoQ44%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/natural-sciences-and-technology/en/caps_intermediate_natural_sciences_and_technology_en-4bf95cdcc20b1b79.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_natural_sciences_and_technology_en.txt"
       ],
@@ -763,7 +782,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -792,7 +810,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tuZ5vg1QDDI%3d&tabid=572&portalid=0&mid=1565&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/sepedi-first-additional-language/nso/caps_intermediate_sepedi_first_additional_language_en-0e8e45bcefc2ca84.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_sepedi_first_additional_language_en.txt"
       ],
@@ -801,7 +821,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -830,7 +849,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=6YV0RE9-pYE%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/social-sciences/en/caps_intermediate_social_sciences_en-8f3d900799c699ba.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_social_sciences_en.txt"
       ],
@@ -839,7 +860,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -868,7 +888,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=O1vKQbbwwy0%3d&tabid=572&portalid=0&mid=13087&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/coding-and-robotics/en/caps_intermediate_coding_and_robotics_en-0d87e20bcc5d3ea8.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_coding_and_robotics_en.txt"
       ],
@@ -877,7 +899,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -906,7 +927,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=ze6JhhFYdCg%3d&tabid=572&portalid=0&mid=1564&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/home-language/en/caps_intermediate_home_language_en-b3c330f27b30be42.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_home_language_en.txt"
       ],
@@ -915,7 +938,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -944,7 +966,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=OX12620gNnw%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/life-skills/en/caps_intermediate_life_skills_en-4113b006498494cd.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_life_skills_en.txt"
       ],
@@ -953,7 +977,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -982,7 +1005,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=dr7zg3CFCr8%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/mathematics/en/caps_intermediate_phase_mathematics_grade4_6-7fec668a6d3b0ed4.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_phase_mathematics_grade4_6.txt"
       ],
@@ -991,7 +1016,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "activate_scope"
@@ -1019,7 +1043,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=IzbFrpzoQ44%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/natural-sciences-and-technology/en/caps_intermediate_natural_sciences_and_technology_en-4bf95cdcc20b1b79.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_natural_sciences_and_technology_en.txt"
       ],
@@ -1028,7 +1054,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1057,7 +1082,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tuZ5vg1QDDI%3d&tabid=572&portalid=0&mid=1565&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/sepedi-first-additional-language/nso/caps_intermediate_sepedi_first_additional_language_en-0e8e45bcefc2ca84.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_sepedi_first_additional_language_en.txt"
       ],
@@ -1066,7 +1093,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1095,7 +1121,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=6YV0RE9-pYE%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/social-sciences/en/caps_intermediate_social_sciences_en-8f3d900799c699ba.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_social_sciences_en.txt"
       ],
@@ -1104,7 +1132,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1133,7 +1160,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=O1vKQbbwwy0%3d&tabid=572&portalid=0&mid=13087&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/coding-and-robotics/en/caps_intermediate_coding_and_robotics_en-0d87e20bcc5d3ea8.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_coding_and_robotics_en.txt"
       ],
@@ -1142,7 +1171,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1171,7 +1199,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=ze6JhhFYdCg%3d&tabid=572&portalid=0&mid=1564&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/home-language/en/caps_intermediate_home_language_en-b3c330f27b30be42.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_home_language_en.txt"
       ],
@@ -1180,7 +1210,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1209,7 +1238,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=OX12620gNnw%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/life-skills/en/caps_intermediate_life_skills_en-4113b006498494cd.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_life_skills_en.txt"
       ],
@@ -1218,7 +1249,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1247,7 +1277,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=dr7zg3CFCr8%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/mathematics/en/caps_intermediate_phase_mathematics_grade4_6-7fec668a6d3b0ed4.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_phase_mathematics_grade4_6.txt"
       ],
@@ -1256,7 +1288,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "activate_scope"
@@ -1284,7 +1315,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=IzbFrpzoQ44%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/natural-sciences-and-technology/en/caps_intermediate_natural_sciences_and_technology_en-4bf95cdcc20b1b79.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_natural_sciences_and_technology_en.txt"
       ],
@@ -1293,7 +1326,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1322,7 +1354,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tuZ5vg1QDDI%3d&tabid=572&portalid=0&mid=1565&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/sepedi-first-additional-language/nso/caps_intermediate_sepedi_first_additional_language_en-0e8e45bcefc2ca84.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_sepedi_first_additional_language_en.txt"
       ],
@@ -1331,7 +1365,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1360,7 +1393,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=6YV0RE9-pYE%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/social-sciences/en/caps_intermediate_social_sciences_en-8f3d900799c699ba.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_intermediate_social_sciences_en.txt"
       ],
@@ -1369,7 +1404,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1398,7 +1432,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=1M7krZtYs24%3d&tabid=573&portalid=0&mid=13088&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/coding-and-robotics/en/caps_senior_coding_and_robotics_en-04ae21e3899fa9df.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_senior_coding_and_robotics_en.txt"
       ],
@@ -1407,7 +1443,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1436,7 +1471,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=EqlGbEbaejU%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/creative-arts/en/caps_senior_creative_arts_en-eabc3325fc156973.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_senior_creative_arts_en.txt"
       ],
@@ -1445,7 +1482,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1474,7 +1510,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=YEgQQlsQNCw%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/economic-management-sciences/en/caps_senior_economic_management_sciences_en-313a25bf38f59a24.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_senior_economic_management_sciences_en.txt"
       ],
@@ -1483,7 +1521,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1512,7 +1549,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=5xCztldu-Kw%3d&tabid=573&portalid=0&mid=1569&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/home-language/en/caps_senior_home_language_en-813b0169129ac044.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_senior_home_language_en.txt"
       ],
@@ -1521,7 +1560,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1550,7 +1588,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=ANFLxkl-Hgk%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/life-orientation/en/caps_senior_life_orientation_en-7904a388b6dfda1c.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_senior_life_orientation_en.txt"
       ],
@@ -1559,7 +1599,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1588,7 +1627,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=uCNqOwfGbmc%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/mathematics/en/caps_senior_mathematics_en-64dcd19ee1d67109.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_senior_mathematics_en.txt"
       ],
@@ -1597,7 +1638,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1626,7 +1666,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=zhaFloMyZTs%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/natural-sciences/en/caps_senior_natural_sciences_en-8699f105ebee604a.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_senior_natural_sciences_en.txt"
       ],
@@ -1635,7 +1677,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1664,7 +1705,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=0sgecFQ5YUk%3d&tabid=573&portalid=0&mid=1570&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/sepedi-first-additional-language/nso/caps_senior_sepedi_first_additional_language_en-d1e0e400d811af12.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_senior_sepedi_first_additional_language_en.txt"
       ],
@@ -1673,7 +1716,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1702,7 +1744,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=6jpCz5DCZ08%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/social-sciences/en/caps_senior_social_sciences_en-a2c858ef3870dd8a.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_senior_social_sciences_en.txt"
       ],
@@ -1711,7 +1755,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1740,7 +1783,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=41Ak4eHaKt4%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/technology/en/caps_senior_technology_en-89898067efff5d97.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_senior_technology_en.txt"
       ],
@@ -1749,7 +1794,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1778,7 +1822,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=JWRqJtLQntQ%3d&tabid=571&portalid=0&mid=13003&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/coding-and-robotics/en/caps_foundation_coding_and_robotics_en-570e1d87f30d0664.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_coding_and_robotics_en.txt"
       ],
@@ -1787,7 +1833,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1816,7 +1861,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=D86-onzL9kg%3d&tabid=571&portalid=0&mid=1560&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/home-language/en/caps_foundation_home_language_en-c939a3a9dcce92ed.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_home_language_en.txt"
       ],
@@ -1825,7 +1872,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1854,7 +1900,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=PCBnG0tzI14%3d&tabid=571&portalid=0&mid=1563&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/life-skills/en/caps_foundation_life_skills_en-4d4df1e5c4eb7db4.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_life_skills_en.txt"
       ],
@@ -1863,7 +1911,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1892,7 +1939,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=AfLcvGMYH3k%3d&tabid=571&portalid=0&mid=1615&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/mathematics/en/caps_foundation_mathematics_grade_r_en-946fb1ac29386a3b.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_mathematics_grade_r_en.txt"
       ],
@@ -1901,7 +1950,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",
@@ -1930,7 +1978,9 @@
       "canonical_source_urls": [
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tpfZQfcmfDg%3d&tabid=571&portalid=0&mid=1561&forcedownload=true"
       ],
-      "object_store_uris": [],
+      "object_store_uris": [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/sepedi-first-additional-language/nso/caps_foundation_sepedi_first_additional_language_en-0ed523790e54016c.pdf"
+      ],
       "text_extract_paths": [
         "data/caps/source_documents/text/caps_foundation_sepedi_first_additional_language_en.txt"
       ],
@@ -1939,7 +1989,6 @@
       ],
       "generation_ready": false,
       "outstanding_tasks": [
-        "upload_source_pdf_to_object_store",
         "extract_topic_map",
         "approve_scope_caps_refs",
         "approve_topic_map",

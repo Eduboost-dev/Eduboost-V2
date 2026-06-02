@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": "1.0.0-draft",
     "status": "draft_unreviewed",
-    "generated_at": "2026-06-02T20:27:37Z",
+    "generated_at": "2026-06-02T20:52:38Z",
     "scope_id": "grade7_home_language_en",
     "scope": "Grade 7 Home Language",
     "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade7_home_language_en.json",
@@ -18,7 +18,9 @@
     "canonical_source_urls": [
       "https://www.education.gov.za/LinkClick.aspx?fileticket=5xCztldu-Kw%3d&tabid=573&portalid=0&mid=1569&forcedownload=true"
     ],
-    "object_store_uris": [],
+    "object_store_uris": [
+      "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/home-language/en/caps_senior_home_language_en-813b0169129ac044.pdf"
+    ],
     "text_extract_paths": [
       "data/caps/source_documents/text/caps_senior_home_language_en.txt"
     ],
@@ -26,7 +28,6 @@
       "d59d2f2862a0445241867ca137a9ffaf4bc55f6831e9a748908340b164ff7a39"
     ],
     "outstanding_tasks": [
-      "upload_source_pdf_to_object_store",
       "extract_topic_map",
       "approve_scope_caps_refs",
       "approve_topic_map",

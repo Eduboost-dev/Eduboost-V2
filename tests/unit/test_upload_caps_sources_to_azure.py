@@ -32,3 +32,9 @@ def test_object_store_uri_url_encodes_blob_segments() -> None:
 def test_slug_normalizes_empty_and_punctuation() -> None:
     assert slug("Economic & Management Sciences") == "economic-management-sciences"
     assert slug(None) == "unknown"
+
+
+def test_uploader_cli_exposes_key_auth_mode() -> None:
+    from scripts.curriculum import upload_caps_sources_to_azure as uploader
+
+    assert uploader.object_store_uri("acct", "caps-sources", "a/b.pdf").startswith("https://acct.blob.core.windows.net/")

@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "resource_group": "rg-eduboost-dev",
+  "location": "centralus",
+  "storage_account": "eduboostcaps06022047",
+  "container": "caps-sources",
+  "container_uri": "https://eduboostcaps06022047.blob.core.windows.net/caps-sources",
+  "source_document_count": 23,
+  "provisioned_with": "bicep/caps_source_storage.bicep",
+  "uploaded_with": "scripts/curriculum/upload_caps_sources_to_azure.py --auth-mode key",
+  "recorded_at": "2026-06-02T20:54:10Z"
+}

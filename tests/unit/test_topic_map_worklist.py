@@ -19,7 +19,7 @@ def test_topic_map_worklist_covers_all_registered_scopes_and_current_gaps() -> N
     assert worklist["summary"]["scopes_generation_ready"] == 1
     assert worklist["summary"]["scopes_needing_topic_map"] == 50
     assert worklist["summary"]["source_documents_distinct"] == 23
-    assert worklist["summary"]["tasks.upload_source_pdf_to_object_store"] == 51
+    assert worklist["summary"].get("tasks.upload_source_pdf_to_object_store", 0) == 0
     assert worklist["summary"]["tasks.extract_topic_map"] == 50
 
 
@@ -31,6 +31,10 @@ def test_topic_map_worklist_preserves_source_hashes_for_scope() -> None:
     assert grade7_math["source_sha256"] == ["64dcd19ee1d67109ff4172d9b098259954a2e77a55aeae0d11ee7ec033b0d8f8"]
     assert grade7_math["text_sha256"] == ["881f88f60186856703767333a0c3f2331b8aeebb52dd11fcf46c2f25c90d3c33"]
     assert grade7_math["text_extract_paths"] == ["data/caps/source_documents/text/caps_senior_mathematics_en.txt"]
+    assert grade7_math["object_store_uris"] == [
+        "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/mathematics/en/caps_senior_mathematics_en-64dcd19ee1d67109.pdf"
+    ]
+    assert "upload_source_pdf_to_object_store" not in grade7_math["outstanding_tasks"]
     assert "extract_topic_map" in grade7_math["outstanding_tasks"]
 
 

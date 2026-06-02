@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": "1.0.0-draft",
     "status": "draft_unreviewed",
-    "generated_at": "2026-06-02T20:27:37Z",
+    "generated_at": "2026-06-02T20:52:38Z",
     "scope_id": "grade6_life_skills_en",
     "scope": "Grade 6 Life Skills",
     "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade6_life_skills_en.json",
@@ -18,7 +18,9 @@
     "canonical_source_urls": [
       "https://www.education.gov.za/LinkClick.aspx?fileticket=OX12620gNnw%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
     ],
-    "object_store_uris": [],
+    "object_store_uris": [
+      "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/intermediate/life-skills/en/caps_intermediate_life_skills_en-4113b006498494cd.pdf"
+    ],
     "text_extract_paths": [
       "data/caps/source_documents/text/caps_intermediate_life_skills_en.txt"
     ],
@@ -26,7 +28,6 @@
       "1aa10302db0e31b53068240372929439a3709be55c6d350cbcb63f3b7f04ec0f"
     ],
     "outstanding_tasks": [
-      "upload_source_pdf_to_object_store",
       "extract_topic_map",
       "approve_scope_caps_refs",
       "approve_topic_map",

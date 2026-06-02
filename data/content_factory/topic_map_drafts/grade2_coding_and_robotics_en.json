@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": "1.0.0-draft",
     "status": "draft_unreviewed",
-    "generated_at": "2026-06-02T20:27:37Z",
+    "generated_at": "2026-06-02T20:52:38Z",
     "scope_id": "grade2_coding_and_robotics_en",
     "scope": "Grade 2 Coding and Robotics",
     "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade2_coding_and_robotics_en.json",
@@ -18,7 +18,9 @@
     "canonical_source_urls": [
       "https://www.education.gov.za/LinkClick.aspx?fileticket=JWRqJtLQntQ%3d&tabid=571&portalid=0&mid=13003&forcedownload=true"
     ],
-    "object_store_uris": [],
+    "object_store_uris": [
+      "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/foundation/coding-and-robotics/en/caps_foundation_coding_and_robotics_en-570e1d87f30d0664.pdf"
+    ],
     "text_extract_paths": [
       "data/caps/source_documents/text/caps_foundation_coding_and_robotics_en.txt"
     ],
@@ -26,7 +28,6 @@
       "b22fbe28e9ab09bd85539e1062e72473059edc8d6e8a24b725b1e421ff6f9c95"
     ],
     "outstanding_tasks": [
-      "upload_source_pdf_to_object_store",
       "extract_topic_map",
       "approve_scope_caps_refs",
       "approve_topic_map",

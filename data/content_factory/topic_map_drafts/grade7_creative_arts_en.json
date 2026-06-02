@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": "1.0.0-draft",
     "status": "draft_unreviewed",
-    "generated_at": "2026-06-02T20:27:37Z",
+    "generated_at": "2026-06-02T20:52:38Z",
     "scope_id": "grade7_creative_arts_en",
     "scope": "Grade 7 Creative Arts",
     "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade7_creative_arts_en.json",
@@ -18,7 +18,9 @@
     "canonical_source_urls": [
       "https://www.education.gov.za/LinkClick.aspx?fileticket=EqlGbEbaejU%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
     ],
-    "object_store_uris": [],
+    "object_store_uris": [
+      "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/creative-arts/en/caps_senior_creative_arts_en-eabc3325fc156973.pdf"
+    ],
     "text_extract_paths": [
       "data/caps/source_documents/text/caps_senior_creative_arts_en.txt"
     ],
@@ -26,7 +28,6 @@
       "5fffa3b64dc5d1f7df98f59159aefdd07536df2e5e2223bc4945c412d8273534"
     ],
     "outstanding_tasks": [
-      "upload_source_pdf_to_object_store",
       "extract_topic_map",
       "approve_scope_caps_refs",
       "approve_topic_map",
