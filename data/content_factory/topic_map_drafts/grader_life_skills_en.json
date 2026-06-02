@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": "1.0.0-draft",
     "status": "draft_unreviewed",
-    "generated_at": "2026-06-02T20:19:49Z",
+    "generated_at": "2026-06-02T20:27:37Z",
     "scope_id": "grader_life_skills_en",
     "scope": "Grade 0 Life Skills",
     "suggested_runtime_topic_map_path": "data/caps/topic_maps/grader_life_skills_en.json",
@@ -19,6 +19,12 @@
       "https://www.education.gov.za/LinkClick.aspx?fileticket=PCBnG0tzI14%3d&tabid=571&portalid=0&mid=1563&forcedownload=true"
     ],
     "object_store_uris": [],
+    "text_extract_paths": [
+      "data/caps/source_documents/text/caps_foundation_life_skills_en.txt"
+    ],
+    "text_sha256": [
+      "24344b141eebb8e9641c2c275421ee6127e6df6e43109f6a6fa2e77c66c0cfba"
+    ],
     "outstanding_tasks": [
       "upload_source_pdf_to_object_store",
       "extract_topic_map",

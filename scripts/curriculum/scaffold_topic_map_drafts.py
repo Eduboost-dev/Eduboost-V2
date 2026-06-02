@@ -40,6 +40,8 @@ def build_draft(item: dict[str, Any]) -> dict[str, Any]:
             "source_sha256": item["source_sha256"],
             "canonical_source_urls": item["canonical_source_urls"],
             "object_store_uris": item["object_store_uris"],
+            "text_extract_paths": item.get("text_extract_paths", []),
+            "text_sha256": item.get("text_sha256", []),
             "outstanding_tasks": item["outstanding_tasks"],
             "review_required": True,
             "notes": "Draft envelope only. Do not move to data/caps/topic_maps or mark topic_map_approved until terms/topics/subtopics are extracted from the cited source and reviewed.",

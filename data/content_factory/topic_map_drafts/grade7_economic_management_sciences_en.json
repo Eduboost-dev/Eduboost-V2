@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": "1.0.0-draft",
     "status": "draft_unreviewed",
-    "generated_at": "2026-06-02T20:19:49Z",
+    "generated_at": "2026-06-02T20:27:37Z",
     "scope_id": "grade7_economic_management_sciences_en",
     "scope": "Grade 7 Economic Management Sciences",
     "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade7_economic_management_sciences_en.json",
@@ -19,6 +19,12 @@
       "https://www.education.gov.za/LinkClick.aspx?fileticket=YEgQQlsQNCw%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
     ],
     "object_store_uris": [],
+    "text_extract_paths": [
+      "data/caps/source_documents/text/caps_senior_economic_management_sciences_en.txt"
+    ],
+    "text_sha256": [
+      "0e834513fe59049b33f5f2dc7478d11b592903dbe5c94c8cc5e9f6d46e600873"
+    ],
     "outstanding_tasks": [
       "upload_source_pdf_to_object_store",
       "extract_topic_map",

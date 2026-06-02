@@ -302,6 +302,8 @@ pydantic-core==2.46.4
     # via pydantic
 pydantic-settings==2.2.1
     # via -r requirements/base.in
+pypdf==5.4.0
+    # via -r requirements/base.in
 pyee==11.1.0
     # via playwright
 pygments==2.20.0

@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": "1.0.0-draft",
     "status": "draft_unreviewed",
-    "generated_at": "2026-06-02T20:19:49Z",
+    "generated_at": "2026-06-02T20:27:37Z",
     "scope_id": "grade3_sepedi_first_additional_language_en",
     "scope": "Grade 3 Sepedi First Additional Language",
     "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade3_sepedi_first_additional_language_en.json",
@@ -19,6 +19,12 @@
       "https://www.education.gov.za/LinkClick.aspx?fileticket=tpfZQfcmfDg%3d&tabid=571&portalid=0&mid=1561&forcedownload=true"
     ],
     "object_store_uris": [],
+    "text_extract_paths": [
+      "data/caps/source_documents/text/caps_foundation_sepedi_first_additional_language_en.txt"
+    ],
+    "text_sha256": [
+      "6b0b8ae1613c830dd5c6787e0454a08fc288093324dd2dd3c51e731a5b1d8d67"
+    ],
     "outstanding_tasks": [
       "upload_source_pdf_to_object_store",
       "extract_topic_map",

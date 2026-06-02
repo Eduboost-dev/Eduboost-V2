@@ -37,6 +37,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=JWRqJtLQntQ%3d&tabid=571&portalid=0&mid=13003&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_coding_and_robotics_en.txt"
+      ],
+      "text_sha256": [
+        "b22fbe28e9ab09bd85539e1062e72473059edc8d6e8a24b725b1e421ff6f9c95"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -69,6 +75,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=D86-onzL9kg%3d&tabid=571&portalid=0&mid=1560&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_home_language_en.txt"
+      ],
+      "text_sha256": [
+        "905a050d465b6d82fd25e0d90498d737374e5fe02a82bc40d9fc4977540fae41"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -101,6 +113,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=PCBnG0tzI14%3d&tabid=571&portalid=0&mid=1563&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_life_skills_en.txt"
+      ],
+      "text_sha256": [
+        "24344b141eebb8e9641c2c275421ee6127e6df6e43109f6a6fa2e77c66c0cfba"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -133,6 +151,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=HdHiU122n1w%3d&tabid=571&portalid=0&mid=1562&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_mathematics_en.txt"
+      ],
+      "text_sha256": [
+        "412850fb59e863bf2fc80de7a3fb16e8cd6a012870c9dbacdb1043c1f23f58c9"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -165,6 +189,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tpfZQfcmfDg%3d&tabid=571&portalid=0&mid=1561&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_sepedi_first_additional_language_en.txt"
+      ],
+      "text_sha256": [
+        "6b0b8ae1613c830dd5c6787e0454a08fc288093324dd2dd3c51e731a5b1d8d67"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -197,6 +227,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=JWRqJtLQntQ%3d&tabid=571&portalid=0&mid=13003&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_coding_and_robotics_en.txt"
+      ],
+      "text_sha256": [
+        "b22fbe28e9ab09bd85539e1062e72473059edc8d6e8a24b725b1e421ff6f9c95"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -229,6 +265,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=D86-onzL9kg%3d&tabid=571&portalid=0&mid=1560&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_home_language_en.txt"
+      ],
+      "text_sha256": [
+        "905a050d465b6d82fd25e0d90498d737374e5fe02a82bc40d9fc4977540fae41"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -261,6 +303,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=PCBnG0tzI14%3d&tabid=571&portalid=0&mid=1563&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_life_skills_en.txt"
+      ],
+      "text_sha256": [
+        "24344b141eebb8e9641c2c275421ee6127e6df6e43109f6a6fa2e77c66c0cfba"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -293,6 +341,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=HdHiU122n1w%3d&tabid=571&portalid=0&mid=1562&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_mathematics_en.txt"
+      ],
+      "text_sha256": [
+        "412850fb59e863bf2fc80de7a3fb16e8cd6a012870c9dbacdb1043c1f23f58c9"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -325,6 +379,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tpfZQfcmfDg%3d&tabid=571&portalid=0&mid=1561&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_sepedi_first_additional_language_en.txt"
+      ],
+      "text_sha256": [
+        "6b0b8ae1613c830dd5c6787e0454a08fc288093324dd2dd3c51e731a5b1d8d67"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -357,6 +417,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=JWRqJtLQntQ%3d&tabid=571&portalid=0&mid=13003&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_coding_and_robotics_en.txt"
+      ],
+      "text_sha256": [
+        "b22fbe28e9ab09bd85539e1062e72473059edc8d6e8a24b725b1e421ff6f9c95"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -389,6 +455,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=D86-onzL9kg%3d&tabid=571&portalid=0&mid=1560&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_home_language_en.txt"
+      ],
+      "text_sha256": [
+        "905a050d465b6d82fd25e0d90498d737374e5fe02a82bc40d9fc4977540fae41"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -421,6 +493,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=PCBnG0tzI14%3d&tabid=571&portalid=0&mid=1563&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_life_skills_en.txt"
+      ],
+      "text_sha256": [
+        "24344b141eebb8e9641c2c275421ee6127e6df6e43109f6a6fa2e77c66c0cfba"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -453,6 +531,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=HdHiU122n1w%3d&tabid=571&portalid=0&mid=1562&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_mathematics_en.txt"
+      ],
+      "text_sha256": [
+        "412850fb59e863bf2fc80de7a3fb16e8cd6a012870c9dbacdb1043c1f23f58c9"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -485,6 +569,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tpfZQfcmfDg%3d&tabid=571&portalid=0&mid=1561&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_sepedi_first_additional_language_en.txt"
+      ],
+      "text_sha256": [
+        "6b0b8ae1613c830dd5c6787e0454a08fc288093324dd2dd3c51e731a5b1d8d67"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -517,6 +607,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=O1vKQbbwwy0%3d&tabid=572&portalid=0&mid=13087&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_coding_and_robotics_en.txt"
+      ],
+      "text_sha256": [
+        "4733d42c6ba335cbeaf1f914f4bc2717a0ad44a51f122e8b38fe953fec3c959d"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -549,6 +645,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=ze6JhhFYdCg%3d&tabid=572&portalid=0&mid=1564&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_home_language_en.txt"
+      ],
+      "text_sha256": [
+        "19c78b01fd4fe1ed3abfb0ab9770b2c223e3412777323d047d1f1274452f051d"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -581,6 +683,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=OX12620gNnw%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_life_skills_en.txt"
+      ],
+      "text_sha256": [
+        "1aa10302db0e31b53068240372929439a3709be55c6d350cbcb63f3b7f04ec0f"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -613,6 +721,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=dr7zg3CFCr8%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_phase_mathematics_grade4_6.txt"
+      ],
+      "text_sha256": [
+        "e291455486c67cd2da7f4c76ee815d47a498a7d4886f397385cea07c73b7c390"
+      ],
       "generation_ready": true,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store"
@@ -641,6 +755,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=IzbFrpzoQ44%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_natural_sciences_and_technology_en.txt"
+      ],
+      "text_sha256": [
+        "234d9969bfda8e948f2908c9cfc880072755759382b4eb60419ca5391d2958e1"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -673,6 +793,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tuZ5vg1QDDI%3d&tabid=572&portalid=0&mid=1565&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_sepedi_first_additional_language_en.txt"
+      ],
+      "text_sha256": [
+        "24a857650c7352e5415897e74c1c50ab085c51f7ad9f709ffd58b5a62ca92fd5"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -705,6 +831,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=6YV0RE9-pYE%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_social_sciences_en.txt"
+      ],
+      "text_sha256": [
+        "53a4bf180026586db6a0fe22fa0f5a0657c6c74cc485e6f8ee1aec5c49545c42"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -737,6 +869,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=O1vKQbbwwy0%3d&tabid=572&portalid=0&mid=13087&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_coding_and_robotics_en.txt"
+      ],
+      "text_sha256": [
+        "4733d42c6ba335cbeaf1f914f4bc2717a0ad44a51f122e8b38fe953fec3c959d"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -769,6 +907,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=ze6JhhFYdCg%3d&tabid=572&portalid=0&mid=1564&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_home_language_en.txt"
+      ],
+      "text_sha256": [
+        "19c78b01fd4fe1ed3abfb0ab9770b2c223e3412777323d047d1f1274452f051d"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -801,6 +945,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=OX12620gNnw%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_life_skills_en.txt"
+      ],
+      "text_sha256": [
+        "1aa10302db0e31b53068240372929439a3709be55c6d350cbcb63f3b7f04ec0f"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -833,6 +983,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=dr7zg3CFCr8%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_phase_mathematics_grade4_6.txt"
+      ],
+      "text_sha256": [
+        "e291455486c67cd2da7f4c76ee815d47a498a7d4886f397385cea07c73b7c390"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -864,6 +1020,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=IzbFrpzoQ44%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_natural_sciences_and_technology_en.txt"
+      ],
+      "text_sha256": [
+        "234d9969bfda8e948f2908c9cfc880072755759382b4eb60419ca5391d2958e1"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -896,6 +1058,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tuZ5vg1QDDI%3d&tabid=572&portalid=0&mid=1565&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_sepedi_first_additional_language_en.txt"
+      ],
+      "text_sha256": [
+        "24a857650c7352e5415897e74c1c50ab085c51f7ad9f709ffd58b5a62ca92fd5"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -928,6 +1096,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=6YV0RE9-pYE%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_social_sciences_en.txt"
+      ],
+      "text_sha256": [
+        "53a4bf180026586db6a0fe22fa0f5a0657c6c74cc485e6f8ee1aec5c49545c42"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -960,6 +1134,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=O1vKQbbwwy0%3d&tabid=572&portalid=0&mid=13087&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_coding_and_robotics_en.txt"
+      ],
+      "text_sha256": [
+        "4733d42c6ba335cbeaf1f914f4bc2717a0ad44a51f122e8b38fe953fec3c959d"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -992,6 +1172,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=ze6JhhFYdCg%3d&tabid=572&portalid=0&mid=1564&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_home_language_en.txt"
+      ],
+      "text_sha256": [
+        "19c78b01fd4fe1ed3abfb0ab9770b2c223e3412777323d047d1f1274452f051d"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1024,6 +1210,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=OX12620gNnw%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_life_skills_en.txt"
+      ],
+      "text_sha256": [
+        "1aa10302db0e31b53068240372929439a3709be55c6d350cbcb63f3b7f04ec0f"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1056,6 +1248,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=dr7zg3CFCr8%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_phase_mathematics_grade4_6.txt"
+      ],
+      "text_sha256": [
+        "e291455486c67cd2da7f4c76ee815d47a498a7d4886f397385cea07c73b7c390"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1087,6 +1285,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=IzbFrpzoQ44%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_natural_sciences_and_technology_en.txt"
+      ],
+      "text_sha256": [
+        "234d9969bfda8e948f2908c9cfc880072755759382b4eb60419ca5391d2958e1"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1119,6 +1323,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tuZ5vg1QDDI%3d&tabid=572&portalid=0&mid=1565&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_sepedi_first_additional_language_en.txt"
+      ],
+      "text_sha256": [
+        "24a857650c7352e5415897e74c1c50ab085c51f7ad9f709ffd58b5a62ca92fd5"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1151,6 +1361,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=6YV0RE9-pYE%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_intermediate_social_sciences_en.txt"
+      ],
+      "text_sha256": [
+        "53a4bf180026586db6a0fe22fa0f5a0657c6c74cc485e6f8ee1aec5c49545c42"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1183,6 +1399,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=1M7krZtYs24%3d&tabid=573&portalid=0&mid=13088&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_senior_coding_and_robotics_en.txt"
+      ],
+      "text_sha256": [
+        "efedbdecb16a8e94a05b24baed59741095017e8125fe42ebdab3d4035b84c36c"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1215,6 +1437,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=EqlGbEbaejU%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_senior_creative_arts_en.txt"
+      ],
+      "text_sha256": [
+        "5fffa3b64dc5d1f7df98f59159aefdd07536df2e5e2223bc4945c412d8273534"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1247,6 +1475,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=YEgQQlsQNCw%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_senior_economic_management_sciences_en.txt"
+      ],
+      "text_sha256": [
+        "0e834513fe59049b33f5f2dc7478d11b592903dbe5c94c8cc5e9f6d46e600873"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1279,6 +1513,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=5xCztldu-Kw%3d&tabid=573&portalid=0&mid=1569&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_senior_home_language_en.txt"
+      ],
+      "text_sha256": [
+        "d59d2f2862a0445241867ca137a9ffaf4bc55f6831e9a748908340b164ff7a39"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1311,6 +1551,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=ANFLxkl-Hgk%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_senior_life_orientation_en.txt"
+      ],
+      "text_sha256": [
+        "f47c2ff9f780eefb3a43486bbf0a6b6ab15b146a090c05591002eef78d1b4d7f"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1343,6 +1589,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=uCNqOwfGbmc%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_senior_mathematics_en.txt"
+      ],
+      "text_sha256": [
+        "881f88f60186856703767333a0c3f2331b8aeebb52dd11fcf46c2f25c90d3c33"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1375,6 +1627,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=zhaFloMyZTs%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_senior_natural_sciences_en.txt"
+      ],
+      "text_sha256": [
+        "b7c9ea0bfbb4760ae612dd5a16b8848dd579a7ff28f64d5dc5b50cc2a2a2d455"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1407,6 +1665,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=0sgecFQ5YUk%3d&tabid=573&portalid=0&mid=1570&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_senior_sepedi_first_additional_language_en.txt"
+      ],
+      "text_sha256": [
+        "1c6afca6d7a33ee328d9cac896a0c4473ab1e2a1817f6216fabb9c53ab970944"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1439,6 +1703,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=6jpCz5DCZ08%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_senior_social_sciences_en.txt"
+      ],
+      "text_sha256": [
+        "3063b27aeec6f29d6da2b3912bc176177881fa16e30a9e6cce0abe2f2086fdd9"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1471,6 +1741,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=41Ak4eHaKt4%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_senior_technology_en.txt"
+      ],
+      "text_sha256": [
+        "050cda29cd6443243e53be18087da31ecfc6c46e3c3c69fe20cb724086118c50"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1503,6 +1779,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=JWRqJtLQntQ%3d&tabid=571&portalid=0&mid=13003&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_coding_and_robotics_en.txt"
+      ],
+      "text_sha256": [
+        "b22fbe28e9ab09bd85539e1062e72473059edc8d6e8a24b725b1e421ff6f9c95"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1535,6 +1817,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=D86-onzL9kg%3d&tabid=571&portalid=0&mid=1560&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_home_language_en.txt"
+      ],
+      "text_sha256": [
+        "905a050d465b6d82fd25e0d90498d737374e5fe02a82bc40d9fc4977540fae41"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1567,6 +1855,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=PCBnG0tzI14%3d&tabid=571&portalid=0&mid=1563&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_life_skills_en.txt"
+      ],
+      "text_sha256": [
+        "24344b141eebb8e9641c2c275421ee6127e6df6e43109f6a6fa2e77c66c0cfba"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1599,6 +1893,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=AfLcvGMYH3k%3d&tabid=571&portalid=0&mid=1615&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_mathematics_grade_r_en.txt"
+      ],
+      "text_sha256": [
+        "62640f63728d5830d27c5c98e9f51094b7745953dc087ce2495b628eb3fbb38f"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",
@@ -1631,6 +1931,12 @@
         "https://www.education.gov.za/LinkClick.aspx?fileticket=tpfZQfcmfDg%3d&tabid=571&portalid=0&mid=1561&forcedownload=true"
       ],
       "object_store_uris": [],
+      "text_extract_paths": [
+        "data/caps/source_documents/text/caps_foundation_sepedi_first_additional_language_en.txt"
+      ],
+      "text_sha256": [
+        "6b0b8ae1613c830dd5c6787e0454a08fc288093324dd2dd3c51e731a5b1d8d67"
+      ],
       "generation_ready": false,
       "outstanding_tasks": [
         "upload_source_pdf_to_object_store",

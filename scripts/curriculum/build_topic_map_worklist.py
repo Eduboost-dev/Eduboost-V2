@@ -19,6 +19,7 @@ from app.services.content_scope_registry import ContentScopeRegistry
 from scripts.curriculum.validate_source_manifest import generation_ready, load_manifest, validate_source_manifest
 
 DEFAULT_WORKLIST_PATH = ROOT / "data" / "content_factory" / "topic_map_worklist.json"
+TEXT_EXTRACT_MANIFEST_PATH = ROOT / "data" / "content_factory" / "source_text_extracts_manifest.json"
 
 
 @dataclass
@@ -37,6 +38,8 @@ class TopicMapWorkItem:
     source_sha256: list[str]
     canonical_source_urls: list[str]
     object_store_uris: list[str]
+    text_extract_paths: list[str]
+    text_sha256: list[str]
     generation_ready: bool
     outstanding_tasks: list[str]
 
@@ -88,11 +91,19 @@ def _outstanding_tasks(scope: Any, documents: list[Any | None], *, ready: bool) 
     return tasks
 
 
+def _load_text_extract_records() -> dict[str, dict[str, Any]]:
+    if not TEXT_EXTRACT_MANIFEST_PATH.exists():
+        return {}
+    payload = json.loads(TEXT_EXTRACT_MANIFEST_PATH.read_text(encoding="utf-8"))
+    return {record["document_id"]: record for record in payload.get("records", [])}
+
+
 def build_worklist() -> dict[str, Any]:
     registry = ContentScopeRegistry()
     manifest = load_manifest()
     validation = validate_source_manifest(registry=registry)
     documents_by_id = {document.document_id: document for document in manifest.documents}
+    text_extracts_by_id = _load_text_extract_records()
     items: list[TopicMapWorkItem] = []
     task_counter: Counter[str] = Counter()
 
@@ -101,6 +112,11 @@ def build_worklist() -> dict[str, Any]:
         documents = [documents_by_id.get(document_id) for document_id in scope.source_documents]
         tasks = _outstanding_tasks(scope, documents, ready=ready)
         task_counter.update(tasks)
+        text_extracts = [
+            text_extracts_by_id.get(document.document_id)
+            for document in documents
+            if document is not None
+        ]
         items.append(
             TopicMapWorkItem(
                 scope_id=scope.scope_id,
@@ -117,6 +133,8 @@ def build_worklist() -> dict[str, Any]:
                 source_sha256=[_document_hash(document) for document in documents if document is not None and _document_hash(document)],
                 canonical_source_urls=[document.canonical_source_url for document in documents if document is not None and document.canonical_source_url],
                 object_store_uris=[document.object_store_uri for document in documents if document is not None and document.object_store_uri],
+                text_extract_paths=[record["text_extract_path"] for record in text_extracts if record and record.get("text_extract_path")],
+                text_sha256=[record["text_sha256"] for record in text_extracts if record and record.get("text_sha256")],
                 generation_ready=ready,
                 outstanding_tasks=tasks,
             )

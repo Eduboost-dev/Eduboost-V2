@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": "1.0.0-draft",
     "status": "draft_unreviewed",
-    "generated_at": "2026-06-02T20:19:49Z",
+    "generated_at": "2026-06-02T20:27:37Z",
     "scope_id": "grade6_natural_sciences_and_technology_en",
     "scope": "Grade 6 Natural Sciences and Technology",
     "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade6_natural_sciences_and_technology_en.json",
@@ -19,6 +19,12 @@
       "https://www.education.gov.za/LinkClick.aspx?fileticket=IzbFrpzoQ44%3d&tabid=572&portalid=0&mid=1568&forcedownload=true"
     ],
     "object_store_uris": [],
+    "text_extract_paths": [
+      "data/caps/source_documents/text/caps_intermediate_natural_sciences_and_technology_en.txt"
+    ],
+    "text_sha256": [
+      "234d9969bfda8e948f2908c9cfc880072755759382b4eb60419ca5391d2958e1"
+    ],
     "outstanding_tasks": [
       "upload_source_pdf_to_object_store",
       "extract_topic_map",

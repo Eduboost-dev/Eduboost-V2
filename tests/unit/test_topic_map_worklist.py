@@ -29,6 +29,8 @@ def test_topic_map_worklist_preserves_source_hashes_for_scope() -> None:
 
     assert grade7_math["source_document_ids"] == ["caps_senior_mathematics_en"]
     assert grade7_math["source_sha256"] == ["64dcd19ee1d67109ff4172d9b098259954a2e77a55aeae0d11ee7ec033b0d8f8"]
+    assert grade7_math["text_sha256"] == ["881f88f60186856703767333a0c3f2331b8aeebb52dd11fcf46c2f25c90d3c33"]
+    assert grade7_math["text_extract_paths"] == ["data/caps/source_documents/text/caps_senior_mathematics_en.txt"]
     assert "extract_topic_map" in grade7_math["outstanding_tasks"]
 
 
@@ -52,10 +54,13 @@ def test_build_draft_marks_envelope_unreviewed() -> None:
             "source_sha256": ["abc123"],
             "canonical_source_urls": ["https://example.test/source.pdf"],
             "object_store_uris": [],
+            "text_extract_paths": ["data/caps/source_documents/text/caps_senior_mathematics_en.txt"],
+            "text_sha256": ["abc123-text"],
             "outstanding_tasks": ["extract_topic_map", "approve_topic_map"],
         }
     )
 
     assert draft["_meta"]["status"] == "draft_unreviewed"
     assert draft["_meta"]["review_required"] is True
+    assert draft["_meta"]["text_sha256"] == ["abc123-text"]
     assert draft["terms"] == []

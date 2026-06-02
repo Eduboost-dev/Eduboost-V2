@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": "1.0.0-draft",
     "status": "draft_unreviewed",
-    "generated_at": "2026-06-02T20:19:49Z",
+    "generated_at": "2026-06-02T20:27:37Z",
     "scope_id": "grade7_natural_sciences_en",
     "scope": "Grade 7 Natural Sciences",
     "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade7_natural_sciences_en.json",
@@ -19,6 +19,12 @@
       "https://www.education.gov.za/LinkClick.aspx?fileticket=zhaFloMyZTs%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
     ],
     "object_store_uris": [],
+    "text_extract_paths": [
+      "data/caps/source_documents/text/caps_senior_natural_sciences_en.txt"
+    ],
+    "text_sha256": [
+      "b7c9ea0bfbb4760ae612dd5a16b8848dd579a7ff28f64d5dc5b50cc2a2a2d455"
+    ],
     "outstanding_tasks": [
       "upload_source_pdf_to_object_store",
       "extract_topic_map",

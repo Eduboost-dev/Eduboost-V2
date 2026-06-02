@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": "1.0.0-draft",
     "status": "draft_unreviewed",
-    "generated_at": "2026-06-02T20:19:49Z",
+    "generated_at": "2026-06-02T20:27:37Z",
     "scope_id": "grade7_life_orientation_en",
     "scope": "Grade 7 Life Orientation",
     "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade7_life_orientation_en.json",
@@ -19,6 +19,12 @@
       "https://www.education.gov.za/LinkClick.aspx?fileticket=ANFLxkl-Hgk%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
     ],
     "object_store_uris": [],
+    "text_extract_paths": [
+      "data/caps/source_documents/text/caps_senior_life_orientation_en.txt"
+    ],
+    "text_sha256": [
+      "f47c2ff9f780eefb3a43486bbf0a6b6ab15b146a090c05591002eef78d1b4d7f"
+    ],
     "outstanding_tasks": [
       "upload_source_pdf_to_object_store",
       "extract_topic_map",
