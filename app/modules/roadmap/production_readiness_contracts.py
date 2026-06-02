@@ -9,20 +9,20 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
-from enum import StrEnum
+from enum import Enum
 import hashlib
 import re
 from typing import Mapping
 
 
-class RoadmapHorizon(StrEnum):
+class RoadmapHorizon(str, Enum):
     NOW = "now"
     NEXT = "next"
     LATER = "later"
     PARKED = "parked"
 
 
-class RoadmapCategory(StrEnum):
+class RoadmapCategory(str, Enum):
     PRODUCT = "product"
     ENGINEERING = "engineering"
     SECURITY = "security"
@@ -35,7 +35,7 @@ class RoadmapCategory(StrEnum):
     RESEARCH = "research"
 
 
-class RoadmapStatus(StrEnum):
+class RoadmapStatus(str, Enum):
     PROPOSED = "proposed"
     ACCEPTED = "accepted"
     IN_PROGRESS = "in_progress"
@@ -44,14 +44,14 @@ class RoadmapStatus(StrEnum):
     DONE = "done"
 
 
-class BaselineBoundary(StrEnum):
+class BaselineBoundary(str, Enum):
     INCLUDED = "included"
     DEFERRED = "deferred"
     EXCLUDED = "excluded"
     EXTERNAL_MANUAL = "external_manual"
 
 
-class DependencyType(StrEnum):
+class DependencyType(str, Enum):
     TECHNICAL = "technical"
     PRODUCT = "product"
     LEGAL = "legal"
@@ -60,7 +60,7 @@ class DependencyType(StrEnum):
     COMMERCIAL = "commercial"
 
 
-class PriorityLevel(StrEnum):
+class PriorityLevel(str, Enum):
     P0 = "p0"
     P1 = "p1"
     P2 = "p2"

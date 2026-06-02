@@ -4,13 +4,16 @@ import pytest
 pytestmark = pytest.mark.integration
 
 
+from datetime import datetime, timedelta, timezone
 from types import SimpleNamespace
 
 from fastapi.testclient import TestClient
 
 from app.api_v2 import app
+from app.api_v2_deps.auth import AuthContext, TokenType, require_auth_context
+from app.api_v2_routers import lessons as lessons_router
 from app.core.database import get_db
-from app.core.security import get_current_user
+from app.models import UserRole
 
 
 def test_lesson_sync_processes_completion_and_feedback(monkeypatch):
@@ -32,7 +35,16 @@ def test_lesson_sync_processes_completion_and_feedback(monkeypatch):
         yield FakeDB()
 
     def override_user():
-        return {"sub": "guardian-1", "role": "parent"}
+        now = datetime.now(timezone.utc)
+        return AuthContext(
+            user_id="guardian-1",
+            roles=[UserRole.PARENT],
+            token_type=TokenType.ACCESS,
+            raw_claims={"sub": "guardian-1", "role": "parent"},
+            issued_at=now,
+            expires_at=now + timedelta(minutes=15),
+            jti="lesson-sync-jti",
+        )
 
     class FakeLessonService:
         def __init__(self, _db):
@@ -48,7 +60,12 @@ def test_lesson_sync_processes_completion_and_feedback(monkeypatch):
         return FakeLessonService(None)
 
     app.dependency_overrides[get_db] = override_db
-    app.dependency_overrides[get_current_user] = override_user
+    app.dependency_overrides[require_auth_context] = override_user
+    monkeypatch.setattr(
+        lessons_router,
+        "require_lesson_write_access_for_current_user",
+        AsyncMock(return_value=None),
+    )
     from app.api_v2_routers.lessons import get_lesson_service
     app.dependency_overrides[get_lesson_service] = override_lesson_service
 
@@ -71,4 +88,3 @@ def test_lesson_sync_processes_completion_and_feedback(monkeypatch):
     assert payload["processed"] == 2
     assert ("feedback", "lesson-1", 5) in calls
     assert any(call[0] == "complete" for call in calls)
-

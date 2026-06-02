@@ -100,7 +100,7 @@ async def expire_stale_diagnostic_sessions(ctx: dict[str, Any]) -> dict[str, Any
         Exception: Re-raised after incrementing the failure counter.
     """
     import time
-    from datetime import UTC, timedelta
+    from datetime import timezone.utc, timedelta
 
     start = time.perf_counter()
     job_name = "expire_diagnostic_sessions"
@@ -108,7 +108,7 @@ async def expire_stale_diagnostic_sessions(ctx: dict[str, Any]) -> dict[str, Any
         from sqlalchemy import update
         from app.models import DiagnosticSession
 
-        cutoff = datetime.now(UTC) - timedelta(hours=24)
+        cutoff = datetime.now(timezone.utc) - timedelta(hours=24)
         async with durable_job_session() as db:
             result = await db.execute(
                 update(DiagnosticSession)
@@ -134,7 +134,7 @@ async def expire_stale_diagnostic_sessions(ctx: dict[str, Any]) -> dict[str, Any
 async def run_database_backup(ctx: dict[str, Any]) -> dict[str, Any]:
     """Execute automated encrypted PostgreSQL backup.
 
-    Cron schedule: daily at 00:00 UTC (02:00 SAST).  Invokes
+    Cron schedule: daily at 00:00 timezone.utc (02:00 SAST).  Invokes
     ``scripts/backup_postgres.sh`` with configuration from
     :class:`~app.core.config.Settings`.
 
@@ -283,9 +283,9 @@ class WorkerSettings:
     ]
 
     cron_jobs = [
-        # Daily at 00:00 UTC (02:00 SAST)
+        # Daily at 00:00 timezone.utc (02:00 SAST)
         cron(run_database_backup, hour=0, minute=0),
-        # Daily at 06:00 UTC (08:00 SAST)
+        # Daily at 06:00 timezone.utc (08:00 SAST)
         cron(send_consent_renewal_reminders, hour=6, minute=0),
         # Hourly
         cron(expire_stale_diagnostic_sessions, minute=0),

@@ -9,13 +9,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from enum import StrEnum
+from enum import Enum
 import hashlib
 import re
 from typing import Mapping
 
 
-class BackupScope(StrEnum):
+class BackupScope(str, Enum):
     DATABASE = "database"
     OBJECT_STORAGE = "object_storage"
     CONFIGURATION = "configuration"
@@ -24,28 +24,28 @@ class BackupScope(StrEnum):
     TELEMETRY_EXPORTS = "telemetry_exports"
 
 
-class BackupFrequency(StrEnum):
+class BackupFrequency(str, Enum):
     HOURLY = "hourly"
     DAILY = "daily"
     WEEKLY = "weekly"
     MONTHLY = "monthly"
 
 
-class RestoreEnvironment(StrEnum):
+class RestoreEnvironment(str, Enum):
     LOCAL = "local"
     TEST = "test"
     STAGING = "staging"
     DISASTER_RECOVERY = "disaster_recovery"
 
 
-class RecoveryTier(StrEnum):
+class RecoveryTier(str, Enum):
     CRITICAL = "critical"
     IMPORTANT = "important"
     STANDARD = "standard"
     ARCHIVE = "archive"
 
 
-class DrillOutcome(StrEnum):
+class DrillOutcome(str, Enum):
     PASS = "pass"
     FAIL = "fail"
     PARTIAL = "partial"

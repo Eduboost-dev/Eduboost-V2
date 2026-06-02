@@ -3,23 +3,46 @@ import pytest
 pytestmark = pytest.mark.integration
 
 
+from datetime import datetime, timedelta, timezone
 from unittest.mock import AsyncMock, patch
 
 from fastapi.testclient import TestClient
 
 from app.api_v2 import app
+from app.api_v2_deps.auth import AuthContext, TokenType
+from app.api_v2_routers import lessons as lessons_router
 from app.core.security import get_current_user, require_admin, require_parent_or_admin
 from app.core.jobs import create_job, run_job
+from app.models import UserRole
 
 
 def _override_user():
     return {"sub": "00000000-0000-0000-0000-000000000002", "role": "admin", "jti": "test-jti"}
 
 
+def _override_lesson_auth():
+    now = datetime.now(timezone.utc)
+    return AuthContext(
+        user_id="00000000-0000-0000-0000-000000000002",
+        roles=[UserRole.ADMIN],
+        token_type=TokenType.ACCESS,
+        raw_claims={
+            "sub": "00000000-0000-0000-0000-000000000002",
+            "role": "admin",
+            "jti": "test-jti",
+            "type": "access",
+        },
+        issued_at=now,
+        expires_at=now + timedelta(minutes=15),
+        jti="test-jti",
+    )
+
+
 def _client() -> TestClient:
     app.dependency_overrides[get_current_user] = _override_user
     app.dependency_overrides[require_parent_or_admin] = _override_user
     app.dependency_overrides[require_admin] = _override_user
+    app.dependency_overrides[lessons_router.require_auth_context] = _override_lesson_auth
     return TestClient(app)
 
 

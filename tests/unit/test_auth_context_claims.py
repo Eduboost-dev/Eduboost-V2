@@ -15,7 +15,7 @@ Tests cover:
 from __future__ import annotations
 
 import pytest
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from fastapi import HTTPException
 
 from app.api_v2_deps.auth import (
@@ -67,7 +67,7 @@ class TestClaimsToAuthContext:
     
     def test_valid_parent_token(self):
         """Parse valid parent token claims."""
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         claims = {
             "sub": "user-123",
             "role": "parent",
@@ -91,7 +91,7 @@ class TestClaimsToAuthContext:
     
     def test_valid_admin_token(self):
         """Parse valid admin token claims."""
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         claims = {
             "sub": "admin-123",
             "role": "admin",
@@ -110,7 +110,7 @@ class TestClaimsToAuthContext:
     
     def test_valid_student_token(self):
         """Parse valid student token claims."""
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         claims = {
             "sub": "student-123",
             "role": "student",
@@ -130,7 +130,7 @@ class TestClaimsToAuthContext:
     
     def test_missing_sub_raises(self):
         """Missing sub claim raises HTTPException."""
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         claims = {
             "role": "parent",
             "type": "access",
@@ -146,7 +146,7 @@ class TestClaimsToAuthContext:
     
     def test_invalid_token_type_raises(self):
         """Invalid token type raises HTTPException."""
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         claims = {
             "sub": "user-123",
             "role": "parent",
@@ -163,7 +163,7 @@ class TestClaimsToAuthContext:
     
     def test_datetime_parsing_timestamps(self):
         """Parse integer timestamps correctly."""
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         claims = {
             "sub": "user-123",
             "role": "parent",
@@ -177,12 +177,12 @@ class TestClaimsToAuthContext:
         
         assert isinstance(ctx.issued_at, datetime)
         assert isinstance(ctx.expires_at, datetime)
-        assert ctx.issued_at.tzinfo == UTC
-        assert ctx.expires_at.tzinfo == UTC
+        assert ctx.issued_at.tzinfo == timezone.utc
+        assert ctx.expires_at.tzinfo == timezone.utc
     
     def test_datetime_parsing_datetime_objects(self):
         """Parse datetime objects correctly."""
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         claims = {
             "sub": "user-123",
             "role": "parent",
@@ -199,7 +199,7 @@ class TestClaimsToAuthContext:
     
     def test_issuer_and_audience_preserved(self):
         """Issuer and audience claims are preserved."""
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         claims = {
             "sub": "user-123",
             "role": "parent",
@@ -218,7 +218,7 @@ class TestClaimsToAuthContext:
     
     def test_raw_claims_preserved(self):
         """Raw claims are preserved in context."""
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         claims = {
             "sub": "user-123",
             "role": "parent",
@@ -299,7 +299,7 @@ class TestAuthContextProperties:
     
     def test_is_expired_true(self):
         """Expired token returns True for is_expired."""
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         claims = {
             "sub": "user-123",
             "role": "parent",
@@ -314,7 +314,7 @@ class TestAuthContextProperties:
     
     def test_is_expired_false(self):
         """Valid token returns False for is_expired."""
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         claims = {
             "sub": "user-123",
             "role": "parent",
@@ -329,7 +329,7 @@ class TestAuthContextProperties:
     
     def test_subject_property(self):
         """Subject property returns user_id."""
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         claims = {
             "sub": "user-123",
             "role": "parent",
@@ -344,7 +344,7 @@ class TestAuthContextProperties:
     
     def test_multi_role_user(self):
         """User with multiple roles."""
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         claims = {
             "sub": "user-123",
             "role": ["parent", "teacher"],

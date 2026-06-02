@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from enum import StrEnum
+from enum import Enum
 import hashlib
 import hmac
 import json
@@ -18,7 +18,7 @@ import re
 from typing import Any, Mapping
 
 
-class BillingProvider(StrEnum):
+class BillingProvider(str, Enum):
     """Supported billing-provider decision values."""
 
     STRIPE = "stripe"
@@ -27,7 +27,7 @@ class BillingProvider(StrEnum):
     MANUAL_SPONSORSHIP = "manual_sponsorship"
 
 
-class SubscriptionState(StrEnum):
+class SubscriptionState(str, Enum):
     """Canonical subscription lifecycle states."""
 
     TRIAL = "trial"
@@ -38,7 +38,7 @@ class SubscriptionState(StrEnum):
     EXPIRED = "expired"
 
 
-class BillingPlan(StrEnum):
+class BillingPlan(str, Enum):
     """Canonical product-plan categories."""
 
     FREE = "free"

@@ -6,8 +6,8 @@ HTTP objects, LLM clients, or any infrastructure code.
 from __future__ import annotations
 
 import uuid
-from datetime import UTC, datetime, timedelta
-from enum import StrEnum
+from datetime import datetime, timedelta, timezone
+from enum import Enum
 
 import sqlalchemy as sa
 from sqlalchemy import (
@@ -34,7 +34,7 @@ def _uuid() -> str:
 
 
 def _now() -> datetime:
-    return datetime.now(UTC)
+    return datetime.now(timezone.utc)
 
 
 def _enum_values(enum_cls):
@@ -44,19 +44,19 @@ def _enum_values(enum_cls):
 # ── Enums ─────────────────────────────────────────────────────────────────────
 
 
-class UserRole(StrEnum):
+class UserRole(str, Enum):
     STUDENT = "student"
     PARENT = "parent"
     TEACHER = "teacher"
     ADMIN = "admin"
 
 
-class SubscriptionTier(StrEnum):
+class SubscriptionTier(str, Enum):
     FREE = "free"
     PREMIUM = "premium"
 
 
-class ArchetypeLabel(StrEnum):
+class ArchetypeLabel(str, Enum):
     KETER = "Keter"
     CHOKMAH = "Chokmah"
     BINAH = "Binah"
@@ -69,14 +69,14 @@ class ArchetypeLabel(StrEnum):
     MALKUTH = "Malkuth"
 
 
-class Language(StrEnum):
+class Language(str, Enum):
     ENGLISH = "en"
     ISIZULU = "zu"
     AFRIKAANS = "af"
     ISIXHOSA = "xh"
 
 
-class ConsentState(StrEnum):
+class ConsentState(str, Enum):
     PENDING = "pending"
     GRANTED = "granted"
     DENIED = "denied"
@@ -85,7 +85,7 @@ class ConsentState(StrEnum):
     RENEWAL_REQUIRED = "renewal_required"
 
 
-class ItemReviewStatus(StrEnum):
+class ItemReviewStatus(str, Enum):
     DRAFT = "draft"
     AI_GENERATED = "ai_generated"
     HUMAN_REVIEWED = "human_reviewed"

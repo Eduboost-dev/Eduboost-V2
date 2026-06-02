@@ -19,7 +19,7 @@ def test_generate_lesson_route_uses_write_authorization_before_enqueue() -> None
         maxsplit=1,
     )[0]
 
-    assert "current_user: dict = Depends(get_current_user)" in block
-    assert "require_learner_write_for_current_user(current_user, str(body.learner_id))" in block
-    assert "user_id = UUID(str(current_user[\"sub\"]))" in block
-    assert "Depends(get_current_user_id)" not in block
+    assert "auth: AuthContext = Depends(require_auth_context)" in block
+    assert "require_learner_write_for_current_user(auth, str(body.learner_id))" in block
+    assert "user_id = UUID(str(auth.user_id))" in block
+    assert "Depends(get_current_user)" not in block

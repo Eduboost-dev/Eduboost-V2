@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import hmac
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import Any
 
 from fastapi import HTTPException, status
@@ -44,7 +44,7 @@ def _family_revoked_key(family_id: str) -> str:
 def _ttl_from_payload(payload: dict[str, Any]) -> int:
     exp = payload.get("exp")
     if isinstance(exp, (int, float)):
-        return max(int(exp - datetime.now(UTC).timestamp()), 1)
+        return max(int(exp - datetime.now(timezone.utc).timestamp()), 1)
     return REFRESH_TOKEN_EXPIRE_DAYS * 24 * 3600
 
 

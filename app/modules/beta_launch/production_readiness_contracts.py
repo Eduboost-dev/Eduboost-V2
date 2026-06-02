@@ -9,13 +9,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
-from enum import StrEnum
+from enum import Enum
 import hashlib
 import re
 from typing import Mapping
 
 
-class BetaStage(StrEnum):
+class BetaStage(str, Enum):
     INTERNAL_ALPHA = "internal_alpha"
     PRIVATE_BETA = "private_beta"
     CONTROLLED_BETA = "controlled_beta"
@@ -23,14 +23,14 @@ class BetaStage(StrEnum):
     GENERAL_AVAILABILITY = "general_availability"
 
 
-class LaunchDecision(StrEnum):
+class LaunchDecision(str, Enum):
     GO = "go"
     NO_GO = "no_go"
     CONDITIONAL_GO = "conditional_go"
     DEFER = "defer"
 
 
-class ProductScopeArea(StrEnum):
+class ProductScopeArea(str, Enum):
     LEARNER_ONBOARDING = "learner_onboarding"
     DIAGNOSTICS = "diagnostics"
     LESSON_GENERATION = "lesson_generation"
@@ -42,14 +42,14 @@ class ProductScopeArea(StrEnum):
     SUPPORT = "support"
 
 
-class AcceptanceStatus(StrEnum):
+class AcceptanceStatus(str, Enum):
     PASS = "pass"
     FAIL = "fail"
     BLOCKED = "blocked"
     WAIVED = "waived"
 
 
-class FeedbackSeverity(StrEnum):
+class FeedbackSeverity(str, Enum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"

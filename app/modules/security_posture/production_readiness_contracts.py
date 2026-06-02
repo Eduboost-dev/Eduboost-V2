@@ -8,13 +8,13 @@ security testing, incident response, and risk acceptance.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
+from enum import Enum
 import hashlib
 import re
 from typing import Mapping
 
 
-class SecurityDomain(StrEnum):
+class SecurityDomain(str, Enum):
     AUTHENTICATION = "authentication"
     AUTHORIZATION = "authorization"
     API = "api"
@@ -27,7 +27,7 @@ class SecurityDomain(StrEnum):
     PRIVACY = "privacy"
 
 
-class ThreatCategory(StrEnum):
+class ThreatCategory(str, Enum):
     SPOOFING = "spoofing"
     TAMPERING = "tampering"
     REPUDIATION = "repudiation"
@@ -39,7 +39,7 @@ class ThreatCategory(StrEnum):
     SUPPLY_CHAIN_COMPROMISE = "supply_chain_compromise"
 
 
-class ControlStatus(StrEnum):
+class ControlStatus(str, Enum):
     REQUIRED = "required"
     IMPLEMENTED = "implemented"
     VERIFIED = "verified"
@@ -47,14 +47,14 @@ class ControlStatus(StrEnum):
     NOT_APPLICABLE = "not_applicable"
 
 
-class VulnerabilitySeverity(StrEnum):
+class VulnerabilitySeverity(str, Enum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
     CRITICAL = "critical"
 
 
-class SecurityTestType(StrEnum):
+class SecurityTestType(str, Enum):
     SAST = "sast"
     DEPENDENCY_SCAN = "dependency_scan"
     SECRET_SCAN = "secret_scan"
@@ -65,7 +65,7 @@ class SecurityTestType(StrEnum):
     THREAT_MODEL_REVIEW = "threat_model_review"
 
 
-class IncidentSeverity(StrEnum):
+class IncidentSeverity(str, Enum):
     SEV4 = "sev4"
     SEV3 = "sev3"
     SEV2 = "sev2"

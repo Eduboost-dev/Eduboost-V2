@@ -6,11 +6,11 @@ services do not each implement their own inconsistent authorization rules.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
+from enum import Enum
 from typing import Iterable, Protocol
 
 
-class Role(StrEnum):
+class Role(str, Enum):
     """Known EduBoost actor roles."""
 
     ADMIN = "admin"
@@ -21,7 +21,7 @@ class Role(StrEnum):
     SYSTEM = "system"
 
 
-class Permission(StrEnum):
+class Permission(str, Enum):
     """Canonical object-level permissions."""
 
     READ = "read"
@@ -30,7 +30,7 @@ class Permission(StrEnum):
     ADMIN = "admin"
 
 
-class OwnershipScope(StrEnum):
+class OwnershipScope(str, Enum):
     """Reason an actor is authorized for an object."""
 
     ADMIN = "admin"

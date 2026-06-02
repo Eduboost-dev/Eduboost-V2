@@ -6,11 +6,11 @@ Normalizes JWT claims into a typed structure with convenience methods.
 """
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError
@@ -38,13 +38,13 @@ class AuthContext(BaseModel):
     user_id: str
     guardian_id: str | None = None
     learner_id: str | None = None
-    roles: list[UserRole] = []
+    roles: list[UserRole] = Field(default_factory=list)
     token_type: TokenType
     raw_claims: dict[str, Any]
     
     # Timestamps from token
-    issued_at: datetime
-    expires_at: datetime
+    issued_at: datetime | None = None
+    expires_at: datetime | None = None
     jti: str  # JWT ID for revocation
     
     # Issuer and audience (for environment validation)
@@ -52,7 +52,7 @@ class AuthContext(BaseModel):
     audience: str | None = None
     
     class Config:
-        use_enum_values = True
+        use_enum_values = False
     
     @property
     def is_admin(self) -> bool:
@@ -77,7 +77,7 @@ class AuthContext(BaseModel):
     @property
     def is_expired(self) -> bool:
         """Check if token is expired."""
-        return datetime.now(UTC) > self.expires_at
+        return self.expires_at is not None and datetime.now(timezone.utc) > self.expires_at
     
     @property
     def subject(self) -> str:
@@ -172,19 +172,19 @@ def _claims_to_auth_context(claims: dict[str, Any]) -> AuthContext:
     # Parse timestamps
     issued_at = claims.get("iat")
     if isinstance(issued_at, (int, float)):
-        issued_at = datetime.fromtimestamp(issued_at, tz=UTC)
+        issued_at = datetime.fromtimestamp(issued_at, tz=timezone.utc)
     elif isinstance(issued_at, datetime):
         issued_at = issued_at
     else:
-        issued_at = datetime.now(UTC)
+        issued_at = datetime.now(timezone.utc)
     
     expires_at = claims.get("exp")
     if isinstance(expires_at, (int, float)):
-        expires_at = datetime.fromtimestamp(expires_at, tz=UTC)
+        expires_at = datetime.fromtimestamp(expires_at, tz=timezone.utc)
     elif isinstance(expires_at, datetime):
         expires_at = expires_at
     else:
-        expires_at = datetime.now(UTC)
+        expires_at = datetime.now(timezone.utc)
     
     # Extract JTI
     jti = claims.get("jti", "")
@@ -279,6 +279,13 @@ async def get_auth_context(
     return _claims_to_auth_context(claims)
 
 
+async def require_auth_context(
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer),
+) -> AuthContext:
+    """Canonical dependency alias for routes that require authenticated context."""
+    return await get_auth_context(credentials)
+
+
 async def get_auth_context_optional(
     credentials: HTTPAuthorizationCredentials | None = Depends(_bearer),
 ) -> AuthContext | None:
@@ -344,6 +351,7 @@ __all__ = [
     "get_auth_context",
     "get_auth_context_optional",
     "get_current_user_compat",
+    "require_auth_context",
     "require_roles",
     "require_admin",
     "require_parent_or_admin",

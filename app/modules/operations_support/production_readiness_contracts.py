@@ -9,20 +9,20 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from enum import StrEnum
+from enum import Enum
 import hashlib
 import re
 from typing import Mapping
 
 
-class IncidentSeverity(StrEnum):
+class IncidentSeverity(str, Enum):
     SEV1 = "sev1"
     SEV2 = "sev2"
     SEV3 = "sev3"
     SEV4 = "sev4"
 
 
-class IncidentStatus(StrEnum):
+class IncidentStatus(str, Enum):
     DETECTED = "detected"
     TRIAGED = "triaged"
     MITIGATING = "mitigating"
@@ -30,7 +30,7 @@ class IncidentStatus(StrEnum):
     REVIEWED = "reviewed"
 
 
-class OperationalRole(StrEnum):
+class OperationalRole(str, Enum):
     INCIDENT_COMMANDER = "incident_commander"
     TECHNICAL_LEAD = "technical_lead"
     COMMUNICATIONS_LEAD = "communications_lead"
@@ -39,14 +39,14 @@ class OperationalRole(StrEnum):
     RELEASE_OWNER = "release_owner"
 
 
-class SupportPriority(StrEnum):
+class SupportPriority(str, Enum):
     P0 = "p0"
     P1 = "p1"
     P2 = "p2"
     P3 = "p3"
 
 
-class SupportChannel(StrEnum):
+class SupportChannel(str, Enum):
     EMAIL = "email"
     IN_APP = "in_app"
     STATUS_PAGE = "status_page"
@@ -54,7 +54,7 @@ class SupportChannel(StrEnum):
     INTERNAL_CHAT = "internal_chat"
 
 
-class CustomerImpact(StrEnum):
+class CustomerImpact(str, Enum):
     NONE = "none"
     MINOR = "minor"
     MODERATE = "moderate"
