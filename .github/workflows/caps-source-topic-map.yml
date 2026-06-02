@@ -74,6 +74,9 @@ jobs:
       - name: Build topic-map worklist
         run: python scripts/curriculum/build_topic_map_worklist.py --json > /tmp/topic_map_worklist.json
 
+      - name: Validate topic-map drafts and runtime maps
+        run: python scripts/curriculum/validate_topic_maps.py
+
       - name: Run focused CAPS metadata tests
         run: |
           pytest -q --no-cov \
@@ -83,6 +86,7 @@ jobs:
             tests/unit/test_upload_caps_sources_to_azure.py \
             tests/unit/test_extract_caps_source_text.py \
             tests/unit/test_topic_map_worklist.py \
+            tests/unit/test_validate_topic_maps.py \
             tests/unit/test_study_material_expansion_foundation.py \
             tests/unit/test_content_scope_registry.py \
             tests/unit/test_content_coverage_service.py
