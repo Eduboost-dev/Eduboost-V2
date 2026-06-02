@@ -100,7 +100,7 @@ async def expire_stale_diagnostic_sessions(ctx: dict[str, Any]) -> dict[str, Any
         Exception: Re-raised after incrementing the failure counter.
     """
     import time
-    from datetime import timezone.utc, timedelta
+    from datetime import timezone, timedelta
 
     start = time.perf_counter()
     job_name = "expire_diagnostic_sessions"

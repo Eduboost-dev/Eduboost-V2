@@ -16,7 +16,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError
 
 from app.core.config import settings
-from app.core.security import decode_token
+from app.core.security import decode_token, get_current_user as get_current_user_payload
 from app.core.token_revocation import is_token_revoked, is_user_revoked
 from app.models import UserRole
 
@@ -280,10 +280,15 @@ async def get_auth_context(
 
 
 async def require_auth_context(
-    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer),
+    current_user: dict[str, Any] = Depends(get_current_user_payload),
 ) -> AuthContext:
-    """Canonical dependency alias for routes that require authenticated context."""
-    return await get_auth_context(credentials)
+    """Canonical dependency alias for routes that require authenticated context.
+
+    This intentionally builds on the legacy dict payload dependency so router
+    tests that override `get_current_user` keep working during the migration.
+    """
+    _validate_issuer_and_audience(current_user)
+    return _claims_to_auth_context(current_user)
 
 
 async def get_auth_context_optional(

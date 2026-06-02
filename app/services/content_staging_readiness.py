@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import uuid
 from collections import defaultdict
-from datetime import datetime, timezone.utc
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 

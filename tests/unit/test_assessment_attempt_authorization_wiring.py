@@ -17,7 +17,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 def test_assessment_attempt_uses_phase2_write_authorization() -> None:
     source = (REPO_ROOT / "app" / "api_v2_routers" / "assessments.py").read_text(encoding="utf-8")
     block = source.split("async def submit_attempt", maxsplit=1)[1]
-    assert "current_user: dict = Depends(get_current_user)" in block
+    assert "current_user: AuthContext = Depends(require_auth_context)" in block
     assert "require_learner_write_for_current_user(current_user, request.learner_id)" in block
     assert block.index("require_learner_write_for_current_user") < block.index("return await AssessmentServiceV2()")
 

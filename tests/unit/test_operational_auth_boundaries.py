@@ -23,7 +23,7 @@ def test_operational_auth_boundary_matrix_statuses() -> None:
     assert consent.status == "covered"
     assert consent.authz_marker == "require_admin"
     assert ether.status == "covered"
-    assert ether.authz_marker == "get_current_user"
+    assert ether.authz_marker == "require_auth_context"
     assert dev_session.status == "missing"
     assert ("auth.py", "POST", "/dev-session") in ALLOWLIST
 
@@ -37,4 +37,4 @@ def test_operational_auth_boundary_source_contracts() -> None:
     assert "settings.is_production()" in auth
     assert "status.HTTP_404_NOT_FOUND" in auth
     assert "Depends(require_admin)" in consent
-    assert "async def get_questions(user: dict = Depends(get_current_user))" in ether
+    assert "async def get_questions(user: AuthContext = Depends(require_auth_context))" in ether

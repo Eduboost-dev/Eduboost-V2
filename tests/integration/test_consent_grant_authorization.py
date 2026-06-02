@@ -5,7 +5,7 @@ pytestmark = pytest.mark.integration
 
 """HTTP contract tests for consent-grant authorization."""
 
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from types import SimpleNamespace
 from typing import Any
 from uuid import UUID
@@ -39,8 +39,8 @@ class FakeConsentService:
         return SimpleNamespace(
             id=UUID("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
             learner_id=UUID(learner_id),
-            granted_at=datetime(2026, 1, 1, tzinfo=UTC),
-            expires_at=datetime(2026, 12, 31, tzinfo=UTC),
+            granted_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
+            expires_at=datetime(2026, 12, 31, tzinfo=timezone.utc),
         )
 
 

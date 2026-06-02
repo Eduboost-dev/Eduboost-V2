@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime, timedelta, timezone
-from enum import Enum
+from enum import Enum as PyEnum
 
 import sqlalchemy as sa
 from sqlalchemy import (
@@ -44,19 +44,19 @@ def _enum_values(enum_cls):
 # ── Enums ─────────────────────────────────────────────────────────────────────
 
 
-class UserRole(str, Enum):
+class UserRole(str, PyEnum):
     STUDENT = "student"
     PARENT = "parent"
     TEACHER = "teacher"
     ADMIN = "admin"
 
 
-class SubscriptionTier(str, Enum):
+class SubscriptionTier(str, PyEnum):
     FREE = "free"
     PREMIUM = "premium"
 
 
-class ArchetypeLabel(str, Enum):
+class ArchetypeLabel(str, PyEnum):
     KETER = "Keter"
     CHOKMAH = "Chokmah"
     BINAH = "Binah"
@@ -69,14 +69,14 @@ class ArchetypeLabel(str, Enum):
     MALKUTH = "Malkuth"
 
 
-class Language(str, Enum):
+class Language(str, PyEnum):
     ENGLISH = "en"
     ISIZULU = "zu"
     AFRIKAANS = "af"
     ISIXHOSA = "xh"
 
 
-class ConsentState(str, Enum):
+class ConsentState(str, PyEnum):
     PENDING = "pending"
     GRANTED = "granted"
     DENIED = "denied"
@@ -85,7 +85,7 @@ class ConsentState(str, Enum):
     RENEWAL_REQUIRED = "renewal_required"
 
 
-class ItemReviewStatus(str, Enum):
+class ItemReviewStatus(str, PyEnum):
     DRAFT = "draft"
     AI_GENERATED = "ai_generated"
     HUMAN_REVIEWED = "human_reviewed"

@@ -16,7 +16,7 @@ def test_onboarding_questions_requires_authenticated_user_dependency() -> None:
     source = (REPO_ROOT / "app" / "api_v2_routers" / "onboarding.py").read_text(encoding="utf-8")
     block = source.split("async def get_onboarding_questions", maxsplit=1)[1].split("@router.post", maxsplit=1)[0]
 
-    assert "current_user: dict = Depends(get_current_user)" in block
+    assert "current_user: AuthContext = Depends(require_auth_context)" in block
 
 
 class FakeEther:
