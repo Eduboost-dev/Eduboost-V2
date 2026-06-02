@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "documents": [
+    {
+      "document_id": "caps_intermediate_phase_mathematics_grade4_6",
+      "title": "CAPS Intermediate Phase Mathematics Grades 4-6",
+      "publisher": "Department of Basic Education, South Africa",
+      "curriculum": "CAPS",
+      "phase": "intermediate",
+      "grades": [
+        4,
+        5,
+        6
+      ],
+      "subjects": [
+        "Mathematics"
+      ],
+      "languages": [
+        "en"
+      ],
+      "status": "source_loaded",
+      "source_path": "data/caps/caps_topic_map_grade4_maths.json",
+      "source_hash": null,
+      "retrieved_at": null,
+      "reviewed_at": null,
+      "reviewer_id": null,
+      "notes": "Existing repository launch topic map source. Other planned scopes must add approved source documents before generation."
+    }
+  ],
+  "planned_source_requirements": {
+    "status": "planned scopes are not learner-visible and must not generate artifacts until a source document record is source_loaded or approved.",
+    "required_fields_before_generation": [
+      "document_id",
+      "title",
+      "publisher",
+      "curriculum",
+      "phase",
+      "grades",
+      "subjects",
+      "languages",
+      "source_path",
+      "source_hash"
+    ]
+  }
+}

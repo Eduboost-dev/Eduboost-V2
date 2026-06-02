@@ -6,7 +6,7 @@ from functools import cached_property
 from pathlib import Path
 
 from app.domain.content_coverage import ContentLayer, CoverageTarget, CoverageTargetRegistryDocument
-from app.domain.content_scope import ContentScope, ContentScopeRegistryDocument
+from app.domain.content_scope import ContentScope, ContentScopeRegistryDocument, ContentScopeStatus
 
 _PROJECT_ROOT = Path(__file__).resolve().parents[2]
 _DEFAULT_SCOPES_PATH = _PROJECT_ROOT / "data" / "content_factory" / "scopes.json"
@@ -49,6 +49,18 @@ class ContentScopeRegistry:
     def list_scopes(self) -> list[ContentScope]:
         return sorted(self._scopes.values(), key=lambda scope: scope.scope_id)
 
+    def list_active_scopes(self) -> list[ContentScope]:
+        return [scope for scope in self.list_scopes() if scope.status == ContentScopeStatus.ACTIVE]
+
+    def is_scope_active(self, scope_id: str) -> bool:
+        return self.get_scope(scope_id).status == ContentScopeStatus.ACTIVE
+
+    def require_active_scope(self, scope_id: str) -> ContentScope:
+        scope = self.get_scope(scope_id)
+        if scope.status != ContentScopeStatus.ACTIVE:
+            raise LookupError(f"Content scope {scope_id} is not active.")
+        return scope
+
     def get_scope(self, scope_id: str) -> ContentScope:
         try:
             return self._scopes[scope_id]
@@ -86,6 +98,14 @@ class ContentScopeRegistry:
 
     def _validate_scope_topic_maps(self, scopes: dict[str, ContentScope]) -> None:
         for scope in scopes.values():
+            if scope.status == ContentScopeStatus.ACTIVE and not scope.topic_map_path:
+                raise ContentScopeRegistryError(f"Active scope {scope.scope_id} must declare topic_map_path.")
+            if not scope.topic_map_path:
+                if scope.caps_refs:
+                    raise ContentScopeRegistryError(
+                        f"Scope {scope.scope_id} declares CAPS refs without a topic_map_path."
+                    )
+                continue
             topic_map_refs = self._load_topic_map_refs(scope.topic_map_path)
             missing = sorted(set(scope.caps_refs) - topic_map_refs)
             if missing:
@@ -99,6 +119,10 @@ class ContentScopeRegistry:
             if target.caps_ref not in scope.caps_refs:
                 raise ContentScopeRegistryError(
                     f"Coverage target {target.scope_id}/{target.caps_ref} is outside the declared scope refs."
+                )
+            if not scope.topic_map_path:
+                raise ContentScopeRegistryError(
+                    f"Coverage target {target.scope_id}/{target.caps_ref} requires a topic_map_path."
                 )
             self._load_topic_map_refs(scope.topic_map_path)
 
