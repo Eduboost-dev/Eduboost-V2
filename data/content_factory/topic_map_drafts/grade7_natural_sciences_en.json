@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "schema_version": "1.0.0-draft",
+    "status": "draft_unreviewed",
+    "generated_at": "2026-06-02T20:19:49Z",
+    "scope_id": "grade7_natural_sciences_en",
+    "scope": "Grade 7 Natural Sciences",
+    "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade7_natural_sciences_en.json",
+    "source_document_ids": [
+      "caps_senior_natural_sciences_en"
+    ],
+    "source_paths": [
+      "data/caps/source_documents/raw/caps_senior_natural_sciences_en.pdf"
+    ],
+    "source_sha256": [
+      "8699f105ebee604a9b0a0aebcbd7e9ebac27f5e034b00559a19f8418e1615e9f"
+    ],
+    "canonical_source_urls": [
+      "https://www.education.gov.za/LinkClick.aspx?fileticket=zhaFloMyZTs%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
+    ],
+    "object_store_uris": [],
+    "outstanding_tasks": [
+      "upload_source_pdf_to_object_store",
+      "extract_topic_map",
+      "approve_scope_caps_refs",
+      "approve_topic_map",
+      "activate_scope"
+    ],
+    "review_required": true,
+    "notes": "Draft envelope only. Do not move to data/caps/topic_maps or mark topic_map_approved until terms/topics/subtopics are extracted from the cited source and reviewed."
+  },
+  "grade": 7,
+  "subject": "Natural Sciences",
+  "subject_code": "NS",
+  "terms": []
+}

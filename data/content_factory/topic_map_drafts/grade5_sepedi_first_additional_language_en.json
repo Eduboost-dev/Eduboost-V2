@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "schema_version": "1.0.0-draft",
+    "status": "draft_unreviewed",
+    "generated_at": "2026-06-02T20:19:49Z",
+    "scope_id": "grade5_sepedi_first_additional_language_en",
+    "scope": "Grade 5 Sepedi First Additional Language",
+    "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade5_sepedi_first_additional_language_en.json",
+    "source_document_ids": [
+      "caps_intermediate_sepedi_first_additional_language_en"
+    ],
+    "source_paths": [
+      "data/caps/source_documents/raw/caps_intermediate_sepedi_first_additional_language_en.pdf"
+    ],
+    "source_sha256": [
+      "0e8e45bcefc2ca8415744021863c70961d9024e65c84000f073ec31fd66ae0a7"
+    ],
+    "canonical_source_urls": [
+      "https://www.education.gov.za/LinkClick.aspx?fileticket=tuZ5vg1QDDI%3d&tabid=572&portalid=0&mid=1565&forcedownload=true"
+    ],
+    "object_store_uris": [],
+    "outstanding_tasks": [
+      "upload_source_pdf_to_object_store",
+      "extract_topic_map",
+      "approve_scope_caps_refs",
+      "approve_topic_map",
+      "activate_scope"
+    ],
+    "review_required": true,
+    "notes": "Draft envelope only. Do not move to data/caps/topic_maps or mark topic_map_approved until terms/topics/subtopics are extracted from the cited source and reviewed."
+  },
+  "grade": 5,
+  "subject": "Sepedi First Additional Language",
+  "subject_code": "FAL",
+  "terms": []
+}

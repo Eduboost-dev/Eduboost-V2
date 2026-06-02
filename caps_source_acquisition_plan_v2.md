@@ -51,7 +51,7 @@ The design is intentionally conservative: it is better to record a scope as `not
 | Canonical DBE source URLs | Implemented via `scripts/curriculum/resolve_dbe_caps_urls.py`; all 23 Grade R-7 source documents resolve from official DBE CAPS phase pages. |
 | Local source files and hashes | Implemented via `scripts/curriculum/download_caps_sources.py`; all 23 official PDFs are staged on the VM under ignored `data/caps/source_documents/raw/` and SHA-256 hashes are recorded in `data/caps/source_documents/manifest.json`. |
 | Azure object storage | Infrastructure and uploader are implemented via `bicep/caps_source_storage.bicep` and `scripts/curriculum/upload_caps_sources_to_azure.py`; live upload is pending an authenticated `az login` session. |
-| Topic maps | Pending for every non-Grade-4-maths scope; generation remains gated until topic maps are reviewed and source records advance to `topic_map_approved`. |
+| Topic maps | Worklist and unreviewed draft envelopes are implemented via `scripts/curriculum/build_topic_map_worklist.py` and `scripts/curriculum/scaffold_topic_map_drafts.py`; 50 non-Grade-4-maths scope drafts exist under `data/content_factory/topic_map_drafts/`. Reviewed runtime maps are still pending before generation readiness. |
 
 ### 1.1 Repository Reconciliation Decisions
 

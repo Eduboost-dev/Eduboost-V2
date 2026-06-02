@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "schema_version": "1.0.0-draft",
+    "status": "draft_unreviewed",
+    "generated_at": "2026-06-02T20:19:49Z",
+    "scope_id": "grade7_life_orientation_en",
+    "scope": "Grade 7 Life Orientation",
+    "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade7_life_orientation_en.json",
+    "source_document_ids": [
+      "caps_senior_life_orientation_en"
+    ],
+    "source_paths": [
+      "data/caps/source_documents/raw/caps_senior_life_orientation_en.pdf"
+    ],
+    "source_sha256": [
+      "7904a388b6dfda1c3b265638d7f91298e2290e50eda65f9625fa3a764356dca3"
+    ],
+    "canonical_source_urls": [
+      "https://www.education.gov.za/LinkClick.aspx?fileticket=ANFLxkl-Hgk%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
+    ],
+    "object_store_uris": [],
+    "outstanding_tasks": [
+      "upload_source_pdf_to_object_store",
+      "extract_topic_map",
+      "approve_scope_caps_refs",
+      "approve_topic_map",
+      "activate_scope"
+    ],
+    "review_required": true,
+    "notes": "Draft envelope only. Do not move to data/caps/topic_maps or mark topic_map_approved until terms/topics/subtopics are extracted from the cited source and reviewed."
+  },
+  "grade": 7,
+  "subject": "Life Orientation",
+  "subject_code": "LO",
+  "terms": []
+}

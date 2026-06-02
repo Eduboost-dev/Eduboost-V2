@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "schema_version": "1.0.0-draft",
+    "status": "draft_unreviewed",
+    "generated_at": "2026-06-02T20:19:49Z",
+    "scope_id": "grade7_economic_management_sciences_en",
+    "scope": "Grade 7 Economic Management Sciences",
+    "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade7_economic_management_sciences_en.json",
+    "source_document_ids": [
+      "caps_senior_economic_management_sciences_en"
+    ],
+    "source_paths": [
+      "data/caps/source_documents/raw/caps_senior_economic_management_sciences_en.pdf"
+    ],
+    "source_sha256": [
+      "313a25bf38f59a24df8180453aab57aa573d8aaf2564af4a342d0df2456ad8ea"
+    ],
+    "canonical_source_urls": [
+      "https://www.education.gov.za/LinkClick.aspx?fileticket=YEgQQlsQNCw%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
+    ],
+    "object_store_uris": [],
+    "outstanding_tasks": [
+      "upload_source_pdf_to_object_store",
+      "extract_topic_map",
+      "approve_scope_caps_refs",
+      "approve_topic_map",
+      "activate_scope"
+    ],
+    "review_required": true,
+    "notes": "Draft envelope only. Do not move to data/caps/topic_maps or mark topic_map_approved until terms/topics/subtopics are extracted from the cited source and reviewed."
+  },
+  "grade": 7,
+  "subject": "Economic Management Sciences",
+  "subject_code": "EMS",
+  "terms": []
+}

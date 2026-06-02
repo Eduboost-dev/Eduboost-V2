@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "schema_version": "1.0.0-draft",
+    "status": "draft_unreviewed",
+    "generated_at": "2026-06-02T20:19:49Z",
+    "scope_id": "grade5_coding_and_robotics_en",
+    "scope": "Grade 5 Coding and Robotics",
+    "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade5_coding_and_robotics_en.json",
+    "source_document_ids": [
+      "caps_intermediate_coding_and_robotics_en"
+    ],
+    "source_paths": [
+      "data/caps/source_documents/raw/caps_intermediate_coding_and_robotics_en.pdf"
+    ],
+    "source_sha256": [
+      "0d87e20bcc5d3ea8f09db31a07c9b6d6bf5de2f837455c4f048aa2362ff272d8"
+    ],
+    "canonical_source_urls": [
+      "https://www.education.gov.za/LinkClick.aspx?fileticket=O1vKQbbwwy0%3d&tabid=572&portalid=0&mid=13087&forcedownload=true"
+    ],
+    "object_store_uris": [],
+    "outstanding_tasks": [
+      "upload_source_pdf_to_object_store",
+      "extract_topic_map",
+      "approve_scope_caps_refs",
+      "approve_topic_map",
+      "activate_scope"
+    ],
+    "review_required": true,
+    "notes": "Draft envelope only. Do not move to data/caps/topic_maps or mark topic_map_approved until terms/topics/subtopics are extracted from the cited source and reviewed."
+  },
+  "grade": 5,
+  "subject": "Coding and Robotics",
+  "subject_code": "CR",
+  "terms": []
+}
