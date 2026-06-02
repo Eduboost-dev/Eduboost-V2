@@ -41,6 +41,7 @@ def validate_source_manifest(
     manifest_path: Path = MANIFEST_PATH,
     registry: ContentScopeRegistry | None = None,
     require_planned_scope_sources: bool = True,
+    verify_local_files: bool = False,
 ) -> SourceManifestValidationResult:
     registry = registry or ContentScopeRegistry()
     manifest = load_manifest(manifest_path)
@@ -54,15 +55,18 @@ def validate_source_manifest(
             if not document.source_path:
                 result.errors.append(f"source document {document.document_id} is {document.status.value} without source_path")
                 continue
-            source_path = ROOT / document.source_path
-            if not source_path.exists():
-                result.errors.append(f"source document {document.document_id} path does not exist: {document.source_path}")
-                continue
-            actual_hash = hashlib.sha256(source_path.read_bytes()).hexdigest()
             if not document.source_hash:
                 result.errors.append(f"source document {document.document_id} is {document.status.value} without source_hash")
-            elif document.source_hash != actual_hash:
-                result.errors.append(f"source document {document.document_id} source_hash mismatch")
+            if document.source_sha256 and document.source_hash and document.source_sha256 != document.source_hash:
+                result.errors.append(f"source document {document.document_id} source_sha256/source_hash mismatch")
+            if verify_local_files:
+                source_path = ROOT / document.source_path
+                if not source_path.exists():
+                    result.errors.append(f"source document {document.document_id} path does not exist: {document.source_path}")
+                    continue
+                actual_hash = hashlib.sha256(source_path.read_bytes()).hexdigest()
+                if document.source_hash and document.source_hash != actual_hash:
+                    result.errors.append(f"source document {document.document_id} source_hash mismatch")
         if document.status == SourceDocumentStatus.TOPIC_MAP_APPROVED:
             if not document.reviewed_at or not document.reviewer_id:
                 result.errors.append(f"source document {document.document_id} is topic_map_approved without reviewer metadata")
@@ -116,9 +120,10 @@ def print_result(result: SourceManifestValidationResult) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="Emit JSON instead of text.")
+    parser.add_argument("--verify-local-files", action="store_true", help="Verify ignored local source files exist and match hashes.")
     args = parser.parse_args()
 
-    result = validate_source_manifest()
+    result = validate_source_manifest(verify_local_files=args.verify_local_files)
     if args.json:
         print(json.dumps({
             "passed": result.passed,

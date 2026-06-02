@@ -123,7 +123,7 @@ def main() -> int:
 
     validation_payload: dict[str, Any] | None = None
     if args.commit and not errors:
-        validation = validate_source_manifest()
+        validation = validate_source_manifest(verify_local_files=True)
         validation_payload = {
             "passed": validation.passed,
             "errors": validation.errors,

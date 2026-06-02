@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 
 from app.services.content_scope_registry import ContentScopeRegistry
@@ -53,3 +55,17 @@ def test_coverage_report_exposes_generation_readiness_separately_from_visibility
     assert grade4["generation_ready"] is True
     assert grade5["learner_visible"] is False
     assert grade5["generation_ready"] is False
+
+def test_source_manifest_can_validate_clean_checkout_without_local_raw_files() -> None:
+    result = validate_source_manifest(verify_local_files=False)
+
+    assert result.passed is True
+
+
+def test_source_manifest_local_file_verification_passes_on_vm_sources() -> None:
+    if not Path("data/caps/source_documents/raw").exists():
+        pytest.skip("ignored local CAPS PDF cache is not present in clean checkout")
+
+    result = validate_source_manifest(verify_local_files=True)
+
+    assert result.passed is True
