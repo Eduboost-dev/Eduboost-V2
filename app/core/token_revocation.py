@@ -62,7 +62,7 @@ async def revoke_token(jti: str, exp_timestamp: int) -> None:
         exp_timestamp: Unix timestamp of token expiration (used to set TTL)
     """
     # Calculate remaining TTL: token should stay in blacklist until it naturally expires
-    now = datetime.now(timezone.utc).timestamp()
+    now = datetime.now(UTC).timestamp()
     ttl_seconds = max(int(exp_timestamp - now), 1)
     
     key = f"{_REVOKED_JTI_PREFIX}{jti}"

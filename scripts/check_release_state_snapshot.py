@@ -22,7 +22,7 @@ REQUIRED_SNIPPETS = (
     "docs/operations/beta_release_evidence_bundle.md",
     "docs/operations/final_release_verification_bundle.md",
     "docs/operations/CLUSTER_H_CLOSURE.md",
-    "PR_INTEGRATION_SUMMARY.md",
+    "audits/reports/PR_INTEGRATION_SUMMARY.md",
     "docs/project_status.md",
     "does not replace CI logs, platform approvals, or release tag history",
     "make release-state-snapshot",

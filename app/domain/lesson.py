@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from enum import Enum
 
 from app.modules.lessons.lesson_schema_v1 import (
@@ -27,9 +28,19 @@ class SafetyClassification(str, Enum):
     REJECTED = "rejected"
 
 
+@dataclass(frozen=True)
+class Lesson:
+    id: str
+    learner_id: str
+    subject: str
+    topic: str
+    grade: int
+
+
 __all__ = [
     "DifficultyLevel",
     "LLMProvider",
+    "Lesson",
     "LessonCreate",
     "LessonResponse",
     "ReviewStatus",

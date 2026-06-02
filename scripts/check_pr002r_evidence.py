@@ -15,7 +15,7 @@ REQUIRED_FILES = (
     ".github/workflows/openapi-drift.yml",
     ".github/workflows/runtime-contract.yml",
     "Makefile",
-    "PR_INTEGRATION_SUMMARY.md",
+    "audits/reports/PR_INTEGRATION_SUMMARY.md",
     "docs/api_versioning_policy.md",
     "docs/error_contract.md",
     "docs/openapi.json",

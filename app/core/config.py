@@ -106,6 +106,8 @@ class Settings(BaseSettings):
     AZURE_TENANT_ID: str = ""
     AZURE_STORAGE_CONNECTION_STRING: str = ""
     AZURE_STORAGE_CONTAINER: str = "eduboost-assets"
+    BACKUP_ENCRYPTION_KEY: str = ""
+    BACKUP_RETENTION_DAYS: int = 30
     GRAFANA_CLOUD_PROMETHEUS_URL: str = ""
     GRAFANA_CLOUD_LOKI_URL: str = ""
     GRAFANA_CLOUD_API_KEY: str = ""

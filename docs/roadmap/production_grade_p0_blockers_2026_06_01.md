@@ -1,11 +1,12 @@
-# EduBoost V2 Production Grade TODO
+# EduBoost V2 Production Grade P0 Blocker Tracker
 
 Date: 2026-06-01
+Status: Supporting roadmap tracker. Root `TODO.md` remains the authoritative execution index.
 Goal: Close all audit gaps, reach production readiness, and enforce backend coverage greater than or equal to 80 percent.
 
 ## Execution Rules
 
-- Treat this file as the single authoritative execution tracker.
+- Treat root `TODO.md` as the single authoritative execution tracker; use this file as supporting P0 blocker detail.
 - Do not mark a task done without evidence committed in repo.
 - Every completed item must include test or command output in PR notes.
 
