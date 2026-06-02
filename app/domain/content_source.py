@@ -11,6 +11,7 @@ class SourceDocumentStatus(str, Enum):
     SOURCE_LOADED = "source_loaded"
     TOPIC_MAP_APPROVED = "topic_map_approved"
     RETIRED = "retired"
+    NOT_APPLICABLE = "not_applicable"
 
 
 class SourceDocument(BaseModel):
@@ -25,11 +26,19 @@ class SourceDocument(BaseModel):
     subjects: list[str] = Field(default_factory=list)
     languages: list[str] = Field(default_factory=list)
     status: SourceDocumentStatus
+    language_role: str | None = None
+    language_code: str | None = None
+    canonical_source_url: str | None = None
     source_path: str | None = None
+    object_store_uri: str | None = None
     source_hash: str | None = None
+    source_sha256: str | None = None
     retrieved_at: str | None = None
+    downloaded_at: str | None = None
+    published_at: str | None = None
     reviewed_at: str | None = None
     reviewer_id: str | None = None
+    evidence_notes: str | None = None
     notes: str | None = None
 
 

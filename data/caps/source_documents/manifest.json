@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "documents": [
     {
-      "document_id": "caps_foundation_mathematics_en",
-      "title": "CAPS Foundation Phase Mathematics",
+      "document_id": "caps_foundation_coding_and_robotics_en",
+      "title": "CAPS Foundation Phase Coding and Robotics",
       "publisher": "Department of Basic Education, South Africa",
       "curriculum": "CAPS",
       "phase": "foundation",
@@ -14,18 +14,26 @@
         3
       ],
       "subjects": [
-        "Mathematics"
+        "Coding and Robotics"
       ],
       "languages": [
         "en"
       ],
       "status": "planned",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
       "source_path": null,
+      "object_store_uri": null,
       "source_hash": null,
+      "source_sha256": null,
       "retrieved_at": null,
+      "downloaded_at": null,
+      "published_at": null,
       "reviewed_at": null,
       "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
+      "evidence_notes": null,
+      "notes": "Planned Coding and Robotics source record. Verify official DBE grade-band coverage; mark not_applicable with evidence if unsupported."
     },
     {
       "document_id": "caps_foundation_home_language_en",
@@ -51,33 +59,15 @@
       "retrieved_at": null,
       "reviewed_at": null,
       "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
-    },
-    {
-      "document_id": "caps_foundation_first_additional_language_en",
-      "title": "CAPS Foundation Phase First Additional Language",
-      "publisher": "Department of Basic Education, South Africa",
-      "curriculum": "CAPS",
-      "phase": "foundation",
-      "grades": [
-        0,
-        1,
-        2,
-        3
-      ],
-      "subjects": [
-        "First Additional Language"
-      ],
-      "languages": [
-        "en"
-      ],
-      "status": "planned",
-      "source_path": null,
-      "source_hash": null,
-      "retrieved_at": null,
-      "reviewed_at": null,
-      "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "home_language",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
     },
     {
       "document_id": "caps_foundation_life_skills_en",
@@ -103,11 +93,87 @@
       "retrieved_at": null,
       "reviewed_at": null,
       "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
     },
     {
-      "document_id": "caps_intermediate_phase_mathematics_grade4_6",
-      "title": "CAPS Intermediate Phase Mathematics",
+      "document_id": "caps_foundation_mathematics_en",
+      "title": "CAPS Foundation Phase Mathematics",
+      "publisher": "Department of Basic Education, South Africa",
+      "curriculum": "CAPS",
+      "phase": "foundation",
+      "grades": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "subjects": [
+        "Mathematics"
+      ],
+      "languages": [
+        "en"
+      ],
+      "status": "planned",
+      "source_path": null,
+      "source_hash": null,
+      "retrieved_at": null,
+      "reviewed_at": null,
+      "reviewer_id": null,
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
+    },
+    {
+      "document_id": "caps_foundation_sepedi_first_additional_language_en",
+      "title": "CAPS Foundation Phase Sepedi First Additional Language",
+      "publisher": "Department of Basic Education, South Africa",
+      "curriculum": "CAPS",
+      "phase": "foundation",
+      "grades": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "subjects": [
+        "Sepedi First Additional Language"
+      ],
+      "languages": [
+        "nso"
+      ],
+      "status": "planned",
+      "source_path": null,
+      "source_hash": null,
+      "retrieved_at": null,
+      "reviewed_at": null,
+      "reviewer_id": null,
+      "notes": "Planned Sepedi FAL source record. Add authoritative DBE CAPS source URL/path and SHA-256 before generation.",
+      "language_role": "first_additional_language",
+      "language_code": "nso",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
+    },
+    {
+      "document_id": "caps_intermediate_coding_and_robotics_en",
+      "title": "CAPS Intermediate Phase Coding and Robotics",
       "publisher": "Department of Basic Education, South Africa",
       "curriculum": "CAPS",
       "phase": "intermediate",
@@ -117,18 +183,26 @@
         6
       ],
       "subjects": [
-        "Mathematics"
+        "Coding and Robotics"
       ],
       "languages": [
         "en"
       ],
-      "status": "topic_map_approved",
-      "source_path": "data/caps/caps_topic_map_grade4_maths.json",
-      "source_hash": "6263dac7eab672bb7499047f3bc0b868baad486cb749143b9128b5543a61736f",
-      "retrieved_at": "2026-05-10",
-      "reviewed_at": "2026-05-25",
-      "reviewer_id": "00000000-0000-0000-0000-000000000002",
-      "notes": "Existing repository Grade 4 Mathematics launch topic map source; approved for current active launch slice only."
+      "status": "planned",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "source_path": null,
+      "object_store_uri": null,
+      "source_hash": null,
+      "source_sha256": null,
+      "retrieved_at": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "reviewed_at": null,
+      "reviewer_id": null,
+      "evidence_notes": null,
+      "notes": "Planned Coding and Robotics source record. Verify official DBE grade-band coverage; mark not_applicable with evidence if unsupported."
     },
     {
       "document_id": "caps_intermediate_home_language_en",
@@ -153,82 +227,15 @@
       "retrieved_at": null,
       "reviewed_at": null,
       "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
-    },
-    {
-      "document_id": "caps_intermediate_first_additional_language_en",
-      "title": "CAPS Intermediate Phase First Additional Language",
-      "publisher": "Department of Basic Education, South Africa",
-      "curriculum": "CAPS",
-      "phase": "intermediate",
-      "grades": [
-        4,
-        5,
-        6
-      ],
-      "subjects": [
-        "First Additional Language"
-      ],
-      "languages": [
-        "en"
-      ],
-      "status": "planned",
-      "source_path": null,
-      "source_hash": null,
-      "retrieved_at": null,
-      "reviewed_at": null,
-      "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
-    },
-    {
-      "document_id": "caps_intermediate_natural_sciences_and_technology_en",
-      "title": "CAPS Intermediate Phase Natural Sciences and Technology",
-      "publisher": "Department of Basic Education, South Africa",
-      "curriculum": "CAPS",
-      "phase": "intermediate",
-      "grades": [
-        4,
-        5,
-        6
-      ],
-      "subjects": [
-        "Natural Sciences and Technology"
-      ],
-      "languages": [
-        "en"
-      ],
-      "status": "planned",
-      "source_path": null,
-      "source_hash": null,
-      "retrieved_at": null,
-      "reviewed_at": null,
-      "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
-    },
-    {
-      "document_id": "caps_intermediate_social_sciences_en",
-      "title": "CAPS Intermediate Phase Social Sciences",
-      "publisher": "Department of Basic Education, South Africa",
-      "curriculum": "CAPS",
-      "phase": "intermediate",
-      "grades": [
-        4,
-        5,
-        6
-      ],
-      "subjects": [
-        "Social Sciences"
-      ],
-      "languages": [
-        "en"
-      ],
-      "status": "planned",
-      "source_path": null,
-      "source_hash": null,
-      "retrieved_at": null,
-      "reviewed_at": null,
-      "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "home_language",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
     },
     {
       "document_id": "caps_intermediate_life_skills_en",
@@ -253,16 +260,59 @@
       "retrieved_at": null,
       "reviewed_at": null,
       "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
     },
     {
-      "document_id": "caps_senior_mathematics_en",
-      "title": "CAPS Senior Phase Mathematics",
+      "document_id": "caps_intermediate_natural_sciences_and_technology_en",
+      "title": "CAPS Intermediate Phase Natural Sciences and Technology",
       "publisher": "Department of Basic Education, South Africa",
       "curriculum": "CAPS",
-      "phase": "senior",
+      "phase": "intermediate",
       "grades": [
-        7
+        4,
+        5,
+        6
+      ],
+      "subjects": [
+        "Natural Sciences and Technology"
+      ],
+      "languages": [
+        "en"
+      ],
+      "status": "planned",
+      "source_path": null,
+      "source_hash": null,
+      "retrieved_at": null,
+      "reviewed_at": null,
+      "reviewer_id": null,
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
+    },
+    {
+      "document_id": "caps_intermediate_phase_mathematics_grade4_6",
+      "title": "CAPS Intermediate Phase Mathematics",
+      "publisher": "Department of Basic Education, South Africa",
+      "curriculum": "CAPS",
+      "phase": "intermediate",
+      "grades": [
+        4,
+        5,
+        6
       ],
       "subjects": [
         "Mathematics"
@@ -270,28 +320,38 @@
       "languages": [
         "en"
       ],
-      "status": "planned",
-      "source_path": null,
-      "source_hash": null,
-      "retrieved_at": null,
-      "reviewed_at": null,
-      "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
+      "status": "topic_map_approved",
+      "source_path": "data/caps/caps_topic_map_grade4_maths.json",
+      "source_hash": "6263dac7eab672bb7499047f3bc0b868baad486cb749143b9128b5543a61736f",
+      "retrieved_at": "2026-05-10",
+      "reviewed_at": "2026-05-25",
+      "reviewer_id": "00000000-0000-0000-0000-000000000002",
+      "notes": "Existing repository Grade 4 Mathematics launch topic map source; approved for current active launch slice only.",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": "6263dac7eab672bb7499047f3bc0b868baad486cb749143b9128b5543a61736f",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
     },
     {
-      "document_id": "caps_senior_home_language_en",
-      "title": "CAPS Senior Phase Home Language",
+      "document_id": "caps_intermediate_sepedi_first_additional_language_en",
+      "title": "CAPS Intermediate Phase Sepedi First Additional Language",
       "publisher": "Department of Basic Education, South Africa",
       "curriculum": "CAPS",
-      "phase": "senior",
+      "phase": "intermediate",
       "grades": [
-        7
+        4,
+        5,
+        6
       ],
       "subjects": [
-        "Home Language"
+        "Sepedi First Additional Language"
       ],
       "languages": [
-        "en"
+        "nso"
       ],
       "status": "planned",
       "source_path": null,
@@ -299,62 +359,26 @@
       "retrieved_at": null,
       "reviewed_at": null,
       "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
+      "notes": "Planned Sepedi FAL source record. Add authoritative DBE CAPS source URL/path and SHA-256 before generation.",
+      "language_role": "first_additional_language",
+      "language_code": "nso",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
     },
     {
-      "document_id": "caps_senior_first_additional_language_en",
-      "title": "CAPS Senior Phase First Additional Language",
+      "document_id": "caps_intermediate_social_sciences_en",
+      "title": "CAPS Intermediate Phase Social Sciences",
       "publisher": "Department of Basic Education, South Africa",
       "curriculum": "CAPS",
-      "phase": "senior",
+      "phase": "intermediate",
       "grades": [
-        7
-      ],
-      "subjects": [
-        "First Additional Language"
-      ],
-      "languages": [
-        "en"
-      ],
-      "status": "planned",
-      "source_path": null,
-      "source_hash": null,
-      "retrieved_at": null,
-      "reviewed_at": null,
-      "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
-    },
-    {
-      "document_id": "caps_senior_natural_sciences_en",
-      "title": "CAPS Senior Phase Natural Sciences",
-      "publisher": "Department of Basic Education, South Africa",
-      "curriculum": "CAPS",
-      "phase": "senior",
-      "grades": [
-        7
-      ],
-      "subjects": [
-        "Natural Sciences"
-      ],
-      "languages": [
-        "en"
-      ],
-      "status": "planned",
-      "source_path": null,
-      "source_hash": null,
-      "retrieved_at": null,
-      "reviewed_at": null,
-      "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
-    },
-    {
-      "document_id": "caps_senior_social_sciences_en",
-      "title": "CAPS Senior Phase Social Sciences",
-      "publisher": "Department of Basic Education, South Africa",
-      "curriculum": "CAPS",
-      "phase": "senior",
-      "grades": [
-        7
+        4,
+        5,
+        6
       ],
       "subjects": [
         "Social Sciences"
@@ -368,11 +392,19 @@
       "retrieved_at": null,
       "reviewed_at": null,
       "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
     },
     {
-      "document_id": "caps_senior_technology_en",
-      "title": "CAPS Senior Phase Technology",
+      "document_id": "caps_senior_coding_and_robotics_en",
+      "title": "CAPS Senior Phase Coding and Robotics",
       "publisher": "Department of Basic Education, South Africa",
       "curriculum": "CAPS",
       "phase": "senior",
@@ -380,41 +412,26 @@
         7
       ],
       "subjects": [
-        "Technology"
+        "Coding and Robotics"
       ],
       "languages": [
         "en"
       ],
       "status": "planned",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
       "source_path": null,
+      "object_store_uri": null,
       "source_hash": null,
+      "source_sha256": null,
       "retrieved_at": null,
+      "downloaded_at": null,
+      "published_at": null,
       "reviewed_at": null,
       "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
-    },
-    {
-      "document_id": "caps_senior_economic_management_sciences_en",
-      "title": "CAPS Senior Phase Economic Management Sciences",
-      "publisher": "Department of Basic Education, South Africa",
-      "curriculum": "CAPS",
-      "phase": "senior",
-      "grades": [
-        7
-      ],
-      "subjects": [
-        "Economic Management Sciences"
-      ],
-      "languages": [
-        "en"
-      ],
-      "status": "planned",
-      "source_path": null,
-      "source_hash": null,
-      "retrieved_at": null,
-      "reviewed_at": null,
-      "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
+      "evidence_notes": null,
+      "notes": "Planned Coding and Robotics source record. Verify official DBE grade-band coverage; mark not_applicable with evidence if unsupported."
     },
     {
       "document_id": "caps_senior_creative_arts_en",
@@ -437,7 +454,77 @@
       "retrieved_at": null,
       "reviewed_at": null,
       "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
+    },
+    {
+      "document_id": "caps_senior_economic_management_sciences_en",
+      "title": "CAPS Senior Phase Economic Management Sciences",
+      "publisher": "Department of Basic Education, South Africa",
+      "curriculum": "CAPS",
+      "phase": "senior",
+      "grades": [
+        7
+      ],
+      "subjects": [
+        "Economic Management Sciences"
+      ],
+      "languages": [
+        "en"
+      ],
+      "status": "planned",
+      "source_path": null,
+      "source_hash": null,
+      "retrieved_at": null,
+      "reviewed_at": null,
+      "reviewer_id": null,
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
+    },
+    {
+      "document_id": "caps_senior_home_language_en",
+      "title": "CAPS Senior Phase Home Language",
+      "publisher": "Department of Basic Education, South Africa",
+      "curriculum": "CAPS",
+      "phase": "senior",
+      "grades": [
+        7
+      ],
+      "subjects": [
+        "Home Language"
+      ],
+      "languages": [
+        "en"
+      ],
+      "status": "planned",
+      "source_path": null,
+      "source_hash": null,
+      "retrieved_at": null,
+      "reviewed_at": null,
+      "reviewer_id": null,
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "home_language",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
     },
     {
       "document_id": "caps_senior_life_orientation_en",
@@ -460,7 +547,170 @@
       "retrieved_at": null,
       "reviewed_at": null,
       "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation."
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
+    },
+    {
+      "document_id": "caps_senior_mathematics_en",
+      "title": "CAPS Senior Phase Mathematics",
+      "publisher": "Department of Basic Education, South Africa",
+      "curriculum": "CAPS",
+      "phase": "senior",
+      "grades": [
+        7
+      ],
+      "subjects": [
+        "Mathematics"
+      ],
+      "languages": [
+        "en"
+      ],
+      "status": "planned",
+      "source_path": null,
+      "source_hash": null,
+      "retrieved_at": null,
+      "reviewed_at": null,
+      "reviewer_id": null,
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
+    },
+    {
+      "document_id": "caps_senior_natural_sciences_en",
+      "title": "CAPS Senior Phase Natural Sciences",
+      "publisher": "Department of Basic Education, South Africa",
+      "curriculum": "CAPS",
+      "phase": "senior",
+      "grades": [
+        7
+      ],
+      "subjects": [
+        "Natural Sciences"
+      ],
+      "languages": [
+        "en"
+      ],
+      "status": "planned",
+      "source_path": null,
+      "source_hash": null,
+      "retrieved_at": null,
+      "reviewed_at": null,
+      "reviewer_id": null,
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
+    },
+    {
+      "document_id": "caps_senior_sepedi_first_additional_language_en",
+      "title": "CAPS Senior Phase Sepedi First Additional Language",
+      "publisher": "Department of Basic Education, South Africa",
+      "curriculum": "CAPS",
+      "phase": "senior",
+      "grades": [
+        7
+      ],
+      "subjects": [
+        "Sepedi First Additional Language"
+      ],
+      "languages": [
+        "nso"
+      ],
+      "status": "planned",
+      "source_path": null,
+      "source_hash": null,
+      "retrieved_at": null,
+      "reviewed_at": null,
+      "reviewer_id": null,
+      "notes": "Planned Sepedi FAL source record. Add authoritative DBE CAPS source URL/path and SHA-256 before generation.",
+      "language_role": "first_additional_language",
+      "language_code": "nso",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
+    },
+    {
+      "document_id": "caps_senior_social_sciences_en",
+      "title": "CAPS Senior Phase Social Sciences",
+      "publisher": "Department of Basic Education, South Africa",
+      "curriculum": "CAPS",
+      "phase": "senior",
+      "grades": [
+        7
+      ],
+      "subjects": [
+        "Social Sciences"
+      ],
+      "languages": [
+        "en"
+      ],
+      "status": "planned",
+      "source_path": null,
+      "source_hash": null,
+      "retrieved_at": null,
+      "reviewed_at": null,
+      "reviewer_id": null,
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
+    },
+    {
+      "document_id": "caps_senior_technology_en",
+      "title": "CAPS Senior Phase Technology",
+      "publisher": "Department of Basic Education, South Africa",
+      "curriculum": "CAPS",
+      "phase": "senior",
+      "grades": [
+        7
+      ],
+      "subjects": [
+        "Technology"
+      ],
+      "languages": [
+        "en"
+      ],
+      "status": "planned",
+      "source_path": null,
+      "source_hash": null,
+      "retrieved_at": null,
+      "reviewed_at": null,
+      "reviewer_id": null,
+      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "language_role": "content_subject",
+      "language_code": "eng",
+      "canonical_source_url": null,
+      "object_store_uri": null,
+      "source_sha256": null,
+      "downloaded_at": null,
+      "published_at": null,
+      "evidence_notes": null
     }
   ],
   "planned_source_requirements": {

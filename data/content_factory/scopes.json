@@ -2,40 +2,11 @@
   "schema_version": "1.0",
   "scopes": [
     {
-      "scope_id": "grade4_mathematics_en",
-      "grade": 4,
-      "subject_code": "M",
-      "subject": "Mathematics",
-      "language": "en",
-      "curriculum": "CAPS",
-      "status": "active",
-      "topic_map_path": "data/caps/topic_maps/caps_topic_map_grade4_maths.json",
-      "caps_refs": [
-        "4.M.1.1",
-        "4.M.1.2",
-        "4.M.1.3"
-      ],
-      "phase": "intermediate",
-      "curriculum_version": "caps-mvp-2026.05",
-      "source_documents": [
-        "caps_intermediate_phase_mathematics_grade4_6"
-      ],
-      "coverage_policy_id": "production_v1",
-      "review_policy_id": "auto_approval_with_answer_key_v1",
-      "artifact_paths": {
-        "topic_map": "data/caps/topic_maps/caps_topic_map_grade4_maths.json",
-        "diagnostic_items": "data/generated/items/grade4_maths_launch_item_bank.json",
-        "lessons": "data/generated/lessons/grade4_maths_launch_lessons.json",
-        "assessment_blueprints": "data/generated/assessment_blueprints/grade4_maths_launch_blueprints.json",
-        "study_plan_templates": "data/generated/study_plans/grade4_maths_launch_templates.json"
-      }
-    },
-    {
-      "scope_id": "grader_mathematics_en",
+      "scope_id": "grader_coding_and_robotics_en",
       "grade": 0,
       "phase": "foundation",
-      "subject_code": "M",
-      "subject": "Mathematics",
+      "subject_code": "CR",
+      "subject": "Coding and Robotics",
       "language": "en",
       "curriculum": "CAPS",
       "curriculum_version": null,
@@ -43,7 +14,7 @@
       "topic_map_path": null,
       "caps_refs": [],
       "source_documents": [
-        "caps_foundation_mathematics_en"
+        "caps_foundation_coding_and_robotics_en"
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
@@ -69,11 +40,11 @@
       "artifact_paths": {}
     },
     {
-      "scope_id": "grader_first_additional_language_en",
+      "scope_id": "grader_life_skills_en",
       "grade": 0,
       "phase": "foundation",
-      "subject_code": "FAL",
-      "subject": "First Additional Language",
+      "subject_code": "LS",
+      "subject": "Life Skills",
       "language": "en",
       "curriculum": "CAPS",
       "curriculum_version": null,
@@ -81,15 +52,91 @@
       "topic_map_path": null,
       "caps_refs": [],
       "source_documents": [
-        "caps_foundation_first_additional_language_en"
+        "caps_foundation_life_skills_en"
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
     },
     {
-      "scope_id": "grader_life_skills_en",
+      "scope_id": "grader_mathematics_en",
       "grade": 0,
+      "phase": "foundation",
+      "subject_code": "M",
+      "subject": "Mathematics",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_foundation_mathematics_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grader_sepedi_first_additional_language_en",
+      "grade": 0,
+      "phase": "foundation",
+      "subject_code": "FAL",
+      "subject": "Sepedi First Additional Language",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_foundation_sepedi_first_additional_language_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade1_coding_and_robotics_en",
+      "grade": 1,
+      "phase": "foundation",
+      "subject_code": "CR",
+      "subject": "Coding and Robotics",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_foundation_coding_and_robotics_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade1_home_language_en",
+      "grade": 1,
+      "phase": "foundation",
+      "subject_code": "HL",
+      "subject": "Home Language",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_foundation_home_language_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade1_life_skills_en",
+      "grade": 1,
       "phase": "foundation",
       "subject_code": "LS",
       "subject": "Life Skills",
@@ -126,8 +173,46 @@
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade1_home_language_en",
+      "scope_id": "grade1_sepedi_first_additional_language_en",
       "grade": 1,
+      "phase": "foundation",
+      "subject_code": "FAL",
+      "subject": "Sepedi First Additional Language",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_foundation_sepedi_first_additional_language_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade2_coding_and_robotics_en",
+      "grade": 2,
+      "phase": "foundation",
+      "subject_code": "CR",
+      "subject": "Coding and Robotics",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_foundation_coding_and_robotics_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade2_home_language_en",
+      "grade": 2,
       "phase": "foundation",
       "subject_code": "HL",
       "subject": "Home Language",
@@ -145,27 +230,8 @@
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade1_first_additional_language_en",
-      "grade": 1,
-      "phase": "foundation",
-      "subject_code": "FAL",
-      "subject": "First Additional Language",
-      "language": "en",
-      "curriculum": "CAPS",
-      "curriculum_version": null,
-      "status": "planned",
-      "topic_map_path": null,
-      "caps_refs": [],
-      "source_documents": [
-        "caps_foundation_first_additional_language_en"
-      ],
-      "coverage_policy_id": "production_v1",
-      "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
-    },
-    {
-      "scope_id": "grade1_life_skills_en",
-      "grade": 1,
+      "scope_id": "grade2_life_skills_en",
+      "grade": 2,
       "phase": "foundation",
       "subject_code": "LS",
       "subject": "Life Skills",
@@ -202,8 +268,46 @@
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade2_home_language_en",
+      "scope_id": "grade2_sepedi_first_additional_language_en",
       "grade": 2,
+      "phase": "foundation",
+      "subject_code": "FAL",
+      "subject": "Sepedi First Additional Language",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_foundation_sepedi_first_additional_language_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade3_coding_and_robotics_en",
+      "grade": 3,
+      "phase": "foundation",
+      "subject_code": "CR",
+      "subject": "Coding and Robotics",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_foundation_coding_and_robotics_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade3_home_language_en",
+      "grade": 3,
       "phase": "foundation",
       "subject_code": "HL",
       "subject": "Home Language",
@@ -221,27 +325,8 @@
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade2_first_additional_language_en",
-      "grade": 2,
-      "phase": "foundation",
-      "subject_code": "FAL",
-      "subject": "First Additional Language",
-      "language": "en",
-      "curriculum": "CAPS",
-      "curriculum_version": null,
-      "status": "planned",
-      "topic_map_path": null,
-      "caps_refs": [],
-      "source_documents": [
-        "caps_foundation_first_additional_language_en"
-      ],
-      "coverage_policy_id": "production_v1",
-      "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
-    },
-    {
-      "scope_id": "grade2_life_skills_en",
-      "grade": 2,
+      "scope_id": "grade3_life_skills_en",
+      "grade": 3,
       "phase": "foundation",
       "subject_code": "LS",
       "subject": "Life Skills",
@@ -278,30 +363,11 @@
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade3_home_language_en",
-      "grade": 3,
-      "phase": "foundation",
-      "subject_code": "HL",
-      "subject": "Home Language",
-      "language": "en",
-      "curriculum": "CAPS",
-      "curriculum_version": null,
-      "status": "planned",
-      "topic_map_path": null,
-      "caps_refs": [],
-      "source_documents": [
-        "caps_foundation_home_language_en"
-      ],
-      "coverage_policy_id": "production_v1",
-      "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
-    },
-    {
-      "scope_id": "grade3_first_additional_language_en",
+      "scope_id": "grade3_sepedi_first_additional_language_en",
       "grade": 3,
       "phase": "foundation",
       "subject_code": "FAL",
-      "subject": "First Additional Language",
+      "subject": "Sepedi First Additional Language",
       "language": "en",
       "curriculum": "CAPS",
       "curriculum_version": null,
@@ -309,18 +375,18 @@
       "topic_map_path": null,
       "caps_refs": [],
       "source_documents": [
-        "caps_foundation_first_additional_language_en"
+        "caps_foundation_sepedi_first_additional_language_en"
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade3_life_skills_en",
-      "grade": 3,
-      "phase": "foundation",
-      "subject_code": "LS",
-      "subject": "Life Skills",
+      "scope_id": "grade4_coding_and_robotics_en",
+      "grade": 4,
+      "phase": "intermediate",
+      "subject_code": "CR",
+      "subject": "Coding and Robotics",
       "language": "en",
       "curriculum": "CAPS",
       "curriculum_version": null,
@@ -328,7 +394,7 @@
       "topic_map_path": null,
       "caps_refs": [],
       "source_documents": [
-        "caps_foundation_life_skills_en"
+        "caps_intermediate_coding_and_robotics_en"
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
@@ -354,11 +420,11 @@
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade4_first_additional_language_en",
+      "scope_id": "grade4_life_skills_en",
       "grade": 4,
       "phase": "intermediate",
-      "subject_code": "FAL",
-      "subject": "First Additional Language",
+      "subject_code": "LS",
+      "subject": "Life Skills",
       "language": "en",
       "curriculum": "CAPS",
       "curriculum_version": null,
@@ -366,11 +432,40 @@
       "topic_map_path": null,
       "caps_refs": [],
       "source_documents": [
-        "caps_intermediate_first_additional_language_en"
+        "caps_intermediate_life_skills_en"
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade4_mathematics_en",
+      "grade": 4,
+      "subject_code": "M",
+      "subject": "Mathematics",
+      "language": "en",
+      "curriculum": "CAPS",
+      "status": "active",
+      "topic_map_path": "data/caps/topic_maps/caps_topic_map_grade4_maths.json",
+      "caps_refs": [
+        "4.M.1.1",
+        "4.M.1.2",
+        "4.M.1.3"
+      ],
+      "phase": "intermediate",
+      "curriculum_version": "caps-mvp-2026.05",
+      "source_documents": [
+        "caps_intermediate_phase_mathematics_grade4_6"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "auto_approval_with_answer_key_v1",
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/caps_topic_map_grade4_maths.json",
+        "diagnostic_items": "data/generated/items/grade4_maths_launch_item_bank.json",
+        "lessons": "data/generated/lessons/grade4_maths_launch_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade4_maths_launch_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade4_maths_launch_templates.json"
+      }
     },
     {
       "scope_id": "grade4_natural_sciences_and_technology_en",
@@ -386,6 +481,25 @@
       "caps_refs": [],
       "source_documents": [
         "caps_intermediate_natural_sciences_and_technology_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade4_sepedi_first_additional_language_en",
+      "grade": 4,
+      "phase": "intermediate",
+      "subject_code": "FAL",
+      "subject": "Sepedi First Additional Language",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_intermediate_sepedi_first_additional_language_en"
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
@@ -411,8 +525,46 @@
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade4_life_skills_en",
-      "grade": 4,
+      "scope_id": "grade5_coding_and_robotics_en",
+      "grade": 5,
+      "phase": "intermediate",
+      "subject_code": "CR",
+      "subject": "Coding and Robotics",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_intermediate_coding_and_robotics_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade5_home_language_en",
+      "grade": 5,
+      "phase": "intermediate",
+      "subject_code": "HL",
+      "subject": "Home Language",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_intermediate_home_language_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade5_life_skills_en",
+      "grade": 5,
       "phase": "intermediate",
       "subject_code": "LS",
       "subject": "Life Skills",
@@ -449,44 +601,6 @@
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade5_home_language_en",
-      "grade": 5,
-      "phase": "intermediate",
-      "subject_code": "HL",
-      "subject": "Home Language",
-      "language": "en",
-      "curriculum": "CAPS",
-      "curriculum_version": null,
-      "status": "planned",
-      "topic_map_path": null,
-      "caps_refs": [],
-      "source_documents": [
-        "caps_intermediate_home_language_en"
-      ],
-      "coverage_policy_id": "production_v1",
-      "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
-    },
-    {
-      "scope_id": "grade5_first_additional_language_en",
-      "grade": 5,
-      "phase": "intermediate",
-      "subject_code": "FAL",
-      "subject": "First Additional Language",
-      "language": "en",
-      "curriculum": "CAPS",
-      "curriculum_version": null,
-      "status": "planned",
-      "topic_map_path": null,
-      "caps_refs": [],
-      "source_documents": [
-        "caps_intermediate_first_additional_language_en"
-      ],
-      "coverage_policy_id": "production_v1",
-      "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
-    },
-    {
       "scope_id": "grade5_natural_sciences_and_technology_en",
       "grade": 5,
       "phase": "intermediate",
@@ -500,6 +614,25 @@
       "caps_refs": [],
       "source_documents": [
         "caps_intermediate_natural_sciences_and_technology_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade5_sepedi_first_additional_language_en",
+      "grade": 5,
+      "phase": "intermediate",
+      "subject_code": "FAL",
+      "subject": "Sepedi First Additional Language",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_intermediate_sepedi_first_additional_language_en"
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
@@ -525,8 +658,46 @@
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade5_life_skills_en",
-      "grade": 5,
+      "scope_id": "grade6_coding_and_robotics_en",
+      "grade": 6,
+      "phase": "intermediate",
+      "subject_code": "CR",
+      "subject": "Coding and Robotics",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_intermediate_coding_and_robotics_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade6_home_language_en",
+      "grade": 6,
+      "phase": "intermediate",
+      "subject_code": "HL",
+      "subject": "Home Language",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_intermediate_home_language_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade6_life_skills_en",
+      "grade": 6,
       "phase": "intermediate",
       "subject_code": "LS",
       "subject": "Life Skills",
@@ -563,44 +734,6 @@
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade6_home_language_en",
-      "grade": 6,
-      "phase": "intermediate",
-      "subject_code": "HL",
-      "subject": "Home Language",
-      "language": "en",
-      "curriculum": "CAPS",
-      "curriculum_version": null,
-      "status": "planned",
-      "topic_map_path": null,
-      "caps_refs": [],
-      "source_documents": [
-        "caps_intermediate_home_language_en"
-      ],
-      "coverage_policy_id": "production_v1",
-      "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
-    },
-    {
-      "scope_id": "grade6_first_additional_language_en",
-      "grade": 6,
-      "phase": "intermediate",
-      "subject_code": "FAL",
-      "subject": "First Additional Language",
-      "language": "en",
-      "curriculum": "CAPS",
-      "curriculum_version": null,
-      "status": "planned",
-      "topic_map_path": null,
-      "caps_refs": [],
-      "source_documents": [
-        "caps_intermediate_first_additional_language_en"
-      ],
-      "coverage_policy_id": "production_v1",
-      "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
-    },
-    {
       "scope_id": "grade6_natural_sciences_and_technology_en",
       "grade": 6,
       "phase": "intermediate",
@@ -614,6 +747,25 @@
       "caps_refs": [],
       "source_documents": [
         "caps_intermediate_natural_sciences_and_technology_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade6_sepedi_first_additional_language_en",
+      "grade": 6,
+      "phase": "intermediate",
+      "subject_code": "FAL",
+      "subject": "Sepedi First Additional Language",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_intermediate_sepedi_first_additional_language_en"
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
@@ -639,11 +791,11 @@
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade6_life_skills_en",
-      "grade": 6,
-      "phase": "intermediate",
-      "subject_code": "LS",
-      "subject": "Life Skills",
+      "scope_id": "grade7_coding_and_robotics_en",
+      "grade": 7,
+      "phase": "senior",
+      "subject_code": "CR",
+      "subject": "Coding and Robotics",
       "language": "en",
       "curriculum": "CAPS",
       "curriculum_version": null,
@@ -651,18 +803,18 @@
       "topic_map_path": null,
       "caps_refs": [],
       "source_documents": [
-        "caps_intermediate_life_skills_en"
+        "caps_senior_coding_and_robotics_en"
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade7_mathematics_en",
+      "scope_id": "grade7_creative_arts_en",
       "grade": 7,
       "phase": "senior",
-      "subject_code": "M",
-      "subject": "Mathematics",
+      "subject_code": "CA",
+      "subject": "Creative Arts",
       "language": "en",
       "curriculum": "CAPS",
       "curriculum_version": null,
@@ -670,7 +822,26 @@
       "topic_map_path": null,
       "caps_refs": [],
       "source_documents": [
-        "caps_senior_mathematics_en"
+        "caps_senior_creative_arts_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade7_economic_management_sciences_en",
+      "grade": 7,
+      "phase": "senior",
+      "subject_code": "EMS",
+      "subject": "Economic Management Sciences",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_senior_economic_management_sciences_en"
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
@@ -696,11 +867,11 @@
       "artifact_paths": {}
     },
     {
-      "scope_id": "grade7_first_additional_language_en",
+      "scope_id": "grade7_life_orientation_en",
       "grade": 7,
       "phase": "senior",
-      "subject_code": "FAL",
-      "subject": "First Additional Language",
+      "subject_code": "LO",
+      "subject": "Life Orientation",
       "language": "en",
       "curriculum": "CAPS",
       "curriculum_version": null,
@@ -708,7 +879,26 @@
       "topic_map_path": null,
       "caps_refs": [],
       "source_documents": [
-        "caps_senior_first_additional_language_en"
+        "caps_senior_life_orientation_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade7_mathematics_en",
+      "grade": 7,
+      "phase": "senior",
+      "subject_code": "M",
+      "subject": "Mathematics",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_senior_mathematics_en"
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
@@ -728,6 +918,25 @@
       "caps_refs": [],
       "source_documents": [
         "caps_senior_natural_sciences_en"
+      ],
+      "coverage_policy_id": "production_v1",
+      "review_policy_id": "educator_review_required_v1",
+      "artifact_paths": {}
+    },
+    {
+      "scope_id": "grade7_sepedi_first_additional_language_en",
+      "grade": 7,
+      "phase": "senior",
+      "subject_code": "FAL",
+      "subject": "Sepedi First Additional Language",
+      "language": "en",
+      "curriculum": "CAPS",
+      "curriculum_version": null,
+      "status": "planned",
+      "topic_map_path": null,
+      "caps_refs": [],
+      "source_documents": [
+        "caps_senior_sepedi_first_additional_language_en"
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
@@ -766,63 +975,6 @@
       "caps_refs": [],
       "source_documents": [
         "caps_senior_technology_en"
-      ],
-      "coverage_policy_id": "production_v1",
-      "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
-    },
-    {
-      "scope_id": "grade7_economic_management_sciences_en",
-      "grade": 7,
-      "phase": "senior",
-      "subject_code": "EMS",
-      "subject": "Economic Management Sciences",
-      "language": "en",
-      "curriculum": "CAPS",
-      "curriculum_version": null,
-      "status": "planned",
-      "topic_map_path": null,
-      "caps_refs": [],
-      "source_documents": [
-        "caps_senior_economic_management_sciences_en"
-      ],
-      "coverage_policy_id": "production_v1",
-      "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
-    },
-    {
-      "scope_id": "grade7_creative_arts_en",
-      "grade": 7,
-      "phase": "senior",
-      "subject_code": "CA",
-      "subject": "Creative Arts",
-      "language": "en",
-      "curriculum": "CAPS",
-      "curriculum_version": null,
-      "status": "planned",
-      "topic_map_path": null,
-      "caps_refs": [],
-      "source_documents": [
-        "caps_senior_creative_arts_en"
-      ],
-      "coverage_policy_id": "production_v1",
-      "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
-    },
-    {
-      "scope_id": "grade7_life_orientation_en",
-      "grade": 7,
-      "phase": "senior",
-      "subject_code": "LO",
-      "subject": "Life Orientation",
-      "language": "en",
-      "curriculum": "CAPS",
-      "curriculum_version": null,
-      "status": "planned",
-      "topic_map_path": null,
-      "caps_refs": [],
-      "source_documents": [
-        "caps_senior_life_orientation_en"
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
