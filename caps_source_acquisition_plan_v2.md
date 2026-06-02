@@ -44,6 +44,15 @@ The system separates **binary artefacts** (PDFs, maximum several hundred MB) fro
 
 The design is intentionally conservative: it is better to record a scope as `not_applicable` with evidence than to fabricate coverage from unofficial sources.
 
+### 1.0 Implementation Checkpoint — 2026-06-02
+
+| Area | Current implementation state |
+|------|------------------------------|
+| Canonical DBE source URLs | Implemented via `scripts/curriculum/resolve_dbe_caps_urls.py`; all 23 Grade R-7 source documents resolve from official DBE CAPS phase pages. |
+| Local source files and hashes | Implemented via `scripts/curriculum/download_caps_sources.py`; all 23 official PDFs are staged on the VM under ignored `data/caps/source_documents/raw/` and SHA-256 hashes are recorded in `data/caps/source_documents/manifest.json`. |
+| Azure object storage | Infrastructure and uploader are implemented via `bicep/caps_source_storage.bicep` and `scripts/curriculum/upload_caps_sources_to_azure.py`; live upload is pending an authenticated `az login` session. |
+| Topic maps | Pending for every non-Grade-4-maths scope; generation remains gated until topic maps are reviewed and source records advance to `topic_map_approved`. |
+
 ### 1.1 Repository Reconciliation Decisions
 
 This v2 plan is reconciled to the current implementation branch. These decisions override any older terminology elsewhere in the document:
