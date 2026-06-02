@@ -105,3 +105,10 @@ Commit: `50227d1820b251be4513732b75e7d1ce390f0392`
 | `tests/unit/test_roadmap_after_production_readiness_baseline.py` | link, consolidate, or archive |
 | `tests/unit/test_roadmap_production_hardening.py` | link, consolidate, or archive |
 | `tests/unit/test_todo_implementation_plan.py` | link, consolidate, or archive |
+
+## Phase 3 Consolidation Update
+
+- Added authoritative domain READMEs for backend, frontend, diagnostics, IRT, ETL, POPIA, security, deployment, and roadmap.
+- Rewrote `docs/README.md` as the current domain index and documentation governance entry point.
+- Added an authoritative documentation map to root `README.md`.
+- Added roadmap authority guidance to root `TODO.md`, keeping it as the live tracker while specialized trackers remain linked until spring cleaning.
