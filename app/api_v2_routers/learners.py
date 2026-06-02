@@ -8,7 +8,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.authorization import assert_can_access_learner
 from app.core.database import get_db
 from app.core.logging import get_logger
-from app.core.security import get_current_user, require_parent_or_admin
+from app.core.security import require_parent_or_admin
+from app.api_v2_deps.auth import AuthContext, require_auth_context
+from app.core.security import get_current_user  # noqa: F401
 from app.domain.schemas import LearnerCreate, LearnerResponse
 from app.modules.consent.service import ConsentService
 from app.repositories.repositories import KnowledgeGapRepository, LearnerRepository
@@ -41,7 +43,7 @@ async def create_learner(
 async def get_learner(
     learner_id: str,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     repo = LearnerRepository(db)
     learner = await repo.get_by_id(learner_id)
@@ -56,7 +58,7 @@ async def get_learner(
 async def get_mastery(
     learner_id: str,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     learner = await LearnerRepository(db).get_by_id(learner_id)
     if not learner:
@@ -91,7 +93,7 @@ async def get_mastery(
 async def get_mastery_summary(
     learner_id: str,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     learner = await LearnerRepository(db).get_by_id(learner_id)
     if not learner:
@@ -106,7 +108,7 @@ async def get_topic_mastery(
     learner_id: str,
     caps_ref: str,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     learner = await LearnerRepository(db).get_by_id(learner_id)
     if not learner:

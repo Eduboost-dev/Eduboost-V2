@@ -6,7 +6,8 @@ from app.core.envelope_route import EnvelopedRoute
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.security import get_current_user
+from app.api_v2_deps.auth import AuthContext, require_auth_context
+from app.core.security import get_current_user  # noqa: F401
 from app.domain.schemas import OnboardingResult, OnboardingSubmit
 from app.repositories.repositories import LearnerRepository
 from app.services.ether import EtherService
@@ -17,7 +18,7 @@ _ether = EtherService()
 
 
 @router.get("/questions")
-async def get_onboarding_questions(current_user: dict = Depends(get_current_user)):
+async def get_onboarding_questions(current_user: AuthContext = Depends(require_auth_context)):
     return _ether.get_onboarding_questions()
 
 
@@ -26,7 +27,7 @@ async def get_onboarding_questions(current_user: dict = Depends(get_current_user
 async def submit_onboarding(
     body: OnboardingSubmit,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     learner_repo = LearnerRepository(db)
     learner = await learner_repo.get_by_id(body.learner_id)

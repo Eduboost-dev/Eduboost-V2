@@ -14,13 +14,35 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.api_v2 import app
+from app.api_v2_deps.auth import AuthContext, TokenType
+from app.api_v2_routers import lessons as lessons_router
 from app.domain.schemas import AuditLogEntry
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from app.models import UserRole
 
 
 LEARNER_ID = str(uuid.uuid4())
 LESSON_ID = str(uuid.uuid4())
 PLAN_ID = str(uuid.uuid4())
+
+
+def _lesson_auth() -> AuthContext:
+    now = datetime.now(timezone.utc)
+    subject_id = str(uuid.uuid4())
+    return AuthContext(
+        user_id=subject_id,
+        roles=[UserRole.PARENT],
+        token_type=TokenType.ACCESS,
+        raw_claims={
+            "sub": subject_id,
+            "role": "parent",
+            "type": "access",
+            "jti": "router-test-jti",
+        },
+        issued_at=now,
+        expires_at=now + timedelta(minutes=15),
+        jti="router-test-jti",
+    )
 
 
 @pytest.fixture()
@@ -32,6 +54,7 @@ def client():
         "role": "parent",
         "type": "access",
     }
+    app.dependency_overrides[lessons_router.require_auth_context] = _lesson_auth
     yield TestClient(app)
     app.dependency_overrides.clear()
 

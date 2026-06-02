@@ -4,6 +4,7 @@ pytestmark = pytest.mark.integration
 
 """HTTP contract tests for lesson generation write authorization."""
 
+from datetime import datetime, timedelta, timezone
 from typing import Any
 from unittest.mock import AsyncMock
 from uuid import UUID
@@ -12,7 +13,9 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.api_v2 import app
+from app.api_v2_deps.auth import AuthContext, TokenType
 from app.api_v2_routers import lessons as lessons_router
+from app.models import UserRole
 
 
 LEARNER_ID = "11111111-1111-1111-1111-111111111111"
@@ -23,6 +26,21 @@ ADMIN_ID = "33333333-3333-3333-3333-333333333333"
 class FakeLessonService:
     async def generate_lesson_for_learner(self, body, user_id: UUID):
         raise AssertionError("background handler should not run during enqueue contract test")
+
+
+def make_auth_context(payload: dict[str, Any]) -> AuthContext:
+    now = datetime.now(timezone.utc)
+    return AuthContext(
+        user_id=str(payload["sub"]),
+        guardian_id=payload.get("guardian_id"),
+        learner_id=payload.get("learner_id"),
+        roles=[UserRole(str(payload["role"]))],
+        token_type=TokenType.ACCESS,
+        raw_claims=payload,
+        issued_at=now,
+        expires_at=now + timedelta(minutes=15),
+        jti=payload.get("jti", "jti-lesson-1"),
+    )
 
 
 async def fake_lesson_service():
@@ -39,8 +57,8 @@ async def fake_enqueue_job(background_tasks, *, operation: str, payload: dict, h
 
 
 def override_user(payload: dict[str, Any]):
-    async def _override() -> dict[str, Any]:
-        return payload
+    async def _override() -> AuthContext:
+        return make_auth_context(payload)
 
     return _override
 
@@ -69,7 +87,7 @@ def lesson_payload(learner_id: str = LEARNER_ID) -> dict[str, Any]:
 
 @pytest.mark.integration
 def test_generate_lesson_allows_admin_write() -> None:
-    app.dependency_overrides[lessons_router.get_current_user] = override_user(
+    app.dependency_overrides[lessons_router.require_auth_context] = override_user(
         {"sub": ADMIN_ID, "role": "admin"}
     )
 
@@ -83,7 +101,7 @@ def test_generate_lesson_allows_admin_write() -> None:
 
 @pytest.mark.integration
 def test_generate_lesson_allows_guardian_with_learner_claim() -> None:
-    app.dependency_overrides[lessons_router.get_current_user] = override_user(
+    app.dependency_overrides[lessons_router.require_auth_context] = override_user(
         {"sub": GUARDIAN_ID, "role": "parent", "guardian_learner_ids": [LEARNER_ID]}
     )
 
@@ -94,7 +112,7 @@ def test_generate_lesson_allows_guardian_with_learner_claim() -> None:
 
 @pytest.mark.integration
 def test_generate_lesson_allows_root_alias() -> None:
-    app.dependency_overrides[lessons_router.get_current_user] = override_user(
+    app.dependency_overrides[lessons_router.require_auth_context] = override_user(
         {"sub": GUARDIAN_ID, "role": "parent", "guardian_learner_ids": [LEARNER_ID]}
     )
 
@@ -105,7 +123,7 @@ def test_generate_lesson_allows_root_alias() -> None:
 
 @pytest.mark.integration
 def test_generate_lesson_allows_learner_self_write() -> None:
-    app.dependency_overrides[lessons_router.get_current_user] = override_user(
+    app.dependency_overrides[lessons_router.require_auth_context] = override_user(
         {"sub": LEARNER_ID, "role": "student"}
     )
 
@@ -116,7 +134,7 @@ def test_generate_lesson_allows_learner_self_write() -> None:
 
 @pytest.mark.integration
 def test_generate_lesson_rejects_unrelated_guardian() -> None:
-    app.dependency_overrides[lessons_router.get_current_user] = override_user(
+    app.dependency_overrides[lessons_router.require_auth_context] = override_user(
         {"sub": GUARDIAN_ID, "role": "parent", "guardian_learner_ids": ["other-learner"]}
     )
 

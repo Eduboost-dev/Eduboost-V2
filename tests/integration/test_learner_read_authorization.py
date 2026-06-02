@@ -5,7 +5,7 @@ pytestmark = pytest.mark.integration
 
 """HTTP contract tests for learner read object authorization."""
 
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from types import SimpleNamespace
 from typing import Any
 
@@ -43,7 +43,7 @@ class FakeLearnerRepository:
             theta=0.0,
             xp=0,
             streak_days=0,
-            created_at=datetime(2026, 1, 1, tzinfo=UTC),
+            created_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
         )
 
 

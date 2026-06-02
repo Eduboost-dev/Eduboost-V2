@@ -5,7 +5,7 @@ pytestmark = pytest.mark.integration
 
 """HTTP contract tests for learner mastery object authorization."""
 
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from types import SimpleNamespace
 from typing import Any
 
@@ -43,7 +43,7 @@ class FakeLearnerRepository:
             theta=0.0,
             xp=0,
             streak_days=0,
-            created_at=datetime(2026, 1, 1, tzinfo=UTC),
+            created_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
         )
 
 
@@ -72,14 +72,14 @@ class FakeMasteryRepository:
                 mastery_score=0.9,
                 caps_ref="M4.1.1",
                 mastery_label="Highly Proficient",
-                last_updated_at=datetime(2026, 1, 1, tzinfo=UTC),
+                last_updated_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
             ),
             SimpleNamespace(
                 topic="geometry",
                 mastery_score=0.6,
                 caps_ref="M4.3.2",
                 mastery_label="Developing",
-                last_updated_at=datetime(2026, 1, 1, tzinfo=UTC),
+                last_updated_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
             ),
         ]
 

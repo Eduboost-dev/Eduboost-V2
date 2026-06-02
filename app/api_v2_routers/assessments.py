@@ -5,7 +5,8 @@ from app.core.envelope_route import EnvelopedRoute
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.security import get_current_user
+from app.api_v2_deps.auth import AuthContext, require_auth_context
+from app.core.security import get_current_user  # noqa: F401
 from app.domain.api_v2_models import AssessmentAttemptRequest
 
 from app.services.assessment_service_v2 import AssessmentServiceV2
@@ -15,7 +16,7 @@ router = APIRouter(route_class=EnvelopedRoute, prefix="/assessments", tags=["V2 
 
 
 @router.get("")
-async def list_assessments(limit: int = 50, offset: int = 0, _: dict = Depends(get_current_user)):
+async def list_assessments(limit: int = 50, offset: int = 0, _: AuthContext = Depends(require_auth_context)):
     return await AssessmentServiceV2().list_assessments(limit=limit, offset=offset)
 
 
@@ -23,7 +24,7 @@ async def list_assessments(limit: int = 50, offset: int = 0, _: dict = Depends(g
 async def submit_attempt(
     assessment_id: str,
     request: AssessmentAttemptRequest,
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
     db: AsyncSession = Depends(get_db),
 ):
     require_learner_write_for_current_user(current_user, request.learner_id)

@@ -1,7 +1,7 @@
 """EduBoost V2 — Parent portal router."""
 from __future__ import annotations
 
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, Response, status
 from app.core.envelope_route import EnvelopedRoute
@@ -39,7 +39,7 @@ async def get_parent_dashboard(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Guardian not found")
 
     learners = await LearnerRepository(db).get_by_guardian(current_user["sub"])
-    one_week_ago = datetime.now(UTC) - timedelta(days=7)
+    one_week_ago = datetime.now(timezone.utc) - timedelta(days=7)
 
     dashboard_learners: list[ParentDashboardLearner] = []
     total_lessons_generated = 0
@@ -116,7 +116,7 @@ async def get_parent_trust_dashboard(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Guardian not found")
 
     learners = await LearnerRepository(db).get_by_guardian(guardian_id)
-    seven_days_ago = datetime.now(UTC) - timedelta(days=7)
+    seven_days_ago = datetime.now(timezone.utc) - timedelta(days=7)
     response_learners: list[ParentTrustDashboardLearner] = []
 
     for learner in learners:
@@ -178,7 +178,7 @@ async def get_parent_trust_dashboard(
     return ParentTrustDashboardResponse(
         guardian_id=guardian_id,
         subscription_tier=guardian.subscription_tier,
-        generated_at=datetime.now(UTC),
+        generated_at=datetime.now(timezone.utc),
         learners=response_learners,
     )
 
@@ -228,7 +228,7 @@ async def get_learner_progress(
 
     await require_active_consent_for_current_user(db, current_user, learner_id)
 
-    thirty_days_ago = datetime.now(UTC) - timedelta(days=30)
+    thirty_days_ago = datetime.now(timezone.utc) - timedelta(days=30)
     lessons = (
         await db.execute(
             select(Lesson.created_at, Lesson.subject)

@@ -4,8 +4,9 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, HTTPException, status
 from app.core.envelope_route import EnvelopedRoute
 
+from app.api_v2_deps.auth import AuthContext, require_auth_context
+from app.core.security import get_current_user  # noqa: F401
 from app.core.jobs import get_job
-from app.core.security import get_current_user
 from app.domain.api_v2_models import JobStatusResponse
 
 router = APIRouter(route_class=EnvelopedRoute, prefix="/jobs", tags=["jobs"])
@@ -14,7 +15,7 @@ router = APIRouter(route_class=EnvelopedRoute, prefix="/jobs", tags=["jobs"])
 @router.get("/{job_id}", response_model=JobStatusResponse)
 async def get_job_status(
     job_id: str,
-    _: dict = Depends(get_current_user),
+    _: AuthContext = Depends(require_auth_context),
 ) -> JobStatusResponse:
     job = await get_job(job_id)
     if job is None:

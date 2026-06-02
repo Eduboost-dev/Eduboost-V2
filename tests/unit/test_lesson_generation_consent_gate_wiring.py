@@ -21,7 +21,7 @@ def test_lesson_generation_routes_call_consent_gate_after_write_authorization() 
     source = ROUTER.read_text(encoding="utf-8")
 
     assert "require_learner_write_for_current_user" in source
-    assert "await require_active_consent_for_current_user(db, current_user" in source
+    assert "await require_active_consent_for_current_user(db, auth" in source
 
     write_index = source.index("require_learner_write_for_current_user")
     consent_index = source.index("await require_active_consent_for_current_user")

@@ -4,6 +4,7 @@ pytestmark = pytest.mark.integration
 
 """HTTP contract tests for lesson stream write authorization."""
 
+from datetime import datetime, timedelta, timezone
 from typing import Any
 from unittest.mock import AsyncMock
 
@@ -11,7 +12,9 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.api_v2 import app
+from app.api_v2_deps.auth import AuthContext, TokenType
 from app.api_v2_routers import lessons as lessons_router
+from app.models import UserRole
 
 
 LEARNER_ID = "11111111-1111-1111-1111-111111111111"
@@ -29,13 +32,28 @@ class FakeLessonService:
         return FakeLesson(), False, "fake"
 
 
+def make_auth_context(payload: dict[str, Any]) -> AuthContext:
+    now = datetime.now(timezone.utc)
+    return AuthContext(
+        user_id=str(payload["sub"]),
+        guardian_id=payload.get("guardian_id"),
+        learner_id=payload.get("learner_id"),
+        roles=[UserRole(str(payload["role"]))],
+        token_type=TokenType.ACCESS,
+        raw_claims=payload,
+        issued_at=now,
+        expires_at=now + timedelta(minutes=15),
+        jti=payload.get("jti", "jti-lesson-stream-1"),
+    )
+
+
 async def fake_lesson_service():
     return FakeLessonService()
 
 
 def override_user(payload: dict[str, Any]):
-    async def _override() -> dict[str, Any]:
-        return payload
+    async def _override() -> AuthContext:
+        return make_auth_context(payload)
     return _override
 
 
@@ -57,7 +75,7 @@ def payload(learner_id: str = LEARNER_ID) -> dict[str, Any]:
 
 @pytest.mark.integration
 def test_lesson_stream_allows_admin_write() -> None:
-    app.dependency_overrides[lessons_router.get_current_user] = override_user({"sub": ADMIN_ID, "role": "admin"})
+    app.dependency_overrides[lessons_router.require_auth_context] = override_user({"sub": ADMIN_ID, "role": "admin"})
     response = TestClient(app).post("/api/v2/lessons/generate/stream", json=payload())
     assert response.status_code == 200
     assert "text/event-stream" in response.headers["content-type"]
@@ -65,21 +83,21 @@ def test_lesson_stream_allows_admin_write() -> None:
 
 @pytest.mark.integration
 def test_lesson_stream_allows_guardian_with_claim() -> None:
-    app.dependency_overrides[lessons_router.get_current_user] = override_user({"sub": GUARDIAN_ID, "role": "parent", "guardian_learner_ids": [LEARNER_ID]})
+    app.dependency_overrides[lessons_router.require_auth_context] = override_user({"sub": GUARDIAN_ID, "role": "parent", "guardian_learner_ids": [LEARNER_ID]})
     response = TestClient(app).post("/api/v2/lessons/generate/stream", json=payload())
     assert response.status_code == 200
 
 
 @pytest.mark.integration
 def test_lesson_stream_allows_learner_self_write() -> None:
-    app.dependency_overrides[lessons_router.get_current_user] = override_user({"sub": LEARNER_ID, "role": "student"})
+    app.dependency_overrides[lessons_router.require_auth_context] = override_user({"sub": LEARNER_ID, "role": "student"})
     response = TestClient(app).post("/api/v2/lessons/generate/stream", json=payload())
     assert response.status_code == 200
 
 
 @pytest.mark.integration
 def test_lesson_stream_rejects_unrelated_guardian() -> None:
-    app.dependency_overrides[lessons_router.get_current_user] = override_user({"sub": GUARDIAN_ID, "role": "parent", "guardian_learner_ids": ["other-learner"]})
+    app.dependency_overrides[lessons_router.require_auth_context] = override_user({"sub": GUARDIAN_ID, "role": "parent", "guardian_learner_ids": ["other-learner"]})
     response = TestClient(app).post("/api/v2/lessons/generate/stream", json=payload())
     assert response.status_code == 403
     assert "object_forbidden" in str(response.json())

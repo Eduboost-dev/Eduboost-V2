@@ -88,5 +88,5 @@ def test_study_plan_route_uses_write_policy_before_enqueue() -> None:
         maxsplit=1,
     )[0]
 
-    assert "current_user: dict = Depends(get_current_user)" in block
+    assert "current_user: AuthContext = Depends(require_auth_context)" in block
     assert "require_learner_write_for_current_user(current_user, learner_id)" in block

@@ -9,13 +9,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
-from enum import StrEnum
+from enum import Enum
 import hashlib
 import re
 from typing import Mapping
 
 
-class ReleaseBlockerDomain(StrEnum):
+class ReleaseBlockerDomain(str, Enum):
     REPOSITORY = "repository"
     BACKEND_API = "backend_api"
     ARCHITECTURE = "architecture"
@@ -38,7 +38,7 @@ class ReleaseBlockerDomain(StrEnum):
     EXTERNAL_MANUAL = "external_manual"
 
 
-class BlockerSeverity(StrEnum):
+class BlockerSeverity(str, Enum):
     INFO = "info"
     LOW = "low"
     MEDIUM = "medium"
@@ -47,7 +47,7 @@ class BlockerSeverity(StrEnum):
     RELEASE_BLOCKER = "release_blocker"
 
 
-class BlockerStatus(StrEnum):
+class BlockerStatus(str, Enum):
     OPEN = "open"
     CLOSED = "closed"
     WAIVED = "waived"
@@ -55,7 +55,7 @@ class BlockerStatus(StrEnum):
     NOT_APPLICABLE = "not_applicable"
 
 
-class LaunchAuthority(StrEnum):
+class LaunchAuthority(str, Enum):
     ENGINEERING = "engineering"
     PRODUCT = "product"
     PRIVACY = "privacy"
@@ -64,7 +64,7 @@ class LaunchAuthority(StrEnum):
     RELEASE_OWNER = "release_owner"
 
 
-class FinalDecision(StrEnum):
+class FinalDecision(str, Enum):
     GO = "go"
     NO_GO = "no_go"
     CONDITIONAL_GO = "conditional_go"

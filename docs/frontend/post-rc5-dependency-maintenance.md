@@ -136,6 +136,4 @@ See [OUTSTANDING_TODO_ITEMS.md](../../OUTSTANDING_TODO_ITEMS.md) for follow-up w
 
 ---
 
-**Document Version:** 1.0 (post-RC5 Batch 1)  
-**Last Updated:** 2026-05-31 14:00 +0200  
-**Assigned To:** Release Engineering / DevOps Lead
+**Document Version:** 1.0 (post-RC5 Batch 1)

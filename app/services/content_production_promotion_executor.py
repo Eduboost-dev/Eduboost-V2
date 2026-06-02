@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 from typing import Any
 
 from sqlalchemy import func, select
@@ -169,7 +169,7 @@ class ContentProductionPromotionExecutor:
                 if existing:
                     # Mark existing as superseded
                     existing.production_status = "superseded"
-                    existing.updated_at = datetime.now(UTC)
+                    existing.updated_at = datetime.now(timezone.utc)
                 
                 # Create new production artifact
                 production_artifact = ContentProductionArtifact(
@@ -199,7 +199,7 @@ class ContentProductionPromotionExecutor:
             promotion_event.status = "succeeded"
             promotion_event.summary = promotion_event.summary | {"promoted_count": promoted_count}
         
-        promotion_event.updated_at = datetime.now(UTC)
+        promotion_event.updated_at = datetime.now(timezone.utc)
         await session.flush()
         
         return ProductionPromotionResult(
@@ -336,7 +336,7 @@ class ContentProductionPromotionExecutor:
         
         for artifact in artifacts:
             artifact.production_status = "rolled_back"
-            artifact.updated_at = datetime.now(UTC)
+            artifact.updated_at = datetime.now(timezone.utc)
             rolled_back_count += 1
         
         # Update promotion event
@@ -345,9 +345,9 @@ class ContentProductionPromotionExecutor:
             "rolled_back_by": actor_id,
             "rollback_reason": reason,
             "rolled_back_count": rolled_back_count,
-            "rolled_back_at": datetime.now(UTC).isoformat(),
+            "rolled_back_at": datetime.now(timezone.utc).isoformat(),
         }
-        event.updated_at = datetime.now(UTC)
+        event.updated_at = datetime.now(timezone.utc)
         
         await session.flush()
         

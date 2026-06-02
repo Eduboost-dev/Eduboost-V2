@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from uuid import UUID
 
 from sqlalchemy import select
@@ -23,7 +23,7 @@ class DiagnosticSessionRepository:
             items_served=0,
             gap_topics=[],
             misconception_tags=[],
-            theta_history=[{"theta": theta, "se": se, "at": datetime.now(UTC).isoformat()}],
+            theta_history=[{"theta": theta, "se": se, "at": datetime.now(timezone.utc).isoformat()}],
             responses={"caps_ref": caps_ref} if caps_ref else {},
         )
         self.db.add(session)

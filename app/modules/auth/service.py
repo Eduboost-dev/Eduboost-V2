@@ -24,7 +24,7 @@ Example:
 """
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -182,7 +182,7 @@ class AuthService:
         if not guardian.is_active:
             raise AuthenticationError("Account is deactivated")
 
-        await _guardian_repo.update(guardian, db, last_login_at=datetime.now(UTC))
+        await _guardian_repo.update(guardian, db, last_login_at=datetime.now(timezone.utc))
         await write_audit_event(
             db,
             action=AuditAction.USER_LOGIN,

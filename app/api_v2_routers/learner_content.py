@@ -14,7 +14,8 @@ from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.security import get_current_user
+from app.api_v2_deps.auth import AuthContext, require_auth_context
+from app.core.security import get_current_user  # noqa: F401
 from app.services.content_learner_read_service import (
     ContentLearnerReadService,
     LearnerDiagnosticItem,
@@ -33,7 +34,7 @@ def get_learner_read_service() -> ContentLearnerReadService:
 @router.get("/scopes/{scope_id}/summary")
 async def get_scope_summary(
     scope_id: str,
-    current_user: Annotated[dict, Depends(get_current_user)],
+    current_user: Annotated[AuthContext, Depends(require_auth_context)],
     session: Annotated[AsyncSession, Depends(get_db)],
     service: Annotated[ContentLearnerReadService, Depends(get_learner_read_service)],
 ) -> LearnerScopeContentSummary:
@@ -51,7 +52,7 @@ async def get_scope_summary(
 @router.get("/scopes/{scope_id}/diagnostic-items")
 async def get_diagnostic_items(
     scope_id: str,
-    current_user: Annotated[dict, Depends(get_current_user)],
+    current_user: Annotated[AuthContext, Depends(require_auth_context)],
     session: Annotated[AsyncSession, Depends(get_db)],
     service: Annotated[ContentLearnerReadService, Depends(get_learner_read_service)],
     caps_ref: str | None = None,
@@ -78,7 +79,7 @@ async def get_diagnostic_items(
 @router.get("/scopes/{scope_id}/lessons")
 async def get_lessons(
     scope_id: str,
-    current_user: Annotated[dict, Depends(get_current_user)],
+    current_user: Annotated[AuthContext, Depends(require_auth_context)],
     session: Annotated[AsyncSession, Depends(get_db)],
     service: Annotated[ContentLearnerReadService, Depends(get_learner_read_service)],
     caps_ref: str | None = None,
@@ -106,7 +107,7 @@ async def get_lessons(
 async def get_diagnostic_items_by_caps_ref(
     scope_id: str,
     caps_ref: str,
-    current_user: Annotated[dict, Depends(get_current_user)],
+    current_user: Annotated[AuthContext, Depends(require_auth_context)],
     session: Annotated[AsyncSession, Depends(get_db)],
     service: Annotated[ContentLearnerReadService, Depends(get_learner_read_service)],
     limit: int = 20,
@@ -133,7 +134,7 @@ async def get_diagnostic_items_by_caps_ref(
 async def get_lessons_by_caps_ref(
     scope_id: str,
     caps_ref: str,
-    current_user: Annotated[dict, Depends(get_current_user)],
+    current_user: Annotated[AuthContext, Depends(require_auth_context)],
     session: Annotated[AsyncSession, Depends(get_db)],
     service: Annotated[ContentLearnerReadService, Depends(get_learner_read_service)],
     limit: int = 20,

@@ -7,7 +7,7 @@ authorization is enforced, and optional export/erasure requests are created.
 from __future__ import annotations
 
 import uuid
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
@@ -42,7 +42,7 @@ def _mock_learner(guardian_id: str | None = None):
         language="en",
         is_deleted=False,
         deletion_requested_at=None,
-        created_at=datetime.now(UTC),
+        created_at=datetime.now(timezone.utc),
     )
 
 
@@ -225,7 +225,7 @@ class TestGuardianWithdrawalAuthorization:
 
         # Check that the revoke endpoint has the get_current_user dependency
         revoke_block = source_text.split("async def revoke_consent", maxsplit=1)[1].split("@router.get", maxsplit=1)[0]
-        assert "get_current_user" in revoke_block
+        assert "require_auth_context" in revoke_block
 
     @pytest.mark.asyncio
     async def test_wrong_role_caller_receives_403(self):

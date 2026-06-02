@@ -5,7 +5,7 @@ pytestmark = pytest.mark.integration
 
 """HTTP contract tests for consent-status authorization."""
 
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from types import SimpleNamespace
 from typing import Any
 
@@ -36,8 +36,8 @@ class FakeConsentService:
 
     async def get_status(self, learner_id: str):
         return SimpleNamespace(
-            granted_at=datetime(2026, 1, 1, tzinfo=UTC),
-            expires_at=datetime(2026, 1, 31, tzinfo=UTC),
+            granted_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
+            expires_at=datetime(2026, 1, 31, tzinfo=timezone.utc),
         )
 
 

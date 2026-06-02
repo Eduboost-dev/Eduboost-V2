@@ -16,8 +16,8 @@ def test_ether_onboarding_submit_is_authenticated_boundary() -> None:
     source = ROUTER.read_text(encoding="utf-8")
     block = source.split("async def submit_onboarding", maxsplit=1)[1]
 
-    assert "Depends(get_current_user)" in block
-    assert "user.get(\"role\")" in block
+    assert "Depends(require_auth_context)" in block
+    assert "user.roles" in block
     assert "await require_active_consent_for_current_user" not in block
 
 

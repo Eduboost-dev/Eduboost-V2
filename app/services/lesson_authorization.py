@@ -9,6 +9,8 @@ from uuid import UUID
 from fastapi import HTTPException
 from sqlalchemy import select
 
+from app.api_v2_deps.auth import AuthContext
+
 
 LESSON_MODEL_CANDIDATES = (
     "app.models.lesson.Lesson",
@@ -143,12 +145,18 @@ async def _call_authz(fn: Any, current_user: Any, learner_id: Any) -> Any:
     raise RuntimeError(f"Could not call learner authorization helper {fn!r}")
 
 
+def _current_user_claims(current_user: Any) -> Any:
+    if isinstance(current_user, AuthContext):
+        return current_user.raw_claims
+    return current_user
+
+
 async def require_lesson_read_access_for_current_user(db: Any, current_user: Any, lesson_id: Any) -> Any:
     owner = await lesson_owner_learner_id(db, lesson_id)
     fn = _first_import(READ_AUTHZ_CANDIDATES)
     if fn is None:
         raise RuntimeError("No learner-read authorization helper found")
-    return await _call_authz(fn, current_user, owner)
+    return await _call_authz(fn, _current_user_claims(current_user), owner)
 
 
 async def require_lesson_write_access_for_current_user(db: Any, current_user: Any, lesson_id: Any) -> Any:
@@ -156,7 +164,7 @@ async def require_lesson_write_access_for_current_user(db: Any, current_user: An
     fn = _first_import(WRITE_AUTHZ_CANDIDATES)
     if fn is None:
         raise RuntimeError("No learner-write authorization helper found")
-    return await _call_authz(fn, current_user, owner)
+    return await _call_authz(fn, _current_user_claims(current_user), owner)
 
 
 def iter_sync_lesson_ids(payload: Any) -> list[Any]:

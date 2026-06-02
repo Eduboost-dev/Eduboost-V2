@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import Any
 
 from app.domain.schemas import AuditLogEntry
@@ -29,10 +29,10 @@ class AuditService:
             row = await self.repository.log(event_type=event_type, payload=payload or {}, actor_id=actor_id, learner_pseudonym=learner_id)
             return _entry_from_row(row)
         return AuditLogEntry(
-            event_id=f"local-{int(datetime.now(UTC).timestamp() * 1000)}",
+            event_id=f"local-{int(datetime.now(timezone.utc).timestamp() * 1000)}",
             learner_id=learner_id,
             event_type=event_type,
-            occurred_at=datetime.now(UTC),
+            occurred_at=datetime.now(timezone.utc),
             payload=payload or {},
         )
 
@@ -48,6 +48,6 @@ def _entry_from_row(row: Any) -> AuditLogEntry:
         event_id=str(getattr(row, "event_id", getattr(row, "id", ""))),
         learner_id=getattr(row, "learner_id", getattr(row, "learner_pseudonym", None)),
         event_type=getattr(row, "event_type", ""),
-        occurred_at=getattr(row, "occurred_at", getattr(row, "created_at", datetime.now(UTC))),
+        occurred_at=getattr(row, "occurred_at", getattr(row, "created_at", datetime.now(timezone.utc))),
         payload=getattr(row, "payload", {}) or {},
     )

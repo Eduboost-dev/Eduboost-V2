@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from uuid import UUID
 
 from sqlalchemy import select
@@ -20,7 +20,7 @@ class MasteryRepository:
             existing.mastery_label = mastery_label
             existing.theta_estimate = theta
             existing.theta_se = theta_se
-            existing.last_updated_at = datetime.now(UTC)
+            existing.last_updated_at = datetime.now(timezone.utc)
             row = existing
         else:
             row = TopicMastery(learner_id=str(learner_id), caps_ref=caps_ref, mastery_score=mastery_score, mastery_label=mastery_label, theta_estimate=theta, theta_se=theta_se)

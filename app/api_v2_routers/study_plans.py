@@ -6,7 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import AsyncSessionLocal, get_db
 from app.core.jobs import enqueue_job
-from app.core.security import get_current_user
+from app.api_v2_deps.auth import AuthContext, require_auth_context
+from app.core.security import get_current_user  # noqa: F401
 from app.domain.api_v2_models import JobAcceptedResponse, StudyPlanGenerateRequest
 from app.repositories.repositories import LearnerRepository
 from app.security.dependencies import require_active_consent_for_current_user, require_learner_write_for_current_user
@@ -23,7 +24,7 @@ async def generate_study_plan(
     learner_id: str,
     request: StudyPlanGenerateRequest,
     background_tasks: BackgroundTasks,
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
     db: AsyncSession = Depends(get_db),
 ):
     require_learner_write_for_current_user(current_user, learner_id)

@@ -16,7 +16,7 @@ def test_consent_status_uses_phase2_read_authorization() -> None:
 
     block = source.split("async def consent_status", maxsplit=1)[1]
 
-    assert "current_user: dict = Depends(get_current_user)" in block
+    assert "current_user: AuthContext = Depends(require_auth_context)" in block
     assert "learner = await LearnerRepository(db).get_by_id(str(learner_id))" in block
     assert "require_learner_read_for_current_user(current_user, learner)" in block
     assert "guardian_id: UUID = Depends(get_current_guardian_id)" not in block

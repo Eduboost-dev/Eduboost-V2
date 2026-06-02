@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import uuid
 from dataclasses import dataclass, field
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from sqlalchemy import select
@@ -76,8 +76,8 @@ class ContentGenerationExecutor:
 
         task.status = "running"
         task.locked_by = actor_id
-        task.lock_expires_at = datetime.now(UTC) + timedelta(minutes=10)
-        task.started_at = datetime.now(UTC)
+        task.lock_expires_at = datetime.now(timezone.utc) + timedelta(minutes=10)
+        task.started_at = datetime.now(timezone.utc)
         await session.flush()
 
         context = await self.source_context_service.build_context(session, scope_id=task.scope_id, caps_ref=task.caps_ref or "")
@@ -142,7 +142,7 @@ class ContentGenerationExecutor:
         task.cost_metadata = {"estimated_cost_usd": 0}
         task.validation_failures = errors
         task.status = "succeeded" if artifact_ids and not errors else "failed"
-        task.finished_at = datetime.now(UTC)
+        task.finished_at = datetime.now(timezone.utc)
         task.admin_actor_id = actor_id
         await session.flush()
         return TaskExecutionResult(task.task_id, task.status, artifact_ids, errors, provider.provider_name, self.settings.provider)
@@ -238,7 +238,7 @@ class ContentGenerationExecutor:
     async def _fail_task(self, session: AsyncSession, task: ContentGenerationTask, errors: list[str]) -> TaskExecutionResult:
         task.status = "failed"
         task.validation_failures = errors
-        task.finished_at = datetime.now(UTC)
+        task.finished_at = datetime.now(timezone.utc)
         await session.flush()
         return TaskExecutionResult(task.task_id, "failed", errors=errors, provider=self.settings.provider, mode=self.settings.provider)
 

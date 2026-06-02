@@ -36,5 +36,5 @@ def test_assessment_list_remains_authenticated_catalog_boundary() -> None:
     source = ROUTER.read_text(encoding="utf-8")
     block = source.split("async def list_assessments", maxsplit=1)[1].split("@router.post", maxsplit=1)[0]
 
-    assert "Depends(get_current_user)" in block
+    assert "Depends(require_auth_context)" in block
     assert "require_active_consent_for_current_user" not in block

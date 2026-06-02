@@ -8,21 +8,21 @@ artifact provenance, and production-launch gates.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
+from enum import Enum
 import hashlib
 import re
 from pathlib import Path
 from typing import Mapping
 
 
-class EnvironmentName(StrEnum):
+class EnvironmentName(str, Enum):
     LOCAL = "local"
     TEST = "test"
     STAGING = "staging"
     PRODUCTION = "production"
 
 
-class PipelineStage(StrEnum):
+class PipelineStage(str, Enum):
     LINT = "lint"
     TYPECHECK = "typecheck"
     UNIT_TEST = "unit_test"
@@ -35,7 +35,7 @@ class PipelineStage(StrEnum):
     ROLLBACK = "rollback"
 
 
-class DeploymentStrategy(StrEnum):
+class DeploymentStrategy(str, Enum):
     MANUAL_APPROVAL = "manual_approval"
     BLUE_GREEN = "blue_green"
     ROLLING = "rolling"
@@ -43,7 +43,7 @@ class DeploymentStrategy(StrEnum):
     FEATURE_FLAG = "feature_flag"
 
 
-class RuntimeRole(StrEnum):
+class RuntimeRole(str, Enum):
     API = "api"
     WORKER = "worker"
     FRONTEND = "frontend"

@@ -10,7 +10,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.rate_limiter import check_ai_quota
-from app.core.security import get_current_user
+from app.api_v2_deps.auth import AuthContext, require_auth_context
+from app.core.security import get_current_user  # noqa: F401
 from app.domain.schemas import DiagnosticResult, DiagnosticSubmit
 from app.security.dependencies import require_learner_read_for_current_user, require_active_consent_for_current_user
 from app.security.dependencies import require_learner_write_for_current_user
@@ -34,8 +35,8 @@ class ReviewItemRequest(BaseModel):
     review_status: str = Field(..., pattern="^(draft|ai_generated|human_reviewed|approved|retired)$")
     quality_score: float | None = Field(default=None, ge=0.0, le=1.0)
 
-def _require_item_bank_admin(current_user: dict) -> None:
-    if current_user.get("role") != "admin":
+def _require_item_bank_admin(current_user: AuthContext) -> None:
+    if not current_user.is_admin:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Item bank administration requires admin role",
@@ -46,7 +47,7 @@ async def get_diagnostic_items(
     learner_id: str,
     request: Request,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     learner = await diagnostic_repositories.learner(db).get_by_id(learner_id)
     if not learner:
@@ -103,7 +104,7 @@ async def submit_diagnostic(
     body: DiagnosticSubmit,
     request: Request,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     # code_691_720_diagnostic_submission_integrity
     validate_diagnostic_submission_payload(body, require_items=True)
@@ -164,7 +165,7 @@ async def submit_diagnostic(
 @router.get("/coverage")
 async def get_item_bank_coverage(
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     _require_item_bank_admin(current_user)
     service = ItemBankService(diagnostic_repositories.item_bank(db))
@@ -177,7 +178,7 @@ async def get_item_bank_coverage(
 async def get_item_bank_item(
     item_id: UUID,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     _require_item_bank_admin(current_user)
     item = await diagnostic_repositories.item_bank(db).get_item(item_id)
@@ -215,10 +216,10 @@ async def review_item_bank_item(
     item_id: UUID,
     body: ReviewItemRequest,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     _require_item_bank_admin(current_user)
-    reviewer_id = UUID(str(current_user["sub"]))
+    reviewer_id = UUID(current_user.user_id)
     service = ItemBankService(diagnostic_repositories.item_bank(db))
     item = await service.mark_item_reviewed(
         item_id=item_id,
@@ -250,7 +251,7 @@ class DiagnosticSessionResponseRequest(BaseModel):
 async def start_diagnostic_session(
     body: DiagnosticSessionStartRequest,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     require_learner_write_for_current_user(current_user, str(body.learner_id))
     await require_active_consent_for_current_user(db, current_user, str(body.learner_id))
@@ -266,7 +267,7 @@ async def start_diagnostic_session(
 async def recover_diagnostic_session(
     session_id: UUID,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     snap = await DiagnosticSessionService(recovery_service=SessionRecoveryService()).recover_session(session_id)
     if snap is None:
@@ -283,7 +284,7 @@ async def diagnostic_next_item(
     session_id: UUID,
     caps_ref: str,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     session_service = DiagnosticSessionService(recovery_service=SessionRecoveryService())
     snap = await session_service.recover_session(session_id)
@@ -316,7 +317,7 @@ async def diagnostic_respond(
     session_id: UUID,
     body: DiagnosticSessionResponseRequest,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     session_service = DiagnosticSessionService(
         session_repository=diagnostic_repositories.diagnostic_session(db),

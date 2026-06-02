@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import Any
 from uuid import UUID
 
@@ -112,7 +112,7 @@ class LessonRepository:
             return None
         lesson.review_status = review_status
         lesson.reviewer_id = UUID(str(reviewer_id))
-        lesson.reviewed_at = datetime.now(UTC)
+        lesson.reviewed_at = datetime.now(timezone.utc)
         trust_label = dict(lesson.trust_label or {})
         if reviewer_notes:
             trust_label["reviewer_notes"] = reviewer_notes
@@ -127,7 +127,7 @@ class LessonRepository:
 
     async def mark_completed(self, lesson_id: str, completed_at: datetime | None = None) -> None:
         await self._db().execute(
-            update(Lesson).where(Lesson.id == lesson_id).values(completed_at=completed_at or datetime.now(UTC))
+            update(Lesson).where(Lesson.id == lesson_id).values(completed_at=completed_at or datetime.now(timezone.utc))
         )
 
     async def count_approved_by_caps_ref_async(self, caps_ref: str) -> int:

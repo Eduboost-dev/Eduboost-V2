@@ -12,7 +12,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.envelope_route import EnvelopedRoute
-from app.core.security import get_current_user, require_admin
+from app.api_v2_deps.auth import AuthContext, require_auth_context
+from app.core.security import require_admin
+from app.core.security import get_current_user  # noqa: F401
 from app.domain.content_factory_schemas import (
     ContentArtifactProvenanceResponse,
     ContentArtifactProvenanceSourceResponse,
@@ -263,7 +265,7 @@ async def create_generation_run(
     request: ContentGenerationRunCreateRequest,
     session: AsyncSession = Depends(get_db),
     service: ContentGenerationRunService = Depends(get_content_generation_run_service),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> ContentGenerationRunResponse:
     if not request.dry_run and not _generation_enabled():
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Generation execution is disabled by CONTENT_FACTORY_GENERATION_ENABLED.")
@@ -271,7 +273,7 @@ async def create_generation_run(
         session,
         scope_id=request.scope_id,
         layers=request.layers,
-        requested_by=str(current_user.get("sub") or "admin"),
+        requested_by=current_user.user_id,
         dry_run=request.dry_run or not _generation_enabled(),
         budget_cap=request.budget_cap,
         max_concurrency=request.max_concurrency,
@@ -307,10 +309,10 @@ async def plan_missing_generation_tasks(
     run_id: uuid.UUID,
     session: AsyncSession = Depends(get_db),
     planner: ContentGenerationPlanner = Depends(get_content_generation_planner),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> ContentGenerationPlanResponse:
     try:
-        plan = await planner.plan_missing_for_run(session, run_id, actor_id=str(current_user.get("sub") or "admin"))
+        plan = await planner.plan_missing_for_run(session, run_id, actor_id=current_user.user_id)
         await session.commit()
         return ContentGenerationPlanResponse(run_id=plan.run_id, created_task_ids=plan.created_task_ids, skipped=plan.skipped, missing=plan.missing)
     except LookupError as exc:
@@ -323,10 +325,10 @@ async def execute_generation_run(
     max_tasks: int | None = Query(default=None, ge=1, le=100),
     session: AsyncSession = Depends(get_db),
     executor: ContentGenerationExecutor = Depends(get_content_generation_executor),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> ContentGenerationExecutionResponse:
     try:
-        result = await executor.execute_run(session, run_id, max_tasks=max_tasks, actor_id=str(current_user.get("sub") or "admin"))
+        result = await executor.execute_run(session, run_id, max_tasks=max_tasks, actor_id=current_user.user_id)
         await session.commit()
         return ContentGenerationExecutionResponse(run_id=result.run_id, status=result.status, summary=result.summary)
     except GenerationDisabledError as exc:
@@ -340,10 +342,10 @@ async def execute_generation_task(
     task_id: uuid.UUID,
     session: AsyncSession = Depends(get_db),
     executor: ContentGenerationExecutor = Depends(get_content_generation_executor),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> ContentGenerationExecutionResponse:
     try:
-        result = await executor.execute_task(session, task_id, actor_id=str(current_user.get("sub") or "admin"))
+        result = await executor.execute_task(session, task_id, actor_id=current_user.user_id)
         await session.commit()
         return ContentGenerationExecutionResponse(task_id=result.task_id, status=result.status, artifact_ids=result.artifact_ids, errors=result.errors, provider=result.provider, mode=result.mode)
     except GenerationDisabledError as exc:
@@ -380,10 +382,10 @@ async def cancel_generation_run(
     run_id: uuid.UUID,
     session: AsyncSession = Depends(get_db),
     service: ContentGenerationRunService = Depends(get_content_generation_run_service),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> ContentGenerationRunResponse:
     try:
-        run = await service.cancel_run(session, run_id, str(current_user.get("sub") or "admin"))
+        run = await service.cancel_run(session, run_id, current_user.user_id)
         await session.commit()
         return _run_response(run)
     except LookupError as exc:
@@ -395,9 +397,9 @@ async def retry_failed_generation_tasks(
     run_id: uuid.UUID,
     session: AsyncSession = Depends(get_db),
     service: ContentGenerationRunService = Depends(get_content_generation_run_service),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> list[ContentGenerationTaskResponse]:
-    tasks = await service.retry_failed_tasks(session, run_id, str(current_user.get("sub") or "admin"))
+    tasks = await service.retry_failed_tasks(session, run_id, current_user.user_id)
     await session.commit()
     return [_task_response(task) for task in tasks]
 
@@ -460,9 +462,9 @@ async def get_artifact_provenance(
 
 
 @router.post("/artifacts/{artifact_id}/submit-review", response_model=ContentFactoryActionResponse)
-async def submit_artifact_for_review(artifact_id: uuid.UUID, session: AsyncSession = Depends(get_db), lifecycle: ContentArtifactLifecycleService = Depends(get_content_artifact_lifecycle_service), current_user: dict[str, Any] = Depends(get_current_user)) -> ContentFactoryActionResponse:
+async def submit_artifact_for_review(artifact_id: uuid.UUID, session: AsyncSession = Depends(get_db), lifecycle: ContentArtifactLifecycleService = Depends(get_content_artifact_lifecycle_service), current_user: AuthContext = Depends(require_auth_context)) -> ContentFactoryActionResponse:
     try:
-        transition = await lifecycle.submit_for_review(session, artifact_id, str(current_user.get("sub") or "admin"))
+        transition = await lifecycle.submit_for_review(session, artifact_id, current_user.user_id)
         await session.commit()
         return ContentFactoryActionResponse(**transition.__dict__)
     except (LookupError, ValueError) as exc:
@@ -470,9 +472,9 @@ async def submit_artifact_for_review(artifact_id: uuid.UUID, session: AsyncSessi
 
 
 @router.post("/artifacts/{artifact_id}/approve", response_model=ContentFactoryActionResponse)
-async def approve_artifact(artifact_id: uuid.UUID, request: ContentFactoryActionRequest, session: AsyncSession = Depends(get_db), lifecycle: ContentArtifactLifecycleService = Depends(get_content_artifact_lifecycle_service), current_user: dict[str, Any] = Depends(get_current_user)) -> ContentFactoryActionResponse:
+async def approve_artifact(artifact_id: uuid.UUID, request: ContentFactoryActionRequest, session: AsyncSession = Depends(get_db), lifecycle: ContentArtifactLifecycleService = Depends(get_content_artifact_lifecycle_service), current_user: AuthContext = Depends(require_auth_context)) -> ContentFactoryActionResponse:
     try:
-        transition = await lifecycle.approve_artifact(session, artifact_id, str(current_user.get("sub") or "admin"), request.notes or "")
+        transition = await lifecycle.approve_artifact(session, artifact_id, current_user.user_id, request.notes or "")
         await session.commit()
         return ContentFactoryActionResponse(**transition.__dict__)
     except (LookupError, ValueError) as exc:
@@ -480,15 +482,15 @@ async def approve_artifact(artifact_id: uuid.UUID, request: ContentFactoryAction
 
 
 @router.post("/artifacts/{artifact_id}/reject", response_model=ContentFactoryActionResponse)
-async def reject_artifact(artifact_id: uuid.UUID, request: ContentFactoryActionRequest, session: AsyncSession = Depends(get_db), lifecycle: ContentArtifactLifecycleService = Depends(get_content_artifact_lifecycle_service), current_user: dict[str, Any] = Depends(get_current_user)) -> ContentFactoryActionResponse:
-    transition = await lifecycle.reject_artifact(session, artifact_id, str(current_user.get("sub") or "admin"), request.reason or "Rejected by admin")
+async def reject_artifact(artifact_id: uuid.UUID, request: ContentFactoryActionRequest, session: AsyncSession = Depends(get_db), lifecycle: ContentArtifactLifecycleService = Depends(get_content_artifact_lifecycle_service), current_user: AuthContext = Depends(require_auth_context)) -> ContentFactoryActionResponse:
+    transition = await lifecycle.reject_artifact(session, artifact_id, current_user.user_id, request.reason or "Rejected by admin")
     await session.commit()
     return ContentFactoryActionResponse(**transition.__dict__)
 
 
 @router.post("/artifacts/{artifact_id}/quarantine", response_model=ContentFactoryActionResponse)
-async def quarantine_artifact(artifact_id: uuid.UUID, request: ContentFactoryActionRequest, session: AsyncSession = Depends(get_db), lifecycle: ContentArtifactLifecycleService = Depends(get_content_artifact_lifecycle_service), current_user: dict[str, Any] = Depends(get_current_user)) -> ContentFactoryActionResponse:
-    transition = await lifecycle.quarantine_artifact(session, artifact_id, str(current_user.get("sub") or "admin"), request.reason or "Quarantined by admin")
+async def quarantine_artifact(artifact_id: uuid.UUID, request: ContentFactoryActionRequest, session: AsyncSession = Depends(get_db), lifecycle: ContentArtifactLifecycleService = Depends(get_content_artifact_lifecycle_service), current_user: AuthContext = Depends(require_auth_context)) -> ContentFactoryActionResponse:
+    transition = await lifecycle.quarantine_artifact(session, artifact_id, current_user.user_id, request.reason or "Quarantined by admin")
     await session.commit()
     return ContentFactoryActionResponse(**transition.__dict__)
 
@@ -546,10 +548,10 @@ async def assign_reviewer(
     request: ReviewAssignmentRequest,
     session: AsyncSession = Depends(get_db),
     service: ContentReviewerAssignmentService = Depends(get_content_reviewer_assignment_service),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> ReviewAssignmentResponse:
     try:
-        assignment = await service.assign_artifact(session, request.artifact_id, request.reviewer_id, str(current_user.get("sub") or "admin"), priority=request.priority)
+        assignment = await service.assign_artifact(session, request.artifact_id, request.reviewer_id, current_user.user_id, priority=request.priority)
         await session.commit()
         return _assignment_response(assignment)
     except LookupError as exc:
@@ -561,9 +563,9 @@ async def bulk_assign_reviewer(
     request: BulkReviewAssignmentRequest,
     session: AsyncSession = Depends(get_db),
     service: ContentBulkReviewService = Depends(get_content_bulk_review_service),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> BulkReviewResponse:
-    result = await service.bulk_assign(session, request.artifact_ids, reviewer_id=request.reviewer_id, assigned_by=str(current_user.get("sub") or "admin"), priority=request.priority)
+    result = await service.bulk_assign(session, request.artifact_ids, reviewer_id=request.reviewer_id, assigned_by=current_user.user_id, priority=request.priority)
     await session.commit()
     return BulkReviewResponse(**result.__dict__)
 
@@ -593,10 +595,10 @@ async def bulk_approve_review(
     request: BulkReviewRequest,
     session: AsyncSession = Depends(get_db),
     service: ContentBulkReviewService = Depends(get_content_bulk_review_service),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> BulkReviewResponse:
     try:
-        result = await service.bulk_approve(session, request.artifact_ids, reviewer_id=str(current_user.get("sub") or "admin"), notes=request.notes or "")
+        result = await service.bulk_approve(session, request.artifact_ids, reviewer_id=current_user.user_id, notes=request.notes or "")
         await session.commit()
         return BulkReviewResponse(**result.__dict__)
     except ValueError as exc:
@@ -608,10 +610,10 @@ async def bulk_reject_review(
     request: BulkReviewRequest,
     session: AsyncSession = Depends(get_db),
     service: ContentBulkReviewService = Depends(get_content_bulk_review_service),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> BulkReviewResponse:
     try:
-        result = await service.bulk_reject(session, request.artifact_ids, reviewer_id=str(current_user.get("sub") or "admin"), reason=request.reason or "")
+        result = await service.bulk_reject(session, request.artifact_ids, reviewer_id=current_user.user_id, reason=request.reason or "")
         await session.commit()
         return BulkReviewResponse(**result.__dict__)
     except ValueError as exc:
@@ -623,10 +625,10 @@ async def bulk_quarantine_review(
     request: BulkReviewRequest,
     session: AsyncSession = Depends(get_db),
     service: ContentBulkReviewService = Depends(get_content_bulk_review_service),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> BulkReviewResponse:
     try:
-        result = await service.bulk_quarantine(session, request.artifact_ids, reviewer_id=str(current_user.get("sub") or "admin"), reason=request.reason or "")
+        result = await service.bulk_quarantine(session, request.artifact_ids, reviewer_id=current_user.user_id, reason=request.reason or "")
         await session.commit()
         return BulkReviewResponse(**result.__dict__)
     except ValueError as exc:
@@ -640,12 +642,12 @@ async def run_all_scope_staging_verification(
     include_blockers: bool = Query(default=True),
     session: AsyncSession = Depends(get_db),
     service: ContentStagingReadinessService = Depends(get_staging_readiness_service),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> AllScopeStagingVerificationReport:
     report = await service.verify_all_scopes(
         session,
         include_partial=include_partial,
-        actor_id=str(current_user.get("sub") or "admin"),
+        actor_id=current_user.user_id,
         persist=True,
     )
     await session.commit()
@@ -683,13 +685,13 @@ async def run_scope_staging_verification(
     include_blockers: bool = Query(default=True),
     session: AsyncSession = Depends(get_db),
     service: ContentStagingReadinessService = Depends(get_staging_readiness_service),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> ScopeStagingVerificationReport:
     report = await service.verify_scope(
         scope_id,
         session=session,
         include_partial=include_partial,
-        actor_id=str(current_user.get("sub") or "admin"),
+        actor_id=current_user.user_id,
     )
     if report.status.value == "blocked_by_missing_scope":
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Unknown content scope: {scope_id}")
@@ -720,9 +722,9 @@ async def dry_run_scope_seed(
     scope_id: str,
     session: AsyncSession = Depends(get_db),
     seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> StagingSeedPlanResponse:
-    plan = await seed_executor.dry_run_seed(session, scope_id, actor_id=str(current_user.get("sub") or "admin"))
+    plan = await seed_executor.dry_run_seed(session, scope_id, actor_id=current_user.user_id)
     return StagingSeedPlanResponse(
         scope_id=plan.scope_id,
         layers=plan.layers,
@@ -739,14 +741,14 @@ async def seed_scope_staging(
     session: AsyncSession = Depends(get_db),
     seed_service: ContentSeedPromotionService = Depends(get_seed_promotion_service),
     seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> StagingSeedRunResultResponse:
     try:
         # Prefer a fake/injected seed_service (unit tests), otherwise use the executor path.
         if seed_service.__class__.__name__ != "ContentSeedPromotionService":
-            result = await seed_service.seed_staging(session, scope_id, actor_id=str(current_user.get("sub") or "admin"))
+            result = await seed_service.seed_staging(session, scope_id, actor_id=current_user.user_id)
         else:
-            result = await seed_executor.seed_staging(session, scope_id, actor_id=str(current_user.get("sub") or "admin"), allow_partial=allow_partial)
+            result = await seed_executor.seed_staging(session, scope_id, actor_id=current_user.user_id, allow_partial=allow_partial)
         await session.commit()
         return StagingSeedRunResultResponse(**result.__dict__)
     except ValueError as exc:
@@ -801,9 +803,9 @@ async def verify_seed_run(
     seed_run_id: uuid.UUID,
     session: AsyncSession = Depends(get_db),
     verification_service: ContentStagingReadVerificationService = Depends(get_content_staging_read_verification_service),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> StagingReadVerificationResponse:
-    report = await verification_service.verify_seed_run(session, seed_run_id, actor_id=str(current_user.get("sub") or "admin"))
+    report = await verification_service.verify_seed_run(session, seed_run_id, actor_id=current_user.user_id)
     return StagingReadVerificationResponse(seed_run_id=report.seed_run_id, passed=report.passed, verified_count=report.verified_count, errors=report.errors)
 
 
@@ -813,10 +815,10 @@ async def rollback_seed_run(
     reason: str,
     session: AsyncSession = Depends(get_db),
     seed_executor: ContentStagingSeedExecutor = Depends(get_content_staging_seed_executor),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> StagingRollbackResponse:
     try:
-        result = await seed_executor.rollback_seed_run(session, seed_run_id, actor_id=str(current_user.get("sub") or "admin"), reason=reason)
+        result = await seed_executor.rollback_seed_run(session, seed_run_id, actor_id=current_user.user_id, reason=reason)
         await session.commit()
         return StagingRollbackResponse(**result.__dict__)
     except LookupError as exc:
@@ -856,10 +858,10 @@ async def dry_run_promotion(
     layers: list[str] | None = Query(None),
     session: AsyncSession = Depends(get_db),
     executor: ContentProductionPromotionExecutor = Depends(get_production_promotion_executor),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> ProductionPromotionPlanResponse:
     try:
-        plan = await executor.dry_run_promotion(session, scope_id, layers=layers, actor_id=str(current_user.get("sub") or "admin"))
+        plan = await executor.dry_run_promotion(session, scope_id, layers=layers, actor_id=current_user.user_id)
         return ProductionPromotionPlanResponse(
             scope_id=plan.scope_id,
             layers=plan.layers,
@@ -878,18 +880,18 @@ async def promote_production(
     session: AsyncSession = Depends(get_db),
     executor: ContentProductionPromotionExecutor = Depends(get_production_promotion_executor),
     seed_service: ContentSeedPromotionService = Depends(get_seed_promotion_service),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> ProductionPromotionResultResponse:
     try:
         if request is None:
             # Backward-compatible seed-promotion flow used by unit tests.
-            result = await seed_service.promote_production(session, scope_id, actor_id=str(current_user.get("sub") or "admin"))
+            result = await seed_service.promote_production(session, scope_id, actor_id=current_user.user_id)
         else:
             result = await executor.promote_scope(
                 session,
                 scope_id,
                 layers=request.layers,
-                actor_id=str(current_user.get("sub") or "admin"),
+                actor_id=current_user.user_id,
                 confirmation=request.confirmation,
             )
         await session.commit()
@@ -963,10 +965,10 @@ async def verify_promotion_event(
     promotion_event_id: uuid.UUID,
     session: AsyncSession = Depends(get_db),
     verification_service: ContentProductionReadVerificationService = Depends(get_production_read_verification_service),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> ProductionReadVerificationReportResponse:
     try:
-        report = await verification_service.verify_promotion_event(session, promotion_event_id, actor_id=str(current_user.get("sub") or "admin"))
+        report = await verification_service.verify_promotion_event(session, promotion_event_id, actor_id=current_user.user_id)
         return ProductionReadVerificationReportResponse(
             promotion_event_id=report.promotion_event_id,
             passed=report.passed,
@@ -983,13 +985,13 @@ async def rollback_promotion_event(
     request: ProductionRollbackRequest,
     session: AsyncSession = Depends(get_db),
     executor: ContentProductionPromotionExecutor = Depends(get_production_promotion_executor),
-    current_user: dict[str, Any] = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ) -> ProductionRollbackResultResponse:
     try:
         result = await executor.rollback_promotion(
             session,
             promotion_event_id,
-            actor_id=str(current_user.get("sub") or "admin"),
+            actor_id=current_user.user_id,
             reason=request.reason,
         )
         await session.commit()
