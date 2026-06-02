@@ -4,12 +4,12 @@ Generated: `2026-06-02T09:44:17Z`
 Branch: `remediation/phase0-phase1`
 Commit: `50227d1820b251be4513732b75e7d1ce390f0392`
 
-## Current State
+## Phase 1 Baseline State
 
 - README/TODO/Roadmap-like tracked files found: `69`.
 - `docs/release/` tracked files: `440`.
 - `docs/security/` tracked files: `99`.
-- Root generated documentation inventory files are currently tracked: `docs_inventory.json`, `docs_inventory.md`, `docs_generation_plan.md`, `docs_gap_report.md`.
+- Root generated documentation inventory files were tracked at the baseline: `docs_inventory.json`, `docs_inventory.md`, `docs_generation_plan.md`, `docs_gap_report.md`. Phase 4 removed the duplicate root copies and preserved canonical generated copies under `docs/generated/documentation_intelligence/`.
 
 ## Target Information Architecture
 
@@ -25,12 +25,12 @@ Commit: `50227d1820b251be4513732b75e7d1ce390f0392`
 - `audits/roadmaps/`, `docs/roadmap/`, `docs/release/`, and root roadmap files all contain roadmap language and can conflict.
 - Generated docs inventory files exist both at root and under `docs/`, making freshness checks ambiguous.
 
-## Consolidation Actions Required
+## Consolidation Actions Status
 
-- Make root `TODO.md` the live task index and link specialized TODOs from it instead of leaving them as peers with conflicting status.
-- Create missing domain READMEs and link them from root and `docs/README.md`.
-- Move generated documentation intelligence artifacts under `docs/generated/documentation_intelligence/`.
-- Archive superseded roadmap/TODO documents with a manifest and backlinks.
+- Root `TODO.md` is the live task index, with specialized trackers linked through `docs/roadmap/README.md`.
+- Domain READMEs exist for backend, frontend, diagnostics, IRT, ETL, POPIA, security, testing, and deployment, and are linked from root and `docs/README.md`.
+- Generated documentation intelligence artifacts live under `docs/generated/documentation_intelligence/`; duplicate root copies were removed in Phase 4.
+- Superseded roadmap/TODO documents moved to `docs/archive/roadmaps-or-todos/` with an archive manifest and backlinks.
 
 ## Initial README/TODO/Roadmap Inventory
 
@@ -112,3 +112,14 @@ Commit: `50227d1820b251be4513732b75e7d1ce390f0392`
 - Rewrote `docs/README.md` as the current domain index and documentation governance entry point.
 - Added an authoritative documentation map to root `README.md`.
 - Added roadmap authority guidance to root `TODO.md`, keeping it as the live tracker while specialized trackers remain linked until spring cleaning.
+
+
+## Phase 4 Documentation Movement Update
+
+Spring cleaning moved supporting roadmap details out of the repository root:
+
+- `Todo_Production_Grade.md` -> `docs/roadmap/production_grade.md`
+- `Todo_Test_Velocity_And_Coverage.md` -> `docs/roadmap/test_velocity_and_coverage.md`
+- `RoadMap.md` and older batch/TODO backups -> `docs/archive/roadmaps-or-todos/`
+
+`TODO.md` remains the live execution tracker. `docs/roadmap/README.md` is the roadmap index and links to specialized supporting trackers. Generated documentation intelligence artifacts now live under `docs/generated/documentation_intelligence/`.

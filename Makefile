@@ -66,6 +66,10 @@ test-coverage-full:
 test-governance:
 	$(PYTEST) -c pytest.ini tests/unit -m governance -q
 
+.PHONY: repo-hygiene-check
+repo-hygiene-check:
+	$(PYTHON) scripts/maintenance/check_repo_hygiene.py
+
 lint:
 	ruff check .
 	black --check .

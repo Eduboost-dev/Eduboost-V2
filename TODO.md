@@ -20,8 +20,8 @@
 
 `TODO.md` is the live execution tracker. Supporting trackers remain linked below until the spring-cleaning phase archives or relocates them:
 
-- [Production grade tracker](Todo_Production_Grade.md)
-- [Test velocity and coverage tracker](Todo_Test_Velocity_And_Coverage.md)
+- [Production grade tracker](docs/roadmap/production_grade.md)
+- [Test velocity and coverage tracker](docs/roadmap/test_velocity_and_coverage.md)
 - [Roadmap index](docs/roadmap/README.md)
 - [Deep audit implementation report](audits/deep_app_audit/implementation_reality_report.md)
 
