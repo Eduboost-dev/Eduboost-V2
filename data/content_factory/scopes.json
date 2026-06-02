@@ -42,7 +42,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_mathematics_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -59,7 +61,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_home_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -76,7 +80,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_first_additional_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -93,7 +99,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_life_skills_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -110,7 +118,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_mathematics_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -127,7 +137,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_home_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -144,7 +156,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_first_additional_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -161,7 +175,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_life_skills_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -178,7 +194,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_mathematics_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -195,7 +213,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_home_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -212,7 +232,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_first_additional_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -229,7 +251,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_life_skills_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -246,7 +270,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_mathematics_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -263,7 +289,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_home_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -280,7 +308,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_first_additional_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -297,7 +327,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_foundation_life_skills_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -314,7 +346,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_home_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -331,7 +365,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_first_additional_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -348,7 +384,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_natural_sciences_and_technology_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -365,7 +403,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_social_sciences_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -382,7 +422,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_life_skills_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -399,7 +441,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_phase_mathematics_grade4_6"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -416,7 +460,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_home_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -433,7 +479,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_first_additional_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -450,7 +498,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_natural_sciences_and_technology_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -467,7 +517,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_social_sciences_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -484,7 +536,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_life_skills_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -501,7 +555,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_phase_mathematics_grade4_6"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -518,7 +574,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_home_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -535,7 +593,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_first_additional_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -552,7 +612,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_natural_sciences_and_technology_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -569,7 +631,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_social_sciences_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -586,7 +650,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_intermediate_life_skills_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -603,7 +669,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_senior_mathematics_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -620,7 +688,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_senior_home_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -637,7 +707,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_senior_first_additional_language_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -654,7 +726,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_senior_natural_sciences_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -671,7 +745,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_senior_social_sciences_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -688,7 +764,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_senior_technology_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -705,7 +783,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_senior_economic_management_sciences_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -722,7 +802,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_senior_creative_arts_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}
@@ -739,7 +821,9 @@
       "status": "planned",
       "topic_map_path": null,
       "caps_refs": [],
-      "source_documents": [],
+      "source_documents": [
+        "caps_senior_life_orientation_en"
+      ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
       "artifact_paths": {}

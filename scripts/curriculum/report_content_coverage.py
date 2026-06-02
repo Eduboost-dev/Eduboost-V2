@@ -17,6 +17,7 @@ from app.domain.content_coverage import ContentLayer
 from app.domain.content_scope import ContentScopeStatus
 from app.services.content_scope_registry import ContentScopeRegistry
 from scripts.curriculum.validate_scope_content import validate_scope
+from scripts.curriculum.validate_source_manifest import generation_ready
 
 
 def build_report(*, strict_counts: bool = False) -> dict[str, Any]:
@@ -42,6 +43,7 @@ def build_report(*, strict_counts: bool = False) -> dict[str, Any]:
             "language": scope.language,
             "status": scope.status.value,
             "learner_visible": active,
+            "generation_ready": generation_ready(scope.scope_id, registry=registry),
             "caps_ref_count": len(scope.caps_refs),
             "target_counts": dict(sorted(layer_targets.items())),
             "validation_status": "not_applicable" if not active else ("ok" if validation and validation.passed else "failed"),
@@ -49,6 +51,8 @@ def build_report(*, strict_counts: bool = False) -> dict[str, Any]:
         }
         rows.append(row)
         totals[f"scopes.{scope.status.value}"] += 1
+        if row["generation_ready"]:
+            totals["scopes.generation_ready"] += 1
         if active:
             totals["scopes.learner_visible"] += 1
             totals["caps_refs.active"] += len(scope.caps_refs)
@@ -69,8 +73,9 @@ def print_text(report: dict[str, Any]) -> None:
     print("\nScopes")
     for row in report["scopes"]:
         visible = "learner-visible" if row["learner_visible"] else "not learner-visible"
+        ready = "generation-ready" if row["generation_ready"] else "not generation-ready"
         print(
-            f"  {row['scope_id']}: {row['status']} ({visible}), "
+            f"  {row['scope_id']}: {row['status']} ({visible}, {ready}), "
             f"caps_refs={row['caps_ref_count']}, validation={row['validation_status']}"
         )
 

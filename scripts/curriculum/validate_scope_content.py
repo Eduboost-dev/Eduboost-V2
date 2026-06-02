@@ -20,6 +20,7 @@ from app.modules.diagnostics.item_validator import ItemValidator
 from app.modules.lessons.caps_topic_map_service import CAPSTopicMapService
 from app.modules.lessons.lesson_validator import LessonValidator
 from app.services.content_scope_registry import ContentScopeRegistry
+from scripts.curriculum.validate_source_manifest import generation_ready, validate_source_manifest
 
 
 @dataclass
@@ -56,13 +57,22 @@ def validate_scope(scope_id: str, *, strict: bool = False, registry: ContentScop
     scope = registry.get_scope(scope_id)
     result = ScopeValidationResult(scope_id=scope.scope_id, status=scope.status.value)
 
+    source_result = validate_source_manifest(registry=registry)
+    source_errors = [error for error in source_result.errors if f"scope {scope.scope_id} " in error]
+    result.errors.extend(source_errors)
+
     if scope.status != ContentScopeStatus.ACTIVE:
         if scope.caps_refs:
             result.errors.append(f"non-active scope {scope.scope_id} must not declare learner-visible caps_refs")
         if registry.get_scope_targets(scope.scope_id):
             result.errors.append(f"non-active scope {scope.scope_id} must not declare coverage targets")
+        if generation_ready(scope.scope_id, registry=registry):
+            result.errors.append(f"non-active scope {scope.scope_id} must not be generation-ready")
         result.skipped = True
         return result
+
+    if not generation_ready(scope.scope_id, registry=registry):
+        result.errors.append(f"active scope {scope.scope_id} is not generation-ready from approved source manifest")
 
     if not scope.caps_refs:
         result.errors.append(f"active scope {scope.scope_id} has no caps_refs")
