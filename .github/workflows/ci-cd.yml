@@ -31,8 +31,11 @@ jobs:
       - name: Install dev dependencies
         run: pip install -r requirements/dev.txt types-redis types-boto3 pydantic pydantic-settings
 
-      - name: Run ruff
-        run: ruff check app/ tests/ --output-format=github --select E9,F63,F7,F82
+      - name: Run release-blocking Ruff checks
+        run: ruff check app/ tests/ scripts/ --output-format=github --select E9,F63,F7,F82,F821
+
+      - name: Compile Python source and scripts
+        run: python -m compileall -q app scripts
 
       - name: Run mypy
         continue-on-error: true

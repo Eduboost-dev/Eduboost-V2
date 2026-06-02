@@ -43,6 +43,6 @@ export async function listCachedLessonShells(scope?: 'synthetic' | 'local-demo')
 
 export async function cacheStatusSummary(): Promise<{ totalBytes: number; count: number }> {
   const all = await db.cachedLessons.toArray();
-  const total = all.reduce((s, r) => s + (r.sizeBytes || 0), 0);
+  const total = all.reduce((sum: number, record: CachedLessonShell) => sum + (record.sizeBytes || 0), 0);
   return { totalBytes: total, count: all.length };
 }

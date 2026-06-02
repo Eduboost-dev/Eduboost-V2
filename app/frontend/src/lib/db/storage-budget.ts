@@ -1,4 +1,4 @@
-import { db } from './schema';
+import { db, CachedLessonShell } from './schema';
 
 export const CACHE_BUDGET_BYTES = 500 * 1024 * 1024; // 500MB
 
@@ -11,12 +11,12 @@ export interface CacheEvictionResult {
 
 export async function calculateCacheSize(): Promise<number> {
   const all = await db.cachedLessons.toArray();
-  return all.reduce((s, r) => s + (r.sizeBytes || 0), 0);
+  return all.reduce((sum: number, record: CachedLessonShell) => sum + (record.sizeBytes || 0), 0);
 }
 
 export async function enforceCacheBudget(): Promise<CacheEvictionResult | null> {
   const all = await db.cachedLessons.orderBy('lastAccessedAt').toArray();
-  const total = all.reduce((s, r) => s + (r.sizeBytes || 0), 0);
+  const total = all.reduce((sum: number, record: CachedLessonShell) => sum + (record.sizeBytes || 0), 0);
   if (total <= CACHE_BUDGET_BYTES) return { beforeBytes: total, afterBytes: total, evictedLessonIds: [], budgetBytes: CACHE_BUDGET_BYTES };
 
   let freed = 0;
