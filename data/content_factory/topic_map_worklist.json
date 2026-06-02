@@ -4,13 +4,13 @@
   "validation_errors": [],
   "summary": {
     "scopes_total": 51,
-    "scopes_generation_ready": 1,
-    "scopes_needing_topic_map": 50,
+    "scopes_generation_ready": 2,
+    "scopes_needing_topic_map": 49,
     "source_documents_distinct": 23,
-    "tasks.activate_scope": 50,
-    "tasks.approve_scope_caps_refs": 50,
-    "tasks.approve_topic_map": 48,
-    "tasks.extract_topic_map": 50
+    "tasks.activate_scope": 49,
+    "tasks.approve_scope_caps_refs": 49,
+    "tasks.approve_topic_map": 45,
+    "tasks.extract_topic_map": 49
   },
   "items": [
     {
@@ -756,9 +756,9 @@
       "subject": "Natural Sciences and Technology",
       "subject_code": "NST",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade4_natural_sciences_and_technology_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade4_natural_sciences_and_technology_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 18,
       "source_document_ids": [
         "caps_intermediate_natural_sciences_and_technology_en"
       ],
@@ -780,13 +780,8 @@
       "text_sha256": [
         "234d9969bfda8e948f2908c9cfc880072755759382b4eb60419ca5391d2958e1"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade4_sepedi_first_additional_language_en",
@@ -1056,7 +1051,6 @@
       "outstanding_tasks": [
         "extract_topic_map",
         "approve_scope_caps_refs",
-        "approve_topic_map",
         "activate_scope"
       ]
     },
@@ -1328,7 +1322,6 @@
       "outstanding_tasks": [
         "extract_topic_map",
         "approve_scope_caps_refs",
-        "approve_topic_map",
         "activate_scope"
       ]
     },

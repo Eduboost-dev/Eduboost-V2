@@ -13,7 +13,6 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from app.domain.content_coverage import ContentLayer
 from app.domain.content_scope import ContentScopeStatus
 from app.services.content_scope_registry import ContentScopeRegistry
 from scripts.curriculum.validate_scope_content import validate_scope
@@ -28,7 +27,11 @@ def build_report(*, strict_counts: bool = False) -> dict[str, Any]:
     for scope in registry.list_scopes():
         active = scope.status == ContentScopeStatus.ACTIVE
         validation = validate_scope(scope.scope_id, strict=strict_counts, registry=registry) if active else None
-        target_rows = registry.get_scope_targets(scope.scope_id) if active else []
+        target_rows = (
+            registry.get_scope_targets(scope.scope_id)
+            if scope.status in {ContentScopeStatus.ACTIVE, ContentScopeStatus.GENERATING, ContentScopeStatus.REVIEW}
+            else []
+        )
         layer_targets = defaultdict(int)
         for target in target_rows:
             for key, value in target.targets.items():

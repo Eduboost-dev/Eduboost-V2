@@ -8,7 +8,6 @@ import json
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
@@ -80,13 +79,17 @@ def validate_source_manifest(
             result.errors.append(f"scope {scope.scope_id} references unknown source documents: {missing}")
             continue
         documents = [by_id[document_id] for document_id in scope.source_documents]
-        if scope.status == ContentScopeStatus.ACTIVE:
-            if not any(document.status == SourceDocumentStatus.TOPIC_MAP_APPROVED for document in documents):
-                result.errors.append(f"active scope {scope.scope_id} has no topic_map_approved source document")
-            else:
-                result.generation_ready_scope_ids.append(scope.scope_id)
-        elif any(document.status == SourceDocumentStatus.TOPIC_MAP_APPROVED for document in documents) and scope.topic_map_path:
-            result.warnings.append(f"non-active scope {scope.scope_id} has approved source material but is not active")
+        has_approved_source = any(document.status == SourceDocumentStatus.TOPIC_MAP_APPROVED for document in documents)
+        scope_generation_ready = bool(scope.topic_map_path and scope.caps_refs and has_approved_source)
+        if scope_generation_ready:
+            result.generation_ready_scope_ids.append(scope.scope_id)
+        if scope.status == ContentScopeStatus.ACTIVE and not has_approved_source:
+            result.errors.append(f"active scope {scope.scope_id} has no topic_map_approved source document")
+        elif (
+            scope_generation_ready
+            and scope.status not in {ContentScopeStatus.ACTIVE, ContentScopeStatus.GENERATING, ContentScopeStatus.REVIEW}
+        ):
+            result.warnings.append(f"scope {scope.scope_id} has approved source material but is not in a generation-ready status")
 
     return result
 

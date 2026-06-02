@@ -318,13 +318,13 @@
       "languages": [
         "en"
       ],
-      "status": "source_loaded",
+      "status": "topic_map_approved",
       "source_path": "data/caps/source_documents/raw/caps_intermediate_natural_sciences_and_technology_en.pdf",
       "source_hash": "4bf95cdcc20b1b7902a9ea65826d83624012b17f39b9d96287e1f18d40105b69",
       "retrieved_at": "2026-06-02T20:08:40Z",
-      "reviewed_at": null,
-      "reviewer_id": null,
-      "notes": "Planned source record. Add authoritative CAPS source_path and source_hash before generation.",
+      "reviewed_at": "2026-06-03T00:00:00Z",
+      "reviewer_id": "curriculum-reviewer-foundation-batch-1",
+      "notes": "Grade 4 NST runtime topic map reviewed and approved for Content Factory generation planning. Grade 5-6 extraction remains pending for this source document.",
       "language_role": "content_subject",
       "language_code": "eng",
       "canonical_source_url": "https://www.education.gov.za/LinkClick.aspx?fileticket=IzbFrpzoQ44%3d&tabid=572&portalid=0&mid=1568&forcedownload=true",

@@ -16,11 +16,11 @@ def test_topic_map_worklist_covers_all_registered_scopes_and_current_gaps() -> N
 
     assert worklist["validation_passed"] is True
     assert worklist["summary"]["scopes_total"] == 51
-    assert worklist["summary"]["scopes_generation_ready"] == 1
-    assert worklist["summary"]["scopes_needing_topic_map"] == 50
+    assert worklist["summary"]["scopes_generation_ready"] == 2
+    assert worklist["summary"]["scopes_needing_topic_map"] == 49
     assert worklist["summary"]["source_documents_distinct"] == 23
     assert worklist["summary"].get("tasks.upload_source_pdf_to_object_store", 0) == 0
-    assert worklist["summary"]["tasks.extract_topic_map"] == 50
+    assert worklist["summary"]["tasks.extract_topic_map"] == 49
 
 
 def test_topic_map_worklist_preserves_source_hashes_for_scope() -> None:

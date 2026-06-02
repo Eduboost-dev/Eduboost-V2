@@ -1058,6 +1058,10 @@ Language-role subjects should be represented explicitly in `subject_code`, `subj
 | Sepedi First Additional Language | `sepedi_first_additional_language` / `Sepedi First Additional Language` | `language_role=first_additional_language`, `language_code=nso` |
 | Content subjects | Subject slug, for example `mathematics` | `language_role=content_subject`, `language_code=eng` |
 
+## Implementation Update — 2026-06-03
+
+Grade 4 Natural Sciences and Technology is now the first reviewed non-mathematics runtime topic map in the expansion lane. The source document caps_intermediate_natural_sciences_and_technology_en is marked topic_map_approved, the scope grade4_natural_sciences_and_technology_en is in review status with 18 topic-level CAPS refs, and learner visibility remains gated separately by active scope status plus strict content validation. The remaining topic-map extraction gap is 49 scopes.
+
 ## Appendix D — Official DBE Source Catalogue
 
 Primary access point: https://www.education.gov.za/Curriculum/CurriculumAssessmentPolicyStatements(CAPS).aspx

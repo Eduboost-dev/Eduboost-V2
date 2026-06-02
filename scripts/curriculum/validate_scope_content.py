@@ -62,12 +62,21 @@ def validate_scope(scope_id: str, *, strict: bool = False, registry: ContentScop
     result.errors.extend(source_errors)
 
     if scope.status != ContentScopeStatus.ACTIVE:
-        if scope.caps_refs:
-            result.errors.append(f"non-active scope {scope.scope_id} must not declare learner-visible caps_refs")
-        if registry.get_scope_targets(scope.scope_id):
-            result.errors.append(f"non-active scope {scope.scope_id} must not declare coverage targets")
-        if generation_ready(scope.scope_id, registry=registry):
-            result.errors.append(f"non-active scope {scope.scope_id} must not be generation-ready")
+        generation_statuses = {ContentScopeStatus.GENERATING, ContentScopeStatus.REVIEW}
+        if scope.status in generation_statuses:
+            if not scope.topic_map_path:
+                result.errors.append(f"generation scope {scope.scope_id} must declare topic_map_path")
+            if not scope.caps_refs:
+                result.errors.append(f"generation scope {scope.scope_id} must declare caps_refs")
+            if not generation_ready(scope.scope_id, registry=registry):
+                result.errors.append(f"generation scope {scope.scope_id} is not generation-ready")
+        else:
+            if scope.caps_refs:
+                result.errors.append(f"non-generation scope {scope.scope_id} must not declare caps_refs")
+            if registry.get_scope_targets(scope.scope_id):
+                result.errors.append(f"non-generation scope {scope.scope_id} must not declare coverage targets")
+            if generation_ready(scope.scope_id, registry=registry):
+                result.errors.append(f"non-generation scope {scope.scope_id} must not be generation-ready")
         result.skipped = True
         return result
 
