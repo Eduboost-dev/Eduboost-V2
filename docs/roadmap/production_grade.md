@@ -48,6 +48,10 @@ Branch: remediation/phase0-phase1
 
 See **`Todo_Test_Velocity_And_Coverage.md`** for the full phased checklist (fast pytest defaults, xdist, governance marker, router/service coverage, CI ratchet).
 
+## Current P0 Blocker Detail
+
+PR #192 introduced an updated production-grade blocker tracker. It is preserved as supporting roadmap detail at [production_grade_p0_blockers_2026_06_01.md](production_grade_p0_blockers_2026_06_01.md). Root `TODO.md` remains authoritative.
+
 ## Remaining To Reach Production Grade
 
 - [ ] Expand coverage for remaining critical low-coverage modules (continue beyond Sprint 6 additions)

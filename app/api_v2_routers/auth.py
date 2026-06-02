@@ -26,7 +26,6 @@ from app.core.security import (  # noqa: F401
     create_refresh_token,
     decode_token,
     encrypt_pii,
-    get_current_user,
     hash_email,
     hash_password,
     require_parent_or_admin,
@@ -37,7 +36,6 @@ from app.domain.schemas import LoginRequest, RefreshRequest, RegisterRequest, To
 from app.models import UserRole  # noqa: F401
 from app.core.rate_limit import limiter
 from app.api_v2_deps.auth import AuthContext, require_auth_context
-from app.core.security import get_current_user  # noqa: F401
 
 
 # code_631_650_auth_token_claims_repair
@@ -183,7 +181,8 @@ async def list_sessions(current_user: AuthContext = Depends(require_auth_context
 
     The response intentionally exposes only token metadata, never token values.
     """
-    return {"sessions": await list_user_refresh_sessions(current_user.user_id)}
+    user_id = current_user.user_id if hasattr(current_user, "user_id") else current_user.get("sub")
+    return {"sessions": await list_user_refresh_sessions(user_id)}
 
 @router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
 async def logout(
@@ -195,7 +194,7 @@ async def logout(
 ):
     return await auth_service.logout(
         response=response,
-        current_user=current_user.raw_claims,
+        current_user=current_user.raw_claims if hasattr(current_user, "raw_claims") else current_user,
         db=db,
         cookie_refresh=cookie_refresh,
     )

@@ -2035,7 +2035,7 @@ M docs/architecture/auth_boundary_debt_report.json
 | `docs/operations/final_release_verification_bundle.md` | `yes` |
 | `docs/operations/project_release_closure_index.md` | `yes` |
 | `docs/operations/CLUSTER_H_CLOSURE.md` | `yes` |
-| `PR_INTEGRATION_SUMMARY.md` | `yes` |
+| `audits/reports/PR_INTEGRATION_SUMMARY.md` | `yes` |
 | `docs/project_status.md` | `yes` |
 
 ## Snapshot Boundary

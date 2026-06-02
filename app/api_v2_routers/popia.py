@@ -17,7 +17,7 @@ from app.api_v2_deps.consent_lifecycle import (
     get_canonical_consent_service,
     get_canonical_data_rights_service,
 )
-from app.api_v2_deps.auth import AuthContext, require_auth_context
+from app.api_v2_deps.auth import require_auth_context
 from app.core.envelope_route import EnvelopedRoute
 from app.core.security import get_current_user  # noqa: F401
 from app.domain.consent import ConsentRecord

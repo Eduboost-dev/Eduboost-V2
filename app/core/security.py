@@ -55,12 +55,12 @@ def hash_email(email: str) -> str:
 
 # ── Token schemas ─────────────────────────────────────────────────────────────
 def create_access_token(subject: str, role: UserRole, extra: dict[str, Any] | None = None) -> str:
-    expire = datetime.now(timezone.utc) + timedelta(minutes=settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES)
+    expire = datetime.now(UTC) + timedelta(minutes=settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES)
     payload = {
         "sub": subject,
         "role": role,
         "exp": expire,
-        "iat": datetime.now(timezone.utc),
+        "iat": datetime.now(UTC),
         "jti": str(uuid.uuid4()),
         "type": "access",
         **(extra or {}),
@@ -69,12 +69,12 @@ def create_access_token(subject: str, role: UserRole, extra: dict[str, Any] | No
 
 
 def create_refresh_token(subject: str, role: UserRole, family_id: str | None = None) -> str:
-    expire = datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
+    expire = datetime.now(UTC) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
     payload = {
         "sub": subject,
         "role": role,
         "exp": expire,
-        "iat": datetime.now(timezone.utc),
+        "iat": datetime.now(UTC),
         "jti": str(uuid.uuid4()),
         "type": "refresh",
         "family": family_id or str(uuid.uuid4()),

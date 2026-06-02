@@ -6,6 +6,7 @@ Root `TODO.md` is the live execution tracker. This folder indexes roadmap materi
 
 - [Root TODO](../../TODO.md)
 - [Production grade TODO](production_grade.md)
+- [Production grade P0 blocker tracker](production_grade_p0_blockers_2026_06_01.md)
 - [Test velocity and coverage TODO](test_velocity_and_coverage.md)
 - [Deep audit implementation report](../../audits/deep_app_audit/implementation_reality_report.md)
 

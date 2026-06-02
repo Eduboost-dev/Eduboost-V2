@@ -66,7 +66,7 @@ def test_project_status_does_not_claim_production_ready() -> None:
 
 @pytest.mark.unit
 def test_pr_integration_summary_links_pr002r_evidence() -> None:
-    content = _read("PR_INTEGRATION_SUMMARY.md")
+    content = _read("audits/reports/PR_INTEGRATION_SUMMARY.md")
 
     assert "PR-002R" in content
     assert "docs/pr/PR-002R_BACKEND_RUNTIME_API_CONTRACT.md" in content
