@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-06-01T15:00:56Z",
-  "current_commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
+  "generated_at": "2026-05-22T14:21:44Z",
+  "current_commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
   "source_decision": "NO-GO",
-  "source_beta_blocker_count": 11,
+  "source_beta_blocker_count": 8,
   "burn_down_status": "blocked",
   "actions": [
     {
@@ -30,48 +30,12 @@
       "can_be_closed_locally": false
     },
     {
-      "id": "AUDIT-WRITE-001",
+      "id": "DIAG-SCORE-001",
       "category": "external",
       "status": "not-proven",
       "reason": "external approval remains incomplete",
       "owner": "backend",
-      "evidence_file": "docs/release/audit_write_runtime_evidence_status.md",
-      "next_action": "Resolve registry blocker: external approval remains incomplete",
-      "verification_command": "make external-approval-release-check",
-      "priority": "P0",
-      "can_be_closed_locally": false
-    },
-    {
-      "id": "AUDIT-WRITE-001R",
-      "category": "external",
-      "status": "not-proven",
-      "reason": "external approval remains incomplete",
-      "owner": "backend",
-      "evidence_file": "docs/release/audit_write_runtime_evidence_status.md",
-      "next_action": "Resolve registry blocker: external approval remains incomplete",
-      "verification_command": "make external-approval-release-check",
-      "priority": "P0",
-      "can_be_closed_locally": false
-    },
-    {
-      "id": "DB-ROLLBACK-001",
-      "category": "external",
-      "status": "not-proven",
-      "reason": "external approval remains incomplete",
-      "owner": "backend",
-      "evidence_file": "docs/release/db_backup_restore_rollback_evidence_status.md",
-      "next_action": "Resolve registry blocker: external approval remains incomplete",
-      "verification_command": "make external-approval-release-check",
-      "priority": "P0",
-      "can_be_closed_locally": false
-    },
-    {
-      "id": "DB-ROLLBACK-001R",
-      "category": "external",
-      "status": "not-proven",
-      "reason": "external approval remains incomplete",
-      "owner": "backend",
-      "evidence_file": "docs/release/db_backup_restore_rollback_evidence_status.md",
+      "evidence_file": "docs/release/diagnostic_item_bank_canonicality_status.md",
       "next_action": "Resolve registry blocker: external approval remains incomplete",
       "verification_command": "make external-approval-release-check",
       "priority": "P0",

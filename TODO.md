@@ -2,8 +2,8 @@
 
 **Purpose:** Execution-focused North Star for the next phase. This reflects the current green local backend unit baseline and separates repository-side completion from CI, runtime, external, legal, security, product, and beta-launch evidence.
 
-**Last updated:** 2026-05-25
-**Latest local backend unit result:** `1702 passed, 29 skipped, 0 warnings`
+**Last updated:** 2026-05-22
+**Latest local backend unit result:** `2051 passed, 1 skipped, 1 warning`
 
 ## Status vocabulary
 
@@ -16,17 +16,6 @@
 
 ---
 
-## Documentation and roadmap authority
-
-`TODO.md` is the live execution tracker. Supporting trackers remain linked below until the spring-cleaning phase archives or relocates them:
-
-- [Production grade tracker](docs/roadmap/production_grade.md)
-- [Test velocity and coverage tracker](docs/roadmap/test_velocity_and_coverage.md)
-- [Roadmap index](docs/roadmap/README.md)
-- [Deep audit implementation report](audits/deep_app_audit/implementation_reality_report.md)
-
-Specialized roadmaps must not override this file's status vocabulary or release-readiness claims.
-
 ## 0. Current project state
 
 - [x] Production-readiness backlog domains 05–20 have repository-side implementation evidence, docs, check scripts, unit tests, and Makefile targets.
@@ -34,7 +23,7 @@ Specialized roadmaps must not override this file's status vocabulary or release-
 - [x] POPIA/consent/audit/source-evidence repairs integrated.
 - [x] AuthService and legacy unit-test compatibility repairs integrated.
 - [x] Alembic migration graph repair from `code_338` integrated.
-- [x] Full backend unit suite locally green: `1702 passed, 29 skipped, 0 warnings`.
+- [x] Full backend unit suite locally green: `2051 passed, 1 skipped, 1 warning` with warning triaged in `docs/release/unit_test_evidence.md`.
 - [x] Cluster H phantom-entry problem identified and converted into concrete remediation tasks.
 - [x] Documentation claim discipline established: repository evidence must not be represented as legal, runtime, deployment, or launch approval.
 - [x] Recommended Operating Model documented and enforced by `make recommended-operating-model-check`.
@@ -53,18 +42,15 @@ Specialized roadmaps must not override this file's status vocabulary or release-
 | ID | Task | Evidence required | Status |
 |---|---|---|---|
 | NS-01 | Apply Alembic migration graph repair. | Migration graph test passes. | [x] |
-| NS-02 | Rerun full unit suite. | `pytest -c pytest.ini tests/unit -q --no-cov` shows `1702 passed, 29 skipped`. | [x] |
-| NS-03 | Commit migration graph repair and related POPIA/AuthService repairs. | Git commit containing repair files. | [x] |
+| NS-02 | Rerun full unit suite. | `pytest -c pytest.ini tests/unit -q --no-cov` shows `2051 passed, 1 skipped`. | [x] |
+| NS-03 | Commit migration graph repair and related POPIA/AuthService repairs. | Git commit containing repair files. | [ ] |
 | NS-04 | Record local test evidence. | `docs/release/unit_test_evidence.md` contains full output. | [x] |
 | NS-05 | Triage non-failing warnings. | Warnings documented as accepted, fixed, or tracked. | [x] |
 | NS-05A | Keep operating-model and project-assistance controls current. | `docs/operations/recommended_operating_model.md`, `docs/operations/project_assistance_status.md`, and their Make checks pass. | [x] |
 
 Current warnings to track:
 
-- Pydantic `model_version` protected namespace warning.
-- AsyncMock unawaited coroutine warning in lesson repository test.
-- AsyncMock unawaited coroutine warning in diagnostic repository/base test.
-- AsyncMock unawaited coroutine warning in Redis lesson service test.
+- AsyncMock unawaited coroutine warning in `tests/unit/test_v2_services_full.py::TestLessonServiceV2::test_generate_enforces_quota`; accepted as non-failing test debt and tracked in `docs/release/unit_test_evidence.md`.
 
 ---
 
@@ -87,16 +73,16 @@ Current warnings to track:
 | ID | Cluster H | Task | Evidence required | Status |
 |---|---|---|---|---|
 | NS-13 | H-01 | Run `make refresh-current-state` on clean checkout. | Committed `docs/current_state.md` with timestamp/current gate results. | [ ] |
-| NS-14 | H-02 | Create sign-off manifest with blank named fields. | `docs/release/sign_off_manifest.md`. | [ ] |
-| NS-15 | H-03 | Create rollback runbook. | `docs/release/rollback_runbook.md` with API/frontend/database rollback commands and Alembic downgrade target. | [ ] |
-| NS-16 | H-04 | Create post-deploy smoke checklist. | `docs/release/post_deploy_smoke_checklist.md` covering `/health/deep`, login, lesson generation, consent grant, POPIA export. | [ ] |
-| NS-17 | H-05 | Create release bundle index. | `docs/release/release_bundle_v1.0.0-rc2.md` with real links only. | [ ] |
-| NS-18 | H-06 | Add PR template. | `.github/PULL_REQUEST_TEMPLATE.md`. | [ ] |
-| NS-19 | H-07 | Create release hygiene checklist. | `docs/release/release_hygiene_checklist.md`. | [ ] |
-| NS-20 | H-14 | Create release state snapshot. | `docs/release/release_state_snapshot.md` with SHA, test counts, TODO counts, known issues, deferred items. | [ ] |
-| NS-21 | H-17 | Create audit trail index. | `docs/release/audit_trail_index.md`. | [ ] |
+| NS-14 | H-02 | Create sign-off manifest with blank named fields. | `docs/release/sign_off_manifest.md`. | [x] |
+| NS-15 | H-03 | Create rollback runbook. | `docs/release/rollback_runbook.md` with API/frontend/database rollback commands and Alembic downgrade target. | [x] |
+| NS-16 | H-04 | Create post-deploy smoke checklist. | `docs/release/post_deploy_smoke_checklist.md` covering `/health/deep`, login, lesson generation, consent grant, POPIA export. | [x] |
+| NS-17 | H-05 | Create release bundle index. | `docs/release/release_bundle_v1.0.0-rc2.md` with real links only. | [x] |
+| NS-18 | H-06 | Add PR template. | `.github/PULL_REQUEST_TEMPLATE.md`. | [x] |
+| NS-19 | H-07 | Create release hygiene checklist. | `docs/release/release_hygiene_checklist.md`. | [x] |
+| NS-20 | H-14 | Create release state snapshot. | `docs/release/release_state_snapshot.md` with SHA, test counts, TODO counts, known issues, deferred items. | [x] |
+| NS-21 | H-17 | Create audit trail index. | `docs/release/audit_trail_index.md`. | [x] |
 | NS-22 | H-26 | Replace terminal Cluster H phantom entries with final closure certificate. | `docs/release/final_closure_certificate.md`, signed only at release. | [external] |
-| NS-23 | H cleanup | Update `docs/project_status.md` by deleting/consolidating phantom Cluster H entries. | Single honest `Cluster H — Beta Release Governance` section linking evidence. | [ ] |
+| NS-23 | H cleanup | Update `docs/project_status.md` by deleting/consolidating phantom Cluster H entries. | Single honest `Cluster H — Beta Release Governance` section linking evidence. | [x] |
 
 ---
 
@@ -117,8 +103,8 @@ Current warnings to track:
 | NS-27 | Run frontend coverage. | `docs/release/frontend_test_evidence.md`. | [ ] |
 | NS-28 | Run Playwright/browser E2E against live local or staging backend. | Browser E2E output and environment details. | [ ] |
 | NS-29 | Verify critical UI flows. | Evidence for login, dashboard, lesson generation, consent, POPIA export. | [ ] |
-| NS-30 | Verify PWA/offline sync implementation status. | Implemented endpoint evidence or explicit deferred scope entry. | [ ] |
-| NS-31 | Verify parent dashboard implementation status. | Passing test/live evidence or explicit deferred scope entry. | [ ] |
+| NS-30 | Verify PWA/offline sync implementation status. | Explicit deferred scope entry in `docs/release/beta_product_scope.md`. | [x] |
+| NS-31 | Verify parent dashboard implementation status. | Explicit deferred scope entry in `docs/release/beta_product_scope.md`. | [x] |
 
 ---
 
@@ -126,7 +112,7 @@ Current warnings to track:
 
 | ID | Cluster H | Task | Evidence required | Status |
 |---|---|---|---|---|
-| NS-32 | H-19 | Create operator runbook. | `docs/release/operator_runbook.md`. | [ ] |
+| NS-32 | H-19 | Create operator runbook. | `docs/release/operator_runbook.md`. | [x] |
 | NS-33 | H-20 | Configure uptime monitor for `GET /api/v2/health/deep`. | `docs/release/monitoring_evidence.md`. | [external] |
 | NS-34 | H-21 | Wire Alertmanager to alert channel and fire test alert. | `docs/release/alertmanager_evidence.md`. | [external] |
 | NS-35 | — | Execute backup dry-run. | Backup log with timestamp/checksum. | [ ] |
@@ -153,12 +139,12 @@ Current warnings to track:
 
 | ID | Task | Evidence required | Status |
 |---|---|---|---|
-| NS-45 | Confirm current CAPS approved item count. | `docs/release/runtime_launch_content_evidence_status.md` records 40/40 approved items for each launch ref. | [x] |
-| NS-46 | Submit AI-generated candidate items for educator review. | Content Factory refreshed foundation implemented with admin-only `/api/v2/admin/content-factory` validation/provenance/coverage gates; evidence in `docs/release/content_factory_refreshed_status.md`. Educator spot-audit and expansion review remain external. | [verify] |
-| NS-47 | Reach or explicitly defer launch item-bank threshold. | Runtime evidence shows 40 approved diagnostic items per launch ref. | [x] |
-| NS-48 | Add independent answer-key validation plan. | Launch content evidence records 100% answer-key verification; Content Factory diagnostic validation now blocks artifacts without `answer_key`; CI guardrail still outstanding. | [verify] |
-| NS-49 | Define supported beta grades/subjects/languages. | `docs/product/launch_scope.md` and launch content evidence define Grade 4 Mathematics launch slice; broader scope remains roadmap. | [verify] |
-| NS-50 | Create known issues and limitations file. | `docs/release/known_issues.md`; must not be empty. | [ ] |
+| NS-45 | Confirm current CAPS approved item count. | `docs/ai/caps_ai_safety_evidence_2026-05-11.md` records 14 approved starter items, 1 human-reviewed item, and 106 AI-generated items. | [x] |
+| NS-46 | Submit AI-generated candidate items for educator review. | Review/sign-off records. | [external] |
+| NS-47 | Reach or explicitly defer launch item-bank threshold. | Beta-scope limitation documented in `docs/release/beta_product_scope.md`. | [x] |
+| NS-48 | Add independent answer-key validation plan. | Documented external review workflow in `docs/release/answer_key_validation_plan.md`. | [x] |
+| NS-49 | Define supported beta grades/subjects/languages. | `docs/release/beta_product_scope.md`. | [x] |
+| NS-50 | Create known issues and limitations file. | `docs/release/known_issues.md`; must not be empty. | [x] |
 | NS-51 | Define beta acceptance criteria. | `docs/release/beta_acceptance_criteria.md` with actual metrics and thresholds. | [external] |
 
 ---
@@ -182,7 +168,7 @@ Current warnings to track:
 | NS-57 | — | Deploy to staging. | Staging deployment log. | [ ] |
 | NS-58 | — | Run staging smoke tests. | Smoke output covering API, frontend, CORS, security headers. | [ ] |
 | NS-59 | — | Verify staging telemetry and alerts. | Dashboard/alert evidence. | [ ] |
-| NS-60 | H-22 | Create GitHub issue templates. | `.github/ISSUE_TEMPLATE/bug_report.md`, `feature_request.md`, `incorrect_content.md`, `popia_concern.md`. | [ ] |
+| NS-60 | H-22 | Create GitHub issue templates. | `.github/ISSUE_TEMPLATE/bug_report.md`, `feature_request.md`, `incorrect_content.md`, `popia_concern.md`. | [x] |
 | NS-61 | H-24 | Confirm beta exit criteria before launch. | `docs/release/beta_acceptance_criteria.md`. | [external] |
 | NS-62 | — | Conduct formal beta go/no-go. | Signed release decision log. | [external] |
 | NS-63 | H-25 | After beta ends, write beta outcome report. | `docs/release/beta_outcome_report.md`. | [post-beta] |
@@ -205,7 +191,7 @@ Current warnings to track:
 | Runtime DB migration proof | [ ] open |
 | Backup/restore/rollback drill | [ ] open |
 | Legal/security approval | [external] open |
-| CAPS launch-slice content gate | [x] green for Grade 4 Mathematics launch slice; refreshed Content Factory scope registry and registry-backed coverage service are [verify] pending CI/staging/educator proof |
+| CAPS educator approval | [external] open |
 | Billing/notifications decision | [ ] open |
 | Controlled beta go/no-go | [external] open |
 | Public beta / production launch | [blocked] blocked |
@@ -227,10 +213,3 @@ Acceptable evidence includes:
 - test result artefact.
 
 A document that merely says “evidence added” is not evidence.
-## Content Factory Control Plane
-
-| ID | Task | Status | Gate |
-|---|---|---|---|
-| CONTENT-FACTORY-005 | PR-CF-005 control plane foundation | Implemented locally; CI/staging/promotion proof pending. | [verify] |
-- [x] PR-CF-007 all-scope staging verification implemented locally; production promotion remains blocked pending human review and green gates. Evidence: docs/backlog/pr_cf_007_all_scope_staging_verification.md
-- [x] PR-CF-008 controlled generation executor implemented locally; generation remains disabled by default and human review remains mandatory. Evidence: docs/backlog/pr_cf_008_controlled_generation_executor.md

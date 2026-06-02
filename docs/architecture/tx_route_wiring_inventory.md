@@ -1,6 +1,6 @@
 # Transaction Route Wiring Inventory
 
-Generated at: `2026-06-01T15:08:55Z`
+Generated at: `2026-05-22T14:26:10Z`
 
 **Status:** `production-route-transaction-wiring-not-proven`
 
@@ -15,23 +15,23 @@ Generated at: `2026-06-01T15:08:55Z`
 | `auth` | `logout` | `app/api_v2_routers/auth.py` | 187 | False | False | `read-or-nonmutation-route` |
 | `auth` | `revoke_all_tokens` | `app/api_v2_routers/auth.py` | 198 | False | False | `read-or-nonmutation-route` |
 | `popia` | `grant_consent` | `app/api_v2_routers/popia.py` | 102 | True | False | `route-transaction-wiring-not-proven` |
-| `popia` | `deny_consent` | `app/api_v2_routers/popia.py` | 119 | True | False | `route-transaction-wiring-not-proven` |
-| `popia` | `withdraw_consent` | `app/api_v2_routers/popia.py` | 137 | True | False | `route-transaction-wiring-not-proven` |
-| `popia` | `renew_consent` | `app/api_v2_routers/popia.py` | 152 | True | False | `route-transaction-wiring-not-proven` |
-| `popia` | `create_export_request` | `app/api_v2_routers/popia.py` | 172 | True | False | `route-transaction-wiring-not-proven` |
-| `popia` | `create_erasure_request` | `app/api_v2_routers/popia.py` | 190 | False | False | `read-or-nonmutation-route` |
-| `popia` | `cancel_erasure` | `app/api_v2_routers/popia.py` | 205 | False | False | `read-or-nonmutation-route` |
-| `popia` | `create_correction_request` | `app/api_v2_routers/popia.py` | 222 | False | False | `read-or-nonmutation-route` |
-| `popia` | `create_restriction_request` | `app/api_v2_routers/popia.py` | 237 | False | False | `read-or-nonmutation-route` |
+| `popia` | `deny_consent` | `app/api_v2_routers/popia.py` | 120 | True | False | `route-transaction-wiring-not-proven` |
+| `popia` | `withdraw_consent` | `app/api_v2_routers/popia.py` | 138 | True | False | `route-transaction-wiring-not-proven` |
+| `popia` | `renew_consent` | `app/api_v2_routers/popia.py` | 153 | True | False | `route-transaction-wiring-not-proven` |
+| `popia` | `create_export_request` | `app/api_v2_routers/popia.py` | 173 | True | False | `route-transaction-wiring-not-proven` |
+| `popia` | `create_erasure_request` | `app/api_v2_routers/popia.py` | 191 | False | False | `read-or-nonmutation-route` |
+| `popia` | `cancel_erasure` | `app/api_v2_routers/popia.py` | 206 | False | False | `read-or-nonmutation-route` |
+| `popia` | `create_correction_request` | `app/api_v2_routers/popia.py` | 223 | False | False | `read-or-nonmutation-route` |
+| `popia` | `create_restriction_request` | `app/api_v2_routers/popia.py` | 238 | False | False | `read-or-nonmutation-route` |
 | `diagnostics` | `get_diagnostic_items` | `app/api_v2_routers/diagnostics.py` | 45 | False | False | `read-or-nonmutation-route` |
-| `diagnostics` | `submit_diagnostic` | `app/api_v2_routers/diagnostics.py` | 102 | True | False | `route-transaction-wiring-not-proven` |
-| `diagnostics` | `get_item_bank_coverage` | `app/api_v2_routers/diagnostics.py` | 165 | False | False | `read-or-nonmutation-route` |
-| `diagnostics` | `get_item_bank_item` | `app/api_v2_routers/diagnostics.py` | 177 | False | False | `read-or-nonmutation-route` |
-| `diagnostics` | `review_item_bank_item` | `app/api_v2_routers/diagnostics.py` | 214 | False | False | `read-or-nonmutation-route` |
-| `diagnostics` | `start_diagnostic_session` | `app/api_v2_routers/diagnostics.py` | 250 | True | False | `route-transaction-wiring-not-proven` |
-| `diagnostics` | `recover_diagnostic_session` | `app/api_v2_routers/diagnostics.py` | 266 | False | False | `read-or-nonmutation-route` |
-| `diagnostics` | `diagnostic_next_item` | `app/api_v2_routers/diagnostics.py` | 282 | False | False | `read-or-nonmutation-route` |
-| `diagnostics` | `diagnostic_respond` | `app/api_v2_routers/diagnostics.py` | 315 | True | False | `route-transaction-wiring-not-proven` |
+| `diagnostics` | `submit_diagnostic` | `app/api_v2_routers/diagnostics.py` | 81 | True | False | `route-transaction-wiring-not-proven` |
+| `diagnostics` | `get_item_bank_coverage` | `app/api_v2_routers/diagnostics.py` | 144 | False | False | `read-or-nonmutation-route` |
+| `diagnostics` | `get_item_bank_item` | `app/api_v2_routers/diagnostics.py` | 156 | False | False | `read-or-nonmutation-route` |
+| `diagnostics` | `review_item_bank_item` | `app/api_v2_routers/diagnostics.py` | 193 | False | False | `read-or-nonmutation-route` |
+| `diagnostics` | `start_diagnostic_session` | `app/api_v2_routers/diagnostics.py` | 229 | True | False | `route-transaction-wiring-not-proven` |
+| `diagnostics` | `recover_diagnostic_session` | `app/api_v2_routers/diagnostics.py` | 245 | False | False | `read-or-nonmutation-route` |
+| `diagnostics` | `diagnostic_next_item` | `app/api_v2_routers/diagnostics.py` | 261 | False | False | `read-or-nonmutation-route` |
+| `diagnostics` | `diagnostic_respond` | `app/api_v2_routers/diagnostics.py` | 293 | True | False | `route-transaction-wiring-not-proven` |
 | `lessons` | `generate_lesson` | `app/api_v2_routers/lessons.py` | 33 | True | False | `route-transaction-wiring-not-proven` |
 | `lessons` | `generate_lesson_stream` | `app/api_v2_routers/lessons.py` | 58 | True | False | `route-transaction-wiring-not-proven` |
 | `lessons` | `get_lesson` | `app/api_v2_routers/lessons.py` | 81 | True | False | `route-transaction-wiring-not-proven` |

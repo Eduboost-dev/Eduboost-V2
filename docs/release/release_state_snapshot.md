@@ -1,31 +1,28 @@
 # Release State Snapshot
 
-**Generated:** 2026-05-27T20:50:42Z
-**Commit:** d23b1869
+Generated at: `2026-05-22T14:26:54Z`
+Branch: `codex/production_readiness`
+Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+Status: not public-beta-ready; not production-launch-ready
 
-This snapshot collects the minimal repository-side evidence available at the
-time of capture. It is intended to be a concise index a release owner can use
-to verify which artifacts exist in-repo and where to open them.
+## Test State
 
-Key evidence files (representative, not exhaustive):
+- Local unit suite: `2051 passed, 1 skipped, 1 warning`
+- Evidence: `docs/release/unit_test_evidence.md`
+- Warning status: accepted and tracked for follow-up
 
-- Unit test evidence: [docs/release/unit_test_evidence.md](docs/release/unit_test_evidence.md)
-- Last full successful local unit run: [docs/release/unit_latest_green.txt](docs/release/unit_latest_green.txt)
-- CI run status: [docs/release/ci_run_evidence_status.json](docs/release/ci_run_evidence_status.json)
-- Migration runbook: [docs/release/migration_runbook.md](docs/release/migration_runbook.md)
-- Migration evidence: [docs/release/migration_evidence.md](docs/release/migration_evidence.md)
-- Backup/restore evidence: [docs/release/db_backup_restore_rollback_evidence_status.md](docs/release/db_backup_restore_rollback_evidence_status.md)
-- Release go/no-go status: [docs/release/release_go_no_go_status.md](docs/release/release_go_no_go_status.md)
+## TODO State
 
-Summary counts (quick glance):
+- Outstanding TODO IDs after this snapshot: 61
+- Blocked areas: CI authority, branch protection, staging execution, runtime DB proof, legal/security/product approvals, beta go/no-go
 
-- Unit evidence file present: yes
-- CI evidence file present: yes
-- Migration/runbook evidence: yes
-- Operator runbooks/backup evidence: yes
+## Deferred Or External Items
 
-How to update this snapshot
+- Branch protection requires repository administrator evidence.
+- Legal, security, educator, product, and release-owner sign-offs remain external.
+- Beta outcome report remains post-beta.
 
-1. Re-run local evidence commands (unit tests, migrations, smoke checks).
-2. Update the evidence files above with new outputs or links.
-3. Update this snapshot `Commit` field and regenerate the timestamp.
+## Known Local Environment Notes
+
+- Redis was started via Docker Compose for auth route proof scripts.
+- `.venv` required the already-declared `aiosqlite==0.22.1` dev dependency before the SQLite integration proof could run.

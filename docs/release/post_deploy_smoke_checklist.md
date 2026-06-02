@@ -1,35 +1,18 @@
-# Post-deploy Smoke Checklist
+# Post-Deploy Smoke Checklist
 
-Basic smoke checks to run after deploying a candidate to staging.
+Status: pending staging execution
+Environment: staging or disposable production-like environment
 
-Run each check and record output in `docs/release/post_deploy_smoke_checklist.md` or
-link the artifact into the release bundle.
+| Check | Expected result | Evidence field |
+|---|---|---|
+| `GET /api/v2/health/deep` | 2xx response with required dependency signals | URL, response body, timestamp |
+| Auth register/login/refresh/logout | Non-500 success and clean failure paths | command output or browser trace |
+| Dashboard load | Authenticated learner sees dashboard | screenshot or Playwright output |
+| Lesson generation | Learner can request a lesson without server error | request/response or trace |
+| Consent grant | Consent state is persisted and audited | API output and audit event |
+| POPIA export | Export route returns expected learner data package | API output and file/hash |
+| CORS/security headers | Expected frontend origin and security headers are present | header output |
 
-Checks:
+## Completion Rule
 
-1. Deep health endpoint
-   - Command: `curl -sS -f $STAGING_URL/api/v2/health/deep`
-   - Expected: JSON with all monitored subsystems `ok`.
-
-2. Login
-   - Command: perform an auth flow for a test learner account and confirm JWT
-     issuance and `/api/v2/me` details.
-
-3. Lesson generation
-   - Command: POST to lesson generation endpoint with a small payload and verify
-     a valid lesson is returned and stored.
-
-4. Consent grant flow
-   - Command: perform consent grant and verify consent record exists and can be
-     exported via POPIA export endpoints.
-
-5. POPIA export
-   - Command: Trigger the export path for a test account and verify file/record.
-
-6. Basic UI smoke (login -> dashboard -> generate)
-   - Command: run Playwright smoke script or a manual browser check.
-
-7. Check critical headers/CORS
-   - Command: verify `security` headers and `Access-Control-Allow-Origin` are set
-
-Owners: record owner for each step next to the check when executed.
+Do not mark this checklist complete until every row has runtime evidence from the exact release candidate.

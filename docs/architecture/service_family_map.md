@@ -1,6 +1,6 @@
 # Service Family Map
 
-Generated at: `2026-06-01T14:55:53Z`
+Generated at: `2026-05-22T14:16:05Z`
 
 | Domain | Path | Classification | Classes |
 |---|---|---|---|
@@ -33,43 +33,8 @@ Generated at: `2026-06-01T14:55:53Z`
 | consent | `app/services/consent_runtime_compatibility.py` | active_runtime_facade | `ConsentRuntimeOperation`, `ConstructorProbe` |
 | consent | `app/services/consent_runtime_orchestrator.py` | active_runtime_facade | `ConsentRuntimeCompatibilitySummary` |
 | consent | `app/services/consent_service.py` | deprecated_legacy_service | `ConsentService` |
-| other | `app/services/content_artifact_lifecycle.py` | unclassified | `ArtifactStatusTransition`, `ContentArtifactLifecycleService` |
-| other | `app/services/content_blueprint_validation.py` | unclassified | `AssessmentBlueprintValidationService`, `BlueprintValidationResult` |
-| other | `app/services/content_bulk_review.py` | unclassified | `BulkReviewResult`, `ContentBulkReviewService` |
-| other | `app/services/content_coverage_service.py` | duplicate_domain_service | `ContentCoverageService`, `DiagnosticCoverageRepository`, `LessonCoverageRepository` |
-| other | `app/services/content_factory.py` | unclassified | `ArtifactProvenanceReport`, `ContentFactoryService`, `ContentValidationService`, `ETLProvenanceService`, `SourceGateResult` |
-| other | `app/services/content_factory_orchestrator.py` | unclassified | `ContentFactoryOrchestrator`, `OrchestratorPlan` |
-| other | `app/services/content_generation/blueprint_generator.py` | unclassified | `BlueprintGenerationResult`, `BlueprintGenerator` |
-| diagnostic | `app/services/content_generation/diagnostic_generator.py` | unclassified | `DiagnosticGenerator` |
-| lesson | `app/services/content_generation/lesson_generator.py` | unclassified | `LessonGenerator` |
-| other | `app/services/content_generation/prompt_payloads.py` | unclassified | `DiagnosticGenerationRequest`, `GeneratedDiagnosticItem`, `GeneratedLesson`, `GenerationRequestBase`, `LessonGenerationRequest`, `SourceContextChunk` |
-| other | `app/services/content_generation/provider_factory.py` | unclassified | `GenerationSettings` |
-| other | `app/services/content_generation/providers/base.py` | unclassified | `ContentGenerationProvider` |
-| other | `app/services/content_generation/providers/deterministic.py` | unclassified | `DeterministicContentGenerationProvider` |
-| other | `app/services/content_generation/providers/llm.py` | unclassified | `LLMContentGenerationProvider` |
-| other | `app/services/content_generation/source_context.py` | deprecated_legacy_service | `ContentGenerationSourceContextService`, `SourceContextResult` |
-| other | `app/services/content_generation/study_plan_template_generator.py` | unclassified | `StudyPlanTemplateGenerationResult`, `StudyPlanTemplateGenerator` |
-| other | `app/services/content_generation_executor.py` | unclassified | `ContentGenerationExecutor`, `GenerationDisabledError`, `RunExecutionResult`, `TaskExecutionResult` |
-| other | `app/services/content_generation_planner.py` | unclassified | `ContentGenerationPlanner`, `GenerationPlanResult` |
-| other | `app/services/content_generation_reporter.py` | unclassified | `ContentGenerationReporter`, `GenerationReportData` |
-| other | `app/services/content_generation_run_lock.py` | unclassified | `ContentGenerationRunLock`, `LockAcquisitionResult` |
-| other | `app/services/content_generation_runs.py` | unclassified | `ContentGenerationRunService` |
-| learner | `app/services/content_learner_read_service.py` | duplicate_domain_service | `ContentLearnerReadService`, `LearnerDiagnosticItem`, `LearnerLesson`, `LearnerReadMode`, `LearnerScopeContentSummary` |
-| other | `app/services/content_production_promotion_executor.py` | unclassified | `ContentProductionPromotionExecutor`, `ProductionPromotionPage`, `ProductionPromotionPlan`, `ProductionPromotionResult`, `ProductionRollbackResult` |
-| other | `app/services/content_production_promotion_gate.py` | unclassified | `ContentProductionPromotionGate`, `ProductionGateBlocker`, `ProductionGateReport`, `ProductionGateStatus` |
-| other | `app/services/content_production_read_verification.py` | unclassified | `ContentProductionReadVerificationService`, `ProductionReadVerificationReport`, `ScopeProductionReadReport` |
-| other | `app/services/content_review_queue.py` | unclassified | `ArtifactReviewBundle`, `ContentReviewQueueService`, `ReviewQueueItem`, `ReviewQueuePage`, `ReviewSummary` |
-| other | `app/services/content_review_risk.py` | deprecated_legacy_service | `ContentReviewRiskService`, `ReviewRisk` |
-| other | `app/services/content_reviewer_assignment.py` | unclassified | `ContentReviewerAssignmentService`, `ReviewerWorkload` |
 | lesson | `app/services/content_safety/lesson_contracts.py` | unclassified | `LessonOutput`, `LessonValidationResult` |
 | other | `app/services/content_safety/pii.py` | unclassified | `PIIFinding` |
-| other | `app/services/content_scope_registry.py` | unclassified | `ContentScopeRegistry`, `ContentScopeRegistryError` |
-| other | `app/services/content_seed_promotion.py` | unclassified | `ContentSeedPromotionService`, `GateResult` |
-| other | `app/services/content_staging_preview_service.py` | duplicate_domain_service | `ContentStagingPreviewService`, `StagingArtifactPreview`, `StagingCapsRefPreview`, `StagingPreviewReport` |
-| other | `app/services/content_staging_read_verification.py` | unclassified | `ContentStagingReadVerificationService`, `ScopeStagingReadReport`, `StagingReadVerificationReport` |
-| other | `app/services/content_staging_readiness.py` | unclassified | `AllScopeStagingVerificationReport`, `BlockerSeverity`, `ContentStagingReadinessService`, `LayerReadinessSummary`, `ScopeBlocker`, `ScopeStagingVerificationReport`, `StagingReadinessStatus` |
-| other | `app/services/content_staging_seed_executor.py` | unclassified | `ContentStagingSeedExecutor`, `SeedableArtifact`, `SkippedArtifact`, `StagingRollbackResult`, `StagingSeedItemResult`, `StagingSeedPlan`, `StagingSeedRunPage`, `StagingSeedRunResult` |
-| other | `app/services/content_template_validation.py` | unclassified | `StudyPlanTemplateValidationResult`, `StudyPlanTemplateValidationService` |
 | other | `app/services/curriculum/caps_topic_map.py` | unclassified | `CAPSTopic`, `CAPSTopicMap` |
 | other | `app/services/curriculum/coverage.py` | unclassified | `CurriculumCoverageAnalyzer`, `CurriculumGap` |
 | other | `app/services/data_subject_rights_service.py` | duplicate_domain_service | `DataSubjectRightsService` |
@@ -85,13 +50,8 @@ Generated at: `2026-06-01T14:55:53Z`
 | diagnostic | `app/services/diagnostic_session_integrity.py` | unclassified | `ServedDiagnosticItem` |
 | diagnostic | `app/services/diagnostic_session_service.py` | duplicate_domain_service | `DiagnosticSessionNotFoundError`, `DiagnosticSessionService` |
 | diagnostic | `app/services/diagnostic_transactional_response.py` | unclassified | `DiagnosticTransactionError`, `DiagnosticTransactionInput`, `DiagnosticTransactionResult`, `TransactionalDiagnosticResponseService` |
-| other | `app/services/email_service.py` | duplicate_domain_service | - |
 | other | `app/services/ether.py` | unclassified | - |
 | other | `app/services/ether_service.py` | duplicate_domain_service | `OnboardingResponse` |
-| other | `app/services/etl/etl_pipeline.py` | unclassified | `ChunkType`, `Chunker`, `Document`, `DocumentChunk`, `DocumentSource`, `DocumentType`, `EduboostETL`, `ExtractionResult`, `Extractor`, `IngestRequest`, `LicenseStatus`, `Normalizer`, `ProcessingJob`, `ProcessingStatus`, `QualityCheckResult`, `QualityValidator`, `SourceType` |
-| other | `app/services/etl/etl_pipeline_v2.py` | deprecated_legacy_service | `DocumentVersion`, `EduboostETLv2`, `FeedbackRecord`, `MonitoringReport`, `TrainingDataset`, `TrainingExample` |
-| other | `app/services/etl/etl_pipeline_v3_additions.py` | deprecated_legacy_service | `AuditEntry`, `BulkReviewResult`, `ContaminationReport`, `DatasetSplitResult`, `EduboostETLv3` |
-| other | `app/services/etl/factory.py` | unclassified | - |
 | other | `app/services/executive.py` | unclassified | - |
 | audit | `app/services/first_audit_runtime_wiring.py` | active_runtime_facade | `FirstAuditRuntimeCandidate`, `FirstAuditRuntimePayload`, `FirstAuditRuntimeRecordResult`, `InMemoryFirstAuditRuntimeSink` |
 | consent | `app/services/first_consent_runtime_wiring.py` | active_runtime_facade | `FirstConsentRuntimeCandidate`, `FirstConsentRuntimePayload` |
@@ -102,14 +62,12 @@ Generated at: `2026-06-01T14:55:53Z`
 | other | `app/services/job_runtime_integrity.py` | active_runtime_facade | `JobRuntimeIntegrityError` |
 | other | `app/services/judiciary.py` | unclassified | - |
 | other | `app/services/jwt_keyring.py` | unclassified | `JWTKey`, `JWTKeyringError` |
-| other | `app/services/launch_content_seed.py` | unclassified | - |
 | learner | `app/services/learner_service.py` | duplicate_domain_service | `LearnerService` |
 | auth | `app/services/lesson_authorization.py` | authorization_helper | - |
 | lesson | `app/services/lesson_context_builder.py` | unclassified | `LessonContext`, `LessonContextBuilder` |
 | lesson | `app/services/lesson_service_v2.py` | duplicate_domain_service | `LessonServiceV2` |
 | lesson | `app/services/lesson_transactional_completion.py` | unclassified | `LessonCompletionInput`, `LessonCompletionNotFoundError`, `LessonCompletionResult`, `LessonCompletionTransactionError`, `TransactionalLessonCompletionService` |
 | other | `app/services/llm/gateway.py` | unclassified | `CanonicalLLMGateway`, `DeterministicMockProvider`, `LLMGatewayMetadata`, `LLMGatewayRequest`, `LLMGatewayResponse`, `LLMProvider`, `ProviderHealth`, `ProviderPolicy`, `ProviderResult`, `TokenUsage` |
-| other | `app/services/llm/json_completion.py` | unclassified | `JsonCompletionError`, `JsonCompletionGateway`, `JsonCompletionResponse` |
 | other | `app/services/parent_report_service_v2.py` | duplicate_domain_service | `ParentReportServiceV2` |
 | other | `app/services/pii_sweep.py` | unclassified | `PIIFinding`, `PIIScanner`, `PIISweepError`, `SweepResult` |
 | consent | `app/services/popia_consent_lifecycle_adapter.py` | unclassified | `POPIAConsentLifecycleAdapter` |

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-01T15:08:14Z",
-  "current_commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
+  "generated_at": "2026-05-22T14:25:56Z",
+  "current_commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
   "route_file": "app/api_v2_routers/diagnostics.py",
   "local_status": "route-diagnostics-delegation-not-proven",
   "live_db_status": "external-blocked",
@@ -14,7 +14,7 @@
   "findings": [
     {
       "route_function": "submit_diagnostic",
-      "line": 102,
+      "line": 81,
       "selected_from_inventory": true,
       "service_delegate_calls": [],
       "direct_db_mutations": [],
@@ -23,7 +23,7 @@
     },
     {
       "route_function": "start_diagnostic_session",
-      "line": 250,
+      "line": 229,
       "selected_from_inventory": true,
       "service_delegate_calls": [
         "service.start_session"
@@ -34,7 +34,7 @@
     },
     {
       "route_function": "diagnostic_respond",
-      "line": 315,
+      "line": 293,
       "selected_from_inventory": true,
       "service_delegate_calls": [
         "session_service.recover_session",

@@ -1,22 +1,28 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+description: Report a reproducible product or runtime defect
+title: "[Bug]: "
+labels: [bug]
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+## Summary
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '...'
-3. See error
+## Environment
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+- URL/environment:
+- Commit/build if known:
+- Browser/device if relevant:
 
-**Screenshots/Logs**
-If applicable, add screenshots or logs to help explain your problem.
+## Steps To Reproduce
 
-**Additional context**
-Add any other context about the problem here.
+1.
+2.
+3.
+
+## Expected Result
+
+## Actual Result
+
+## Evidence
+
+Attach logs, screenshots, request IDs, or test output where possible.

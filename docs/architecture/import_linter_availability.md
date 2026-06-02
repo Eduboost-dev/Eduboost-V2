@@ -1,11 +1,9 @@
 # Import-Linter Availability
 
-Generated at: `2026-06-01T15:01:02Z`
+Generated at: `2026-05-22T14:21:45Z`
 
-**Status:** missing
+**Status:** available
 
-Install in the active project virtual environment before Phase 1 strict import contracts:
-
-```bash
-python -m pip install import-linter
+```text
+import-linter 2.11
 ```

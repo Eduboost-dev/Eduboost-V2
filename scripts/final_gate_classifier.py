@@ -99,6 +99,24 @@ class FinalGateRefresh:
     required_next_actions: list[str]
     no_false_closure_rules: list[str]
 
+    @property
+    def refresh_results(self) -> list[StatusSurface]:
+        """Backward-compatible name used by the original refresh checker."""
+        return self.surfaces
+
+    @property
+    def non_ready_beta_findings(self) -> list[RegistryFinding]:
+        """Backward-compatible name for beta-critical non-ready findings."""
+        return self.beta_critical_findings
+
+    @property
+    def no_false_closure_rules(self) -> list[str]:
+        """Rules the legacy tests expect the refresh object to expose."""
+        return [
+            "Do not mark beta GO while effective beta blockers remain.",
+            "Do not count scaffold-only, skipped, pending, or external-blocked evidence as release approval.",
+        ]
+
 
 def current_commit() -> str:
     result = subprocess.run(

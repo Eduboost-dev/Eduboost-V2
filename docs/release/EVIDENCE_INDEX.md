@@ -1639,3 +1639,43 @@ Accepted-evidence command:
 AUDIT_WRITE_ACCEPT=1 AUDIT_WRITE_RUN_FLOW=1 make audit-write-runtime-release-check
 ```
 
+## DB-ROLLBACK-001R / Backend implementation 3311-3350 — backup restore rollback evidence
+
+Commands:
+
+```bash
+make db-backup-restore-rollback-status
+make db-backup-restore-rollback-registry-patch
+make db-backup-restore-rollback-check
+make db-backup-restore-rollback-test
+make backend-implementation-3311-3350-full-check
+```
+
+Accepted-evidence command:
+
+```bash
+DB_ROLLBACK_ACCEPT=1 DB_ROLLBACK_RUN_DRILL=1 make db-backup-restore-rollback-release-check
+```
+
+The database dump is intentionally not uploaded as a release artifact. The persisted evidence is checksum/status only.
+
+## JWT-001R / Backend implementation 3351-3390 — JWT secret provisioning and rotation evidence
+
+Commands:
+
+```bash
+make jwt-secret-rotation-status
+make jwt-secret-rotation-registry-patch
+make jwt-secret-rotation-check
+make jwt-secret-rotation-test
+make backend-implementation-3351-3390-full-check
+```
+
+Accepted-evidence command:
+
+```bash
+JWT_EVIDENCE_ACCEPT=1 make jwt-secret-rotation-release-check
+```
+
+Raw JWT secrets are intentionally not persisted in release evidence. The persisted evidence is redacted fingerprint/status only.
+

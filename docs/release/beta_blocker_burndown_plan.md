@@ -1,10 +1,10 @@
 # Beta Blocker Burn-Down Plan
 
-Generated at: `2026-06-01T15:00:56Z`
-Commit: `7a24a9a7f59c5fba6ec62b983203d8e268932af4`
+Generated at: `2026-05-22T14:21:44Z`
+Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 
 - Source decision: `NO-GO`
-- Source beta blocker count: `11`
+- Source beta blocker count: `8`
 - Burn-down status: `blocked`
 - Release mode allowed: `False`
 
@@ -14,10 +14,7 @@ Commit: `7a24a9a7f59c5fba6ec62b983203d8e268932af4`
 |---|---|---|---|---|---:|---|---|
 | `P0` | `CI-001` | `ci-authority` | `release` | `external-blocked` | False | Attach a passing GitHub Actions run URL for codex/production_readiness, then rerun CI authority release check. | `make ci-authority-release-check` |
 | `P0` | `CONTENT-001` | `content` | `content` | `external-blocked` | False | Obtain educator/content approval for beta scope and replace pending metadata in content_approval.md. | `make external-approval-release-check` |
-| `P0` | `AUDIT-WRITE-001` | `external` | `backend` | `not-proven` | False | Resolve registry blocker: external approval remains incomplete | `make external-approval-release-check` |
-| `P0` | `AUDIT-WRITE-001R` | `external` | `backend` | `not-proven` | False | Resolve registry blocker: external approval remains incomplete | `make external-approval-release-check` |
-| `P0` | `DB-ROLLBACK-001` | `external` | `backend` | `not-proven` | False | Resolve registry blocker: external approval remains incomplete | `make external-approval-release-check` |
-| `P0` | `DB-ROLLBACK-001R` | `external` | `backend` | `not-proven` | False | Resolve registry blocker: external approval remains incomplete | `make external-approval-release-check` |
+| `P0` | `DIAG-SCORE-001` | `external` | `backend` | `not-proven` | False | Resolve registry blocker: external approval remains incomplete | `make external-approval-release-check` |
 | `P0` | `EXT-GATE-001` | `external` | `release` | `runtime-passing` | False | Resolve registry blocker: external approval remains incomplete | `make external-approval-release-check` |
 | `P0` | `LEGAL-001` | `legal` | `legal` | `external-blocked` | False | Obtain POPIA/legal approval and replace pending metadata in legal_approval.md. | `make external-approval-release-check` |
 | `P0` | `SEC-001` | `security` | `security` | `external-blocked` | False | Obtain security approval or pen-test sign-off and replace pending metadata in security_approval.md. | `make external-approval-release-check` |

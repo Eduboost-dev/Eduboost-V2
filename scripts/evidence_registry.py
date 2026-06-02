@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-import dataclasses
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 from pathlib import Path
 from typing import Any
 
@@ -12,6 +11,8 @@ VALID_STATUSES = {
     "runtime-passing",
     "integration-passing",
     "production-ready",
+    "config-passing",
+    "policy-accepted",
     "external-blocked",
     "contradicted",
     "not-proven",
@@ -75,8 +76,8 @@ def load_registry(path: Path) -> list[EvidenceFinding]:
 
     if current:
         findings.append(current)
-    known = {f.name for f in dataclasses.fields(EvidenceFinding)}
-    return [EvidenceFinding(**{k: v for k, v in item.items() if k in known}) for item in findings]
+    allowed_fields = {field.name for field in fields(EvidenceFinding)}
+    return [EvidenceFinding(**{key: value for key, value in item.items() if key in allowed_fields}) for item in findings]
 
 
 def validate_registry(findings: list[EvidenceFinding], root: Path) -> list[str]:

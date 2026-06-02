@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-06-01T15:03:26.533661+00:00`
-- branch: `remediation/phase0-phase1`
-- commit: `7a24a9a7f59c5fba6ec62b983203d8e268932af4`
+- generated_at_utc: `2026-05-22T14:22:57.516223+00:00`
+- branch: `codex/production_readiness`
+- commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 - release_candidate: `unset`
 
 ## Evidence Artifacts

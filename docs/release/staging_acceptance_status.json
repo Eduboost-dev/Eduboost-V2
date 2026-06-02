@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-01T15:08:23Z",
-  "current_commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
+  "generated_at": "2026-05-22T14:26:00Z",
+  "current_commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
   "evidence_file": "docs/release/staging_smoke_evidence.md",
   "status": "external-blocked",
   "fields": [

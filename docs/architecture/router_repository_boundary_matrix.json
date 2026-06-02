@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-01T15:01:01Z",
+  "generated_at": "2026-05-22T14:21:45Z",
   "rows": [
     {
       "router": "app/api_v2_routers/0005_irt_seed.py",
@@ -10,13 +10,6 @@
     },
     {
       "router": "app/api_v2_routers/__init__.py",
-      "p0_router": false,
-      "repository_imports": [],
-      "transition_allowed": [],
-      "violations": []
-    },
-    {
-      "router": "app/api_v2_routers/admin_etl.py",
       "p0_router": false,
       "repository_imports": [],
       "transition_allowed": [],
@@ -51,13 +44,6 @@
       "violations": []
     },
     {
-      "router": "app/api_v2_routers/auth_extended.py",
-      "p0_router": false,
-      "repository_imports": [],
-      "transition_allowed": [],
-      "violations": []
-    },
-    {
       "router": "app/api_v2_routers/billing.py",
       "p0_router": false,
       "repository_imports": [],
@@ -81,19 +67,6 @@
       "repository_imports": [],
       "transition_allowed": [],
       "violations": []
-    },
-    {
-      "router": "app/api_v2_routers/content_factory.py",
-      "p0_router": false,
-      "repository_imports": [
-        "app.repositories.item_bank_repository",
-        "app.repositories.lesson_repository"
-      ],
-      "transition_allowed": [],
-      "violations": [
-        "app.repositories.item_bank_repository",
-        "app.repositories.lesson_repository"
-      ]
     },
     {
       "router": "app/api_v2_routers/diagnostics.py",
@@ -131,13 +104,6 @@
     },
     {
       "router": "app/api_v2_routers/judiciary.py",
-      "p0_router": false,
-      "repository_imports": [],
-      "transition_allowed": [],
-      "violations": []
-    },
-    {
-      "router": "app/api_v2_routers/learner_content.py",
       "p0_router": false,
       "repository_imports": [],
       "transition_allowed": [],

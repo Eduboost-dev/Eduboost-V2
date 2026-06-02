@@ -1,29 +1,20 @@
-# Release Sign-off Manifest (Template)
+# Release Sign-Off Manifest
 
-This manifest collects named sign-offs required for a controlled beta go/no-go.
-Fill real names, dates, and decisions once reviews complete.
+Status: pending external approval
+Release candidate: v1.0.0-rc2
+Commit under review: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
 
-Release candidate: `REPLACE_WITH_TAG_OR_SHA`
-Snapshot reference: `docs/release/release_state_snapshot.md`
+Do not mark this manifest complete until each approver has reviewed the linked evidence and signed with a real name and date.
 
-## Sign-offs
+| Role | Required decision | Name | Date | Status | Evidence reviewed |
+|---|---|---|---|---|---|
+| Release owner | Beta go/no-go | TBD | TBD | Pending | `docs/release/release_bundle_v1.0.0-rc2.md` |
+| Technical owner | Runtime and CI readiness | TBD | TBD | Pending | `docs/release/unit_test_evidence.md`, `docs/release/ci_evidence.md` |
+| POPIA/legal reviewer | Privacy readiness | TBD | TBD | Pending | `docs/release/popia_sweep_evidence.md` |
+| Security reviewer | Security readiness | TBD | TBD | Pending | `docs/security/`, `SECURITY.md` |
+| Product/content owner | Beta scope and CAPS readiness | TBD | TBD | Pending | `docs/release/beta_acceptance_criteria.md`, CAPS reports |
+| Operations owner | Rollback and post-deploy readiness | TBD | TBD | Pending | `docs/release/rollback_runbook.md`, `docs/release/post_deploy_smoke_checklist.md` |
 
-- **Release owner**: (name) — (date) — (decision: approve / defer / reject)
-- **Technical lead**: (name) — (date) — (decision)
-- **POPIA / Privacy**: (name) — (date) — (decision)
-- **Security**: (name) — (date) — (decision)
-- **Product**: (name) — (date) — (decision)
-- **Rollback owner**: (name) — (date) — (decision)
-- **Post-deploy verification owner**: (name) — (date) — (decision)
+## Rule
 
-## Linked evidence
-
-- Release state snapshot: [docs/release/release_state_snapshot.md](docs/release/release_state_snapshot.md)
-- Unit tests evidence: [docs/release/unit_test_evidence.md](docs/release/unit_test_evidence.md)
-- CI evidence: [docs/release/ci_run_evidence_status.json](docs/release/ci_run_evidence_status.json)
-- Migration runbook: [docs/release/migration_runbook.md](docs/release/migration_runbook.md)
-
-## Notes
-
-- Use this manifest to capture names and decisions only — do not copy full
-  evidence into this file. Evidence should remain in the referenced files.
+Repository-side templates do not constitute approval. This file is evidence only after the named approvers fill the manifest.

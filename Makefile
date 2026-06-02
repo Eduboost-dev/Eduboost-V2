@@ -142,7 +142,7 @@ privacy-legal-evidence-check:
 	$(PYTHON) scripts/check_privacy_legal_release_evidence.py
 
 caps-ai-safety-evidence-check:
-	$(PYTHON) scripts/check_caps_ai_safety_evidence.py
+	$(PYTHON) scripts/check_caps_ai_safety_release_evidence.py
 
 api-envelope-error-contract-check:
 	$(PYTHON) scripts/check_api_envelope_error_contract.py
@@ -2747,4 +2747,46 @@ audit-write-runtime-release-check: audit-write-runtime-registry-patch
 backend-implementation-3271-3310-full-check: audit-write-runtime-status audit-write-runtime-registry-patch audit-write-runtime-check audit-write-runtime-test
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/audit_write_runtime_evidence.py scripts/patch_audit_write_runtime_registry.py scripts/check_audit_write_runtime_evidence.py tests/unit/test_audit_write_runtime_evidence.py --select F821,F401,F811,E402
+
+.PHONY: db-backup-restore-rollback-status db-backup-restore-rollback-registry-patch db-backup-restore-rollback-check db-backup-restore-rollback-test db-backup-restore-rollback-release-check backend-implementation-3311-3350-full-check
+
+db-backup-restore-rollback-status:
+	PYTHONPATH=. python3 -c "from scripts.db_backup_restore_rollback_evidence import write_status; s = write_status(run_drill=False); print(s['status']); print(s['dump_sha256']); print(s['source_table_count']); print(s['restore_table_count'])"
+
+db-backup-restore-rollback-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_db_backup_restore_rollback_registry.py
+
+db-backup-restore-rollback-check:
+	PYTHONPATH=. python3 scripts/check_db_backup_restore_rollback_evidence.py
+
+db-backup-restore-rollback-test:
+	pytest -c pytest.ini tests/unit/test_db_backup_restore_rollback_evidence.py -q --no-cov --tb=short
+
+db-backup-restore-rollback-release-check: db-backup-restore-rollback-registry-patch
+	DB_ROLLBACK_ACCEPT=1 PYTHONPATH=. python3 scripts/check_db_backup_restore_rollback_evidence.py
+
+backend-implementation-3311-3350-full-check: db-backup-restore-rollback-status db-backup-restore-rollback-registry-patch db-backup-restore-rollback-check db-backup-restore-rollback-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/db_backup_restore_rollback_evidence.py scripts/patch_db_backup_restore_rollback_registry.py scripts/check_db_backup_restore_rollback_evidence.py tests/unit/test_db_backup_restore_rollback_evidence.py --select F821,F401,F811,E402
+
+.PHONY: jwt-secret-rotation-status jwt-secret-rotation-registry-patch jwt-secret-rotation-check jwt-secret-rotation-test jwt-secret-rotation-release-check backend-implementation-3351-3390-full-check
+
+jwt-secret-rotation-status:
+	PYTHONPATH=. python3 -c "from scripts.jwt_secret_rotation_evidence import write_status; s = write_status(); print(s.status); print(s.access_current.fingerprint); print(s.refresh_current.fingerprint)"
+
+jwt-secret-rotation-registry-patch:
+	PYTHONPATH=. python3 scripts/patch_jwt_secret_rotation_registry.py
+
+jwt-secret-rotation-check:
+	PYTHONPATH=. python3 scripts/check_jwt_secret_rotation_evidence.py
+
+jwt-secret-rotation-test:
+	pytest -c pytest.ini tests/unit/test_jwt_secret_rotation_evidence.py -q --no-cov --tb=short
+
+jwt-secret-rotation-release-check: jwt-secret-rotation-registry-patch
+	JWT_EVIDENCE_ACCEPT=1 PYTHONPATH=. python3 scripts/check_jwt_secret_rotation_evidence.py
+
+backend-implementation-3351-3390-full-check: jwt-secret-rotation-status jwt-secret-rotation-registry-patch jwt-secret-rotation-check jwt-secret-rotation-test
+	python3 -m compileall -q scripts tests
+	python3 -m ruff check scripts/jwt_secret_rotation_evidence.py scripts/patch_jwt_secret_rotation_registry.py scripts/check_jwt_secret_rotation_evidence.py tests/unit/test_jwt_secret_rotation_evidence.py --select F821,F401,F811,E402
 

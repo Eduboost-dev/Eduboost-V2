@@ -1,61 +1,52 @@
 {
-  "generated_at": "2026-05-24T00:01:26Z",
-  "current_commit": "8b111c477a556247bd41221b8f30fb5ea8ef79f1",
-  "status": "db-backup-restore-rollback-accepted",
-  "source_db_url_label": "DB_ROLLBACK_SOURCE_DATABASE_URL:aws-0-eu-west-1.pooler.supabase.com:5432/postgres",
-  "restore_db_url_label": "DB_ROLLBACK_RESTORE_DATABASE_URL:172.19.0.2:5432/postgres",
-  "dump_file_label": "db_rollback_8b111c477a55_20260524000020.dump",
-  "dump_sha256": "79b6d09d98e84b988483c80ef4cccda52c06040af73a4e68ccb06a87469feb96",
-  "dump_size_bytes": 311826,
+  "generated_at": "2026-05-23T15:26:24Z",
+  "current_commit": "d3e97cde34d4cfe5ab81d4d39aeb646300e59e1c",
+  "status": "db-backup-restore-rollback-not-accepted",
+  "source_db_url_label": "",
+  "restore_db_url_label": "",
+  "dump_file_label": "",
+  "dump_sha256": "",
+  "dump_size_bytes": 0,
   "source_smoke": {
-    "connected": true,
-    "table_count": 26,
-    "alembic_version": "20260516_0100",
-    "key_table_counts": {
-      "alembic_version": 1,
-      "audit_events": 6,
-      "diagnostic_items": 0,
-      "irt_items": 1600,
-      "parental_consents": 0
-    },
+    "connected": false,
+    "table_count": null,
+    "alembic_version": "",
+    "key_table_counts": {},
     "blockers": []
   },
   "restore_smoke": {
-    "connected": true,
-    "table_count": 26,
-    "alembic_version": "20260516_0100",
-    "key_table_counts": {
-      "alembic_version": 1,
-      "audit_events": 6,
-      "diagnostic_items": 0,
-      "irt_items": 1600,
-      "parental_consents": 0
-    },
+    "connected": false,
+    "table_count": null,
+    "alembic_version": "",
+    "key_table_counts": {},
     "blockers": []
   },
-  "source_table_count": 26,
-  "restore_table_count": 26,
+  "source_table_count": null,
+  "restore_table_count": null,
   "key_count_mismatches": {},
   "backup_command": {
-    "command_label": "pg_dump --format=custom --no-owner --no-acl --file <dump> <source-db>",
-    "return_code": 0,
+    "command_label": "",
+    "return_code": null,
     "output_excerpt": ""
   },
   "restore_command": {
-    "command_label": "pg_restore --clean --if-exists --no-owner --no-acl --dbname <restore-db> <dump>",
-    "return_code": 0,
+    "command_label": "",
+    "return_code": null,
     "output_excerpt": ""
   },
   "github_run": {
-    "run_id": "26346124598",
-    "run_url": "https://github.com/NkgoloL/Eduboost-V2/actions/runs/26346124598",
-    "workflow_name": "DB Backup Dry-Run",
-    "run_status": "completed",
-    "conclusion": "success",
-    "head_sha": "8b111c477a556247bd41221b8f30fb5ea8ef79f1",
+    "run_id": "",
+    "run_url": "",
+    "workflow_name": "",
+    "run_status": "",
+    "conclusion": "",
+    "head_sha": "",
     "blockers": []
   },
-  "verified_by": "github-actions",
-  "date_verified": "2026-05-24",
-  "blockers": []
+  "verified_by": "unverified",
+  "date_verified": "2026-05-23",
+  "blockers": [
+    "DB_ROLLBACK_SOURCE_DATABASE_URL is missing, placeholder, local, or invalid",
+    "DB_ROLLBACK_RESTORE_DATABASE_URL is missing, placeholder, local, or invalid"
+  ]
 }

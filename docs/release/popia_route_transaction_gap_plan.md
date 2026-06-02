@@ -1,7 +1,7 @@
 # POPIA Route Transaction Gap Plan
 
-Generated at: `2026-06-01T15:07:57Z`
-Commit: `7a24a9a7f59c5fba6ec62b983203d8e268932af4`
+Generated at: `2026-05-22T14:25:50Z`
+Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 
 - Source report: `docs/release/popia_route_transaction_slice_report.json`
 - Source local status: `route-popia-delegation-passing`

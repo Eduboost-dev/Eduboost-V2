@@ -7,7 +7,6 @@ import json
 import os
 from pathlib import Path
 import re
-import shlex
 import shutil
 import subprocess
 from urllib.parse import urlparse
@@ -52,11 +51,6 @@ def run(cmd: list[str]) -> subprocess.CompletedProcess[str]:
 
 
 def current_commit() -> str:
-    # Allow CI or containers to override the detected commit SHA to avoid
-    # requiring `git` in minimal images.
-    override = env("DB_ROLLBACK_COMMIT_SHA")
-    if override:
-        return override
     result = run(["git", "rev-parse", "HEAD"])
     return result.stdout.strip() if result.returncode == 0 else "unknown"
 
@@ -331,34 +325,10 @@ def write_status(run_drill: bool = False) -> dict:
             blockers.append("backup dump was not created or was empty")
 
         if not blockers:
-            # Build pg_restore command, optionally including extra args from
-            # DB_ROLLBACK_PG_RESTORE_ARGS (e.g. "--schema=public")
-            restore_cmd_list: list[str] = [
-                "pg_restore",
-                "--clean",
-                "--if-exists",
-                "--no-owner",
-                "--no-acl",
-            ]
-            extra_restore_args = env("DB_ROLLBACK_PG_RESTORE_ARGS")
-            if extra_restore_args:
-                try:
-                    restore_cmd_list.extend(shlex.split(extra_restore_args))
-                except Exception:
-                    # If parsing fails, include as a single argument to avoid silent loss
-                    restore_cmd_list.append(extra_restore_args)
-            restore_cmd_list.extend(["--dbname", dst_url, str(dump_path)])
-
-            restore = run(restore_cmd_list)
+            restore = run(["pg_restore", "--clean", "--if-exists", "--no-owner", "--no-acl", "--dbname", dst_url, str(dump_path)])
             restore_cmd = command_evidence("pg_restore --clean --if-exists --no-owner --no-acl --dbname <restore-db> <dump>", restore)
-            # pg_restore may return exit code 1 for extension-related errors
-            # (Supabase extensions not available on vanilla Postgres). Treat
-            # exit code 1 as acceptable and verify actual table restore via
-            # smoke checks; only block for other non-zero exit codes.
-            if restore.returncode not in (0, 1):
+            if restore.returncode != 0:
                 blockers.append(f"restore command failed with exit code {restore.returncode}")
-            if restore.returncode == 1:
-                restore_cmd["note"] = "exit code 1 accepted; extension errors expected when restoring Supabase dump to vanilla Postgres"
 
         if not blockers:
             dst_smoke = smoke(dst_url)

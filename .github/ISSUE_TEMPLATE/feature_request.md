@@ -1,17 +1,20 @@
 ---
 name: Feature request
-about: Suggest an improvement or new feature
+description: Propose a new or changed capability
+title: "[Feature]: "
+labels: [enhancement]
 ---
 
-**Describe the feature**
-A clear and concise description of the feature you'd like.
+## Problem Or Opportunity
 
-**Use case**
-Describe the user/educational scenario and why this feature matters.
+## Proposed Change
 
-**Acceptance criteria**
-- What success looks like
-- Any constraints or edge cases
+## Users Affected
 
-**Additional context**
-Add any other context or screenshots about the feature here.
+## Acceptance Criteria
+
+- [ ]
+
+## Release Or Beta Impact
+
+Does this affect beta scope, POPIA, security, content review, billing, or operations?
