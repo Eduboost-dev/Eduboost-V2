@@ -1,7 +1,7 @@
 # POPIA Response Contract No-Skip Proof Status
 
-Generated at: `2026-05-28T15:28:12Z`
-Commit: `07abdd28d73ed48c836b8b3eba892cc792f35593`
+Generated at: `2026-06-01T15:07:56Z`
+Commit: `7a24a9a7f59c5fba6ec62b983203d8e268932af4`
 
 **Status:** `popia-response-contract-no-skip-passing`
 **Pytest return code:** `None`

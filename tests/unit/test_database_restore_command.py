@@ -8,8 +8,10 @@ import pytest
 
 from scripts.run_database_restore import (
     REQUIRED_ENV,
+    build_restore_command,
     render_plan,
     validate_environment,
+    validate_restore_confirmation,
     validate_target_environment,
 )
 
@@ -91,3 +93,22 @@ def test_makefile_exposes_database_restore_dry_run() -> None:
 
     assert "database-restore-dry-run:" in text
     assert "scripts/run_database_restore.py --dry-run --target-environment staging" in text
+
+
+@pytest.mark.unit
+def test_database_restore_requires_confirm_for_production_execution() -> None:
+    result = validate_restore_confirmation("production", confirm_restore=False)
+
+    assert not result.ok
+    assert "--confirm-restore" in result.detail
+
+
+@pytest.mark.unit
+def test_database_restore_builds_pg_restore_and_psql_commands() -> None:
+    dump_command = build_restore_command("postgresql://user:pass@db/app", "backup.dump")
+    sql_command = build_restore_command("postgresql://user:pass@db/app", "backup.sql")
+
+    assert dump_command[:5] == ["pg_restore", "--clean", "--if-exists", "--no-owner", "--no-privileges"]
+    assert "backup.dump" in dump_command
+    assert sql_command[:4] == ["psql", "postgresql://user:pass@db/app", "--set", "ON_ERROR_STOP=on"]
+    assert sql_command[-1] == "backup.sql"

@@ -110,7 +110,8 @@ def generate_raw_alembic_sql() -> tuple[bool, str]:
         **__import__("os").environ,
         "DATABASE_URL": "postgresql+asyncpg://user:pass@localhost:5432/eduboost",
     }
-    result = _run(["alembic", "upgrade", "head", "--sql"], env=env)
+    alembic_path = ROOT / ".venv" / "bin" / "alembic"
+    result = _run([str(alembic_path), "upgrade", "head", "--sql"], env=env)
     RAW_SQL.write_text(result.stdout, encoding="utf-8")
     return result.returncode == 0, result.stdout
 

@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.run_database_backup import REQUIRED_ENV, render_plan, validate_environment
+from scripts.run_database_backup import REQUIRED_ENV, artifact_paths, build_pg_dump_command, render_plan, validate_environment
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -66,3 +66,15 @@ def test_makefile_exposes_database_backup_dry_run() -> None:
 
     assert "database-backup-dry-run:" in text
     assert "scripts/run_database_backup.py --dry-run" in text
+
+
+@pytest.mark.unit
+def test_database_backup_builds_pg_dump_command() -> None:
+    artifact, manifest = artifact_paths("artifacts/backups", timestamp="20260602T000000Z")
+    command = build_pg_dump_command("postgresql://user:pass@db/app", artifact)
+
+    assert artifact.name == "eduboost-postgres-20260602T000000Z.dump"
+    assert manifest.name == "eduboost-postgres-20260602T000000Z.manifest.json"
+    assert command[:4] == ["pg_dump", "--format=custom", "--no-owner", "--no-privileges"]
+    assert str(artifact) in command
+    assert command[-1] == "postgresql://user:pass@db/app"

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-28T13:29:44Z",
-  "current_commit": "6f43341eb282b7f4983fc1c5954cda205f6ad1b9",
+  "generated_at": "2026-06-01T14:56:43Z",
+  "current_commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
   "status": "auth-lifecycle-http-route-proof-passing",
   "router_import_ok": true,
   "synthetic_app_registration_ok": true,

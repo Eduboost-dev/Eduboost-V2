@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
-"""Database restore command scaffold.
+"""Guarded database restore command.
 
-The command defaults to dry-run validation and refuses production targets unless
-explicitly allowed.
+Dry-run remains the CI default. Non-dry-run execution restores a PostgreSQL dump
+with ``pg_restore`` for custom dumps or ``psql`` for SQL files. Production
+restore targets require both ``--allow-production-target`` and
+``--confirm-restore``.
 """
 from __future__ import annotations
 
 import argparse
 import os
+import shutil
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -55,6 +59,20 @@ def validate_target_environment(target_environment: str, allow_production: bool)
     )
 
 
+def validate_restore_confirmation(target_environment: str, confirm_restore: bool) -> RestorePreflightResult:
+    normalized = target_environment.strip().lower()
+    if normalized in PRODUCTION_NAMES and not confirm_restore:
+        return RestorePreflightResult("confirm_restore", False, "production restore requires --confirm-restore")
+    return RestorePreflightResult("confirm_restore", True, "confirmed" if confirm_restore else "not required")
+
+
+def validate_restore_tool(backup_artifact: str) -> RestorePreflightResult:
+    suffix = Path(backup_artifact).suffix.lower()
+    tool = "psql" if suffix == ".sql" else "pg_restore"
+    path = shutil.which(tool)
+    return RestorePreflightResult(tool, bool(path), path or f"{tool} not found on PATH")
+
+
 def render_plan(backup_artifact: str, target_environment: str, dry_run: bool) -> str:
     mode = "dry-run" if dry_run else "execute"
     lines = [
@@ -63,6 +81,11 @@ def render_plan(backup_artifact: str, target_environment: str, dry_run: bool) ->
         f"Mode: `{mode}`",
         f"Backup artifact: `{backup_artifact}`",
         f"Target environment: `{target_environment}`",
+        "",
+        "## Execution Behavior",
+        "",
+        "- `.dump` artifacts use `pg_restore --clean --if-exists --no-owner --no-privileges`.",
+        "- `.sql` artifacts use `psql --set ON_ERROR_STOP=on`.",
         "",
         "## Required Verification",
         "",
@@ -74,16 +97,43 @@ def render_plan(backup_artifact: str, target_environment: str, dry_run: bool) ->
     return "\n".join(lines) + "\n"
 
 
+def build_restore_command(database_url: str, backup_artifact: str) -> list[str]:
+    artifact = Path(backup_artifact)
+    if artifact.suffix.lower() == ".sql":
+        return ["psql", database_url, "--set", "ON_ERROR_STOP=on", "--file", str(artifact)]
+    return [
+        "pg_restore",
+        "--clean",
+        "--if-exists",
+        "--no-owner",
+        "--no-privileges",
+        "--dbname",
+        database_url,
+        str(artifact),
+    ]
+
+
+def execute_restore(*, backup_artifact: str, env: dict[str, str] | None = None) -> list[str]:
+    values = env if env is not None else os.environ
+    command = build_restore_command(values["DATABASE_URL"], backup_artifact)
+    subprocess.run(command, check=True)
+    return command
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run or preflight an EduBoost database restore.")
     parser.add_argument("--backup-artifact", default="artifacts/backups/latest.dump", help="Backup artifact path or ID.")
     parser.add_argument("--target-environment", default="staging", help="Restore target environment.")
     parser.add_argument("--allow-production-target", action="store_true", help="Explicitly allow production restore target.")
+    parser.add_argument("--confirm-restore", action="store_true", help="Confirm intentional non-dry-run restore execution.")
     parser.add_argument("--dry-run", action="store_true", help="Validate and print restore plan without mutating data.")
     args = parser.parse_args()
 
     results = validate_environment()
     results.append(validate_target_environment(args.target_environment, args.allow_production_target))
+    results.append(validate_restore_confirmation(args.target_environment, args.confirm_restore))
+    if not args.dry_run:
+        results.append(validate_restore_tool(args.backup_artifact))
 
     print("Database restore preflight")
     for result in results:
@@ -101,7 +151,9 @@ def main() -> int:
         print(f"Backup artifact not found: {args.backup_artifact}")
         return 1
 
-    raise SystemExit("Restore execution is not implemented in this scaffold. Use --dry-run in CI.")
+    command = execute_restore(backup_artifact=args.backup_artifact)
+    print("Restore command executed: " + " ".join(command[:1] + ["<redacted>"]))
+    return 0
 
 
 if __name__ == "__main__":

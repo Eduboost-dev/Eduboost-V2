@@ -1,7 +1,7 @@
 # Diagnostics Route Transaction Gap Plan
 
-Generated at: `2026-05-28T13:53:10Z`
-Commit: `6f43341eb282b7f4983fc1c5954cda205f6ad1b9`
+Generated at: `2026-06-01T15:08:15Z`
+Commit: `7a24a9a7f59c5fba6ec62b983203d8e268932af4`
 
 - Source report: `docs/release/diagnostics_route_transaction_slice_report.json`
 - Source local status: `route-diagnostics-delegation-not-proven`

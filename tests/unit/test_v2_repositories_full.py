@@ -284,3 +284,149 @@ class TestDiagnosticRepository:
             knowledge_gaps=[],
             db=session,
         )
+
+
+# ---------------------------------------------------------------------------
+# AssessmentRepository
+# ---------------------------------------------------------------------------
+
+class TestAssessmentRepository:
+    def _mock_session(self):
+        s = AsyncMock()
+        s.__aenter__ = AsyncMock(return_value=s)
+        s.__aexit__ = AsyncMock(return_value=False)
+        s.add = MagicMock()
+        return s
+
+    @pytest.mark.asyncio
+    async def test_list_assessments_returns_list(self):
+        from app.repositories.assessment_repository import AssessmentRepository
+        repo = AssessmentRepository()
+        session = self._mock_session()
+        execute_result = MagicMock()
+        execute_result.mappings = MagicMock(return_value=MagicMock(all=MagicMock(return_value=[])))
+        session.execute = AsyncMock(return_value=execute_result)
+        with patch("app.repositories.assessment_repository.AsyncSessionLocal", return_value=session):
+            result = await repo.list_assessments()
+        assert isinstance(result, list)
+
+    @pytest.mark.asyncio
+    async def test_get_assessment_returns_none_when_missing(self):
+        from app.repositories.assessment_repository import AssessmentRepository
+        repo = AssessmentRepository()
+        session = self._mock_session()
+        execute_result = MagicMock()
+        execute_result.mappings = MagicMock(return_value=MagicMock(first=MagicMock(return_value=None)))
+        session.execute = AsyncMock(return_value=execute_result)
+        with patch("app.repositories.assessment_repository.AsyncSessionLocal", return_value=session):
+            result = await repo.get_assessment("nonexistent")
+        assert result is None
+
+    @pytest.mark.asyncio
+    async def test_create_attempt_returns_id(self):
+        from app.repositories.assessment_repository import AssessmentRepository
+        repo = AssessmentRepository()
+        session = self._mock_session()
+        session.execute = AsyncMock()
+        session.commit = AsyncMock()
+        with patch("app.repositories.assessment_repository.AsyncSessionLocal", return_value=session):
+            result = await repo.create_attempt(
+                assessment_id="a1",
+                learner_id=LEARNER_ID,
+                score=0.8,
+                marks_obtained=8,
+                time_taken_seconds=120,
+                responses=[],
+            )
+        assert isinstance(result, str)
+
+    @pytest.mark.asyncio
+    async def test_create_attempt_with_external_session(self):
+        from app.repositories.assessment_repository import AssessmentRepository
+        repo = AssessmentRepository()
+        session = self._mock_session()
+        session.execute = AsyncMock()
+        with patch("app.repositories.assessment_repository.AsyncSessionLocal", return_value=session):
+            result = await repo.create_attempt(
+                assessment_id="a1",
+                learner_id=LEARNER_ID,
+                score=0.8,
+                marks_obtained=8,
+                time_taken_seconds=120,
+                responses=[],
+                db=session,
+            )
+        assert isinstance(result, str)
+        # Should not commit when external session provided
+        session.commit.assert_not_called()
+
+
+# ---------------------------------------------------------------------------
+# GamificationRepository
+# ---------------------------------------------------------------------------
+
+class TestGamificationRepository:
+    def _mock_session(self):
+        s = AsyncMock()
+        s.__aenter__ = AsyncMock(return_value=s)
+        s.__aexit__ = AsyncMock(return_value=False)
+        s.add = MagicMock()
+        return s
+
+    @pytest.mark.asyncio
+    async def test_get_profile_returns_none_when_learner_missing(self):
+        from app.repositories.gamification_repository import GamificationRepository
+        repo = GamificationRepository()
+        session = self._mock_session()
+        session.get = AsyncMock(return_value=None)
+        with patch("app.repositories.gamification_repository.AsyncSessionLocal", return_value=session):
+            result = await repo.get_profile_rows(LEARNER_ID)
+        assert result == (None, [])
+
+    @pytest.mark.asyncio
+    async def test_get_profile_returns_none_when_learner_deleted(self):
+        from app.repositories.gamification_repository import GamificationRepository
+        repo = GamificationRepository()
+        session = self._mock_session()
+        mock_learner = MagicMock()
+        mock_learner.is_deleted = True
+        session.get = AsyncMock(return_value=mock_learner)
+        with patch("app.repositories.gamification_repository.AsyncSessionLocal", return_value=session):
+            result = await repo.get_profile_rows(LEARNER_ID)
+        assert result == (None, [])
+
+    @pytest.mark.asyncio
+    async def test_get_profile_returns_learner_when_active(self):
+        from app.repositories.gamification_repository import GamificationRepository
+        repo = GamificationRepository()
+        session = self._mock_session()
+        mock_learner = MagicMock()
+        mock_learner.is_deleted = False
+        session.get = AsyncMock(return_value=mock_learner)
+        with patch("app.repositories.gamification_repository.AsyncSessionLocal", return_value=session):
+            result = await repo.get_profile_rows(LEARNER_ID)
+        assert result[0] is mock_learner
+
+    @pytest.mark.asyncio
+    async def test_get_leaderboard_returns_list(self):
+        from app.repositories.gamification_repository import GamificationRepository
+        repo = GamificationRepository()
+        session = self._mock_session()
+        execute_result = MagicMock()
+        execute_result.scalars = MagicMock(return_value=MagicMock(all=MagicMock(return_value=[])))
+        session.execute = AsyncMock(return_value=execute_result)
+        with patch("app.repositories.gamification_repository.AsyncSessionLocal", return_value=session):
+            result = await repo.get_leaderboard_rows()
+        assert isinstance(result, list)
+
+    @pytest.mark.asyncio
+    async def test_get_leaderboard_with_limit(self):
+        from app.repositories.gamification_repository import GamificationRepository
+        repo = GamificationRepository()
+        session = self._mock_session()
+        execute_result = MagicMock()
+        execute_result.scalars = MagicMock(return_value=MagicMock(all=MagicMock(return_value=[])))
+        session.execute = AsyncMock(return_value=execute_result)
+        with patch("app.repositories.gamification_repository.AsyncSessionLocal", return_value=session):
+            result = await repo.get_leaderboard_rows(limit=5)
+        assert isinstance(result, list)

@@ -1,8 +1,9 @@
 import ETLAdminDashboard from "@/components/admin/ETLAdminDashboard";
 import ContentFactoryLiveDashboard from "@/components/admin/contentFactory/ContentFactoryLiveDashboard";
+import { shouldUseMockContentFactoryDashboard } from "@/lib/admin/contentFactoryMode";
 
 export default function ContentFactoryAdminPage() {
-  if (process.env.NEXT_PUBLIC_CONTENT_FACTORY_MOCK === "true") {
+  if (shouldUseMockContentFactoryDashboard()) {
     return <ETLAdminDashboard />;
   }
   return <ContentFactoryLiveDashboard />;

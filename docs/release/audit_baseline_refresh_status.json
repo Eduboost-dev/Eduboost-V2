@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-28T13:28:22Z",
-  "current_commit": "6f43341eb282b7f4983fc1c5954cda205f6ad1b9",
+  "generated_at": "2026-06-01T14:56:02Z",
+  "current_commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
   "current_branch": "remediation/phase0-phase1",
   "status": "audit-baseline-refresh-current",
   "beta_decision": "NO-GO",
@@ -19,7 +19,7 @@
     {
       "command": "python3 scripts/docs_inventory.py --write",
       "return_code": 0,
-      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1127\n"
+      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1150\n"
     }
   ],
   "surfaces": [
@@ -29,7 +29,7 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "6f43341eb282b7f4983fc1c5954cda205f6ad1b9",
+      "commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
       "stale": false
     },
     {
@@ -38,7 +38,7 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "6f43341eb282b7f4983fc1c5954cda205f6ad1b9",
+      "commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
       "stale": false
     },
     {
@@ -47,7 +47,7 @@
       "exists": true,
       "status": "ci-evidence-not-accepted",
       "decision": "",
-      "commit": "80170cbc24b1379aeaf351f1c4f387c65bc502ca",
+      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
       "stale": true
     },
     {
@@ -56,7 +56,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "80170cbc24b1379aeaf351f1c4f387c65bc502ca",
+      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
       "stale": true
     },
     {
@@ -65,7 +65,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "80170cbc24b1379aeaf351f1c4f387c65bc502ca",
+      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
       "stale": true
     },
     {
@@ -74,7 +74,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "6f43341eb282b7f4983fc1c5954cda205f6ad1b9",
+      "commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
       "stale": false
     },
     {
@@ -83,7 +83,7 @@
       "exists": true,
       "status": "staging-smoke-evidence-not-accepted",
       "decision": "",
-      "commit": "80170cbc24b1379aeaf351f1c4f387c65bc502ca",
+      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
       "stale": true
     },
     {
@@ -92,7 +92,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "80170cbc24b1379aeaf351f1c4f387c65bc502ca",
+      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
       "stale": true
     },
     {
@@ -101,7 +101,7 @@
       "exists": true,
       "status": "auth-refresh-db-evidence-accepted",
       "decision": "",
-      "commit": "80170cbc24b1379aeaf351f1c4f387c65bc502ca",
+      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
       "stale": true
     },
     {
@@ -110,7 +110,7 @@
       "exists": true,
       "status": "popia-response-contract-no-skip-passing",
       "decision": "",
-      "commit": "80170cbc24b1379aeaf351f1c4f387c65bc502ca",
+      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
       "stale": true
     },
     {
@@ -119,7 +119,7 @@
       "exists": true,
       "status": "diag-deep-health-runtime-not-accepted",
       "decision": "",
-      "commit": "80170cbc24b1379aeaf351f1c4f387c65bc502ca",
+      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
       "stale": true
     },
     {
@@ -128,7 +128,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "80170cbc24b1379aeaf351f1c4f387c65bc502ca",
+      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
       "stale": true
     },
     {
@@ -137,7 +137,7 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "80170cbc24b1379aeaf351f1c4f387c65bc502ca",
+      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
       "stale": true
     },
     {
@@ -146,7 +146,7 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "6f43341eb282b7f4983fc1c5954cda205f6ad1b9",
+      "commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
       "stale": false
     }
   ],

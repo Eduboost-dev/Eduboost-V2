@@ -8,7 +8,11 @@ include Makefile.arch
 help:
 	@echo "Available commands:"
 	@echo "  dev             - Start development servers (API, Frontend, Postgres, Redis)"
-	@echo "  test            - Run backend tests"
+	@echo "  test            - Run PR fast unit tests (alias for test-fast)"
+	@echo "  test-fast       - Unit tests in parallel, no coverage, excludes governance"
+	@echo "  test-integration - Integration tests, no coverage"
+	@echo "  test-coverage   - Unit+integration with coverage (see COVERAGE_THRESHOLD)"
+	@echo "  test-governance - Release/evidence meta-tests only"
 	@echo "  lint            - Run linters (ruff, black)"
 	@echo "  typecheck       - Run type checker (mypy)"
 	@echo "  migrate         - Run database migrations"
@@ -37,8 +41,34 @@ help:
 dev:
 	docker-compose up
 
-test:
-	pytest tests/
+PYTEST ?= .venv/bin/python -m pytest
+COVERAGE_THRESHOLD ?= 67
+PR_TEST_MARKERS := not governance and not slow and not llm and not e2e
+
+.PHONY: test test-fast test-integration test-coverage test-coverage-full test-governance
+
+test: test-fast
+
+test-fast:
+	$(PYTEST) -c pytest.ini tests/unit -n auto --no-cov -m "$(PR_TEST_MARKERS)" -q
+
+test-integration:
+	$(PYTEST) -c pytest.ini tests/integration --no-cov -m "$(PR_TEST_MARKERS)" -q
+
+test-coverage:
+	$(PYTEST) -c pytest-coverage.ini tests/unit tests/integration \
+		-m "$(PR_TEST_MARKERS)" \
+		--cov-fail-under=$(COVERAGE_THRESHOLD) -q
+
+test-coverage-full:
+	$(PYTEST) -c pytest-coverage.ini tests/ --cov-fail-under=0 -q
+
+test-governance:
+	$(PYTEST) -c pytest.ini tests/unit -m governance -q
+
+.PHONY: repo-hygiene-check
+repo-hygiene-check:
+	$(PYTHON) scripts/maintenance/check_repo_hygiene.py
 
 lint:
 	ruff check .
@@ -762,7 +792,7 @@ rec-all-checks: deduplicate-check \
                 runtime-check \
                 openapi-check \
                 route-inventory-check
-	$(PYTHON) -m pytest tests/unit -m "not llm and not e2e" --tb=short --no-cov -q
+	$(MAKE) test-fast
 	$(PYTHON) scripts/refresh_current_state_doc.py --dated-report
 	@echo ""
 	@echo "All recommendation checks passed."
@@ -874,9 +904,7 @@ ci-workflow-consolidation-check:
 
 ci-contract-check: ci-workflow-consolidation-check route-alias-policy-check
 
-ci-core-local: release-hygiene-check route-alias-policy-check openapi-check
-	pytest -c pytest.ini tests/unit -q --no-cov
-	pytest -c pytest.ini tests/integration -q --no-cov
+ci-core-local: release-hygiene-check route-alias-policy-check openapi-check test-fast test-integration
 
 .PHONY: runtime-release-evidence-check release-readiness-local-check
 

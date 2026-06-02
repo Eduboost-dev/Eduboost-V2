@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-28T13:28:10Z",
+  "generated_at": "2026-06-01T14:55:53Z",
   "rows": [
     {
       "router": "app/api_v2_routers/0005_irt_seed.py",
@@ -94,7 +94,8 @@
     {
       "router": "app/api_v2_routers/consent.py",
       "service_imports": [
-        "app.modules.consent.service"
+        "app.modules.consent.service",
+        "app.services.popia_service"
       ],
       "dependency_imports": [],
       "repository_imports": [
