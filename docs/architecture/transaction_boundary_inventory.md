@@ -1,9 +1,9 @@
 # Transaction Boundary Inventory
 
-Generated at: `2026-05-28T13:53:32Z`
+Generated at: `2026-06-01T15:08:54Z`
 
-Candidate count: `274`
-Critical candidate count: `50`
+Candidate count: `276`
+Critical candidate count: `52`
 
 Policy: Multi-write candidates remain not-proven until rollback/integration tests demonstrate atomicity.
 
@@ -24,8 +24,8 @@ Policy: Multi-write candidates remain not-proven until rollback/integration test
 | `app/api_v2_routers/auth_extended.py` | `update_privacy_settings` | 515 | `multi-write-candidate-not-proven` | `-` | `add, commit, execute` | `-` |
 | `app/api_v2_routers/auth_extended.py` | `request_data_export` | 539 | `multi-write-candidate-not-proven` | `-` | `add, commit, execute` | `-` |
 | `app/api_v2_routers/auth_extended.py` | `request_account_deletion` | 566 | `multi-write-candidate-not-proven` | `-` | `add, commit, execute` | `-` |
-| `app/api_v2_routers/consent.py` | `grant_consent` | 36 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `grant` | `-` |
-| `app/api_v2_routers/consent.py` | `revoke_consent` | 69 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `revoke` | `-` |
+| `app/api_v2_routers/consent.py` | `grant_consent` | 39 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `grant` | `-` |
+| `app/api_v2_routers/consent.py` | `revoke_consent` | 72 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `revoke` | `-` |
 | `app/api_v2_routers/content_factory.py` | `create_generation_run` | 262 | `single-mutation-candidate` | `-` | `commit` | `-` |
 | `app/api_v2_routers/content_factory.py` | `plan_missing_generation_tasks` | 306 | `single-mutation-candidate` | `-` | `commit` | `-` |
 | `app/api_v2_routers/content_factory.py` | `execute_generation_run` | 321 | `single-mutation-candidate` | `-` | `commit` | `-` |
@@ -69,10 +69,11 @@ Policy: Multi-write candidates remain not-proven until rollback/integration test
 | `app/modules/auth/service.py` | `authenticate` | 136 | `multi-write-candidate-not-proven` | `auth_refresh` | `update` | `-` |
 | `app/modules/auth/service.py` | `verify_email` | 200 | `single-mutation-candidate` | `-` | `update` | `-` |
 | `app/modules/billing/production_readiness_contracts.py` | `process` | 239 | `single-mutation-candidate` | `-` | `add` | `-` |
-| `app/modules/consent/service.py` | `grant` | 114 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `grant` | `-` |
-| `app/modules/consent/service.py` | `revoke` | 164 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `revoke` | `-` |
-| `app/modules/consent/service.py` | `renew` | 197 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `renew` | `-` |
-| `app/modules/consent/service.py` | `execute_erasure` | 234 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `revoke` | `-` |
+| `app/modules/consent/service.py` | `grant` | 165 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `grant` | `-` |
+| `app/modules/consent/service.py` | `revoke` | 217 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `revoke` | `-` |
+| `app/modules/consent/service.py` | `renew` | 252 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `renew` | `-` |
+| `app/modules/consent/service.py` | `execute_erasure` | 300 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `revoke` | `-` |
+| `app/modules/consent/service.py` | `_record_version_history` | 397 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `add, flush` | `-` |
 | `app/modules/diagnostics/irt_engine.py` | `record_response` | 595 | `multi-write-candidate-not-proven` | `diagnostics_response` | `add` | `-` |
 | `app/modules/diagnostics/item_generator.py` | `_call_llm_for_json` | 224 | `single-mutation-candidate` | `-` | `complete` | `-` |
 | `app/modules/diagnostics/item_validator.py` | `__init__` | 136 | `single-mutation-candidate` | `-` | `update` | `-` |
@@ -189,15 +190,15 @@ Policy: Multi-write candidates remain not-proven until rollback/integration test
 | `app/services/content_staging_seed_executor.py` | `list_seed_run_items` | 227 | `single-mutation-candidate` | `-` | `execute` | `-` |
 | `app/services/content_staging_seed_executor.py` | `rollback_seed_run` | 252 | `transaction-marker-present` | `-` | `execute, flush` | `rollback` |
 | `app/services/content_staging_seed_executor.py` | `_plan_seed` | 289 | `single-mutation-candidate` | `-` | `execute` | `-` |
-| `app/services/data_subject_rights_service.py` | `create_export_request` | 41 | `single-mutation-candidate` | `-` | `execute` | `-` |
-| `app/services/data_subject_rights_service.py` | `build_and_complete_export` | 75 | `single-mutation-candidate` | `-` | `execute` | `-` |
-| `app/services/data_subject_rights_service.py` | `create_erasure_request` | 123 | `single-mutation-candidate` | `-` | `execute` | `-` |
-| `app/services/data_subject_rights_service.py` | `approve_erasure` | 152 | `single-mutation-candidate` | `-` | `execute` | `-` |
-| `app/services/data_subject_rights_service.py` | `execute_erasure` | 173 | `transaction-marker-present` | `lesson_completion` | `execute` | `transaction` |
-| `app/services/data_subject_rights_service.py` | `create_correction_request` | 248 | `single-mutation-candidate` | `-` | `execute` | `-` |
-| `app/services/data_subject_rights_service.py` | `complete_correction` | 276 | `single-mutation-candidate` | `-` | `execute` | `-` |
-| `app/services/data_subject_rights_service.py` | `create_restriction_request` | 295 | `single-mutation-candidate` | `-` | `execute` | `-` |
-| `app/services/data_subject_rights_service.py` | `lift_restriction` | 317 | `single-mutation-candidate` | `-` | `execute` | `-` |
+| `app/services/data_subject_rights_service.py` | `create_export_request` | 55 | `single-mutation-candidate` | `-` | `execute` | `-` |
+| `app/services/data_subject_rights_service.py` | `build_and_complete_export` | 89 | `single-mutation-candidate` | `-` | `execute` | `-` |
+| `app/services/data_subject_rights_service.py` | `create_erasure_request` | 137 | `single-mutation-candidate` | `-` | `execute` | `-` |
+| `app/services/data_subject_rights_service.py` | `approve_erasure` | 166 | `single-mutation-candidate` | `-` | `execute` | `-` |
+| `app/services/data_subject_rights_service.py` | `execute_erasure` | 187 | `transaction-marker-present` | `lesson_completion` | `execute` | `transaction` |
+| `app/services/data_subject_rights_service.py` | `create_correction_request` | 262 | `single-mutation-candidate` | `-` | `execute` | `-` |
+| `app/services/data_subject_rights_service.py` | `complete_correction` | 290 | `single-mutation-candidate` | `-` | `execute` | `-` |
+| `app/services/data_subject_rights_service.py` | `create_restriction_request` | 309 | `single-mutation-candidate` | `-` | `execute` | `-` |
+| `app/services/data_subject_rights_service.py` | `lift_restriction` | 331 | `single-mutation-candidate` | `-` | `execute` | `-` |
 | `app/services/deep_readiness_runtime.py` | `_execute` | 19 | `single-mutation-candidate` | `-` | `execute` | `-` |
 | `app/services/diagnostic_data_integrity.py` | `extract_diagnostic_item_ids` | 20 | `single-mutation-candidate` | `-` | `add` | `-` |
 | `app/services/diagnostic_data_integrity.py` | `walk` | 25 | `single-mutation-candidate` | `-` | `add` | `-` |
@@ -291,9 +292,10 @@ Policy: Multi-write candidates remain not-proven until rollback/integration test
 | `app/services/pii_sweep.py` | `_check_phone_regex` | 185 | `single-mutation-candidate` | `-` | `add` | `-` |
 | `app/services/pii_sweep.py` | `_check_phone_lib` | 195 | `single-mutation-candidate` | `-` | `add` | `-` |
 | `app/services/pii_sweep.py` | `_check_salutation` | 209 | `single-mutation-candidate` | `-` | `add` | `-` |
-| `app/services/popia_service.py` | `request_erasure` | 110 | `multi-write-candidate-not-proven` | `-` | `add, flush` | `-` |
-| `app/services/popia_service.py` | `cancel_erasure` | 148 | `multi-write-candidate-not-proven` | `-` | `add, flush` | `-` |
-| `app/services/popia_service.py` | `request_correction` | 165 | `multi-write-candidate-not-proven` | `-` | `add, flush` | `-` |
-| `app/services/popia_service.py` | `restrict_processing` | 192 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `flush, revoke` | `-` |
+| `app/services/popia_service.py` | `request_erasure` | 137 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `add, flush` | `-` |
+| `app/services/popia_service.py` | `cancel_erasure` | 213 | `multi-write-candidate-not-proven` | `-` | `add, flush` | `-` |
+| `app/services/popia_service.py` | `request_correction` | 263 | `multi-write-candidate-not-proven` | `-` | `add, flush` | `-` |
+| `app/services/popia_service.py` | `restrict_processing` | 290 | `multi-write-candidate-not-proven` | `popia_lifecycle` | `flush, revoke` | `-` |
+| `app/services/popia_service.py` | `execute_erasure` | 329 | `multi-write-candidate-not-proven` | `-` | `add, flush` | `-` |
 | `app/services/study_plan_service_v2.py` | `generate_plan` | 15 | `single-mutation-candidate` | `-` | `create` | `-` |
 | `app/services/study_plan_service_v2.py` | `_weak_caps_refs` | 76 | `single-mutation-candidate` | `-` | `add` | `-` |

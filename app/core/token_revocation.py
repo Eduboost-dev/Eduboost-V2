@@ -5,7 +5,13 @@ Redis-backed JTI (JWT ID) blacklist for logout and forced token invalidation.
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
+try:
+    from datetime import UTC  # type: ignore
+except Exception:
+    from datetime import timezone as _timezone
+
+    UTC = _timezone.utc
 
 from redis.exceptions import RedisError
 

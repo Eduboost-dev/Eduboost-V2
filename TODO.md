@@ -16,6 +16,17 @@
 
 ---
 
+## Documentation and roadmap authority
+
+`TODO.md` is the live execution tracker. Supporting trackers remain linked below until the spring-cleaning phase archives or relocates them:
+
+- [Production grade tracker](docs/roadmap/production_grade.md)
+- [Test velocity and coverage tracker](docs/roadmap/test_velocity_and_coverage.md)
+- [Roadmap index](docs/roadmap/README.md)
+- [Deep audit implementation report](audits/deep_app_audit/implementation_reality_report.md)
+
+Specialized roadmaps must not override this file's status vocabulary or release-readiness claims.
+
 ## 0. Current project state
 
 - [x] Production-readiness backlog domains 05–20 have repository-side implementation evidence, docs, check scripts, unit tests, and Makefile targets.

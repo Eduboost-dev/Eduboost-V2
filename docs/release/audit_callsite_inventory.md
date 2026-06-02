@@ -116,8 +116,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/api_v2_routers/auth_extended.py` | 95 | audit_append_call | `errors.append("one uppercase letter")` |
 | `app/api_v2_routers/auth_extended.py` | 97 | audit_append_call | `errors.append("one digit")` |
 | `app/api_v2_routers/billing.py` | 44 | audit_record_call | `await audit.record("STRIPE_WEBHOOK", payload=result)` |
-| `app/api_v2_routers/consent.py` | 47 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.grant().` |
-| `app/api_v2_routers/consent.py` | 80 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.revoke().` |
+| `app/api_v2_routers/consent.py` | 50 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.grant().` |
+| `app/api_v2_routers/consent.py` | 83 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.revoke().` |
 | `app/api_v2_routers/gamification.py` | 62 | audit_record_call | `await FourthEstateService(db).record(` |
 | `app/api_v2_routers/learners.py` | 152 | audit_record_call | `await audit.record(` |
 | `app/api_v2_routers/parents.py` | 77 | audit_append_call | `dashboard_learners.append(` |
@@ -162,60 +162,9 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/core/stripe_client.py` | 67 | audit_record_call | `await self._event_repo.record(event["id"], event["type"], dict(event))` |
 | `app/domain/consent.py` | 69 | audit_log_identifier | `# audit_log` |
 | `app/domain/entities.py` | 18 | audit_log_identifier | `class AuditLog:` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 27 | audit_append_call | `combinedStream.append(fs.createReadStream('file1.txt'));` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 28 | audit_append_call | `combinedStream.append(fs.createReadStream('file2.txt'));` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 42 | audit_append_call | `combinedStream.append(fs.createReadStream('file1.txt'));` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 43 | audit_append_call | `combinedStream.append(fs.createReadStream('file2.txt'));` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 58 | audit_append_call | `combinedStream.append(function(next) {` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 61 | audit_append_call | `combinedStream.append(function(next) {` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 95 | audit_append_call | `### combinedStream.append(stream)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 46 | audit_append_call | `input.append(value)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 48 | audit_append_call | `known.key.append(value)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 49 | audit_append_call | `known.value.append(index)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 70 | audit_append_call | `parsed.append(tmp)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 71 | audit_append_call | `lazy.append([output, key])` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 81 | audit_append_call | `output.append(_relate(known, input, val))` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 112 | audit_append_call | `wrapped.append(_wrap(value))` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 117 | audit_append_call | `input.append(value.value)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 119 | audit_append_call | `input.append(value)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 142 | audit_append_call | `output.append(_transform(known, input, input[i]))` |
-| `app/frontend/node_modules/form-data/README.md` | 32 | audit_append_call | `form.append('my_field', 'my value');` |
-| `app/frontend/node_modules/form-data/README.md` | 33 | audit_append_call | `form.append('my_buffer', new Buffer(10));` |
-| `app/frontend/node_modules/form-data/README.md` | 34 | audit_append_call | `form.append('my_file', fs.createReadStream('/foo/bar.jpg'));` |
-| `app/frontend/node_modules/form-data/README.md` | 46 | audit_append_call | `form.append('my_field', 'my value');` |
-| `app/frontend/node_modules/form-data/README.md` | 47 | audit_append_call | `form.append('my_buffer', new Buffer(10));` |
-| `app/frontend/node_modules/form-data/README.md` | 48 | audit_append_call | `form.append('my_logo', response);` |
-| `app/frontend/node_modules/form-data/README.md` | 60 | audit_append_call | `form.append('my_field', 'my value');` |
-| `app/frontend/node_modules/form-data/README.md` | 61 | audit_append_call | `form.append('my_buffer', new Buffer(10));` |
-| `app/frontend/node_modules/form-data/README.md` | 62 | audit_append_call | `form.append('my_logo', request('http://nodejs.org/images/logo.png'));` |
-| `app/frontend/node_modules/form-data/README.md` | 85 | audit_append_call | `form.append('my_field', 'my value');` |
-| `app/frontend/node_modules/form-data/README.md` | 86 | audit_append_call | `form.append('my_buffer', /* something big */);` |
-| `app/frontend/node_modules/form-data/README.md` | 131 | audit_append_call | `form.append('my_buffer', buffer, options);` |
-| `app/frontend/node_modules/form-data/README.md` | 147 | audit_append_call | `form.append('file', stdout, {` |
-| `app/frontend/node_modules/form-data/README.md` | 204 | audit_append_call | `form.append('my_string', 'my value');` |
-| `app/frontend/node_modules/form-data/README.md` | 205 | audit_append_call | `form.append('my_integer', 1);` |
-| `app/frontend/node_modules/form-data/README.md` | 206 | audit_append_call | `form.append('my_boolean', true);` |
-| `app/frontend/node_modules/form-data/README.md` | 207 | audit_append_call | `form.append('my_buffer', new Buffer(10));` |
-| `app/frontend/node_modules/form-data/README.md` | 208 | audit_append_call | `form.append('my_array_as_json', JSON.stringify(['bird', 'cute']));` |
-| `app/frontend/node_modules/form-data/README.md` | 214 | audit_append_call | `form.append('my_file', fs.createReadStream('/foo/bar.jpg'), 'bar.jpg');` |
-| `app/frontend/node_modules/form-data/README.md` | 217 | audit_append_call | `form.append('my_file', fs.createReadStream('/foo/bar.jpg'), { filename: 'bar.jpg', contentType: 'image/jpeg', knownLength: 19806 });` |
-| `app/frontend/node_modules/form-data/README.md` | 239 | audit_append_call | `form.append('my_buffer', Buffer.from([0x4a,0x42,0x20,0x52,0x6f,0x63,0x6b,0x73]));` |
-| `app/frontend/node_modules/form-data/README.md` | 240 | audit_append_call | `form.append('my_file', fs.readFileSync('/foo/bar.jpg'));` |
-| `app/frontend/node_modules/form-data/README.md` | 274 | audit_append_call | `form.append('my_string', 'Hello World');` |
-| `app/frontend/node_modules/form-data/README.md` | 314 | audit_append_call | `form.append('a', 1);` |
-| `app/frontend/node_modules/form-data/README.md` | 331 | audit_append_call | `form.append('image', stream);` |
-| `app/frontend/node_modules/jsdom/README.md` | 69 | audit_append_call | `<script>document.getElementById("content").append(document.createElement("hr"));</script>` |
-| `app/frontend/node_modules/jsdom/README.md` | 81 | audit_append_call | `<script>document.getElementById("content").append(document.createElement("hr"));</script>` |
-| `app/frontend/node_modules/jsdom/README.md` | 99 | audit_append_call | `<script>document.getElementById("content").append(document.createElement("hr"));</script>` |
-| `app/frontend/node_modules/jsdom/README.md` | 103 | audit_append_call | `dom.window.eval('document.getElementById("content").append(document.createElement("p"));');` |
-| `app/frontend/node_modules/magic-string/README.md` | 52 | audit_append_call | `s.prepend('var ').append(';'); // most methods are chainable` |
-| `app/frontend/node_modules/magic-string/README.md` | 101 | audit_append_call | `### s.append( content )` |
-| `app/frontend/node_modules/magic-string/README.md` | 296 | audit_append_call | `.append('}());');` |
-| `app/frontend/node_modules/postcss-selector-parser/API.md` | 520 | audit_append_call | `### `container.prepend(node)` & `container.append(node)`` |
-| `app/frontend/node_modules/postcss-selector-parser/API.md` | 527 | audit_append_call | `selector.append(id);` |
-| `app/models/__init__.py` | 243 | audit_events_table | `__tablename__ = "audit_events"` |
-| `app/models/__init__.py` | 589 | audit_log_identifier | `class AuditLog(Base):` |
-| `app/models/__init__.py` | 590 | audit_logs_table | `__tablename__ = "audit_logs"` |
+| `app/models/__init__.py` | 322 | audit_events_table | `__tablename__ = "audit_events"` |
+| `app/models/__init__.py` | 668 | audit_log_identifier | `class AuditLog(Base):` |
+| `app/models/__init__.py` | 669 | audit_logs_table | `__tablename__ = "audit_logs"` |
 | `app/modules/beta_launch/production_readiness_contracts.py` | 74 | audit_append_call | `issues.append("beta launch decision must be documented in docs/adr/")` |
 | `app/modules/beta_launch/production_readiness_contracts.py` | 76 | audit_append_call | `issues.append("beta launch architecture must be documented in docs/beta_launch/")` |
 | `app/modules/beta_launch/production_readiness_contracts.py` | 87 | audit_append_call | `issues.append(f"{name} is required")` |
@@ -302,16 +251,16 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/modules/billing/production_readiness_contracts.py` | 293 | audit_append_call | `issues.append("raw provider payloads must not be retained without redaction")` |
 | `app/modules/consent/service.py` | 6 | audit_repository | `:class:`~app.repositories.audit_repository.AuditRepository` or the` |
 | `app/modules/consent/service.py` | 29 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
-| `app/modules/consent/service.py` | 38 | audit_repository | `audit trail via :class:`~app.repositories.audit_repository.AuditRepository`` |
-| `app/modules/consent/service.py` | 57 | audit_repository | `audit_repo: AuditRepository \| None = None,` |
-| `app/modules/consent/service.py` | 66 | audit_repository | `audit_repo: Optional :class:`~app.repositories.audit_repository.AuditRepository`` |
-| `app/modules/consent/service.py` | 84 | audit_repository | `audit_repo = AuditRepository(db)` |
-| `app/modules/consent/service.py` | 147 | audit_log_identifier | `# AuditLog / fourth_estate coverage is written via _append_audit below.` |
-| `app/modules/consent/service.py` | 185 | audit_log_identifier | `# AuditLog / fourth_estate coverage is written via _append_audit below.` |
-| `app/modules/consent/service.py` | 251 | audit_log_identifier | `# AuditLog / fourth_estate coverage is written via _append_audit below.` |
-| `app/modules/consent/service.py` | 305 | audit_repository | `Tries :class:`~app.repositories.audit_repository.AuditRepository`` |
-| `app/modules/consent/service.py` | 317 | audit_append_call | `await self._audit_repo.append(` |
-| `app/modules/consent/service.py` | 325 | audit_record_call | `await FourthEstateService(self._db).record(` |
+| `app/modules/consent/service.py` | 45 | audit_repository | `audit trail via :class:`~app.repositories.audit_repository.AuditRepository`` |
+| `app/modules/consent/service.py` | 67 | audit_repository | `audit_repo: AuditRepository \| None = None,` |
+| `app/modules/consent/service.py` | 77 | audit_repository | `audit_repo: Optional :class:`~app.repositories.audit_repository.AuditRepository`` |
+| `app/modules/consent/service.py` | 97 | audit_repository | `audit_repo = AuditRepository(db)` |
+| `app/modules/consent/service.py` | 198 | audit_log_identifier | `# AuditLog / fourth_estate coverage is written via _append_audit below.` |
+| `app/modules/consent/service.py` | 238 | audit_log_identifier | `# AuditLog / fourth_estate coverage is written via _append_audit below.` |
+| `app/modules/consent/service.py` | 317 | audit_log_identifier | `# AuditLog / fourth_estate coverage is written via _append_audit below.` |
+| `app/modules/consent/service.py` | 371 | audit_repository | `Tries :class:`~app.repositories.audit_repository.AuditRepository`` |
+| `app/modules/consent/service.py` | 383 | audit_append_call | `await self._audit_repo.append(` |
+| `app/modules/consent/service.py` | 391 | audit_record_call | `await FourthEstateService(self._db).record(` |
 | `app/modules/deployment/production_readiness_contracts.py` | 101 | audit_append_call | `issues.append("infrastructure provider is required")` |
 | `app/modules/deployment/production_readiness_contracts.py` | 103 | audit_append_call | `issues.append("container registry is required")` |
 | `app/modules/deployment/production_readiness_contracts.py` | 105 | audit_append_call | `issues.append("deployment platform is required")` |
@@ -1084,14 +1033,14 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/content_template_validation.py` | 18 | audit_append_call | `errors.append("Study plan template requires content_json or template_json.")` |
 | `app/services/content_template_validation.py` | 21 | audit_append_call | `errors.append("Study templates may reference only approved lessons or blueprints: " + ", ".join(sorted(missing)))` |
 | `app/services/curriculum/coverage.py` | 34 | audit_append_call | `gaps.append(` |
-| `app/services/data_subject_rights_service.py` | 25 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
-| `app/services/data_subject_rights_service.py` | 32 | audit_repository | `audit_repo: AuditRepository,` |
-| `app/services/data_subject_rights_service.py` | 61 | audit_record_call | `await self._audit.record(` |
-| `app/services/data_subject_rights_service.py` | 106 | audit_record_call | `await self._audit.record(` |
-| `app/services/data_subject_rights_service.py` | 138 | audit_record_call | `await self._audit.record(` |
-| `app/services/data_subject_rights_service.py` | 180 | audit_events_table | `Deletes learner PII but PRESERVES audit_events rows (anonymised).` |
-| `app/services/data_subject_rights_service.py` | 200 | audit_events_table | `UPDATE audit_events` |
-| `app/services/data_subject_rights_service.py` | 229 | audit_record_call | `await self._audit.record(` |
+| `app/services/data_subject_rights_service.py` | 39 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
+| `app/services/data_subject_rights_service.py` | 46 | audit_repository | `audit_repo: AuditRepository,` |
+| `app/services/data_subject_rights_service.py` | 75 | audit_record_call | `await self._audit.record(` |
+| `app/services/data_subject_rights_service.py` | 120 | audit_record_call | `await self._audit.record(` |
+| `app/services/data_subject_rights_service.py` | 152 | audit_record_call | `await self._audit.record(` |
+| `app/services/data_subject_rights_service.py` | 194 | audit_events_table | `Deletes learner PII but PRESERVES audit_events rows (anonymised).` |
+| `app/services/data_subject_rights_service.py` | 214 | audit_events_table | `UPDATE audit_events` |
+| `app/services/data_subject_rights_service.py` | 243 | audit_record_call | `await self._audit.record(` |
 | `app/services/deep_readiness_runtime.py` | 30 | audit_append_call | `checks.append(DeepReadinessCheckResult("database_connectivity","pass","read-only connectivity check completed"))` |
 | `app/services/deep_readiness_runtime.py` | 32 | audit_append_call | `checks.append(DeepReadinessCheckResult("database_connectivity","fail",f"{type(exc).__name__}: {exc}"))` |
 | `app/services/deep_readiness_runtime.py` | 35 | audit_append_call | `checks.append(DeepReadinessCheckResult("alembic_revision","pass","read-only Alembic revision query completed"))` |
@@ -1182,13 +1131,20 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/popia_consent_lifecycle_adapter.py` | 192 | audit_append_call | `positional.append(kwargs.get("learner_id"))` |
 | `app/services/popia_consent_lifecycle_adapter.py` | 194 | audit_append_call | `positional.append(_value(kwargs, "consent_version", "privacy_notice_version"))` |
 | `app/services/popia_consent_lifecycle_adapter.py` | 196 | audit_append_call | `positional.append(_value(kwargs, "actor_id", "guardian_id"))` |
-| `app/services/popia_service.py` | 22 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
-| `app/services/popia_service.py` | 55 | audit_repository | `self.audit = AuditRepository(db)` |
-| `app/services/popia_service.py` | 84 | audit_append_call | `await self.audit.append(` |
-| `app/services/popia_service.py` | 132 | audit_append_call | `await self.audit.append(` |
-| `app/services/popia_service.py` | 156 | audit_append_call | `await self.audit.append(` |
-| `app/services/popia_service.py` | 183 | audit_append_call | `await self.audit.append(` |
-| `app/services/popia_service.py` | 202 | audit_append_call | `await self.audit.append(` |
+| `app/services/popia_service.py` | 36 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
+| `app/services/popia_service.py` | 82 | audit_repository | `self.audit = AuditRepository(db)` |
+| `app/services/popia_service.py` | 111 | audit_append_call | `await self.audit.append(` |
+| `app/services/popia_service.py` | 187 | audit_append_call | `await self.audit.append(` |
+| `app/services/popia_service.py` | 244 | audit_append_call | `await self.audit.append(` |
+| `app/services/popia_service.py` | 281 | audit_append_call | `await self.audit.append(` |
+| `app/services/popia_service.py` | 300 | audit_append_call | `await self.audit.append(` |
+| `app/services/popia_service.py` | 390 | audit_append_call | `await self.audit.append(` |
+| `app/services/popia_service.py` | 438 | audit_events_table | `audit_events = await self.db.scalar(` |
+| `app/services/popia_service.py` | 441 | audit_events_table | `verification["audit_records_preserved"] = audit_events is not None or method == ERASURE_METHOD_PHYSICAL` |
+| `app/services/popia_service.py` | 465 | audit_events_table | `audit_events = list((await self.db.scalars(select(AuditEvent).where(AuditEvent.resource_id == learner_id))).all())` |
+| `app/services/popia_service.py` | 635 | audit_events_table | `"audit_events": [` |
+| `app/services/popia_service.py` | 646 | audit_events_table | `for row in audit_events` |
+| `app/services/popia_service.py` | 666 | audit_events_table | `"audit_events",` |
 | `app/services/popia_transactional_lifecycle.py` | 60 | audit_append_call | `missing.append(method_name)` |
 | `app/services/runtime_audit_facade.py` | 25 | audit_record_call | `await AuditRepositoryCompatAdapter(repository).record(` |
 | `app/services/study_plan_service_v2.py` | 106 | audit_append_call | `days.setdefault(slot["day"], []).append({` |
@@ -2170,20 +2126,20 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/db_live_only_table_ownership.py` | 247 | audit_append_call | `lines.append("- None")` |
 | `scripts/db_migration_seed_repeatability.py` | 26 | audit_events_table | `"audit_events",` |
 | `scripts/db_migration_seed_repeatability.py` | 27 | audit_logs_table | `"audit_logs",` |
-| `scripts/db_migration_seed_repeatability.py` | 155 | audit_append_call | `unique.append(row)` |
-| `scripts/db_migration_seed_repeatability.py` | 171 | audit_append_call | `lines.append(` |
-| `scripts/db_migration_seed_repeatability.py` | 176 | audit_append_call | `lines.append("COMMIT;")` |
-| `scripts/db_migration_seed_repeatability.py` | 190 | audit_append_call | `blockers.append("alembic upgrade head --sql failed")` |
-| `scripts/db_migration_seed_repeatability.py` | 201 | audit_append_call | `blockers.append(f"expected Alembic head {EXPECTED_HEAD} missing from generated SQL")` |
-| `scripts/db_migration_seed_repeatability.py` | 205 | audit_append_call | `blockers.append("required runtime table DDL missing: " + ", ".join(missing_tables))` |
-| `scripts/db_migration_seed_repeatability.py` | 208 | audit_append_call | `blockers.append("generated Supabase SQL still contains non-SQL chatter")` |
-| `scripts/db_migration_seed_repeatability.py` | 211 | audit_append_call | `blockers.append("generated Supabase SQL still contains broken null IRT seed rows")` |
-| `scripts/db_migration_seed_repeatability.py` | 214 | audit_append_call | `blockers.append("generated Supabase SQL still references missing Supabase role eduboost_app")` |
-| `scripts/db_migration_seed_repeatability.py` | 217 | audit_append_call | `blockers.append(f"expected {EXPECTED_IRT_ROWS} unique IRT seed rows, generated {unique_rows}")` |
-| `scripts/db_migration_seed_repeatability.py` | 220 | audit_append_call | `blockers.append("IRT seed SQL is not idempotent")` |
-| `scripts/db_migration_seed_repeatability.py` | 278 | audit_append_call | `lines.append(f"\| `{table}` \| {present} \|")` |
-| `scripts/db_migration_seed_repeatability.py` | 300 | audit_append_call | `lines.append("- None")` |
-| `scripts/db_migration_seed_repeatability.py` | 335 | audit_append_call | `lines.append(line)` |
+| `scripts/db_migration_seed_repeatability.py` | 156 | audit_append_call | `unique.append(row)` |
+| `scripts/db_migration_seed_repeatability.py` | 172 | audit_append_call | `lines.append(` |
+| `scripts/db_migration_seed_repeatability.py` | 177 | audit_append_call | `lines.append("COMMIT;")` |
+| `scripts/db_migration_seed_repeatability.py` | 191 | audit_append_call | `blockers.append("alembic upgrade head --sql failed")` |
+| `scripts/db_migration_seed_repeatability.py` | 202 | audit_append_call | `blockers.append(f"expected Alembic head {EXPECTED_HEAD} missing from generated SQL")` |
+| `scripts/db_migration_seed_repeatability.py` | 206 | audit_append_call | `blockers.append("required runtime table DDL missing: " + ", ".join(missing_tables))` |
+| `scripts/db_migration_seed_repeatability.py` | 209 | audit_append_call | `blockers.append("generated Supabase SQL still contains non-SQL chatter")` |
+| `scripts/db_migration_seed_repeatability.py` | 212 | audit_append_call | `blockers.append("generated Supabase SQL still contains broken null IRT seed rows")` |
+| `scripts/db_migration_seed_repeatability.py` | 215 | audit_append_call | `blockers.append("generated Supabase SQL still references missing Supabase role eduboost_app")` |
+| `scripts/db_migration_seed_repeatability.py` | 218 | audit_append_call | `blockers.append(f"expected {EXPECTED_IRT_ROWS} unique IRT seed rows, generated {unique_rows}")` |
+| `scripts/db_migration_seed_repeatability.py` | 221 | audit_append_call | `blockers.append("IRT seed SQL is not idempotent")` |
+| `scripts/db_migration_seed_repeatability.py` | 279 | audit_append_call | `lines.append(f"\| `{table}` \| {present} \|")` |
+| `scripts/db_migration_seed_repeatability.py` | 301 | audit_append_call | `lines.append("- None")` |
+| `scripts/db_migration_seed_repeatability.py` | 336 | audit_append_call | `lines.append(line)` |
 | `scripts/deduplicate_makefile_targets.py` | 64 | audit_append_call | `occurrences[m.group(1)].append(i)` |
 | `scripts/deduplicate_makefile_targets.py` | 89 | audit_append_call | `block.append(i)` |
 | `scripts/deduplicate_makefile_targets.py` | 149 | audit_append_call | `new_lines.append(phony_line)` |
@@ -2916,6 +2872,19 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/unit/test_lesson_object_authorization_contracts.py` | 48 | audit_append_call | `candidates.append(node)` |
 | `tests/unit/test_lesson_object_authorization_contracts.py` | 62 | audit_append_call | `candidates.append(node)` |
 | `tests/unit/test_no_raw_dict_responses.py` | 74 | audit_append_call | `violations.append(` |
+| `tests/unit/test_popia_erasure_safety.py` | 49 | audit_events_table | `"audit_events",` |
+| `tests/unit/test_popia_erasure_safety.py` | 50 | audit_logs_table | `"audit_logs",` |
+| `tests/unit/test_popia_erasure_safety.py` | 160 | audit_append_call | `execute_calls.append(stmt)` |
+| `tests/unit/test_popia_erasure_safety.py` | 217 | audit_append_call | `execute_calls.append(stmt)` |
+| `tests/unit/test_popia_erasure_safety.py` | 274 | audit_append_call | `execute_calls.append(str(stmt))` |
+| `tests/unit/test_popia_erasure_safety.py` | 285 | audit_events_table | `assert "audit_events" not in call.lower()` |
+| `tests/unit/test_popia_erasure_safety.py` | 286 | audit_logs_table | `assert "audit_logs" not in call.lower()` |
+| `tests/unit/test_popia_erasure_safety.py` | 302 | audit_append_call | `execute_calls.append(str(stmt))` |
+| `tests/unit/test_popia_erasure_safety.py` | 330 | audit_append_call | `execute_calls.append(str(stmt))` |
+| `tests/unit/test_popia_erasure_safety.py` | 388 | audit_append_call | `execute_calls.append(str(stmt))` |
+| `tests/unit/test_popia_export_completeness.py` | 342 | audit_events_table | `"audit_events",` |
+| `tests/unit/test_popia_service_authority.py` | 34 | audit_append_call | `violations.append((str(router_file.relative_to(repo_root)), pattern))` |
+| `tests/unit/test_popia_service_authority.py` | 62 | audit_append_call | `violations.append((str(service_file.relative_to(repo_root)), pattern))` |
 | `tests/unit/test_readonly_deep_readiness_runtime.py` | 7 | audit_append_call | `async def execute(self, statement): self.statements.append(str(statement)); return R()` |
 | `tests/unit/test_real_audit_runtime_facade.py` | 6 | audit_append_call | `async def record(self, **kw): self.events.append(kw); return {"ok": True}` |
 | `tests/unit/test_real_consent_runtime_facade.py` | 5 | audit_append_call | `async def record(self, **kw): self.events.append(kw); return {"ok": True}` |

@@ -9,7 +9,14 @@ import base64
 import hashlib
 import hmac
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
+try:
+    # Python 3.11+ exposes datetime.UTC
+    from datetime import UTC  # type: ignore
+except Exception:
+    from datetime import timezone as _timezone
+
+    UTC = _timezone.utc
 from typing import Any
 
 import bcrypt

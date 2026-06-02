@@ -25,10 +25,24 @@ def imports(path: Path) -> list[str]:
     return sorted(set(modules))
 
 
+
+
+def _stable_generated_at() -> str:
+    if OUT_JSON.exists():
+        try:
+            existing = json.loads(OUT_JSON.read_text(encoding="utf-8"))
+            value = str(existing.get("generated_at", "")).strip()
+            if value:
+                return value
+        except json.JSONDecodeError:
+            pass
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
 def main() -> int:
     repo_imports = [module for module in imports(AUTH) if module.startswith("app.repositories")]
     payload = {
-        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "generated_at": _stable_generated_at(),
         "auth_router_repository_imports": repo_imports,
         "next_steps": [
             "Move remaining auth repository interactions into canonical AuthService",

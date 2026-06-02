@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-28T13:53:10Z",
-  "current_commit": "6f43341eb282b7f4983fc1c5954cda205f6ad1b9",
+  "generated_at": "2026-06-01T15:08:14Z",
+  "current_commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
   "route_file": "app/api_v2_routers/diagnostics.py",
   "local_status": "route-diagnostics-delegation-not-proven",
   "live_db_status": "external-blocked",

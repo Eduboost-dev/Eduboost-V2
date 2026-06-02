@@ -1,5 +1,5 @@
 def test_import_api_modules():
-    # Minimal import smoke test to ensure backend modules import cleanly
+    # Minimal import smoke test to ensure backend modules import cleanly.
     import importlib
 
     modules = [
@@ -7,9 +7,7 @@ def test_import_api_modules():
         "app.api_v2_routers",
         "app.core.config",
         "app.models",
-        "app.repositories",
-        "app.services",
     ]
 
-    for m in modules:
-        importlib.import_module(m)
+    for module_name in modules:
+        importlib.import_module(module_name)

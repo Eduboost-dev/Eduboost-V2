@@ -263,3 +263,11 @@ def test_is_learner_visible_artifact_with_invalid_provenance() -> None:
 
     # Empty sources means no provenance, so not learner-visible
     assert service.is_learner_visible_artifact(generation_artifact, production_artifact) is False
+
+
+def test_learner_read_service_defaults_to_production_only(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("CONTENT_LEARNER_READ_MODE", raising=False)
+
+    service = ContentLearnerReadService()
+
+    assert service._read_mode == LearnerReadMode.PRODUCTION_ONLY
