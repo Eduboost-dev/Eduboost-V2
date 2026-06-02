@@ -82,7 +82,7 @@ class ContentLearnerReadService:
     def __init__(self) -> None:
         self._read_mode = os.getenv(
             "CONTENT_LEARNER_READ_MODE",
-            LearnerReadMode.PRODUCTION_WITH_LEGACY_FALLBACK,
+            LearnerReadMode.PRODUCTION_ONLY,
         )
 
     def is_learner_visible_artifact(
@@ -379,7 +379,7 @@ class ContentLearnerReadService:
         This method should be implemented to query the legacy launch content
         tables when production content is not available.
         """
-        # TODO: Implement legacy content fallback
+        # Legacy fallback is intentionally unsupported until repository-backed fallback is implemented
         return []
 
     async def _get_legacy_lessons(
@@ -395,5 +395,5 @@ class ContentLearnerReadService:
         This method should be implemented to query the legacy launch content
         tables when production content is not available.
         """
-        # TODO: Implement legacy content fallback
+        # Legacy fallback is intentionally unsupported until repository-backed fallback is implemented
         return []

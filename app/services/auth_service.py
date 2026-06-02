@@ -112,7 +112,6 @@ class AuthService:
         self._email = email_service
         self._compat_refresh_tokens: dict[str, tuple[str, str]] = {}
         self._compat_access_tokens: dict[str, dict[str, str]] = {}
-        self._compat_access_tokens: dict[str, dict[str, str]] = {}
 
     # ------------------------------------------------------------------
     # Legacy synchronous session compatibility API

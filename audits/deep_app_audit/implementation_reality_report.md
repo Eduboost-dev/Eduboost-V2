@@ -57,3 +57,11 @@ This audit confirms that EduBoost V2 contains substantial real implementation, b
 ## No False Closure Rule
 
 A finding can only be marked fixed when a real runtime path is implemented or a production-safe fail-closed boundary is proven by tests. Static string checks and generated evidence files are not sufficient closure evidence.
+
+## Phase 2 Remediation Update
+
+- `DA-P0-003` fixed: backup/restore commands now have guarded real `pg_dump`, `pg_restore`, and `psql` execution paths while keeping dry-run as CI default.
+- `DA-P1-005` fixed by boundary correction: learner content reads now default to `production_only`; unsupported legacy fallback is no longer the default promise.
+- `DA-P1-006` fixed: frontend Content Factory mock dashboard is blocked when `NODE_ENV=production`.
+- `DA-P1-007` partially fixed: duplicate legacy auth compatibility token store assignment removed; compatibility boundary remains documented as a shim.
+- `DA-P0-001`, `DA-P0-002`, and `DA-P1-004` remain open for larger provider, POPIA prerequisite, and ETL vector implementation tranches.
