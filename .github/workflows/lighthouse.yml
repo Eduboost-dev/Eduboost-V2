@@ -41,7 +41,7 @@ jobs:
           pnpm run ci:lighthouse
 
       - name: Upload Lighthouse artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: lighthouse-report
           path: app/frontend/tmp/lh-staging*
