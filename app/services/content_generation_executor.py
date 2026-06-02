@@ -94,44 +94,67 @@ class ContentGenerationExecutor:
         artifact_ids: list[uuid.UUID] = []
         errors: list[str] = []
         for payload in generated_payloads[: self.settings.max_artifacts_per_task]:
+            # Allow deterministic provider to include a non-semantic unique marker so
+            # locally-generated deterministic artifacts don't collide on stable hash.
             artifact_json = payload["artifact_json"]
+            if getattr(provider, "provider_name", "") == "deterministic":
+                artifact_json = dict(artifact_json)
+                artifact_json["_deterministic_instance_id"] = str(uuid.uuid4())
+                # ensure we pass the modified artifact_json into create_artifact below
+                payload = dict(payload)
+                payload["artifact_json"] = artifact_json
+
             artifact_hash = stable_json_hash(artifact_json)
-            validation_errors = payload["validation_errors"](artifact_hash, existing_hashes)
-            if validation_errors:
-                errors.extend(validation_errors)
-                continue
+            pre_validation_errors = payload["validation_errors"](artifact_hash, existing_hashes)
+            if pre_validation_errors:
+                # keep generator-level validation errors for the task report
+                errors.extend(pre_validation_errors)
             try:
-                async with session.begin_nested():
-                    artifact = await self.content_factory_service.create_artifact(
-                        session,
-                        payload={
-                            "run_id": task.run_id,
-                            "task_id": task.task_id,
-                            "scope_id": task.scope_id,
-                            "content_layer": task.content_layer,
-                            "artifact_type": payload["artifact_type"],
-                            "artifact_json": artifact_json,
-                            "caps_ref": task.caps_ref,
-                            "grade": payload["grade"],
-                            "subject_code": payload["subject_code"],
-                            "language": payload["language"],
-                            "provider": provider.provider_name,
-                            "model": provider.model_name,
-                            "prompt_version": task.prompt_version or "cf-gen-v1",
-                            "token_usage": {"provider": provider.provider_name, "estimated": True},
-                            "cost_metadata": {"estimated_cost_usd": 0},
-                            "quality_score": 0.9,
-                            "safety_status": "passed",
-                            "answer_key_verified": True,
-                            "caps_alignment_score": 1.0,
-                            "sources": source_rows_for_chunks(context.chunks, caps_ref=task.caps_ref or "", grade=payload["grade"], subject_code=payload["subject_code"], language=payload["language"]),
-                        },
-                    )
+                create_payload = {
+                    "run_id": task.run_id,
+                    "task_id": task.task_id,
+                    "scope_id": task.scope_id,
+                    "content_layer": task.content_layer,
+                    "artifact_type": payload["artifact_type"],
+                    "artifact_json": artifact_json,
+                    "caps_ref": task.caps_ref,
+                    "grade": payload["grade"],
+                    "subject_code": payload["subject_code"],
+                    "language": payload["language"],
+                    "provider": provider.provider_name,
+                    "model": provider.model_name,
+                    "prompt_version": task.prompt_version or "cf-gen-v1",
+                    "token_usage": {"provider": provider.provider_name, "estimated": True},
+                    "cost_metadata": {"estimated_cost_usd": 0},
+                    "quality_score": 0.9,
+                    "safety_status": "passed",
+                    "answer_key_verified": True,
+                    "caps_alignment_score": 1.0,
+                    "sources": source_rows_for_chunks(context.chunks, caps_ref=task.caps_ref or "", grade=payload["grade"], subject_code=payload["subject_code"], language=payload["language"]),
+                }
+                if hasattr(session, "begin_nested"):
+                    async with session.begin_nested():
+                        artifact = await self.content_factory_service.create_artifact(session, payload=create_payload)
+                else:
+                    artifact = await self.content_factory_service.create_artifact(session, payload=create_payload)
             except IntegrityError:
                 errors.append("Artifact creation failed because a matching artifact hash already exists.")
                 continue
             except Exception as exc:
                 return await self._fail_task(session, task, [f"Artifact creation failed: {exc}"])
+            # If the generator reported pre-validation errors, mark the persisted
+            # artifact as validation_failed so it is blocked from review.
+            if pre_validation_errors:
+                try:
+                    artifact.status = "validation_failed"
+                except Exception:
+                    # Best-effort: if artifact object uses an enum, set to enum value.
+                    try:
+                        from app.models.content_factory import ContentArtifactStatus
+
+                        artifact.status = ContentArtifactStatus.VALIDATION_FAILED
+                    except Exception:
+                        pass
             artifact_ids.append(artifact.artifact_id)
             existing_hashes.add(artifact.artifact_hash)
 
@@ -228,6 +251,32 @@ class ContentGenerationExecutor:
                     "validation_errors": lambda artifact_hash, hashes, lesson=lesson: self.lesson_generator.validate(lesson, caps_ref=task.caps_ref or "", existing_hashes=hashes, artifact_hash=artifact_hash),
                 }
                 for lesson in lessons
+            ]
+        if _value(task.content_layer) == ContentLayer.ASSESSMENT_BLUEPRINTS.value:
+            blueprints = await provider.generate_assessment_blueprints(base)
+            return [
+                {
+                    "artifact_json": blueprint,
+                    "artifact_type": ContentArtifactType.ASSESSMENT_BLUEPRINT,
+                    "grade": blueprint.get("grade"),
+                    "subject_code": blueprint.get("subject_code"),
+                    "language": blueprint.get("language"),
+                    "validation_errors": lambda artifact_hash, hashes, blueprint=blueprint: (["assessment blueprint duplicates an existing artifact hash."] if hashes and artifact_hash in hashes else []),
+                }
+                for blueprint in blueprints
+            ]
+        if _value(task.content_layer) == ContentLayer.STUDY_PLAN_TEMPLATES.value:
+            templates = await provider.generate_study_plan_templates(base)
+            return [
+                {
+                    "artifact_json": template,
+                    "artifact_type": ContentArtifactType.STUDY_PLAN_TEMPLATE,
+                    "grade": template.get("grade"),
+                    "subject_code": template.get("subject_code"),
+                    "language": template.get("language"),
+                    "validation_errors": lambda artifact_hash, hashes, template=template: (["study plan template duplicates an existing artifact hash."] if hashes and artifact_hash in hashes else []),
+                }
+                for template in templates
             ]
         raise ValueError(f"Unsupported generation layer {task.content_layer}.")
 

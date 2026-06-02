@@ -53,6 +53,16 @@ async def ensure_coverage_targets(session, targets: list[dict]) -> None:
             layer_name, _, suffix = key.partition(".")
             if suffix != "approved":
                 continue
+            # Skip if this coverage target already exists
+            existing = await session.execute(
+                select(ContentCoverageTarget).where(
+                    ContentCoverageTarget.scope_id == scope_id,
+                    ContentCoverageTarget.caps_ref == caps_ref,
+                    ContentCoverageTarget.content_layer == ContentLayer(layer_name),
+                )
+            )
+            if existing.scalar_one_or_none() is not None:
+                continue
             session.add(
                 ContentCoverageTarget(
                     scope_id=scope_id,
