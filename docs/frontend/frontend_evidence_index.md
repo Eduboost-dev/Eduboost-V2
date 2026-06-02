@@ -46,3 +46,9 @@ make frontend-runtime-inventory
 make cluster-g-frontend-check
 make cluster-g-closure-check
 ```
+
+## Templates & Checklists
+
+- `docs/frontend/task_metadata_template.md`
+- `docs/frontend/spike_report_template.md`
+- `docs/frontend/pr_checklist_FE-PR-001-013.md`

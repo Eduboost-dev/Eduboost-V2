@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import uuid
 from dataclasses import dataclass
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 from typing import Any
 
 from sqlalchemy import select
@@ -77,14 +77,14 @@ class ContentReviewerAssignmentService:
         if assignment is None:
             raise LookupError(f"Open assignment for artifact {artifact_id} not found.")
         assignment.status = "cancelled"
-        assignment.resolved_at = datetime.now(UTC)
+        assignment.resolved_at = datetime.now(timezone.utc)
         await session.flush()
         return assignment
 
     async def get_reviewer_workload(self, session: AsyncSession, reviewer_id: str) -> ReviewerWorkload:
         result = await session.execute(select(ContentReviewAssignment).where(ContentReviewAssignment.assigned_to == reviewer_id, ContentReviewAssignment.status.in_(list(OPEN_STATUSES))))
         assignments = list(result.scalars().all())
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         return ReviewerWorkload(
             reviewer_id=reviewer_id,
             assigned=sum(1 for item in assignments if item.status == "assigned"),

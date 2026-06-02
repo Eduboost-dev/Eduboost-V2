@@ -3,7 +3,9 @@ import { Clock, BookOpen, ChevronRight } from "lucide-react";
 import { cn, formatPercent } from "@/lib/utils";
 import type { Course } from "@/types";
 
-const SUBJECT_COLORS: Record<string, { badge: string; glow: string }> = {
+type SubjectColors = { badge: string; glow: string };
+
+const SUBJECT_COLORS: Record<string, SubjectColors> = {
   mathematics:    { badge: "badge-electric", glow: "from-electric-500/20" },
   english:        { badge: "badge-aqua",     glow: "from-aqua-500/20" },
   science:        { badge: "badge-teal",     glow: "from-teal-500/20" },
@@ -25,7 +27,8 @@ export function CourseCard({
   lastAccessed,
   className,
 }: CourseCardProps) {
-  const colors = SUBJECT_COLORS[course.subject] ?? SUBJECT_COLORS.mathematics;
+  const subjectKey = course.subject ?? "mathematics";
+  const colors = (SUBJECT_COLORS[subjectKey] ?? SUBJECT_COLORS.mathematics) as SubjectColors;
   const isStarted  = progress > 0;
   const isComplete = progress >= 100;
 

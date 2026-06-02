@@ -7,21 +7,23 @@ WORKDIR /app
 
 # ── Dependencies Stage ────────────────────────────────────────────────────────
 FROM base AS deps
-COPY package*.json ./
-RUN npm install --legacy-peer-deps
+RUN corepack enable && corepack prepare pnpm@9.14.4 --activate
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
 # ── Build Stage ───────────────────────────────────────────────────────────────
 FROM base AS builder
+RUN corepack enable && corepack prepare pnpm@9.14.4 --activate
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Disable telemetry during build
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN npm run build
+RUN pnpm run build
 
 # ── Production Runner Stage ───────────────────────────────────────────────────
-FROM base AS production
+FROM base AS runner
 
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
@@ -31,14 +33,19 @@ ENV NODE_ENV=production \
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-# Copy necessary files
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# Provide pnpm in the runtime image
+RUN corepack enable && corepack prepare pnpm@9.14.4 --activate
+
+# Copy runtime dependencies and build output
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 USER nextjs
 
 EXPOSE 3050
 
-# Note: server.js is created by next build in standalone mode
-CMD ["node", "server.js"]
+# Run the production server via next start (uses PORT env var)
+CMD ["pnpm", "run", "start"]

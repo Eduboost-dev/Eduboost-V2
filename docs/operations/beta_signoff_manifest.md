@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-26T20:29:06.126469+00:00`
-- branch: `pr-cf-013-full-generation-runner`
-- commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+- generated_at_utc: `2026-06-01T15:03:27.997437+00:00`
+- branch: `remediation/phase0-phase1`
+- commit: `7a24a9a7f59c5fba6ec62b983203d8e268932af4`
 - release_candidate: `unset`
 
 ## Required Sign-Off Areas

@@ -14,18 +14,18 @@ class TestContentFactoryStartupFlags:
     def test_app_imports_with_generation_disabled(self, monkeypatch):
         """App should import successfully with CONTENT_FACTORY_GENERATION_ENABLED=false."""
         monkeypatch.setenv("CONTENT_FACTORY_GENERATION_ENABLED", "false")
-        from app.main import app
+        from app.api_v2 import app
         assert app is not None
 
     def test_app_imports_with_startup_seed_disabled(self, monkeypatch):
         """App should import successfully with CONTENT_STARTUP_SEED_ENABLED=false."""
         monkeypatch.setenv("CONTENT_STARTUP_SEED_ENABLED", "false")
-        from app.main import app
+        from app.api_v2 import app
         assert app is not None
 
     def test_no_public_content_factory_route(self):
         """No public /api/v2/content-factory route should exist."""
-        from app.main import app
+        from app.api_v2 import app
         routes = [route.path for route in app.routes]
         public_cf_routes = [
             r for r in routes
@@ -44,7 +44,7 @@ class TestContentFactoryStartupFlags:
 
     def test_admin_routers_registered(self):
         """Admin Content Factory routers must be registered."""
-        from app.main import app
+        from app.api_v2 import app
         routes = [route.path for route in app.routes]
         admin_routes = [r for r in routes if "/api/v2/admin/content-factory" in r]
         assert len(admin_routes) > 0, "No admin content-factory routes registered"

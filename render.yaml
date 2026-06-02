@@ -7,11 +7,15 @@ services:
     branch: main
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
     startCommand: uvicorn app.api_v2:app --host 0.0.0.0 --port $PORT
-    healthCheckPath: /health
+    # /ready is the canonical deep readiness probe (DB + Redis + critical deps).
+    # /health is retained as a lightweight liveness probe.
+    # See docs/operations/health.md for the full contract.
+    healthCheckPath: /ready
     autoDeployTrigger: commit
     envVars:
+      # ADR-001 declares Python 3.12.3 as the supported runtime.
       - key: PYTHON_VERSION
-        value: "3.11.9"
+        value: "3.12.3"
 
       - key: ENVIRONMENT
         value: "production"

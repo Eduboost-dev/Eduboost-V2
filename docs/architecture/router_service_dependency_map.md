@@ -1,6 +1,6 @@
 # Router Service Dependency Map
 
-Generated at: `2026-05-26T18:25:30Z`
+Generated at: `2026-06-01T14:55:53Z`
 
 | Router | Dependencies | Services/modules | Repositories | Database imports |
 |---|---|---|---|---|
@@ -13,7 +13,7 @@ Generated at: `2026-05-26T18:25:30Z`
 | `app/api_v2_routers/auth.py` | `app.api_v2_deps.auth_runtime`, `app.api_v2_deps.auth_service` | `app.services.auth_application_service`, `app.services.auth_token_claims` | - | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/auth_extended.py` | - | `app.services.email_service` | - | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/billing.py` | - | `app.services.fourth_estate`, `app.services.stripe_service` | - | `app.core.database`, `sqlalchemy.ext.asyncio` |
-| `app/api_v2_routers/consent.py` | - | `app.modules.consent.service` | `app.repositories.repositories` | `app.core.database`, `sqlalchemy.ext.asyncio` |
+| `app/api_v2_routers/consent.py` | - | `app.modules.consent.service`, `app.services.popia_service` | `app.repositories.repositories` | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/consent_renewal.py` | - | `app.services.consent_renewal_service` | - | `app.core.database` |
 | `app/api_v2_routers/content_factory.py` | - | `app.services.content_artifact_lifecycle`, `app.services.content_bulk_review`, `app.services.content_coverage_service`, `app.services.content_factory`, `app.services.content_factory_orchestrator`, `app.services.content_generation.provider_factory`, `app.services.content_generation_executor`, `app.services.content_generation_planner`, `app.services.content_generation_runs`, `app.services.content_learner_read_service`, `app.services.content_production_promotion_executor`, `app.services.content_production_promotion_gate`, `app.services.content_production_read_verification`, `app.services.content_review_queue`, `app.services.content_reviewer_assignment`, `app.services.content_scope_registry`, `app.services.content_seed_promotion`, `app.services.content_staging_preview_service`, `app.services.content_staging_read_verification`, `app.services.content_staging_readiness`, `app.services.content_staging_seed_executor` | `app.repositories.item_bank_repository`, `app.repositories.lesson_repository` | `app.core.database`, `sqlalchemy.ext.asyncio` |
 | `app/api_v2_routers/diagnostics.py` | `app.api_v2_deps` | `app.modules.diagnostics`, `app.modules.diagnostics.diagnostic_session_service`, `app.modules.diagnostics.item_bank_service`, `app.modules.diagnostics.session_recovery_service`, `app.services.caps_validator`, `app.services.diagnostic`, `app.services.diagnostic_data_integrity`, `app.services.diagnostic_route_integrity` | - | `app.core.database`, `sqlalchemy.ext.asyncio` |

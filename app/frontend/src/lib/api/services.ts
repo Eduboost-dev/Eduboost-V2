@@ -1,4 +1,4 @@
-import { fetchApi, storeAccessToken } from "./client";
+import { fetchApi } from "./client";
 import type {
   ActiveLearner,
   AuthSessionsResponse,
@@ -61,35 +61,31 @@ export const AuthService = {
   registerLearner: (data: LearnerCreateInput) => LearnerService.registerLearner(data),
 
   registerGuardian: async (data: Record<string, unknown>) => {
-    const response = await fetchApi<AuthTokenResponse>("/auth/register", {
+    const response = await fetchApi<AuthTokenResponse>("/api/auth/register", {
       method: "POST",
       body: JSON.stringify(data),
     });
-    storeAccessToken(response.access_token);
     return response;
   },
 
   loginGuardian: async (data: Record<string, unknown>) => {
-    const response = await fetchApi<AuthTokenResponse>("/auth/login", {
+    const response = await fetchApi<AuthTokenResponse>("/api/auth/login", {
       method: "POST",
       body: JSON.stringify(data),
     });
-    storeAccessToken(response.access_token);
     return response;
   },
 
   logout: async () => {
-    await fetchApi<null>("/auth/logout", { method: "POST" }).catch(() => null);
-    storeAccessToken(null);
+    await fetchApi<null>("/api/auth/logout", { method: "POST" }).catch(() => null);
   },
 
-  revokeAll: async () => fetchApi<null>("/auth/revoke-all", { method: "POST" }),
+  revokeAll: async () => fetchApi<null>("/api/backend/auth/revoke-all", { method: "POST" }),
 
-  sessions: () => fetchApi<AuthSessionsResponse>("/auth/sessions"),
+  sessions: () => fetchApi<AuthSessionsResponse>("/api/backend/auth/sessions"),
 
   createDevSession: async () => {
-    const response = await fetchApi<DevSessionResponse>("/auth/dev-session", { method: "POST" });
-    storeAccessToken(response.access_token);
+    const response = await fetchApi<DevSessionResponse>("/api/auth/login", { method: "POST" });
     return { ...response, learner: normalizeLearner(response.learner) };
   },
 };

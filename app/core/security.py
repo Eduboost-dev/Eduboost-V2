@@ -9,7 +9,14 @@ import base64
 import hashlib
 import hmac
 import uuid
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta
+try:
+    # Python 3.11+ exposes datetime.UTC
+    from datetime import UTC  # type: ignore
+except Exception:
+    from datetime import timezone as _timezone
+
+    UTC = _timezone.utc
 from typing import Any
 
 import bcrypt
@@ -48,12 +55,12 @@ def hash_email(email: str) -> str:
 
 # ── Token schemas ─────────────────────────────────────────────────────────────
 def create_access_token(subject: str, role: UserRole, extra: dict[str, Any] | None = None) -> str:
-    expire = datetime.now(UTC) + timedelta(minutes=settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES)
+    expire = datetime.now(timezone.utc) + timedelta(minutes=settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES)
     payload = {
         "sub": subject,
         "role": role,
         "exp": expire,
-        "iat": datetime.now(UTC),
+        "iat": datetime.now(timezone.utc),
         "jti": str(uuid.uuid4()),
         "type": "access",
         **(extra or {}),
@@ -62,12 +69,12 @@ def create_access_token(subject: str, role: UserRole, extra: dict[str, Any] | No
 
 
 def create_refresh_token(subject: str, role: UserRole, family_id: str | None = None) -> str:
-    expire = datetime.now(UTC) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
+    expire = datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
     payload = {
         "sub": subject,
         "role": role,
         "exp": expire,
-        "iat": datetime.now(UTC),
+        "iat": datetime.now(timezone.utc),
         "jti": str(uuid.uuid4()),
         "type": "refresh",
         "family": family_id or str(uuid.uuid4()),

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLearner } from "../../context/LearnerContext";
 import { LoadingSpinner } from "../ui/LoadingSpinner";
@@ -11,15 +11,43 @@ interface RouteGuardProps {
   required: "learner" | "parent" | "teacher" | "admin";
 }
 
-function hasGuardianToken() {
-  return typeof window !== "undefined" && Boolean(window.localStorage.getItem("guardian_token"));
+async function fetchSessionState(): Promise<{ authenticated: boolean }> {
+  try {
+    const response = await fetch("/api/auth/session", { cache: "no-store" });
+    if (!response.ok) {
+      return { authenticated: false };
+    }
+    const payload = await response.json();
+    return { authenticated: Boolean(payload?.authenticated), legacyToken: false } as { authenticated: boolean };
+  } catch {
+    return { authenticated: false };
+  }
 }
 
 export function RouteGuard({ children, required }: RouteGuardProps) {
   const router = useRouter();
   const { learner, loading } = useLearner();
+  const [sessionLoaded, setSessionLoaded] = useState(false);
+  const [guardianAuthenticated, setGuardianAuthenticated] = useState(false);
   const isLearnerRoute = required === "learner";
-  const allowed = isLearnerRoute ? Boolean(learner) : hasGuardianToken();
+  const allowed = isLearnerRoute ? Boolean(learner) : guardianAuthenticated;
+
+  useEffect(() => {
+    if (isLearnerRoute) {
+      setSessionLoaded(true);
+      return;
+    }
+    let active = true;
+    fetchSessionState().then((result) => {
+      if (active) {
+        setGuardianAuthenticated(result.authenticated);
+        setSessionLoaded(true);
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, [isLearnerRoute]);
 
   useEffect(() => {
     if (!loading && !allowed) {
@@ -27,7 +55,7 @@ export function RouteGuard({ children, required }: RouteGuardProps) {
     }
   }, [allowed, loading, required, router]);
 
-  if (loading) {
+  if (loading || !sessionLoaded) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center" role="status" aria-live="polite">
         <LoadingSpinner />

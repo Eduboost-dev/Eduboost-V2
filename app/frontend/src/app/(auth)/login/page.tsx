@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -14,12 +13,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
-  Form, FormControl, FormField, FormItem, FormLabel, FormMessage,
+  Form, FormControl, FormField, FormItem, FormLabel,
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AuthService, ParentService } from "@/lib/api/services";
-import { decodeJwtPayload, extractErrorMessage } from "@/lib/api/client";
+import { extractErrorMessage } from "@/lib/api/client";
 import { useLearner } from "@/context/LearnerContext";
+import {
+  ValidationMessage,
+  ValidationSummary,
+} from "@/components/forms/ValidationMessage";
+import type { SummaryItem } from "@/components/forms/ValidationMessage";
 
 // ── Schema ───────────────────────────────────────────────────────────────────
 const loginSchema = z.object({
@@ -28,6 +33,11 @@ const loginSchema = z.object({
   remember: z.boolean().optional(),
 });
 type LoginFormValues = z.infer<typeof loginSchema>;
+
+const FIELD_IDS = {
+  email: "login-email",
+  password: "login-password",
+} as const;
 
 // ── Feature list for the left panel ──────────────────────────────────────────
 const PANEL_FEATURES = [
@@ -59,6 +69,7 @@ function SocialButton({ children, ...props }: React.ButtonHTMLAttributes<HTMLBut
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { setLearner } = useLearner();
   const [showPassword, setShowPassword] = useState(false);
   const [success, setSuccess]           = useState(false);
@@ -69,18 +80,15 @@ export default function LoginPage() {
     defaultValues: { email: "", password: "", remember: false },
   });
 
-  const { isSubmitting } = form.formState;
+  const { isSubmitting, errors } = form.formState;
 
   async function onSubmit(values: LoginFormValues) {
     setError("");
     try {
-      const auth = await AuthService.loginGuardian({
+      await AuthService.loginGuardian({
         email: values.email,
         password: values.password,
       });
-      const payload = decodeJwtPayload(auth.access_token);
-      if (payload?.sub) localStorage.setItem("guardian_id", String(payload.sub));
-
       const dashboard = await ParentService.getDashboard();
       const active = dashboard.learners?.[0];
       if (!active) {
@@ -99,11 +107,22 @@ export default function LoginPage() {
         archetype: active.archetype ?? null,
       });
       setSuccess(true);
-      router.push("/dashboard");
+      const redirect = searchParams?.get("redirect") || "/dashboard";
+      router.push(redirect);
     } catch (err) {
       setError(extractErrorMessage(err, "Sign in failed. Please check your details and try again."));
     }
   }
+
+  const summaryItems: SummaryItem[] = useMemo(
+    () => Object.entries(errors)
+      .flatMap(([name, detail]) => {
+        const id = FIELD_IDS[name as keyof typeof FIELD_IDS];
+        if (!id || !detail?.message) return [];
+        return [{ id, label: detail.message } satisfies SummaryItem];
+      }),
+    [errors]
+  );
 
   return (
     <div className="flex min-h-screen bg-navy-900">
@@ -244,10 +263,22 @@ export default function LoginPage() {
               </div>
 
               {error && (
-                <div role="alert" className="mb-5 rounded-xl border border-error/20 bg-error/10 px-4 py-3 text-sm text-error">
-                  {error}
-                </div>
+                <ValidationMessage
+                  title={error}
+                  tone="error"
+                  autoFocus
+                  className="mb-4"
+                />
               )}
+
+              <ValidationSummary
+                items={summaryItems}
+                tone="error"
+                heading="Please review the highlighted fields"
+                description="All fields are required to continue signing in."
+                className="mb-5"
+                autoFocus={Boolean(summaryItems.length)}
+              />
 
               {/* Social login */}
               <div className="mb-5 grid grid-cols-2 gap-3">
@@ -291,6 +322,7 @@ export default function LoginPage() {
                         <FormControl>
                           <Input
                             {...field}
+                            id={FIELD_IDS.email}
                             type="email"
                             placeholder="you@example.co.za"
                             autoComplete="email"
@@ -301,9 +333,17 @@ export default function LoginPage() {
                               "focus-visible:shadow-[0_0_0_3px_rgba(0,207,209,0.06)]",
                               "transition-all duration-200"
                             )}
+                            aria-invalid={Boolean(form.formState.errors.email)}
+                            aria-describedby={form.formState.errors.email ? `${FIELD_IDS.email}-error` : undefined}
                           />
                         </FormControl>
-                        <FormMessage className="text-xs text-error" />
+                        {errors.email?.message && (
+                          <ValidationMessage
+                            id={`${FIELD_IDS.email}-error`}
+                            title={errors.email.message}
+                            tone="error"
+                          />
+                        )}
                       </FormItem>
                     )}
                   />
@@ -327,6 +367,7 @@ export default function LoginPage() {
                           <div className="relative">
                             <Input
                               {...field}
+                              id={FIELD_IDS.password}
                               type={showPassword ? "text" : "password"}
                               placeholder="••••••••"
                               autoComplete="current-password"
@@ -337,6 +378,8 @@ export default function LoginPage() {
                                 "focus-visible:shadow-[0_0_0_3px_rgba(0,207,209,0.06)]",
                                 "transition-all duration-200"
                               )}
+                              aria-invalid={Boolean(form.formState.errors.password)}
+                              aria-describedby={form.formState.errors.password ? `${FIELD_IDS.password}-error` : undefined}
                             />
                             <button
                               type="button"
@@ -351,7 +394,13 @@ export default function LoginPage() {
                             </button>
                           </div>
                         </FormControl>
-                        <FormMessage className="text-xs text-error" />
+                        {errors.password?.message && (
+                          <ValidationMessage
+                            id={`${FIELD_IDS.password}-error`}
+                            title={errors.password.message}
+                            tone="error"
+                          />
+                        )}
                       </FormItem>
                     )}
                   />

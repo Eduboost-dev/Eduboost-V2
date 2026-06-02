@@ -174,7 +174,7 @@ idna==3.13
     #   email-validator
     #   httpx
     #   requests
-import-linter==2.1
+import-linter==2.11
     # via -r requirements/dev.in
 iniconfig==2.3.0
     # via pytest
@@ -257,7 +257,7 @@ playwright==1.44.0
     #   pytest-playwright
 pluggy==1.6.0
     # via pytest
-posthog==7.11.2
+posthog==7.14.0
     # via -r requirements/base.in
 pre-commit==3.7.1
     # via -r requirements/dev.in
@@ -277,7 +277,7 @@ pyasn1==0.6.3
     #   rsa
 pycparser==3.0
     # via cffi
-pydantic[email]==2.7.1
+pydantic[email]==2.13.4
     # via
     #   -r requirements/base.in
     #   anthropic
@@ -285,7 +285,7 @@ pydantic[email]==2.7.1
     #   groq
     #   openai
     #   pydantic-settings
-pydantic-core==2.18.2
+pydantic-core==2.46.4
     # via pydantic
 pydantic-settings==2.2.1
     # via -r requirements/base.in
@@ -329,7 +329,6 @@ python-dateutil==2.9.0
     #   celery
     #   faker
     #   pandas
-    #   posthog
 python-discovery==1.2.2
     # via virtualenv
 python-dotenv==1.0.1
@@ -370,6 +369,7 @@ requests==2.33.1
     #   stripe
 rich==15.0.0
     # via
+    #   import-linter
     #   rich-toolkit
     #   typer
 rich-toolkit==0.19.7
@@ -388,7 +388,7 @@ scipy==1.13.1
     #   scikit-learn
 sendgrid==6.11.0
     # via -r requirements/base.in
-sentry-sdk[fastapi]==2.3.1
+sentry-sdk[fastapi]==2.59.0
     # via -r requirements/base.in
 shellingham==1.5.4
     # via typer
@@ -396,7 +396,6 @@ six==1.17.0
     # via
     #   bleach
     #   ecdsa
-    #   posthog
     #   python-dateutil
 slowapi==0.1.9
     # via -r requirements/base.in
@@ -451,6 +450,9 @@ typing-extensions==4.15.0
     #   rich-toolkit
     #   sqlalchemy
     #   stripe
+    #   typing-inspection
+typing-inspection==0.4.2
+    # via pydantic
 tzdata==2026.2
     # via
     #   celery

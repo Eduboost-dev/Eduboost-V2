@@ -24,6 +24,11 @@ os.environ["ENVIRONMENT"] = "test"
 
 from app.core.database import AsyncSessionFactory, create_all_tables, drop_all_tables, engine
 
+# Register governance auto-marking (see tests/governance_markers.py).
+from tests import governance_markers as _governance_markers  # noqa: F401
+
+pytest_collection_modifyitems = _governance_markers.pytest_collection_modifyitems
+
 
 def _require_test_database() -> bool:
     return os.environ.get("EDUBOOST_REQUIRE_TEST_DB", "").lower() in {"1", "true", "yes"}

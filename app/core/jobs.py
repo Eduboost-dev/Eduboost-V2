@@ -12,7 +12,7 @@ from __future__ import annotations
 import json
 import uuid
 from collections.abc import Awaitable, Callable
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -31,7 +31,7 @@ def _job_key(job_id: str) -> str:
 
 
 def _now_iso() -> str:
-    return datetime.now(UTC).isoformat()
+    return datetime.now(timezone.utc).isoformat()
 
 
 def _jsonable(value: Any) -> Any:

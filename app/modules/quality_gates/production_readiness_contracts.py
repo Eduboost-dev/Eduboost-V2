@@ -8,13 +8,13 @@ manual approvals, evidence bundles, regression suites, and defect triage.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
+from enum import Enum
 import hashlib
 import re
 from typing import Mapping
 
 
-class TestLayer(StrEnum):
+class TestLayer(str, Enum):
     UNIT = "unit"
     INTEGRATION = "integration"
     CONTRACT = "contract"
@@ -26,21 +26,21 @@ class TestLayer(StrEnum):
     REGRESSION = "regression"
 
 
-class QualityGateStatus(StrEnum):
+class QualityGateStatus(str, Enum):
     PASS = "pass"
     FAIL = "fail"
     WAIVED = "waived"
     BLOCKED = "blocked"
 
 
-class ReleaseStage(StrEnum):
+class ReleaseStage(str, Enum):
     PULL_REQUEST = "pull_request"
     STAGING = "staging"
     BETA = "beta"
     PRODUCTION = "production"
 
 
-class DefectSeverity(StrEnum):
+class DefectSeverity(str, Enum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
@@ -48,7 +48,7 @@ class DefectSeverity(StrEnum):
     RELEASE_BLOCKER = "release_blocker"
 
 
-class EvidenceType(StrEnum):
+class EvidenceType(str, Enum):
     TEST_REPORT = "test_report"
     COVERAGE_REPORT = "coverage_report"
     SECURITY_SCAN = "security_scan"

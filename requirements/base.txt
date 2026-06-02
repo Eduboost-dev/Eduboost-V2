@@ -200,7 +200,7 @@ phonenumbers==8.13.37
     # via -r requirements/base.in
 pillow==12.2.0
     # via reportlab
-posthog==7.11.2
+posthog==7.14.0
     # via -r requirements/base.in
 prometheus-client==0.25.0
     # via
@@ -218,7 +218,7 @@ pyasn1==0.6.3
     #   rsa
 pycparser==3.0
     # via cffi
-pydantic[email]==2.7.1
+pydantic[email]==2.13.4
     # via
     #   -r requirements/base.in
     #   anthropic
@@ -226,7 +226,7 @@ pydantic[email]==2.7.1
     #   groq
     #   openai
     #   pydantic-settings
-pydantic-core==2.18.2
+pydantic-core==2.46.4
     # via pydantic
 pydantic-settings==2.2.1
     # via -r requirements/base.in
@@ -242,7 +242,6 @@ python-dateutil==2.9.0
     #   botocore
     #   celery
     #   pandas
-    #   posthog
 python-dotenv==1.0.1
     # via
     #   -r requirements/base.in
@@ -290,7 +289,7 @@ scipy==1.13.1
     #   scikit-learn
 sendgrid==6.11.0
     # via -r requirements/base.in
-sentry-sdk[fastapi]==2.3.1
+sentry-sdk[fastapi]==2.59.0
     # via -r requirements/base.in
 shellingham==1.5.4
     # via typer
@@ -298,7 +297,6 @@ six==1.17.0
     # via
     #   bleach
     #   ecdsa
-    #   posthog
     #   python-dateutil
 slowapi==0.1.9
     # via -r requirements/base.in
@@ -347,6 +345,9 @@ typing-extensions==4.15.0
     #   rich-toolkit
     #   sqlalchemy
     #   stripe
+    #   typing-inspection
+typing-inspection==0.4.2
+    # via pydantic
 tzdata==2026.2
     # via
     #   celery

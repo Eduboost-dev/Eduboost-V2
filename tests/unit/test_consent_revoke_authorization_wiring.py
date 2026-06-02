@@ -19,7 +19,7 @@ def test_consent_revoke_uses_phase2_write_authorization() -> None:
         maxsplit=1,
     )[0]
 
-    assert "current_user: dict = Depends(get_current_user)" in block
+    assert "current_user: AuthContext = Depends(require_auth_context)" in block
     assert "learner = await LearnerRepository(db).get_by_id(learner_id)" in block
     assert "require_learner_write_for_current_user(current_user, learner_id)" in block
-    assert "guardian_id=str(current_user[\"sub\"])" in block
+    assert "guardian_id=current_user.user_id" in block

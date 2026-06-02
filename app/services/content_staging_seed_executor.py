@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 from typing import Any
 
 from sqlalchemy import func, select
@@ -260,13 +260,13 @@ class ContentStagingSeedExecutor:
         for item in items.scalars().all():
             item.status = "rolled_back"
             item.skip_reason = reason
-            item.updated_at = datetime.now(UTC)
+            item.updated_at = datetime.now(timezone.utc)
             
             # Find associated staging artifact
             artifacts = await session.execute(select(ContentStagingArtifact).where(ContentStagingArtifact.created_by_seed_run_id == run.seed_run_id, ContentStagingArtifact.artifact_id == item.artifact_id))
             for a in artifacts.scalars().all():
                 a.staging_status = "rolled_back"
-                a.updated_at = datetime.now(UTC)
+                a.updated_at = datetime.now(timezone.utc)
                 
             rolled_back += 1
             

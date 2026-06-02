@@ -4,7 +4,7 @@ All PostgreSQL access lives here. Services call repositories — never raw SQLAl
 """
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 
 from sqlalchemy import delete, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -51,7 +51,7 @@ class GuardianRepository:
         await self.db.execute(
             update(Guardian)
             .where(Guardian.id == guardian_id)
-            .values(subscription_tier=tier, stripe_subscription_id=stripe_sub_id, updated_at=datetime.now(UTC))
+            .values(subscription_tier=tier, stripe_subscription_id=stripe_sub_id, updated_at=datetime.now(timezone.utc))
         )
 
 
@@ -84,14 +84,14 @@ class LearnerRepository:
 
     async def update_theta(self, learner_id: str, theta: float) -> None:
         await self.db.execute(
-            update(LearnerProfile).where(LearnerProfile.id == learner_id).values(theta=theta, updated_at=datetime.now(UTC))
+            update(LearnerProfile).where(LearnerProfile.id == learner_id).values(theta=theta, updated_at=datetime.now(timezone.utc))
         )
 
     async def update_archetype(self, learner_id: str, archetype: str) -> None:
         await self.db.execute(
             update(LearnerProfile)
             .where(LearnerProfile.id == learner_id)
-            .values(archetype=archetype, updated_at=datetime.now(UTC))
+            .values(archetype=archetype, updated_at=datetime.now(timezone.utc))
         )
 
     async def add_xp(self, learner_id: str, xp_delta: int) -> None:
@@ -100,7 +100,7 @@ class LearnerRepository:
         await self.db.execute(
             update(LearnerProfile)
             .where(LearnerProfile.id == learner_id)
-            .values(xp=current + xp_delta, last_active=datetime.now(UTC), updated_at=datetime.now(UTC))
+            .values(xp=current + xp_delta, last_active=datetime.now(timezone.utc), updated_at=datetime.now(timezone.utc))
         )
 
     async def soft_delete(self, learner_id: str) -> None:
@@ -110,8 +110,8 @@ class LearnerRepository:
             .values(
                 display_name="[erased]",
                 is_deleted=True,
-                deletion_requested_at=datetime.now(UTC),
-                updated_at=datetime.now(UTC),
+                deletion_requested_at=datetime.now(timezone.utc),
+                updated_at=datetime.now(timezone.utc),
             )
         )
 
@@ -143,7 +143,7 @@ class ConsentRepository:
             select(ParentalConsent).where(
                 ParentalConsent.learner_id == learner_id,
                 ParentalConsent.revoked_at == None,  # noqa: E711
-                ParentalConsent.expires_at > datetime.now(UTC),
+                ParentalConsent.expires_at > datetime.now(timezone.utc),
             )
         )
         return result.scalar_one_or_none()
@@ -184,7 +184,7 @@ class ConsentRepository:
                 ParentalConsent.learner_id == learner_id,
                 ParentalConsent.revoked_at == None,
             )
-            .values(status="withdrawn", revoked_at=datetime.now(UTC))
+            .values(status="withdrawn", revoked_at=datetime.now(timezone.utc))
         )
         return result.rowcount
 
@@ -206,8 +206,8 @@ class ConsentRepository:
         result = await session.execute(
             select(ParentalConsent).where(
                 ParentalConsent.status == "granted",
-                ParentalConsent.expires_at <= datetime.now(UTC) + timedelta(days=days),
-                ParentalConsent.expires_at > datetime.now(UTC)
+                ParentalConsent.expires_at <= datetime.now(timezone.utc) + timedelta(days=days),
+                ParentalConsent.expires_at > datetime.now(timezone.utc)
             )
         )
         return list(result.scalars().all())
@@ -244,7 +244,7 @@ class DiagnosticRepository:
         await self.db.execute(
             update(DiagnosticSession)
             .where(DiagnosticSession.id == session_id)
-            .values(responses=responses, theta_after=theta_after, completed_at=datetime.now(UTC))
+            .values(responses=responses, theta_after=theta_after, completed_at=datetime.now(timezone.utc))
         )
 
 
@@ -306,7 +306,7 @@ class LessonRepository:
         await self.db.execute(
             update(Lesson)
             .where(Lesson.id == lesson_id)
-            .values(completed_at=completed_at or datetime.now(UTC))
+            .values(completed_at=completed_at or datetime.now(timezone.utc))
         )
 
 

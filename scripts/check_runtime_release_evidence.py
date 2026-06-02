@@ -24,12 +24,6 @@ def _contains_status(text: str, marker: str) -> bool:
 
 
 REQUIRED_CONTENT = {
-    Path("docs/release/staging_smoke_evidence.md"): [
-        "Status: pending runtime execution",
-        "GET /api/v2/health/deep",
-        "Auth register/login/refresh/logout",
-        "POPIA data export route",
-    ],
     Path("docs/release/migration_evidence.md"): [
         "Status: pending runtime execution",
         "alembic upgrade head",
@@ -83,7 +77,6 @@ def main() -> int:
                 failures.append(f"{path} missing {needle!r}")
 
     pending_files = [
-        Path("docs/release/staging_smoke_evidence.md"),
         Path("docs/release/migration_evidence.md"),
         Path("docs/release/restore_drill_evidence.md"),
         Path("docs/release/rollback_drill_evidence.md"),

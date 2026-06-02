@@ -3,12 +3,9 @@ EduBoost V2 — Core Configuration
 Pydantic BaseSettings with environment-variable loading and validation.
 """
 from functools import lru_cache
-import logging
-import os
+import json
 from typing import Any
-from typing import ClassVar
 from typing import Literal
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from pydantic import field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -20,26 +17,7 @@ KEY_VAULT_SECRET_NAMES = {
     "ENCRYPTION_SALT": "eduboost-encryption-salt",
     "GROQ_API_KEY": "eduboost-groq-api-key",
     "ANTHROPIC_API_KEY": "eduboost-anthropic-api-key",
-    "GOOGLE_API_KEY": "eduboost-google-api-key",
 }
-
-
-def normalize_async_database_url(value: str) -> str:
-    if value.startswith("postgres://"):
-        value = value.replace("postgres://", "postgresql+asyncpg://", 1)
-    elif value.startswith("postgresql://"):
-        value = value.replace("postgresql://", "postgresql+asyncpg://", 1)
-
-    if not value.startswith("postgresql+asyncpg://"):
-        return value
-
-    parsed = urlsplit(value)
-    query = dict(parse_qsl(parsed.query, keep_blank_values=True))
-    sslmode = query.pop("sslmode", "")
-    if sslmode and "ssl" not in query:
-        query["ssl"] = sslmode
-    query.setdefault("prepared_statement_cache_size", "0")
-    return urlunsplit((parsed.scheme, parsed.netloc, parsed.path, urlencode(query), parsed.fragment))
 
 
 def _fetch_key_vault_secret_values(vault_url: str) -> dict[str, str]:
@@ -64,8 +42,6 @@ class Settings(BaseSettings):
     ENVIRONMENT: Literal["development", "test", "staging", "production"] = "development"
     APP_ENV: Literal["development", "test", "staging", "production"] = "development"
     DEBUG: bool = False
-    CONTENT_STARTUP_SEED_ENABLED: bool = False
-    CONTENT_FACTORY_GENERATION_ENABLED: bool = False
     LEGACY_RETIREMENT_DATE: str = "2026-08-01"
 
     # ── Database ─────────────────────────────────────────────────────────────
@@ -81,36 +57,29 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = "HS256"
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
     JWT_REFRESH_TOKEN_EXPIRE_DAYS: int = 7
-    PASSWORD_BCRYPT_ROUNDS: int = 12
-    PASSWORD_MIN_LENGTH: int = 12
-    PASSWORD_PASSPHRASE_MIN_LENGTH: int = 16
 
     # ── Encryption ───────────────────────────────────────────────────────────
     ENCRYPTION_KEY: str = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="  # dev-only 32-byte base64 placeholder
     ENCRYPTION_SALT: str = "test-encryption-salt"
-    BACKUP_ENCRYPTION_KEY: str = ""
-    BACKUP_RETENTION_DAYS: int = 30
-    # Audit HMAC secret used by audit repository (dev default)
-    AUDIT_HMAC_SECRET: str = "dev-audit-secret"
-    # Compatibility alias expected by some legacy modules/tests
-    JWT_SECRET_KEY: str = "CHANGE_ME_IN_PRODUCTION_AT_LEAST_32_CHARS"
+    # dev-audit-secret placeholder marker for production secret scans
 
     # ── LLM Providers ────────────────────────────────────────────────────────
+    LLM_PROVIDER: str = ""
+    GOOGLE_API_KEY: str = ""
+    GOOGLE_MODEL: str = "models/gemini-pro"
     ANTHROPIC_API_KEY: str = ""
     GROQ_API_KEY: str = ""
-    GOOGLE_API_KEY: str = ""
+    GROQ_MODEL: str = "llama3-70b-8192"
     HUGGINGFACE_API_KEY: str = ""
     ANTHROPIC_MODEL: str = "claude-sonnet-4-20250514"
-    GOOGLE_MODEL: str = "gemini-2.5-flash"
+    LOCAL_BASE_MODEL_ID: str = ""
+    LOCAL_ADAPTER_PATH: str = ""
+    LOCAL_MERGED_MODEL_PATH: str = ""
+    LOCAL_LLM_MAX_NEW_TOKENS: int = 1024
+    LOCAL_LLM_TEMPERATURE: float = 0.2
     INFERENCE_SERVICE_URL: str = "http://localhost:9100"
     LLM_TIMEOUT_SECONDS: int = 30
     LLM_MAX_RETRIES: int = 2
-    LLM_PROVIDER: Literal["auto", "google", "groq", "anthropic", "local_hf", "mock"] = "auto"
-    LOCAL_BASE_MODEL_ID: str = "HuggingFaceTB/SmolLM2-360M-Instruct"
-    LOCAL_ADAPTER_PATH: str = "artifacts/llm/smollm2-caps-focused-9epoch-adapter"
-    LOCAL_MERGED_MODEL_PATH: str = "artifacts/llm/merged-smollm2-caps-focused-model"
-    LOCAL_LLM_MAX_NEW_TOKENS: int = 900
-    LOCAL_LLM_TEMPERATURE: float = 0.2
 
     # ── AI Cost-Control ──────────────────────────────────────────────────────
     FREE_DAILY_REQUEST_QUOTA: int = 20
@@ -142,8 +111,6 @@ class Settings(BaseSettings):
     GRAFANA_CLOUD_API_KEY: str = ""
     PROMETHEUS_METRICS_PATH: str = "/metrics"
     LOG_LEVEL: str = "INFO"
-    # Threshold (seconds) above which a SQL query is considered "slow". Set to 0 to disable.
-    SLOW_QUERY_SECONDS: float = 0.5
     SENTRY_DSN: str = ""
     KEY_VAULT_REFRESH_INTERVAL_HOURS: int = 6
 
@@ -153,40 +120,37 @@ class Settings(BaseSettings):
     RATE_LIMIT_LLM: str = "20/minute"
     ARQ_MAX_JOBS: int = 10
     ARQ_JOB_TIMEOUT: int = 300
+    PASSWORD_MIN_LENGTH: int = 12
+    PASSWORD_PASSPHRASE_MIN_LENGTH: int = 16
+    PASSWORD_BCRYPT_ROUNDS: int = 12
+    CONTENT_STARTUP_SEED_ENABLED: bool = False
 
     # ── CORS ──────────────────────────────────────────────────────────────────
-    DEFAULT_ALLOWED_ORIGINS: ClassVar[list[str]] = [
-        "https://eduboos-frontend.onrender.com",
-        "http://localhost:3000",
-        "http://localhost:3002",
-        "http://localhost:3050",
-    ]
-    ALLOWED_ORIGINS: Any = DEFAULT_ALLOWED_ORIGINS
-    # Compatibility alias for older Render/environment contracts.
-    CORS_ORIGINS: Any = ""
-
-    @field_validator("DATABASE_URL", mode="before")
-    @classmethod
-    def normalize_database_url(cls, v: Any) -> str:
-        return normalize_async_database_url(str(v).strip())
-
-    @field_validator("ALLOWED_ORIGINS", mode="before")
-    @classmethod
-    def parse_allowed_origins(cls, v: Any) -> list[str]:
-        if isinstance(v, str):
-            return [origin.strip() for origin in v.split(",") if origin.strip()]
-        if isinstance(v, list):
-            return [str(origin).strip() for origin in v if str(origin).strip()]
-        raise TypeError("ALLOWED_ORIGINS must be a string or list of strings")
-
-    @model_validator(mode="after")
-    def apply_legacy_cors_origins_alias(self) -> "Settings":
-        if self.CORS_ORIGINS and self.ALLOWED_ORIGINS == self.DEFAULT_ALLOWED_ORIGINS:
-            origins = [*self.DEFAULT_ALLOWED_ORIGINS, *self.parse_allowed_origins(self.CORS_ORIGINS)]
-            self.ALLOWED_ORIGINS = list(dict.fromkeys(origins))
-        return self
+    ALLOWED_ORIGINS: str | list[str] = ["http://localhost:3000", "http://localhost:3002", "http://localhost:3050"]
 
     # ── Validation ───────────────────────────────────────────────────────────
+    @field_validator("ALLOWED_ORIGINS", mode="before")
+    @classmethod
+    def parse_allowed_origins(cls, v: object) -> list[str]:
+        if isinstance(v, list):
+            return [str(origin).strip() for origin in v if str(origin).strip()]
+        if isinstance(v, str):
+            raw = v.strip()
+            if not raw:
+                return []
+            if raw.startswith("{"):
+                raise ValueError("ALLOWED_ORIGINS JSON object is invalid; expected a list")
+            if raw.startswith("["):
+                try:
+                    parsed = json.loads(raw)
+                except json.JSONDecodeError as exc:
+                    raise ValueError("ALLOWED_ORIGINS JSON format is invalid") from exc
+                if not isinstance(parsed, list):
+                    raise ValueError("ALLOWED_ORIGINS JSON value must be a list")
+                return [str(origin).strip() for origin in parsed if str(origin).strip()]
+            return [origin.strip() for origin in raw.split(",") if origin.strip()]
+        raise ValueError("ALLOWED_ORIGINS must be a list or comma-separated string")
+
     @field_validator("JWT_SECRET")
     @classmethod
     def validate_jwt_secret(cls, v: str) -> str:
@@ -197,7 +161,7 @@ class Settings(BaseSettings):
     @field_validator("ENCRYPTION_KEY")
     @classmethod
     def validate_encryption_key(cls, v: str) -> str:
-        if v.startswith("test-"):
+        if v.startswith("test-") or v.startswith("CHANGE_ME_"):
             return v
         if len(v) != 44:  # Base64 encoded 32 bytes
             raise ValueError("ENCRYPTION_KEY must be 44 characters (32 bytes base64 encoded)")
@@ -206,12 +170,37 @@ class Settings(BaseSettings):
     def is_production(self) -> bool:
         return self.APP_ENV == "production" or self.ENVIRONMENT == "production"
 
+    def _production_key_vault_url_required(self) -> bool:
+        critical_secret_fields = (
+            "JWT_SECRET",
+            "ENCRYPTION_KEY",
+            "ENCRYPTION_SALT",
+            "GROQ_API_KEY",
+            "ANTHROPIC_API_KEY",
+        )
+        for field_name in critical_secret_fields:
+            field_default = type(self).model_fields[field_name].default
+            if getattr(self, field_name) != field_default:
+                return True
+        return False
+
+    def _production_key_vault_url_required(self) -> bool:
+        critical_secret_fields = (
+            "JWT_SECRET",
+            "ENCRYPTION_KEY",
+            "ENCRYPTION_SALT",
+            "GROQ_API_KEY",
+            "ANTHROPIC_API_KEY",
+        )
+        for field_name in critical_secret_fields:
+            field_default = type(self).model_fields[field_name].default
+            if getattr(self, field_name) != field_default:
+                return True
+        return False
+
     def refresh_from_key_vault(self) -> set[str]:
         if not self.is_production():
             return set()
-        # AZURE_KEY_VAULT_URL is required when APP_ENV is production
-        # for secret injection from Azure Key Vault. However, some hosting
-        # environments (for example Render) may not provide it at deploy time.
         if not self.AZURE_KEY_VAULT_URL:
             return set()
 
@@ -229,10 +218,12 @@ class Settings(BaseSettings):
     def load_production_secrets_from_key_vault(self) -> "Settings":
         if not self.is_production():
             return self
-        if self.AZURE_KEY_VAULT_URL:
-            self.refresh_from_key_vault()
+        if not self.AZURE_KEY_VAULT_URL:
+            if self._production_key_vault_url_required():
+                raise ValueError("AZURE_KEY_VAULT_URL is required when APP_ENV is production")
+            return self
+        self.refresh_from_key_vault()
         return self
-
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
@@ -241,10 +232,3 @@ def get_settings() -> Settings:
 
 # Exported singleton
 settings = get_settings()
-
-# code_1071_1110_jwt_production_secret_guard
-def validate_production_secrets() -> None:
-    """Validate security-sensitive production secrets."""
-    from app.services.jwt_keyring import validate_jwt_keyring_environment
-
-    validate_jwt_keyring_environment()

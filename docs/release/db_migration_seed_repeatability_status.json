@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-26T18:36:32Z",
-  "current_commit": "3fd35da07070e6f6e8bc43ec0915d25ba53da6a7",
+  "generated_at": "2026-06-01T15:03:57Z",
+  "current_commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
   "status": "db-migration-seed-repeatability-not-proven",
   "raw_sql_path": "temp/db_repeatability/alembic_upgrade_head.raw.sql",
   "supabase_sql_path": "temp/db_repeatability/alembic_upgrade_head.supabase.sql",

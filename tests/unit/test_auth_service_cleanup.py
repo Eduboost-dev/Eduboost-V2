@@ -70,3 +70,9 @@ def test_makefile_contains_auth_service_cleanup_targets():
     assert "auth-service-cleanup-repair:" in source
     assert "auth-service-cleanup-check:" in source
     assert "backend-implementation-2511-2550-full-check:" in source
+
+
+def test_legacy_auth_service_has_single_compat_access_token_store():
+    source = (ROOT / "app/services/auth_service.py").read_text(encoding="utf-8")
+
+    assert source.count("self._compat_access_tokens: dict[str, dict[str, str]] = {}") == 1

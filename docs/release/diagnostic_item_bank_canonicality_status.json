@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-26T18:36:52Z",
-  "current_commit": "3fd35da07070e6f6e8bc43ec0915d25ba53da6a7",
+  "generated_at": "2026-06-01T15:04:03Z",
+  "current_commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
   "status": "diagnostic-item-bank-policy-accepted",
   "policy_path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
   "decision": "diagnostic_items-runtime-required",
@@ -188,19 +188,19 @@
     },
     {
       "path": "app/api_v2_routers/content_factory.py",
-      "line_number": 1073,
+      "line_number": 1089,
       "line_excerpt": "diagnostic_items = await service.get_diagnostic_items(session, scope_id=scope_id, caps_ref=caps_ref)",
       "runtime_surface": true
     },
     {
       "path": "app/api_v2_routers/content_factory.py",
-      "line_number": 1075,
+      "line_number": 1091,
       "line_excerpt": "return {\"diagnostic_items\": diagnostic_items, \"lessons\": lessons}",
       "runtime_surface": true
     },
     {
       "path": "app/api_v2_routers/content_factory.py",
-      "line_number": 1096,
+      "line_number": 1112,
       "line_excerpt": "run_metadata={\"layers\": [\"diagnostic_items\", \"lessons\", \"assessment_blueprints\", \"study_plan_templates\"]},",
       "runtime_surface": true
     },
@@ -301,6 +301,12 @@
       "runtime_surface": false
     },
     {
+      "path": "docs/codemaps/eduboost_v2_repository_layer_data_access_abstraction_and_domain_persistence.md",
+      "line_number": 492,
+      "line_excerpt": "\u2502   \u2502   \u2514\u2500\u2500 UPDATE diagnostic_items <-- 6f",
+      "runtime_surface": false
+    },
+    {
       "path": "docs/content_factory/controlled_generation.md",
       "line_number": 28,
       "line_excerpt": "The planner uses staging readiness reports and configured coverage targets to create generation tasks only for missing `diagnostic_items` and `lessons`. It skips assessment blueprints, study plan templates, fully green targets, missing sour",
@@ -361,38 +367,92 @@
       "runtime_surface": false
     },
     {
+      "path": "docs/release/PR-003A_data_integrity_baseline_handover.md",
+      "line_number": 27,
+      "line_excerpt": "- GIN: `diagnostic_items.misconception_tags`.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/PR-003A_data_integrity_baseline_handover.md",
+      "line_number": 33,
+      "line_excerpt": "- `practice_queue.item_id` \u2192 `diagnostic_items.item_id` (ON DELETE SET NULL, NOT VALID).",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/PR-003A_data_integrity_baseline_handover.md",
+      "line_number": 34,
+      "line_excerpt": "- `calibration_audits.item_id` \u2192 `diagnostic_items.item_id` (ON DELETE SET NULL, NOT VALID).",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/PR-003B_uuid_rollout_reviewer_id_discovery.md",
+      "line_number": 5,
+      "line_excerpt": "`guardians` \u2194 `diagnostic_items.reviewer_id`",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/PR-003B_uuid_rollout_reviewer_id_discovery.md",
+      "line_number": 12,
+      "line_excerpt": "### 2. diagnostic_items.reviewer_id actual DB type",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/PR-003B_uuid_rollout_reviewer_id_discovery.md",
+      "line_number": 13,
+      "line_excerpt": "- `diagnostic_items.reviewer_id` is currently `uuid`.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/PR-003B_uuid_rollout_reviewer_id_discovery.md",
+      "line_number": 16,
+      "line_excerpt": "- The `reviewer_id` column in `diagnostic_items` is natively a `uuid` type in Postgres, so it enforces valid UUID values. The `guardians.id` column is a `varchar(64)` but likely contains UUID-shaped strings.",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/PR-003B_uuid_rollout_reviewer_id_discovery.md",
+      "line_number": 19,
+      "line_excerpt": "- Currently `0` (there are 0 non-null `reviewer_id` values in `diagnostic_items` in the current test database).",
+      "runtime_surface": false
+    },
+    {
+      "path": "docs/release/PR-003B_uuid_rollout_reviewer_id_discovery.md",
+      "line_number": 22,
+      "line_excerpt": "- `diagnostic_items.reviewer_id`: `NULLABLE`.",
+      "runtime_surface": false
+    },
+    {
       "path": "docs/release/audit_callsite_inventory.md",
-      "line_number": 2216,
+      "line_number": 2173,
       "line_excerpt": "| `scripts/diagnostic_item_bank_canonicality.py` | 142 | audit_append_call | `blockers.append(\"no diagnostic_items references found; runtime-required policy is unsupported\")` |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/audit_callsite_inventory.md",
-      "line_number": 2235,
+      "line_number": 2192,
       "line_excerpt": "| `scripts/diagnostic_score_live_audit.py` | 495 | audit_append_call | `blockers.append(\"diagnostic_items table is missing\")` |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/audit_callsite_inventory.md",
-      "line_number": 2238,
+      "line_number": 2195,
       "line_excerpt": "| `scripts/diagnostic_score_live_audit.py` | 515 | audit_append_call | `blockers.append(\"DIAG_SCORE_ALLOW_BRIDGE_SEED must be 1 before mutating diagnostic_items\")` |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/audit_callsite_inventory.md",
-      "line_number": 2239,
+      "line_number": 2196,
       "line_excerpt": "| `scripts/diagnostic_score_live_audit.py` | 517 | audit_append_call | `blockers.append(\"cannot bridge-seed without both diagnostic_items and irt_items\")` |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/audit_callsite_inventory.md",
-      "line_number": 2241,
+      "line_number": 2198,
       "line_excerpt": "| `scripts/diagnostic_score_live_audit.py` | 533 | audit_append_call | `blockers.append(\"diagnostic_items has 0 rows; runtime-required item bank is not seeded\")` |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/backend_consolidation_diagnostic_report.md",
-      "line_number": 203,
+      "line_number": 204,
       "line_excerpt": "- diagnostic_items",
       "runtime_surface": false
     },
@@ -447,19 +507,19 @@
     {
       "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
       "line_number": 30,
-      "line_excerpt": "| `app/api_v2_routers/content_factory.py` | 1073 | `diagnostic_items = await service.get_diagnostic_items(session, scope_id=scope_id, caps_ref=caps_ref)` |",
+      "line_excerpt": "| `app/api_v2_routers/content_factory.py` | 1089 | `diagnostic_items = await service.get_diagnostic_items(session, scope_id=scope_id, caps_ref=caps_ref)` |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
       "line_number": 31,
-      "line_excerpt": "| `app/api_v2_routers/content_factory.py` | 1075 | `return {\"diagnostic_items\": diagnostic_items, \"lessons\": lessons}` |",
+      "line_excerpt": "| `app/api_v2_routers/content_factory.py` | 1091 | `return {\"diagnostic_items\": diagnostic_items, \"lessons\": lessons}` |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
       "line_number": 32,
-      "line_excerpt": "| `app/api_v2_routers/content_factory.py` | 1096 | `run_metadata={\"layers\": [\"diagnostic_items\", \"lessons\", \"assessment_blueprints\", \"study_plan_templates\"]},` |",
+      "line_excerpt": "| `app/api_v2_routers/content_factory.py` | 1112 | `run_metadata={\"layers\": [\"diagnostic_items\", \"lessons\", \"assessment_blueprints\", \"study_plan_templates\"]},` |",
       "runtime_surface": false
     },
     {
@@ -650,7 +710,7 @@
     },
     {
       "path": "scripts/db_migration_seed_repeatability.py",
-      "line_number": 309,
+      "line_number": 310,
       "line_excerpt": "\"- It does not decide whether `diagnostic_items` should be populated.\",",
       "runtime_surface": false
     },
@@ -1114,19 +1174,19 @@
   "runtime_diagnostic_items_references": [
     {
       "path": "app/api_v2_routers/content_factory.py",
-      "line_number": 1073,
+      "line_number": 1089,
       "line_excerpt": "diagnostic_items = await service.get_diagnostic_items(session, scope_id=scope_id, caps_ref=caps_ref)",
       "runtime_surface": true
     },
     {
       "path": "app/api_v2_routers/content_factory.py",
-      "line_number": 1075,
+      "line_number": 1091,
       "line_excerpt": "return {\"diagnostic_items\": diagnostic_items, \"lessons\": lessons}",
       "runtime_surface": true
     },
     {
       "path": "app/api_v2_routers/content_factory.py",
-      "line_number": 1096,
+      "line_number": 1112,
       "line_excerpt": "run_metadata={\"layers\": [\"diagnostic_items\", \"lessons\", \"assessment_blueprints\", \"study_plan_templates\"]},",
       "runtime_surface": true
     },

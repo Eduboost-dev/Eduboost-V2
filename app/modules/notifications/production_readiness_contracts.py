@@ -9,13 +9,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime, time, timezone
-from enum import StrEnum
+from enum import Enum
 import hashlib
 import re
 from typing import Mapping
 
 
-class NotificationChannel(StrEnum):
+class NotificationChannel(str, Enum):
     EMAIL = "email"
     SMS = "sms"
     WHATSAPP = "whatsapp"
@@ -23,7 +23,7 @@ class NotificationChannel(StrEnum):
     IN_APP = "in_app"
 
 
-class NotificationAudience(StrEnum):
+class NotificationAudience(str, Enum):
     LEARNER = "learner"
     PARENT = "parent"
     TEACHER = "teacher"
@@ -31,7 +31,7 @@ class NotificationAudience(StrEnum):
     SCHOOL = "school"
 
 
-class NotificationPurpose(StrEnum):
+class NotificationPurpose(str, Enum):
     SECURITY = "security"
     ACCOUNT = "account"
     LEARNING_REMINDER = "learning_reminder"
@@ -42,7 +42,7 @@ class NotificationPurpose(StrEnum):
     INCIDENT = "incident"
 
 
-class DeliveryStatus(StrEnum):
+class DeliveryStatus(str, Enum):
     QUEUED = "queued"
     SENT = "sent"
     DELIVERED = "delivered"

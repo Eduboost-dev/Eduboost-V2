@@ -8,38 +8,33 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
-function setupLocalStorage(initial: Record<string, string> = {}) {
-  const store = { ...initial }
-  // @ts-ignore
-  globalThis.localStorage = {
-    getItem: (key: string) => (key in store ? store[key] : null),
-    setItem: (key: string, value: string) => { store[key] = value },
-    removeItem: (key: string) => { delete store[key] },
-  }
-  return store
-}
-
-test('Auth registerGuardian stores token', async () => {
-  setupLocalStorage()
-  globalThis.fetch = vi.fn(async () => new Response(JSON.stringify({ access_token: 't' }), { status: 200 }))
+test('Auth registerGuardian forwards payload to proxy route', async () => {
+  const fetchSpy = vi.fn(async (input: RequestInfo | URL) => {
+    const url = typeof input === 'string' ? input : input instanceof URL ? input.toString() : input.url
+    expect(url).toBe('/api/auth/register')
+    return new Response(JSON.stringify({ access_token: 't' }), { status: 200 })
+  })
+  globalThis.fetch = fetchSpy as any
   const res = await AuthService.registerGuardian({ email: 'a@b' } as any)
   expect(res.access_token).toBe('t')
-  expect(globalThis.localStorage.getItem('guardian_token')).toBe('t')
+  expect(fetchSpy).toHaveBeenCalledTimes(1)
 })
 
-test('Auth loginGuardian stores token', async () => {
-  setupLocalStorage()
-  globalThis.fetch = vi.fn(async () => new Response(JSON.stringify({ access_token: 'l' }), { status: 200 }))
+test('Auth loginGuardian hits proxy route', async () => {
+  const fetchSpy = vi.fn(async (input: RequestInfo | URL) => {
+    const url = typeof input === 'string' ? input : input instanceof URL ? input.toString() : input.url
+    expect(url).toBe('/api/auth/login')
+    return new Response(JSON.stringify({ access_token: 'l' }), { status: 200 })
+  })
+  globalThis.fetch = fetchSpy as any
   const res = await AuthService.loginGuardian({ email: 'a@b' } as any)
   expect(res.access_token).toBe('l')
-  expect(globalThis.localStorage.getItem('guardian_token')).toBe('l')
+  expect(fetchSpy).toHaveBeenCalledTimes(1)
 })
 
-test('Auth logout clears token even when fetch fails', async () => {
-  const storage = setupLocalStorage({ guardian_token: 'existing' })
+test('Auth logout swallows fetch errors without throwing', async () => {
   globalThis.fetch = vi.fn(async () => { throw new Error('network') })
-  await AuthService.logout()
-  expect(storage.guardian_token).toBeUndefined()
+  await expect(AuthService.logout()).resolves.toBeUndefined()
 })
 
 test('Learner registerLearner normalizes learner fields', async () => {

@@ -17,8 +17,9 @@ from app.api_v2_deps.consent_lifecycle import (
     get_canonical_consent_service,
     get_canonical_data_rights_service,
 )
+from app.api_v2_deps.auth import AuthContext, require_auth_context
 from app.core.envelope_route import EnvelopedRoute
-from app.core.security import get_current_user
+from app.core.security import get_current_user  # noqa: F401
 from app.domain.consent import ConsentRecord
 from app.modules.consent.service import ConsentService
 from app.services.popia_service import POPIADataRightsService
@@ -103,8 +104,7 @@ async def grant_consent(
     # require_learner_write_for_current_user
     body: ConsentGrantRequest,
     consent_svc: ConsentService = Depends(get_canonical_consent_service),
-    # TODO: replace with real auth dependency that injects actor_id from JWT
-    current_user = Depends(get_current_user),
+    current_user: Any = Depends(require_auth_context),
 ) -> ConsentRecord:
     await _enforce_popia_learner_write(current_user, body.learner_id)
     actor_id = _authenticated_actor_id(current_user)
@@ -121,7 +121,7 @@ async def deny_consent(
     # require_learner_write_for_current_user
     body: ConsentDenyRequest,
     consent_svc: ConsentService = Depends(get_canonical_consent_service),
-    current_user = Depends(get_current_user),
+    current_user: Any = Depends(require_auth_context),
 ) -> ConsentRecord:
     await _enforce_popia_learner_write(current_user, body.learner_id)
     actor_id = _authenticated_actor_id(current_user)
@@ -139,7 +139,7 @@ async def withdraw_consent(
     # require_learner_write_for_current_user
     body: ConsentWithdrawRequest,
     consent_svc: ConsentService = Depends(get_canonical_consent_service),
-    current_user = Depends(get_current_user),
+    current_user: Any = Depends(require_auth_context),
 ) -> ConsentRecord:
     await _enforce_popia_learner_write(current_user, body.learner_id)
     actor_id = _authenticated_actor_id(current_user)
@@ -154,7 +154,7 @@ async def renew_consent(
     # require_learner_write_for_current_user
     body: ConsentRenewRequest,
     consent_svc: ConsentService = Depends(get_canonical_consent_service),
-    current_user = Depends(get_current_user),
+    current_user: Any = Depends(require_auth_context),
 ) -> ConsentRecord:
     await _enforce_popia_learner_write(current_user, body.learner_id)
     actor_id = _authenticated_actor_id(current_user)
@@ -174,7 +174,7 @@ async def create_export_request(
     # require_active_consent_for_current_user
     body: ExportRequestBody,
     dsr_svc: POPIADataRightsService = Depends(get_canonical_data_rights_service),
-    current_user: Any = Depends(get_current_user),
+    current_user: Any = Depends(require_auth_context),
 ) -> Any:
     """Creates a new data export request (§4.3)."""
     return await dsr_svc.build_learner_export(
@@ -191,7 +191,7 @@ async def create_export_request(
 async def create_erasure_request(
     body: ErasureRequestBody,
     dsr_svc: POPIADataRightsService = Depends(get_canonical_data_rights_service),
-    current_user: Any = Depends(get_current_user),
+    current_user: Any = Depends(require_auth_context),
 ) -> Any:
     """Creates a new erasure request (§4.3)."""
     return await dsr_svc.request_erasure(
@@ -206,7 +206,7 @@ async def create_erasure_request(
 async def cancel_erasure(
     learner_id: uuid.UUID,
     dsr_svc: POPIADataRightsService = Depends(get_canonical_data_rights_service),
-    current_user: Any = Depends(get_current_user),
+    current_user: Any = Depends(require_auth_context),
 ) -> Any:
     """Cancels a pending erasure request."""
     return await dsr_svc.cancel_erasure(
@@ -223,7 +223,7 @@ async def cancel_erasure(
 async def create_correction_request(
     body: CorrectionRequestLegacyBody,
     dsr_svc: POPIADataRightsService = Depends(get_canonical_data_rights_service),
-    current_user: Any = Depends(get_current_user),
+    current_user: Any = Depends(require_auth_context),
 ) -> Any:
     """Creates a correction request (§4.3)."""
     return await dsr_svc.request_correction(
@@ -238,7 +238,7 @@ async def create_correction_request(
 async def create_restriction_request(
     body: RestrictionRequestLegacyBody,
     dsr_svc: POPIADataRightsService = Depends(get_canonical_data_rights_service),
-    current_user: Any = Depends(get_current_user),
+    current_user: Any = Depends(require_auth_context),
 ) -> Any:
     """Creates a processing restriction request (§4.3)."""
     return await dsr_svc.restrict_processing(

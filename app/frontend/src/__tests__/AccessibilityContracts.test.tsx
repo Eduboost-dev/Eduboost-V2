@@ -32,7 +32,11 @@ describe("PR-007 frontend accessibility and flow contracts", () => {
   it("keeps auth forms accessible and consent-aware", () => {
     const login = read("app", "(auth)", "login", "page.tsx");
     const register = read("app", "(auth)", "register", "page.tsx");
-    expect(login).toContain("role=\"tablist\"");
+    expect(
+      login.includes("role=\"alert\"") ||
+      login.includes("<ValidationMessage")
+    ).toBe(true);
+    expect(login).toContain("aria-label={showPassword ? \"Hide password\" : \"Show password\"}");
     expect(login).toContain("autoComplete=\"email\"");
     expect(register).toContain("guardian-consent");
     expect(register).toContain("aria-invalid");

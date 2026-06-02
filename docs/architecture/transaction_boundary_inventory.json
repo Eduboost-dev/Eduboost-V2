@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T18:41:29Z",
+  "generated_at": "2026-06-01T15:08:54Z",
   "scan_roots": [
     "app/api_v2_routers",
     "app/services",
@@ -192,7 +192,7 @@
     {
       "file": "app/api_v2_routers/consent.py",
       "function": "grant_consent",
-      "lineno": 36,
+      "lineno": 39,
       "mutation_calls": [
         "grant"
       ],
@@ -205,7 +205,7 @@
     {
       "file": "app/api_v2_routers/consent.py",
       "function": "revoke_consent",
-      "lineno": 69,
+      "lineno": 72,
       "mutation_calls": [
         "revoke"
       ],
@@ -416,7 +416,7 @@
     {
       "file": "app/api_v2_routers/content_factory.py",
       "function": "rollback_seed_run",
-      "lineno": 803,
+      "lineno": 811,
       "mutation_calls": [
         "commit"
       ],
@@ -429,7 +429,7 @@
     {
       "file": "app/api_v2_routers/content_factory.py",
       "function": "promote_production",
-      "lineno": 867,
+      "lineno": 875,
       "mutation_calls": [
         "commit"
       ],
@@ -440,7 +440,7 @@
     {
       "file": "app/api_v2_routers/content_factory.py",
       "function": "get_promotion_event_items",
-      "lineno": 919,
+      "lineno": 932,
       "mutation_calls": [
         "execute"
       ],
@@ -451,7 +451,7 @@
     {
       "file": "app/api_v2_routers/content_factory.py",
       "function": "rollback_promotion_event",
-      "lineno": 965,
+      "lineno": 981,
       "mutation_calls": [
         "commit"
       ],
@@ -464,7 +464,7 @@
     {
       "file": "app/api_v2_routers/content_factory.py",
       "function": "get_content_factory_report",
-      "lineno": 1002,
+      "lineno": 1018,
       "mutation_calls": [
         "execute"
       ],
@@ -475,7 +475,7 @@
     {
       "file": "app/api_v2_routers/content_factory.py",
       "function": "plan_full_generation",
-      "lineno": 1082,
+      "lineno": 1098,
       "mutation_calls": [
         "add",
         "flush"
@@ -487,7 +487,7 @@
     {
       "file": "app/api_v2_routers/content_factory.py",
       "function": "start_full_generation",
-      "lineno": 1116,
+      "lineno": 1132,
       "mutation_calls": [
         "flush"
       ],
@@ -498,7 +498,7 @@
     {
       "file": "app/api_v2_routers/content_factory.py",
       "function": "list_full_generation_runs",
-      "lineno": 1151,
+      "lineno": 1167,
       "mutation_calls": [
         "execute"
       ],
@@ -509,7 +509,7 @@
     {
       "file": "app/api_v2_routers/content_factory.py",
       "function": "cancel_full_generation_run",
-      "lineno": 1210,
+      "lineno": 1226,
       "mutation_calls": [
         "execute",
         "flush"
@@ -521,7 +521,7 @@
     {
       "file": "app/api_v2_routers/content_factory.py",
       "function": "resume_full_generation_run",
-      "lineno": 1245,
+      "lineno": 1261,
       "mutation_calls": [
         "flush"
       ],
@@ -628,7 +628,7 @@
     {
       "file": "app/api_v2_routers/popia.py",
       "function": "deny_consent",
-      "lineno": 120,
+      "lineno": 119,
       "mutation_calls": [
         "deny"
       ],
@@ -641,7 +641,7 @@
     {
       "file": "app/api_v2_routers/popia.py",
       "function": "withdraw_consent",
-      "lineno": 138,
+      "lineno": 137,
       "mutation_calls": [
         "withdraw"
       ],
@@ -654,7 +654,7 @@
     {
       "file": "app/api_v2_routers/popia.py",
       "function": "renew_consent",
-      "lineno": 153,
+      "lineno": 152,
       "mutation_calls": [
         "renew"
       ],
@@ -713,7 +713,7 @@
     {
       "file": "app/modules/consent/service.py",
       "function": "grant",
-      "lineno": 114,
+      "lineno": 165,
       "mutation_calls": [
         "grant"
       ],
@@ -726,7 +726,7 @@
     {
       "file": "app/modules/consent/service.py",
       "function": "revoke",
-      "lineno": 164,
+      "lineno": 217,
       "mutation_calls": [
         "revoke"
       ],
@@ -739,7 +739,7 @@
     {
       "file": "app/modules/consent/service.py",
       "function": "renew",
-      "lineno": 197,
+      "lineno": 252,
       "mutation_calls": [
         "renew"
       ],
@@ -752,9 +752,23 @@
     {
       "file": "app/modules/consent/service.py",
       "function": "execute_erasure",
-      "lineno": 234,
+      "lineno": 300,
       "mutation_calls": [
         "revoke"
+      ],
+      "transaction_markers": [],
+      "critical_areas": [
+        "popia_lifecycle"
+      ],
+      "status": "multi-write-candidate-not-proven"
+    },
+    {
+      "file": "app/modules/consent/service.py",
+      "function": "_record_version_history",
+      "lineno": 397,
+      "mutation_calls": [
+        "add",
+        "flush"
       ],
       "transaction_markers": [],
       "critical_areas": [
@@ -1519,19 +1533,21 @@
     {
       "file": "app/services/content_generation_executor.py",
       "function": "execute_task",
-      "lineno": 67,
+      "lineno": 68,
       "mutation_calls": [
         "add",
         "flush"
       ],
-      "transaction_markers": [],
+      "transaction_markers": [
+        "begin"
+      ],
       "critical_areas": [],
-      "status": "multi-write-candidate-not-proven"
+      "status": "transaction-marker-present"
     },
     {
       "file": "app/services/content_generation_executor.py",
       "function": "execute_run",
-      "lineno": 139,
+      "lineno": 150,
       "mutation_calls": [
         "flush"
       ],
@@ -1542,7 +1558,7 @@
     {
       "file": "app/services/content_generation_executor.py",
       "function": "_existing_hashes",
-      "lineno": 223,
+      "lineno": 234,
       "mutation_calls": [
         "execute"
       ],
@@ -1553,7 +1569,7 @@
     {
       "file": "app/services/content_generation_executor.py",
       "function": "_fail_task",
-      "lineno": 227,
+      "lineno": 238,
       "mutation_calls": [
         "flush"
       ],
@@ -2151,7 +2167,7 @@
     {
       "file": "app/services/data_subject_rights_service.py",
       "function": "create_export_request",
-      "lineno": 41,
+      "lineno": 55,
       "mutation_calls": [
         "execute"
       ],
@@ -2162,7 +2178,7 @@
     {
       "file": "app/services/data_subject_rights_service.py",
       "function": "build_and_complete_export",
-      "lineno": 75,
+      "lineno": 89,
       "mutation_calls": [
         "execute"
       ],
@@ -2173,7 +2189,7 @@
     {
       "file": "app/services/data_subject_rights_service.py",
       "function": "create_erasure_request",
-      "lineno": 123,
+      "lineno": 137,
       "mutation_calls": [
         "execute"
       ],
@@ -2184,7 +2200,7 @@
     {
       "file": "app/services/data_subject_rights_service.py",
       "function": "approve_erasure",
-      "lineno": 152,
+      "lineno": 166,
       "mutation_calls": [
         "execute"
       ],
@@ -2195,7 +2211,7 @@
     {
       "file": "app/services/data_subject_rights_service.py",
       "function": "execute_erasure",
-      "lineno": 173,
+      "lineno": 187,
       "mutation_calls": [
         "execute"
       ],
@@ -2210,7 +2226,7 @@
     {
       "file": "app/services/data_subject_rights_service.py",
       "function": "create_correction_request",
-      "lineno": 248,
+      "lineno": 262,
       "mutation_calls": [
         "execute"
       ],
@@ -2221,7 +2237,7 @@
     {
       "file": "app/services/data_subject_rights_service.py",
       "function": "complete_correction",
-      "lineno": 276,
+      "lineno": 290,
       "mutation_calls": [
         "execute"
       ],
@@ -2232,7 +2248,7 @@
     {
       "file": "app/services/data_subject_rights_service.py",
       "function": "create_restriction_request",
-      "lineno": 295,
+      "lineno": 309,
       "mutation_calls": [
         "execute"
       ],
@@ -2243,7 +2259,7 @@
     {
       "file": "app/services/data_subject_rights_service.py",
       "function": "lift_restriction",
-      "lineno": 317,
+      "lineno": 331,
       "mutation_calls": [
         "execute"
       ],
@@ -3330,19 +3346,21 @@
     {
       "file": "app/services/popia_service.py",
       "function": "request_erasure",
-      "lineno": 110,
+      "lineno": 137,
       "mutation_calls": [
         "add",
         "flush"
       ],
       "transaction_markers": [],
-      "critical_areas": [],
+      "critical_areas": [
+        "popia_lifecycle"
+      ],
       "status": "multi-write-candidate-not-proven"
     },
     {
       "file": "app/services/popia_service.py",
       "function": "cancel_erasure",
-      "lineno": 148,
+      "lineno": 213,
       "mutation_calls": [
         "add",
         "flush"
@@ -3354,7 +3372,7 @@
     {
       "file": "app/services/popia_service.py",
       "function": "request_correction",
-      "lineno": 165,
+      "lineno": 263,
       "mutation_calls": [
         "add",
         "flush"
@@ -3366,7 +3384,7 @@
     {
       "file": "app/services/popia_service.py",
       "function": "restrict_processing",
-      "lineno": 192,
+      "lineno": 290,
       "mutation_calls": [
         "flush",
         "revoke"
@@ -3375,6 +3393,18 @@
       "critical_areas": [
         "popia_lifecycle"
       ],
+      "status": "multi-write-candidate-not-proven"
+    },
+    {
+      "file": "app/services/popia_service.py",
+      "function": "execute_erasure",
+      "lineno": 329,
+      "mutation_calls": [
+        "add",
+        "flush"
+      ],
+      "transaction_markers": [],
+      "critical_areas": [],
       "status": "multi-write-candidate-not-proven"
     },
     {
@@ -3400,7 +3430,7 @@
       "status": "single-mutation-candidate"
     }
   ],
-  "candidate_count": 275,
-  "critical_candidate_count": 50,
+  "candidate_count": 276,
+  "critical_candidate_count": 52,
   "policy": "Multi-write candidates remain not-proven until rollback/integration tests demonstrate atomicity."
 }
