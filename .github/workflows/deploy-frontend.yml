@@ -39,7 +39,7 @@ jobs:
             ${{ secrets.ACR_LOGIN_SERVER }}/eduboost-frontend:${{ github.sha }}
 
       - name: Update Azure Container App (staging)
-        uses: azure/cli@v1
+        uses: azure/cli@v3
         with:
           inlineScript: |
             az acr login --name ${{ secrets.ACR_NAME }}
