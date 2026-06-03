@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-06-03T10:10:48Z",
+  "generated_at": "2026-06-03T10:23:37Z",
   "scope_id": "grade1_mathematics_en",
   "grade": 1,
   "phase": "foundation",
@@ -10,6 +10,14 @@
   "status": "review",
   "learner_visible": false,
   "source_ready": true,
+  "review_evidence": {
+    "status": "missing",
+    "approved": false,
+    "manifest_path": null,
+    "blockers": [
+      "Educator review evidence packet is missing."
+    ]
+  },
   "staging_eligible": true,
   "production_eligible": false,
   "caps_ref_count": 16,
@@ -66,7 +74,8 @@
     }
   },
   "blockers": [
-    "Scope is still in review and requires educator approval before learner visibility."
+    "Scope is still in review and requires educator approval before learner visibility.",
+    "Educator review evidence packet is missing."
   ],
   "idempotency_keys": {
     "topic_map": "grade1_mathematics_en:topic_map:sha256:978e15e3f115db016bc9797889f08f92c11e0e5ee9df86ba5d79022eecd81e7f",

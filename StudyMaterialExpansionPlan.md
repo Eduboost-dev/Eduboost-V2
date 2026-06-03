@@ -60,6 +60,20 @@ Current promotion-readiness summary:
 
 Operational caveat: the 50 review scopes can now be staged from file artifacts, but production promotion remains blocked until educator approval/review evidence is added and the scope status is intentionally changed to `active`.
 
+## Pilot Review Workflow Status - 2026-06-03
+
+The next sharp-scope workflow is now in place for `grade5_mathematics_en`. `scripts/curriculum/build_pilot_review_packet.py` writes `data/generated/review_manifests/grade5_mathematics_en_educator_review.json` and produces a file-to-DB import plan over the generated artifact layers. The pilot currently remains `pending`, not educator-approved, with 833 importable records planned as `pending_review` DB artifacts until real educator approval metadata is attached.
+
+Current pilot state:
+
+- Pilot scope: `grade5_mathematics_en`.
+- Review packet status: `pending`.
+- Importable generated records: 833.
+- Planned DB artifact status: `pending_review`.
+- Production activation: blocked until educator decision, reviewer ID, evidence URL, approval timestamp, and intentional scope activation are present.
+
+Operational caveat: this workflow creates the review/approval path and DB import plan; it does not substitute synthetic approval for educator review.
+
 ## Target Coverage
 
 ### Supported Grades

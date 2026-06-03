@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-06-03T10:10:49Z",
+  "generated_at": "2026-06-03T10:23:37Z",
   "scope_id": "grade4_sepedi_first_additional_language_en",
   "grade": 4,
   "phase": "intermediate",
@@ -10,6 +10,14 @@
   "status": "review",
   "learner_visible": false,
   "source_ready": true,
+  "review_evidence": {
+    "status": "missing",
+    "approved": false,
+    "manifest_path": null,
+    "blockers": [
+      "Educator review evidence packet is missing."
+    ]
+  },
   "staging_eligible": true,
   "production_eligible": false,
   "caps_ref_count": 16,
@@ -66,7 +74,8 @@
     }
   },
   "blockers": [
-    "Scope is still in review and requires educator approval before learner visibility."
+    "Scope is still in review and requires educator approval before learner visibility.",
+    "Educator review evidence packet is missing."
   ],
   "idempotency_keys": {
     "topic_map": "grade4_sepedi_first_additional_language_en:topic_map:sha256:3eaf83c4a0ef1b670fb7aded41dbfbd07304ba25b8eee7ceb16c0118960acb5c",

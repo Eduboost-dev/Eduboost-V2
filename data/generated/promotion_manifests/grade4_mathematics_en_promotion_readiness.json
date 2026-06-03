@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-06-03T10:10:49Z",
+  "generated_at": "2026-06-03T10:23:37Z",
   "scope_id": "grade4_mathematics_en",
   "grade": 4,
   "phase": "intermediate",
@@ -10,6 +10,14 @@
   "status": "active",
   "learner_visible": true,
   "source_ready": true,
+  "review_evidence": {
+    "status": "missing",
+    "approved": false,
+    "manifest_path": null,
+    "blockers": [
+      "Educator review evidence packet is missing."
+    ]
+  },
   "staging_eligible": true,
   "production_eligible": true,
   "caps_ref_count": 3,

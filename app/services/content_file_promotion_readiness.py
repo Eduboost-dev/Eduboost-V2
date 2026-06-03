@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from app.domain.content_scope import ContentScopeStatus
+from app.services.content_file_review_workflow import ContentFileReviewWorkflowService
 from app.services.content_scope_registry import ContentScopeRegistry
 from scripts.curriculum.validate_source_manifest import generation_ready
 
@@ -48,9 +49,15 @@ class ContentFilePromotionReadinessService:
         *,
         project_root: Path | None = None,
         registry: ContentScopeRegistry | None = None,
+        review_service: ContentFileReviewWorkflowService | None = None,
     ) -> None:
         self.project_root = project_root or PROJECT_ROOT
         self.registry = registry or ContentScopeRegistry(project_root=self.project_root)
+        self.review_service = review_service or ContentFileReviewWorkflowService(
+            project_root=self.project_root,
+            registry=self.registry,
+            readiness_service=self,
+        )
 
     def evaluate_scope(self, scope_id: str) -> PromotionReadinessResult:
         scope = self.registry.get_scope(scope_id)
@@ -71,8 +78,13 @@ class ContentFilePromotionReadinessService:
             elif layer_manifests[layer]["record_count"] <= 0:
                 blockers.append(f"{layer} artifact file contains no records.")
 
+        review_evidence = self.review_service.review_status(scope_id)
         if scope.status == ContentScopeStatus.REVIEW:
-            blockers.append("Scope is still in review and requires educator approval before learner visibility.")
+            if review_evidence.approved:
+                blockers.append("Scope has educator approval evidence but is still review; activate scope intentionally before learner visibility.")
+            else:
+                blockers.append("Scope is still in review and requires educator approval before learner visibility.")
+                blockers.extend(review_evidence.blockers)
         elif scope.status != ContentScopeStatus.ACTIVE:
             blockers.append(f"Scope status {scope.status.value} is not production-promotable.")
 
@@ -91,6 +103,12 @@ class ContentFilePromotionReadinessService:
             "status": scope.status.value,
             "learner_visible": learner_visible,
             "source_ready": source_ready,
+            "review_evidence": {
+                "status": review_evidence.status,
+                "approved": review_evidence.approved,
+                "manifest_path": str(review_evidence.manifest_path.relative_to(self.project_root)) if review_evidence.manifest_path else None,
+                "blockers": review_evidence.blockers,
+            },
             "staging_eligible": staging_eligible,
             "production_eligible": production_eligible,
             "caps_ref_count": len(scope.caps_refs),

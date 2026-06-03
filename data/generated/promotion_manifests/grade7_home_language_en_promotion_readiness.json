@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-06-03T10:10:49Z",
+  "generated_at": "2026-06-03T10:23:38Z",
   "scope_id": "grade7_home_language_en",
   "grade": 7,
   "phase": "senior",
@@ -10,6 +10,14 @@
   "status": "review",
   "learner_visible": false,
   "source_ready": true,
+  "review_evidence": {
+    "status": "missing",
+    "approved": false,
+    "manifest_path": null,
+    "blockers": [
+      "Educator review evidence packet is missing."
+    ]
+  },
   "staging_eligible": true,
   "production_eligible": false,
   "caps_ref_count": 16,
@@ -66,7 +74,8 @@
     }
   },
   "blockers": [
-    "Scope is still in review and requires educator approval before learner visibility."
+    "Scope is still in review and requires educator approval before learner visibility.",
+    "Educator review evidence packet is missing."
   ],
   "idempotency_keys": {
     "topic_map": "grade7_home_language_en:topic_map:sha256:ae832a7fc5d0bce99e9b41876ee0824c7350c83d6c5a57ca29236c2757434ee8",
