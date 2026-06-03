@@ -90,6 +90,20 @@ Current review-scope import-plan summary:
 
 Operational caveat: the import plan maps `dev_approved` review-scope artifacts to approved Content Factory records for non-production staging/import only. Learner-visible production promotion remains blocked by scope activation plus educator/content and legal approval evidence.
 
+## File Import Rollback Status - 2026-06-03
+
+The Phase 7 rollback side now has a file-backed manifest for the review-scope import plan. `scripts/curriculum/build_file_artifact_rollback_manifest.py --status review` writes `data/generated/rollback_manifests/all_scopes_file_artifact_rollback_manifest.json`, listing the exact generated artifact IDs grouped by scope and layer plus the rollback actions needed to remove file-imported Content Factory records, source evidence rows, and validation evidence rows.
+
+Current review-scope rollback-manifest summary:
+
+- Rollback scopes covered: 50.
+- Rollback-addressable artifact IDs: 41,754.
+- Scopes with rollback-plan errors: 0.
+- Production-unlocked scopes: 0.
+- Rollback supported for staging/import artifacts: yes.
+
+Operational caveat: this rollback manifest covers non-production file-import artifacts. It does not authorize or perform production rollback; production promotion remains unavailable for review scopes until educator/content approval, legal approval, and intentional activation are complete.
+
 ## Target Coverage
 
 ### Supported Grades

@@ -117,6 +117,23 @@ def test_batch_import_plan_summarizes_dev_approved_review_scopes() -> None:
     }
 
 
+def test_batch_import_plan_builds_rollback_manifest() -> None:
+    importer = ContentFileArtifactImportService(project_root=REPO_ROOT)
+
+    batch = importer.plan_scope_imports(statuses={"review"}, max_records_per_layer=1)
+    manifest = batch.to_rollback_manifest(
+        source_import_manifest_path="data/generated/import_manifests/all_scopes_file_artifact_import_plan.json"
+    )
+
+    assert manifest["summary"]["scope_count"] == 50
+    assert manifest["summary"]["artifact_count"] == 200
+    assert manifest["summary"]["rollback_supported"] is True
+    assert manifest["production_guard"]["production_rollback_applicable"] is False
+    grade5 = next(row for row in manifest["scopes"] if row["scope_id"] == "grade5_mathematics_en")
+    assert len(grade5["layers"]["diagnostic_items"]) == 1
+    assert "delete_content_generation_artifacts_by_artifact_id" in manifest["rollback_actions"]
+
+
 def test_promotion_readiness_reports_pilot_review_evidence() -> None:
     readiness = ContentFilePromotionReadinessService(project_root=REPO_ROOT).evaluate_scope("grade5_mathematics_en")
 

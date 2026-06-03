@@ -90,6 +90,41 @@ class FileArtifactImportBatchPlan:
             ],
         }
 
+    def to_rollback_manifest(self, *, source_import_manifest_path: str) -> dict[str, Any]:
+        return {
+            "schema_version": "1.0",
+            "manifest_id": _batch_manifest_id(self.plans),
+            "source_import_manifest_path": source_import_manifest_path,
+            "summary": {
+                "scope_count": self.scope_count,
+                "artifact_count": self.total_records,
+                "scopes_with_errors": self.scopes_with_errors,
+                "production_unlocked": self.production_unlocked,
+                "rollback_supported": self.scopes_with_errors == 0,
+            },
+            "rollback_actions": [
+                "delete_content_artifact_sources_by_artifact_id",
+                "delete_content_validation_reports_by_artifact_id",
+                "delete_content_generation_artifacts_by_artifact_id",
+            ],
+            "production_guard": {
+                "production_unlocked": self.production_unlocked,
+                "production_rollback_applicable": self.production_unlocked > 0,
+                "notes": "Review-scope file imports are staging/import artifacts only; production remains gated separately.",
+            },
+            "scopes": [
+                {
+                    "scope_id": plan.scope_id,
+                    "review_status": plan.review_status,
+                    "db_status": plan.db_status,
+                    "artifact_count": len(plan.records),
+                    "layers": _layer_artifact_ids(plan.records),
+                    "errors": plan.errors,
+                }
+                for plan in self.plans
+            ],
+        }
+
 
 class ContentFileArtifactImportService:
     """Plan and execute imports from generated JSON files into reviewable DB artifacts."""
@@ -322,3 +357,18 @@ def _layer_counts(records: list[FileArtifactImportRecord]) -> dict[str, int]:
     for record in records:
         counts[record.layer] = counts.get(record.layer, 0) + 1
     return counts
+
+
+def _layer_artifact_ids(records: list[FileArtifactImportRecord]) -> dict[str, list[str]]:
+    layer_ids: dict[str, list[str]] = {}
+    for record in records:
+        layer_ids.setdefault(record.layer, []).append(str(record.artifact_id))
+    return layer_ids
+
+
+def _batch_manifest_id(plans: list[FileArtifactImportPlan]) -> str:
+    basis = ";".join(
+        f"{plan.scope_id}:{len(plan.records)}:{plan.db_status}:{plan.review_status}"
+        for plan in plans
+    )
+    return str(uuid.uuid5(uuid.NAMESPACE_URL, f"eduboost:file-import-rollback:{basis}"))
