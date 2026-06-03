@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from app.domain.content_scope import ContentScopeStatus
+from app.services.content_file_lesson_quality import ContentFileLessonQualityService
 from app.services.content_file_review_workflow import ContentFileReviewWorkflowService
 from app.services.content_scope_registry import ContentScopeRegistry
 from scripts.curriculum.validate_source_manifest import generation_ready
@@ -50,6 +51,7 @@ class ContentFilePromotionReadinessService:
         project_root: Path | None = None,
         registry: ContentScopeRegistry | None = None,
         review_service: ContentFileReviewWorkflowService | None = None,
+        lesson_quality_service: ContentFileLessonQualityService | None = None,
     ) -> None:
         self.project_root = project_root or PROJECT_ROOT
         self.registry = registry or ContentScopeRegistry(project_root=self.project_root)
@@ -57,6 +59,10 @@ class ContentFilePromotionReadinessService:
             project_root=self.project_root,
             registry=self.registry,
             readiness_service=self,
+        )
+        self.lesson_quality_service = lesson_quality_service or ContentFileLessonQualityService(
+            project_root=self.project_root,
+            registry=self.registry,
         )
 
     def evaluate_scope(self, scope_id: str) -> PromotionReadinessResult:
@@ -79,6 +85,9 @@ class ContentFilePromotionReadinessService:
                 blockers.append(f"{layer} artifact file contains no records.")
 
         review_evidence = self.review_service.review_status(scope_id)
+        lesson_quality = self.lesson_quality_service.audit_scope(scope_id)
+        if lesson_quality.quarantined:
+            blockers.extend(lesson_quality.blockers)
         if scope.status == ContentScopeStatus.REVIEW:
             if review_evidence.stage_unlocked:
                 blockers.append("Scope is still review; activate scope intentionally before learner visibility.")
@@ -90,7 +99,11 @@ class ContentFilePromotionReadinessService:
         elif scope.status != ContentScopeStatus.ACTIVE:
             blockers.append(f"Scope status {scope.status.value} is not production-promotable.")
 
-        staging_eligible = source_ready and all(layer["exists"] and layer["record_count"] > 0 for layer in layer_manifests.values())
+        staging_eligible = (
+            source_ready
+            and all(layer["exists"] and layer["record_count"] > 0 for layer in layer_manifests.values())
+            and not lesson_quality.quarantined
+        )
         production_eligible = staging_eligible and learner_visible and not blockers
 
         manifest = {
@@ -114,6 +127,14 @@ class ContentFilePromotionReadinessService:
                 "stage_blockers": review_evidence.stage_blockers,
                 "production_blockers": review_evidence.production_blockers,
                 "blockers": review_evidence.blockers,
+            },
+            "lesson_quality": {
+                "passed": lesson_quality.passed,
+                "quarantined": lesson_quality.quarantined,
+                "lesson_count": lesson_quality.lesson_count,
+                "failed_lesson_count": lesson_quality.failed_lesson_count,
+                "blockers": lesson_quality.blockers,
+                "aggregate": lesson_quality.aggregate,
             },
             "staging_eligible": staging_eligible,
             "production_eligible": production_eligible,
@@ -157,6 +178,9 @@ class ContentFilePromotionReadinessService:
             "staging_eligible": sum(1 for result in results if result.staging_eligible),
             "production_eligible": sum(1 for result in results if result.production_eligible),
             "review_blocked": sum(1 for result in results if not result.production_eligible and result.staging_eligible),
+            "lesson_quarantined": sum(
+                1 for result in results if result.manifest.get("lesson_quality", {}).get("quarantined")
+            ),
             "learner_visible": sum(1 for result in results if result.learner_visible),
         }
         return {

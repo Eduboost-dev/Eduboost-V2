@@ -19,6 +19,7 @@ from app.models.content_factory import (
     ContentValidationReport,
 )
 from app.services.content_factory import stable_json_hash
+from app.services.content_file_lesson_quality import ContentFileLessonQualityService
 from app.services.content_file_review_workflow import ContentFileReviewWorkflowService
 from app.services.content_scope_registry import ContentScopeRegistry
 
@@ -135,19 +136,29 @@ class ContentFileArtifactImportService:
         project_root: Path | None = None,
         registry: ContentScopeRegistry | None = None,
         review_service: ContentFileReviewWorkflowService | None = None,
+        lesson_quality_service: ContentFileLessonQualityService | None = None,
     ) -> None:
         self.project_root = project_root or PROJECT_ROOT
         self.registry = registry or ContentScopeRegistry(project_root=self.project_root)
         self.review_service = review_service or ContentFileReviewWorkflowService(project_root=self.project_root, registry=self.registry)
+        self.lesson_quality_service = lesson_quality_service or ContentFileLessonQualityService(
+            project_root=self.project_root,
+            registry=self.registry,
+        )
 
     def plan_scope_import(self, scope_id: str, *, max_records_per_layer: int | None = None) -> FileArtifactImportPlan:
         scope = self.registry.get_scope(scope_id)
         review = self.review_service.review_status(scope_id)
+        lesson_quality = self.lesson_quality_service.audit_scope(scope_id)
         db_status = ContentArtifactStatus.APPROVED.value if review.stage_unlocked else ContentArtifactStatus.PENDING_REVIEW.value
         source_document_id = (scope.source_documents or ["unknown_source"])[0]
         records: list[FileArtifactImportRecord] = []
         errors = list(review.stage_blockers)
+        if lesson_quality.quarantined:
+            errors.extend(lesson_quality.blockers)
         for path_key, (layer, artifact_type, collection_key) in _LAYER_SPECS.items():
+            if path_key == "lessons" and lesson_quality.quarantined:
+                continue
             rel_path = scope.artifact_paths.get(path_key)
             if not rel_path:
                 errors.append(f"{path_key} path is missing from scope registry.")

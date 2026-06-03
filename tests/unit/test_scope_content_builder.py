@@ -8,6 +8,7 @@ import pytest
 from app.modules.diagnostics.item_validator import ItemValidator
 from app.modules.lessons.caps_topic_map_service import CAPSTopicMapService
 from app.modules.lessons.lesson_validator import LessonValidator
+from app.services.content_generation.generated_lesson_contract import GeneratedLessonQualityValidator
 from app.services.content_scope_registry import ContentScopeRegistry
 from scripts.curriculum.build_scope_content_artifacts import build_scope_content_artifacts
 from scripts.validate_item_bank import coverage_summary
@@ -74,6 +75,14 @@ def test_generic_scope_builder_generates_valid_launch_slice(tmp_path: Path) -> N
     for lesson in lesson_payload["lessons"]:
         validation = lesson_validator.validate(lesson, require_verified=True)
         assert validation.passed, validation.failures
+        quality_issues = GeneratedLessonQualityValidator().validate_lesson(
+            lesson,
+            scope_id=report["scope_id"],
+            subject_code=scope.subject_code,
+            subject=scope.subject,
+            source_document_ids=list(scope.source_documents or []),
+        )
+        assert not quality_issues, quality_issues
         assert lesson["review_status"] == "approved"
 
 
