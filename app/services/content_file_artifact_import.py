@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.content_factory import (
@@ -51,6 +52,10 @@ class FileArtifactImportPlan:
     db_status: str
     records: list[FileArtifactImportRecord] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
+    created_count: int = 0
+    updated_count: int = 0
+    validation_report_count: int = 0
+    source_count: int = 0
 
 
 class ContentFileArtifactImportService:
@@ -119,52 +124,114 @@ class ContentFileArtifactImportService:
             return plan
         scope = self.registry.get_scope(scope_id)
         source_document_id = (scope.source_documents or ["unknown_source"])[0]
+        created_count = updated_count = validation_report_count = source_count = 0
         for record in plan.records:
-            artifact = ContentGenerationArtifact(
-                artifact_id=record.artifact_id,
-                scope_id=record.scope_id,
-                content_layer=ContentLayer(record.layer),
-                artifact_type=ContentArtifactType(record.artifact_type),
-                caps_ref=record.caps_ref,
-                grade=scope.grade,
-                subject_code=scope.subject_code,
-                language=scope.language,
-                status=ContentArtifactStatus(record.status),
-                artifact_json=record.payload_json,
-                artifact_hash=record.artifact_hash,
-                source_snapshot_hash=record.artifact_hash,
-                provider="file_import",
-                model="generated-scope-artifacts",
-                prompt_version="scope_scaffold_v1",
-                quality_score=0.9,
-                safety_status="passed",
-                answer_key_verified=True,
-                caps_alignment_score=1.0,
-            )
-            session.add(artifact)
-            session.add(ContentArtifactSource(
-                artifact_id=record.artifact_id,
-                source_document_id=source_document_id,
-                source_chunk_id=f"{record.scope_id}:{record.layer}:{record.caps_ref or 'scope'}",
-                source_title=source_document_id,
-                source_type="caps_pdf",
-                caps_ref=record.caps_ref,
-                grade=scope.grade,
-                subject_code=scope.subject_code,
-                language=scope.language,
-                license_status="government_open",
-                source_quality_score=0.9,
-                source_hash=record.artifact_hash,
-                source_metadata={"document_status": "approved", "imported_by": actor_id},
-            ))
-            session.add(ContentValidationReport(
-                artifact_id=record.artifact_id,
-                passed=True,
-                checks={"file_import_schema": True, "source_traceability": True, "safety_status": "passed"},
-                errors=[],
-            ))
+            artifact = await self._existing_artifact(session, record)
+            if artifact is None:
+                artifact = ContentGenerationArtifact(
+                    artifact_id=record.artifact_id,
+                    scope_id=record.scope_id,
+                    content_layer=ContentLayer(record.layer),
+                    artifact_type=ContentArtifactType(record.artifact_type),
+                    caps_ref=record.caps_ref,
+                    grade=scope.grade,
+                    subject_code=scope.subject_code,
+                    language=scope.language,
+                    status=ContentArtifactStatus(record.status),
+                    artifact_json=record.payload_json,
+                    artifact_hash=record.artifact_hash,
+                    source_snapshot_hash=record.artifact_hash,
+                    provider="file_import",
+                    model="generated-scope-artifacts",
+                    prompt_version="scope_scaffold_v1",
+                    quality_score=0.9,
+                    safety_status="passed",
+                    answer_key_verified=True,
+                    caps_alignment_score=1.0,
+                )
+                session.add(artifact)
+                created_count += 1
+            else:
+                artifact.status = ContentArtifactStatus(record.status)
+                artifact.artifact_json = record.payload_json
+                artifact.source_snapshot_hash = record.artifact_hash
+                artifact.provider = "file_import"
+                artifact.model = "generated-scope-artifacts"
+                artifact.prompt_version = "scope_scaffold_v1"
+                artifact.quality_score = 0.9
+                artifact.safety_status = "passed"
+                artifact.answer_key_verified = True
+                artifact.caps_alignment_score = 1.0
+                updated_count += 1
+
+            if not await self._has_source(session, record):
+                session.add(ContentArtifactSource(
+                    artifact_id=record.artifact_id,
+                    source_document_id=source_document_id,
+                    source_chunk_id=f"{record.scope_id}:{record.layer}:{record.caps_ref or 'scope'}",
+                    source_title=source_document_id,
+                    source_type="caps_pdf",
+                    caps_ref=record.caps_ref,
+                    grade=scope.grade,
+                    subject_code=scope.subject_code,
+                    language=scope.language,
+                    license_status="government_open",
+                    source_quality_score=0.9,
+                    source_hash=record.artifact_hash,
+                    source_metadata={"document_status": "approved", "imported_by": actor_id},
+                ))
+                source_count += 1
+            if not await self._has_validation_report(session, record):
+                session.add(ContentValidationReport(
+                    artifact_id=record.artifact_id,
+                    passed=True,
+                    checks={"file_import_schema": True, "source_traceability": True, "safety_status": "passed"},
+                    errors=[],
+                ))
+                validation_report_count += 1
         await session.flush()
-        return plan
+        return FileArtifactImportPlan(
+            scope_id=plan.scope_id,
+            review_status=plan.review_status,
+            db_status=plan.db_status,
+            records=plan.records,
+            errors=plan.errors,
+            created_count=created_count,
+            updated_count=updated_count,
+            validation_report_count=validation_report_count,
+            source_count=source_count,
+        )
+
+    async def _existing_artifact(self, session: AsyncSession, record: FileArtifactImportRecord) -> ContentGenerationArtifact | None:
+        existing = await session.get(ContentGenerationArtifact, record.artifact_id)
+        if existing is not None:
+            return existing
+        result = await session.execute(
+            select(ContentGenerationArtifact).where(ContentGenerationArtifact.artifact_hash == record.artifact_hash)
+        )
+        return result.scalar_one_or_none()
+
+    async def _has_source(self, session: AsyncSession, record: FileArtifactImportRecord) -> bool:
+        if hasattr(session, "has_source_for_import"):
+            return bool(session.has_source_for_import(record))
+        result = await session.execute(
+            select(ContentArtifactSource).where(
+                ContentArtifactSource.artifact_id == record.artifact_id,
+                ContentArtifactSource.source_hash == record.artifact_hash,
+            )
+        )
+        return result.scalar_one_or_none() is not None
+
+    async def _has_validation_report(self, session: AsyncSession, record: FileArtifactImportRecord) -> bool:
+        if hasattr(session, "has_validation_report_for_import"):
+            return bool(session.has_validation_report_for_import(record))
+        result = await session.execute(
+            select(ContentValidationReport).where(
+                ContentValidationReport.artifact_id == record.artifact_id,
+                ContentValidationReport.passed == True,
+            )
+        )
+        return result.scalar_one_or_none() is not None
 
 
 def _caps_ref_for(path_key: str, item: dict[str, Any]) -> str | None:

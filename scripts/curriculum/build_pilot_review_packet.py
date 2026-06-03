@@ -24,6 +24,7 @@ def main() -> int:
     parser.add_argument("--notes", default="Pilot packet for educator review; approval evidence is pending.")
     parser.add_argument("--max-records-per-layer", type=int, default=None)
     parser.add_argument("--json", action="store_true")
+    parser.add_argument("--import-dry-run", action="store_true", help="Report the DB import plan without mutating the database.")
     args = parser.parse_args()
 
     review_service = ContentFileReviewWorkflowService(project_root=ROOT)
@@ -34,7 +35,8 @@ def main() -> int:
         evidence_url=args.evidence_url,
         notes=args.notes,
     )
-    import_plan = ContentFileArtifactImportService(project_root=ROOT, review_service=review_service).plan_scope_import(
+    importer = ContentFileArtifactImportService(project_root=ROOT, review_service=review_service)
+    import_plan = importer.plan_scope_import(
         args.scope_id,
         max_records_per_layer=args.max_records_per_layer,
     )
@@ -46,6 +48,7 @@ def main() -> int:
             "db_status": import_plan.db_status,
             "record_count": len(import_plan.records),
             "errors": import_plan.errors,
+            "dry_run_only": True,
         },
         "packet_path": f"data/generated/review_manifests/{args.scope_id}_educator_review.json",
     }
@@ -58,6 +61,7 @@ def main() -> int:
         print(f"  approved: {output['review_packet_approved']}")
         print(f"  import_db_status: {output['import_plan']['db_status']}")
         print(f"  import_record_count: {output['import_plan']['record_count']}")
+        print(f"  import_dry_run_only: {output['import_plan']['dry_run_only']}")
         print(f"  packet_path: {output['packet_path']}")
     return 0
 

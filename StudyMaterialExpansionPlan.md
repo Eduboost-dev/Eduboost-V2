@@ -70,6 +70,7 @@ Current pilot state:
 - Review packet status: `pending`.
 - Importable generated records: 833.
 - Planned DB artifact status: `pending_review`.
+- File-to-DB import behavior: idempotent by stable artifact ID/hash; repeat imports update existing artifacts and do not duplicate source or validation evidence rows.
 - Production activation: blocked until educator decision, reviewer ID, evidence URL, approval timestamp, and intentional scope activation are present.
 
 Operational caveat: this workflow creates the review/approval path and DB import plan; it does not substitute synthetic approval for educator review.

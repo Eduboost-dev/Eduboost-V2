@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-06-03T10:23:38Z",
+  "generated_at": "2026-06-03T10:30:41Z",
   "summary": {
     "scope_count": 51,
     "staging_eligible": 51,
@@ -11,7 +11,7 @@
   "scopes": [
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade1_coding_and_robotics_en",
       "grade": 1,
       "phase": "foundation",
@@ -116,7 +116,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade1_home_language_en",
       "grade": 1,
       "phase": "foundation",
@@ -221,7 +221,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade1_life_skills_en",
       "grade": 1,
       "phase": "foundation",
@@ -326,7 +326,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade1_mathematics_en",
       "grade": 1,
       "phase": "foundation",
@@ -431,7 +431,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade1_sepedi_first_additional_language_en",
       "grade": 1,
       "phase": "foundation",
@@ -536,7 +536,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade2_coding_and_robotics_en",
       "grade": 2,
       "phase": "foundation",
@@ -641,7 +641,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade2_home_language_en",
       "grade": 2,
       "phase": "foundation",
@@ -746,7 +746,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade2_life_skills_en",
       "grade": 2,
       "phase": "foundation",
@@ -851,7 +851,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade2_mathematics_en",
       "grade": 2,
       "phase": "foundation",
@@ -956,7 +956,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade2_sepedi_first_additional_language_en",
       "grade": 2,
       "phase": "foundation",
@@ -1061,7 +1061,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade3_coding_and_robotics_en",
       "grade": 3,
       "phase": "foundation",
@@ -1166,7 +1166,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade3_home_language_en",
       "grade": 3,
       "phase": "foundation",
@@ -1271,7 +1271,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade3_life_skills_en",
       "grade": 3,
       "phase": "foundation",
@@ -1376,7 +1376,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade3_mathematics_en",
       "grade": 3,
       "phase": "foundation",
@@ -1481,7 +1481,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade3_sepedi_first_additional_language_en",
       "grade": 3,
       "phase": "foundation",
@@ -1586,7 +1586,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade4_coding_and_robotics_en",
       "grade": 4,
       "phase": "intermediate",
@@ -1691,7 +1691,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade4_home_language_en",
       "grade": 4,
       "phase": "intermediate",
@@ -1796,7 +1796,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade4_life_skills_en",
       "grade": 4,
       "phase": "intermediate",
@@ -1901,7 +1901,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade4_mathematics_en",
       "grade": 4,
       "phase": "intermediate",
@@ -2003,7 +2003,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade4_natural_sciences_and_technology_en",
       "grade": 4,
       "phase": "intermediate",
@@ -2108,7 +2108,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade4_sepedi_first_additional_language_en",
       "grade": 4,
       "phase": "intermediate",
@@ -2213,7 +2213,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:40Z",
       "scope_id": "grade4_social_sciences_en",
       "grade": 4,
       "phase": "intermediate",
@@ -2318,7 +2318,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:37Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade5_coding_and_robotics_en",
       "grade": 5,
       "phase": "intermediate",
@@ -2423,7 +2423,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade5_home_language_en",
       "grade": 5,
       "phase": "intermediate",
@@ -2528,7 +2528,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade5_life_skills_en",
       "grade": 5,
       "phase": "intermediate",
@@ -2633,7 +2633,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade5_mathematics_en",
       "grade": 5,
       "phase": "intermediate",
@@ -2744,7 +2744,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade5_natural_sciences_and_technology_en",
       "grade": 5,
       "phase": "intermediate",
@@ -2849,7 +2849,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade5_sepedi_first_additional_language_en",
       "grade": 5,
       "phase": "intermediate",
@@ -2954,7 +2954,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade5_social_sciences_en",
       "grade": 5,
       "phase": "intermediate",
@@ -3059,7 +3059,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade6_coding_and_robotics_en",
       "grade": 6,
       "phase": "intermediate",
@@ -3164,7 +3164,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade6_home_language_en",
       "grade": 6,
       "phase": "intermediate",
@@ -3269,7 +3269,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade6_life_skills_en",
       "grade": 6,
       "phase": "intermediate",
@@ -3374,7 +3374,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade6_mathematics_en",
       "grade": 6,
       "phase": "intermediate",
@@ -3479,7 +3479,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade6_natural_sciences_and_technology_en",
       "grade": 6,
       "phase": "intermediate",
@@ -3584,7 +3584,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade6_sepedi_first_additional_language_en",
       "grade": 6,
       "phase": "intermediate",
@@ -3689,7 +3689,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade6_social_sciences_en",
       "grade": 6,
       "phase": "intermediate",
@@ -3794,7 +3794,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade7_coding_and_robotics_en",
       "grade": 7,
       "phase": "senior",
@@ -3899,7 +3899,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade7_creative_arts_en",
       "grade": 7,
       "phase": "senior",
@@ -4004,7 +4004,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade7_economic_management_sciences_en",
       "grade": 7,
       "phase": "senior",
@@ -4109,7 +4109,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade7_home_language_en",
       "grade": 7,
       "phase": "senior",
@@ -4214,7 +4214,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade7_life_orientation_en",
       "grade": 7,
       "phase": "senior",
@@ -4319,7 +4319,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade7_mathematics_en",
       "grade": 7,
       "phase": "senior",
@@ -4424,7 +4424,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade7_natural_sciences_en",
       "grade": 7,
       "phase": "senior",
@@ -4529,7 +4529,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade7_sepedi_first_additional_language_en",
       "grade": 7,
       "phase": "senior",
@@ -4634,7 +4634,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade7_social_sciences_en",
       "grade": 7,
       "phase": "senior",
@@ -4739,7 +4739,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grade7_technology_en",
       "grade": 7,
       "phase": "senior",
@@ -4844,7 +4844,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grader_coding_and_robotics_en",
       "grade": 0,
       "phase": "foundation",
@@ -4949,7 +4949,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grader_home_language_en",
       "grade": 0,
       "phase": "foundation",
@@ -5054,7 +5054,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grader_life_skills_en",
       "grade": 0,
       "phase": "foundation",
@@ -5159,7 +5159,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grader_mathematics_en",
       "grade": 0,
       "phase": "foundation",
@@ -5264,7 +5264,7 @@
     },
     {
       "schema_version": "1.0",
-      "generated_at": "2026-06-03T10:23:38Z",
+      "generated_at": "2026-06-03T10:30:41Z",
       "scope_id": "grader_sepedi_first_additional_language_en",
       "grade": 0,
       "phase": "foundation",
