@@ -1,0 +1,691 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:18Z",
+  "scope": "grade4_natural_sciences_and_technology_en",
+  "grade": 4,
+  "subject": "Natural Sciences and Technology",
+  "weekly_template": [
+    {
+      "day": "Mon",
+      "caps_ref": "4.NST.1.1",
+      "activity_type": "lesson",
+      "lesson_variant": "standard",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-1-short-practice-v1",
+      "topic": "Living and non-living things"
+    },
+    {
+      "day": "Tue",
+      "caps_ref": "4.NST.1.2",
+      "activity_type": "practice",
+      "lesson_variant": "visual",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-2-short-practice-v1",
+      "topic": "Structure of plants and animals"
+    },
+    {
+      "day": "Wed",
+      "caps_ref": "4.NST.1.3",
+      "activity_type": "lesson",
+      "lesson_variant": "story",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-3-short-practice-v1",
+      "topic": "What plants need to grow"
+    },
+    {
+      "day": "Thu",
+      "caps_ref": "4.NST.1.4",
+      "activity_type": "practice",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-4-short-practice-v1",
+      "topic": "Habitats of animals"
+    },
+    {
+      "day": "Fri",
+      "caps_ref": "4.NST.1.5",
+      "activity_type": "lesson",
+      "lesson_variant": "real_world_sa",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-5-short-practice-v1",
+      "topic": "Structures for animal shelters"
+    }
+  ],
+  "topic_sequence": [
+    {
+      "caps_ref": "4.NST.1.1",
+      "topic": "Living and non-living things",
+      "prerequisites": [
+        "4.NST.1.1.1"
+      ],
+      "misconception_tags": [
+        "germs_not_recognised_as_living",
+        "dormant_seeds_classified_as_non_living",
+        "fire_or_rivers_classified_as_living",
+        "dead_plant_material_classified_as_never_living"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.1.2",
+      "topic": "Structure of plants and animals",
+      "prerequisites": [
+        "4.NST.1.1.1"
+      ],
+      "misconception_tags": [
+        "fruit_not_understood_as_plant_part",
+        "roots_ignored_because_they_are_not_visible",
+        "all_animals_assumed_to_have_same_limbs",
+        "body_covering_confused_with_habitat"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.1.3",
+      "topic": "What plants need to grow",
+      "prerequisites": [
+        "4.NST.1.2.1"
+      ],
+      "misconception_tags": [
+        "soil_seen_as_only_requirement_for_growth",
+        "germination_confused_with_flowering"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.1.4",
+      "topic": "Habitats of animals",
+      "prerequisites": [
+        "4.NST.1.1.1"
+      ],
+      "misconception_tags": [
+        "habitat_seen_as_only_a_house",
+        "animals_assumed_to_survive_in_any_habitat"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.1.5",
+      "topic": "Structures for animal shelters",
+      "prerequisites": [
+        "4.NST.1.4.1",
+        "4.NST.1.5.1"
+      ],
+      "misconception_tags": [
+        "all_shelters_seen_as_human_made",
+        "structure_type_confused_with_material",
+        "design_judged_only_by_appearance",
+        "materials_selected_without_link_to_purpose"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.2.1",
+      "topic": "Materials around us",
+      "prerequisites": [
+        "4.NST.2.1.1"
+      ],
+      "misconception_tags": [
+        "air_not_recognised_as_matter",
+        "powders_classified_as_liquids_because_they_pour",
+        "evaporation_seen_as_water_disappearing",
+        "melting_and_dissolving_confused"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.2.2",
+      "topic": "Solid materials",
+      "prerequisites": [
+        "4.NST.2.1.1",
+        "4.NST.2.2.1"
+      ],
+      "misconception_tags": [
+        "manufactured_materials_seen_as_natural",
+        "raw_material_source_not_linked_to_product",
+        "strong_confused_with_hard",
+        "waterproof_confused_with_absorbent"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.2.3",
+      "topic": "Strengthening materials",
+      "prerequisites": [
+        "4.NST.2.2.2"
+      ],
+      "misconception_tags": [
+        "thicker_always_assumed_stronger",
+        "test_results_not_linked_to_shape"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.2.4",
+      "topic": "Strong frame structures",
+      "prerequisites": [
+        "4.NST.2.3.1",
+        "4.NST.2.4.1"
+      ],
+      "misconception_tags": [
+        "square_frames_assumed_as_stable_as_triangles",
+        "struts_confused_with_solid_walls",
+        "indigenous_structures_seen_as_not_engineered",
+        "framework_hidden_by_covering_material"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.3.1",
+      "topic": "Energy and energy transfer",
+      "prerequisites": [
+        "4.NST.1.1.1"
+      ],
+      "misconception_tags": [
+        "energy_seen_only_as_electricity",
+        "arrows_in_food_chains_reversed"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.3.2",
+      "topic": "Energy around us",
+      "prerequisites": [
+        "4.NST.3.1.1"
+      ],
+      "misconception_tags": [
+        "input_and_output_energy_swapped",
+        "stored_energy_not_recognised_until_used"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.3.3",
+      "topic": "Movement and energy in a system",
+      "prerequisites": [
+        "4.NST.3.2.1"
+      ],
+      "misconception_tags": [
+        "sound_seen_as_not_energy",
+        "instrument_system_parts_not_connected_to_output"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.3.4",
+      "topic": "Energy and sound",
+      "prerequisites": [
+        "4.NST.3.3.1",
+        "4.NST.3.4.1"
+      ],
+      "misconception_tags": [
+        "sound_travels_only_through_air",
+        "vibration_not_linked_to_sound_source",
+        "pitch_confused_with_volume",
+        "temporary_loudness_not_distinguished_from_noise_pollution"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.4.1",
+      "topic": "Planet Earth",
+      "prerequisites": [
+        "4.NST.1.4.1",
+        "4.NST.4.1.1"
+      ],
+      "misconception_tags": [
+        "earth_seen_as_flat_from_local_view",
+        "air_not_seen_as_part_of_earth_system",
+        "sun_and_moon_seen_as_same_type_of_object",
+        "stars_seen_as_tiny_nearby_lights"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.4.2",
+      "topic": "The Sun",
+      "prerequisites": [
+        "4.NST.4.1.2"
+      ],
+      "misconception_tags": [
+        "sun_seen_as_a_planet",
+        "closest_star_confused_with_nearby_object"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.4.3",
+      "topic": "The Earth and the Sun",
+      "prerequisites": [
+        "4.NST.4.2.1"
+      ],
+      "misconception_tags": [
+        "sun_orbits_earth",
+        "pluto_counted_as_one_of_eight_planets"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.4.4",
+      "topic": "The Moon",
+      "prerequisites": [
+        "4.NST.4.1.2",
+        "4.NST.4.4.1"
+      ],
+      "misconception_tags": [
+        "moon_makes_its_own_light",
+        "moon_phase_changes_caused_by_earth_shadow_each_night",
+        "cultural_stories_treated_as_scientific_measurements",
+        "science_learning_seen_as_excluding_culture"
+      ]
+    },
+    {
+      "caps_ref": "4.NST.4.5",
+      "topic": "Rocket systems",
+      "prerequisites": [
+        "4.NST.4.3.1"
+      ],
+      "misconception_tags": [
+        "rocket_moves_because_air_pushes_from_front",
+        "model_results_not_linked_to_system_variables"
+      ]
+    }
+  ],
+  "remediation_mappings": [
+    {
+      "misconception_tag": "germs_not_recognised_as_living",
+      "caps_ref": "4.NST.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "dormant_seeds_classified_as_non_living",
+      "caps_ref": "4.NST.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "fire_or_rivers_classified_as_living",
+      "caps_ref": "4.NST.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "dead_plant_material_classified_as_never_living",
+      "caps_ref": "4.NST.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "fruit_not_understood_as_plant_part",
+      "caps_ref": "4.NST.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "roots_ignored_because_they_are_not_visible",
+      "caps_ref": "4.NST.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "all_animals_assumed_to_have_same_limbs",
+      "caps_ref": "4.NST.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "body_covering_confused_with_habitat",
+      "caps_ref": "4.NST.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "soil_seen_as_only_requirement_for_growth",
+      "caps_ref": "4.NST.1.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "germination_confused_with_flowering",
+      "caps_ref": "4.NST.1.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "habitat_seen_as_only_a_house",
+      "caps_ref": "4.NST.1.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "animals_assumed_to_survive_in_any_habitat",
+      "caps_ref": "4.NST.1.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "all_shelters_seen_as_human_made",
+      "caps_ref": "4.NST.1.5",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-5-recheck-v1"
+    },
+    {
+      "misconception_tag": "structure_type_confused_with_material",
+      "caps_ref": "4.NST.1.5",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-5-recheck-v1"
+    },
+    {
+      "misconception_tag": "design_judged_only_by_appearance",
+      "caps_ref": "4.NST.1.5",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-5-recheck-v1"
+    },
+    {
+      "misconception_tag": "materials_selected_without_link_to_purpose",
+      "caps_ref": "4.NST.1.5",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-1-5-recheck-v1"
+    },
+    {
+      "misconception_tag": "air_not_recognised_as_matter",
+      "caps_ref": "4.NST.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "powders_classified_as_liquids_because_they_pour",
+      "caps_ref": "4.NST.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "evaporation_seen_as_water_disappearing",
+      "caps_ref": "4.NST.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "melting_and_dissolving_confused",
+      "caps_ref": "4.NST.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "manufactured_materials_seen_as_natural",
+      "caps_ref": "4.NST.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "raw_material_source_not_linked_to_product",
+      "caps_ref": "4.NST.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "strong_confused_with_hard",
+      "caps_ref": "4.NST.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "waterproof_confused_with_absorbent",
+      "caps_ref": "4.NST.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "thicker_always_assumed_stronger",
+      "caps_ref": "4.NST.2.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "test_results_not_linked_to_shape",
+      "caps_ref": "4.NST.2.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "square_frames_assumed_as_stable_as_triangles",
+      "caps_ref": "4.NST.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "struts_confused_with_solid_walls",
+      "caps_ref": "4.NST.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "indigenous_structures_seen_as_not_engineered",
+      "caps_ref": "4.NST.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "framework_hidden_by_covering_material",
+      "caps_ref": "4.NST.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "energy_seen_only_as_electricity",
+      "caps_ref": "4.NST.3.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-3-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "arrows_in_food_chains_reversed",
+      "caps_ref": "4.NST.3.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-3-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "input_and_output_energy_swapped",
+      "caps_ref": "4.NST.3.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-3-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "stored_energy_not_recognised_until_used",
+      "caps_ref": "4.NST.3.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-3-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "sound_seen_as_not_energy",
+      "caps_ref": "4.NST.3.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-3-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "instrument_system_parts_not_connected_to_output",
+      "caps_ref": "4.NST.3.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-3-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "sound_travels_only_through_air",
+      "caps_ref": "4.NST.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "vibration_not_linked_to_sound_source",
+      "caps_ref": "4.NST.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "pitch_confused_with_volume",
+      "caps_ref": "4.NST.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "temporary_loudness_not_distinguished_from_noise_pollution",
+      "caps_ref": "4.NST.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "earth_seen_as_flat_from_local_view",
+      "caps_ref": "4.NST.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "air_not_seen_as_part_of_earth_system",
+      "caps_ref": "4.NST.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "sun_and_moon_seen_as_same_type_of_object",
+      "caps_ref": "4.NST.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "stars_seen_as_tiny_nearby_lights",
+      "caps_ref": "4.NST.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "sun_seen_as_a_planet",
+      "caps_ref": "4.NST.4.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "closest_star_confused_with_nearby_object",
+      "caps_ref": "4.NST.4.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "sun_orbits_earth",
+      "caps_ref": "4.NST.4.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "pluto_counted_as_one_of_eight_planets",
+      "caps_ref": "4.NST.4.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "moon_makes_its_own_light",
+      "caps_ref": "4.NST.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "moon_phase_changes_caused_by_earth_shadow_each_night",
+      "caps_ref": "4.NST.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "cultural_stories_treated_as_scientific_measurements",
+      "caps_ref": "4.NST.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "science_learning_seen_as_excluding_culture",
+      "caps_ref": "4.NST.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "rocket_moves_because_air_pushes_from_front",
+      "caps_ref": "4.NST.4.5",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-5-recheck-v1"
+    },
+    {
+      "misconception_tag": "model_results_not_linked_to_system_variables",
+      "caps_ref": "4.NST.4.5",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade4-natural-sciences-and-technology-en-4-NST-4-5-recheck-v1"
+    }
+  ],
+  "extension_mappings": [
+    {
+      "caps_ref": "4.NST.1.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.1.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.1.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.1.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.1.5",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.2.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.2.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.2.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.2.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.3.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.3.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.3.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.3.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.4.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.4.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.4.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.4.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "4.NST.4.5",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    }
+  ]
+}

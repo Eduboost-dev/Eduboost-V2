@@ -1,0 +1,874 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:24Z",
+  "scope": "grade7_creative_arts_en",
+  "source_item_bank": "diagnostic_items",
+  "blueprints": [
+    {
+      "blueprint_id": "grade7-creative-arts-en-baseline-diagnostic-v1",
+      "type": "baseline_diagnostic",
+      "title": "Creative Arts Baseline Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.1.1",
+          "7.CA.1.2",
+          "7.CA.1.3",
+          "7.CA.1.4",
+          "7.CA.2.1",
+          "7.CA.2.2",
+          "7.CA.2.3",
+          "7.CA.2.4",
+          "7.CA.3.1",
+          "7.CA.3.2",
+          "7.CA.3.3",
+          "7.CA.3.4",
+          "7.CA.4.1",
+          "7.CA.4.2",
+          "7.CA.4.3",
+          "7.CA.4.4"
+        ],
+        "item_count": 20,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 5,
+          "moderate": 5,
+          "on_level": 5,
+          "challenging": 5
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-1-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Dance Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.1.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-1-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Dance Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-1-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Dance Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-1-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Drama Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.1.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-1-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Drama Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-1-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Drama Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-1-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Music Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.1.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-1-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Music Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-1-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Music Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-1-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Visual arts Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.1.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-1-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Visual arts Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-1-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Visual arts Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-2-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Dance Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.2.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-2-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Dance Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-2-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Dance Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-2-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Drama Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.2.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-2-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Drama Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-2-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Drama Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-2-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Music Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.2.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-2-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Music Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-2-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Music Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-2-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Visual arts Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.2.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-2-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Visual arts Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-2-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Visual arts Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-3-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Dance Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.3.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-3-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Dance Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-3-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Dance Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-3-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Drama Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.3.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-3-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Drama Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-3-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Drama Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-3-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Music Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.3.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-3-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Music Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-3-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Music Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-3-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Visual arts Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.3.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-3-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Visual arts Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-3-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Visual arts Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-4-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Integrated creative arts project Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.4.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-4-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Integrated creative arts project Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-4-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Integrated creative arts project Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-4-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Performance and exhibition Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.4.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-4-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Performance and exhibition Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-4-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Performance and exhibition Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-4-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Reflection Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.4.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-4-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Reflection Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-4-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Reflection Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-4-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.4.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-4-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-creative-arts-en-7-CA-4-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.CA.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    }
+  ]
+}

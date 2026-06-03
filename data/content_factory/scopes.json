@@ -35,7 +35,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grader_coding_and_robotics_en.json",
+        "diagnostic_items": "data/generated/items/grader_coding_and_robotics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grader_coding_and_robotics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grader_coding_and_robotics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grader_coding_and_robotics_en_templates.json"
+      }
     },
     {
       "scope_id": "grader_home_language_en",
@@ -71,7 +77,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grader_home_language_en.json",
+        "diagnostic_items": "data/generated/items/grader_home_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grader_home_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grader_home_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grader_home_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grader_life_skills_en",
@@ -107,7 +119,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grader_life_skills_en.json",
+        "diagnostic_items": "data/generated/items/grader_life_skills_en_item_bank.json",
+        "lessons": "data/generated/lessons/grader_life_skills_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grader_life_skills_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grader_life_skills_en_templates.json"
+      }
     },
     {
       "scope_id": "grader_mathematics_en",
@@ -143,7 +161,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grader_mathematics_en.json",
+        "diagnostic_items": "data/generated/items/grader_mathematics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grader_mathematics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grader_mathematics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grader_mathematics_en_templates.json"
+      }
     },
     {
       "scope_id": "grader_sepedi_first_additional_language_en",
@@ -179,7 +203,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grader_sepedi_first_additional_language_en.json",
+        "diagnostic_items": "data/generated/items/grader_sepedi_first_additional_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grader_sepedi_first_additional_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grader_sepedi_first_additional_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grader_sepedi_first_additional_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade1_coding_and_robotics_en",
@@ -215,7 +245,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade1_coding_and_robotics_en.json",
+        "diagnostic_items": "data/generated/items/grade1_coding_and_robotics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade1_coding_and_robotics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade1_coding_and_robotics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade1_coding_and_robotics_en_templates.json"
+      }
     },
     {
       "scope_id": "grade1_home_language_en",
@@ -251,7 +287,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade1_home_language_en.json",
+        "diagnostic_items": "data/generated/items/grade1_home_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade1_home_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade1_home_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade1_home_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade1_life_skills_en",
@@ -287,7 +329,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade1_life_skills_en.json",
+        "diagnostic_items": "data/generated/items/grade1_life_skills_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade1_life_skills_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade1_life_skills_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade1_life_skills_en_templates.json"
+      }
     },
     {
       "scope_id": "grade1_mathematics_en",
@@ -323,7 +371,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade1_mathematics_en.json",
+        "diagnostic_items": "data/generated/items/grade1_mathematics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade1_mathematics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade1_mathematics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade1_mathematics_en_templates.json"
+      }
     },
     {
       "scope_id": "grade1_sepedi_first_additional_language_en",
@@ -359,7 +413,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade1_sepedi_first_additional_language_en.json",
+        "diagnostic_items": "data/generated/items/grade1_sepedi_first_additional_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade1_sepedi_first_additional_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade1_sepedi_first_additional_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade1_sepedi_first_additional_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade2_coding_and_robotics_en",
@@ -395,7 +455,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade2_coding_and_robotics_en.json",
+        "diagnostic_items": "data/generated/items/grade2_coding_and_robotics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade2_coding_and_robotics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade2_coding_and_robotics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade2_coding_and_robotics_en_templates.json"
+      }
     },
     {
       "scope_id": "grade2_home_language_en",
@@ -431,7 +497,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade2_home_language_en.json",
+        "diagnostic_items": "data/generated/items/grade2_home_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade2_home_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade2_home_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade2_home_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade2_life_skills_en",
@@ -467,7 +539,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade2_life_skills_en.json",
+        "diagnostic_items": "data/generated/items/grade2_life_skills_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade2_life_skills_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade2_life_skills_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade2_life_skills_en_templates.json"
+      }
     },
     {
       "scope_id": "grade2_mathematics_en",
@@ -503,7 +581,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade2_mathematics_en.json",
+        "diagnostic_items": "data/generated/items/grade2_mathematics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade2_mathematics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade2_mathematics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade2_mathematics_en_templates.json"
+      }
     },
     {
       "scope_id": "grade2_sepedi_first_additional_language_en",
@@ -539,7 +623,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade2_sepedi_first_additional_language_en.json",
+        "diagnostic_items": "data/generated/items/grade2_sepedi_first_additional_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade2_sepedi_first_additional_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade2_sepedi_first_additional_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade2_sepedi_first_additional_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade3_coding_and_robotics_en",
@@ -575,7 +665,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade3_coding_and_robotics_en.json",
+        "diagnostic_items": "data/generated/items/grade3_coding_and_robotics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade3_coding_and_robotics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade3_coding_and_robotics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade3_coding_and_robotics_en_templates.json"
+      }
     },
     {
       "scope_id": "grade3_home_language_en",
@@ -611,7 +707,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade3_home_language_en.json",
+        "diagnostic_items": "data/generated/items/grade3_home_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade3_home_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade3_home_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade3_home_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade3_life_skills_en",
@@ -647,7 +749,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade3_life_skills_en.json",
+        "diagnostic_items": "data/generated/items/grade3_life_skills_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade3_life_skills_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade3_life_skills_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade3_life_skills_en_templates.json"
+      }
     },
     {
       "scope_id": "grade3_mathematics_en",
@@ -683,7 +791,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade3_mathematics_en.json",
+        "diagnostic_items": "data/generated/items/grade3_mathematics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade3_mathematics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade3_mathematics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade3_mathematics_en_templates.json"
+      }
     },
     {
       "scope_id": "grade3_sepedi_first_additional_language_en",
@@ -719,7 +833,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade3_sepedi_first_additional_language_en.json",
+        "diagnostic_items": "data/generated/items/grade3_sepedi_first_additional_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade3_sepedi_first_additional_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade3_sepedi_first_additional_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade3_sepedi_first_additional_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade4_coding_and_robotics_en",
@@ -755,7 +875,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade4_coding_and_robotics_en.json",
+        "diagnostic_items": "data/generated/items/grade4_coding_and_robotics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade4_coding_and_robotics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade4_coding_and_robotics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade4_coding_and_robotics_en_templates.json"
+      }
     },
     {
       "scope_id": "grade4_home_language_en",
@@ -791,7 +917,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade4_home_language_en.json",
+        "diagnostic_items": "data/generated/items/grade4_home_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade4_home_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade4_home_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade4_home_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade4_life_skills_en",
@@ -827,7 +959,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade4_life_skills_en.json",
+        "diagnostic_items": "data/generated/items/grade4_life_skills_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade4_life_skills_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade4_life_skills_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade4_life_skills_en_templates.json"
+      }
     },
     {
       "scope_id": "grade4_mathematics_en",
@@ -894,7 +1032,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade4_natural_sciences_and_technology_en.json",
+        "diagnostic_items": "data/generated/items/grade4_natural_sciences_and_technology_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade4_natural_sciences_and_technology_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade4_natural_sciences_and_technology_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade4_natural_sciences_and_technology_en_templates.json"
+      }
     },
     {
       "scope_id": "grade4_sepedi_first_additional_language_en",
@@ -930,7 +1074,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade4_sepedi_first_additional_language_en.json",
+        "diagnostic_items": "data/generated/items/grade4_sepedi_first_additional_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade4_sepedi_first_additional_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade4_sepedi_first_additional_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade4_sepedi_first_additional_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade4_social_sciences_en",
@@ -966,7 +1116,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade4_social_sciences_en.json",
+        "diagnostic_items": "data/generated/items/grade4_social_sciences_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade4_social_sciences_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade4_social_sciences_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade4_social_sciences_en_templates.json"
+      }
     },
     {
       "scope_id": "grade5_coding_and_robotics_en",
@@ -1002,7 +1158,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade5_coding_and_robotics_en.json",
+        "diagnostic_items": "data/generated/items/grade5_coding_and_robotics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade5_coding_and_robotics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade5_coding_and_robotics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade5_coding_and_robotics_en_templates.json"
+      }
     },
     {
       "scope_id": "grade5_home_language_en",
@@ -1038,7 +1200,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade5_home_language_en.json",
+        "diagnostic_items": "data/generated/items/grade5_home_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade5_home_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade5_home_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade5_home_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade5_life_skills_en",
@@ -1074,7 +1242,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade5_life_skills_en.json",
+        "diagnostic_items": "data/generated/items/grade5_life_skills_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade5_life_skills_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade5_life_skills_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade5_life_skills_en_templates.json"
+      }
     },
     {
       "scope_id": "grade5_mathematics_en",
@@ -1110,7 +1284,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade5_mathematics_en.json",
+        "diagnostic_items": "data/generated/items/grade5_mathematics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade5_mathematics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade5_mathematics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade5_mathematics_en_templates.json"
+      }
     },
     {
       "scope_id": "grade5_natural_sciences_and_technology_en",
@@ -1146,7 +1326,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade5_natural_sciences_and_technology_en.json",
+        "diagnostic_items": "data/generated/items/grade5_natural_sciences_and_technology_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade5_natural_sciences_and_technology_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade5_natural_sciences_and_technology_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade5_natural_sciences_and_technology_en_templates.json"
+      }
     },
     {
       "scope_id": "grade5_sepedi_first_additional_language_en",
@@ -1182,7 +1368,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade5_sepedi_first_additional_language_en.json",
+        "diagnostic_items": "data/generated/items/grade5_sepedi_first_additional_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade5_sepedi_first_additional_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade5_sepedi_first_additional_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade5_sepedi_first_additional_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade5_social_sciences_en",
@@ -1218,7 +1410,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade5_social_sciences_en.json",
+        "diagnostic_items": "data/generated/items/grade5_social_sciences_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade5_social_sciences_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade5_social_sciences_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade5_social_sciences_en_templates.json"
+      }
     },
     {
       "scope_id": "grade6_coding_and_robotics_en",
@@ -1254,7 +1452,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade6_coding_and_robotics_en.json",
+        "diagnostic_items": "data/generated/items/grade6_coding_and_robotics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade6_coding_and_robotics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade6_coding_and_robotics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade6_coding_and_robotics_en_templates.json"
+      }
     },
     {
       "scope_id": "grade6_home_language_en",
@@ -1290,7 +1494,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade6_home_language_en.json",
+        "diagnostic_items": "data/generated/items/grade6_home_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade6_home_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade6_home_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade6_home_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade6_life_skills_en",
@@ -1326,7 +1536,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade6_life_skills_en.json",
+        "diagnostic_items": "data/generated/items/grade6_life_skills_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade6_life_skills_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade6_life_skills_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade6_life_skills_en_templates.json"
+      }
     },
     {
       "scope_id": "grade6_mathematics_en",
@@ -1362,7 +1578,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade6_mathematics_en.json",
+        "diagnostic_items": "data/generated/items/grade6_mathematics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade6_mathematics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade6_mathematics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade6_mathematics_en_templates.json"
+      }
     },
     {
       "scope_id": "grade6_natural_sciences_and_technology_en",
@@ -1398,7 +1620,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade6_natural_sciences_and_technology_en.json",
+        "diagnostic_items": "data/generated/items/grade6_natural_sciences_and_technology_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade6_natural_sciences_and_technology_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade6_natural_sciences_and_technology_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade6_natural_sciences_and_technology_en_templates.json"
+      }
     },
     {
       "scope_id": "grade6_sepedi_first_additional_language_en",
@@ -1434,7 +1662,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade6_sepedi_first_additional_language_en.json",
+        "diagnostic_items": "data/generated/items/grade6_sepedi_first_additional_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade6_sepedi_first_additional_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade6_sepedi_first_additional_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade6_sepedi_first_additional_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade6_social_sciences_en",
@@ -1470,7 +1704,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade6_social_sciences_en.json",
+        "diagnostic_items": "data/generated/items/grade6_social_sciences_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade6_social_sciences_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade6_social_sciences_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade6_social_sciences_en_templates.json"
+      }
     },
     {
       "scope_id": "grade7_coding_and_robotics_en",
@@ -1506,7 +1746,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade7_coding_and_robotics_en.json",
+        "diagnostic_items": "data/generated/items/grade7_coding_and_robotics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade7_coding_and_robotics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade7_coding_and_robotics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade7_coding_and_robotics_en_templates.json"
+      }
     },
     {
       "scope_id": "grade7_creative_arts_en",
@@ -1542,7 +1788,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade7_creative_arts_en.json",
+        "diagnostic_items": "data/generated/items/grade7_creative_arts_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade7_creative_arts_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade7_creative_arts_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade7_creative_arts_en_templates.json"
+      }
     },
     {
       "scope_id": "grade7_economic_management_sciences_en",
@@ -1578,7 +1830,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade7_economic_management_sciences_en.json",
+        "diagnostic_items": "data/generated/items/grade7_economic_management_sciences_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade7_economic_management_sciences_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade7_economic_management_sciences_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade7_economic_management_sciences_en_templates.json"
+      }
     },
     {
       "scope_id": "grade7_home_language_en",
@@ -1614,7 +1872,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade7_home_language_en.json",
+        "diagnostic_items": "data/generated/items/grade7_home_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade7_home_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade7_home_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade7_home_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade7_life_orientation_en",
@@ -1650,7 +1914,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade7_life_orientation_en.json",
+        "diagnostic_items": "data/generated/items/grade7_life_orientation_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade7_life_orientation_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade7_life_orientation_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade7_life_orientation_en_templates.json"
+      }
     },
     {
       "scope_id": "grade7_mathematics_en",
@@ -1686,7 +1956,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade7_mathematics_en.json",
+        "diagnostic_items": "data/generated/items/grade7_mathematics_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade7_mathematics_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade7_mathematics_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade7_mathematics_en_templates.json"
+      }
     },
     {
       "scope_id": "grade7_natural_sciences_en",
@@ -1722,7 +1998,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade7_natural_sciences_en.json",
+        "diagnostic_items": "data/generated/items/grade7_natural_sciences_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade7_natural_sciences_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade7_natural_sciences_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade7_natural_sciences_en_templates.json"
+      }
     },
     {
       "scope_id": "grade7_sepedi_first_additional_language_en",
@@ -1758,7 +2040,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade7_sepedi_first_additional_language_en.json",
+        "diagnostic_items": "data/generated/items/grade7_sepedi_first_additional_language_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade7_sepedi_first_additional_language_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade7_sepedi_first_additional_language_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade7_sepedi_first_additional_language_en_templates.json"
+      }
     },
     {
       "scope_id": "grade7_social_sciences_en",
@@ -1794,7 +2082,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade7_social_sciences_en.json",
+        "diagnostic_items": "data/generated/items/grade7_social_sciences_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade7_social_sciences_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade7_social_sciences_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade7_social_sciences_en_templates.json"
+      }
     },
     {
       "scope_id": "grade7_technology_en",
@@ -1830,7 +2124,13 @@
       ],
       "coverage_policy_id": "production_v1",
       "review_policy_id": "educator_review_required_v1",
-      "artifact_paths": {}
+      "artifact_paths": {
+        "topic_map": "data/caps/topic_maps/grade7_technology_en.json",
+        "diagnostic_items": "data/generated/items/grade7_technology_en_item_bank.json",
+        "lessons": "data/generated/lessons/grade7_technology_en_lessons.json",
+        "assessment_blueprints": "data/generated/assessment_blueprints/grade7_technology_en_blueprints.json",
+        "study_plan_templates": "data/generated/study_plans/grade7_technology_en_templates.json"
+      }
     }
   ]
 }

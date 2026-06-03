@@ -32,6 +32,20 @@ Verified launch thresholds today:
 
 The content model is sound enough to scale, but the scope registry, validators, artifact naming, generation scripts, and CI gates need to be generalized before bulk population.
 
+## Implementation Status - 2026-06-03
+
+The artifact-layer population batch now covers every registered Grade R to Grade 7 English scope. The registry contains 51 scopes: 1 active launch scope (`grade4_mathematics_en`) and 50 review scopes. All 51 scopes have the required artifact-layer paths and files for topic maps, diagnostic item banks, lessons, assessment blueprints, and study-plan templates. The review-scope generation batch also wrote per-scope run manifests plus `data/generated/run_manifests/all_review_scopes_generation_summary.json`.
+
+Generated review-scope totals from this batch:
+
+- Review scopes populated: 50.
+- Diagnostic items generated: 32,080.
+- Lessons generated: 6,416.
+- Assessment blueprints generated: 2,456.
+- Study-plan template files generated: 50.
+
+Operational caveat: the 50 newly populated non-launch scopes remain `review`, not learner-visible `active`. The generated artifacts are schema-valid, CAPS-ref linked, source-provenance backed, and ready for educator review/promotion workflows; they should not be represented as production-approved curriculum until Phase 7/8 promotion gates and human-review evidence are complete.
+
 ## Target Coverage
 
 ### Supported Grades

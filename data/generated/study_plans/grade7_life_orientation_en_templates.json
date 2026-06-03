@@ -1,0 +1,501 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:25Z",
+  "scope": "grade7_life_orientation_en",
+  "grade": 7,
+  "subject": "Life Orientation",
+  "weekly_template": [
+    {
+      "day": "Mon",
+      "caps_ref": "7.LO.1.1",
+      "activity_type": "lesson",
+      "lesson_variant": "standard",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-1-1-short-practice-v1",
+      "topic": "Development of the self in society"
+    },
+    {
+      "day": "Tue",
+      "caps_ref": "7.LO.1.2",
+      "activity_type": "practice",
+      "lesson_variant": "visual",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-1-2-short-practice-v1",
+      "topic": "Health, social and environmental responsibility"
+    },
+    {
+      "day": "Wed",
+      "caps_ref": "7.LO.1.3",
+      "activity_type": "lesson",
+      "lesson_variant": "story",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-1-3-short-practice-v1",
+      "topic": "Physical education"
+    },
+    {
+      "day": "Thu",
+      "caps_ref": "7.LO.1.4",
+      "activity_type": "practice",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-1-4-short-practice-v1",
+      "topic": "World of work"
+    },
+    {
+      "day": "Fri",
+      "caps_ref": "7.LO.2.1",
+      "activity_type": "lesson",
+      "lesson_variant": "real_world_sa",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-2-1-short-practice-v1",
+      "topic": "Development of the self in society"
+    }
+  ],
+  "topic_sequence": [
+    {
+      "caps_ref": "7.LO.1.1",
+      "topic": "Development of the self in society",
+      "prerequisites": [],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.1.2",
+      "topic": "Health, social and environmental responsibility",
+      "prerequisites": [
+        "7.LO.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.1.3",
+      "topic": "Physical education",
+      "prerequisites": [
+        "7.LO.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.1.4",
+      "topic": "World of work",
+      "prerequisites": [
+        "7.LO.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.2.1",
+      "topic": "Development of the self in society",
+      "prerequisites": [
+        "7.LO.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.2.2",
+      "topic": "Constitutional rights and responsibilities",
+      "prerequisites": [
+        "7.LO.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.2.3",
+      "topic": "Physical education",
+      "prerequisites": [
+        "7.LO.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.2.4",
+      "topic": "Study skills",
+      "prerequisites": [
+        "7.LO.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.3.1",
+      "topic": "Health, social and environmental responsibility",
+      "prerequisites": [
+        "7.LO.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.3.2",
+      "topic": "Development of the self in society",
+      "prerequisites": [
+        "7.LO.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.3.3",
+      "topic": "Physical education",
+      "prerequisites": [
+        "7.LO.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.3.4",
+      "topic": "World of work",
+      "prerequisites": [
+        "7.LO.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.4.1",
+      "topic": "Consolidation, revision and assessment",
+      "prerequisites": [
+        "7.LO.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.4.2",
+      "topic": "Physical education",
+      "prerequisites": [
+        "7.LO.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.4.3",
+      "topic": "Personal development",
+      "prerequisites": [
+        "7.LO.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "7.LO.4.4",
+      "topic": "Career awareness",
+      "prerequisites": [
+        "7.LO.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    }
+  ],
+  "remediation_mappings": [
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.1.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-1-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.1.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-1-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.1.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-1-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.1.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-1-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.2.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-2-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.2.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-2-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.3.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-3-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.3.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-3-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.3.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-3-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.3.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-3-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.3.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-3-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.3.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-3-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.4.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-4-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.4.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-4-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.4.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-4-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.4.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-4-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "7.LO.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-4-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "7.LO.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade7-life-orientation-en-7-LO-4-4-recheck-v1"
+    }
+  ],
+  "extension_mappings": [
+    {
+      "caps_ref": "7.LO.1.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.1.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.1.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.1.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.2.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.2.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.2.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.2.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.3.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.3.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.3.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.3.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.4.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.4.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.4.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "7.LO.4.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    }
+  ]
+}

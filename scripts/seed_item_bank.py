@@ -42,22 +42,29 @@ logging.basicConfig(
 logger = logging.getLogger("seed_item_bank")
 
 from app.modules.diagnostics.item_validator import ItemValidator, ValidationError
+from app.services.content_scope_registry import ContentScopeRegistry
 
 TOPIC_MAP_PATHS = [
     REPO_ROOT / "data" / "caps" / "topic_maps" / "caps_topic_map_grade4_maths.json",
     REPO_ROOT / "data" / "caps" / "caps_topic_map_grade4_maths.json",
 ]
 DEFAULT_INPUT  = REPO_ROOT / "data" / "caps" / "grade4_maths_item_bank.json"
-
-LAUNCH_REFS   = ["4.M.1.1", "4.M.1.2", "4.M.1.3"]
-LAUNCH_TARGET = 40
+DEFAULT_SCOPE_ID = "grade4_mathematics_en"
+DEFAULT_TARGET = 40
 
 
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 
-def load_topic_map() -> dict:
+def load_topic_map(*, scope_id: str, registry: ContentScopeRegistry) -> dict:
+    scope = registry.get_scope(scope_id)
+    if scope.topic_map_path:
+        topic_map_path = REPO_ROOT / scope.topic_map_path
+        if topic_map_path.exists():
+            with open(topic_map_path) as f:
+                return json.load(f)
+        logger.warning("Configured topic map missing for scope %s: %s", scope_id, topic_map_path)
     for path in TOPIC_MAP_PATHS:
         if path.exists():
             with open(path) as f:
@@ -115,16 +122,28 @@ def run_validation(
     return passing, failing
 
 
-def print_coverage(items: list[dict]) -> None:
+def _target_for_ref(scope_id: str, caps_ref: str, *, registry: ContentScopeRegistry) -> int:
+    for target in registry.get_scope_targets(scope_id):
+        if target.caps_ref == caps_ref:
+            value = target.targets.get("diagnostic_items.approved")
+            if value is not None:
+                return int(value)
+    return DEFAULT_TARGET
+
+
+def print_coverage(items: list[dict], *, scope_id: str, registry: ContentScopeRegistry) -> None:
     print(f"\n{'─'*60}")
-    print("  Coverage Summary (approved items vs launch target)")
+    print(f"  Coverage Summary ({scope_id} — approved items vs target)")
     print(f"{'─'*60}")
-    for ref in LAUNCH_REFS:
+    scope = registry.get_scope(scope_id)
+    refs = scope.caps_refs or sorted({str(item.get("caps_ref")) for item in items if item.get("caps_ref")})
+    for ref in refs:
         ref_items = [i for i in items if i.get("caps_ref") == ref]
         approved  = [i for i in ref_items if i.get("review_status") == "approved"]
-        status = "✅" if len(approved) >= LAUNCH_TARGET else "⚠️ "
+        target = _target_for_ref(scope_id, ref, registry=registry)
+        status = "✅" if len(approved) >= target else "⚠️ "
         print(
-            f"  {status}  {ref:10s}  approved={len(approved):3d}/{LAUNCH_TARGET}  "
+            f"  {status}  {ref:10s}  approved={len(approved):3d}/{target}  "
             f"total={len(ref_items)}"
         )
     print()
@@ -177,7 +196,8 @@ async def upsert_items(items: list[dict], dry_run: bool) -> int:
 # ---------------------------------------------------------------------------
 
 async def run(args: argparse.Namespace) -> None:
-    topic_map = load_topic_map()
+    registry = ContentScopeRegistry()
+    topic_map = load_topic_map(scope_id=args.scope_id, registry=registry)
     all_items = load_seed(args.input)
     items     = filter_items(all_items, args.status)
 
@@ -204,7 +224,7 @@ async def run(args: argparse.Namespace) -> None:
     seed_items = passing if failing else items
     count = await upsert_items(seed_items, dry_run=args.dry_run)
 
-    print_coverage(all_items)
+    print_coverage(all_items, scope_id=args.scope_id, registry=registry)
 
     print(f"{'='*60}")
     print(f"  Seeding {'[DRY RUN] ' if args.dry_run else ''}Complete")
@@ -225,6 +245,11 @@ def parse_args() -> argparse.Namespace:
         description="Validate and seed the CAPS item bank into PostgreSQL."
     )
     parser.add_argument("--input", "--path", dest="input", type=Path, default=DEFAULT_INPUT)
+    parser.add_argument(
+        "--scope-id",
+        default=DEFAULT_SCOPE_ID,
+        help="Registry scope to use for topic-map and coverage-target lookup.",
+    )
     parser.add_argument(
         "--db-url",
         help="Accepted for Phase 5 CI compatibility; DATABASE_URL remains the app source of truth.",

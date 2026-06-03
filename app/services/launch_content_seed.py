@@ -19,16 +19,15 @@ from app.models import Guardian, Language, LearnerProfile, Lesson, UserRole
 from app.models.diagnostic_item import DiagnosticItem, ReviewStatusEnum
 from app.modules.lessons.lesson_validator import LessonValidator
 from app.repositories.item_bank_repository import ItemBankRepository
+from app.services.content_scope_registry import ContentScopeRegistry
 
 
 log = get_logger(__name__)
 
 ROOT = Path(__file__).resolve().parents[2]
-ITEM_BANK_PATH = ROOT / "data" / "generated" / "items" / "grade4_maths_launch_item_bank.json"
-LESSON_BANK_PATH = ROOT / "data" / "generated" / "lessons" / "grade4_maths_launch_lessons.json"
-LAUNCH_REFS = ("4.M.1.1", "4.M.1.2", "4.M.1.3")
-ITEM_TARGET = 40
-LESSON_TARGET = 8
+LAUNCH_SCOPE_ID = "grade4_mathematics_en"
+DEFAULT_ITEM_TARGET = 40
+DEFAULT_LESSON_TARGET = 8
 SEED_OWNER_EMAIL = "launch-content-seed@example.invalid"
 SEED_LEARNER_NAME = "Launch Content Seed Learner"
 SEED_LEARNER_GRADE = 4
@@ -43,11 +42,16 @@ async def seed_launch_content_if_needed() -> None:
     if not settings.is_production():
         return
     log.warning("launch_content_seed_enabled_explicitly")
-    if not ITEM_BANK_PATH.exists() or not LESSON_BANK_PATH.exists():
+    registry = ContentScopeRegistry()
+    scope = registry.get_scope(LAUNCH_SCOPE_ID)
+    refs = tuple(scope.caps_refs)
+    item_bank_path = _artifact_path(scope, "diagnostic_items", "data/generated/items/grade4_maths_launch_item_bank.json")
+    lesson_bank_path = _artifact_path(scope, "lessons", "data/generated/lessons/grade4_maths_launch_lessons.json")
+    if not item_bank_path.exists() or not lesson_bank_path.exists():
         log.warning(
             "launch_content_seed_artifacts_missing",
-            item_bank_exists=ITEM_BANK_PATH.exists(),
-            lesson_bank_exists=LESSON_BANK_PATH.exists(),
+            item_bank_exists=item_bank_path.exists(),
+            lesson_bank_exists=lesson_bank_path.exists(),
         )
         return
 
@@ -59,10 +63,12 @@ async def seed_launch_content_if_needed() -> None:
                 log.info("launch_content_seed_skipped_lock_busy")
                 return
 
-            item_counts = await _approved_item_counts(session)
-            lesson_counts = await _approved_lesson_counts(session)
-            needs_items = any(item_counts.get(ref, 0) < ITEM_TARGET for ref in LAUNCH_REFS)
-            needs_lessons = any(lesson_counts.get(ref, 0) < LESSON_TARGET for ref in LAUNCH_REFS)
+            item_target = _target_for(scope, "diagnostic_items.approved", DEFAULT_ITEM_TARGET, registry=registry)
+            lesson_target = _target_for(scope, "lessons.approved", DEFAULT_LESSON_TARGET, registry=registry)
+            item_counts = await _approved_item_counts(session, refs)
+            lesson_counts = await _approved_lesson_counts(session, refs)
+            needs_items = any(item_counts.get(ref, 0) < item_target for ref in refs)
+            needs_lessons = any(lesson_counts.get(ref, 0) < lesson_target for ref in refs)
 
             if not needs_items and not needs_lessons:
                 log.info(
@@ -75,9 +81,9 @@ async def seed_launch_content_if_needed() -> None:
             seeded_items = 0
             seeded_lessons = 0
             if needs_items:
-                seeded_items = await _seed_items(session)
+                seeded_items = await _seed_items(session, item_bank_path)
             if needs_lessons:
-                seeded_lessons = await _seed_lessons(session)
+                seeded_lessons = await _seed_lessons(session, lesson_bank_path)
 
             await session.commit()
             log.info(
@@ -117,11 +123,11 @@ async def _release_advisory_lock(session) -> None:
         log.warning("launch_content_seed_unlock_failed", error=str(exc))
 
 
-async def _approved_item_counts(session) -> dict[str, int]:
+async def _approved_item_counts(session, refs: tuple[str, ...]) -> dict[str, int]:
     result = await session.execute(
         select(DiagnosticItem.caps_ref, func.count(DiagnosticItem.item_id))
         .where(
-            DiagnosticItem.caps_ref.in_(LAUNCH_REFS),
+            DiagnosticItem.caps_ref.in_(refs),
             DiagnosticItem.review_status == ReviewStatusEnum.APPROVED,
         )
         .group_by(DiagnosticItem.caps_ref)
@@ -129,17 +135,17 @@ async def _approved_item_counts(session) -> dict[str, int]:
     return {str(ref): int(count) for ref, count in result.all()}
 
 
-async def _approved_lesson_counts(session) -> dict[str, int]:
+async def _approved_lesson_counts(session, refs: tuple[str, ...]) -> dict[str, int]:
     result = await session.execute(
         select(Lesson.caps_ref, func.count(Lesson.id))
-        .where(Lesson.caps_ref.in_(LAUNCH_REFS), Lesson.review_status == "approved")
+        .where(Lesson.caps_ref.in_(refs), Lesson.review_status == "approved")
         .group_by(Lesson.caps_ref)
     )
     return {str(ref): int(count) for ref, count in result.all()}
 
 
-async def _seed_items(session) -> int:
-    payload = json.loads(ITEM_BANK_PATH.read_text(encoding="utf-8"))
+async def _seed_items(session, item_bank_path: Path) -> int:
+    payload = json.loads(item_bank_path.read_text(encoding="utf-8"))
     items = [item for item in payload.get("items", []) if item.get("review_status") == "approved"]
     repo = ItemBankRepository(session)
     for item in items:
@@ -147,8 +153,8 @@ async def _seed_items(session) -> int:
     return len(items)
 
 
-async def _seed_lessons(session) -> int:
-    payload = json.loads(LESSON_BANK_PATH.read_text(encoding="utf-8"))
+async def _seed_lessons(session, lesson_bank_path: Path) -> int:
+    payload = json.loads(lesson_bank_path.read_text(encoding="utf-8"))
     lessons = [lesson for lesson in payload.get("lessons", []) if lesson.get("review_status") == "approved"]
     validator = LessonValidator()
     for lesson in lessons:
@@ -239,3 +245,16 @@ def _lesson_row(lesson: dict[str, Any], learner_id: str) -> dict[str, Any]:
         "variant_type": lesson.get("variant_type", "standard"),
         "llm_provider": lesson.get("provider", "google"),
     }
+
+
+def _artifact_path(scope, layer: str, fallback: str) -> Path:
+    configured = (scope.artifact_paths or {}).get(layer)
+    return ROOT / configured if configured else ROOT / fallback
+
+
+def _target_for(scope, key: str, default: int, *, registry: ContentScopeRegistry) -> int:
+    for target in registry.get_scope_targets(scope.scope_id):
+        value = target.targets.get(key)
+        if value is not None:
+            return int(value)
+    return default

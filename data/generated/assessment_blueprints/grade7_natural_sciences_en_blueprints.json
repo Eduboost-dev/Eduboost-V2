@@ -1,0 +1,874 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:26Z",
+  "scope": "grade7_natural_sciences_en",
+  "source_item_bank": "diagnostic_items",
+  "blueprints": [
+    {
+      "blueprint_id": "grade7-natural-sciences-en-baseline-diagnostic-v1",
+      "type": "baseline_diagnostic",
+      "title": "Natural Sciences Baseline Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.1.1",
+          "7.NS.1.2",
+          "7.NS.1.3",
+          "7.NS.1.4",
+          "7.NS.2.1",
+          "7.NS.2.2",
+          "7.NS.2.3",
+          "7.NS.2.4",
+          "7.NS.3.1",
+          "7.NS.3.2",
+          "7.NS.3.3",
+          "7.NS.3.4",
+          "7.NS.4.1",
+          "7.NS.4.2",
+          "7.NS.4.3",
+          "7.NS.4.4"
+        ],
+        "item_count": 20,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 5,
+          "moderate": 5,
+          "on_level": 5,
+          "challenging": 5
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-1-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Life and living Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.1.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-1-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Life and living Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-1-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Life and living Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-1-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Biodiversity and ecosystems Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.1.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-1-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Biodiversity and ecosystems Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-1-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Biodiversity and ecosystems Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-1-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Scientific investigations Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.1.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-1-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Scientific investigations Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-1-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Scientific investigations Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-1-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.1.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-1-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-1-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-2-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Matter and materials Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.2.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-2-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Matter and materials Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-2-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Matter and materials Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-2-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Mixtures and separation Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.2.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-2-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Mixtures and separation Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-2-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Mixtures and separation Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-2-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Practical investigations Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.2.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-2-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Practical investigations Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-2-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Practical investigations Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-2-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.2.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-2-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-2-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-3-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Energy and change Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.3.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-3-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Energy and change Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-3-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Energy and change Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-3-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Heat transfer and systems Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.3.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-3-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Heat transfer and systems Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-3-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Heat transfer and systems Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-3-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Practical investigations Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.3.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-3-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Practical investigations Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-3-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Practical investigations Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-3-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.3.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-3-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-3-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-4-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Planet Earth and beyond Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.4.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-4-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Planet Earth and beyond Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-4-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Planet Earth and beyond Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-4-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "The solar system and Earth systems Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.4.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-4-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "The solar system and Earth systems Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-4-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "The solar system and Earth systems Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-4-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Scientific models Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.4.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-4-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Scientific models Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-4-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Scientific models Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-4-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.4.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-4-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-natural-sciences-en-7-NS-4-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.NS.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    }
+  ]
+}

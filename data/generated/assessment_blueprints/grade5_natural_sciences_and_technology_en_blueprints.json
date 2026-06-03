@@ -1,0 +1,874 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:20Z",
+  "scope": "grade5_natural_sciences_and_technology_en",
+  "source_item_bank": "diagnostic_items",
+  "blueprints": [
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-baseline-diagnostic-v1",
+      "type": "baseline_diagnostic",
+      "title": "Natural Sciences and Technology Baseline Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.1.1",
+          "5.NST.1.2",
+          "5.NST.1.3",
+          "5.NST.1.4",
+          "5.NST.2.1",
+          "5.NST.2.2",
+          "5.NST.2.3",
+          "5.NST.2.4",
+          "5.NST.3.1",
+          "5.NST.3.2",
+          "5.NST.3.3",
+          "5.NST.3.4",
+          "5.NST.4.1",
+          "5.NST.4.2",
+          "5.NST.4.3",
+          "5.NST.4.4"
+        ],
+        "item_count": 20,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 5,
+          "moderate": 5,
+          "on_level": 5,
+          "challenging": 5
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Life and living Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.1.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Life and living Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Life and living Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Structures and animal shelters Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.1.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Structures and animal shelters Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Structures and animal shelters Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Practical investigations Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.1.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Practical investigations Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Practical investigations Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.1.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Matter and materials Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.2.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Matter and materials Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Matter and materials Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Structures and strengthening materials Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.2.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Structures and strengthening materials Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Structures and strengthening materials Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Practical investigations Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.2.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Practical investigations Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Practical investigations Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.2.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Energy and change Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.3.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Energy and change Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Energy and change Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Systems and control Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.3.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Systems and control Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Systems and control Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Sound and movement Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.3.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Sound and movement Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Sound and movement Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.3.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Planet Earth and beyond Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.4.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Planet Earth and beyond Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Planet Earth and beyond Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Rocket systems Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.4.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Rocket systems Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Rocket systems Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Space models Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.4.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Space models Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Space models Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.4.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "5.NST.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    }
+  ]
+}

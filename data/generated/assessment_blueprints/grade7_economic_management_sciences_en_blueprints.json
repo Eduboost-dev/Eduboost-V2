@@ -1,0 +1,874 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:24Z",
+  "scope": "grade7_economic_management_sciences_en",
+  "source_item_bank": "diagnostic_items",
+  "blueprints": [
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-baseline-diagnostic-v1",
+      "type": "baseline_diagnostic",
+      "title": "Economic Management Sciences Baseline Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.1.1",
+          "7.EMS.1.2",
+          "7.EMS.1.3",
+          "7.EMS.1.4",
+          "7.EMS.2.1",
+          "7.EMS.2.2",
+          "7.EMS.2.3",
+          "7.EMS.2.4",
+          "7.EMS.3.1",
+          "7.EMS.3.2",
+          "7.EMS.3.3",
+          "7.EMS.3.4",
+          "7.EMS.4.1",
+          "7.EMS.4.2",
+          "7.EMS.4.3",
+          "7.EMS.4.4"
+        ],
+        "item_count": 20,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 5,
+          "moderate": 5,
+          "on_level": 5,
+          "challenging": 5
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-1-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "The economy Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.1.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-1-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "The economy Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-1-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "The economy Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-1-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Needs and wants Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.1.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-1-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Needs and wants Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-1-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Needs and wants Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-1-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Goods and services Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.1.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-1-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Goods and services Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-1-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Goods and services Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-1-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.1.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-1-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-1-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-2-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Financial literacy Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.2.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-2-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Financial literacy Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-2-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Financial literacy Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-2-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Accounting concepts Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.2.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-2-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Accounting concepts Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-2-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Accounting concepts Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-2-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Income and expenses Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.2.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-2-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Income and expenses Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-2-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Income and expenses Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-2-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.2.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-2-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-2-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-3-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Entrepreneurship Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.3.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-3-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Entrepreneurship Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-3-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Entrepreneurship Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-3-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Businesses and markets Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.3.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-3-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Businesses and markets Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-3-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Businesses and markets Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-3-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Production factors Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.3.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-3-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Production factors Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-3-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Production factors Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-3-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.3.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-3-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-3-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-4-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Economic and management sciences project Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.4.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-4-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Economic and management sciences project Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-4-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Economic and management sciences project Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-4-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Revision Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.4.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-4-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Revision Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-4-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Revision Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-4-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Integrated assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.4.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-4-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Integrated assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-4-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Integrated assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-4-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.4.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-4-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-economic-management-sciences-en-7-EMS-4-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.EMS.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    }
+  ]
+}

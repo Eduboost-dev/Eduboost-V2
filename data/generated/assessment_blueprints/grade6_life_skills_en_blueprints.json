@@ -1,0 +1,874 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:22Z",
+  "scope": "grade6_life_skills_en",
+  "source_item_bank": "diagnostic_items",
+  "blueprints": [
+    {
+      "blueprint_id": "grade6-life-skills-en-baseline-diagnostic-v1",
+      "type": "baseline_diagnostic",
+      "title": "Life Skills Baseline Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.1.1",
+          "6.LS.1.2",
+          "6.LS.1.3",
+          "6.LS.1.4",
+          "6.LS.2.1",
+          "6.LS.2.2",
+          "6.LS.2.3",
+          "6.LS.2.4",
+          "6.LS.3.1",
+          "6.LS.3.2",
+          "6.LS.3.3",
+          "6.LS.3.4",
+          "6.LS.4.1",
+          "6.LS.4.2",
+          "6.LS.4.3",
+          "6.LS.4.4"
+        ],
+        "item_count": 20,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 5,
+          "moderate": 5,
+          "on_level": 5,
+          "challenging": 5
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-1-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Beginning knowledge and personal well-being Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.1.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-1-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Beginning knowledge and personal well-being Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-1-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Beginning knowledge and personal well-being Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-1-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Creative arts Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.1.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-1-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Creative arts Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-1-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Creative arts Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-1-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Physical education Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.1.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-1-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Physical education Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-1-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Physical education Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-1-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Health and safety Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.1.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-1-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Health and safety Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-1-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Health and safety Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-2-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Beginning knowledge and personal well-being Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.2.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-2-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Beginning knowledge and personal well-being Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-2-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Beginning knowledge and personal well-being Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-2-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Creative arts Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.2.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-2-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Creative arts Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-2-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Creative arts Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-2-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Physical education Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.2.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-2-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Physical education Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-2-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Physical education Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-2-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Social responsibility Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.2.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-2-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Social responsibility Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-2-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Social responsibility Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-3-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Personal and social well-being Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.3.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-3-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Personal and social well-being Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-3-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Personal and social well-being Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-3-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Creative arts Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.3.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-3-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Creative arts Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-3-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Creative arts Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-3-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Physical education Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.3.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-3-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Physical education Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-3-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Physical education Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-3-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Study skills Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.3.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-3-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Study skills Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-3-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Study skills Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-4-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Personal and social well-being Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.4.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-4-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Personal and social well-being Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-4-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Personal and social well-being Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-4-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Creative arts Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.4.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-4-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Creative arts Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-4-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Creative arts Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-4-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Physical education Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.4.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-4-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Physical education Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-4-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Physical education Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-4-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Health, safety and environmental responsibility Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.4.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-4-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Health, safety and environmental responsibility Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-life-skills-en-6-LS-4-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Health, safety and environmental responsibility Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.LS.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    }
+  ]
+}

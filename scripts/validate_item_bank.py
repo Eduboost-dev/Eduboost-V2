@@ -30,29 +30,30 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from typing import Optional
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from app.modules.diagnostics.item_validator import ItemValidator, ValidationError
+from app.modules.diagnostics.item_validator import ItemValidator
+from app.services.content_scope_registry import ContentScopeRegistry
 
-TOPIC_MAP_PATH = REPO_ROOT / "data" / "caps" / "caps_topic_map_grade4_maths.json"
 DEFAULT_INPUT  = REPO_ROOT / "data" / "caps" / "grade4_maths_item_bank.json"
-
-LAUNCH_REFS    = ["4.M.1.1", "4.M.1.2", "4.M.1.3"]
-LAUNCH_TARGET  = 40
+DEFAULT_SCOPE_ID = "grade4_mathematics_en"
+FALLBACK_TOPIC_MAP_PATH = REPO_ROOT / "data" / "caps" / "caps_topic_map_grade4_maths.json"
+FALLBACK_TARGET = 40
 
 
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 
-def load_topic_map() -> dict:
-    if not TOPIC_MAP_PATH.exists():
-        print(f"⚠️  Topic map not found at {TOPIC_MAP_PATH}. CAPS ref validation skipped.")
+def load_topic_map(*, scope_id: str, registry: ContentScopeRegistry) -> dict:
+    scope = registry.get_scope(scope_id)
+    topic_map_path = REPO_ROOT / scope.topic_map_path if scope.topic_map_path else FALLBACK_TOPIC_MAP_PATH
+    if not topic_map_path.exists():
+        print(f"⚠️  Topic map not found at {topic_map_path}. CAPS ref validation skipped.")
         return {}
-    with open(TOPIC_MAP_PATH) as f:
+    with open(topic_map_path) as f:
         return json.load(f)
 
 
@@ -68,18 +69,31 @@ def load_seed(input_path: Path) -> dict:
         sys.exit(2)
 
 
-def coverage_summary(items: list[dict]) -> dict[str, dict]:
+def coverage_summary(items: list[dict], *, scope_id: str, registry: ContentScopeRegistry) -> dict[str, dict]:
+    scope = registry.get_scope(scope_id)
+    refs = scope.caps_refs or sorted({str(item.get("caps_ref")) for item in items if item.get("caps_ref")})
     summary: dict[str, dict] = {}
-    for ref in LAUNCH_REFS:
+    for ref in refs:
         ref_items = [i for i in items if i.get("caps_ref") == ref]
         approved  = [i for i in ref_items if i.get("review_status") == "approved"]
+        target = _target_for_ref(scope_id, ref, registry=registry)
         summary[ref] = {
             "total":    len(ref_items),
             "approved": len(approved),
-            "target":   LAUNCH_TARGET,
-            "met":      len(approved) >= LAUNCH_TARGET,
+            "target":   target,
+            "met":      len(approved) >= target,
         }
     return summary
+
+
+def _target_for_ref(scope_id: str, caps_ref: str, *, registry: ContentScopeRegistry) -> int:
+    targets = registry.get_scope_targets(scope_id)
+    for target in targets:
+        if target.caps_ref == caps_ref:
+            value = target.targets.get("diagnostic_items.approved")
+            if value is not None:
+                return int(value)
+    return FALLBACK_TARGET
 
 
 # ---------------------------------------------------------------------------
@@ -91,6 +105,11 @@ def main() -> None:
         description="Validate all items in the CAPS item bank seed file."
     )
     parser.add_argument("--input", "--path", dest="input", type=Path, default=DEFAULT_INPUT)
+    parser.add_argument(
+        "--scope-id",
+        default=DEFAULT_SCOPE_ID,
+        help="Registry scope to use for topic-map and coverage-target lookup.",
+    )
     parser.add_argument(
         "--caps-ref",
         help="Only validate items for a specific CAPS ref, e.g. 4.M.1.1",
@@ -126,7 +145,8 @@ def main() -> None:
     if args.fail_on_any_error and not args.status and not args.all_statuses:
         args.status = "approved"
 
-    topic_map = load_topic_map()
+    registry = ContentScopeRegistry()
+    topic_map = load_topic_map(scope_id=args.scope_id, registry=registry)
     seed      = load_seed(args.input)
     items     = seed.get("items", [])
 
@@ -149,7 +169,7 @@ def main() -> None:
     failure_log: list[dict] = []
 
     print(f"\n{'='*65}")
-    print(f"  EduBoost SA — Item Bank Validation")
+    print("  EduBoost SA — Item Bank Validation")
     print(f"  Source: {args.input}")
     print(f"  Items to validate: {total}")
     if args.caps_ref:
@@ -193,9 +213,9 @@ def main() -> None:
 
     # Coverage summary
     all_items = seed.get("items", [])
-    cov = coverage_summary(all_items)
+    cov = coverage_summary(all_items, scope_id=args.scope_id, registry=registry)
     print(f"\n{'─'*65}")
-    print(f"  Coverage Summary (launch scope — approved items vs target)")
+    print(f"  Coverage Summary ({args.scope_id} — approved items vs target)")
     print(f"{'─'*65}")
     for ref, data in cov.items():
         status = "✅" if data["met"] else "⚠️ "
@@ -206,7 +226,7 @@ def main() -> None:
 
     # Validation summary
     print(f"\n{'─'*65}")
-    print(f"  Validation Summary")
+    print("  Validation Summary")
     print(f"{'─'*65}")
     print(f"  Total validated:  {total}")
     print(f"  Passed:           {passed}")
