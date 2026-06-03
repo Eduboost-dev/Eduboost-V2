@@ -75,10 +75,10 @@ class ContentFileArtifactImportService:
     def plan_scope_import(self, scope_id: str, *, max_records_per_layer: int | None = None) -> FileArtifactImportPlan:
         scope = self.registry.get_scope(scope_id)
         review = self.review_service.review_status(scope_id)
-        db_status = ContentArtifactStatus.APPROVED.value if review.approved else ContentArtifactStatus.PENDING_REVIEW.value
+        db_status = ContentArtifactStatus.APPROVED.value if review.stage_unlocked else ContentArtifactStatus.PENDING_REVIEW.value
         source_document_id = (scope.source_documents or ["unknown_source"])[0]
         records: list[FileArtifactImportRecord] = []
-        errors = list(review.blockers)
+        errors = list(review.stage_blockers)
         for path_key, (layer, artifact_type, collection_key) in _LAYER_SPECS.items():
             rel_path = scope.artifact_paths.get(path_key)
             if not rel_path:

@@ -21,7 +21,8 @@ def test_file_promotion_readiness_marks_review_scopes_staging_ready_not_producti
     assert result.staging_eligible is True
     assert result.production_eligible is False
     assert result.manifest["layers"]["diagnostic_items"]["record_count"] >= 40
-    assert "requires educator approval" in " ".join(result.blockers)
+    joined = " ".join(result.blockers)
+    assert "Educator approval" in joined or "dev_approved" in joined
 
 
 def test_file_promotion_readiness_writes_summary_and_per_scope_manifests(tmp_path: Path) -> None:

@@ -20,11 +20,30 @@ def test_pilot_review_packet_defaults_to_pending_educator_approval(tmp_path: Pat
 
     assert packet["decision"] == "pending"
     assert status.approved is False
-    assert "Educator review decision is not approved." in status.blockers
+    assert "Review decision is not dev_approved or approved." in status.blockers
     assert packet["layer_review"]["diagnostic_items"]["record_count"] == 640
 
 
-def test_approved_review_packet_requires_reviewer_url_and_timestamp(tmp_path: Path) -> None:
+def test_dev_approved_review_packet_unlocks_staging_but_not_production(tmp_path: Path) -> None:
+    service = ContentFileReviewWorkflowService(project_root=REPO_ROOT, manifest_dir=tmp_path)
+
+    service.build_review_packet(
+        "grade5_mathematics_en",
+        reviewer_id="dev-reviewer",
+        decision="dev_approved",
+        evidence_url="dev-reviewed-generated-artifacts",
+    )
+    status = service.review_status("grade5_mathematics_en")
+
+    assert status.status == "dev_approved"
+    assert status.stage_unlocked is True
+    assert status.production_unlocked is False
+    assert status.stage_blockers == []
+    assert "Educator approval is required for production." in status.production_blockers
+    assert "Legal approval is required for production." in status.production_blockers
+
+
+def test_educator_and_legal_approval_unlocks_production_review_evidence(tmp_path: Path) -> None:
     service = ContentFileReviewWorkflowService(project_root=REPO_ROOT, manifest_dir=tmp_path)
 
     service.build_review_packet(
@@ -32,11 +51,14 @@ def test_approved_review_packet_requires_reviewer_url_and_timestamp(tmp_path: Pa
         reviewer_id="educator-1",
         decision="approved",
         evidence_url="https://review.example/grade5-maths",
-        output_dir=tmp_path,
+        legal_decision="approved",
+        legal_evidence_url="https://legal.example/grade5-maths",
     )
     status = service.review_status("grade5_mathematics_en")
 
     assert status.approved is True
+    assert status.stage_unlocked is True
+    assert status.production_unlocked is True
     assert status.blockers == []
 
 
@@ -57,13 +79,13 @@ def test_import_plan_uses_pending_review_until_educator_approval(tmp_path: Path)
     }
 
 
-def test_import_plan_switches_to_approved_with_complete_review_evidence(tmp_path: Path) -> None:
+def test_import_plan_switches_to_approved_with_dev_approval(tmp_path: Path) -> None:
     review_service = ContentFileReviewWorkflowService(project_root=REPO_ROOT, manifest_dir=tmp_path)
     review_service.build_review_packet(
         "grade5_mathematics_en",
-        reviewer_id="educator-1",
-        decision="approved",
-        evidence_url="https://review.example/grade5-maths",
+        reviewer_id="dev-reviewer",
+        decision="dev_approved",
+        evidence_url="dev-reviewed-generated-artifacts",
     )
     importer = ContentFileArtifactImportService(project_root=REPO_ROOT, review_service=review_service)
 
@@ -79,7 +101,7 @@ def test_promotion_readiness_reports_pilot_review_evidence() -> None:
 
     assert readiness.staging_eligible is True
     assert readiness.production_eligible is False
-    assert readiness.manifest["review_evidence"]["status"] == "pending"
+    assert readiness.manifest["review_evidence"]["status"] in {"pending", "dev_approved"}
     assert readiness.manifest["review_evidence"]["manifest_path"] == "data/generated/review_manifests/grade5_mathematics_en_educator_review.json"
 
 

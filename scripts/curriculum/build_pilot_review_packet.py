@@ -21,6 +21,8 @@ def main() -> int:
     parser.add_argument("--reviewer-id", default="pending")
     parser.add_argument("--decision", default="pending")
     parser.add_argument("--evidence-url", default="pending")
+    parser.add_argument("--legal-decision", default="pending")
+    parser.add_argument("--legal-evidence-url", default="pending")
     parser.add_argument("--notes", default="Pilot packet for educator review; approval evidence is pending.")
     parser.add_argument("--max-records-per-layer", type=int, default=None)
     parser.add_argument("--json", action="store_true")
@@ -33,6 +35,8 @@ def main() -> int:
         reviewer_id=args.reviewer_id,
         decision=args.decision,
         evidence_url=args.evidence_url,
+        legal_decision=args.legal_decision,
+        legal_evidence_url=args.legal_evidence_url,
         notes=args.notes,
     )
     importer = ContentFileArtifactImportService(project_root=ROOT, review_service=review_service)
@@ -44,6 +48,8 @@ def main() -> int:
         "scope_id": args.scope_id,
         "review_packet_status": review_service.review_status(args.scope_id).status,
         "review_packet_approved": review_service.review_status(args.scope_id).approved,
+        "stage_unlocked": review_service.review_status(args.scope_id).stage_unlocked,
+        "production_unlocked": review_service.review_status(args.scope_id).production_unlocked,
         "import_plan": {
             "db_status": import_plan.db_status,
             "record_count": len(import_plan.records),
@@ -59,6 +65,8 @@ def main() -> int:
         print(f"  scope_id: {output['scope_id']}")
         print(f"  review_status: {output['review_packet_status']}")
         print(f"  approved: {output['review_packet_approved']}")
+        print(f"  stage_unlocked: {output['stage_unlocked']}")
+        print(f"  production_unlocked: {output['production_unlocked']}")
         print(f"  import_db_status: {output['import_plan']['db_status']}")
         print(f"  import_record_count: {output['import_plan']['record_count']}")
         print(f"  import_dry_run_only: {output['import_plan']['dry_run_only']}")

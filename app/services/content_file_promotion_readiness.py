@@ -80,11 +80,13 @@ class ContentFilePromotionReadinessService:
 
         review_evidence = self.review_service.review_status(scope_id)
         if scope.status == ContentScopeStatus.REVIEW:
-            if review_evidence.approved:
-                blockers.append("Scope has educator approval evidence but is still review; activate scope intentionally before learner visibility.")
+            if review_evidence.stage_unlocked:
+                blockers.append("Scope is still review; activate scope intentionally before learner visibility.")
+                blockers.extend(review_evidence.production_blockers)
             else:
-                blockers.append("Scope is still in review and requires educator approval before learner visibility.")
-                blockers.extend(review_evidence.blockers)
+                blockers.append("Scope is still in review and requires dev_approved or educator approval before staging unlock.")
+                blockers.extend(review_evidence.stage_blockers)
+                blockers.extend(review_evidence.production_blockers)
         elif scope.status != ContentScopeStatus.ACTIVE:
             blockers.append(f"Scope status {scope.status.value} is not production-promotable.")
 
@@ -106,7 +108,11 @@ class ContentFilePromotionReadinessService:
             "review_evidence": {
                 "status": review_evidence.status,
                 "approved": review_evidence.approved,
+                "stage_unlocked": review_evidence.stage_unlocked,
+                "production_unlocked": review_evidence.production_unlocked,
                 "manifest_path": str(review_evidence.manifest_path.relative_to(self.project_root)) if review_evidence.manifest_path else None,
+                "stage_blockers": review_evidence.stage_blockers,
+                "production_blockers": review_evidence.production_blockers,
                 "blockers": review_evidence.blockers,
             },
             "staging_eligible": staging_eligible,

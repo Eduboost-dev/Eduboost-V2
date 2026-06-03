@@ -23,7 +23,11 @@ class ScopeReviewEvidenceStatus:
     scope_id: str
     status: str
     approved: bool
+    stage_unlocked: bool
+    production_unlocked: bool
     blockers: list[str]
+    stage_blockers: list[str]
+    production_blockers: list[str]
     manifest_path: Path | None
     manifest: dict[str, Any] | None
 
@@ -59,12 +63,17 @@ class ContentFileReviewWorkflowService:
         reviewer_id: str = "pending",
         decision: str = "pending",
         evidence_url: str = "pending",
+        legal_decision: str = "pending",
+        legal_evidence_url: str = "pending",
         notes: str = "Educator review not yet completed.",
         output_dir: Path | None = None,
     ) -> dict[str, Any]:
         scope = self.registry.get_scope(scope_id)
         readiness = self.readiness_service.evaluate_scope(scope_id).manifest
-        approved_at = _now_utc() if _approved_decision(decision) and reviewer_id != "pending" and evidence_url != "pending" else None
+        stage_unlocked = _stage_unlocked_decision(decision) and not _pending(reviewer_id) and not _pending(evidence_url)
+        educator_approved = _educator_approved_decision(decision) and not _pending(reviewer_id) and not _pending(evidence_url)
+        legal_approved = _legal_approved_decision(legal_decision) and not _pending(legal_evidence_url)
+        approved_at = _now_utc() if stage_unlocked else None
         packet = {
             "schema_version": "1.0",
             "generated_at": _now_utc(),
@@ -72,9 +81,14 @@ class ContentFileReviewWorkflowService:
             "scope_status": scope.status.value,
             "review_policy_id": scope.review_policy_id,
             "decision": decision,
-            "approved": _approved_decision(decision),
+            "dev_approved": _dev_approved_decision(decision),
+            "stage_unlocked": stage_unlocked,
+            "approved": educator_approved,
+            "legal_decision": legal_decision,
+            "legal_approved": legal_approved,
             "reviewer_id": reviewer_id,
             "evidence_url": evidence_url,
+            "legal_evidence_url": legal_evidence_url,
             "approved_at": approved_at,
             "notes": notes,
             "layer_review": {
@@ -83,7 +97,7 @@ class ContentFileReviewWorkflowService:
                     "sha256": data["sha256"],
                     "record_count": data["record_count"],
                     "review_ready_count": data["review_ready_count"],
-                    "review_status": "approved" if _approved_decision(decision) else "pending_educator_review",
+                    "review_status": "dev_approved" if _dev_approved_decision(decision) else "approved" if educator_approved else "pending_educator_review",
                 }
                 for layer, data in readiness["layers"].items()
             },
@@ -103,35 +117,80 @@ class ContentFileReviewWorkflowService:
         manifest_dir = manifest_dir or self.manifest_dir
         path = manifest_dir / f"{scope_id}_educator_review.json"
         if not path.exists():
-            return ScopeReviewEvidenceStatus(scope_id, "missing", False, ["Educator review evidence packet is missing."], None, None)
+            return ScopeReviewEvidenceStatus(scope_id, "missing", False, False, False, ["Review evidence packet is missing."], ["Review evidence packet is missing."], ["Educator approval is required for production.", "Legal approval is required for production."], None, None)
         manifest = json.loads(path.read_text(encoding="utf-8"))
-        blockers: list[str] = []
-        if not _approved_decision(manifest.get("decision")):
-            blockers.append("Educator review decision is not approved.")
+        stage_blockers: list[str] = []
+        production_blockers: list[str] = []
+        decision = manifest.get("decision")
+        legal_decision = manifest.get("legal_decision")
+        stage_unlocked = _stage_unlocked_decision(decision)
+        educator_approved = _educator_approved_decision(decision)
+        legal_approved = _legal_approved_decision(legal_decision)
+
+        if not stage_unlocked:
+            stage_blockers.append("Review decision is not dev_approved or approved.")
         if _pending(manifest.get("reviewer_id")):
-            blockers.append("Educator reviewer_id is pending.")
+            stage_blockers.append("Reviewer ID is pending.")
         if _pending(manifest.get("evidence_url")):
-            blockers.append("Educator review evidence_url is pending.")
+            stage_blockers.append("Review evidence_url is pending.")
         if _pending(manifest.get("approved_at")):
-            blockers.append("Educator approved_at timestamp is pending.")
+            stage_blockers.append("Review approved_at timestamp is pending.")
         if manifest.get("scope_id") != scope_id:
-            blockers.append("Educator review packet scope_id does not match request.")
+            stage_blockers.append("Review packet scope_id does not match request.")
+
+        if not educator_approved:
+            production_blockers.append("Educator approval is required for production.")
+        if not legal_approved:
+            production_blockers.append("Legal approval is required for production.")
+        if educator_approved and _pending(manifest.get("evidence_url")):
+            production_blockers.append("Educator approval evidence_url is pending.")
+        if legal_approved and _pending(manifest.get("legal_evidence_url")):
+            production_blockers.append("Legal approval evidence_url is pending.")
+
         for layer, data in (manifest.get("layer_review") or {}).items():
             if int(data.get("record_count") or 0) <= 0:
-                blockers.append(f"{layer} review packet has no records.")
+                stage_blockers.append(f"{layer} review packet has no records.")
             if not data.get("sha256"):
-                blockers.append(f"{layer} review packet is missing artifact hash.")
+                stage_blockers.append(f"{layer} review packet is missing artifact hash.")
+
+        stage_unlocked = not stage_blockers
+        production_unlocked = stage_unlocked and not production_blockers
+        if production_unlocked:
+            status = "approved"
+        elif stage_unlocked and _dev_approved_decision(decision):
+            status = "dev_approved"
+        elif stage_unlocked:
+            status = "educator_approved"
+        else:
+            status = "pending"
+        blockers = stage_blockers + production_blockers
         return ScopeReviewEvidenceStatus(
             scope_id=scope_id,
-            status="approved" if not blockers else "pending",
-            approved=not blockers,
+            status=status,
+            approved=educator_approved and stage_unlocked,
+            stage_unlocked=stage_unlocked,
+            production_unlocked=production_unlocked,
             blockers=blockers,
+            stage_blockers=stage_blockers,
+            production_blockers=production_blockers,
             manifest_path=path,
             manifest=manifest,
         )
 
 
-def _approved_decision(value: Any) -> bool:
+def _stage_unlocked_decision(value: Any) -> bool:
+    return _dev_approved_decision(value) or _educator_approved_decision(value)
+
+
+def _dev_approved_decision(value: Any) -> bool:
+    return str(value or "").strip().lower() == "dev_approved"
+
+
+def _educator_approved_decision(value: Any) -> bool:
+    return str(value or "").strip().lower() in {"approved", "approve", "accepted", "pass", "passed"}
+
+
+def _legal_approved_decision(value: Any) -> bool:
     return str(value or "").strip().lower() in {"approved", "approve", "accepted", "pass", "passed"}
 
 

@@ -69,11 +69,12 @@ Current pilot state:
 - Pilot scope: `grade5_mathematics_en`.
 - Review packet status: `pending`.
 - Importable generated records: 833.
-- Planned DB artifact status: `pending_review`.
+- Planned DB artifact status: `approved` after `dev_approved` staging unlock.
 - File-to-DB import behavior: idempotent by stable artifact ID/hash; repeat imports update existing artifacts and do not duplicate source or validation evidence rows.
-- Production activation: blocked until educator decision, reviewer ID, evidence URL, approval timestamp, and intentional scope activation are present.
+- `dev_approved` scope count: 50 review scopes.
+- Production activation: blocked until educator approval, legal approval, evidence URLs, approval timestamps, and intentional scope activation are present.
 
-Operational caveat: this workflow creates the review/approval path and DB import plan; it does not substitute synthetic approval for educator review.
+Operational caveat: `dev_approved` is a development/staging unlock only. It does not substitute synthetic approval for educator review or legal review, and it must not unlock learner-visible production promotion by itself.
 
 ## Target Coverage
 
@@ -366,6 +367,10 @@ Acceptance checks:
 - Re-running seed scripts does not duplicate artifacts.
 - Promotion can be tested from clean database to active content state.
 - Rollback can remove/promote by manifest ID.
+
+### Dev Approval Policy
+
+`dev_approved` is allowed as an interim development stamp for generated scope artifacts that have been reviewed by the implementation owner for structure, schema validity, source linkage, and staging/import readiness. It may unlock DB import and staging preparation by mapping generated file artifacts to approved Content Factory records for non-production workflows. It must not satisfy production approval. Production remains blocked until educator/content approval and legal approval evidence are recorded separately, with reviewer/approver identity, evidence URL, and timestamp.
 
 ### Phase 8 - Quality, Safety, and Human Review Operations
 
