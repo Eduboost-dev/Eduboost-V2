@@ -1,0 +1,874 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:19Z",
+  "scope": "grade4_social_sciences_en",
+  "source_item_bank": "diagnostic_items",
+  "blueprints": [
+    {
+      "blueprint_id": "grade4-social-sciences-en-baseline-diagnostic-v1",
+      "type": "baseline_diagnostic",
+      "title": "Social Sciences Baseline Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.1.1",
+          "4.SS.1.2",
+          "4.SS.1.3",
+          "4.SS.1.4",
+          "4.SS.2.1",
+          "4.SS.2.2",
+          "4.SS.2.3",
+          "4.SS.2.4",
+          "4.SS.3.1",
+          "4.SS.3.2",
+          "4.SS.3.3",
+          "4.SS.3.4",
+          "4.SS.4.1",
+          "4.SS.4.2",
+          "4.SS.4.3",
+          "4.SS.4.4"
+        ],
+        "item_count": 20,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 5,
+          "moderate": 5,
+          "on_level": 5,
+          "challenging": 5
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-1-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Geography: map skills and local places Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.1.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-1-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Geography: map skills and local places Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-1-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Geography: map skills and local places Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-1-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "History: local history and sources Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.1.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-1-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "History: local history and sources Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-1-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "History: local history and sources Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-1-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Social Sciences enquiry skills Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.1.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-1-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Social Sciences enquiry skills Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-1-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Social Sciences enquiry skills Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-1-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.1.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-1-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-1-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-2-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Geography: physical features and resources Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.2.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-2-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Geography: physical features and resources Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-2-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Geography: physical features and resources Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-2-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "History: societies and change Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.2.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-2-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "History: societies and change Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-2-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "History: societies and change Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-2-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Source work and map work Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.2.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-2-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Source work and map work Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-2-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Source work and map work Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-2-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.2.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-2-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-2-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-3-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Geography: people and places Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.3.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-3-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Geography: people and places Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-3-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Geography: people and places Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-3-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "History: trade, leadership and heritage Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.3.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-3-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "History: trade, leadership and heritage Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-3-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "History: trade, leadership and heritage Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-3-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Fieldwork and source work Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.3.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-3-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Fieldwork and source work Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-3-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Fieldwork and source work Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-3-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.3.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-3-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-3-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-4-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Geography and History consolidation Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.4.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-4-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Geography and History consolidation Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-4-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Geography and History consolidation Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-4-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Projects and investigations Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.4.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-4-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Projects and investigations Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-4-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Projects and investigations Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-4-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Revision Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.4.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-4-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Revision Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-4-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Revision Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-4-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.4.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-4-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-social-sciences-en-4-SS-4-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.SS.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    }
+  ]
+}

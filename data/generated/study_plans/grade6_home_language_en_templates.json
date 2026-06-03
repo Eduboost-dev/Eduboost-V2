@@ -1,0 +1,501 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:22Z",
+  "scope": "grade6_home_language_en",
+  "grade": 6,
+  "subject": "Home Language",
+  "weekly_template": [
+    {
+      "day": "Mon",
+      "caps_ref": "6.HL.1.1",
+      "activity_type": "lesson",
+      "lesson_variant": "standard",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-1-1-short-practice-v1",
+      "topic": "Listening and speaking"
+    },
+    {
+      "day": "Tue",
+      "caps_ref": "6.HL.1.2",
+      "activity_type": "practice",
+      "lesson_variant": "visual",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-1-2-short-practice-v1",
+      "topic": "Reading and viewing"
+    },
+    {
+      "day": "Wed",
+      "caps_ref": "6.HL.1.3",
+      "activity_type": "lesson",
+      "lesson_variant": "story",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-1-3-short-practice-v1",
+      "topic": "Writing and presenting"
+    },
+    {
+      "day": "Thu",
+      "caps_ref": "6.HL.1.4",
+      "activity_type": "practice",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-1-4-short-practice-v1",
+      "topic": "Language structures and conventions"
+    },
+    {
+      "day": "Fri",
+      "caps_ref": "6.HL.2.1",
+      "activity_type": "lesson",
+      "lesson_variant": "real_world_sa",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-2-1-short-practice-v1",
+      "topic": "Listening and speaking"
+    }
+  ],
+  "topic_sequence": [
+    {
+      "caps_ref": "6.HL.1.1",
+      "topic": "Listening and speaking",
+      "prerequisites": [],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.1.2",
+      "topic": "Reading and viewing",
+      "prerequisites": [
+        "6.HL.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.1.3",
+      "topic": "Writing and presenting",
+      "prerequisites": [
+        "6.HL.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.1.4",
+      "topic": "Language structures and conventions",
+      "prerequisites": [
+        "6.HL.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.2.1",
+      "topic": "Listening and speaking",
+      "prerequisites": [
+        "6.HL.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.2.2",
+      "topic": "Reading and viewing",
+      "prerequisites": [
+        "6.HL.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.2.3",
+      "topic": "Writing and presenting",
+      "prerequisites": [
+        "6.HL.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.2.4",
+      "topic": "Language structures and conventions",
+      "prerequisites": [
+        "6.HL.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.3.1",
+      "topic": "Listening and speaking",
+      "prerequisites": [
+        "6.HL.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.3.2",
+      "topic": "Reading and viewing",
+      "prerequisites": [
+        "6.HL.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.3.3",
+      "topic": "Writing and presenting",
+      "prerequisites": [
+        "6.HL.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.3.4",
+      "topic": "Language structures and conventions",
+      "prerequisites": [
+        "6.HL.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.4.1",
+      "topic": "Listening and speaking",
+      "prerequisites": [
+        "6.HL.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.4.2",
+      "topic": "Reading and viewing",
+      "prerequisites": [
+        "6.HL.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.4.3",
+      "topic": "Writing and presenting",
+      "prerequisites": [
+        "6.HL.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "6.HL.4.4",
+      "topic": "Language structures and conventions",
+      "prerequisites": [
+        "6.HL.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    }
+  ],
+  "remediation_mappings": [
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.1.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-1-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.1.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-1-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.1.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-1-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.1.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-1-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.2.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-2-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.2.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-2-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.3.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-3-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.3.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-3-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.3.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-3-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.3.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-3-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.3.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-3-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.3.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-3-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.4.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-4-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.4.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-4-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.4.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-4-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.4.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-4-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "6.HL.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-4-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "6.HL.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade6-home-language-en-6-HL-4-4-recheck-v1"
+    }
+  ],
+  "extension_mappings": [
+    {
+      "caps_ref": "6.HL.1.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.1.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.1.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.1.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.2.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.2.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.2.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.2.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.3.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.3.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.3.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.3.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.4.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.4.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.4.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "6.HL.4.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    }
+  ]
+}

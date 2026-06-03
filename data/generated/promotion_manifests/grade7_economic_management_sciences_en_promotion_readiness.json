@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T11:03:05Z",
+  "scope_id": "grade7_economic_management_sciences_en",
+  "grade": 7,
+  "phase": "senior",
+  "subject_code": "EMS",
+  "subject": "Economic Management Sciences",
+  "language": "en",
+  "status": "review",
+  "learner_visible": false,
+  "source_ready": true,
+  "review_evidence": {
+    "status": "dev_approved",
+    "approved": false,
+    "stage_unlocked": true,
+    "production_unlocked": false,
+    "manifest_path": "data/generated/review_manifests/grade7_economic_management_sciences_en_educator_review.json",
+    "stage_blockers": [],
+    "production_blockers": [
+      "Educator approval is required for production.",
+      "Legal approval is required for production."
+    ],
+    "blockers": [
+      "Educator approval is required for production.",
+      "Legal approval is required for production."
+    ]
+  },
+  "staging_eligible": true,
+  "production_eligible": false,
+  "caps_ref_count": 16,
+  "layers": {
+    "topic_map": {
+      "layer": "topic_map",
+      "relative_path": "data/caps/topic_maps/grade7_economic_management_sciences_en.json",
+      "exists": true,
+      "sha256": "sha256:dab833822c509a9152e17dec4a7b996a0574b37d6ed3a0c63440d494c0141aaa",
+      "record_count": 32,
+      "approved_count": 32,
+      "review_ready_count": 32,
+      "idempotency_key": "grade7_economic_management_sciences_en:topic_map:sha256:dab833822c509a9152e17dec4a7b996a0574b37d6ed3a0c63440d494c0141aaa"
+    },
+    "diagnostic_items": {
+      "layer": "diagnostic_items",
+      "relative_path": "data/generated/items/grade7_economic_management_sciences_en_item_bank.json",
+      "exists": true,
+      "sha256": "sha256:c1cafbcac7c84c92804d5fa4eee8a84efacf7b4a25b65e3699f65c2b08d2a839",
+      "record_count": 640,
+      "approved_count": 640,
+      "review_ready_count": 640,
+      "idempotency_key": "grade7_economic_management_sciences_en:diagnostic_items:sha256:c1cafbcac7c84c92804d5fa4eee8a84efacf7b4a25b65e3699f65c2b08d2a839"
+    },
+    "lessons": {
+      "layer": "lessons",
+      "relative_path": "data/generated/lessons/grade7_economic_management_sciences_en_lessons.json",
+      "exists": true,
+      "sha256": "sha256:e3e03799d800638c7de3a7da6fe757a2b14abb3289a16d7162a727071c358c7b",
+      "record_count": 128,
+      "approved_count": 128,
+      "review_ready_count": 128,
+      "idempotency_key": "grade7_economic_management_sciences_en:lessons:sha256:e3e03799d800638c7de3a7da6fe757a2b14abb3289a16d7162a727071c358c7b"
+    },
+    "assessment_blueprints": {
+      "layer": "assessment_blueprints",
+      "relative_path": "data/generated/assessment_blueprints/grade7_economic_management_sciences_en_blueprints.json",
+      "exists": true,
+      "sha256": "sha256:8087950b31a6687c8a71232c4facaf47f33b1b6c000bac29a4a65ad793462b76",
+      "record_count": 49,
+      "approved_count": 49,
+      "review_ready_count": 49,
+      "idempotency_key": "grade7_economic_management_sciences_en:assessment_blueprints:sha256:8087950b31a6687c8a71232c4facaf47f33b1b6c000bac29a4a65ad793462b76"
+    },
+    "study_plan_templates": {
+      "layer": "study_plan_templates",
+      "relative_path": "data/generated/study_plans/grade7_economic_management_sciences_en_templates.json",
+      "exists": true,
+      "sha256": "sha256:131cc5a7c9571b89d4cd38433a78ae3924714fe361e8c63403331dec7b780f3b",
+      "record_count": 16,
+      "approved_count": 16,
+      "review_ready_count": 16,
+      "idempotency_key": "grade7_economic_management_sciences_en:study_plan_templates:sha256:131cc5a7c9571b89d4cd38433a78ae3924714fe361e8c63403331dec7b780f3b"
+    }
+  },
+  "blockers": [
+    "Scope is still review; activate scope intentionally before learner visibility.",
+    "Educator approval is required for production.",
+    "Legal approval is required for production."
+  ],
+  "idempotency_keys": {
+    "topic_map": "grade7_economic_management_sciences_en:topic_map:sha256:dab833822c509a9152e17dec4a7b996a0574b37d6ed3a0c63440d494c0141aaa",
+    "diagnostic_items": "grade7_economic_management_sciences_en:diagnostic_items:sha256:c1cafbcac7c84c92804d5fa4eee8a84efacf7b4a25b65e3699f65c2b08d2a839",
+    "lessons": "grade7_economic_management_sciences_en:lessons:sha256:e3e03799d800638c7de3a7da6fe757a2b14abb3289a16d7162a727071c358c7b",
+    "assessment_blueprints": "grade7_economic_management_sciences_en:assessment_blueprints:sha256:8087950b31a6687c8a71232c4facaf47f33b1b6c000bac29a4a65ad793462b76",
+    "study_plan_templates": "grade7_economic_management_sciences_en:study_plan_templates:sha256:131cc5a7c9571b89d4cd38433a78ae3924714fe361e8c63403331dec7b780f3b"
+  },
+  "rollback_manifest": {
+    "scope_id": "grade7_economic_management_sciences_en",
+    "restore_scope_status": "review",
+    "artifact_paths": {
+      "topic_map": "data/caps/topic_maps/grade7_economic_management_sciences_en.json",
+      "diagnostic_items": "data/generated/items/grade7_economic_management_sciences_en_item_bank.json",
+      "lessons": "data/generated/lessons/grade7_economic_management_sciences_en_lessons.json",
+      "assessment_blueprints": "data/generated/assessment_blueprints/grade7_economic_management_sciences_en_blueprints.json",
+      "study_plan_templates": "data/generated/study_plans/grade7_economic_management_sciences_en_templates.json"
+    },
+    "artifact_hashes": {
+      "topic_map": "sha256:dab833822c509a9152e17dec4a7b996a0574b37d6ed3a0c63440d494c0141aaa",
+      "diagnostic_items": "sha256:c1cafbcac7c84c92804d5fa4eee8a84efacf7b4a25b65e3699f65c2b08d2a839",
+      "lessons": "sha256:e3e03799d800638c7de3a7da6fe757a2b14abb3289a16d7162a727071c358c7b",
+      "assessment_blueprints": "sha256:8087950b31a6687c8a71232c4facaf47f33b1b6c000bac29a4a65ad793462b76",
+      "study_plan_templates": "sha256:131cc5a7c9571b89d4cd38433a78ae3924714fe361e8c63403331dec7b780f3b"
+    }
+  }
+}

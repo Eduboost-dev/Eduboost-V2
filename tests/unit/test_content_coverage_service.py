@@ -67,7 +67,11 @@ async def test_computes_registry_targets_for_diagnostic_items_and_lessons() -> N
         },
     )
 
-    report = await service.get_caps_ref_coverage("grade4_mathematics_en", "4.M.1.1")
+    report = await service.get_caps_ref_coverage(
+        "grade4_mathematics_en",
+        "4.M.1.1",
+        layers=[ContentLayer.DIAGNOSTIC_ITEMS, ContentLayer.LESSONS],
+    )
 
     diagnostic = report.layers[ContentLayer.DIAGNOSTIC_ITEMS]
     lessons = report.layers[ContentLayer.LESSONS]
@@ -98,7 +102,10 @@ async def test_scope_coverage_summarizes_green_amber_and_red_refs() -> None:
         },
     )
 
-    report = await service.get_scope_coverage("grade4_mathematics_en")
+    report = await service.get_scope_coverage(
+        "grade4_mathematics_en",
+        layers=[ContentLayer.DIAGNOSTIC_ITEMS, ContentLayer.LESSONS],
+    )
 
     assert report.summary.total_caps_refs == 3
     assert report.summary.green_refs == 1
@@ -137,3 +144,15 @@ async def test_future_layers_return_configured_zero_count_placeholders() -> None
     assert report.layers[ContentLayer.ASSESSMENT_BLUEPRINTS].status.value == "red"
     assert report.layers[ContentLayer.STUDY_PLAN_TEMPLATES].target == 3
     assert report.layers[ContentLayer.STUDY_PLAN_TEMPLATES].approved == 0
+
+
+@pytest.mark.asyncio
+async def test_scope_coverage_defaults_to_all_learner_facing_layers() -> None:
+    report = await _service().get_caps_ref_coverage("grade4_mathematics_en", "4.M.1.1")
+
+    assert set(report.layers) == {
+        ContentLayer.DIAGNOSTIC_ITEMS,
+        ContentLayer.LESSONS,
+        ContentLayer.ASSESSMENT_BLUEPRINTS,
+        ContentLayer.STUDY_PLAN_TEMPLATES,
+    }

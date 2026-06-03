@@ -21,6 +21,7 @@ from app.models.content_factory import (
     ContentGenerationArtifact,
     ContentProductionArtifact,
 )
+from app.services.content_scope_registry import ContentScopeRegistry
 
 
 @dataclass
@@ -79,11 +80,15 @@ class LearnerReadMode(str):
 class ContentLearnerReadService:
     """Service for learner-facing production content reads."""
 
-    def __init__(self) -> None:
+    def __init__(self, scope_registry: ContentScopeRegistry | None = None) -> None:
         self._read_mode = os.getenv(
             "CONTENT_LEARNER_READ_MODE",
             LearnerReadMode.PRODUCTION_ONLY,
         )
+        self._scope_registry = scope_registry or ContentScopeRegistry()
+
+    def _require_learner_visible_scope(self, scope_id: str) -> None:
+        self._scope_registry.require_active_scope(scope_id)
 
     def is_learner_visible_artifact(
         self,
@@ -152,6 +157,8 @@ class ContentLearnerReadService:
             List of learner-visible diagnostic items
         """
         from app.models.content_factory import ContentLayer
+
+        self._require_learner_visible_scope(scope_id)
 
         # Query production artifacts for diagnostic items
         query = (
@@ -229,6 +236,8 @@ class ContentLearnerReadService:
         """
         from app.models.content_factory import ContentLayer
 
+        self._require_learner_visible_scope(scope_id)
+
         # Query production artifacts for lessons
         query = (
             select(ContentProductionArtifact, ContentGenerationArtifact)
@@ -300,6 +309,8 @@ class ContentLearnerReadService:
         """
         from app.models.content_factory import ContentLayer
         from sqlalchemy import func
+
+        self._require_learner_visible_scope(scope_id)
 
         # Count production artifacts by layer
         diagnostic_count_query = (

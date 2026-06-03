@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T11:03:05Z",
+  "scope_id": "grade6_coding_and_robotics_en",
+  "grade": 6,
+  "phase": "intermediate",
+  "subject_code": "CR",
+  "subject": "Coding and Robotics",
+  "language": "en",
+  "status": "review",
+  "learner_visible": false,
+  "source_ready": true,
+  "review_evidence": {
+    "status": "dev_approved",
+    "approved": false,
+    "stage_unlocked": true,
+    "production_unlocked": false,
+    "manifest_path": "data/generated/review_manifests/grade6_coding_and_robotics_en_educator_review.json",
+    "stage_blockers": [],
+    "production_blockers": [
+      "Educator approval is required for production.",
+      "Legal approval is required for production."
+    ],
+    "blockers": [
+      "Educator approval is required for production.",
+      "Legal approval is required for production."
+    ]
+  },
+  "staging_eligible": true,
+  "production_eligible": false,
+  "caps_ref_count": 16,
+  "layers": {
+    "topic_map": {
+      "layer": "topic_map",
+      "relative_path": "data/caps/topic_maps/grade6_coding_and_robotics_en.json",
+      "exists": true,
+      "sha256": "sha256:0fce307e26a56b95b16b28aba92948a03926db5692601aeda359c2999dd02267",
+      "record_count": 32,
+      "approved_count": 32,
+      "review_ready_count": 32,
+      "idempotency_key": "grade6_coding_and_robotics_en:topic_map:sha256:0fce307e26a56b95b16b28aba92948a03926db5692601aeda359c2999dd02267"
+    },
+    "diagnostic_items": {
+      "layer": "diagnostic_items",
+      "relative_path": "data/generated/items/grade6_coding_and_robotics_en_item_bank.json",
+      "exists": true,
+      "sha256": "sha256:f6174214dca8278bbba8bba36bee7ff0da546b2bc6aa707a737a716c20aa7cf6",
+      "record_count": 640,
+      "approved_count": 640,
+      "review_ready_count": 640,
+      "idempotency_key": "grade6_coding_and_robotics_en:diagnostic_items:sha256:f6174214dca8278bbba8bba36bee7ff0da546b2bc6aa707a737a716c20aa7cf6"
+    },
+    "lessons": {
+      "layer": "lessons",
+      "relative_path": "data/generated/lessons/grade6_coding_and_robotics_en_lessons.json",
+      "exists": true,
+      "sha256": "sha256:418e706729cc057e1d23e3396201f1bfe729aecd5fe4b17b7929d3ded104f6cd",
+      "record_count": 128,
+      "approved_count": 128,
+      "review_ready_count": 128,
+      "idempotency_key": "grade6_coding_and_robotics_en:lessons:sha256:418e706729cc057e1d23e3396201f1bfe729aecd5fe4b17b7929d3ded104f6cd"
+    },
+    "assessment_blueprints": {
+      "layer": "assessment_blueprints",
+      "relative_path": "data/generated/assessment_blueprints/grade6_coding_and_robotics_en_blueprints.json",
+      "exists": true,
+      "sha256": "sha256:1c82e2e706f56e842363a3789ea6830a3af97e9f716a15d617a069104ea0464e",
+      "record_count": 49,
+      "approved_count": 49,
+      "review_ready_count": 49,
+      "idempotency_key": "grade6_coding_and_robotics_en:assessment_blueprints:sha256:1c82e2e706f56e842363a3789ea6830a3af97e9f716a15d617a069104ea0464e"
+    },
+    "study_plan_templates": {
+      "layer": "study_plan_templates",
+      "relative_path": "data/generated/study_plans/grade6_coding_and_robotics_en_templates.json",
+      "exists": true,
+      "sha256": "sha256:13dd572be3788c387733e1c661399124a9987f0aa9aba8fe6d2be86f6b9af2c8",
+      "record_count": 16,
+      "approved_count": 16,
+      "review_ready_count": 16,
+      "idempotency_key": "grade6_coding_and_robotics_en:study_plan_templates:sha256:13dd572be3788c387733e1c661399124a9987f0aa9aba8fe6d2be86f6b9af2c8"
+    }
+  },
+  "blockers": [
+    "Scope is still review; activate scope intentionally before learner visibility.",
+    "Educator approval is required for production.",
+    "Legal approval is required for production."
+  ],
+  "idempotency_keys": {
+    "topic_map": "grade6_coding_and_robotics_en:topic_map:sha256:0fce307e26a56b95b16b28aba92948a03926db5692601aeda359c2999dd02267",
+    "diagnostic_items": "grade6_coding_and_robotics_en:diagnostic_items:sha256:f6174214dca8278bbba8bba36bee7ff0da546b2bc6aa707a737a716c20aa7cf6",
+    "lessons": "grade6_coding_and_robotics_en:lessons:sha256:418e706729cc057e1d23e3396201f1bfe729aecd5fe4b17b7929d3ded104f6cd",
+    "assessment_blueprints": "grade6_coding_and_robotics_en:assessment_blueprints:sha256:1c82e2e706f56e842363a3789ea6830a3af97e9f716a15d617a069104ea0464e",
+    "study_plan_templates": "grade6_coding_and_robotics_en:study_plan_templates:sha256:13dd572be3788c387733e1c661399124a9987f0aa9aba8fe6d2be86f6b9af2c8"
+  },
+  "rollback_manifest": {
+    "scope_id": "grade6_coding_and_robotics_en",
+    "restore_scope_status": "review",
+    "artifact_paths": {
+      "topic_map": "data/caps/topic_maps/grade6_coding_and_robotics_en.json",
+      "diagnostic_items": "data/generated/items/grade6_coding_and_robotics_en_item_bank.json",
+      "lessons": "data/generated/lessons/grade6_coding_and_robotics_en_lessons.json",
+      "assessment_blueprints": "data/generated/assessment_blueprints/grade6_coding_and_robotics_en_blueprints.json",
+      "study_plan_templates": "data/generated/study_plans/grade6_coding_and_robotics_en_templates.json"
+    },
+    "artifact_hashes": {
+      "topic_map": "sha256:0fce307e26a56b95b16b28aba92948a03926db5692601aeda359c2999dd02267",
+      "diagnostic_items": "sha256:f6174214dca8278bbba8bba36bee7ff0da546b2bc6aa707a737a716c20aa7cf6",
+      "lessons": "sha256:418e706729cc057e1d23e3396201f1bfe729aecd5fe4b17b7929d3ded104f6cd",
+      "assessment_blueprints": "sha256:1c82e2e706f56e842363a3789ea6830a3af97e9f716a15d617a069104ea0464e",
+      "study_plan_templates": "sha256:13dd572be3788c387733e1c661399124a9987f0aa9aba8fe6d2be86f6b9af2c8"
+    }
+  }
+}

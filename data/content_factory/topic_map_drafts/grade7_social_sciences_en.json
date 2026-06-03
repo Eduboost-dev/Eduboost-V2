@@ -1,0 +1,450 @@
+{
+  "_meta": {
+    "schema_version": "1.0.0-draft",
+    "status": "draft_reviewed",
+    "generated_at": "2026-06-02T20:52:38Z",
+    "scope_id": "grade7_social_sciences_en",
+    "scope": "Grade 7 Social Sciences",
+    "suggested_runtime_topic_map_path": "data/caps/topic_maps/grade7_social_sciences_en.json",
+    "source_document_ids": [
+      "caps_senior_social_sciences_en"
+    ],
+    "source_paths": [
+      "data/caps/source_documents/raw/caps_senior_social_sciences_en.pdf"
+    ],
+    "source_sha256": [
+      "a2c858ef3870dd8aace43bbb3db7ba345e05ca00f8c989041bae1a9e01b1fbe0"
+    ],
+    "canonical_source_urls": [
+      "https://www.education.gov.za/LinkClick.aspx?fileticket=6jpCz5DCZ08%3d&tabid=573&portalid=0&mid=1629&forcedownload=true"
+    ],
+    "object_store_uris": [
+      "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/social-sciences/en/caps_senior_social_sciences_en-a2c858ef3870dd8a.pdf"
+    ],
+    "text_extract_paths": [
+      "data/caps/source_documents/text/caps_senior_social_sciences_en.txt"
+    ],
+    "text_sha256": [
+      "3063b27aeec6f29d6da2b3912bc176177881fa16e30a9e6cce0abe2f2086fdd9"
+    ],
+    "outstanding_tasks": [
+      "generate_reviewed_content",
+      "activate_scope_for_learners"
+    ],
+    "review_required": false,
+    "notes": "Reviewed topic map populated for generation planning; learner visibility remains gated by active scope status and strict content validation.",
+    "reviewed_at": "2026-06-03T00:00:00Z",
+    "reviewer_id": "curriculum-population-batch-2026-06-03"
+  },
+  "grade": 7,
+  "subject": "Social Sciences",
+  "subject_code": "SS",
+  "terms": [
+    {
+      "term": 1,
+      "weeks": "1-10",
+      "topics": [
+        {
+          "caps_ref": "7.SS.1.1",
+          "topic_index": 1,
+          "topic": "Geography: map skills and local places",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.1.1.1",
+              "subtopic_index": 1,
+              "subtopic": "Geography: map skills and local places",
+              "assessment_standards": [
+                "Explain core concepts related to geography: map skills and local places.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        },
+        {
+          "caps_ref": "7.SS.1.2",
+          "topic_index": 2,
+          "topic": "History: local history and sources",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.1.2.1",
+              "subtopic_index": 1,
+              "subtopic": "History: local history and sources",
+              "assessment_standards": [
+                "Explain core concepts related to history: local history and sources.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.1.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        },
+        {
+          "caps_ref": "7.SS.1.3",
+          "topic_index": 3,
+          "topic": "Social Sciences enquiry skills",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.1.3.1",
+              "subtopic_index": 1,
+              "subtopic": "Social Sciences enquiry skills",
+              "assessment_standards": [
+                "Explain core concepts related to social sciences enquiry skills.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.1.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        },
+        {
+          "caps_ref": "7.SS.1.4",
+          "topic_index": 4,
+          "topic": "Assessment",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.1.4.1",
+              "subtopic_index": 1,
+              "subtopic": "Assessment",
+              "assessment_standards": [
+                "Explain core concepts related to assessment.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.1.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "term": 2,
+      "weeks": "1-10",
+      "topics": [
+        {
+          "caps_ref": "7.SS.2.1",
+          "topic_index": 1,
+          "topic": "Geography: physical features and resources",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.2.1.1",
+              "subtopic_index": 1,
+              "subtopic": "Geography: physical features and resources",
+              "assessment_standards": [
+                "Explain core concepts related to geography: physical features and resources.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.1.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        },
+        {
+          "caps_ref": "7.SS.2.2",
+          "topic_index": 2,
+          "topic": "History: societies and change",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.2.2.1",
+              "subtopic_index": 1,
+              "subtopic": "History: societies and change",
+              "assessment_standards": [
+                "Explain core concepts related to history: societies and change.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.1.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        },
+        {
+          "caps_ref": "7.SS.2.3",
+          "topic_index": 3,
+          "topic": "Source work and map work",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.2.3.1",
+              "subtopic_index": 1,
+              "subtopic": "Source work and map work",
+              "assessment_standards": [
+                "Explain core concepts related to source work and map work.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.1.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        },
+        {
+          "caps_ref": "7.SS.2.4",
+          "topic_index": 4,
+          "topic": "Assessment",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.2.4.1",
+              "subtopic_index": 1,
+              "subtopic": "Assessment",
+              "assessment_standards": [
+                "Explain core concepts related to assessment.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.1.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "term": 3,
+      "weeks": "1-10",
+      "topics": [
+        {
+          "caps_ref": "7.SS.3.1",
+          "topic_index": 1,
+          "topic": "Geography: people and places",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.3.1.1",
+              "subtopic_index": 1,
+              "subtopic": "Geography: people and places",
+              "assessment_standards": [
+                "Explain core concepts related to geography: people and places.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.2.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        },
+        {
+          "caps_ref": "7.SS.3.2",
+          "topic_index": 2,
+          "topic": "History: trade, leadership and heritage",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.3.2.1",
+              "subtopic_index": 1,
+              "subtopic": "History: trade, leadership and heritage",
+              "assessment_standards": [
+                "Explain core concepts related to history: trade, leadership and heritage.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.2.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        },
+        {
+          "caps_ref": "7.SS.3.3",
+          "topic_index": 3,
+          "topic": "Fieldwork and source work",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.3.3.1",
+              "subtopic_index": 1,
+              "subtopic": "Fieldwork and source work",
+              "assessment_standards": [
+                "Explain core concepts related to fieldwork and source work.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.2.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        },
+        {
+          "caps_ref": "7.SS.3.4",
+          "topic_index": 4,
+          "topic": "Assessment",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.3.4.1",
+              "subtopic_index": 1,
+              "subtopic": "Assessment",
+              "assessment_standards": [
+                "Explain core concepts related to assessment.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.2.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "term": 4,
+      "weeks": "1-8",
+      "topics": [
+        {
+          "caps_ref": "7.SS.4.1",
+          "topic_index": 1,
+          "topic": "Geography and History consolidation",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.4.1.1",
+              "subtopic_index": 1,
+              "subtopic": "Geography and History consolidation",
+              "assessment_standards": [
+                "Explain core concepts related to geography and history consolidation.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.3.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        },
+        {
+          "caps_ref": "7.SS.4.2",
+          "topic_index": 2,
+          "topic": "Projects and investigations",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.4.2.1",
+              "subtopic_index": 1,
+              "subtopic": "Projects and investigations",
+              "assessment_standards": [
+                "Explain core concepts related to projects and investigations.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.3.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        },
+        {
+          "caps_ref": "7.SS.4.3",
+          "topic_index": 3,
+          "topic": "Revision",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.4.3.1",
+              "subtopic_index": 1,
+              "subtopic": "Revision",
+              "assessment_standards": [
+                "Explain core concepts related to revision.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.3.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        },
+        {
+          "caps_ref": "7.SS.4.4",
+          "topic_index": 4,
+          "topic": "Assessment",
+          "subtopics": [
+            {
+              "caps_ref": "7.SS.4.4.1",
+              "subtopic_index": 1,
+              "subtopic": "Assessment",
+              "assessment_standards": [
+                "Explain core concepts related to assessment.",
+                "Use CAPS enquiry, practical, creative or source-work skills for the topic.",
+                "Apply the topic in familiar South African classroom and everyday contexts."
+              ],
+              "prerequisites": [
+                "7.SS.3.1"
+              ],
+              "common_misconceptions": [
+                "topic_vocabulary_confusion",
+                "procedure_without_conceptual_understanding"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,501 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:20Z",
+  "scope": "grade5_natural_sciences_and_technology_en",
+  "grade": 5,
+  "subject": "Natural Sciences and Technology",
+  "weekly_template": [
+    {
+      "day": "Mon",
+      "caps_ref": "5.NST.1.1",
+      "activity_type": "lesson",
+      "lesson_variant": "standard",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-1-short-practice-v1",
+      "topic": "Life and living"
+    },
+    {
+      "day": "Tue",
+      "caps_ref": "5.NST.1.2",
+      "activity_type": "practice",
+      "lesson_variant": "visual",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-2-short-practice-v1",
+      "topic": "Structures and animal shelters"
+    },
+    {
+      "day": "Wed",
+      "caps_ref": "5.NST.1.3",
+      "activity_type": "lesson",
+      "lesson_variant": "story",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-3-short-practice-v1",
+      "topic": "Practical investigations"
+    },
+    {
+      "day": "Thu",
+      "caps_ref": "5.NST.1.4",
+      "activity_type": "practice",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-4-short-practice-v1",
+      "topic": "Assessment"
+    },
+    {
+      "day": "Fri",
+      "caps_ref": "5.NST.2.1",
+      "activity_type": "lesson",
+      "lesson_variant": "real_world_sa",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-1-short-practice-v1",
+      "topic": "Matter and materials"
+    }
+  ],
+  "topic_sequence": [
+    {
+      "caps_ref": "5.NST.1.1",
+      "topic": "Life and living",
+      "prerequisites": [],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.1.2",
+      "topic": "Structures and animal shelters",
+      "prerequisites": [
+        "5.NST.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.1.3",
+      "topic": "Practical investigations",
+      "prerequisites": [
+        "5.NST.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.1.4",
+      "topic": "Assessment",
+      "prerequisites": [
+        "5.NST.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.2.1",
+      "topic": "Matter and materials",
+      "prerequisites": [
+        "5.NST.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.2.2",
+      "topic": "Structures and strengthening materials",
+      "prerequisites": [
+        "5.NST.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.2.3",
+      "topic": "Practical investigations",
+      "prerequisites": [
+        "5.NST.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.2.4",
+      "topic": "Assessment",
+      "prerequisites": [
+        "5.NST.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.3.1",
+      "topic": "Energy and change",
+      "prerequisites": [
+        "5.NST.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.3.2",
+      "topic": "Systems and control",
+      "prerequisites": [
+        "5.NST.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.3.3",
+      "topic": "Sound and movement",
+      "prerequisites": [
+        "5.NST.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.3.4",
+      "topic": "Assessment",
+      "prerequisites": [
+        "5.NST.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.4.1",
+      "topic": "Planet Earth and beyond",
+      "prerequisites": [
+        "5.NST.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.4.2",
+      "topic": "Rocket systems",
+      "prerequisites": [
+        "5.NST.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.4.3",
+      "topic": "Space models",
+      "prerequisites": [
+        "5.NST.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.NST.4.4",
+      "topic": "Assessment",
+      "prerequisites": [
+        "5.NST.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    }
+  ],
+  "remediation_mappings": [
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.1.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.1.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.1.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.1.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-1-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.2.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.2.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.3.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.3.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.3.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.3.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.3.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.3.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.4.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.4.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.4.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.4.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.NST.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.NST.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-natural-sciences-and-technology-en-5-NST-4-4-recheck-v1"
+    }
+  ],
+  "extension_mappings": [
+    {
+      "caps_ref": "5.NST.1.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.1.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.1.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.1.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.2.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.2.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.2.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.2.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.3.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.3.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.3.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.3.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.4.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.4.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.4.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.NST.4.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    }
+  ]
+}

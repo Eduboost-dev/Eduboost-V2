@@ -1,0 +1,501 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:14Z",
+  "scope": "grade2_life_skills_en",
+  "grade": 2,
+  "subject": "Life Skills",
+  "weekly_template": [
+    {
+      "day": "Mon",
+      "caps_ref": "2.LS.1.1",
+      "activity_type": "lesson",
+      "lesson_variant": "standard",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-1-1-short-practice-v1",
+      "topic": "Beginning knowledge and personal well-being"
+    },
+    {
+      "day": "Tue",
+      "caps_ref": "2.LS.1.2",
+      "activity_type": "practice",
+      "lesson_variant": "visual",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-1-2-short-practice-v1",
+      "topic": "Creative arts"
+    },
+    {
+      "day": "Wed",
+      "caps_ref": "2.LS.1.3",
+      "activity_type": "lesson",
+      "lesson_variant": "story",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-1-3-short-practice-v1",
+      "topic": "Physical education"
+    },
+    {
+      "day": "Thu",
+      "caps_ref": "2.LS.1.4",
+      "activity_type": "practice",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-1-4-short-practice-v1",
+      "topic": "Health and safety"
+    },
+    {
+      "day": "Fri",
+      "caps_ref": "2.LS.2.1",
+      "activity_type": "lesson",
+      "lesson_variant": "real_world_sa",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-2-1-short-practice-v1",
+      "topic": "Beginning knowledge and personal well-being"
+    }
+  ],
+  "topic_sequence": [
+    {
+      "caps_ref": "2.LS.1.1",
+      "topic": "Beginning knowledge and personal well-being",
+      "prerequisites": [],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.1.2",
+      "topic": "Creative arts",
+      "prerequisites": [
+        "2.LS.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.1.3",
+      "topic": "Physical education",
+      "prerequisites": [
+        "2.LS.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.1.4",
+      "topic": "Health and safety",
+      "prerequisites": [
+        "2.LS.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.2.1",
+      "topic": "Beginning knowledge and personal well-being",
+      "prerequisites": [
+        "2.LS.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.2.2",
+      "topic": "Creative arts",
+      "prerequisites": [
+        "2.LS.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.2.3",
+      "topic": "Physical education",
+      "prerequisites": [
+        "2.LS.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.2.4",
+      "topic": "Social responsibility",
+      "prerequisites": [
+        "2.LS.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.3.1",
+      "topic": "Personal and social well-being",
+      "prerequisites": [
+        "2.LS.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.3.2",
+      "topic": "Creative arts",
+      "prerequisites": [
+        "2.LS.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.3.3",
+      "topic": "Physical education",
+      "prerequisites": [
+        "2.LS.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.3.4",
+      "topic": "Study skills",
+      "prerequisites": [
+        "2.LS.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.4.1",
+      "topic": "Personal and social well-being",
+      "prerequisites": [
+        "2.LS.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.4.2",
+      "topic": "Creative arts",
+      "prerequisites": [
+        "2.LS.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.4.3",
+      "topic": "Physical education",
+      "prerequisites": [
+        "2.LS.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "2.LS.4.4",
+      "topic": "Health, safety and environmental responsibility",
+      "prerequisites": [
+        "2.LS.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    }
+  ],
+  "remediation_mappings": [
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.1.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-1-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.1.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-1-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.1.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-1-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.1.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-1-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.2.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-2-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.2.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-2-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.3.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-3-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.3.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-3-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.3.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-3-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.3.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-3-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.3.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-3-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.3.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-3-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.4.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-4-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.4.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-4-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.4.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-4-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.4.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-4-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "2.LS.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-4-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "2.LS.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade2-life-skills-en-2-LS-4-4-recheck-v1"
+    }
+  ],
+  "extension_mappings": [
+    {
+      "caps_ref": "2.LS.1.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.1.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.1.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.1.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.2.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.2.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.2.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.2.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.3.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.3.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.3.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.3.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.4.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.4.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.4.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "2.LS.4.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    }
+  ]
+}

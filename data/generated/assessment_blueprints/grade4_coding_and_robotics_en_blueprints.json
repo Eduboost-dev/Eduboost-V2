@@ -1,0 +1,874 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:17Z",
+  "scope": "grade4_coding_and_robotics_en",
+  "source_item_bank": "diagnostic_items",
+  "blueprints": [
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-baseline-diagnostic-v1",
+      "type": "baseline_diagnostic",
+      "title": "Coding and Robotics Baseline Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.1.1",
+          "4.CR.1.2",
+          "4.CR.1.3",
+          "4.CR.1.4",
+          "4.CR.2.1",
+          "4.CR.2.2",
+          "4.CR.2.3",
+          "4.CR.2.4",
+          "4.CR.3.1",
+          "4.CR.3.2",
+          "4.CR.3.3",
+          "4.CR.3.4",
+          "4.CR.4.1",
+          "4.CR.4.2",
+          "4.CR.4.3",
+          "4.CR.4.4"
+        ],
+        "item_count": 20,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 5,
+          "moderate": 5,
+          "on_level": 5,
+          "challenging": 5
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-1-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Pattern recognition and decomposition Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.1.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-1-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Pattern recognition and decomposition Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-1-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Pattern recognition and decomposition Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-1-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Algorithms and coding Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.1.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-1-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Algorithms and coding Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-1-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Algorithms and coding Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-1-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Robotics and mechanical systems Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.1.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-1-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Robotics and mechanical systems Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-1-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Robotics and mechanical systems Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-1-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Digital concepts Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.1.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-1-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Digital concepts Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-1-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Digital concepts Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-2-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Algorithms and coding Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.2.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-2-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Algorithms and coding Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-2-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Algorithms and coding Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-2-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Robotics and sensors Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.2.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-2-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Robotics and sensors Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-2-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Robotics and sensors Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-2-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Data and digital systems Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.2.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-2-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Data and digital systems Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-2-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Data and digital systems Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-2-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Problem solving Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.2.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-2-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Problem solving Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-2-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Problem solving Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-3-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Coding projects Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.3.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-3-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Coding projects Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-3-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Coding projects Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-3-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Robotics projects Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.3.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-3-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Robotics projects Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-3-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Robotics projects Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-3-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Internet and digital citizenship Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.3.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-3-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Internet and digital citizenship Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-3-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Internet and digital citizenship Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-3-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Integrated design challenge Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.3.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-3-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Integrated design challenge Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-3-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Integrated design challenge Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-4-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Consolidation, debugging and assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.4.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-4-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Consolidation, debugging and assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-4-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Consolidation, debugging and assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-4-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Robotics control Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.4.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-4-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Robotics control Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-4-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Robotics control Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-4-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Data representation Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.4.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-4-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Data representation Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-4-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Data representation Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-4-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Integrated project Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.4.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-4-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Integrated project Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade4-coding-and-robotics-en-4-CR-4-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Integrated project Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "4.CR.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    }
+  ]
+}

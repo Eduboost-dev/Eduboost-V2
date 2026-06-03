@@ -1,0 +1,501 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:20Z",
+  "scope": "grade5_mathematics_en",
+  "grade": 5,
+  "subject": "Mathematics",
+  "weekly_template": [
+    {
+      "day": "Mon",
+      "caps_ref": "5.M.1.1",
+      "activity_type": "lesson",
+      "lesson_variant": "standard",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-1-1-short-practice-v1",
+      "topic": "Numbers, operations and relationships"
+    },
+    {
+      "day": "Tue",
+      "caps_ref": "5.M.1.2",
+      "activity_type": "practice",
+      "lesson_variant": "visual",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-1-2-short-practice-v1",
+      "topic": "Number patterns"
+    },
+    {
+      "day": "Wed",
+      "caps_ref": "5.M.1.3",
+      "activity_type": "lesson",
+      "lesson_variant": "story",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-1-3-short-practice-v1",
+      "topic": "Space and shape"
+    },
+    {
+      "day": "Thu",
+      "caps_ref": "5.M.1.4",
+      "activity_type": "practice",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-1-4-short-practice-v1",
+      "topic": "Measurement"
+    },
+    {
+      "day": "Fri",
+      "caps_ref": "5.M.2.1",
+      "activity_type": "lesson",
+      "lesson_variant": "real_world_sa",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-2-1-short-practice-v1",
+      "topic": "Numbers, operations and relationships"
+    }
+  ],
+  "topic_sequence": [
+    {
+      "caps_ref": "5.M.1.1",
+      "topic": "Numbers, operations and relationships",
+      "prerequisites": [],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.1.2",
+      "topic": "Number patterns",
+      "prerequisites": [
+        "5.M.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.1.3",
+      "topic": "Space and shape",
+      "prerequisites": [
+        "5.M.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.1.4",
+      "topic": "Measurement",
+      "prerequisites": [
+        "5.M.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.2.1",
+      "topic": "Numbers, operations and relationships",
+      "prerequisites": [
+        "5.M.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.2.2",
+      "topic": "Fractions",
+      "prerequisites": [
+        "5.M.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.2.3",
+      "topic": "Space and shape",
+      "prerequisites": [
+        "5.M.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.2.4",
+      "topic": "Data handling",
+      "prerequisites": [
+        "5.M.1.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.3.1",
+      "topic": "Numbers, operations and relationships",
+      "prerequisites": [
+        "5.M.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.3.2",
+      "topic": "Numeric and geometric patterns",
+      "prerequisites": [
+        "5.M.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.3.3",
+      "topic": "Measurement",
+      "prerequisites": [
+        "5.M.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.3.4",
+      "topic": "Data handling",
+      "prerequisites": [
+        "5.M.2.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.4.1",
+      "topic": "Whole numbers and calculations",
+      "prerequisites": [
+        "5.M.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.4.2",
+      "topic": "Common fractions",
+      "prerequisites": [
+        "5.M.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.4.3",
+      "topic": "Geometry of 2-D and 3-D objects",
+      "prerequisites": [
+        "5.M.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    },
+    {
+      "caps_ref": "5.M.4.4",
+      "topic": "Measurement and data",
+      "prerequisites": [
+        "5.M.3.1"
+      ],
+      "misconception_tags": [
+        "topic_vocabulary_confusion",
+        "procedure_without_conceptual_understanding"
+      ]
+    }
+  ],
+  "remediation_mappings": [
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.1.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-1-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.1.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-1-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.1.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-1-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.1.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-1-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.1.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-1-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.1.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-1-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.2.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-2-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.2.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-2-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.2.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-2-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.2.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-2-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.2.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-2-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.3.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-3-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.3.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-3-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.3.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-3-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.3.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-3-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.3.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-3-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.3.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-3-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.3.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-3-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.4.1",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-4-1-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.4.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-4-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.4.2",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-4-2-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.4.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-4-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.4.3",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-4-3-recheck-v1"
+    },
+    {
+      "misconception_tag": "topic_vocabulary_confusion",
+      "caps_ref": "5.M.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-4-4-recheck-v1"
+    },
+    {
+      "misconception_tag": "procedure_without_conceptual_understanding",
+      "caps_ref": "5.M.4.4",
+      "lesson_variant": "step_by_step",
+      "assessment_blueprint_id": "grade5-mathematics-en-5-M-4-4-recheck-v1"
+    }
+  ],
+  "extension_mappings": [
+    {
+      "caps_ref": "5.M.1.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.1.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.1.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.1.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.2.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.2.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.2.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.2.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.3.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.3.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.3.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.3.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.4.1",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.4.2",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.4.3",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    },
+    {
+      "caps_ref": "5.M.4.4",
+      "lesson_variant": "exam_style",
+      "activity_type": "challenge"
+    }
+  ]
+}

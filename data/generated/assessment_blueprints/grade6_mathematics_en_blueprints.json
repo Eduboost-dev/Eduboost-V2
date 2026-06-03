@@ -1,0 +1,874 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:22Z",
+  "scope": "grade6_mathematics_en",
+  "source_item_bank": "diagnostic_items",
+  "blueprints": [
+    {
+      "blueprint_id": "grade6-mathematics-en-baseline-diagnostic-v1",
+      "type": "baseline_diagnostic",
+      "title": "Mathematics Baseline Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.1.1",
+          "6.M.1.2",
+          "6.M.1.3",
+          "6.M.1.4",
+          "6.M.2.1",
+          "6.M.2.2",
+          "6.M.2.3",
+          "6.M.2.4",
+          "6.M.3.1",
+          "6.M.3.2",
+          "6.M.3.3",
+          "6.M.3.4",
+          "6.M.4.1",
+          "6.M.4.2",
+          "6.M.4.3",
+          "6.M.4.4"
+        ],
+        "item_count": 20,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 5,
+          "moderate": 5,
+          "on_level": 5,
+          "challenging": 5
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-1-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Numbers, operations and relationships Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.1.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-1-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Numbers, operations and relationships Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-1-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Numbers, operations and relationships Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-1-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Number patterns Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.1.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-1-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Number patterns Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-1-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Number patterns Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-1-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Space and shape Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.1.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-1-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Space and shape Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-1-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Space and shape Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-1-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Measurement Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.1.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-1-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Measurement Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-1-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Measurement Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-2-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Numbers, operations and relationships Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.2.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-2-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Numbers, operations and relationships Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-2-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Numbers, operations and relationships Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-2-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Fractions Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.2.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-2-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Fractions Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-2-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Fractions Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-2-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Space and shape Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.2.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-2-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Space and shape Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-2-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Space and shape Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-2-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Data handling Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.2.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-2-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Data handling Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-2-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Data handling Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-3-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Numbers, operations and relationships Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.3.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-3-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Numbers, operations and relationships Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-3-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Numbers, operations and relationships Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-3-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Numeric and geometric patterns Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.3.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-3-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Numeric and geometric patterns Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-3-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Numeric and geometric patterns Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-3-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Measurement Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.3.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-3-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Measurement Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-3-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Measurement Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-3-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Data handling Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.3.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-3-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Data handling Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-3-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Data handling Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-4-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Whole numbers and calculations Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.4.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-4-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Whole numbers and calculations Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-4-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Whole numbers and calculations Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-4-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Common fractions Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.4.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-4-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Common fractions Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-4-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Common fractions Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-4-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Geometry of 2-D and 3-D objects Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.4.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-4-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Geometry of 2-D and 3-D objects Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-4-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Geometry of 2-D and 3-D objects Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-4-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Measurement and data Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.4.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-4-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Measurement and data Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade6-mathematics-en-6-M-4-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Measurement and data Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "6.M.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    }
+  ]
+}

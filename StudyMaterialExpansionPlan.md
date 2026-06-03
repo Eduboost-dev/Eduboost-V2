@@ -32,6 +32,78 @@ Verified launch thresholds today:
 
 The content model is sound enough to scale, but the scope registry, validators, artifact naming, generation scripts, and CI gates need to be generalized before bulk population.
 
+## Implementation Status - 2026-06-03
+
+The artifact-layer population batch now covers every registered Grade R to Grade 7 English scope. The registry contains 51 scopes: 1 active launch scope (`grade4_mathematics_en`) and 50 review scopes. All 51 scopes have the required artifact-layer paths and files for topic maps, diagnostic item banks, lessons, assessment blueprints, and study-plan templates. The review-scope generation batch also wrote per-scope run manifests plus `data/generated/run_manifests/all_review_scopes_generation_summary.json`.
+
+Generated review-scope totals from this batch:
+
+- Review scopes populated: 50.
+- Diagnostic items generated: 32,080.
+- Lessons generated: 6,416.
+- Assessment blueprints generated: 2,456.
+- Study-plan template files generated: 50.
+
+Operational caveat: the 50 newly populated non-launch scopes remain `review`, not learner-visible `active`. The generated artifacts are schema-valid, CAPS-ref linked, source-provenance backed, and ready for educator review/promotion workflows; they should not be represented as production-approved curriculum until Phase 7/8 promotion gates and human-review evidence are complete.
+
+## Promotion Readiness Status - 2026-06-03
+
+The next promotion-readiness batch adds file-backed manifests for all generated scope artifacts and extends coverage/promotion gates beyond diagnostic items and lessons. `scripts/curriculum/build_promotion_readiness_manifests.py` now writes per-scope manifests plus `data/generated/promotion_manifests/all_scopes_promotion_readiness_summary.json` with artifact hashes, idempotency keys, layer counts, staging eligibility, production eligibility, and rollback metadata.
+
+Current promotion-readiness summary:
+
+- Scopes evaluated: 51.
+- Staging-eligible scopes: 51.
+- Production-eligible scopes: 1 (`grade4_mathematics_en`).
+- Review-blocked scopes: 50.
+- Learner-visible scopes: 1.
+
+Operational caveat: the 50 review scopes can now be staged from file artifacts, but production promotion remains blocked until educator approval/review evidence is added and the scope status is intentionally changed to `active`.
+
+## Pilot Review Workflow Status - 2026-06-03
+
+The next sharp-scope workflow is now in place for `grade5_mathematics_en`. `scripts/curriculum/build_pilot_review_packet.py` writes `data/generated/review_manifests/grade5_mathematics_en_educator_review.json` and produces a file-to-DB import plan over the generated artifact layers. The pilot currently remains `pending`, not educator-approved, with 833 importable records planned as `pending_review` DB artifacts until real educator approval metadata is attached.
+
+Current pilot state:
+
+- Pilot scope: `grade5_mathematics_en`.
+- Review packet status: `pending`.
+- Importable generated records: 833.
+- Planned DB artifact status: `approved` after `dev_approved` staging unlock.
+- File-to-DB import behavior: idempotent by stable artifact ID/hash; repeat imports update existing artifacts and do not duplicate source or validation evidence rows.
+- `dev_approved` scope count: 50 review scopes.
+- Production activation: blocked until educator approval, legal approval, evidence URLs, approval timestamps, and intentional scope activation are present.
+
+Operational caveat: `dev_approved` is a development/staging unlock only. It does not substitute synthetic approval for educator review or legal review, and it must not unlock learner-visible production promotion by itself.
+
+## File Import Planning Status - 2026-06-03
+
+The Phase 7 file-to-DB staging plan now covers every `review` scope. `scripts/curriculum/build_file_artifact_import_plan.py --status review` writes `data/generated/import_manifests/all_scopes_file_artifact_import_plan.json`, summarizing per-scope record counts, layer counts, stage unlock state, production unlock state, and import blockers before any database mutation is attempted.
+
+Current review-scope import-plan summary:
+
+- Review scopes planned for staging import: 50.
+- Stage-unlocked scopes: 50.
+- Production-unlocked scopes: 0.
+- Planned file artifact records: 41,754.
+- Scopes with import-plan errors: 0.
+
+Operational caveat: the import plan maps `dev_approved` review-scope artifacts to approved Content Factory records for non-production staging/import only. Learner-visible production promotion remains blocked by scope activation plus educator/content and legal approval evidence.
+
+## File Import Rollback Status - 2026-06-03
+
+The Phase 7 rollback side now has a file-backed manifest for the review-scope import plan. `scripts/curriculum/build_file_artifact_rollback_manifest.py --status review` writes `data/generated/rollback_manifests/all_scopes_file_artifact_rollback_manifest.json`, listing the exact generated artifact IDs grouped by scope and layer plus the rollback actions needed to remove file-imported Content Factory records, source evidence rows, and validation evidence rows.
+
+Current review-scope rollback-manifest summary:
+
+- Rollback scopes covered: 50.
+- Rollback-addressable artifact IDs: 41,754.
+- Scopes with rollback-plan errors: 0.
+- Production-unlocked scopes: 0.
+- Rollback supported for staging/import artifacts: yes.
+
+Operational caveat: this rollback manifest covers non-production file-import artifacts. It does not authorize or perform production rollback; production promotion remains unavailable for review scopes until educator/content approval, legal approval, and intentional activation are complete.
+
 ## Target Coverage
 
 ### Supported Grades
@@ -323,6 +395,10 @@ Acceptance checks:
 - Re-running seed scripts does not duplicate artifacts.
 - Promotion can be tested from clean database to active content state.
 - Rollback can remove/promote by manifest ID.
+
+### Dev Approval Policy
+
+`dev_approved` is allowed as an interim development stamp for generated scope artifacts that have been reviewed by the implementation owner for structure, schema validity, source linkage, and staging/import readiness. It may unlock DB import and staging preparation by mapping generated file artifacts to approved Content Factory records for non-production workflows. It must not satisfy production approval. Production remains blocked until educator/content approval and legal approval evidence are recorded separately, with reviewer/approver identity, evidence URL, and timestamp.
 
 ### Phase 8 - Quality, Safety, and Human Review Operations
 

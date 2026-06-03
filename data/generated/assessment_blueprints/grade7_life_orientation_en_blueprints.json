@@ -1,0 +1,874 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T09:47:25Z",
+  "scope": "grade7_life_orientation_en",
+  "source_item_bank": "diagnostic_items",
+  "blueprints": [
+    {
+      "blueprint_id": "grade7-life-orientation-en-baseline-diagnostic-v1",
+      "type": "baseline_diagnostic",
+      "title": "Life Orientation Baseline Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.1.1",
+          "7.LO.1.2",
+          "7.LO.1.3",
+          "7.LO.1.4",
+          "7.LO.2.1",
+          "7.LO.2.2",
+          "7.LO.2.3",
+          "7.LO.2.4",
+          "7.LO.3.1",
+          "7.LO.3.2",
+          "7.LO.3.3",
+          "7.LO.3.4",
+          "7.LO.4.1",
+          "7.LO.4.2",
+          "7.LO.4.3",
+          "7.LO.4.4"
+        ],
+        "item_count": 20,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 5,
+          "moderate": 5,
+          "on_level": 5,
+          "challenging": 5
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-1-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Development of the self in society Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.1.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-1-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Development of the self in society Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-1-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Development of the self in society Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.1.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-1-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Health, social and environmental responsibility Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.1.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-1-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Health, social and environmental responsibility Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-1-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Health, social and environmental responsibility Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.1.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-1-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Physical education Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.1.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-1-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Physical education Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-1-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Physical education Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.1.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-1-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "World of work Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.1.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-1-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "World of work Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-1-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "World of work Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.1.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-2-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Development of the self in society Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.2.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-2-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Development of the self in society Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-2-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Development of the self in society Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.2.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-2-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Constitutional rights and responsibilities Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.2.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-2-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Constitutional rights and responsibilities Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-2-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Constitutional rights and responsibilities Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.2.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-2-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Physical education Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.2.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-2-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Physical education Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-2-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Physical education Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.2.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-2-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Study skills Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.2.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-2-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Study skills Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-2-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Study skills Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.2.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-3-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Health, social and environmental responsibility Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.3.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-3-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Health, social and environmental responsibility Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-3-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Health, social and environmental responsibility Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.3.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-3-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Development of the self in society Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.3.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-3-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Development of the self in society Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-3-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Development of the self in society Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.3.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-3-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Physical education Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.3.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-3-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Physical education Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-3-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Physical education Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.3.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-3-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "World of work Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.3.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-3-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "World of work Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-3-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "World of work Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.3.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-4-1-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Consolidation, revision and assessment Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.4.1"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-4-1-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Consolidation, revision and assessment Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-4-1-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Consolidation, revision and assessment Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.4.1"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-4-2-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Physical education Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.4.2"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-4-2-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Physical education Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-4-2-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Physical education Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.4.2"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-4-3-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Personal development Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.4.3"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-4-3-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Personal development Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-4-3-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Personal development Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.4.3"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-4-4-topic-diagnostic-v1",
+      "type": "topic_diagnostic",
+      "title": "Career awareness Topic Diagnostic",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.4.4"
+        ],
+        "item_count": 12,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 3,
+          "moderate": 3,
+          "on_level": 3,
+          "challenging": 3
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-4-4-short-practice-v1",
+      "type": "short_practice_quiz",
+      "title": "Career awareness Short Practice",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "difficulty_mix": {
+          "easy": 2,
+          "moderate": 2,
+          "on_level": 2,
+          "challenging": 2
+        }
+      },
+      "review_status": "approved"
+    },
+    {
+      "blueprint_id": "grade7-life-orientation-en-7-LO-4-4-recheck-v1",
+      "type": "recheck_assessment",
+      "title": "Career awareness Recheck",
+      "selection_rules": {
+        "caps_refs": [
+          "7.LO.4.4"
+        ],
+        "item_count": 8,
+        "review_status": "approved",
+        "prefer_previously_missed_misconception_tags": true
+      },
+      "review_status": "approved"
+    }
+  ]
+}

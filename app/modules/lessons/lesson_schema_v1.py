@@ -48,6 +48,15 @@ class SubjectEnum(str, Enum):
     afrikaans = "Afrikaans"
     life_skills = "Life Skills"
     natural_sciences = "Natural Sciences"
+    natural_sciences_and_technology = "Natural Sciences and Technology"
+    coding_and_robotics = "Coding and Robotics"
+    home_language = "Home Language"
+    sepedi_first_additional_language = "Sepedi First Additional Language"
+    social_sciences = "Social Sciences"
+    creative_arts = "Creative Arts"
+    economic_management_sciences = "Economic Management Sciences"
+    life_orientation = "Life Orientation"
+    technology = "Technology"
 
 
 class DifficultyLevel(str, Enum):
@@ -181,14 +190,14 @@ class LessonCreate(BaseModel):
     # ── Identity & CAPS location ──────────────────────────────────────────
     caps_ref: str = Field(
         ...,
-        pattern=r"^\d+\.[A-Z]+\.\d+(\.\d+)?(\.\d+)?$",
+        pattern=r"^(?:R|\d+)\.[A-Z]+\.\d+(\.\d+)?(\.\d+)?$",
         description=(
             "CAPS reference code: Grade.Subject.Term[.TopicIndex[.SubtopicIndex]]. "
             "E.g. '4.M.1.1' = Grade 4, Maths, Term 1, Topic 1 (Whole Numbers)."
         ),
-        examples=["4.M.1.1", "4.M.1.2", "4.M.2.1"],
+        examples=["4.M.1.1", "4.M.1.2", "4.M.2.1", "R.LS.1.1"],
     )
-    grade: int = Field(..., ge=1, le=7, description="Grade level.")
+    grade: int = Field(..., ge=0, le=7, description="Grade level. Grade R is represented as 0.")
     subject: SubjectEnum
     term: int = Field(..., ge=1, le=4, description="CAPS term number.")
     topic: str = Field(..., min_length=3, description="Topic name from the CAPS topic map.")
@@ -285,10 +294,11 @@ class LessonCreate(BaseModel):
     @model_validator(mode="after")
     def grade_must_match_caps_ref(self) -> "LessonCreate":
         """The grade prefix in caps_ref must match the grade field."""
-        ref_grade = int(self.caps_ref.split(".")[0])
+        ref_grade_label = self.caps_ref.split(".")[0]
+        ref_grade = 0 if ref_grade_label.upper() == "R" else int(ref_grade_label)
         if ref_grade != self.grade:
             raise ValueError(
-                f"caps_ref grade prefix '{ref_grade}' does not match grade field '{self.grade}'"
+                f"caps_ref grade prefix '{ref_grade_label}' does not match grade field '{self.grade}'"
             )
         return self
 
