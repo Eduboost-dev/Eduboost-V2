@@ -96,6 +96,27 @@ def test_import_plan_switches_to_approved_with_dev_approval(tmp_path: Path) -> N
     assert not plan.errors
 
 
+def test_batch_import_plan_summarizes_dev_approved_review_scopes() -> None:
+    importer = ContentFileArtifactImportService(project_root=REPO_ROOT)
+
+    batch = importer.plan_scope_imports(statuses={"review"}, max_records_per_layer=1)
+    manifest = batch.to_manifest()
+
+    assert manifest["summary"]["scope_count"] == 50
+    assert manifest["summary"]["stage_unlocked"] == 50
+    assert manifest["summary"]["production_unlocked"] == 0
+    assert manifest["summary"]["total_records"] == 200
+    assert manifest["summary"]["scopes_with_errors"] == 0
+    grade5 = next(row for row in manifest["scopes"] if row["scope_id"] == "grade5_mathematics_en")
+    assert grade5["db_status"] == "approved"
+    assert grade5["layers"] == {
+        "diagnostic_items": 1,
+        "lessons": 1,
+        "assessment_blueprints": 1,
+        "study_plan_templates": 1,
+    }
+
+
 def test_promotion_readiness_reports_pilot_review_evidence() -> None:
     readiness = ContentFilePromotionReadinessService(project_root=REPO_ROOT).evaluate_scope("grade5_mathematics_en")
 

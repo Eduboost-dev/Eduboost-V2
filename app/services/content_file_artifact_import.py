@@ -58,6 +58,39 @@ class FileArtifactImportPlan:
     source_count: int = 0
 
 
+@dataclass(frozen=True)
+class FileArtifactImportBatchPlan:
+    scope_count: int
+    stage_unlocked: int
+    production_unlocked: int
+    total_records: int
+    scopes_with_errors: int
+    plans: list[FileArtifactImportPlan] = field(default_factory=list)
+
+    def to_manifest(self) -> dict[str, Any]:
+        return {
+            "schema_version": "1.0",
+            "summary": {
+                "scope_count": self.scope_count,
+                "stage_unlocked": self.stage_unlocked,
+                "production_unlocked": self.production_unlocked,
+                "total_records": self.total_records,
+                "scopes_with_errors": self.scopes_with_errors,
+            },
+            "scopes": [
+                {
+                    "scope_id": plan.scope_id,
+                    "review_status": plan.review_status,
+                    "db_status": plan.db_status,
+                    "record_count": len(plan.records),
+                    "errors": plan.errors,
+                    "layers": _layer_counts(plan.records),
+                }
+                for plan in self.plans
+            ],
+        }
+
+
 class ContentFileArtifactImportService:
     """Plan and execute imports from generated JSON files into reviewable DB artifacts."""
 
@@ -109,6 +142,46 @@ class ContentFileArtifactImportService:
                     )
                 )
         return FileArtifactImportPlan(scope_id=scope.scope_id, review_status=review.status, db_status=db_status, records=records, errors=errors)
+
+    def plan_scope_imports(
+        self,
+        *,
+        scope_ids: list[str] | None = None,
+        statuses: set[str] | None = None,
+        max_records_per_layer: int | None = None,
+    ) -> FileArtifactImportBatchPlan:
+        scopes = self.registry.list_scopes()
+        if scope_ids is not None:
+            wanted = set(scope_ids)
+            scopes = [scope for scope in scopes if scope.scope_id in wanted]
+            missing = sorted(wanted - {scope.scope_id for scope in scopes})
+            if missing:
+                raise LookupError(f"Unknown content scopes: {missing}")
+        if statuses is not None:
+            scopes = [scope for scope in scopes if scope.status.value in statuses]
+
+        plans = [
+            self.plan_scope_import(scope.scope_id, max_records_per_layer=max_records_per_layer)
+            for scope in scopes
+        ]
+        stage_unlocked = sum(
+            1
+            for plan in plans
+            if plan.db_status == ContentArtifactStatus.APPROVED.value and not plan.errors
+        )
+        production_unlocked = sum(
+            1
+            for plan in plans
+            if self.review_service.review_status(plan.scope_id).production_unlocked and not plan.errors
+        )
+        return FileArtifactImportBatchPlan(
+            scope_count=len(plans),
+            stage_unlocked=stage_unlocked,
+            production_unlocked=production_unlocked,
+            total_records=sum(len(plan.records) for plan in plans),
+            scopes_with_errors=sum(1 for plan in plans if plan.errors),
+            plans=plans,
+        )
 
     async def import_scope_files(
         self,
@@ -242,3 +315,10 @@ def _caps_ref_for(path_key: str, item: dict[str, Any]) -> str | None:
     if refs:
         return str(refs[0])
     return None
+
+
+def _layer_counts(records: list[FileArtifactImportRecord]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for record in records:
+        counts[record.layer] = counts.get(record.layer, 0) + 1
+    return counts

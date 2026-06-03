@@ -76,6 +76,20 @@ Current pilot state:
 
 Operational caveat: `dev_approved` is a development/staging unlock only. It does not substitute synthetic approval for educator review or legal review, and it must not unlock learner-visible production promotion by itself.
 
+## File Import Planning Status - 2026-06-03
+
+The Phase 7 file-to-DB staging plan now covers every `review` scope. `scripts/curriculum/build_file_artifact_import_plan.py --status review` writes `data/generated/import_manifests/all_scopes_file_artifact_import_plan.json`, summarizing per-scope record counts, layer counts, stage unlock state, production unlock state, and import blockers before any database mutation is attempted.
+
+Current review-scope import-plan summary:
+
+- Review scopes planned for staging import: 50.
+- Stage-unlocked scopes: 50.
+- Production-unlocked scopes: 0.
+- Planned file artifact records: 41,754.
+- Scopes with import-plan errors: 0.
+
+Operational caveat: the import plan maps `dev_approved` review-scope artifacts to approved Content Factory records for non-production staging/import only. Learner-visible production promotion remains blocked by scope activation plus educator/content and legal approval evidence.
+
 ## Target Coverage
 
 ### Supported Grades
