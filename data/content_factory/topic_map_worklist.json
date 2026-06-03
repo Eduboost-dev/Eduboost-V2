@@ -4,13 +4,9 @@
   "validation_errors": [],
   "summary": {
     "scopes_total": 51,
-    "scopes_generation_ready": 2,
-    "scopes_needing_topic_map": 49,
-    "source_documents_distinct": 23,
-    "tasks.activate_scope": 49,
-    "tasks.approve_scope_caps_refs": 49,
-    "tasks.approve_topic_map": 45,
-    "tasks.extract_topic_map": 49
+    "scopes_generation_ready": 51,
+    "scopes_needing_topic_map": 0,
+    "source_documents_distinct": 23
   },
   "items": [
     {
@@ -20,9 +16,9 @@
       "subject": "Coding and Robotics",
       "subject_code": "CR",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade1_coding_and_robotics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade1_coding_and_robotics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_coding_and_robotics_en"
       ],
@@ -44,13 +40,8 @@
       "text_sha256": [
         "b22fbe28e9ab09bd85539e1062e72473059edc8d6e8a24b725b1e421ff6f9c95"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade1_home_language_en",
@@ -59,9 +50,9 @@
       "subject": "Home Language",
       "subject_code": "HL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade1_home_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade1_home_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_home_language_en"
       ],
@@ -83,13 +74,8 @@
       "text_sha256": [
         "905a050d465b6d82fd25e0d90498d737374e5fe02a82bc40d9fc4977540fae41"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade1_life_skills_en",
@@ -98,9 +84,9 @@
       "subject": "Life Skills",
       "subject_code": "LS",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade1_life_skills_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade1_life_skills_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_life_skills_en"
       ],
@@ -122,13 +108,8 @@
       "text_sha256": [
         "24344b141eebb8e9641c2c275421ee6127e6df6e43109f6a6fa2e77c66c0cfba"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade1_mathematics_en",
@@ -137,9 +118,9 @@
       "subject": "Mathematics",
       "subject_code": "M",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade1_mathematics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade1_mathematics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_mathematics_en"
       ],
@@ -161,13 +142,8 @@
       "text_sha256": [
         "412850fb59e863bf2fc80de7a3fb16e8cd6a012870c9dbacdb1043c1f23f58c9"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade1_sepedi_first_additional_language_en",
@@ -176,9 +152,9 @@
       "subject": "Sepedi First Additional Language",
       "subject_code": "FAL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade1_sepedi_first_additional_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade1_sepedi_first_additional_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_sepedi_first_additional_language_en"
       ],
@@ -200,13 +176,8 @@
       "text_sha256": [
         "6b0b8ae1613c830dd5c6787e0454a08fc288093324dd2dd3c51e731a5b1d8d67"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade2_coding_and_robotics_en",
@@ -215,9 +186,9 @@
       "subject": "Coding and Robotics",
       "subject_code": "CR",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade2_coding_and_robotics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade2_coding_and_robotics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_coding_and_robotics_en"
       ],
@@ -239,13 +210,8 @@
       "text_sha256": [
         "b22fbe28e9ab09bd85539e1062e72473059edc8d6e8a24b725b1e421ff6f9c95"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade2_home_language_en",
@@ -254,9 +220,9 @@
       "subject": "Home Language",
       "subject_code": "HL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade2_home_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade2_home_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_home_language_en"
       ],
@@ -278,13 +244,8 @@
       "text_sha256": [
         "905a050d465b6d82fd25e0d90498d737374e5fe02a82bc40d9fc4977540fae41"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade2_life_skills_en",
@@ -293,9 +254,9 @@
       "subject": "Life Skills",
       "subject_code": "LS",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade2_life_skills_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade2_life_skills_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_life_skills_en"
       ],
@@ -317,13 +278,8 @@
       "text_sha256": [
         "24344b141eebb8e9641c2c275421ee6127e6df6e43109f6a6fa2e77c66c0cfba"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade2_mathematics_en",
@@ -332,9 +288,9 @@
       "subject": "Mathematics",
       "subject_code": "M",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade2_mathematics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade2_mathematics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_mathematics_en"
       ],
@@ -356,13 +312,8 @@
       "text_sha256": [
         "412850fb59e863bf2fc80de7a3fb16e8cd6a012870c9dbacdb1043c1f23f58c9"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade2_sepedi_first_additional_language_en",
@@ -371,9 +322,9 @@
       "subject": "Sepedi First Additional Language",
       "subject_code": "FAL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade2_sepedi_first_additional_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade2_sepedi_first_additional_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_sepedi_first_additional_language_en"
       ],
@@ -395,13 +346,8 @@
       "text_sha256": [
         "6b0b8ae1613c830dd5c6787e0454a08fc288093324dd2dd3c51e731a5b1d8d67"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade3_coding_and_robotics_en",
@@ -410,9 +356,9 @@
       "subject": "Coding and Robotics",
       "subject_code": "CR",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade3_coding_and_robotics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade3_coding_and_robotics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_coding_and_robotics_en"
       ],
@@ -434,13 +380,8 @@
       "text_sha256": [
         "b22fbe28e9ab09bd85539e1062e72473059edc8d6e8a24b725b1e421ff6f9c95"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade3_home_language_en",
@@ -449,9 +390,9 @@
       "subject": "Home Language",
       "subject_code": "HL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade3_home_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade3_home_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_home_language_en"
       ],
@@ -473,13 +414,8 @@
       "text_sha256": [
         "905a050d465b6d82fd25e0d90498d737374e5fe02a82bc40d9fc4977540fae41"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade3_life_skills_en",
@@ -488,9 +424,9 @@
       "subject": "Life Skills",
       "subject_code": "LS",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade3_life_skills_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade3_life_skills_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_life_skills_en"
       ],
@@ -512,13 +448,8 @@
       "text_sha256": [
         "24344b141eebb8e9641c2c275421ee6127e6df6e43109f6a6fa2e77c66c0cfba"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade3_mathematics_en",
@@ -527,9 +458,9 @@
       "subject": "Mathematics",
       "subject_code": "M",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade3_mathematics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade3_mathematics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_mathematics_en"
       ],
@@ -551,13 +482,8 @@
       "text_sha256": [
         "412850fb59e863bf2fc80de7a3fb16e8cd6a012870c9dbacdb1043c1f23f58c9"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade3_sepedi_first_additional_language_en",
@@ -566,9 +492,9 @@
       "subject": "Sepedi First Additional Language",
       "subject_code": "FAL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade3_sepedi_first_additional_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade3_sepedi_first_additional_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_sepedi_first_additional_language_en"
       ],
@@ -590,13 +516,8 @@
       "text_sha256": [
         "6b0b8ae1613c830dd5c6787e0454a08fc288093324dd2dd3c51e731a5b1d8d67"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade4_coding_and_robotics_en",
@@ -605,9 +526,9 @@
       "subject": "Coding and Robotics",
       "subject_code": "CR",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade4_coding_and_robotics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade4_coding_and_robotics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_coding_and_robotics_en"
       ],
@@ -629,13 +550,8 @@
       "text_sha256": [
         "4733d42c6ba335cbeaf1f914f4bc2717a0ad44a51f122e8b38fe953fec3c959d"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade4_home_language_en",
@@ -644,9 +560,9 @@
       "subject": "Home Language",
       "subject_code": "HL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade4_home_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade4_home_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_home_language_en"
       ],
@@ -668,13 +584,8 @@
       "text_sha256": [
         "19c78b01fd4fe1ed3abfb0ab9770b2c223e3412777323d047d1f1274452f051d"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade4_life_skills_en",
@@ -683,9 +594,9 @@
       "subject": "Life Skills",
       "subject_code": "LS",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade4_life_skills_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade4_life_skills_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_life_skills_en"
       ],
@@ -707,13 +618,8 @@
       "text_sha256": [
         "1aa10302db0e31b53068240372929439a3709be55c6d350cbcb63f3b7f04ec0f"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade4_mathematics_en",
@@ -790,9 +696,9 @@
       "subject": "Sepedi First Additional Language",
       "subject_code": "FAL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade4_sepedi_first_additional_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade4_sepedi_first_additional_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_sepedi_first_additional_language_en"
       ],
@@ -814,13 +720,8 @@
       "text_sha256": [
         "24a857650c7352e5415897e74c1c50ab085c51f7ad9f709ffd58b5a62ca92fd5"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade4_social_sciences_en",
@@ -829,9 +730,9 @@
       "subject": "Social Sciences",
       "subject_code": "SS",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade4_social_sciences_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade4_social_sciences_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_social_sciences_en"
       ],
@@ -853,13 +754,8 @@
       "text_sha256": [
         "53a4bf180026586db6a0fe22fa0f5a0657c6c74cc485e6f8ee1aec5c49545c42"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade5_coding_and_robotics_en",
@@ -868,9 +764,9 @@
       "subject": "Coding and Robotics",
       "subject_code": "CR",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade5_coding_and_robotics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade5_coding_and_robotics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_coding_and_robotics_en"
       ],
@@ -892,13 +788,8 @@
       "text_sha256": [
         "4733d42c6ba335cbeaf1f914f4bc2717a0ad44a51f122e8b38fe953fec3c959d"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade5_home_language_en",
@@ -907,9 +798,9 @@
       "subject": "Home Language",
       "subject_code": "HL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade5_home_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade5_home_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_home_language_en"
       ],
@@ -931,13 +822,8 @@
       "text_sha256": [
         "19c78b01fd4fe1ed3abfb0ab9770b2c223e3412777323d047d1f1274452f051d"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade5_life_skills_en",
@@ -946,9 +832,9 @@
       "subject": "Life Skills",
       "subject_code": "LS",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade5_life_skills_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade5_life_skills_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_life_skills_en"
       ],
@@ -970,13 +856,8 @@
       "text_sha256": [
         "1aa10302db0e31b53068240372929439a3709be55c6d350cbcb63f3b7f04ec0f"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade5_mathematics_en",
@@ -985,9 +866,9 @@
       "subject": "Mathematics",
       "subject_code": "M",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade5_mathematics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade5_mathematics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_phase_mathematics_grade4_6"
       ],
@@ -1009,12 +890,8 @@
       "text_sha256": [
         "e291455486c67cd2da7f4c76ee815d47a498a7d4886f397385cea07c73b7c390"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade5_natural_sciences_and_technology_en",
@@ -1023,9 +900,9 @@
       "subject": "Natural Sciences and Technology",
       "subject_code": "NST",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade5_natural_sciences_and_technology_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade5_natural_sciences_and_technology_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_natural_sciences_and_technology_en"
       ],
@@ -1047,12 +924,8 @@
       "text_sha256": [
         "234d9969bfda8e948f2908c9cfc880072755759382b4eb60419ca5391d2958e1"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade5_sepedi_first_additional_language_en",
@@ -1061,9 +934,9 @@
       "subject": "Sepedi First Additional Language",
       "subject_code": "FAL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade5_sepedi_first_additional_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade5_sepedi_first_additional_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_sepedi_first_additional_language_en"
       ],
@@ -1085,13 +958,8 @@
       "text_sha256": [
         "24a857650c7352e5415897e74c1c50ab085c51f7ad9f709ffd58b5a62ca92fd5"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade5_social_sciences_en",
@@ -1100,9 +968,9 @@
       "subject": "Social Sciences",
       "subject_code": "SS",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade5_social_sciences_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade5_social_sciences_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_social_sciences_en"
       ],
@@ -1124,13 +992,8 @@
       "text_sha256": [
         "53a4bf180026586db6a0fe22fa0f5a0657c6c74cc485e6f8ee1aec5c49545c42"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade6_coding_and_robotics_en",
@@ -1139,9 +1002,9 @@
       "subject": "Coding and Robotics",
       "subject_code": "CR",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade6_coding_and_robotics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade6_coding_and_robotics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_coding_and_robotics_en"
       ],
@@ -1163,13 +1026,8 @@
       "text_sha256": [
         "4733d42c6ba335cbeaf1f914f4bc2717a0ad44a51f122e8b38fe953fec3c959d"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade6_home_language_en",
@@ -1178,9 +1036,9 @@
       "subject": "Home Language",
       "subject_code": "HL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade6_home_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade6_home_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_home_language_en"
       ],
@@ -1202,13 +1060,8 @@
       "text_sha256": [
         "19c78b01fd4fe1ed3abfb0ab9770b2c223e3412777323d047d1f1274452f051d"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade6_life_skills_en",
@@ -1217,9 +1070,9 @@
       "subject": "Life Skills",
       "subject_code": "LS",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade6_life_skills_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade6_life_skills_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_life_skills_en"
       ],
@@ -1241,13 +1094,8 @@
       "text_sha256": [
         "1aa10302db0e31b53068240372929439a3709be55c6d350cbcb63f3b7f04ec0f"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade6_mathematics_en",
@@ -1256,9 +1104,9 @@
       "subject": "Mathematics",
       "subject_code": "M",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade6_mathematics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade6_mathematics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_phase_mathematics_grade4_6"
       ],
@@ -1280,12 +1128,8 @@
       "text_sha256": [
         "e291455486c67cd2da7f4c76ee815d47a498a7d4886f397385cea07c73b7c390"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade6_natural_sciences_and_technology_en",
@@ -1294,9 +1138,9 @@
       "subject": "Natural Sciences and Technology",
       "subject_code": "NST",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade6_natural_sciences_and_technology_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade6_natural_sciences_and_technology_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_natural_sciences_and_technology_en"
       ],
@@ -1318,12 +1162,8 @@
       "text_sha256": [
         "234d9969bfda8e948f2908c9cfc880072755759382b4eb60419ca5391d2958e1"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade6_sepedi_first_additional_language_en",
@@ -1332,9 +1172,9 @@
       "subject": "Sepedi First Additional Language",
       "subject_code": "FAL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade6_sepedi_first_additional_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade6_sepedi_first_additional_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_sepedi_first_additional_language_en"
       ],
@@ -1356,13 +1196,8 @@
       "text_sha256": [
         "24a857650c7352e5415897e74c1c50ab085c51f7ad9f709ffd58b5a62ca92fd5"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade6_social_sciences_en",
@@ -1371,9 +1206,9 @@
       "subject": "Social Sciences",
       "subject_code": "SS",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade6_social_sciences_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade6_social_sciences_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_intermediate_social_sciences_en"
       ],
@@ -1395,13 +1230,8 @@
       "text_sha256": [
         "53a4bf180026586db6a0fe22fa0f5a0657c6c74cc485e6f8ee1aec5c49545c42"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade7_coding_and_robotics_en",
@@ -1410,9 +1240,9 @@
       "subject": "Coding and Robotics",
       "subject_code": "CR",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade7_coding_and_robotics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade7_coding_and_robotics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_senior_coding_and_robotics_en"
       ],
@@ -1434,13 +1264,8 @@
       "text_sha256": [
         "efedbdecb16a8e94a05b24baed59741095017e8125fe42ebdab3d4035b84c36c"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade7_creative_arts_en",
@@ -1449,9 +1274,9 @@
       "subject": "Creative Arts",
       "subject_code": "CA",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade7_creative_arts_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade7_creative_arts_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_senior_creative_arts_en"
       ],
@@ -1473,13 +1298,8 @@
       "text_sha256": [
         "5fffa3b64dc5d1f7df98f59159aefdd07536df2e5e2223bc4945c412d8273534"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade7_economic_management_sciences_en",
@@ -1488,9 +1308,9 @@
       "subject": "Economic Management Sciences",
       "subject_code": "EMS",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade7_economic_management_sciences_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade7_economic_management_sciences_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_senior_economic_management_sciences_en"
       ],
@@ -1512,13 +1332,8 @@
       "text_sha256": [
         "0e834513fe59049b33f5f2dc7478d11b592903dbe5c94c8cc5e9f6d46e600873"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade7_home_language_en",
@@ -1527,9 +1342,9 @@
       "subject": "Home Language",
       "subject_code": "HL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade7_home_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade7_home_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_senior_home_language_en"
       ],
@@ -1551,13 +1366,8 @@
       "text_sha256": [
         "d59d2f2862a0445241867ca137a9ffaf4bc55f6831e9a748908340b164ff7a39"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade7_life_orientation_en",
@@ -1566,9 +1376,9 @@
       "subject": "Life Orientation",
       "subject_code": "LO",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade7_life_orientation_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade7_life_orientation_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_senior_life_orientation_en"
       ],
@@ -1590,13 +1400,8 @@
       "text_sha256": [
         "f47c2ff9f780eefb3a43486bbf0a6b6ab15b146a090c05591002eef78d1b4d7f"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade7_mathematics_en",
@@ -1605,9 +1410,9 @@
       "subject": "Mathematics",
       "subject_code": "M",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade7_mathematics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade7_mathematics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_senior_mathematics_en"
       ],
@@ -1629,13 +1434,8 @@
       "text_sha256": [
         "881f88f60186856703767333a0c3f2331b8aeebb52dd11fcf46c2f25c90d3c33"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade7_natural_sciences_en",
@@ -1644,9 +1444,9 @@
       "subject": "Natural Sciences",
       "subject_code": "NS",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade7_natural_sciences_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade7_natural_sciences_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_senior_natural_sciences_en"
       ],
@@ -1668,13 +1468,8 @@
       "text_sha256": [
         "b7c9ea0bfbb4760ae612dd5a16b8848dd579a7ff28f64d5dc5b50cc2a2a2d455"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade7_sepedi_first_additional_language_en",
@@ -1683,9 +1478,9 @@
       "subject": "Sepedi First Additional Language",
       "subject_code": "FAL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade7_sepedi_first_additional_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade7_sepedi_first_additional_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_senior_sepedi_first_additional_language_en"
       ],
@@ -1707,13 +1502,8 @@
       "text_sha256": [
         "1c6afca6d7a33ee328d9cac896a0c4473ab1e2a1817f6216fabb9c53ab970944"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade7_social_sciences_en",
@@ -1722,9 +1512,9 @@
       "subject": "Social Sciences",
       "subject_code": "SS",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade7_social_sciences_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade7_social_sciences_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_senior_social_sciences_en"
       ],
@@ -1746,13 +1536,8 @@
       "text_sha256": [
         "3063b27aeec6f29d6da2b3912bc176177881fa16e30a9e6cce0abe2f2086fdd9"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grade7_technology_en",
@@ -1761,9 +1546,9 @@
       "subject": "Technology",
       "subject_code": "TECH",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grade7_technology_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grade7_technology_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_senior_technology_en"
       ],
@@ -1785,13 +1570,8 @@
       "text_sha256": [
         "050cda29cd6443243e53be18087da31ecfc6c46e3c3c69fe20cb724086118c50"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grader_coding_and_robotics_en",
@@ -1800,9 +1580,9 @@
       "subject": "Coding and Robotics",
       "subject_code": "CR",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grader_coding_and_robotics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grader_coding_and_robotics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_coding_and_robotics_en"
       ],
@@ -1824,13 +1604,8 @@
       "text_sha256": [
         "b22fbe28e9ab09bd85539e1062e72473059edc8d6e8a24b725b1e421ff6f9c95"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grader_home_language_en",
@@ -1839,9 +1614,9 @@
       "subject": "Home Language",
       "subject_code": "HL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grader_home_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grader_home_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_home_language_en"
       ],
@@ -1863,13 +1638,8 @@
       "text_sha256": [
         "905a050d465b6d82fd25e0d90498d737374e5fe02a82bc40d9fc4977540fae41"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grader_life_skills_en",
@@ -1878,9 +1648,9 @@
       "subject": "Life Skills",
       "subject_code": "LS",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grader_life_skills_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grader_life_skills_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_life_skills_en"
       ],
@@ -1902,13 +1672,8 @@
       "text_sha256": [
         "24344b141eebb8e9641c2c275421ee6127e6df6e43109f6a6fa2e77c66c0cfba"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grader_mathematics_en",
@@ -1917,9 +1682,9 @@
       "subject": "Mathematics",
       "subject_code": "M",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grader_mathematics_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grader_mathematics_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_mathematics_grade_r_en"
       ],
@@ -1941,13 +1706,8 @@
       "text_sha256": [
         "62640f63728d5830d27c5c98e9f51094b7745953dc087ce2495b628eb3fbb38f"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     },
     {
       "scope_id": "grader_sepedi_first_additional_language_en",
@@ -1956,9 +1716,9 @@
       "subject": "Sepedi First Additional Language",
       "subject_code": "FAL",
       "language": "en",
-      "topic_map_path": null,
+      "topic_map_path": "data/caps/topic_maps/grader_sepedi_first_additional_language_en.json",
       "suggested_topic_map_path": "data/caps/topic_maps/grader_sepedi_first_additional_language_en.json",
-      "caps_refs_count": 0,
+      "caps_refs_count": 16,
       "source_document_ids": [
         "caps_foundation_sepedi_first_additional_language_en"
       ],
@@ -1980,13 +1740,8 @@
       "text_sha256": [
         "6b0b8ae1613c830dd5c6787e0454a08fc288093324dd2dd3c51e731a5b1d8d67"
       ],
-      "generation_ready": false,
-      "outstanding_tasks": [
-        "extract_topic_map",
-        "approve_scope_caps_refs",
-        "approve_topic_map",
-        "activate_scope"
-      ]
+      "generation_ready": true,
+      "outstanding_tasks": []
     }
   ]
 }

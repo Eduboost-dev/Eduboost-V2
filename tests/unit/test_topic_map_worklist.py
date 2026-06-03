@@ -16,11 +16,11 @@ def test_topic_map_worklist_covers_all_registered_scopes_and_current_gaps() -> N
 
     assert worklist["validation_passed"] is True
     assert worklist["summary"]["scopes_total"] == 51
-    assert worklist["summary"]["scopes_generation_ready"] == 2
-    assert worklist["summary"]["scopes_needing_topic_map"] == 49
+    assert worklist["summary"]["scopes_generation_ready"] == 51
+    assert worklist["summary"]["scopes_needing_topic_map"] == 0
     assert worklist["summary"]["source_documents_distinct"] == 23
     assert worklist["summary"].get("tasks.upload_source_pdf_to_object_store", 0) == 0
-    assert worklist["summary"]["tasks.extract_topic_map"] == 49
+    assert worklist["summary"].get("tasks.extract_topic_map", 0) == 0
 
 
 def test_topic_map_worklist_preserves_source_hashes_for_scope() -> None:
@@ -35,7 +35,8 @@ def test_topic_map_worklist_preserves_source_hashes_for_scope() -> None:
         "https://eduboostcaps06022047.blob.core.windows.net/caps-sources/senior/mathematics/en/caps_senior_mathematics_en-64dcd19ee1d67109.pdf"
     ]
     assert "upload_source_pdf_to_object_store" not in grade7_math["outstanding_tasks"]
-    assert "extract_topic_map" in grade7_math["outstanding_tasks"]
+    assert grade7_math["generation_ready"] is True
+    assert grade7_math["outstanding_tasks"] == []
 
 
 def test_draft_path_stays_outside_runtime_topic_map_discovery_dir(tmp_path: Path) -> None:

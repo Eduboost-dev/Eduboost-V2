@@ -1060,7 +1060,7 @@ Language-role subjects should be represented explicitly in `subject_code`, `subj
 
 ## Implementation Update — 2026-06-03
 
-Grade 4 Natural Sciences and Technology is now the first reviewed non-mathematics runtime topic map in the expansion lane. The source document caps_intermediate_natural_sciences_and_technology_en is marked topic_map_approved, the scope grade4_natural_sciences_and_technology_en is in review status with 18 topic-level CAPS refs, and learner visibility remains gated separately by active scope status plus strict content validation. The remaining topic-map extraction gap is 49 scopes.
+All registered Grade R-7 scopes now have runtime topic maps, reviewed draft envelopes, CAPS refs, coverage targets, and topic_map_approved source provenance. Grade 4 Mathematics remains the only active learner-visible launch scope; the other 50 scopes are in review status and are generation-ready without being learner-visible. The remaining topic-map extraction gap is 0 scopes.
 
 ## Appendix D — Official DBE Source Catalogue
 

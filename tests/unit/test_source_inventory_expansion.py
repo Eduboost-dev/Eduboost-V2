@@ -24,7 +24,7 @@ def test_sepedi_fal_replaces_generic_first_additional_language_scopes() -> None:
     assert scope.source_documents == ["caps_intermediate_sepedi_first_additional_language_en"]
 
 
-def test_coding_and_robotics_planned_scopes_are_registered_for_grade_r_to_7() -> None:
+def test_coding_and_robotics_review_scopes_are_registered_for_grade_r_to_7() -> None:
     registry = ContentScopeRegistry()
 
     for scope_id in [
@@ -34,10 +34,11 @@ def test_coding_and_robotics_planned_scopes_are_registered_for_grade_r_to_7() ->
         "grade7_coding_and_robotics_en",
     ]:
         scope = registry.get_scope(scope_id)
-        assert scope.status.value == "planned"
+        assert scope.status.value == "review"
         assert scope.subject == "Coding and Robotics"
         assert scope.subject_code == "CR"
-        assert scope.caps_refs == []
+        assert scope.caps_refs
+        assert scope.topic_map_path
 
 
 def test_source_manifest_contains_sepedi_and_coding_documents() -> None:
@@ -50,7 +51,7 @@ def test_source_manifest_contains_sepedi_and_coding_documents() -> None:
     assert sepedi.language_code == "nso"
 
     coding = documents["caps_senior_coding_and_robotics_en"]
-    assert coding.status == SourceDocumentStatus.SOURCE_LOADED
+    assert coding.status == SourceDocumentStatus.TOPIC_MAP_APPROVED
     assert coding.subjects == ["Coding and Robotics"]
     assert coding.language_role == "content_subject"
     assert coding.source_path == "data/caps/source_documents/raw/caps_senior_coding_and_robotics_en.pdf"
@@ -61,10 +62,7 @@ def test_source_manifest_validation_passes_after_scope_expansion() -> None:
     result = validate_source_manifest()
 
     assert result.passed is True
-    assert result.generation_ready_scope_ids == [
-        "grade4_mathematics_en",
-        "grade4_natural_sciences_and_technology_en",
-    ]
+    assert len(result.generation_ready_scope_ids) == 51
 
 
 def test_source_inventory_reports_generation_ready_and_missing_source_gaps() -> None:
@@ -80,10 +78,10 @@ def test_source_inventory_reports_generation_ready_and_missing_source_gaps() -> 
     assert rows["grade7_coding_and_robotics_en"]["has_url"] is True
     assert rows["grade7_coding_and_robotics_en"]["has_hash"] is True
     assert rows["grade7_coding_and_robotics_en"]["has_object_uri"] is True
-    assert rows["grade7_coding_and_robotics_en"]["gap_reason"] == "not_generation_ready"
-    assert rows["grade7_coding_and_robotics_en"]["is_generation_ready"] is False
+    assert rows["grade7_coding_and_robotics_en"]["gap_reason"] == "ok"
+    assert rows["grade7_coding_and_robotics_en"]["is_generation_ready"] is True
     assert report["summary"].get("missing_canonical_source_url", 0) == 0
     assert report["summary"].get("missing_sha256", 0) == 0
     assert report["summary"].get("missing_object_store_uri", 0) == 0
-    assert report["summary"]["not_generation_ready"] == 49
-    assert report["summary"]["ok"] == 2
+    assert report["summary"].get("not_generation_ready", 0) == 0
+    assert report["summary"]["ok"] == 51
