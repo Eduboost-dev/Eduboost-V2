@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T10:10:49Z",
+  "scope_id": "grader_home_language_en",
+  "grade": 0,
+  "phase": "foundation",
+  "subject_code": "HL",
+  "subject": "Home Language",
+  "language": "en",
+  "status": "review",
+  "learner_visible": false,
+  "source_ready": true,
+  "staging_eligible": true,
+  "production_eligible": false,
+  "caps_ref_count": 16,
+  "layers": {
+    "topic_map": {
+      "layer": "topic_map",
+      "relative_path": "data/caps/topic_maps/grader_home_language_en.json",
+      "exists": true,
+      "sha256": "sha256:c016ce330bf708566da1a0175ae62ffe3c81f8e5c511b6fe88e596284859aacd",
+      "record_count": 32,
+      "approved_count": 32,
+      "review_ready_count": 32,
+      "idempotency_key": "grader_home_language_en:topic_map:sha256:c016ce330bf708566da1a0175ae62ffe3c81f8e5c511b6fe88e596284859aacd"
+    },
+    "diagnostic_items": {
+      "layer": "diagnostic_items",
+      "relative_path": "data/generated/items/grader_home_language_en_item_bank.json",
+      "exists": true,
+      "sha256": "sha256:6bbf765a2a88df6f255b13ad4dd061a2d8c5abd6c05a622b19ed8911b560769a",
+      "record_count": 640,
+      "approved_count": 640,
+      "review_ready_count": 640,
+      "idempotency_key": "grader_home_language_en:diagnostic_items:sha256:6bbf765a2a88df6f255b13ad4dd061a2d8c5abd6c05a622b19ed8911b560769a"
+    },
+    "lessons": {
+      "layer": "lessons",
+      "relative_path": "data/generated/lessons/grader_home_language_en_lessons.json",
+      "exists": true,
+      "sha256": "sha256:a9efade27d6093bb7418b8d1a2adac54b34c99d9d865bd0a903a428e126ba5a0",
+      "record_count": 128,
+      "approved_count": 128,
+      "review_ready_count": 128,
+      "idempotency_key": "grader_home_language_en:lessons:sha256:a9efade27d6093bb7418b8d1a2adac54b34c99d9d865bd0a903a428e126ba5a0"
+    },
+    "assessment_blueprints": {
+      "layer": "assessment_blueprints",
+      "relative_path": "data/generated/assessment_blueprints/grader_home_language_en_blueprints.json",
+      "exists": true,
+      "sha256": "sha256:619d53baee8f0e6d1a6c9a3ec8200605d9f786f68cf0a5c1bfb98535b677b384",
+      "record_count": 49,
+      "approved_count": 49,
+      "review_ready_count": 49,
+      "idempotency_key": "grader_home_language_en:assessment_blueprints:sha256:619d53baee8f0e6d1a6c9a3ec8200605d9f786f68cf0a5c1bfb98535b677b384"
+    },
+    "study_plan_templates": {
+      "layer": "study_plan_templates",
+      "relative_path": "data/generated/study_plans/grader_home_language_en_templates.json",
+      "exists": true,
+      "sha256": "sha256:60d4ddc56e790e0680f6b66042c1438588e5691bf7ea5bf21ab8534d901ed41a",
+      "record_count": 16,
+      "approved_count": 16,
+      "review_ready_count": 16,
+      "idempotency_key": "grader_home_language_en:study_plan_templates:sha256:60d4ddc56e790e0680f6b66042c1438588e5691bf7ea5bf21ab8534d901ed41a"
+    }
+  },
+  "blockers": [
+    "Scope is still in review and requires educator approval before learner visibility."
+  ],
+  "idempotency_keys": {
+    "topic_map": "grader_home_language_en:topic_map:sha256:c016ce330bf708566da1a0175ae62ffe3c81f8e5c511b6fe88e596284859aacd",
+    "diagnostic_items": "grader_home_language_en:diagnostic_items:sha256:6bbf765a2a88df6f255b13ad4dd061a2d8c5abd6c05a622b19ed8911b560769a",
+    "lessons": "grader_home_language_en:lessons:sha256:a9efade27d6093bb7418b8d1a2adac54b34c99d9d865bd0a903a428e126ba5a0",
+    "assessment_blueprints": "grader_home_language_en:assessment_blueprints:sha256:619d53baee8f0e6d1a6c9a3ec8200605d9f786f68cf0a5c1bfb98535b677b384",
+    "study_plan_templates": "grader_home_language_en:study_plan_templates:sha256:60d4ddc56e790e0680f6b66042c1438588e5691bf7ea5bf21ab8534d901ed41a"
+  },
+  "rollback_manifest": {
+    "scope_id": "grader_home_language_en",
+    "restore_scope_status": "review",
+    "artifact_paths": {
+      "topic_map": "data/caps/topic_maps/grader_home_language_en.json",
+      "diagnostic_items": "data/generated/items/grader_home_language_en_item_bank.json",
+      "lessons": "data/generated/lessons/grader_home_language_en_lessons.json",
+      "assessment_blueprints": "data/generated/assessment_blueprints/grader_home_language_en_blueprints.json",
+      "study_plan_templates": "data/generated/study_plans/grader_home_language_en_templates.json"
+    },
+    "artifact_hashes": {
+      "topic_map": "sha256:c016ce330bf708566da1a0175ae62ffe3c81f8e5c511b6fe88e596284859aacd",
+      "diagnostic_items": "sha256:6bbf765a2a88df6f255b13ad4dd061a2d8c5abd6c05a622b19ed8911b560769a",
+      "lessons": "sha256:a9efade27d6093bb7418b8d1a2adac54b34c99d9d865bd0a903a428e126ba5a0",
+      "assessment_blueprints": "sha256:619d53baee8f0e6d1a6c9a3ec8200605d9f786f68cf0a5c1bfb98535b677b384",
+      "study_plan_templates": "sha256:60d4ddc56e790e0680f6b66042c1438588e5691bf7ea5bf21ab8534d901ed41a"
+    }
+  }
+}

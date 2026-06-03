@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T10:10:49Z",
+  "scope_id": "grade6_natural_sciences_and_technology_en",
+  "grade": 6,
+  "phase": "intermediate",
+  "subject_code": "NST",
+  "subject": "Natural Sciences and Technology",
+  "language": "en",
+  "status": "review",
+  "learner_visible": false,
+  "source_ready": true,
+  "staging_eligible": true,
+  "production_eligible": false,
+  "caps_ref_count": 16,
+  "layers": {
+    "topic_map": {
+      "layer": "topic_map",
+      "relative_path": "data/caps/topic_maps/grade6_natural_sciences_and_technology_en.json",
+      "exists": true,
+      "sha256": "sha256:d3278563a85683772ca9354ceab3b6aad936a2ebfb48f2c395eb8870e3a10ad1",
+      "record_count": 32,
+      "approved_count": 32,
+      "review_ready_count": 32,
+      "idempotency_key": "grade6_natural_sciences_and_technology_en:topic_map:sha256:d3278563a85683772ca9354ceab3b6aad936a2ebfb48f2c395eb8870e3a10ad1"
+    },
+    "diagnostic_items": {
+      "layer": "diagnostic_items",
+      "relative_path": "data/generated/items/grade6_natural_sciences_and_technology_en_item_bank.json",
+      "exists": true,
+      "sha256": "sha256:2484b7f510153d145024a419fffd4c377555407130d4602d6c29449589bf6f15",
+      "record_count": 640,
+      "approved_count": 640,
+      "review_ready_count": 640,
+      "idempotency_key": "grade6_natural_sciences_and_technology_en:diagnostic_items:sha256:2484b7f510153d145024a419fffd4c377555407130d4602d6c29449589bf6f15"
+    },
+    "lessons": {
+      "layer": "lessons",
+      "relative_path": "data/generated/lessons/grade6_natural_sciences_and_technology_en_lessons.json",
+      "exists": true,
+      "sha256": "sha256:48c17204d2967f4a021d98ced50e19c8d2c72e4a10bfbeff28c0844a9a8563ef",
+      "record_count": 128,
+      "approved_count": 128,
+      "review_ready_count": 128,
+      "idempotency_key": "grade6_natural_sciences_and_technology_en:lessons:sha256:48c17204d2967f4a021d98ced50e19c8d2c72e4a10bfbeff28c0844a9a8563ef"
+    },
+    "assessment_blueprints": {
+      "layer": "assessment_blueprints",
+      "relative_path": "data/generated/assessment_blueprints/grade6_natural_sciences_and_technology_en_blueprints.json",
+      "exists": true,
+      "sha256": "sha256:f3d10189c9be14f9784c292eb904231a688fb532d5c00ec43cfe8cd256c73453",
+      "record_count": 49,
+      "approved_count": 49,
+      "review_ready_count": 49,
+      "idempotency_key": "grade6_natural_sciences_and_technology_en:assessment_blueprints:sha256:f3d10189c9be14f9784c292eb904231a688fb532d5c00ec43cfe8cd256c73453"
+    },
+    "study_plan_templates": {
+      "layer": "study_plan_templates",
+      "relative_path": "data/generated/study_plans/grade6_natural_sciences_and_technology_en_templates.json",
+      "exists": true,
+      "sha256": "sha256:7be659826b083ac991e5df42df84674c24e8bed9975ebb8cda9f1e2fc6540d38",
+      "record_count": 16,
+      "approved_count": 16,
+      "review_ready_count": 16,
+      "idempotency_key": "grade6_natural_sciences_and_technology_en:study_plan_templates:sha256:7be659826b083ac991e5df42df84674c24e8bed9975ebb8cda9f1e2fc6540d38"
+    }
+  },
+  "blockers": [
+    "Scope is still in review and requires educator approval before learner visibility."
+  ],
+  "idempotency_keys": {
+    "topic_map": "grade6_natural_sciences_and_technology_en:topic_map:sha256:d3278563a85683772ca9354ceab3b6aad936a2ebfb48f2c395eb8870e3a10ad1",
+    "diagnostic_items": "grade6_natural_sciences_and_technology_en:diagnostic_items:sha256:2484b7f510153d145024a419fffd4c377555407130d4602d6c29449589bf6f15",
+    "lessons": "grade6_natural_sciences_and_technology_en:lessons:sha256:48c17204d2967f4a021d98ced50e19c8d2c72e4a10bfbeff28c0844a9a8563ef",
+    "assessment_blueprints": "grade6_natural_sciences_and_technology_en:assessment_blueprints:sha256:f3d10189c9be14f9784c292eb904231a688fb532d5c00ec43cfe8cd256c73453",
+    "study_plan_templates": "grade6_natural_sciences_and_technology_en:study_plan_templates:sha256:7be659826b083ac991e5df42df84674c24e8bed9975ebb8cda9f1e2fc6540d38"
+  },
+  "rollback_manifest": {
+    "scope_id": "grade6_natural_sciences_and_technology_en",
+    "restore_scope_status": "review",
+    "artifact_paths": {
+      "topic_map": "data/caps/topic_maps/grade6_natural_sciences_and_technology_en.json",
+      "diagnostic_items": "data/generated/items/grade6_natural_sciences_and_technology_en_item_bank.json",
+      "lessons": "data/generated/lessons/grade6_natural_sciences_and_technology_en_lessons.json",
+      "assessment_blueprints": "data/generated/assessment_blueprints/grade6_natural_sciences_and_technology_en_blueprints.json",
+      "study_plan_templates": "data/generated/study_plans/grade6_natural_sciences_and_technology_en_templates.json"
+    },
+    "artifact_hashes": {
+      "topic_map": "sha256:d3278563a85683772ca9354ceab3b6aad936a2ebfb48f2c395eb8870e3a10ad1",
+      "diagnostic_items": "sha256:2484b7f510153d145024a419fffd4c377555407130d4602d6c29449589bf6f15",
+      "lessons": "sha256:48c17204d2967f4a021d98ced50e19c8d2c72e4a10bfbeff28c0844a9a8563ef",
+      "assessment_blueprints": "sha256:f3d10189c9be14f9784c292eb904231a688fb532d5c00ec43cfe8cd256c73453",
+      "study_plan_templates": "sha256:7be659826b083ac991e5df42df84674c24e8bed9975ebb8cda9f1e2fc6540d38"
+    }
+  }
+}

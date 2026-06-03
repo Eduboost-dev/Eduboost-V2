@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T10:10:49Z",
+  "scope_id": "grade5_social_sciences_en",
+  "grade": 5,
+  "phase": "intermediate",
+  "subject_code": "SS",
+  "subject": "Social Sciences",
+  "language": "en",
+  "status": "review",
+  "learner_visible": false,
+  "source_ready": true,
+  "staging_eligible": true,
+  "production_eligible": false,
+  "caps_ref_count": 16,
+  "layers": {
+    "topic_map": {
+      "layer": "topic_map",
+      "relative_path": "data/caps/topic_maps/grade5_social_sciences_en.json",
+      "exists": true,
+      "sha256": "sha256:485a525e8045747cb6cb8ee9aa98888fd38266b46d4ab3f9b5a72f2823eb34d5",
+      "record_count": 32,
+      "approved_count": 32,
+      "review_ready_count": 32,
+      "idempotency_key": "grade5_social_sciences_en:topic_map:sha256:485a525e8045747cb6cb8ee9aa98888fd38266b46d4ab3f9b5a72f2823eb34d5"
+    },
+    "diagnostic_items": {
+      "layer": "diagnostic_items",
+      "relative_path": "data/generated/items/grade5_social_sciences_en_item_bank.json",
+      "exists": true,
+      "sha256": "sha256:d83fb87e4a5ec15e5bb9a9476ccf7d52aa6b5c21c9e0ebd890afd043f00dc59a",
+      "record_count": 640,
+      "approved_count": 640,
+      "review_ready_count": 640,
+      "idempotency_key": "grade5_social_sciences_en:diagnostic_items:sha256:d83fb87e4a5ec15e5bb9a9476ccf7d52aa6b5c21c9e0ebd890afd043f00dc59a"
+    },
+    "lessons": {
+      "layer": "lessons",
+      "relative_path": "data/generated/lessons/grade5_social_sciences_en_lessons.json",
+      "exists": true,
+      "sha256": "sha256:674a4f3dfce80afbb134b502e648524d8f1e6b23785d72ee409bab3ce49a3f5b",
+      "record_count": 128,
+      "approved_count": 128,
+      "review_ready_count": 128,
+      "idempotency_key": "grade5_social_sciences_en:lessons:sha256:674a4f3dfce80afbb134b502e648524d8f1e6b23785d72ee409bab3ce49a3f5b"
+    },
+    "assessment_blueprints": {
+      "layer": "assessment_blueprints",
+      "relative_path": "data/generated/assessment_blueprints/grade5_social_sciences_en_blueprints.json",
+      "exists": true,
+      "sha256": "sha256:b1d2146917a17983e847a63fa97715123bd65a653c243e50690bcadfbc1c2fce",
+      "record_count": 49,
+      "approved_count": 49,
+      "review_ready_count": 49,
+      "idempotency_key": "grade5_social_sciences_en:assessment_blueprints:sha256:b1d2146917a17983e847a63fa97715123bd65a653c243e50690bcadfbc1c2fce"
+    },
+    "study_plan_templates": {
+      "layer": "study_plan_templates",
+      "relative_path": "data/generated/study_plans/grade5_social_sciences_en_templates.json",
+      "exists": true,
+      "sha256": "sha256:b295fcdeb4b78305a08d43d4fc09227ce66161c7f96885dcc3e1c7fb63b3b21b",
+      "record_count": 16,
+      "approved_count": 16,
+      "review_ready_count": 16,
+      "idempotency_key": "grade5_social_sciences_en:study_plan_templates:sha256:b295fcdeb4b78305a08d43d4fc09227ce66161c7f96885dcc3e1c7fb63b3b21b"
+    }
+  },
+  "blockers": [
+    "Scope is still in review and requires educator approval before learner visibility."
+  ],
+  "idempotency_keys": {
+    "topic_map": "grade5_social_sciences_en:topic_map:sha256:485a525e8045747cb6cb8ee9aa98888fd38266b46d4ab3f9b5a72f2823eb34d5",
+    "diagnostic_items": "grade5_social_sciences_en:diagnostic_items:sha256:d83fb87e4a5ec15e5bb9a9476ccf7d52aa6b5c21c9e0ebd890afd043f00dc59a",
+    "lessons": "grade5_social_sciences_en:lessons:sha256:674a4f3dfce80afbb134b502e648524d8f1e6b23785d72ee409bab3ce49a3f5b",
+    "assessment_blueprints": "grade5_social_sciences_en:assessment_blueprints:sha256:b1d2146917a17983e847a63fa97715123bd65a653c243e50690bcadfbc1c2fce",
+    "study_plan_templates": "grade5_social_sciences_en:study_plan_templates:sha256:b295fcdeb4b78305a08d43d4fc09227ce66161c7f96885dcc3e1c7fb63b3b21b"
+  },
+  "rollback_manifest": {
+    "scope_id": "grade5_social_sciences_en",
+    "restore_scope_status": "review",
+    "artifact_paths": {
+      "topic_map": "data/caps/topic_maps/grade5_social_sciences_en.json",
+      "diagnostic_items": "data/generated/items/grade5_social_sciences_en_item_bank.json",
+      "lessons": "data/generated/lessons/grade5_social_sciences_en_lessons.json",
+      "assessment_blueprints": "data/generated/assessment_blueprints/grade5_social_sciences_en_blueprints.json",
+      "study_plan_templates": "data/generated/study_plans/grade5_social_sciences_en_templates.json"
+    },
+    "artifact_hashes": {
+      "topic_map": "sha256:485a525e8045747cb6cb8ee9aa98888fd38266b46d4ab3f9b5a72f2823eb34d5",
+      "diagnostic_items": "sha256:d83fb87e4a5ec15e5bb9a9476ccf7d52aa6b5c21c9e0ebd890afd043f00dc59a",
+      "lessons": "sha256:674a4f3dfce80afbb134b502e648524d8f1e6b23785d72ee409bab3ce49a3f5b",
+      "assessment_blueprints": "sha256:b1d2146917a17983e847a63fa97715123bd65a653c243e50690bcadfbc1c2fce",
+      "study_plan_templates": "sha256:b295fcdeb4b78305a08d43d4fc09227ce66161c7f96885dcc3e1c7fb63b3b21b"
+    }
+  }
+}

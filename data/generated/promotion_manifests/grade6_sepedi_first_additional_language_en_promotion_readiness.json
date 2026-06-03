@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T10:10:49Z",
+  "scope_id": "grade6_sepedi_first_additional_language_en",
+  "grade": 6,
+  "phase": "intermediate",
+  "subject_code": "FAL",
+  "subject": "Sepedi First Additional Language",
+  "language": "en",
+  "status": "review",
+  "learner_visible": false,
+  "source_ready": true,
+  "staging_eligible": true,
+  "production_eligible": false,
+  "caps_ref_count": 16,
+  "layers": {
+    "topic_map": {
+      "layer": "topic_map",
+      "relative_path": "data/caps/topic_maps/grade6_sepedi_first_additional_language_en.json",
+      "exists": true,
+      "sha256": "sha256:a8cab19cfe80271f98875235d5f77f8408aa69f60f7848d97f4629b7f25b0f13",
+      "record_count": 32,
+      "approved_count": 32,
+      "review_ready_count": 32,
+      "idempotency_key": "grade6_sepedi_first_additional_language_en:topic_map:sha256:a8cab19cfe80271f98875235d5f77f8408aa69f60f7848d97f4629b7f25b0f13"
+    },
+    "diagnostic_items": {
+      "layer": "diagnostic_items",
+      "relative_path": "data/generated/items/grade6_sepedi_first_additional_language_en_item_bank.json",
+      "exists": true,
+      "sha256": "sha256:f691c4a01e85a54690874e62c33caa252658cb01fae1852c274d8a2d8c8c59f2",
+      "record_count": 640,
+      "approved_count": 640,
+      "review_ready_count": 640,
+      "idempotency_key": "grade6_sepedi_first_additional_language_en:diagnostic_items:sha256:f691c4a01e85a54690874e62c33caa252658cb01fae1852c274d8a2d8c8c59f2"
+    },
+    "lessons": {
+      "layer": "lessons",
+      "relative_path": "data/generated/lessons/grade6_sepedi_first_additional_language_en_lessons.json",
+      "exists": true,
+      "sha256": "sha256:399ba7aa75720fe935d739892a7fc00af9bdf4e6752bcf641e11e0c8a272952e",
+      "record_count": 128,
+      "approved_count": 128,
+      "review_ready_count": 128,
+      "idempotency_key": "grade6_sepedi_first_additional_language_en:lessons:sha256:399ba7aa75720fe935d739892a7fc00af9bdf4e6752bcf641e11e0c8a272952e"
+    },
+    "assessment_blueprints": {
+      "layer": "assessment_blueprints",
+      "relative_path": "data/generated/assessment_blueprints/grade6_sepedi_first_additional_language_en_blueprints.json",
+      "exists": true,
+      "sha256": "sha256:88094324daa3497d327580b9051a199e8eea982955c528bc4d972c9af4a3acf9",
+      "record_count": 49,
+      "approved_count": 49,
+      "review_ready_count": 49,
+      "idempotency_key": "grade6_sepedi_first_additional_language_en:assessment_blueprints:sha256:88094324daa3497d327580b9051a199e8eea982955c528bc4d972c9af4a3acf9"
+    },
+    "study_plan_templates": {
+      "layer": "study_plan_templates",
+      "relative_path": "data/generated/study_plans/grade6_sepedi_first_additional_language_en_templates.json",
+      "exists": true,
+      "sha256": "sha256:a12e0ae940a7ef27e0b1399f6214da7bbe106546aed92f5058bcaadecd4eb688",
+      "record_count": 16,
+      "approved_count": 16,
+      "review_ready_count": 16,
+      "idempotency_key": "grade6_sepedi_first_additional_language_en:study_plan_templates:sha256:a12e0ae940a7ef27e0b1399f6214da7bbe106546aed92f5058bcaadecd4eb688"
+    }
+  },
+  "blockers": [
+    "Scope is still in review and requires educator approval before learner visibility."
+  ],
+  "idempotency_keys": {
+    "topic_map": "grade6_sepedi_first_additional_language_en:topic_map:sha256:a8cab19cfe80271f98875235d5f77f8408aa69f60f7848d97f4629b7f25b0f13",
+    "diagnostic_items": "grade6_sepedi_first_additional_language_en:diagnostic_items:sha256:f691c4a01e85a54690874e62c33caa252658cb01fae1852c274d8a2d8c8c59f2",
+    "lessons": "grade6_sepedi_first_additional_language_en:lessons:sha256:399ba7aa75720fe935d739892a7fc00af9bdf4e6752bcf641e11e0c8a272952e",
+    "assessment_blueprints": "grade6_sepedi_first_additional_language_en:assessment_blueprints:sha256:88094324daa3497d327580b9051a199e8eea982955c528bc4d972c9af4a3acf9",
+    "study_plan_templates": "grade6_sepedi_first_additional_language_en:study_plan_templates:sha256:a12e0ae940a7ef27e0b1399f6214da7bbe106546aed92f5058bcaadecd4eb688"
+  },
+  "rollback_manifest": {
+    "scope_id": "grade6_sepedi_first_additional_language_en",
+    "restore_scope_status": "review",
+    "artifact_paths": {
+      "topic_map": "data/caps/topic_maps/grade6_sepedi_first_additional_language_en.json",
+      "diagnostic_items": "data/generated/items/grade6_sepedi_first_additional_language_en_item_bank.json",
+      "lessons": "data/generated/lessons/grade6_sepedi_first_additional_language_en_lessons.json",
+      "assessment_blueprints": "data/generated/assessment_blueprints/grade6_sepedi_first_additional_language_en_blueprints.json",
+      "study_plan_templates": "data/generated/study_plans/grade6_sepedi_first_additional_language_en_templates.json"
+    },
+    "artifact_hashes": {
+      "topic_map": "sha256:a8cab19cfe80271f98875235d5f77f8408aa69f60f7848d97f4629b7f25b0f13",
+      "diagnostic_items": "sha256:f691c4a01e85a54690874e62c33caa252658cb01fae1852c274d8a2d8c8c59f2",
+      "lessons": "sha256:399ba7aa75720fe935d739892a7fc00af9bdf4e6752bcf641e11e0c8a272952e",
+      "assessment_blueprints": "sha256:88094324daa3497d327580b9051a199e8eea982955c528bc4d972c9af4a3acf9",
+      "study_plan_templates": "sha256:a12e0ae940a7ef27e0b1399f6214da7bbe106546aed92f5058bcaadecd4eb688"
+    }
+  }
+}

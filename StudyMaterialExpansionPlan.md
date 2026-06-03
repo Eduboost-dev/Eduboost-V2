@@ -46,6 +46,20 @@ Generated review-scope totals from this batch:
 
 Operational caveat: the 50 newly populated non-launch scopes remain `review`, not learner-visible `active`. The generated artifacts are schema-valid, CAPS-ref linked, source-provenance backed, and ready for educator review/promotion workflows; they should not be represented as production-approved curriculum until Phase 7/8 promotion gates and human-review evidence are complete.
 
+## Promotion Readiness Status - 2026-06-03
+
+The next promotion-readiness batch adds file-backed manifests for all generated scope artifacts and extends coverage/promotion gates beyond diagnostic items and lessons. `scripts/curriculum/build_promotion_readiness_manifests.py` now writes per-scope manifests plus `data/generated/promotion_manifests/all_scopes_promotion_readiness_summary.json` with artifact hashes, idempotency keys, layer counts, staging eligibility, production eligibility, and rollback metadata.
+
+Current promotion-readiness summary:
+
+- Scopes evaluated: 51.
+- Staging-eligible scopes: 51.
+- Production-eligible scopes: 1 (`grade4_mathematics_en`).
+- Review-blocked scopes: 50.
+- Learner-visible scopes: 1.
+
+Operational caveat: the 50 review scopes can now be staged from file artifacts, but production promotion remains blocked until educator approval/review evidence is added and the scope status is intentionally changed to `active`.
+
 ## Target Coverage
 
 ### Supported Grades

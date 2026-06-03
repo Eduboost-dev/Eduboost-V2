@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T10:10:49Z",
+  "scope_id": "grade6_mathematics_en",
+  "grade": 6,
+  "phase": "intermediate",
+  "subject_code": "M",
+  "subject": "Mathematics",
+  "language": "en",
+  "status": "review",
+  "learner_visible": false,
+  "source_ready": true,
+  "staging_eligible": true,
+  "production_eligible": false,
+  "caps_ref_count": 16,
+  "layers": {
+    "topic_map": {
+      "layer": "topic_map",
+      "relative_path": "data/caps/topic_maps/grade6_mathematics_en.json",
+      "exists": true,
+      "sha256": "sha256:5b6cc2768d788c76b1ec1aa47fd3a159c3d7e4c5934a224f650ef05e3bf6f946",
+      "record_count": 32,
+      "approved_count": 32,
+      "review_ready_count": 32,
+      "idempotency_key": "grade6_mathematics_en:topic_map:sha256:5b6cc2768d788c76b1ec1aa47fd3a159c3d7e4c5934a224f650ef05e3bf6f946"
+    },
+    "diagnostic_items": {
+      "layer": "diagnostic_items",
+      "relative_path": "data/generated/items/grade6_mathematics_en_item_bank.json",
+      "exists": true,
+      "sha256": "sha256:60af417e4c05b86df01635590435cb681c7bd827b158066090a5e3b94468e244",
+      "record_count": 640,
+      "approved_count": 640,
+      "review_ready_count": 640,
+      "idempotency_key": "grade6_mathematics_en:diagnostic_items:sha256:60af417e4c05b86df01635590435cb681c7bd827b158066090a5e3b94468e244"
+    },
+    "lessons": {
+      "layer": "lessons",
+      "relative_path": "data/generated/lessons/grade6_mathematics_en_lessons.json",
+      "exists": true,
+      "sha256": "sha256:f758eb18bc491db33c4a6547d1a772e488698b11e8fbe092cf84912207e34194",
+      "record_count": 128,
+      "approved_count": 128,
+      "review_ready_count": 128,
+      "idempotency_key": "grade6_mathematics_en:lessons:sha256:f758eb18bc491db33c4a6547d1a772e488698b11e8fbe092cf84912207e34194"
+    },
+    "assessment_blueprints": {
+      "layer": "assessment_blueprints",
+      "relative_path": "data/generated/assessment_blueprints/grade6_mathematics_en_blueprints.json",
+      "exists": true,
+      "sha256": "sha256:bc4a9ac8c5823ee979a04bf06847af86e469ee9a771fe7265d75272d0b7ef968",
+      "record_count": 49,
+      "approved_count": 49,
+      "review_ready_count": 49,
+      "idempotency_key": "grade6_mathematics_en:assessment_blueprints:sha256:bc4a9ac8c5823ee979a04bf06847af86e469ee9a771fe7265d75272d0b7ef968"
+    },
+    "study_plan_templates": {
+      "layer": "study_plan_templates",
+      "relative_path": "data/generated/study_plans/grade6_mathematics_en_templates.json",
+      "exists": true,
+      "sha256": "sha256:9194d168400c6b52db8ec96e8fd50aa9d96739ef656776e9fee14ce0c605afca",
+      "record_count": 16,
+      "approved_count": 16,
+      "review_ready_count": 16,
+      "idempotency_key": "grade6_mathematics_en:study_plan_templates:sha256:9194d168400c6b52db8ec96e8fd50aa9d96739ef656776e9fee14ce0c605afca"
+    }
+  },
+  "blockers": [
+    "Scope is still in review and requires educator approval before learner visibility."
+  ],
+  "idempotency_keys": {
+    "topic_map": "grade6_mathematics_en:topic_map:sha256:5b6cc2768d788c76b1ec1aa47fd3a159c3d7e4c5934a224f650ef05e3bf6f946",
+    "diagnostic_items": "grade6_mathematics_en:diagnostic_items:sha256:60af417e4c05b86df01635590435cb681c7bd827b158066090a5e3b94468e244",
+    "lessons": "grade6_mathematics_en:lessons:sha256:f758eb18bc491db33c4a6547d1a772e488698b11e8fbe092cf84912207e34194",
+    "assessment_blueprints": "grade6_mathematics_en:assessment_blueprints:sha256:bc4a9ac8c5823ee979a04bf06847af86e469ee9a771fe7265d75272d0b7ef968",
+    "study_plan_templates": "grade6_mathematics_en:study_plan_templates:sha256:9194d168400c6b52db8ec96e8fd50aa9d96739ef656776e9fee14ce0c605afca"
+  },
+  "rollback_manifest": {
+    "scope_id": "grade6_mathematics_en",
+    "restore_scope_status": "review",
+    "artifact_paths": {
+      "topic_map": "data/caps/topic_maps/grade6_mathematics_en.json",
+      "diagnostic_items": "data/generated/items/grade6_mathematics_en_item_bank.json",
+      "lessons": "data/generated/lessons/grade6_mathematics_en_lessons.json",
+      "assessment_blueprints": "data/generated/assessment_blueprints/grade6_mathematics_en_blueprints.json",
+      "study_plan_templates": "data/generated/study_plans/grade6_mathematics_en_templates.json"
+    },
+    "artifact_hashes": {
+      "topic_map": "sha256:5b6cc2768d788c76b1ec1aa47fd3a159c3d7e4c5934a224f650ef05e3bf6f946",
+      "diagnostic_items": "sha256:60af417e4c05b86df01635590435cb681c7bd827b158066090a5e3b94468e244",
+      "lessons": "sha256:f758eb18bc491db33c4a6547d1a772e488698b11e8fbe092cf84912207e34194",
+      "assessment_blueprints": "sha256:bc4a9ac8c5823ee979a04bf06847af86e469ee9a771fe7265d75272d0b7ef968",
+      "study_plan_templates": "sha256:9194d168400c6b52db8ec96e8fd50aa9d96739ef656776e9fee14ce0c605afca"
+    }
+  }
+}

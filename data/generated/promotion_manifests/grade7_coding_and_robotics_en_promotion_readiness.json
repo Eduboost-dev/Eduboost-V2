@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T10:10:49Z",
+  "scope_id": "grade7_coding_and_robotics_en",
+  "grade": 7,
+  "phase": "senior",
+  "subject_code": "CR",
+  "subject": "Coding and Robotics",
+  "language": "en",
+  "status": "review",
+  "learner_visible": false,
+  "source_ready": true,
+  "staging_eligible": true,
+  "production_eligible": false,
+  "caps_ref_count": 16,
+  "layers": {
+    "topic_map": {
+      "layer": "topic_map",
+      "relative_path": "data/caps/topic_maps/grade7_coding_and_robotics_en.json",
+      "exists": true,
+      "sha256": "sha256:761f5e8b150cecf809d89d1f1590624341954b139220d72a3f393e7e8a3f75ca",
+      "record_count": 32,
+      "approved_count": 32,
+      "review_ready_count": 32,
+      "idempotency_key": "grade7_coding_and_robotics_en:topic_map:sha256:761f5e8b150cecf809d89d1f1590624341954b139220d72a3f393e7e8a3f75ca"
+    },
+    "diagnostic_items": {
+      "layer": "diagnostic_items",
+      "relative_path": "data/generated/items/grade7_coding_and_robotics_en_item_bank.json",
+      "exists": true,
+      "sha256": "sha256:565f936a3d9b3445525a144c7aac6965e1173c7d2cc71ed298f28a35807e91d4",
+      "record_count": 640,
+      "approved_count": 640,
+      "review_ready_count": 640,
+      "idempotency_key": "grade7_coding_and_robotics_en:diagnostic_items:sha256:565f936a3d9b3445525a144c7aac6965e1173c7d2cc71ed298f28a35807e91d4"
+    },
+    "lessons": {
+      "layer": "lessons",
+      "relative_path": "data/generated/lessons/grade7_coding_and_robotics_en_lessons.json",
+      "exists": true,
+      "sha256": "sha256:884cc7604d642d09d6d830dd7042144328f762dd19a9c00a7a2bf9cdf594e281",
+      "record_count": 128,
+      "approved_count": 128,
+      "review_ready_count": 128,
+      "idempotency_key": "grade7_coding_and_robotics_en:lessons:sha256:884cc7604d642d09d6d830dd7042144328f762dd19a9c00a7a2bf9cdf594e281"
+    },
+    "assessment_blueprints": {
+      "layer": "assessment_blueprints",
+      "relative_path": "data/generated/assessment_blueprints/grade7_coding_and_robotics_en_blueprints.json",
+      "exists": true,
+      "sha256": "sha256:2ecf75100bda204a51cec6b12864a858898f4f2e4d3033db05ac9ff1959910be",
+      "record_count": 49,
+      "approved_count": 49,
+      "review_ready_count": 49,
+      "idempotency_key": "grade7_coding_and_robotics_en:assessment_blueprints:sha256:2ecf75100bda204a51cec6b12864a858898f4f2e4d3033db05ac9ff1959910be"
+    },
+    "study_plan_templates": {
+      "layer": "study_plan_templates",
+      "relative_path": "data/generated/study_plans/grade7_coding_and_robotics_en_templates.json",
+      "exists": true,
+      "sha256": "sha256:c045a47327a1fafa68ac7620f946af8e57ac46f49d1a12426816da3105058a2e",
+      "record_count": 16,
+      "approved_count": 16,
+      "review_ready_count": 16,
+      "idempotency_key": "grade7_coding_and_robotics_en:study_plan_templates:sha256:c045a47327a1fafa68ac7620f946af8e57ac46f49d1a12426816da3105058a2e"
+    }
+  },
+  "blockers": [
+    "Scope is still in review and requires educator approval before learner visibility."
+  ],
+  "idempotency_keys": {
+    "topic_map": "grade7_coding_and_robotics_en:topic_map:sha256:761f5e8b150cecf809d89d1f1590624341954b139220d72a3f393e7e8a3f75ca",
+    "diagnostic_items": "grade7_coding_and_robotics_en:diagnostic_items:sha256:565f936a3d9b3445525a144c7aac6965e1173c7d2cc71ed298f28a35807e91d4",
+    "lessons": "grade7_coding_and_robotics_en:lessons:sha256:884cc7604d642d09d6d830dd7042144328f762dd19a9c00a7a2bf9cdf594e281",
+    "assessment_blueprints": "grade7_coding_and_robotics_en:assessment_blueprints:sha256:2ecf75100bda204a51cec6b12864a858898f4f2e4d3033db05ac9ff1959910be",
+    "study_plan_templates": "grade7_coding_and_robotics_en:study_plan_templates:sha256:c045a47327a1fafa68ac7620f946af8e57ac46f49d1a12426816da3105058a2e"
+  },
+  "rollback_manifest": {
+    "scope_id": "grade7_coding_and_robotics_en",
+    "restore_scope_status": "review",
+    "artifact_paths": {
+      "topic_map": "data/caps/topic_maps/grade7_coding_and_robotics_en.json",
+      "diagnostic_items": "data/generated/items/grade7_coding_and_robotics_en_item_bank.json",
+      "lessons": "data/generated/lessons/grade7_coding_and_robotics_en_lessons.json",
+      "assessment_blueprints": "data/generated/assessment_blueprints/grade7_coding_and_robotics_en_blueprints.json",
+      "study_plan_templates": "data/generated/study_plans/grade7_coding_and_robotics_en_templates.json"
+    },
+    "artifact_hashes": {
+      "topic_map": "sha256:761f5e8b150cecf809d89d1f1590624341954b139220d72a3f393e7e8a3f75ca",
+      "diagnostic_items": "sha256:565f936a3d9b3445525a144c7aac6965e1173c7d2cc71ed298f28a35807e91d4",
+      "lessons": "sha256:884cc7604d642d09d6d830dd7042144328f762dd19a9c00a7a2bf9cdf594e281",
+      "assessment_blueprints": "sha256:2ecf75100bda204a51cec6b12864a858898f4f2e4d3033db05ac9ff1959910be",
+      "study_plan_templates": "sha256:c045a47327a1fafa68ac7620f946af8e57ac46f49d1a12426816da3105058a2e"
+    }
+  }
+}

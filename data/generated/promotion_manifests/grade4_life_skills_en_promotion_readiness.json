@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03T10:10:48Z",
+  "scope_id": "grade4_life_skills_en",
+  "grade": 4,
+  "phase": "intermediate",
+  "subject_code": "LS",
+  "subject": "Life Skills",
+  "language": "en",
+  "status": "review",
+  "learner_visible": false,
+  "source_ready": true,
+  "staging_eligible": true,
+  "production_eligible": false,
+  "caps_ref_count": 16,
+  "layers": {
+    "topic_map": {
+      "layer": "topic_map",
+      "relative_path": "data/caps/topic_maps/grade4_life_skills_en.json",
+      "exists": true,
+      "sha256": "sha256:3a3b17b6b4cc3e0104a748b22e1e1a72521ca7f58e88b3626f826521abac3fb4",
+      "record_count": 32,
+      "approved_count": 32,
+      "review_ready_count": 32,
+      "idempotency_key": "grade4_life_skills_en:topic_map:sha256:3a3b17b6b4cc3e0104a748b22e1e1a72521ca7f58e88b3626f826521abac3fb4"
+    },
+    "diagnostic_items": {
+      "layer": "diagnostic_items",
+      "relative_path": "data/generated/items/grade4_life_skills_en_item_bank.json",
+      "exists": true,
+      "sha256": "sha256:41458325b3d6013f7f5a2c72b80702b86108bdfc52b9031eadd2d20767f34116",
+      "record_count": 640,
+      "approved_count": 640,
+      "review_ready_count": 640,
+      "idempotency_key": "grade4_life_skills_en:diagnostic_items:sha256:41458325b3d6013f7f5a2c72b80702b86108bdfc52b9031eadd2d20767f34116"
+    },
+    "lessons": {
+      "layer": "lessons",
+      "relative_path": "data/generated/lessons/grade4_life_skills_en_lessons.json",
+      "exists": true,
+      "sha256": "sha256:d68b34c4f7e3befcb3c4c99bab6397e75589247a799476699b02cd251c87edfb",
+      "record_count": 128,
+      "approved_count": 128,
+      "review_ready_count": 128,
+      "idempotency_key": "grade4_life_skills_en:lessons:sha256:d68b34c4f7e3befcb3c4c99bab6397e75589247a799476699b02cd251c87edfb"
+    },
+    "assessment_blueprints": {
+      "layer": "assessment_blueprints",
+      "relative_path": "data/generated/assessment_blueprints/grade4_life_skills_en_blueprints.json",
+      "exists": true,
+      "sha256": "sha256:a4a6deb1ecf10b1438e4377396330e15b35474a8543fd4288dd1e824f4d88122",
+      "record_count": 49,
+      "approved_count": 49,
+      "review_ready_count": 49,
+      "idempotency_key": "grade4_life_skills_en:assessment_blueprints:sha256:a4a6deb1ecf10b1438e4377396330e15b35474a8543fd4288dd1e824f4d88122"
+    },
+    "study_plan_templates": {
+      "layer": "study_plan_templates",
+      "relative_path": "data/generated/study_plans/grade4_life_skills_en_templates.json",
+      "exists": true,
+      "sha256": "sha256:1332757a5fec41502447ba668a561f6141f9ee0f9b0b7cd28c3cfa8477f80ca2",
+      "record_count": 16,
+      "approved_count": 16,
+      "review_ready_count": 16,
+      "idempotency_key": "grade4_life_skills_en:study_plan_templates:sha256:1332757a5fec41502447ba668a561f6141f9ee0f9b0b7cd28c3cfa8477f80ca2"
+    }
+  },
+  "blockers": [
+    "Scope is still in review and requires educator approval before learner visibility."
+  ],
+  "idempotency_keys": {
+    "topic_map": "grade4_life_skills_en:topic_map:sha256:3a3b17b6b4cc3e0104a748b22e1e1a72521ca7f58e88b3626f826521abac3fb4",
+    "diagnostic_items": "grade4_life_skills_en:diagnostic_items:sha256:41458325b3d6013f7f5a2c72b80702b86108bdfc52b9031eadd2d20767f34116",
+    "lessons": "grade4_life_skills_en:lessons:sha256:d68b34c4f7e3befcb3c4c99bab6397e75589247a799476699b02cd251c87edfb",
+    "assessment_blueprints": "grade4_life_skills_en:assessment_blueprints:sha256:a4a6deb1ecf10b1438e4377396330e15b35474a8543fd4288dd1e824f4d88122",
+    "study_plan_templates": "grade4_life_skills_en:study_plan_templates:sha256:1332757a5fec41502447ba668a561f6141f9ee0f9b0b7cd28c3cfa8477f80ca2"
+  },
+  "rollback_manifest": {
+    "scope_id": "grade4_life_skills_en",
+    "restore_scope_status": "review",
+    "artifact_paths": {
+      "topic_map": "data/caps/topic_maps/grade4_life_skills_en.json",
+      "diagnostic_items": "data/generated/items/grade4_life_skills_en_item_bank.json",
+      "lessons": "data/generated/lessons/grade4_life_skills_en_lessons.json",
+      "assessment_blueprints": "data/generated/assessment_blueprints/grade4_life_skills_en_blueprints.json",
+      "study_plan_templates": "data/generated/study_plans/grade4_life_skills_en_templates.json"
+    },
+    "artifact_hashes": {
+      "topic_map": "sha256:3a3b17b6b4cc3e0104a748b22e1e1a72521ca7f58e88b3626f826521abac3fb4",
+      "diagnostic_items": "sha256:41458325b3d6013f7f5a2c72b80702b86108bdfc52b9031eadd2d20767f34116",
+      "lessons": "sha256:d68b34c4f7e3befcb3c4c99bab6397e75589247a799476699b02cd251c87edfb",
+      "assessment_blueprints": "sha256:a4a6deb1ecf10b1438e4377396330e15b35474a8543fd4288dd1e824f4d88122",
+      "study_plan_templates": "sha256:1332757a5fec41502447ba668a561f6141f9ee0f9b0b7cd28c3cfa8477f80ca2"
+    }
+  }
+}

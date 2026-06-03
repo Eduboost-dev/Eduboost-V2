@@ -17,10 +17,12 @@ from app.domain.content_scope import ContentScopeStatus
 from app.services.content_scope_registry import ContentScopeRegistry
 from scripts.curriculum.validate_scope_content import validate_scope
 from scripts.curriculum.validate_source_manifest import generation_ready
+from app.services.content_file_promotion_readiness import ContentFilePromotionReadinessService
 
 
 def build_report(*, strict_counts: bool = False) -> dict[str, Any]:
     registry = ContentScopeRegistry()
+    readiness_service = ContentFilePromotionReadinessService(registry=registry)
     rows: list[dict[str, Any]] = []
     totals: dict[str, int] = defaultdict(int)
 
@@ -37,6 +39,7 @@ def build_report(*, strict_counts: bool = False) -> dict[str, Any]:
             for key, value in target.targets.items():
                 layer_targets[key] += int(value)
 
+        readiness = readiness_service.evaluate_scope(scope.scope_id)
         row = {
             "scope_id": scope.scope_id,
             "grade": scope.grade,
@@ -51,11 +54,23 @@ def build_report(*, strict_counts: bool = False) -> dict[str, Any]:
             "target_counts": dict(sorted(layer_targets.items())),
             "validation_status": "not_applicable" if not active else ("ok" if validation and validation.passed else "failed"),
             "errors": [] if validation is None else validation.errors,
+            "artifact_layers": readiness.manifest["layers"],
+            "staging_eligible": readiness.staging_eligible,
+            "production_eligible": readiness.production_eligible,
+            "promotion_blockers": readiness.blockers,
         }
         rows.append(row)
         totals[f"scopes.{scope.status.value}"] += 1
         if row["generation_ready"]:
             totals["scopes.generation_ready"] += 1
+        if readiness.staging_eligible:
+            totals["scopes.staging_eligible"] += 1
+        if readiness.production_eligible:
+            totals["scopes.production_eligible"] += 1
+        for layer_name, layer_data in readiness.manifest["layers"].items():
+            if layer_data["exists"]:
+                totals[f"layers.{layer_name}.files_present"] += 1
+            totals[f"layers.{layer_name}.records"] += int(layer_data["record_count"])
         if active:
             totals["scopes.learner_visible"] += 1
             totals["caps_refs.active"] += len(scope.caps_refs)
@@ -79,7 +94,8 @@ def print_text(report: dict[str, Any]) -> None:
         ready = "generation-ready" if row["generation_ready"] else "not generation-ready"
         print(
             f"  {row['scope_id']}: {row['status']} ({visible}, {ready}), "
-            f"caps_refs={row['caps_ref_count']}, validation={row['validation_status']}"
+            f"caps_refs={row['caps_ref_count']}, validation={row['validation_status']}, "
+            f"staging={row['staging_eligible']}, production={row['production_eligible']}"
         )
 
 
