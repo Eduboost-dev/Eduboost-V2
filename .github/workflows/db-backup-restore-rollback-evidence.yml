@@ -39,21 +39,22 @@ jobs:
       DB_ROLLBACK_SOURCE_DATABASE_URL: ${{ secrets.DB_ROLLBACK_SOURCE_DATABASE_URL }}
       DB_ROLLBACK_RESTORE_DATABASE_URL: "postgresql://postgres:RestorePass123@localhost:5433/postgres"
       DB_ROLLBACK_PG_RESTORE_ARGS: "--schema=public"
-      PG_DUMP_IMAGE: ghcr.io/postgres/pg_dump:17
-      PG_RESTORE_IMAGE: ghcr.io/postgres/pg_restore:17
+      PG_DUMP_CMD: "docker run --rm --workdir /data -v /tmp:/data ghcr.io/postgres/pg_dump:17"
+      PG_RESTORE_CMD: "docker run --rm --workdir /data -v /tmp:/data ghcr.io/postgres/pg_restore:17"
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Test pg_dump 17 Docker container
+      - name: Pull Docker images
         run: |
-          echo "=== Testing pg_dump Docker container ==="
-          docker pull $PG_DUMP_IMAGE:latest
-          docker run --rm $PG_DUMP_IMAGE:latest --version
-          echo "✅ Docker-based pg_dump 17 is available"
+          echo "Pulling pg_dump 17 Docker image..."
+          docker pull ghcr.io/postgres/pg_dump:17
+          echo "Pulling pg_restore 17 Docker image..."
+          docker pull ghcr.io/postgres/pg_restore:17
+          echo "✅ Docker images ready"
 
-      - name: Install Python dependencies
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
