@@ -47,6 +47,7 @@ class PlannedSourceRequirements(BaseModel):
 
     status: str
     required_fields_before_generation: list[str] = Field(default_factory=list)
+    scope_ids: list[str] = Field(default_factory=list)
 
 
 class SourceDocumentManifest(BaseModel):

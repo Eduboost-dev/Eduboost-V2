@@ -331,6 +331,15 @@ class ContentStagingSeedExecutor:
                     logger.exception(f"Unhandled exception in batch commit for scope {scope_id}: {unhandled_err}")
                     raise
 
+        return StagingSeedRunResult(
+            seed_run_id=run_id,
+            scope_id=scope_id,
+            status=status,
+            seeded_count=seeded_count,
+            skipped_count=skipped_count_total,
+            errors=errors,
+        )
+
     async def get_seed_run(self, session: AsyncSession, seed_run_id: str | uuid.UUID) -> StagingSeedRunResult:
         run = await session.get(ContentSeedRun, uuid.UUID(str(seed_run_id)))
         if not run:

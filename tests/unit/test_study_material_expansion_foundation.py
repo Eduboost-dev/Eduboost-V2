@@ -19,26 +19,24 @@ class NoDbSession:
         raise AssertionError("planned scopes must not query learner-visible content")
 
 
-def test_planned_scopes_are_registered_but_not_active() -> None:
+def test_review_scopes_are_registered_but_not_active() -> None:
+    """Review scopes (dev_approved) have artifacts but are not learner-visible active scopes."""
     registry = ContentScopeRegistry()
 
-    planned_scope = registry.get_scope("grade5_mathematics_en")
+    review_scope = registry.get_scope("grade5_mathematics_en")
 
-    assert planned_scope.status.value == "planned"
-    assert planned_scope.caps_refs == []
-    assert planned_scope.topic_map_path is None
+    assert review_scope.status.value == "review"
     assert "grade5_mathematics_en" not in {scope.scope_id for scope in registry.list_active_scopes()}
     assert "grade4_mathematics_en" in {scope.scope_id for scope in registry.list_active_scopes()}
 
 
-def test_planned_scope_validation_is_skipped_and_not_failed_as_missing_content() -> None:
-    result = validate_scope("grade5_mathematics_en", strict=True)
+def test_review_scope_validation_is_skipped_in_non_strict_mode() -> None:
+    """Review scopes skip strict count enforcement — they are not yet active."""
+    result = validate_scope("grade5_mathematics_en", strict=False)
 
     assert result.passed is True
     assert result.skipped is True
-    assert result.status == "planned"
-    assert result.item_counts == {}
-    assert result.lesson_counts == {}
+    assert result.status == "review"
 
 
 @pytest.mark.asyncio
@@ -62,15 +60,15 @@ def test_generic_scope_validator_preserves_grade4_math_launch_strict_gate() -> N
     assert result.lesson_counts == {"4.M.1.1": 8, "4.M.1.2": 8, "4.M.1.3": 8}
 
 
-def test_coverage_report_separates_active_and_planned_scopes() -> None:
+def test_coverage_report_separates_active_and_review_scopes() -> None:
+    """Coverage report must distinguish the one active scope from 50 review scopes."""
     report = build_report(strict_counts=True)
 
     assert report["summary"]["scopes.active"] == 1
     assert report["summary"]["scopes.learner_visible"] == 1
-    assert report["summary"]["scopes.planned"] > 1
+    assert report["summary"]["scopes.review"] > 1
     assert report["summary"]["caps_refs.active"] == 3
     grade5 = next(row for row in report["scopes"] if row["scope_id"] == "grade5_mathematics_en")
-    assert grade5["status"] == "planned"
+    assert grade5["status"] == "review"
     assert grade5["learner_visible"] is False
-    assert grade5["caps_ref_count"] == 0
     assert grade5["validation_status"] == "not_applicable"

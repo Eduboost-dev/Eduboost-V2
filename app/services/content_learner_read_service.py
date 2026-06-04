@@ -90,6 +90,19 @@ class ContentLearnerReadService:
     def _require_learner_visible_scope(self, scope_id: str) -> None:
         self._scope_registry.require_active_scope(scope_id)
 
+    def list_learner_visible_scopes(self) -> list[dict[str, Any]]:
+        """List all active scopes visible to learners."""
+        scopes = []
+        for scope in self._scope_registry.list_scopes():
+            if scope.status.value == "active":
+                scopes.append({
+                    "scope_id": scope.scope_id,
+                    "grade": scope.grade,
+                    "subject_code": scope.subject_code,
+                    "language": scope.language,
+                })
+        return scopes
+
     def is_learner_visible_artifact(
         self,
         generation_artifact: ContentGenerationArtifact,

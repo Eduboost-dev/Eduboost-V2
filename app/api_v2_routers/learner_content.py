@@ -8,7 +8,7 @@ Content Factory artifacts only. It enforces the production gate rules:
 """
 from __future__ import annotations
 
-from typing import Annotated
+from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -29,6 +29,15 @@ router = APIRouter(prefix="/learner/content", tags=["learner-content"])
 def get_learner_read_service() -> ContentLearnerReadService:
     """Get learner read service instance."""
     return ContentLearnerReadService()
+
+
+@router.get("/scopes")
+async def list_scopes(
+    current_user: Annotated[AuthContext, Depends(require_auth_context)],
+    service: Annotated[ContentLearnerReadService, Depends(get_learner_read_service)],
+) -> list[dict[str, Any]]:
+    """List all active scopes visible to learners."""
+    return service.list_learner_visible_scopes()
 
 
 @router.get("/scopes/{scope_id}/summary")

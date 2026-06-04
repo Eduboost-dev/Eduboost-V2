@@ -8,8 +8,11 @@ from typing import Any, Protocol
 from app.domain.content_coverage import (
     CapsRefCoverageReport,
     ContentLayer,
+    CoverageGap,
+    CoverageGapReport,
     CoverageLayerCounts,
     CoverageLayerStatus,
+    MultiScopeCoverageSummary,
     ScopeCoverageLayerSummary,
     ScopeCoverageReport,
     ScopeCoverageSummary,
@@ -82,6 +85,126 @@ class ContentCoverageService:
             layers=self._summarize_layers(per_caps_ref, selected_layers),
             per_caps_ref=per_caps_ref,
         )
+
+    async def get_coverage_by_grade(
+        self,
+        grade: int,
+        layers: list[ContentLayer] | None = None,
+    ) -> list[ScopeCoverageReport]:
+        """Get coverage reports for all scopes at a specific grade."""
+        reports = []
+        for scope in self.scope_registry.list_scopes():
+            if scope.grade == grade:
+                reports.append(await self.get_scope_coverage(scope.scope_id, layers))
+        return reports
+
+    async def get_coverage_by_subject(
+        self,
+        subject_code: str,
+        layers: list[ContentLayer] | None = None,
+    ) -> list[ScopeCoverageReport]:
+        """Get coverage reports for all scopes of a specific subject."""
+        reports = []
+        for scope in self.scope_registry.list_scopes():
+            if scope.subject_code == subject_code:
+                reports.append(await self.get_scope_coverage(scope.scope_id, layers))
+        return reports
+
+    async def get_coverage_summary_all_scopes(
+        self,
+        layers: list[ContentLayer] | None = None,
+    ) -> MultiScopeCoverageSummary:
+        """Get an aggregate coverage summary across all scopes."""
+        reports = []
+        scopes_by_status: dict[str, int] = {}
+        scopes_by_grade: dict[str, int] = {}
+        scopes_by_subject: dict[str, int] = {}
+
+        for scope in self.scope_registry.list_scopes():
+            status = scope.status.value
+            scopes_by_status[status] = scopes_by_status.get(status, 0) + 1
+            
+            grade_key = str(scope.grade) if scope.grade is not None else "R"
+            scopes_by_grade[grade_key] = scopes_by_grade.get(grade_key, 0) + 1
+            
+            subj = scope.subject_code or "unknown"
+            scopes_by_subject[subj] = scopes_by_subject.get(subj, 0) + 1
+            
+            reports.append(await self.get_scope_coverage(scope.scope_id, layers))
+
+        selected_layers = layers or DEFAULT_COVERAGE_LAYERS
+        
+        green = amber = red = not_configured = 0
+        total_caps_refs = 0
+        for report in reports:
+            total_caps_refs += report.summary.total_caps_refs
+            green += report.summary.green_refs
+            amber += report.summary.amber_refs
+            red += report.summary.red_refs
+            not_configured += report.summary.not_configured_refs
+            
+        global_summary = ScopeCoverageSummary(
+            total_caps_refs=total_caps_refs,
+            green_refs=green,
+            amber_refs=amber,
+            red_refs=red,
+            not_configured_refs=not_configured,
+        )
+
+        global_layers: dict[ContentLayer, ScopeCoverageLayerSummary] = {}
+        for layer in selected_layers:
+            target_total = sum(report.layers[layer].target_total for report in reports)
+            approved_total = sum(report.layers[layer].approved_total for report in reports)
+            global_layers[layer] = ScopeCoverageLayerSummary(
+                target_total=target_total,
+                approved_total=approved_total,
+                coverage_ratio=round(approved_total / target_total, 4) if target_total else 0.0,
+            )
+
+        return MultiScopeCoverageSummary(
+            total_scopes=len(reports),
+            scopes_by_status=scopes_by_status,
+            scopes_by_grade=scopes_by_grade,
+            scopes_by_subject=scopes_by_subject,
+            global_summary=global_summary,
+            global_layers=global_layers,
+        )
+
+    async def get_coverage_gap_report(
+        self,
+        grade: int | None = None,
+        subject_code: str | None = None,
+        layers: list[ContentLayer] | None = None,
+    ) -> CoverageGapReport:
+        """Get a report of all CAPS references that are below target."""
+        reports = []
+        for scope in self.scope_registry.list_scopes():
+            if grade is not None and scope.grade != grade:
+                continue
+            if subject_code is not None and scope.subject_code != subject_code:
+                continue
+            reports.append(await self.get_scope_coverage(scope.scope_id, layers))
+            
+        gaps = []
+        selected_layers = layers or DEFAULT_COVERAGE_LAYERS
+        
+        for report in reports:
+            for caps_report in report.per_caps_ref:
+                for layer in selected_layers:
+                    counts = caps_report.layers[layer]
+                    if counts.target > 0 and counts.approved < counts.target:
+                        gaps.append(
+                            CoverageGap(
+                                scope_id=report.scope_id,
+                                caps_ref=caps_report.caps_ref,
+                                layer=layer,
+                                target=counts.target,
+                                approved=counts.approved,
+                                gap=counts.target - counts.approved,
+                            )
+                        )
+                        
+        return CoverageGapReport(gaps=gaps, total_gaps=len(gaps))
 
     async def get_coverage(
         self,

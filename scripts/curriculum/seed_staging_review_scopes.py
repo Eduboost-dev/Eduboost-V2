@@ -17,6 +17,7 @@ if str(ROOT) not in sys.path:
 
 from app.core.database import AsyncSessionLocal
 from app.domain.content_scope import ContentScopeStatus
+from app.services.content_file_artifact_import import ContentFileArtifactImportService
 from app.services.content_scope_registry import ContentScopeRegistry
 from app.services.content_staging_seed_executor import ContentStagingSeedExecutor, MissingForeignKeyError
 
@@ -49,20 +50,18 @@ async def run_seeding(args: argparse.Namespace) -> int:
     logger.info(f"Resolved {len(scope_ids)} scopes to process. dry_run={dry_run}, batch_size={batch_size}")
 
     if dry_run:
-        # Dry run logic: resolve scopes and count planned items
         scopes_summary = []
         total_records = 0
-        async with AsyncSessionLocal() as session:
-            executor = ContentStagingSeedExecutor()
-            for scope_id in scope_ids:
-                plan = await executor.dry_run_seed(session, scope_id)
-                record_count = len(plan.seedable)
-                total_records += record_count
-                scopes_summary.append({
-                    "scope_id": scope_id,
-                    "record_count": record_count,
-                    "skipped_count": len(plan.skipped),
-                })
+        import_service = ContentFileArtifactImportService()
+        for scope_id in scope_ids:
+            plan = import_service.plan_scope_import(scope_id)
+            record_count = len(plan.records)
+            total_records += record_count
+            scopes_summary.append({
+                "scope_id": scope_id,
+                "record_count": record_count,
+                "skipped_count": len(plan.errors),
+            })
         
         summary = {
             "schema_version": "1.0",

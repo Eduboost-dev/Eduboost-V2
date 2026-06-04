@@ -61,7 +61,14 @@ from app.domain.content_factory_schemas import (
     StagingSeedRunPageResponse,
     StagingSeedRunResultResponse,
 )
-from app.domain.content_coverage import CapsRefCoverageReport, ContentLayer, CoverageTarget, ScopeCoverageReport
+from app.domain.content_coverage import (
+    CapsRefCoverageReport,
+    ContentLayer,
+    CoverageGapReport,
+    CoverageTarget,
+    MultiScopeCoverageSummary,
+    ScopeCoverageReport,
+)
 from app.domain.content_scope import ContentScope
 from app.models.content_factory import ContentArtifactStatus, ContentGenerationArtifact, ContentGenerationTask
 from app.repositories.item_bank_repository import ItemBankRepository
@@ -236,6 +243,46 @@ async def get_content_caps_ref_coverage(
         return await coverage_service.get_caps_ref_coverage(scope_id, caps_ref, layers=layer)
     except LookupError as exc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+
+
+@router.get("/coverage/summary", response_model=MultiScopeCoverageSummary)
+async def get_coverage_summary_all_scopes(
+    layer: list[ContentLayer] | None = Query(default=None),
+    coverage_service: ContentCoverageService = Depends(get_content_coverage_service),
+) -> MultiScopeCoverageSummary:
+    return await coverage_service.get_coverage_summary_all_scopes(layers=layer)
+
+
+@router.get("/coverage/by-grade/{grade}", response_model=list[ScopeCoverageReport])
+async def get_coverage_by_grade(
+    grade: int,
+    layer: list[ContentLayer] | None = Query(default=None),
+    coverage_service: ContentCoverageService = Depends(get_content_coverage_service),
+) -> list[ScopeCoverageReport]:
+    return await coverage_service.get_coverage_by_grade(grade, layers=layer)
+
+
+@router.get("/coverage/by-subject/{subject_code}", response_model=list[ScopeCoverageReport])
+async def get_coverage_by_subject(
+    subject_code: str,
+    layer: list[ContentLayer] | None = Query(default=None),
+    coverage_service: ContentCoverageService = Depends(get_content_coverage_service),
+) -> list[ScopeCoverageReport]:
+    return await coverage_service.get_coverage_by_subject(subject_code, layers=layer)
+
+
+@router.get("/coverage/gaps", response_model=CoverageGapReport)
+async def get_coverage_gaps(
+    grade: int | None = Query(default=None),
+    subject_code: str | None = Query(default=None),
+    layer: list[ContentLayer] | None = Query(default=None),
+    coverage_service: ContentCoverageService = Depends(get_content_coverage_service),
+) -> CoverageGapReport:
+    return await coverage_service.get_coverage_gap_report(
+        grade=grade,
+        subject_code=subject_code,
+        layers=layer,
+    )
 
 
 @router.post("/validate-artifact", response_model=ContentArtifactValidationResponse)

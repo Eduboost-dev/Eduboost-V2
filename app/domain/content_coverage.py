@@ -86,6 +86,35 @@ class ScopeCoverageReport(BaseModel):
     per_caps_ref: list[CapsRefCoverageReport]
 
 
+class MultiScopeCoverageSummary(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    total_scopes: int
+    scopes_by_status: dict[str, int]
+    scopes_by_grade: dict[str, int]
+    scopes_by_subject: dict[str, int]
+    global_summary: ScopeCoverageSummary
+    global_layers: dict[ContentLayer, ScopeCoverageLayerSummary]
+
+
+class CoverageGap(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    scope_id: str
+    caps_ref: str
+    layer: ContentLayer
+    target: int
+    approved: int
+    gap: int
+
+
+class CoverageGapReport(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    gaps: list[CoverageGap]
+    total_gaps: int
+
+
 def coverage_status(approved: int, target: int) -> CoverageLayerStatus:
     if target <= 0:
         return CoverageLayerStatus.NOT_CONFIGURED

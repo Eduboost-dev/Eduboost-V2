@@ -8,6 +8,7 @@ import os
 import tempfile
 import uuid
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -68,7 +69,7 @@ async def test_staging_executor_batch_size_respected():
     plan = StagingSeedPlan(
         scope_id="some_scope",
         layers=["diagnostic_items"],
-        seedable=[_seedable() for _ Coupe in range(5)],
+        seedable=[_seedable() for _ in range(5)],
         skipped=[],
     )
     
@@ -151,15 +152,10 @@ async def test_seed_staging_script_dry_run(capsys):
         reviewer_id="dev-content-review-2026-06-03",
     )
     
-    plan = StagingSeedPlan(
-        scope_id="grade5_mathematics_en",
-        layers=["diagnostic_items"],
-        seedable=[_seedable()],
-        skipped=[],
-    )
+    plan = SimpleNamespace(records=[_seedable()], errors=[])
     
-    with patch("scripts.curriculum.seed_staging_review_scopes.AsyncSessionLocal"), \
-         patch("app.services.content_staging_seed_executor.ContentStagingSeedExecutor.dry_run_seed", return_value=plan):
+    with patch("scripts.curriculum.seed_staging_review_scopes.ContentFileArtifactImportService") as service_cls:
+        service_cls.return_value.plan_scope_import.return_value = plan
         code = await run_seeding(args)
         assert code == 0
         captured = capsys.readouterr()

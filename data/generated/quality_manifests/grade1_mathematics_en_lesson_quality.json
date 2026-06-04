@@ -1,0 +1,23 @@
+{
+  "scope_id": "grade1_mathematics_en",
+  "relative_path": "data/generated/lessons/grade1_mathematics_en_lessons.json",
+  "exists": true,
+  "passed": true,
+  "quarantined": false,
+  "lesson_count": 128,
+  "failed_lesson_count": 0,
+  "blockers": [],
+  "aggregate": {
+    "missing_lesson_body": 0,
+    "missing_title": 0,
+    "missing_scope_id": 0,
+    "missing_variant": 0,
+    "missing_teacher_notes": 0,
+    "missing_parent_notes": 0,
+    "missing_extension_prompts": 0,
+    "practice_questions_correct_option_a": 0,
+    "lessons_with_identical_answer_keys": 0,
+    "placeholder_worked_example_steps": 0
+  },
+  "issues": []
+}
