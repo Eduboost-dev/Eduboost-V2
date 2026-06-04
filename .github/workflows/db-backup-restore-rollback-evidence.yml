@@ -46,12 +46,9 @@ jobs:
 
       - name: Install PostgreSQL 17 client (matching Supabase)
         run: |
-          # Remove old PostgreSQL client if present
-          sudo apt-get remove -y postgresql-client 2>/dev/null || true
-          
           # Add PostgreSQL official repository for version 17
           sudo apt-get update -qq
-          sudo apt-get install -y ca-certificates gnupg lsb-release
+          sudo apt-get install -y ca-certificates gnupg lsb-release curl
           sudo install -d /usr/share/postgresql-common/pgdg
           sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail \
             https://www.postgresql.org/media/keys/ACCC4CF8.asc
@@ -60,12 +57,25 @@ jobs:
           echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | \
             sudo tee /etc/apt/sources.list.d/pgdg.list > /dev/null
           
-          # Update and install exact version 17
+          # Update and install exact version 17 (with force replacement)
           sudo apt-get update -qq
-          sudo apt-get install -y --allow-downgrades postgresql-client-17
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --allow-downgrades --allow-remove-essential postgresql-client-17
           
-          # Verify version
+          # Verify version - this must show 17.x
+          echo "=== pg_dump version check ==="
           pg_dump --version
+          echo "=== pg_restore version check ==="
+          pg_restore --version
+          
+          # Show all PostgreSQL client binaries in PATH
+          echo "=== PostgreSQL binaries in PATH ==="
+          which pg_dump
+          which pg_restore
+          ls -la $(which pg_dump)
+          
+          # Check for any conflicting pg_dump installations
+          echo "=== Checking for conflicting pg_dump installations ==="
+          find /usr -name "pg_dump*" 2>/dev/null | head -20
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -93,6 +103,9 @@ jobs:
 
       - name: Run DB backup restore rollback evidence
         run: |
+          # Explicitly use the correct pg_dump path
+          echo "=== Using pg_dump from: $(which pg_dump) ==="
+          echo "=== Running backup command ==="
           if [ "${{ github.event.inputs.run_drill }}" = "true" ]; then
             python scripts/db_backup_restore_rollback_evidence.py --run-drill
           else
