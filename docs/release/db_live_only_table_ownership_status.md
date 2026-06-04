@@ -1,7 +1,7 @@
 # DB Live-Only Table Ownership Status
 
-Generated at: `2026-05-22T14:23:10Z`
-Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+Generated at: `2026-06-04T11:17:31Z`
+Commit: `1faa5ed5f7e4961d9d8cc7f666684057494eb8fb`
 
 **Status:** `db-live-only-table-ownership-accepted`
 **Policy:** `docs/architecture/db_live_only_table_ownership.yml`

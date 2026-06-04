@@ -314,12 +314,12 @@ findings:
     severity: P1
     gate: 5
     owner: release
-    implementation_batch: code_1911_1950
+    implementation_batch: code_1791_1830
     proof_status: external-blocked
-    proof_command: make staging-acceptance-release-check
-    evidence_file: docs/release/staging_smoke_evidence.md
+    proof_command: make external-approval-release-check after approval metadata is attached
+    evidence_file: docs/release/external_approvals/staging_acceptance.md
     last_verified_commit: null
-    closure_blocker: real staging smoke evidence and GitHub Actions run URL required
+    closure_blocker: external approval sign-off metadata required
     blocks_beta: true
     external_dependency: true
   - id: EXT-GATE-001
@@ -331,7 +331,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1791-1830-full-check
     evidence_file: docs/release/external_approval_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: 1faa5ed5f7e4961d9d8cc7f666684057494eb8fb
     closure_blocker: required external approval items remain external-blocked until signed off
     blocks_beta: true
     external_dependency: true
@@ -500,7 +500,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2271-2310-full-check
     evidence_file: docs/release/final_beta_gate_refresh.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: 5471c25ef389ee3028295c7201bd45818e34d0b5
     closure_blocker: refresh only; generated beta decision is NO-GO
     blocks_beta: false
     external_dependency: false
@@ -539,7 +539,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2431-2470-full-check
     evidence_file: docs/release/production_frontend_deployment_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: 1faa5ed5f7e4961d9d8cc7f666684057494eb8fb
     closure_blocker: config only; real staging deployment/browser smoke still required
     blocks_beta: false
     external_dependency: false
@@ -552,7 +552,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2471-2510-full-check
     evidence_file: docs/release/production_frontend_runtime_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: 1faa5ed5f7e4961d9d8cc7f666684057494eb8fb
     closure_blocker: local preflight only unless runtime evidence is accepted
     blocks_beta: false
     external_dependency: false
@@ -565,7 +565,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2511-2550-full-check
     evidence_file: docs/release/auth_service_cleanup_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: 1faa5ed5f7e4961d9d8cc7f666684057494eb8fb
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
@@ -578,7 +578,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2551-2590-full-check
     evidence_file: docs/release/auth_route_logout_delegate_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: 1faa5ed5f7e4961d9d8cc7f666684057494eb8fb
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
@@ -591,7 +591,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2591-2630-full-check
     evidence_file: docs/release/auth_lifecycle_http_proof_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: 1faa5ed5f7e4961d9d8cc7f666684057494eb8fb
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
@@ -604,7 +604,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2631-2670-full-check
     evidence_file: docs/release/auth_lifecycle_semantic_proof_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: 1faa5ed5f7e4961d9d8cc7f666684057494eb8fb
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
@@ -640,11 +640,11 @@ findings:
     gate: 3
     owner: platform
     implementation_batch: code_2751_2790
-    proof_status: runtime-passing
+    proof_status: not-proven
     proof_command: make backend-implementation-2751-2790-full-check
     evidence_file: docs/release/ci_auth_refresh_db_proof_workflow_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
-    closure_blocker: none; real workflow run URL still required for release evidence
+    last_verified_commit: null
+    closure_blocker: artifact upload configured; real workflow run URL still required for release evidence
     blocks_beta: false
     external_dependency: false
   - id: POPIA-001R

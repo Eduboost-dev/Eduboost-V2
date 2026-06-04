@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-06-01T14:56:02Z",
-  "current_commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
-  "current_branch": "remediation/phase0-phase1",
+  "generated_at": "2026-06-04T11:04:16Z",
+  "current_commit": "1faa5ed5f7e4961d9d8cc7f666684057494eb8fb",
+  "current_branch": "implementation/study-material-expansion-foundation",
   "status": "audit-baseline-refresh-current",
   "beta_decision": "NO-GO",
-  "beta_blocker_count": 14,
+  "beta_blocker_count": 10,
   "commands": [
     {
       "command": "make final-gate-refresh",
       "return_code": 0,
-      "output_excerpt": "PYTHONPATH=. python3 -c \"from scripts.final_gate_refresh import write_refresh; r = write_refresh(); print(r.beta_decision)\"\nNO-GO\n"
+      "output_excerpt": "make[1]: Entering directory '/home/azureuser/Dev/Eduboost-V2'\nPYTHONPATH=. python3 -c \"from scripts.final_gate_refresh import write_refresh; r = write_refresh(); print(r.beta_decision)\"\nNO-GO\nmake[1]: Leaving directory '/home/azureuser/Dev/Eduboost-V2'\n"
     },
     {
       "command": "write release_go_no_go_status from final_beta_gate_refresh",
@@ -19,7 +19,7 @@
     {
       "command": "python3 scripts/docs_inventory.py --write",
       "return_code": 0,
-      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1150\n"
+      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1243\n"
     }
   ],
   "surfaces": [
@@ -29,7 +29,7 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
+      "commit": "1faa5ed5f7e4961d9d8cc7f666684057494eb8fb",
       "stale": false
     },
     {
@@ -38,16 +38,16 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
+      "commit": "1faa5ed5f7e4961d9d8cc7f666684057494eb8fb",
       "stale": false
     },
     {
       "name": "ci_evidence",
       "path": "docs/release/ci_evidence_status.json",
       "exists": true,
-      "status": "ci-evidence-not-accepted",
+      "status": "ci-evidence-accepted",
       "decision": "",
-      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -56,7 +56,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -65,7 +65,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
+      "commit": "728436c96b178baca333a39aaa01a39a708944c5",
       "stale": true
     },
     {
@@ -74,8 +74,8 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
-      "stale": false
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
+      "stale": true
     },
     {
       "name": "staging_smoke_evidence",
@@ -83,7 +83,7 @@
       "exists": true,
       "status": "staging-smoke-evidence-not-accepted",
       "decision": "",
-      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -92,7 +92,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -101,7 +101,7 @@
       "exists": true,
       "status": "auth-refresh-db-evidence-accepted",
       "decision": "",
-      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -110,7 +110,7 @@
       "exists": true,
       "status": "popia-response-contract-no-skip-passing",
       "decision": "",
-      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -119,7 +119,7 @@
       "exists": true,
       "status": "diag-deep-health-runtime-not-accepted",
       "decision": "",
-      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -128,7 +128,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -137,7 +137,7 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "150d81e059f119a41073a7bbe6523b6f11661dea",
+      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
       "stale": true
     },
     {
@@ -146,7 +146,7 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "7a24a9a7f59c5fba6ec62b983203d8e268932af4",
+      "commit": "1faa5ed5f7e4961d9d8cc7f666684057494eb8fb",
       "stale": false
     }
   ],
@@ -170,14 +170,14 @@
       "path": "docs/release/ci_evidence_status.json",
       "expected_marker": "ci-evidence-accepted",
       "exists": true,
-      "accepted": false
+      "accepted": true
     },
     {
       "id": "EVID-001",
       "path": "docs/release/ci_evidence_status.json",
       "expected_marker": "ci-evidence-accepted",
       "exists": true,
-      "accepted": false
+      "accepted": true
     },
     {
       "id": "STAGING-001",
@@ -204,11 +204,7 @@
     "CONTENT-001",
     "LESSON-AUTH-001",
     "STAGING-001",
-    "EXT-GATE-001",
-    "AUDIT-WRITE-001",
-    "AUDIT-WRITE-001R",
-    "DB-ROLLBACK-001",
-    "DB-ROLLBACK-001R"
+    "EXT-GATE-001"
   ],
   "blockers": []
 }
