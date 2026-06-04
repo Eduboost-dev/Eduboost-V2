@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "eastus2"
+    },
+    "vmName": {
+      "value": "qwen-coder-14b"
+    },
+    "adminUsername": {
+      "value": "eduboost"
+    },
+    "adminPublicKey": {
+      "value": "REPLACE_WITH_YOUR_PUBLIC_SSH_KEY"
+    },
+    "vmSize": {
+      "value": "Standard_D4s_v3"
+    },
+    "osDiskSizeGB": {
+      "value": 128
+    },
+    "dataDiskSizeGB": {
+      "value": 256
+    },
+    "environment": {
+      "value": "development"
+    },
+    "project": {
+      "value": "eduboost"
+    }
+  }
+}

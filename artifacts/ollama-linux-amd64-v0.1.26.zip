@@ -1,0 +1,9 @@
+# create storage account + container (example)
+az storage account create -n eduboostartifacts -g qwen-rg --sku Standard_LRS --location eastus2
+az storage container create --account-name eduboostartifacts -n public --public-access blob
+
+# upload file
+az storage blob upload --account-name eduboostartifacts --container-name public \
+  --name ollama-linux-amd64-v0.30.0-rc31.tar.zst --file artifacts/ollama-linux-amd64-v0.30.0-rc31.tar.zst
+# get blob URL
+echo "https://eduboostartifacts.blob.core.windows.net/public/ollama-linux-amd64-v0.30.0-rc31.tar.zst"Not Found

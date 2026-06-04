@@ -1,0 +1,130 @@
+version: '3.8'
+
+# Local Qwen 2.5 Coder 14B Development Stack
+# For testing before deploying to Azure
+#
+# Usage:
+#   docker compose -f docker-compose.qwen.yml up -d
+#   docker compose -f docker-compose.qwen.yml logs -f ollama
+#
+# Notes:
+#   - Requires Docker with GPU support (nvidia-docker)
+#   - First pull will take 15-30 minutes
+#   - Models stored in ./data/ollama volume (persistent)
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: qwen-ollama
+    
+    # GPU support - requires nvidia-docker
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - OLLAMA_MODELS=/root/.ollama/models
+    
+    # Resource constraints
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1  # Use 1 GPU
+              capabilities: [gpu]
+    
+    # Port mapping
+    ports:
+      - "11434:11434"  # Ollama API
+    
+    # Volume for model persistence
+    volumes:
+      - ollama_data:/root/.ollama/models
+      - ./data/ollama_init.sh:/init.sh:ro
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Keep running
+    stdin_open: true
+    tty: true
+
+  # Optional: vLLM for higher performance
+  vllm:
+    image: vllm/vllm-openai:latest
+    container_name: qwen-vllm
+    
+    # GPU support
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_VISIBLE_DEVICES=0
+    
+    # Resource constraints
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    
+    # Port mapping
+    ports:
+      - "8000:8000"  # vLLM OpenAI-compatible API
+    
+    # Volume for model cache
+    volumes:
+      - vllm_models:/root/.cache/huggingface/hub
+    
+    # Command to start vLLM with Qwen model
+    command: >
+      --model Qwen/Qwen2.5-Coder-14B
+      --host 0.0.0.0
+      --port 8000
+      --max-model-len 4096
+      --tensor-parallel-size 1
+      --gpu-memory-utilization 0.9
+      --dtype auto
+      --trust-remote-code
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    depends_on:
+      - ollama
+    
+    profiles: ["vllm"]  # Optional service: docker compose --profile vllm up
+
+  # Test client for convenience
+  test:
+    image: curlimages/curl:latest
+    container_name: qwen-test-client
+    
+    entrypoint: /bin/sh
+    command: -c "while true; do sleep 3600; done"
+    
+    depends_on:
+      ollama:
+        condition: service_healthy
+    
+    profiles: ["test"]  # Optional: docker compose --profile test up
+
+volumes:
+  ollama_data:
+    name: qwen_ollama_data
+  vllm_models:
+    name: qwen_vllm_models
+
+networks:
+  default:
+    name: qwen_network
