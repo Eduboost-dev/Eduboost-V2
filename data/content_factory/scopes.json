@@ -1278,7 +1278,7 @@
       "language": "en",
       "curriculum": "CAPS",
       "curriculum_version": null,
-      "status": "review",
+      "status": "active",
       "topic_map_path": "data/caps/topic_maps/grade5_mathematics_en.json",
       "caps_refs": [
         "5.M.1.1",
@@ -1309,7 +1309,8 @@
         "lessons": "data/generated/lessons/grade5_mathematics_en_lessons.json",
         "assessment_blueprints": "data/generated/assessment_blueprints/grade5_mathematics_en_blueprints.json",
         "study_plan_templates": "data/generated/study_plans/grade5_mathematics_en_templates.json"
-      }
+      },
+      "caps_ref_count": 16
     },
     {
       "scope_id": "grade5_natural_sciences_and_technology_en",
