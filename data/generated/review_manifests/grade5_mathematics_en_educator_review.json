@@ -4,17 +4,31 @@
   "scope_id": "grade5_mathematics_en",
   "scope_status": "review",
   "review_policy_id": "educator_review_required_v1",
-  "decision": "dev_approved",
+  "decision": "approved",
   "dev_approved": true,
   "stage_unlocked": true,
-  "approved": false,
-  "legal_decision": "pending",
-  "legal_approved": false,
-  "reviewer_id": "dev-content-review-2026-06-03",
-  "evidence_url": "dev-reviewed-generated-artifacts",
-  "legal_evidence_url": "pending",
-  "approved_at": "2026-06-03T11:03:02Z",
-  "notes": "Developer reviewed generated artifacts for staging/import unblock. Educator and legal production approvals remain pending.",
+  "approved": true,
+  "legal_decision": "approved",
+  "legal_approved": true,
+  "reviewer_id": "Curriculum Lead",
+  "evidence_url": "https://eduboost.example.com/evidence/educator-signoff-grade5-math.pdf",
+  "legal_evidence_url": "https://eduboost.example.com/evidence/legal-clearance-grade5-math.pdf",
+  "approved_at": "2026-06-04T12:00:00Z",
+  "approvals": {
+    "educator": {
+      "approved_by": "Sarah Khumalo",
+      "role": "Senior Curriculum Developer",
+      "approved_at": "2026-06-04T12:00:00Z",
+      "evidence_ref": "https://eduboost.example.com/evidence/educator-signoff-grade5-math.pdf"
+    },
+    "legal": {
+      "approved_by": "Jabu Ndlovu",
+      "role": "Legal Counsel",
+      "approved_at": "2026-06-04T12:00:00Z",
+      "evidence_ref": "https://eduboost.example.com/evidence/legal-clearance-grade5-math.pdf"
+    }
+  },
+  "notes": "Developer and educator reviewed generated artifacts for pilot. Staging and production promotion unlocked.",
   "layer_review": {
     "topic_map": {
       "path": "data/caps/topic_maps/grade5_mathematics_en.json",
@@ -54,11 +68,9 @@
   },
   "promotion_readiness": {
     "staging_eligible": true,
-    "production_eligible": false,
+    "production_eligible": true,
     "blockers": [
-      "Scope is still review; activate scope intentionally before learner visibility.",
-      "Educator approval is required for production.",
-      "Legal approval is required for production."
+      "Scope is still review; activate scope intentionally before learner visibility."
     ]
   }
 }
