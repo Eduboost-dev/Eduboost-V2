@@ -98,24 +98,12 @@ class FinalGateRefresh:
     resolved_non_blocking_findings: list[RegistryFinding]
     required_next_actions: list[str]
     no_false_closure_rules: list[str]
-
-    @property
-    def refresh_results(self) -> list[StatusSurface]:
-        """Backward-compatible name used by the original refresh checker."""
-        return self.surfaces
-
-    @property
-    def non_ready_beta_findings(self) -> list[RegistryFinding]:
-        """Backward-compatible name for beta-critical non-ready findings."""
-        return self.beta_critical_findings
-
-    @property
-    def no_false_closure_rules(self) -> list[str]:
-        """Rules the legacy tests expect the refresh object to expose."""
-        return [
-            "Do not mark beta GO while effective beta blockers remain.",
-            "Do not count scaffold-only, skipped, pending, or external-blocked evidence as release approval.",
-        ]
+    # Note: keep the canonical fields above. Backward-compatible aliases
+    # (e.g. `refresh_results`, `non_ready_beta_findings`, `no_false_closure_rules`)
+    # are provided as dataclass fields to ensure the object is directly
+    # serializable and compatible with legacy consumers. Do not shadow
+    # these names with @property definitions, which breaks dataclass field
+    # initialization order.
 
 
 def current_commit() -> str:
