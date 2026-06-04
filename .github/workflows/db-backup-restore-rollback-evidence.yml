@@ -44,38 +44,36 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Install PostgreSQL 17 client (matching Supabase)
+      - name: Install PostgreSQL 17 client from official apt repository
         run: |
-          # Add PostgreSQL official repository for version 17
+          # Add official PostgreSQL repository for version 17
           sudo apt-get update -qq
           sudo apt-get install -y ca-certificates gnupg lsb-release curl
           sudo install -d /usr/share/postgresql-common/pgdg
           sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail \
             https://www.postgresql.org/media/keys/ACCC4CF8.asc
           
-          # Use noble (24.04) repo which has pg17
           echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | \
             sudo tee /etc/apt/sources.list.d/pgdg.list > /dev/null
           
-          # Update and install exact version 17 (with force replacement)
-          sudo apt-get update -qq
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --allow-downgrades --allow-remove-essential postgresql-client-17
+          # Remove OLD pg_dump 16 first - explicitly remove the Ubuntu version
+          sudo apt-get remove -y postgresql-client-16 2>/dev/null || true
           
-          # Verify version - this must show 17.x
+          # Update apt sources and install PostgreSQL 17
+          sudo apt-get update -qq
+          sudo apt-get install -y postgresql-client-17
+          
+          # Verify installation - show version
           echo "=== pg_dump version check ==="
           pg_dump --version
           echo "=== pg_restore version check ==="
           pg_restore --version
           
-          # Show all PostgreSQL client binaries in PATH
-          echo "=== PostgreSQL binaries in PATH ==="
-          which pg_dump
-          which pg_restore
-          ls -la $(which pg_dump)
-          
-          # Check for any conflicting pg_dump installations
-          echo "=== Checking for conflicting pg_dump installations ==="
-          find /usr -name "pg_dump*" 2>/dev/null | head -20
+          # Verify PATH and symlinks
+          echo "=== Verifying pg_dump location ==="
+          ls -la /usr/bin/pg_dump
+          echo "=== pg_dump help output ==="
+          pg_dump --help | head -5
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -93,7 +91,6 @@ jobs:
           test -n "${DB_ROLLBACK_RESTORE_DATABASE_URL}" || exit 1
           test "${DB_ROLLBACK_SOURCE_DATABASE_URL}" != "${DB_ROLLBACK_RESTORE_DATABASE_URL}" || exit 1
           
-          # Prevent placeholder values
           case "${DB_ROLLBACK_SOURCE_DATABASE_URL}" in
             *"<"*|*">"*|*"example.com"*|*"localhost"*|*"127.0.0.1"*)
               echo "Source URL contains placeholder or localhost"
@@ -103,9 +100,6 @@ jobs:
 
       - name: Run DB backup restore rollback evidence
         run: |
-          # Explicitly use the correct pg_dump path
-          echo "=== Using pg_dump from: $(which pg_dump) ==="
-          echo "=== Running backup command ==="
           if [ "${{ github.event.inputs.run_drill }}" = "true" ]; then
             python scripts/db_backup_restore_rollback_evidence.py --run-drill
           else
