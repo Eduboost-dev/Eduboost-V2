@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-06-03T11:03:06Z",
+  "generated_at": "2026-06-04T11:21:03Z",
   "scope_id": "grade7_social_sciences_en",
   "grade": 7,
   "phase": "senior",
@@ -26,6 +26,25 @@
       "Legal approval is required for production."
     ]
   },
+  "lesson_quality": {
+    "passed": true,
+    "quarantined": false,
+    "lesson_count": 128,
+    "failed_lesson_count": 0,
+    "blockers": [],
+    "aggregate": {
+      "missing_lesson_body": 0,
+      "missing_title": 0,
+      "missing_scope_id": 0,
+      "missing_variant": 0,
+      "missing_teacher_notes": 0,
+      "missing_parent_notes": 0,
+      "missing_extension_prompts": 0,
+      "practice_questions_correct_option_a": 0,
+      "lessons_with_identical_answer_keys": 0,
+      "placeholder_worked_example_steps": 0
+    }
+  },
   "staging_eligible": true,
   "production_eligible": false,
   "caps_ref_count": 16,
@@ -44,41 +63,41 @@
       "layer": "diagnostic_items",
       "relative_path": "data/generated/items/grade7_social_sciences_en_item_bank.json",
       "exists": true,
-      "sha256": "sha256:7a57d6db2f7ad9f43fd4cbd7e82a03607983bf403c69f86a0f306a9b76e210ad",
+      "sha256": "sha256:291199432ed192f2a785c80e938db68f3d720a5b97b01a3001929c5d87b39c49",
       "record_count": 640,
       "approved_count": 640,
       "review_ready_count": 640,
-      "idempotency_key": "grade7_social_sciences_en:diagnostic_items:sha256:7a57d6db2f7ad9f43fd4cbd7e82a03607983bf403c69f86a0f306a9b76e210ad"
+      "idempotency_key": "grade7_social_sciences_en:diagnostic_items:sha256:291199432ed192f2a785c80e938db68f3d720a5b97b01a3001929c5d87b39c49"
     },
     "lessons": {
       "layer": "lessons",
       "relative_path": "data/generated/lessons/grade7_social_sciences_en_lessons.json",
       "exists": true,
-      "sha256": "sha256:34f92e6a981a6c05f37a01f39c2cd7ba4ac6591418b0ce305386352426dfa6af",
+      "sha256": "sha256:4039c21687e4959239392a0dbeb59f3e5f63d32c52580290d85dcacf5144bd8c",
       "record_count": 128,
       "approved_count": 128,
       "review_ready_count": 128,
-      "idempotency_key": "grade7_social_sciences_en:lessons:sha256:34f92e6a981a6c05f37a01f39c2cd7ba4ac6591418b0ce305386352426dfa6af"
+      "idempotency_key": "grade7_social_sciences_en:lessons:sha256:4039c21687e4959239392a0dbeb59f3e5f63d32c52580290d85dcacf5144bd8c"
     },
     "assessment_blueprints": {
       "layer": "assessment_blueprints",
       "relative_path": "data/generated/assessment_blueprints/grade7_social_sciences_en_blueprints.json",
       "exists": true,
-      "sha256": "sha256:fce0546afff9afe0c8445b86b53c10f26b3184d5615ab8dac5fd07351be10b4e",
-      "record_count": 49,
-      "approved_count": 49,
-      "review_ready_count": 49,
-      "idempotency_key": "grade7_social_sciences_en:assessment_blueprints:sha256:fce0546afff9afe0c8445b86b53c10f26b3184d5615ab8dac5fd07351be10b4e"
+      "sha256": "sha256:163e7b69e3965ac9bb13dee9d1a363e85efdd0f8551b1fcecf8c8c4b8505e383",
+      "record_count": 65,
+      "approved_count": 65,
+      "review_ready_count": 65,
+      "idempotency_key": "grade7_social_sciences_en:assessment_blueprints:sha256:163e7b69e3965ac9bb13dee9d1a363e85efdd0f8551b1fcecf8c8c4b8505e383"
     },
     "study_plan_templates": {
       "layer": "study_plan_templates",
       "relative_path": "data/generated/study_plans/grade7_social_sciences_en_templates.json",
       "exists": true,
-      "sha256": "sha256:1f4a0729c35715d8364a9a2be26b8b995a57197d5f31e30b8c418e95e155dc4e",
+      "sha256": "sha256:943ec57398ba82a6ef24074e1efc93765b3175e19bd0a0a41c75a9c36207b4d7",
       "record_count": 16,
       "approved_count": 16,
       "review_ready_count": 16,
-      "idempotency_key": "grade7_social_sciences_en:study_plan_templates:sha256:1f4a0729c35715d8364a9a2be26b8b995a57197d5f31e30b8c418e95e155dc4e"
+      "idempotency_key": "grade7_social_sciences_en:study_plan_templates:sha256:943ec57398ba82a6ef24074e1efc93765b3175e19bd0a0a41c75a9c36207b4d7"
     }
   },
   "blockers": [
@@ -88,10 +107,10 @@
   ],
   "idempotency_keys": {
     "topic_map": "grade7_social_sciences_en:topic_map:sha256:0a02f9716ef931b95cd2215e4f63a5be79eac0da0dfa67ecae7222d48d96637f",
-    "diagnostic_items": "grade7_social_sciences_en:diagnostic_items:sha256:7a57d6db2f7ad9f43fd4cbd7e82a03607983bf403c69f86a0f306a9b76e210ad",
-    "lessons": "grade7_social_sciences_en:lessons:sha256:34f92e6a981a6c05f37a01f39c2cd7ba4ac6591418b0ce305386352426dfa6af",
-    "assessment_blueprints": "grade7_social_sciences_en:assessment_blueprints:sha256:fce0546afff9afe0c8445b86b53c10f26b3184d5615ab8dac5fd07351be10b4e",
-    "study_plan_templates": "grade7_social_sciences_en:study_plan_templates:sha256:1f4a0729c35715d8364a9a2be26b8b995a57197d5f31e30b8c418e95e155dc4e"
+    "diagnostic_items": "grade7_social_sciences_en:diagnostic_items:sha256:291199432ed192f2a785c80e938db68f3d720a5b97b01a3001929c5d87b39c49",
+    "lessons": "grade7_social_sciences_en:lessons:sha256:4039c21687e4959239392a0dbeb59f3e5f63d32c52580290d85dcacf5144bd8c",
+    "assessment_blueprints": "grade7_social_sciences_en:assessment_blueprints:sha256:163e7b69e3965ac9bb13dee9d1a363e85efdd0f8551b1fcecf8c8c4b8505e383",
+    "study_plan_templates": "grade7_social_sciences_en:study_plan_templates:sha256:943ec57398ba82a6ef24074e1efc93765b3175e19bd0a0a41c75a9c36207b4d7"
   },
   "rollback_manifest": {
     "scope_id": "grade7_social_sciences_en",
@@ -105,10 +124,10 @@
     },
     "artifact_hashes": {
       "topic_map": "sha256:0a02f9716ef931b95cd2215e4f63a5be79eac0da0dfa67ecae7222d48d96637f",
-      "diagnostic_items": "sha256:7a57d6db2f7ad9f43fd4cbd7e82a03607983bf403c69f86a0f306a9b76e210ad",
-      "lessons": "sha256:34f92e6a981a6c05f37a01f39c2cd7ba4ac6591418b0ce305386352426dfa6af",
-      "assessment_blueprints": "sha256:fce0546afff9afe0c8445b86b53c10f26b3184d5615ab8dac5fd07351be10b4e",
-      "study_plan_templates": "sha256:1f4a0729c35715d8364a9a2be26b8b995a57197d5f31e30b8c418e95e155dc4e"
+      "diagnostic_items": "sha256:291199432ed192f2a785c80e938db68f3d720a5b97b01a3001929c5d87b39c49",
+      "lessons": "sha256:4039c21687e4959239392a0dbeb59f3e5f63d32c52580290d85dcacf5144bd8c",
+      "assessment_blueprints": "sha256:163e7b69e3965ac9bb13dee9d1a363e85efdd0f8551b1fcecf8c8c4b8505e383",
+      "study_plan_templates": "sha256:943ec57398ba82a6ef24074e1efc93765b3175e19bd0a0a41c75a9c36207b4d7"
     }
   }
 }

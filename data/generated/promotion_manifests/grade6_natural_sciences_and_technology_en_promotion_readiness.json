@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-06-03T11:03:05Z",
+  "generated_at": "2026-06-04T11:21:02Z",
   "scope_id": "grade6_natural_sciences_and_technology_en",
   "grade": 6,
   "phase": "intermediate",
@@ -26,6 +26,25 @@
       "Legal approval is required for production."
     ]
   },
+  "lesson_quality": {
+    "passed": true,
+    "quarantined": false,
+    "lesson_count": 128,
+    "failed_lesson_count": 0,
+    "blockers": [],
+    "aggregate": {
+      "missing_lesson_body": 0,
+      "missing_title": 0,
+      "missing_scope_id": 0,
+      "missing_variant": 0,
+      "missing_teacher_notes": 0,
+      "missing_parent_notes": 0,
+      "missing_extension_prompts": 0,
+      "practice_questions_correct_option_a": 0,
+      "lessons_with_identical_answer_keys": 0,
+      "placeholder_worked_example_steps": 0
+    }
+  },
   "staging_eligible": true,
   "production_eligible": false,
   "caps_ref_count": 16,
@@ -44,41 +63,41 @@
       "layer": "diagnostic_items",
       "relative_path": "data/generated/items/grade6_natural_sciences_and_technology_en_item_bank.json",
       "exists": true,
-      "sha256": "sha256:2484b7f510153d145024a419fffd4c377555407130d4602d6c29449589bf6f15",
+      "sha256": "sha256:e090b821c36327f7e4248082766bc55a534813c7ce76aac751c848aa992d9f09",
       "record_count": 640,
       "approved_count": 640,
       "review_ready_count": 640,
-      "idempotency_key": "grade6_natural_sciences_and_technology_en:diagnostic_items:sha256:2484b7f510153d145024a419fffd4c377555407130d4602d6c29449589bf6f15"
+      "idempotency_key": "grade6_natural_sciences_and_technology_en:diagnostic_items:sha256:e090b821c36327f7e4248082766bc55a534813c7ce76aac751c848aa992d9f09"
     },
     "lessons": {
       "layer": "lessons",
       "relative_path": "data/generated/lessons/grade6_natural_sciences_and_technology_en_lessons.json",
       "exists": true,
-      "sha256": "sha256:48c17204d2967f4a021d98ced50e19c8d2c72e4a10bfbeff28c0844a9a8563ef",
+      "sha256": "sha256:6f1909365a44691b02d3795dd8d55160b733894c91bf417f886d33a7c5f74c98",
       "record_count": 128,
       "approved_count": 128,
       "review_ready_count": 128,
-      "idempotency_key": "grade6_natural_sciences_and_technology_en:lessons:sha256:48c17204d2967f4a021d98ced50e19c8d2c72e4a10bfbeff28c0844a9a8563ef"
+      "idempotency_key": "grade6_natural_sciences_and_technology_en:lessons:sha256:6f1909365a44691b02d3795dd8d55160b733894c91bf417f886d33a7c5f74c98"
     },
     "assessment_blueprints": {
       "layer": "assessment_blueprints",
       "relative_path": "data/generated/assessment_blueprints/grade6_natural_sciences_and_technology_en_blueprints.json",
       "exists": true,
-      "sha256": "sha256:f3d10189c9be14f9784c292eb904231a688fb532d5c00ec43cfe8cd256c73453",
-      "record_count": 49,
-      "approved_count": 49,
-      "review_ready_count": 49,
-      "idempotency_key": "grade6_natural_sciences_and_technology_en:assessment_blueprints:sha256:f3d10189c9be14f9784c292eb904231a688fb532d5c00ec43cfe8cd256c73453"
+      "sha256": "sha256:7445d19364236a92baeac228a19c89e7c338ecbd9c95dc4a1d2010a4801e8a43",
+      "record_count": 65,
+      "approved_count": 65,
+      "review_ready_count": 65,
+      "idempotency_key": "grade6_natural_sciences_and_technology_en:assessment_blueprints:sha256:7445d19364236a92baeac228a19c89e7c338ecbd9c95dc4a1d2010a4801e8a43"
     },
     "study_plan_templates": {
       "layer": "study_plan_templates",
       "relative_path": "data/generated/study_plans/grade6_natural_sciences_and_technology_en_templates.json",
       "exists": true,
-      "sha256": "sha256:7be659826b083ac991e5df42df84674c24e8bed9975ebb8cda9f1e2fc6540d38",
+      "sha256": "sha256:8b652a8517e48681be774ea047f23dfe49c73e067a7a15bc68b14411a6068f31",
       "record_count": 16,
       "approved_count": 16,
       "review_ready_count": 16,
-      "idempotency_key": "grade6_natural_sciences_and_technology_en:study_plan_templates:sha256:7be659826b083ac991e5df42df84674c24e8bed9975ebb8cda9f1e2fc6540d38"
+      "idempotency_key": "grade6_natural_sciences_and_technology_en:study_plan_templates:sha256:8b652a8517e48681be774ea047f23dfe49c73e067a7a15bc68b14411a6068f31"
     }
   },
   "blockers": [
@@ -88,10 +107,10 @@
   ],
   "idempotency_keys": {
     "topic_map": "grade6_natural_sciences_and_technology_en:topic_map:sha256:d3278563a85683772ca9354ceab3b6aad936a2ebfb48f2c395eb8870e3a10ad1",
-    "diagnostic_items": "grade6_natural_sciences_and_technology_en:diagnostic_items:sha256:2484b7f510153d145024a419fffd4c377555407130d4602d6c29449589bf6f15",
-    "lessons": "grade6_natural_sciences_and_technology_en:lessons:sha256:48c17204d2967f4a021d98ced50e19c8d2c72e4a10bfbeff28c0844a9a8563ef",
-    "assessment_blueprints": "grade6_natural_sciences_and_technology_en:assessment_blueprints:sha256:f3d10189c9be14f9784c292eb904231a688fb532d5c00ec43cfe8cd256c73453",
-    "study_plan_templates": "grade6_natural_sciences_and_technology_en:study_plan_templates:sha256:7be659826b083ac991e5df42df84674c24e8bed9975ebb8cda9f1e2fc6540d38"
+    "diagnostic_items": "grade6_natural_sciences_and_technology_en:diagnostic_items:sha256:e090b821c36327f7e4248082766bc55a534813c7ce76aac751c848aa992d9f09",
+    "lessons": "grade6_natural_sciences_and_technology_en:lessons:sha256:6f1909365a44691b02d3795dd8d55160b733894c91bf417f886d33a7c5f74c98",
+    "assessment_blueprints": "grade6_natural_sciences_and_technology_en:assessment_blueprints:sha256:7445d19364236a92baeac228a19c89e7c338ecbd9c95dc4a1d2010a4801e8a43",
+    "study_plan_templates": "grade6_natural_sciences_and_technology_en:study_plan_templates:sha256:8b652a8517e48681be774ea047f23dfe49c73e067a7a15bc68b14411a6068f31"
   },
   "rollback_manifest": {
     "scope_id": "grade6_natural_sciences_and_technology_en",
@@ -105,10 +124,10 @@
     },
     "artifact_hashes": {
       "topic_map": "sha256:d3278563a85683772ca9354ceab3b6aad936a2ebfb48f2c395eb8870e3a10ad1",
-      "diagnostic_items": "sha256:2484b7f510153d145024a419fffd4c377555407130d4602d6c29449589bf6f15",
-      "lessons": "sha256:48c17204d2967f4a021d98ced50e19c8d2c72e4a10bfbeff28c0844a9a8563ef",
-      "assessment_blueprints": "sha256:f3d10189c9be14f9784c292eb904231a688fb532d5c00ec43cfe8cd256c73453",
-      "study_plan_templates": "sha256:7be659826b083ac991e5df42df84674c24e8bed9975ebb8cda9f1e2fc6540d38"
+      "diagnostic_items": "sha256:e090b821c36327f7e4248082766bc55a534813c7ce76aac751c848aa992d9f09",
+      "lessons": "sha256:6f1909365a44691b02d3795dd8d55160b733894c91bf417f886d33a7c5f74c98",
+      "assessment_blueprints": "sha256:7445d19364236a92baeac228a19c89e7c338ecbd9c95dc4a1d2010a4801e8a43",
+      "study_plan_templates": "sha256:8b652a8517e48681be774ea047f23dfe49c73e067a7a15bc68b14411a6068f31"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-06-03T11:03:05Z",
+  "generated_at": "2026-06-04T11:21:01Z",
   "scope_id": "grade5_coding_and_robotics_en",
   "grade": 5,
   "phase": "intermediate",
@@ -26,6 +26,25 @@
       "Legal approval is required for production."
     ]
   },
+  "lesson_quality": {
+    "passed": true,
+    "quarantined": false,
+    "lesson_count": 128,
+    "failed_lesson_count": 0,
+    "blockers": [],
+    "aggregate": {
+      "missing_lesson_body": 0,
+      "missing_title": 0,
+      "missing_scope_id": 0,
+      "missing_variant": 0,
+      "missing_teacher_notes": 0,
+      "missing_parent_notes": 0,
+      "missing_extension_prompts": 0,
+      "practice_questions_correct_option_a": 0,
+      "lessons_with_identical_answer_keys": 0,
+      "placeholder_worked_example_steps": 0
+    }
+  },
   "staging_eligible": true,
   "production_eligible": false,
   "caps_ref_count": 16,
@@ -44,41 +63,41 @@
       "layer": "diagnostic_items",
       "relative_path": "data/generated/items/grade5_coding_and_robotics_en_item_bank.json",
       "exists": true,
-      "sha256": "sha256:11f2f005b94f07146ad82d9fd74ffdae6bbd94f42daa65bb41e42e6757b02e69",
+      "sha256": "sha256:8c39f418ed34b5cc561892f0499876207e954d7d65a948106960f2a6b9a24811",
       "record_count": 640,
       "approved_count": 640,
       "review_ready_count": 640,
-      "idempotency_key": "grade5_coding_and_robotics_en:diagnostic_items:sha256:11f2f005b94f07146ad82d9fd74ffdae6bbd94f42daa65bb41e42e6757b02e69"
+      "idempotency_key": "grade5_coding_and_robotics_en:diagnostic_items:sha256:8c39f418ed34b5cc561892f0499876207e954d7d65a948106960f2a6b9a24811"
     },
     "lessons": {
       "layer": "lessons",
       "relative_path": "data/generated/lessons/grade5_coding_and_robotics_en_lessons.json",
       "exists": true,
-      "sha256": "sha256:9cb8ae5f50b2d5e6b6e537e5e32b410631ca2fb77378ba29536706ef06fa5c42",
+      "sha256": "sha256:8cd5f7c48d939d9cebb98a5be4fe48769c836afd3562a86caf16ee55506bf227",
       "record_count": 128,
       "approved_count": 128,
       "review_ready_count": 128,
-      "idempotency_key": "grade5_coding_and_robotics_en:lessons:sha256:9cb8ae5f50b2d5e6b6e537e5e32b410631ca2fb77378ba29536706ef06fa5c42"
+      "idempotency_key": "grade5_coding_and_robotics_en:lessons:sha256:8cd5f7c48d939d9cebb98a5be4fe48769c836afd3562a86caf16ee55506bf227"
     },
     "assessment_blueprints": {
       "layer": "assessment_blueprints",
       "relative_path": "data/generated/assessment_blueprints/grade5_coding_and_robotics_en_blueprints.json",
       "exists": true,
-      "sha256": "sha256:177c6301e403f0f954e1cd2f3a5d3d3491a639744182d2db77d8964be6d69b6c",
-      "record_count": 49,
-      "approved_count": 49,
-      "review_ready_count": 49,
-      "idempotency_key": "grade5_coding_and_robotics_en:assessment_blueprints:sha256:177c6301e403f0f954e1cd2f3a5d3d3491a639744182d2db77d8964be6d69b6c"
+      "sha256": "sha256:83c9a73b76116af84de7151fce7154944fd55626e9752ead56a437349faae60e",
+      "record_count": 65,
+      "approved_count": 65,
+      "review_ready_count": 65,
+      "idempotency_key": "grade5_coding_and_robotics_en:assessment_blueprints:sha256:83c9a73b76116af84de7151fce7154944fd55626e9752ead56a437349faae60e"
     },
     "study_plan_templates": {
       "layer": "study_plan_templates",
       "relative_path": "data/generated/study_plans/grade5_coding_and_robotics_en_templates.json",
       "exists": true,
-      "sha256": "sha256:e39a6213e27089ac62ab1eda881a9bfa02de0e9cc45824ff638112e53f398c16",
+      "sha256": "sha256:c45b905080fc5ad80a9ea01a7e865fb315c3d5963d76ce0a09c376a6dde667cf",
       "record_count": 16,
       "approved_count": 16,
       "review_ready_count": 16,
-      "idempotency_key": "grade5_coding_and_robotics_en:study_plan_templates:sha256:e39a6213e27089ac62ab1eda881a9bfa02de0e9cc45824ff638112e53f398c16"
+      "idempotency_key": "grade5_coding_and_robotics_en:study_plan_templates:sha256:c45b905080fc5ad80a9ea01a7e865fb315c3d5963d76ce0a09c376a6dde667cf"
     }
   },
   "blockers": [
@@ -88,10 +107,10 @@
   ],
   "idempotency_keys": {
     "topic_map": "grade5_coding_and_robotics_en:topic_map:sha256:fe6b9e306aeb7544d030557f45dca012587d0a82b7f478a769895921d1915236",
-    "diagnostic_items": "grade5_coding_and_robotics_en:diagnostic_items:sha256:11f2f005b94f07146ad82d9fd74ffdae6bbd94f42daa65bb41e42e6757b02e69",
-    "lessons": "grade5_coding_and_robotics_en:lessons:sha256:9cb8ae5f50b2d5e6b6e537e5e32b410631ca2fb77378ba29536706ef06fa5c42",
-    "assessment_blueprints": "grade5_coding_and_robotics_en:assessment_blueprints:sha256:177c6301e403f0f954e1cd2f3a5d3d3491a639744182d2db77d8964be6d69b6c",
-    "study_plan_templates": "grade5_coding_and_robotics_en:study_plan_templates:sha256:e39a6213e27089ac62ab1eda881a9bfa02de0e9cc45824ff638112e53f398c16"
+    "diagnostic_items": "grade5_coding_and_robotics_en:diagnostic_items:sha256:8c39f418ed34b5cc561892f0499876207e954d7d65a948106960f2a6b9a24811",
+    "lessons": "grade5_coding_and_robotics_en:lessons:sha256:8cd5f7c48d939d9cebb98a5be4fe48769c836afd3562a86caf16ee55506bf227",
+    "assessment_blueprints": "grade5_coding_and_robotics_en:assessment_blueprints:sha256:83c9a73b76116af84de7151fce7154944fd55626e9752ead56a437349faae60e",
+    "study_plan_templates": "grade5_coding_and_robotics_en:study_plan_templates:sha256:c45b905080fc5ad80a9ea01a7e865fb315c3d5963d76ce0a09c376a6dde667cf"
   },
   "rollback_manifest": {
     "scope_id": "grade5_coding_and_robotics_en",
@@ -105,10 +124,10 @@
     },
     "artifact_hashes": {
       "topic_map": "sha256:fe6b9e306aeb7544d030557f45dca012587d0a82b7f478a769895921d1915236",
-      "diagnostic_items": "sha256:11f2f005b94f07146ad82d9fd74ffdae6bbd94f42daa65bb41e42e6757b02e69",
-      "lessons": "sha256:9cb8ae5f50b2d5e6b6e537e5e32b410631ca2fb77378ba29536706ef06fa5c42",
-      "assessment_blueprints": "sha256:177c6301e403f0f954e1cd2f3a5d3d3491a639744182d2db77d8964be6d69b6c",
-      "study_plan_templates": "sha256:e39a6213e27089ac62ab1eda881a9bfa02de0e9cc45824ff638112e53f398c16"
+      "diagnostic_items": "sha256:8c39f418ed34b5cc561892f0499876207e954d7d65a948106960f2a6b9a24811",
+      "lessons": "sha256:8cd5f7c48d939d9cebb98a5be4fe48769c836afd3562a86caf16ee55506bf227",
+      "assessment_blueprints": "sha256:83c9a73b76116af84de7151fce7154944fd55626e9752ead56a437349faae60e",
+      "study_plan_templates": "sha256:c45b905080fc5ad80a9ea01a7e865fb315c3d5963d76ce0a09c376a6dde667cf"
     }
   }
 }

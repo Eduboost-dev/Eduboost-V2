@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-06-03T11:03:05Z",
+  "generated_at": "2026-06-04T11:21:00Z",
   "scope_id": "grade2_sepedi_first_additional_language_en",
   "grade": 2,
   "phase": "foundation",
@@ -26,6 +26,25 @@
       "Legal approval is required for production."
     ]
   },
+  "lesson_quality": {
+    "passed": true,
+    "quarantined": false,
+    "lesson_count": 128,
+    "failed_lesson_count": 0,
+    "blockers": [],
+    "aggregate": {
+      "missing_lesson_body": 0,
+      "missing_title": 0,
+      "missing_scope_id": 0,
+      "missing_variant": 0,
+      "missing_teacher_notes": 0,
+      "missing_parent_notes": 0,
+      "missing_extension_prompts": 0,
+      "practice_questions_correct_option_a": 0,
+      "lessons_with_identical_answer_keys": 0,
+      "placeholder_worked_example_steps": 0
+    }
+  },
   "staging_eligible": true,
   "production_eligible": false,
   "caps_ref_count": 16,
@@ -44,41 +63,41 @@
       "layer": "diagnostic_items",
       "relative_path": "data/generated/items/grade2_sepedi_first_additional_language_en_item_bank.json",
       "exists": true,
-      "sha256": "sha256:9d9d37890b0d006882f7c3ea0275d938eafbcf8c6cbb0f7672927450dc25da34",
+      "sha256": "sha256:2ead075bafc9dc9dde8322f4a699ed5f30674116e00f2b75c99db413b3173c1c",
       "record_count": 640,
       "approved_count": 640,
       "review_ready_count": 640,
-      "idempotency_key": "grade2_sepedi_first_additional_language_en:diagnostic_items:sha256:9d9d37890b0d006882f7c3ea0275d938eafbcf8c6cbb0f7672927450dc25da34"
+      "idempotency_key": "grade2_sepedi_first_additional_language_en:diagnostic_items:sha256:2ead075bafc9dc9dde8322f4a699ed5f30674116e00f2b75c99db413b3173c1c"
     },
     "lessons": {
       "layer": "lessons",
       "relative_path": "data/generated/lessons/grade2_sepedi_first_additional_language_en_lessons.json",
       "exists": true,
-      "sha256": "sha256:0e04a774dc2661a5b981fd1c5948a43635176dff8f8ff797a0d45e7d9a2bcb4e",
+      "sha256": "sha256:c8c72908d609639ecb0254863ba9df9426f438e2338273a6fc516e19ce38806b",
       "record_count": 128,
       "approved_count": 128,
       "review_ready_count": 128,
-      "idempotency_key": "grade2_sepedi_first_additional_language_en:lessons:sha256:0e04a774dc2661a5b981fd1c5948a43635176dff8f8ff797a0d45e7d9a2bcb4e"
+      "idempotency_key": "grade2_sepedi_first_additional_language_en:lessons:sha256:c8c72908d609639ecb0254863ba9df9426f438e2338273a6fc516e19ce38806b"
     },
     "assessment_blueprints": {
       "layer": "assessment_blueprints",
       "relative_path": "data/generated/assessment_blueprints/grade2_sepedi_first_additional_language_en_blueprints.json",
       "exists": true,
-      "sha256": "sha256:2fac2d36e6d95816627a30041e82bdf2ff12067de66c0a8652d09bc4fa35323f",
-      "record_count": 49,
-      "approved_count": 49,
-      "review_ready_count": 49,
-      "idempotency_key": "grade2_sepedi_first_additional_language_en:assessment_blueprints:sha256:2fac2d36e6d95816627a30041e82bdf2ff12067de66c0a8652d09bc4fa35323f"
+      "sha256": "sha256:522746e2ef4a2eeef5df7989173d5b327141acb6e4ca32c8d42349e13548c466",
+      "record_count": 65,
+      "approved_count": 65,
+      "review_ready_count": 65,
+      "idempotency_key": "grade2_sepedi_first_additional_language_en:assessment_blueprints:sha256:522746e2ef4a2eeef5df7989173d5b327141acb6e4ca32c8d42349e13548c466"
     },
     "study_plan_templates": {
       "layer": "study_plan_templates",
       "relative_path": "data/generated/study_plans/grade2_sepedi_first_additional_language_en_templates.json",
       "exists": true,
-      "sha256": "sha256:7b171b154932e396e50ec87ebb01f06e31e02cae2f0377011b2862a12ea26205",
+      "sha256": "sha256:7f3177c395f58fcad2591c34dc4fe8fedec4d0961ef9f01268d67c4fc6ab039b",
       "record_count": 16,
       "approved_count": 16,
       "review_ready_count": 16,
-      "idempotency_key": "grade2_sepedi_first_additional_language_en:study_plan_templates:sha256:7b171b154932e396e50ec87ebb01f06e31e02cae2f0377011b2862a12ea26205"
+      "idempotency_key": "grade2_sepedi_first_additional_language_en:study_plan_templates:sha256:7f3177c395f58fcad2591c34dc4fe8fedec4d0961ef9f01268d67c4fc6ab039b"
     }
   },
   "blockers": [
@@ -88,10 +107,10 @@
   ],
   "idempotency_keys": {
     "topic_map": "grade2_sepedi_first_additional_language_en:topic_map:sha256:0fd3405c67ca44ff90eb242f314b664bc2ab6bade27968312b44fbab0b4680b0",
-    "diagnostic_items": "grade2_sepedi_first_additional_language_en:diagnostic_items:sha256:9d9d37890b0d006882f7c3ea0275d938eafbcf8c6cbb0f7672927450dc25da34",
-    "lessons": "grade2_sepedi_first_additional_language_en:lessons:sha256:0e04a774dc2661a5b981fd1c5948a43635176dff8f8ff797a0d45e7d9a2bcb4e",
-    "assessment_blueprints": "grade2_sepedi_first_additional_language_en:assessment_blueprints:sha256:2fac2d36e6d95816627a30041e82bdf2ff12067de66c0a8652d09bc4fa35323f",
-    "study_plan_templates": "grade2_sepedi_first_additional_language_en:study_plan_templates:sha256:7b171b154932e396e50ec87ebb01f06e31e02cae2f0377011b2862a12ea26205"
+    "diagnostic_items": "grade2_sepedi_first_additional_language_en:diagnostic_items:sha256:2ead075bafc9dc9dde8322f4a699ed5f30674116e00f2b75c99db413b3173c1c",
+    "lessons": "grade2_sepedi_first_additional_language_en:lessons:sha256:c8c72908d609639ecb0254863ba9df9426f438e2338273a6fc516e19ce38806b",
+    "assessment_blueprints": "grade2_sepedi_first_additional_language_en:assessment_blueprints:sha256:522746e2ef4a2eeef5df7989173d5b327141acb6e4ca32c8d42349e13548c466",
+    "study_plan_templates": "grade2_sepedi_first_additional_language_en:study_plan_templates:sha256:7f3177c395f58fcad2591c34dc4fe8fedec4d0961ef9f01268d67c4fc6ab039b"
   },
   "rollback_manifest": {
     "scope_id": "grade2_sepedi_first_additional_language_en",
@@ -105,10 +124,10 @@
     },
     "artifact_hashes": {
       "topic_map": "sha256:0fd3405c67ca44ff90eb242f314b664bc2ab6bade27968312b44fbab0b4680b0",
-      "diagnostic_items": "sha256:9d9d37890b0d006882f7c3ea0275d938eafbcf8c6cbb0f7672927450dc25da34",
-      "lessons": "sha256:0e04a774dc2661a5b981fd1c5948a43635176dff8f8ff797a0d45e7d9a2bcb4e",
-      "assessment_blueprints": "sha256:2fac2d36e6d95816627a30041e82bdf2ff12067de66c0a8652d09bc4fa35323f",
-      "study_plan_templates": "sha256:7b171b154932e396e50ec87ebb01f06e31e02cae2f0377011b2862a12ea26205"
+      "diagnostic_items": "sha256:2ead075bafc9dc9dde8322f4a699ed5f30674116e00f2b75c99db413b3173c1c",
+      "lessons": "sha256:c8c72908d609639ecb0254863ba9df9426f438e2338273a6fc516e19ce38806b",
+      "assessment_blueprints": "sha256:522746e2ef4a2eeef5df7989173d5b327141acb6e4ca32c8d42349e13548c466",
+      "study_plan_templates": "sha256:7f3177c395f58fcad2591c34dc4fe8fedec4d0961ef9f01268d67c4fc6ab039b"
     }
   }
 }

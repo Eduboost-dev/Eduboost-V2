@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-06-03T11:03:05Z",
+  "generated_at": "2026-06-04T11:21:00Z",
   "scope_id": "grade3_home_language_en",
   "grade": 3,
   "phase": "foundation",
@@ -26,6 +26,25 @@
       "Legal approval is required for production."
     ]
   },
+  "lesson_quality": {
+    "passed": true,
+    "quarantined": false,
+    "lesson_count": 128,
+    "failed_lesson_count": 0,
+    "blockers": [],
+    "aggregate": {
+      "missing_lesson_body": 0,
+      "missing_title": 0,
+      "missing_scope_id": 0,
+      "missing_variant": 0,
+      "missing_teacher_notes": 0,
+      "missing_parent_notes": 0,
+      "missing_extension_prompts": 0,
+      "practice_questions_correct_option_a": 0,
+      "lessons_with_identical_answer_keys": 0,
+      "placeholder_worked_example_steps": 0
+    }
+  },
   "staging_eligible": true,
   "production_eligible": false,
   "caps_ref_count": 16,
@@ -44,41 +63,41 @@
       "layer": "diagnostic_items",
       "relative_path": "data/generated/items/grade3_home_language_en_item_bank.json",
       "exists": true,
-      "sha256": "sha256:6added682fb01ffc67b58c897dacd74d19d38c87edeffa6922265735f770eaa6",
+      "sha256": "sha256:05be0e69191029b98d89a84ae00d2f81ecdd7d6def7647682e4ceb4f12a341a0",
       "record_count": 640,
       "approved_count": 640,
       "review_ready_count": 640,
-      "idempotency_key": "grade3_home_language_en:diagnostic_items:sha256:6added682fb01ffc67b58c897dacd74d19d38c87edeffa6922265735f770eaa6"
+      "idempotency_key": "grade3_home_language_en:diagnostic_items:sha256:05be0e69191029b98d89a84ae00d2f81ecdd7d6def7647682e4ceb4f12a341a0"
     },
     "lessons": {
       "layer": "lessons",
       "relative_path": "data/generated/lessons/grade3_home_language_en_lessons.json",
       "exists": true,
-      "sha256": "sha256:6afe4ff037fd5bce79dbaf4b501fbfc2232ebd87c45a683f5cd52410dc86ee69",
+      "sha256": "sha256:d383365a324ee63b7689513687426a6a36f231f52cff107ec3356ce73bdb98f0",
       "record_count": 128,
       "approved_count": 128,
       "review_ready_count": 128,
-      "idempotency_key": "grade3_home_language_en:lessons:sha256:6afe4ff037fd5bce79dbaf4b501fbfc2232ebd87c45a683f5cd52410dc86ee69"
+      "idempotency_key": "grade3_home_language_en:lessons:sha256:d383365a324ee63b7689513687426a6a36f231f52cff107ec3356ce73bdb98f0"
     },
     "assessment_blueprints": {
       "layer": "assessment_blueprints",
       "relative_path": "data/generated/assessment_blueprints/grade3_home_language_en_blueprints.json",
       "exists": true,
-      "sha256": "sha256:90c7fbd67f55eb6c2ab1d1a612bda2d61cf04c1e96450ca5c864fa6378222546",
-      "record_count": 49,
-      "approved_count": 49,
-      "review_ready_count": 49,
-      "idempotency_key": "grade3_home_language_en:assessment_blueprints:sha256:90c7fbd67f55eb6c2ab1d1a612bda2d61cf04c1e96450ca5c864fa6378222546"
+      "sha256": "sha256:cb7b61633de011fdd3aa7152eca4a3c96aaeace16eb2d075373e81a86c958a66",
+      "record_count": 65,
+      "approved_count": 65,
+      "review_ready_count": 65,
+      "idempotency_key": "grade3_home_language_en:assessment_blueprints:sha256:cb7b61633de011fdd3aa7152eca4a3c96aaeace16eb2d075373e81a86c958a66"
     },
     "study_plan_templates": {
       "layer": "study_plan_templates",
       "relative_path": "data/generated/study_plans/grade3_home_language_en_templates.json",
       "exists": true,
-      "sha256": "sha256:15b12d62b67a782fbaa309988ed4bb915da388953837c757fa2b8e461477b19c",
+      "sha256": "sha256:cb2ccae000bb78f7386e2463b5ba3aacbd152f6c0ba5da462b97d9d9252193fd",
       "record_count": 16,
       "approved_count": 16,
       "review_ready_count": 16,
-      "idempotency_key": "grade3_home_language_en:study_plan_templates:sha256:15b12d62b67a782fbaa309988ed4bb915da388953837c757fa2b8e461477b19c"
+      "idempotency_key": "grade3_home_language_en:study_plan_templates:sha256:cb2ccae000bb78f7386e2463b5ba3aacbd152f6c0ba5da462b97d9d9252193fd"
     }
   },
   "blockers": [
@@ -88,10 +107,10 @@
   ],
   "idempotency_keys": {
     "topic_map": "grade3_home_language_en:topic_map:sha256:a27de8c84596bdd50ab2266a536b401df3ea7b00ed2598eca6c16988eb4024d3",
-    "diagnostic_items": "grade3_home_language_en:diagnostic_items:sha256:6added682fb01ffc67b58c897dacd74d19d38c87edeffa6922265735f770eaa6",
-    "lessons": "grade3_home_language_en:lessons:sha256:6afe4ff037fd5bce79dbaf4b501fbfc2232ebd87c45a683f5cd52410dc86ee69",
-    "assessment_blueprints": "grade3_home_language_en:assessment_blueprints:sha256:90c7fbd67f55eb6c2ab1d1a612bda2d61cf04c1e96450ca5c864fa6378222546",
-    "study_plan_templates": "grade3_home_language_en:study_plan_templates:sha256:15b12d62b67a782fbaa309988ed4bb915da388953837c757fa2b8e461477b19c"
+    "diagnostic_items": "grade3_home_language_en:diagnostic_items:sha256:05be0e69191029b98d89a84ae00d2f81ecdd7d6def7647682e4ceb4f12a341a0",
+    "lessons": "grade3_home_language_en:lessons:sha256:d383365a324ee63b7689513687426a6a36f231f52cff107ec3356ce73bdb98f0",
+    "assessment_blueprints": "grade3_home_language_en:assessment_blueprints:sha256:cb7b61633de011fdd3aa7152eca4a3c96aaeace16eb2d075373e81a86c958a66",
+    "study_plan_templates": "grade3_home_language_en:study_plan_templates:sha256:cb2ccae000bb78f7386e2463b5ba3aacbd152f6c0ba5da462b97d9d9252193fd"
   },
   "rollback_manifest": {
     "scope_id": "grade3_home_language_en",
@@ -105,10 +124,10 @@
     },
     "artifact_hashes": {
       "topic_map": "sha256:a27de8c84596bdd50ab2266a536b401df3ea7b00ed2598eca6c16988eb4024d3",
-      "diagnostic_items": "sha256:6added682fb01ffc67b58c897dacd74d19d38c87edeffa6922265735f770eaa6",
-      "lessons": "sha256:6afe4ff037fd5bce79dbaf4b501fbfc2232ebd87c45a683f5cd52410dc86ee69",
-      "assessment_blueprints": "sha256:90c7fbd67f55eb6c2ab1d1a612bda2d61cf04c1e96450ca5c864fa6378222546",
-      "study_plan_templates": "sha256:15b12d62b67a782fbaa309988ed4bb915da388953837c757fa2b8e461477b19c"
+      "diagnostic_items": "sha256:05be0e69191029b98d89a84ae00d2f81ecdd7d6def7647682e4ceb4f12a341a0",
+      "lessons": "sha256:d383365a324ee63b7689513687426a6a36f231f52cff107ec3356ce73bdb98f0",
+      "assessment_blueprints": "sha256:cb7b61633de011fdd3aa7152eca4a3c96aaeace16eb2d075373e81a86c958a66",
+      "study_plan_templates": "sha256:cb2ccae000bb78f7386e2463b5ba3aacbd152f6c0ba5da462b97d9d9252193fd"
     }
   }
 }

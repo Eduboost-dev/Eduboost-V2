@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-06-03T11:03:05Z",
+  "generated_at": "2026-06-04T11:21:00Z",
   "scope_id": "grade2_life_skills_en",
   "grade": 2,
   "phase": "foundation",
@@ -26,6 +26,25 @@
       "Legal approval is required for production."
     ]
   },
+  "lesson_quality": {
+    "passed": true,
+    "quarantined": false,
+    "lesson_count": 128,
+    "failed_lesson_count": 0,
+    "blockers": [],
+    "aggregate": {
+      "missing_lesson_body": 0,
+      "missing_title": 0,
+      "missing_scope_id": 0,
+      "missing_variant": 0,
+      "missing_teacher_notes": 0,
+      "missing_parent_notes": 0,
+      "missing_extension_prompts": 0,
+      "practice_questions_correct_option_a": 0,
+      "lessons_with_identical_answer_keys": 0,
+      "placeholder_worked_example_steps": 0
+    }
+  },
   "staging_eligible": true,
   "production_eligible": false,
   "caps_ref_count": 16,
@@ -44,41 +63,41 @@
       "layer": "diagnostic_items",
       "relative_path": "data/generated/items/grade2_life_skills_en_item_bank.json",
       "exists": true,
-      "sha256": "sha256:42f1e1463246528ffb86c74ee96b0abfb98ef03c23bb14d8e6b18ec710728eb5",
+      "sha256": "sha256:7de5c9a3199a4eac2b5021534f1cc4d5adf13a5d8bbf03c424618ad2c00613b5",
       "record_count": 640,
       "approved_count": 640,
       "review_ready_count": 640,
-      "idempotency_key": "grade2_life_skills_en:diagnostic_items:sha256:42f1e1463246528ffb86c74ee96b0abfb98ef03c23bb14d8e6b18ec710728eb5"
+      "idempotency_key": "grade2_life_skills_en:diagnostic_items:sha256:7de5c9a3199a4eac2b5021534f1cc4d5adf13a5d8bbf03c424618ad2c00613b5"
     },
     "lessons": {
       "layer": "lessons",
       "relative_path": "data/generated/lessons/grade2_life_skills_en_lessons.json",
       "exists": true,
-      "sha256": "sha256:04c52b43049932f4bda7ab19fa467eed5cd9cdd6b35ea67235ee623cbd8194d3",
+      "sha256": "sha256:f4b4ebbe72bb6ffb68aea310798d9b66c72269d38ac89645921e3f10ef608468",
       "record_count": 128,
       "approved_count": 128,
       "review_ready_count": 128,
-      "idempotency_key": "grade2_life_skills_en:lessons:sha256:04c52b43049932f4bda7ab19fa467eed5cd9cdd6b35ea67235ee623cbd8194d3"
+      "idempotency_key": "grade2_life_skills_en:lessons:sha256:f4b4ebbe72bb6ffb68aea310798d9b66c72269d38ac89645921e3f10ef608468"
     },
     "assessment_blueprints": {
       "layer": "assessment_blueprints",
       "relative_path": "data/generated/assessment_blueprints/grade2_life_skills_en_blueprints.json",
       "exists": true,
-      "sha256": "sha256:77781cc528ae001cf32718107e29b92cfda2f4bd3d5155b591c379f856a14ec2",
-      "record_count": 49,
-      "approved_count": 49,
-      "review_ready_count": 49,
-      "idempotency_key": "grade2_life_skills_en:assessment_blueprints:sha256:77781cc528ae001cf32718107e29b92cfda2f4bd3d5155b591c379f856a14ec2"
+      "sha256": "sha256:6e224225778df633cc1d0e0eed5a63a6c3fe113824e083441c9782d7a969d2ce",
+      "record_count": 65,
+      "approved_count": 65,
+      "review_ready_count": 65,
+      "idempotency_key": "grade2_life_skills_en:assessment_blueprints:sha256:6e224225778df633cc1d0e0eed5a63a6c3fe113824e083441c9782d7a969d2ce"
     },
     "study_plan_templates": {
       "layer": "study_plan_templates",
       "relative_path": "data/generated/study_plans/grade2_life_skills_en_templates.json",
       "exists": true,
-      "sha256": "sha256:301e6e8c8f846a8cf4f7798854ffe480a9a762fbef124d246574428b7c4ad886",
+      "sha256": "sha256:2f35cd353d58cf2a3ae51336a3c9057fc0a70f0595ef2f62a5399097c9ffbfb1",
       "record_count": 16,
       "approved_count": 16,
       "review_ready_count": 16,
-      "idempotency_key": "grade2_life_skills_en:study_plan_templates:sha256:301e6e8c8f846a8cf4f7798854ffe480a9a762fbef124d246574428b7c4ad886"
+      "idempotency_key": "grade2_life_skills_en:study_plan_templates:sha256:2f35cd353d58cf2a3ae51336a3c9057fc0a70f0595ef2f62a5399097c9ffbfb1"
     }
   },
   "blockers": [
@@ -88,10 +107,10 @@
   ],
   "idempotency_keys": {
     "topic_map": "grade2_life_skills_en:topic_map:sha256:4f2bc7d108bd56acf86283b779afea83f116ced5f37ba520f94ec2aac0cd41d2",
-    "diagnostic_items": "grade2_life_skills_en:diagnostic_items:sha256:42f1e1463246528ffb86c74ee96b0abfb98ef03c23bb14d8e6b18ec710728eb5",
-    "lessons": "grade2_life_skills_en:lessons:sha256:04c52b43049932f4bda7ab19fa467eed5cd9cdd6b35ea67235ee623cbd8194d3",
-    "assessment_blueprints": "grade2_life_skills_en:assessment_blueprints:sha256:77781cc528ae001cf32718107e29b92cfda2f4bd3d5155b591c379f856a14ec2",
-    "study_plan_templates": "grade2_life_skills_en:study_plan_templates:sha256:301e6e8c8f846a8cf4f7798854ffe480a9a762fbef124d246574428b7c4ad886"
+    "diagnostic_items": "grade2_life_skills_en:diagnostic_items:sha256:7de5c9a3199a4eac2b5021534f1cc4d5adf13a5d8bbf03c424618ad2c00613b5",
+    "lessons": "grade2_life_skills_en:lessons:sha256:f4b4ebbe72bb6ffb68aea310798d9b66c72269d38ac89645921e3f10ef608468",
+    "assessment_blueprints": "grade2_life_skills_en:assessment_blueprints:sha256:6e224225778df633cc1d0e0eed5a63a6c3fe113824e083441c9782d7a969d2ce",
+    "study_plan_templates": "grade2_life_skills_en:study_plan_templates:sha256:2f35cd353d58cf2a3ae51336a3c9057fc0a70f0595ef2f62a5399097c9ffbfb1"
   },
   "rollback_manifest": {
     "scope_id": "grade2_life_skills_en",
@@ -105,10 +124,10 @@
     },
     "artifact_hashes": {
       "topic_map": "sha256:4f2bc7d108bd56acf86283b779afea83f116ced5f37ba520f94ec2aac0cd41d2",
-      "diagnostic_items": "sha256:42f1e1463246528ffb86c74ee96b0abfb98ef03c23bb14d8e6b18ec710728eb5",
-      "lessons": "sha256:04c52b43049932f4bda7ab19fa467eed5cd9cdd6b35ea67235ee623cbd8194d3",
-      "assessment_blueprints": "sha256:77781cc528ae001cf32718107e29b92cfda2f4bd3d5155b591c379f856a14ec2",
-      "study_plan_templates": "sha256:301e6e8c8f846a8cf4f7798854ffe480a9a762fbef124d246574428b7c4ad886"
+      "diagnostic_items": "sha256:7de5c9a3199a4eac2b5021534f1cc4d5adf13a5d8bbf03c424618ad2c00613b5",
+      "lessons": "sha256:f4b4ebbe72bb6ffb68aea310798d9b66c72269d38ac89645921e3f10ef608468",
+      "assessment_blueprints": "sha256:6e224225778df633cc1d0e0eed5a63a6c3fe113824e083441c9782d7a969d2ce",
+      "study_plan_templates": "sha256:2f35cd353d58cf2a3ae51336a3c9057fc0a70f0595ef2f62a5399097c9ffbfb1"
     }
   }
 }

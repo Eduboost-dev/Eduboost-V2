@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-06-03T11:03:05Z",
+  "generated_at": "2026-06-04T11:21:02Z",
   "scope_id": "grade6_mathematics_en",
   "grade": 6,
   "phase": "intermediate",
@@ -26,6 +26,25 @@
       "Legal approval is required for production."
     ]
   },
+  "lesson_quality": {
+    "passed": true,
+    "quarantined": false,
+    "lesson_count": 128,
+    "failed_lesson_count": 0,
+    "blockers": [],
+    "aggregate": {
+      "missing_lesson_body": 0,
+      "missing_title": 0,
+      "missing_scope_id": 0,
+      "missing_variant": 0,
+      "missing_teacher_notes": 0,
+      "missing_parent_notes": 0,
+      "missing_extension_prompts": 0,
+      "practice_questions_correct_option_a": 0,
+      "lessons_with_identical_answer_keys": 0,
+      "placeholder_worked_example_steps": 0
+    }
+  },
   "staging_eligible": true,
   "production_eligible": false,
   "caps_ref_count": 16,
@@ -44,41 +63,41 @@
       "layer": "diagnostic_items",
       "relative_path": "data/generated/items/grade6_mathematics_en_item_bank.json",
       "exists": true,
-      "sha256": "sha256:60af417e4c05b86df01635590435cb681c7bd827b158066090a5e3b94468e244",
+      "sha256": "sha256:7590ea7db1747f3d10a6fd4c7aa80ab15c5a4d974758878beff6593f7a70236f",
       "record_count": 640,
       "approved_count": 640,
       "review_ready_count": 640,
-      "idempotency_key": "grade6_mathematics_en:diagnostic_items:sha256:60af417e4c05b86df01635590435cb681c7bd827b158066090a5e3b94468e244"
+      "idempotency_key": "grade6_mathematics_en:diagnostic_items:sha256:7590ea7db1747f3d10a6fd4c7aa80ab15c5a4d974758878beff6593f7a70236f"
     },
     "lessons": {
       "layer": "lessons",
       "relative_path": "data/generated/lessons/grade6_mathematics_en_lessons.json",
       "exists": true,
-      "sha256": "sha256:f758eb18bc491db33c4a6547d1a772e488698b11e8fbe092cf84912207e34194",
+      "sha256": "sha256:850cb710e77f5369fb16488df7e3db533da4e40601a563c14f0202fd72c6312f",
       "record_count": 128,
       "approved_count": 128,
       "review_ready_count": 128,
-      "idempotency_key": "grade6_mathematics_en:lessons:sha256:f758eb18bc491db33c4a6547d1a772e488698b11e8fbe092cf84912207e34194"
+      "idempotency_key": "grade6_mathematics_en:lessons:sha256:850cb710e77f5369fb16488df7e3db533da4e40601a563c14f0202fd72c6312f"
     },
     "assessment_blueprints": {
       "layer": "assessment_blueprints",
       "relative_path": "data/generated/assessment_blueprints/grade6_mathematics_en_blueprints.json",
       "exists": true,
-      "sha256": "sha256:bc4a9ac8c5823ee979a04bf06847af86e469ee9a771fe7265d75272d0b7ef968",
-      "record_count": 49,
-      "approved_count": 49,
-      "review_ready_count": 49,
-      "idempotency_key": "grade6_mathematics_en:assessment_blueprints:sha256:bc4a9ac8c5823ee979a04bf06847af86e469ee9a771fe7265d75272d0b7ef968"
+      "sha256": "sha256:7613d0ba4213d417e8e3c43c5b27649049e1617f73bf72690bcf7f83aba59dc8",
+      "record_count": 65,
+      "approved_count": 65,
+      "review_ready_count": 65,
+      "idempotency_key": "grade6_mathematics_en:assessment_blueprints:sha256:7613d0ba4213d417e8e3c43c5b27649049e1617f73bf72690bcf7f83aba59dc8"
     },
     "study_plan_templates": {
       "layer": "study_plan_templates",
       "relative_path": "data/generated/study_plans/grade6_mathematics_en_templates.json",
       "exists": true,
-      "sha256": "sha256:9194d168400c6b52db8ec96e8fd50aa9d96739ef656776e9fee14ce0c605afca",
+      "sha256": "sha256:8cdd437742df9decfbd90fa1bb2b808326bd92113b5076626bd6ccff9cfd22b8",
       "record_count": 16,
       "approved_count": 16,
       "review_ready_count": 16,
-      "idempotency_key": "grade6_mathematics_en:study_plan_templates:sha256:9194d168400c6b52db8ec96e8fd50aa9d96739ef656776e9fee14ce0c605afca"
+      "idempotency_key": "grade6_mathematics_en:study_plan_templates:sha256:8cdd437742df9decfbd90fa1bb2b808326bd92113b5076626bd6ccff9cfd22b8"
     }
   },
   "blockers": [
@@ -88,10 +107,10 @@
   ],
   "idempotency_keys": {
     "topic_map": "grade6_mathematics_en:topic_map:sha256:5b6cc2768d788c76b1ec1aa47fd3a159c3d7e4c5934a224f650ef05e3bf6f946",
-    "diagnostic_items": "grade6_mathematics_en:diagnostic_items:sha256:60af417e4c05b86df01635590435cb681c7bd827b158066090a5e3b94468e244",
-    "lessons": "grade6_mathematics_en:lessons:sha256:f758eb18bc491db33c4a6547d1a772e488698b11e8fbe092cf84912207e34194",
-    "assessment_blueprints": "grade6_mathematics_en:assessment_blueprints:sha256:bc4a9ac8c5823ee979a04bf06847af86e469ee9a771fe7265d75272d0b7ef968",
-    "study_plan_templates": "grade6_mathematics_en:study_plan_templates:sha256:9194d168400c6b52db8ec96e8fd50aa9d96739ef656776e9fee14ce0c605afca"
+    "diagnostic_items": "grade6_mathematics_en:diagnostic_items:sha256:7590ea7db1747f3d10a6fd4c7aa80ab15c5a4d974758878beff6593f7a70236f",
+    "lessons": "grade6_mathematics_en:lessons:sha256:850cb710e77f5369fb16488df7e3db533da4e40601a563c14f0202fd72c6312f",
+    "assessment_blueprints": "grade6_mathematics_en:assessment_blueprints:sha256:7613d0ba4213d417e8e3c43c5b27649049e1617f73bf72690bcf7f83aba59dc8",
+    "study_plan_templates": "grade6_mathematics_en:study_plan_templates:sha256:8cdd437742df9decfbd90fa1bb2b808326bd92113b5076626bd6ccff9cfd22b8"
   },
   "rollback_manifest": {
     "scope_id": "grade6_mathematics_en",
@@ -105,10 +124,10 @@
     },
     "artifact_hashes": {
       "topic_map": "sha256:5b6cc2768d788c76b1ec1aa47fd3a159c3d7e4c5934a224f650ef05e3bf6f946",
-      "diagnostic_items": "sha256:60af417e4c05b86df01635590435cb681c7bd827b158066090a5e3b94468e244",
-      "lessons": "sha256:f758eb18bc491db33c4a6547d1a772e488698b11e8fbe092cf84912207e34194",
-      "assessment_blueprints": "sha256:bc4a9ac8c5823ee979a04bf06847af86e469ee9a771fe7265d75272d0b7ef968",
-      "study_plan_templates": "sha256:9194d168400c6b52db8ec96e8fd50aa9d96739ef656776e9fee14ce0c605afca"
+      "diagnostic_items": "sha256:7590ea7db1747f3d10a6fd4c7aa80ab15c5a4d974758878beff6593f7a70236f",
+      "lessons": "sha256:850cb710e77f5369fb16488df7e3db533da4e40601a563c14f0202fd72c6312f",
+      "assessment_blueprints": "sha256:7613d0ba4213d417e8e3c43c5b27649049e1617f73bf72690bcf7f83aba59dc8",
+      "study_plan_templates": "sha256:8cdd437742df9decfbd90fa1bb2b808326bd92113b5076626bd6ccff9cfd22b8"
     }
   }
 }
