@@ -21,7 +21,6 @@ jobs:
     name: DB backup restore rollback evidence
     runs-on: ubuntu-latest
     timeout-minutes: 30
-
     services:
       restore_db:
         image: postgres:17
@@ -35,7 +34,6 @@ jobs:
           --health-interval 5s
           --health-timeout 5s
           --health-retries 10
-
     env:
       PYTHONPATH: .
       DB_ROLLBACK_SOURCE_DATABASE_URL: ${{ secrets.DB_ROLLBACK_SOURCE_DATABASE_URL }}
@@ -46,15 +44,28 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Install PostgreSQL 17 client
+      - name: Install PostgreSQL 17 client (matching Supabase)
         run: |
+          # Remove old PostgreSQL client if present
+          sudo apt-get remove -y postgresql-client 2>/dev/null || true
+          
+          # Add PostgreSQL official repository for version 17
           sudo apt-get update -qq
+          sudo apt-get install -y ca-certificates gnupg lsb-release
           sudo install -d /usr/share/postgresql-common/pgdg
           sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail \
             https://www.postgresql.org/media/keys/ACCC4CF8.asc
-          sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          
+          # Use noble (24.04) repo which has pg17
+          echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | \
+            sudo tee /etc/apt/sources.list.d/pgdg.list > /dev/null
+          
+          # Update and install exact version 17
           sudo apt-get update -qq
-          sudo apt-get install -y postgresql-client-17
+          sudo apt-get install -y --allow-downgrades postgresql-client-17
+          
+          # Verify version
+          pg_dump --version
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -68,11 +79,16 @@ jobs:
 
       - name: Verify required secrets
         run: |
-          test -n "${DB_ROLLBACK_SOURCE_DATABASE_URL}"
-          test -n "${DB_ROLLBACK_RESTORE_DATABASE_URL}"
-          test "${DB_ROLLBACK_SOURCE_DATABASE_URL}" != "${DB_ROLLBACK_RESTORE_DATABASE_URL}"
+          test -n "${DB_ROLLBACK_SOURCE_DATABASE_URL}" || exit 1
+          test -n "${DB_ROLLBACK_RESTORE_DATABASE_URL}" || exit 1
+          test "${DB_ROLLBACK_SOURCE_DATABASE_URL}" != "${DB_ROLLBACK_RESTORE_DATABASE_URL}" || exit 1
+          
+          # Prevent placeholder values
           case "${DB_ROLLBACK_SOURCE_DATABASE_URL}" in
-            *"<"*|*">"*|*"example.com"*|*"localhost"*|*"127.0.0.1"*) exit 1 ;;
+            *"<"*|*">"*|*"example.com"*|*"localhost"*|*"127.0.0.1"*)
+              echo "Source URL contains placeholder or localhost"
+              exit 1
+              ;;
           esac
 
       - name: Run DB backup restore rollback evidence
@@ -85,9 +101,10 @@ jobs:
 
       - name: Show evidence status
         if: always()
-        run: cat docs/release/db_backup_restore_rollback_evidence_status.json || true
+        run: |
+          cat docs/release/db_backup_restore_rollback_evidence_status.json || true
 
-      - name: Upload DB rollback status only
+      - name: Upload DB rollback status
         if: always()
         uses: actions/upload-artifact@v7
         with:
