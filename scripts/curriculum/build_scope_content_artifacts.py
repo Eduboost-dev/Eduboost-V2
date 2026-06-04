@@ -4,12 +4,6 @@
 This is the generic, scope-aware build entrypoint for Content Factory.
 It validates source readiness, generates the four learner-facing artifact
 layers for a scope, and writes a run manifest alongside the outputs.
-
-The script is intentionally conservative:
-- it only builds scopes whose source documents are generation-ready;
-- it refuses scopes without CAPS references;
-- it keeps the existing launch scope compatibility intact while making the
-  build path reusable for other reviewed scopes.
 """
 from __future__ import annotations
 
@@ -30,16 +24,19 @@ from app.domain.content_coverage import ContentLayer
 from app.modules.diagnostics.item_validator import ItemValidator
 from app.modules.lessons.caps_topic_map_service import CAPSTopicMapService
 from app.modules.lessons.lesson_validator import LessonValidator
+from app.services.content_generation.generated_item_contract import GeneratedItemQualityValidator
+from app.services.content_generation.generated_lesson_contract import GeneratedLessonQualityValidator, LESSON_VARIANTS
+from app.services.content_generation.scope_blueprint_generator import ScopeBlueprintGenerator
+from app.services.content_generation.scope_item_generator import ITEM_DIFFICULTY_BANDS, ScopeItemGenerator
+from app.services.content_generation.scope_lesson_generator import ScopeLessonGenerator
+from app.services.content_generation.scope_study_plan_generator import ScopeStudyPlanGenerator
+from app.services.content_generation.topic_map_source_context import TopicMapSourceContextBuilder
 from app.services.content_scope_registry import ContentScopeRegistry
 from scripts.curriculum.validate_source_manifest import generation_ready, validate_source_manifest
 
 DEFAULT_OUTPUT_ROOT = ROOT
 DEFAULT_ITEM_TARGET = 40
 DEFAULT_LESSON_TARGET = 8
-AUTO_REVIEWER_ID = "00000000-0000-0000-0000-000000000002"
-DIFFICULTY_BANDS = ("foundational", "developing", "on_level", "extending")
-LESSON_DIFFICULTY_LEVELS = ("foundational", "developing", "on_level", "extending")
-LESSON_VARIANTS = ("standard", "visual", "story", "step_by_step", "real_world_sa", "exam_style")
 
 _LAYER_PATHS = {
     ContentLayer.DIAGNOSTIC_ITEMS: ("items", "item_bank.json"),
@@ -69,170 +66,59 @@ def _cycle(values: tuple[str, ...], index: int) -> str:
     return values[index % len(values)]
 
 
-def _option_set(topic: str) -> dict[str, str]:
-    topic_word = topic.lower()
-    return {
-        "A": f"Use the information in the {topic_word} question carefully.",
-        "B": "Guess the answer before reading all the details.",
-        "C": "Choose the same answer for every problem.",
-        "D": "Ignore the topic and change the order randomly.",
-    }
+def _build_item(
+    scope: Any,
+    context_payload: dict[str, Any],
+    *,
+    ref: str,
+    index: int,
+    sequence: int,
+    band: str,
+    source_builder: TopicMapSourceContextBuilder,
+    item_generator: ScopeItemGenerator,
+) -> dict[str, Any]:
+    source_result = source_builder.build(
+        scope_id=scope.scope_id,
+        caps_ref=ref,
+        topic_context=context_payload,
+        topic_map_path=scope.topic_map_path,
+        source_document_ids=list(scope.source_documents or []),
+        phase=getattr(scope, "phase", None),
+        language=scope.language,
+    )
+    if not source_result.passed or source_result.context is None:
+        raise ValueError(f"Missing or thin source context for {scope.scope_id}/{ref}: {source_result.errors}")
+    return item_generator.generate(
+        source_result.context,
+        index=index,
+        sequence=sequence,
+        band=band,
+        scope_id=scope.scope_id,
+    )
 
 
-def _question(topic: str, index: int, tag: str) -> dict[str, Any]:
-    return {
-        "question_id": f"q{index}",
-        "question_text": f"Which answer shows the best idea for {topic.lower()}?",
-        "options": _option_set(topic),
-        "correct_option": "A",
-        "explanation": (
-            f"Option A is correct because the learner checks the {topic.lower()} information first, "
-            "then chooses the answer that matches the question and explains the choice clearly."
-        ),
-        "misconception_tag": tag,
-    }
-
-
-def _build_item(context: dict[str, Any], *, ref: str, index: int, band: str) -> dict[str, Any]:
-    topic = context["topic"]
-    misconception_tags = context.get("common_misconceptions") or ["needs_step_by_step_support"]
-    tag = misconception_tags[index % len(misconception_tags)]
-    item_id = str(uuid.uuid5(uuid.NAMESPACE_URL, f"eduboost:scope-item:{ref}:{band}:{index}"))
-    difficulty_map = {
-        "foundational": -1.5,
-        "developing": -0.5,
-        "on_level": 0.5,
-        "extending": 1.5,
-    }
-    return {
-        "item_id": item_id,
-        "caps_ref": ref,
-        "grade": context["grade"],
-        "subject": context["subject"],
-        "term": context["term"],
-        "topic": topic,
-        "subtopic": context["subtopic"],
-        "skill": context["skill"],
-        "stem": "What should you do first?",
-        "answer_key": "A",
-        "options": [
-            {"label": "A", "text": f"The answer follows the {topic.lower()} facts in the question."},
-            {"label": "B", "text": "The answer guesses without checking the facts."},
-            {"label": "C", "text": "The answer ignores the topic words."},
-            {"label": "D", "text": "The answer changes the order before solving."},
-        ],
-        "explanation": (
-            f"Option A is correct because it uses the {topic.lower()} details in the question. "
-            "The learner reads the prompt, chooses the matching method, and checks the result."
-        ),
-        "distractor_rationale": {
-            "B": "Checks for guessing without reading.",
-            "C": "Checks for ignoring the topic words.",
-            "D": "Checks for changing the order too early.",
-        },
-        "misconception_tags": [tag],
-        "item_type": "mcq",
-        "language": "en",
-        "difficulty_b": difficulty_map[band],
-        "discrimination_a": 1.0,
-        "guessing_c": 0.25,
-        "difficulty_band": band,
-        "review_status": "approved",
-        "reviewer_id": AUTO_REVIEWER_ID,
-        "reviewed_at": "2026-06-02T00:00:00Z",
-        "exposure_count": 0,
-        "max_exposure": 50,
-        "safety_passed": True,
-        "quality_score": 0.92,
-        "source": "scope_scaffold",
-        "created_at": "2026-06-02T00:00:00Z",
-    }
-
-
-def _build_lesson(context: dict[str, Any], *, ref: str, index: int) -> dict[str, Any]:
-    topic = context["topic"]
-    misconception_tags = context.get("common_misconceptions") or ["needs_step_by_step_support"]
-    tag = misconception_tags[index % len(misconception_tags)]
+def _build_lesson(
+    scope: Any,
+    context_payload: dict[str, Any],
+    *,
+    ref: str,
+    index: int,
+    source_builder: TopicMapSourceContextBuilder,
+    lesson_generator: ScopeLessonGenerator,
+) -> dict[str, Any]:
+    source_result = source_builder.build(
+        scope_id=scope.scope_id,
+        caps_ref=ref,
+        topic_context=context_payload,
+        topic_map_path=scope.topic_map_path,
+        source_document_ids=list(scope.source_documents or []),
+        phase=getattr(scope, "phase", None),
+        language=scope.language,
+    )
+    if not source_result.passed or source_result.context is None:
+        raise ValueError(f"Missing or thin source context for {scope.scope_id}/{ref}: {source_result.errors}")
     variant = _cycle(LESSON_VARIANTS, index)
-    lesson_id = str(uuid.uuid5(uuid.NAMESPACE_URL, f"eduboost:scope-lesson:{ref}:{index}"))
-    practice = [_question(topic, i, tag) for i in range(1, 4)]
-    return {
-        "lesson_id": lesson_id,
-        "caps_ref": ref,
-        "grade": context["grade"],
-        "subject": context["subject"],
-        "term": context["term"],
-        "topic": topic,
-        "subtopic": context["subtopic"],
-        "learning_objectives": (context.get("assessment_standards") or [f"Work with {topic.lower()} carefully."])[:3],
-        "explanation": (
-            f"This lesson teaches {topic.lower()} in clear, short steps. "
-            "The learner reads the question, identifies the key information, and checks the answer at the end. "
-            "The teacher can use counters, drawings, examples, and discussion to support understanding."
-        ),
-        "worked_examples": [
-            {
-                "question": f"Example 1 for {topic}: identify the important details.",
-                "step_by_step_solution": [
-                    "Read the question once.",
-                    "Mark the information that matters.",
-                    "Choose the method that matches the topic.",
-                    "Check the answer against the question.",
-                ],
-                "answer": "The answer matches the important details.",
-            },
-            {
-                "question": f"Example 2 for {topic}: solve a short classroom problem.",
-                "step_by_step_solution": [
-                    "Start with the known facts.",
-                    "Work one step at a time.",
-                    "Write the answer clearly.",
-                    "Explain why the answer makes sense.",
-                ],
-                "answer": "The final answer is checked and explained.",
-            },
-        ],
-        "practice_questions": practice,
-        "answer_key": [
-            {
-                "question_id": question["question_id"],
-                "correct_option": "A",
-                "correct_answer_text": question["options"]["A"],
-            }
-            for question in practice
-        ],
-        "remediation_hints": [
-            {
-                "misconception_tag": tag,
-                "hint_text": "Return to the key information and solve one small step at a time.",
-                "example": "Use a drawing, number line, or sentence frame before choosing an answer.",
-            }
-        ],
-        "difficulty_level": _cycle(LESSON_DIFFICULTY_LEVELS, index),
-        "language_level": "5.0",
-        "safety_classification": "safe",
-        "pii_check_passed": True,
-        "answer_key_verified": True,
-        "quality_score": 0.9,
-        "prompt_template_version": "scope_scaffold_v1",
-        "provider": "mock",
-        "model_version": "scope-scaffold",
-        "generation_latency_ms": 0,
-        "token_usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
-        "variant_type": variant,
-        "review_status": "approved",
-        "reviewer_id": AUTO_REVIEWER_ID,
-        "reviewed_at": "2026-06-02T00:00:00Z",
-        "trust_label": {
-            "ai_generated": True,
-            "caps_linked": True,
-            "answer_checked": True,
-            "teacher_reviewed": False,
-            "safety_checked": True,
-            "auto_approved": True,
-            "auto_approval_reason": "scope_scaffold_schema_validated",
-        },
-    }
+    return lesson_generator.generate(source_result.context, index=index, variant=variant)
 
 
 def _lesson_validation_payload(lesson: dict[str, Any]) -> dict[str, Any]:
@@ -249,150 +135,6 @@ def _approved_target_for_ref(registry: ContentScopeRegistry, scope_id: str, caps
 def _spread_counts(total: int, buckets: int) -> list[int]:
     base, remainder = divmod(total, buckets)
     return [base + (1 if index < remainder else 0) for index in range(buckets)]
-
-
-def _build_blueprints(scope_id: str, refs: list[str], contexts: dict[str, dict[str, Any]]) -> dict[str, Any]:
-    blueprints: list[dict[str, Any]] = [
-        {
-            "blueprint_id": f"{scope_id.replace('_', '-')}-baseline-diagnostic-v1",
-            "type": "baseline_diagnostic",
-            "title": f"{contexts[refs[0]]['subject']} Baseline Diagnostic",
-            "selection_rules": {
-                "caps_refs": refs,
-                "item_count": 20,
-                "review_status": "approved",
-                "difficulty_mix": {
-                    "easy": 5,
-                    "moderate": 5,
-                    "on_level": 5,
-                    "challenging": 5,
-                },
-            },
-            "review_status": "approved",
-        }
-    ]
-
-    for ref in refs:
-        context = contexts[ref]
-        safe_ref = ref.replace(".", "-")
-        blueprints.extend(
-            [
-                {
-                    "blueprint_id": f"{scope_id.replace('_', '-')}-{safe_ref}-topic-diagnostic-v1",
-                    "type": "topic_diagnostic",
-                    "title": f"{context['topic']} Topic Diagnostic",
-                    "selection_rules": {
-                        "caps_refs": [ref],
-                        "item_count": 12,
-                        "review_status": "approved",
-                        "difficulty_mix": {
-                            "easy": 3,
-                            "moderate": 3,
-                            "on_level": 3,
-                            "challenging": 3,
-                        },
-                    },
-                    "review_status": "approved",
-                },
-                {
-                    "blueprint_id": f"{scope_id.replace('_', '-')}-{safe_ref}-short-practice-v1",
-                    "type": "short_practice_quiz",
-                    "title": f"{context['topic']} Short Practice",
-                    "selection_rules": {
-                        "caps_refs": [ref],
-                        "item_count": 8,
-                        "review_status": "approved",
-                        "difficulty_mix": {
-                            "easy": 2,
-                            "moderate": 2,
-                            "on_level": 2,
-                            "challenging": 2,
-                        },
-                    },
-                    "review_status": "approved",
-                },
-                {
-                    "blueprint_id": f"{scope_id.replace('_', '-')}-{safe_ref}-recheck-v1",
-                    "type": "recheck_assessment",
-                    "title": f"{context['topic']} Recheck",
-                    "selection_rules": {
-                        "caps_refs": [ref],
-                        "item_count": 8,
-                        "review_status": "approved",
-                        "prefer_previously_missed_misconception_tags": True,
-                    },
-                    "review_status": "approved",
-                },
-            ]
-        )
-
-    return {
-        "schema_version": "1.0",
-        "generated_at": _now_utc(),
-        "scope": scope_id,
-        "source_item_bank": "diagnostic_items",
-        "blueprints": blueprints,
-    }
-
-
-def _build_study_plans(scope_id: str, refs: list[str], contexts: dict[str, dict[str, Any]]) -> dict[str, Any]:
-    weekly_template: list[dict[str, Any]] = []
-    for index in range(5):
-        ref = refs[index % len(refs)]
-        context = contexts[ref]
-        weekly_template.append(
-            {
-                "day": ["Mon", "Tue", "Wed", "Thu", "Fri"][index],
-                "caps_ref": ref,
-                "activity_type": "lesson" if index % 2 == 0 else "practice",
-                "lesson_variant": _cycle(LESSON_VARIANTS, index),
-                "assessment_blueprint_id": f"{scope_id.replace('_', '-')}-{ref.replace('.', '-')}-short-practice-v1",
-                "topic": context["topic"],
-            }
-        )
-
-    topic_sequence: list[dict[str, Any]] = []
-    remediation_mappings: list[dict[str, Any]] = []
-    extension_mappings: list[dict[str, Any]] = []
-    for ref in refs:
-        context = contexts[ref]
-        misconception_tags = context.get("common_misconceptions") or ["needs_step_by_step_support"]
-        topic_sequence.append(
-            {
-                "caps_ref": ref,
-                "topic": context["topic"],
-                "prerequisites": context.get("prerequisites", []),
-                "misconception_tags": misconception_tags,
-            }
-        )
-        for tag in misconception_tags:
-            remediation_mappings.append(
-                {
-                    "misconception_tag": tag,
-                    "caps_ref": ref,
-                    "lesson_variant": "step_by_step",
-                    "assessment_blueprint_id": f"{scope_id.replace('_', '-')}-{ref.replace('.', '-')}-recheck-v1",
-                }
-            )
-        extension_mappings.append(
-            {
-                "caps_ref": ref,
-                "lesson_variant": "exam_style",
-                "activity_type": "challenge",
-            }
-        )
-
-    return {
-        "schema_version": "1.0",
-        "generated_at": _now_utc(),
-        "scope": scope_id,
-        "grade": contexts[refs[0]]["grade"],
-        "subject": contexts[refs[0]]["subject"],
-        "weekly_template": weekly_template,
-        "topic_sequence": topic_sequence,
-        "remediation_mappings": remediation_mappings,
-        "extension_mappings": extension_mappings,
-    }
 
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
@@ -430,6 +172,14 @@ def build_scope_content_artifacts(
     topic_map = json.loads(topic_map_path.read_text(encoding="utf-8"))
     item_validator = ItemValidator(topic_map=topic_map)
     lesson_validator = LessonValidator(caps_service=topic_map_service)
+    lesson_quality_validator = GeneratedLessonQualityValidator()
+    item_quality_validator = GeneratedItemQualityValidator()
+    source_builder = TopicMapSourceContextBuilder(project_root=ROOT)
+    item_generator = ScopeItemGenerator()
+    lesson_generator = ScopeLessonGenerator()
+    blueprint_generator = ScopeBlueprintGenerator()
+    study_plan_generator = ScopeStudyPlanGenerator()
+    source_context_hashes: dict[str, str] = {}
 
     contexts: dict[str, dict[str, Any]] = {}
     for ref in scope.caps_refs:
@@ -461,29 +211,83 @@ def build_scope_content_artifacts(
             DEFAULT_LESSON_TARGET,
         )
 
-        item_bands = _spread_counts(item_target, len(DIFFICULTY_BANDS))
-        for band, band_count in zip(DIFFICULTY_BANDS, item_bands):
+        item_bands = _spread_counts(item_target, len(ITEM_DIFFICULTY_BANDS))
+        item_sequence = 0
+        for band, band_count in zip(ITEM_DIFFICULTY_BANDS, item_bands):
             for index in range(band_count):
-                item = _build_item(contexts[ref], ref=ref, index=index, band=band)
+                item = _build_item(
+                    scope,
+                    contexts[ref],
+                    ref=ref,
+                    index=index,
+                    sequence=item_sequence,
+                    band=band,
+                    source_builder=source_builder,
+                    item_generator=item_generator,
+                )
+                item_sequence += 1
                 validation_errors = item_validator.validate_all(item)
                 if validation_errors:
                     item_errors.append(f"{ref}/{item['item_id']}: {[error.rule for error in validation_errors]}")
+                quality_issues = item_quality_validator.validate_item(item)
+                if quality_issues:
+                    item_errors.append(
+                        f"{ref}/{item['item_id']}: {[f'{issue.field}: {issue.reason}' for issue in quality_issues]}"
+                    )
                 generated_items.append(item)
                 item_counts[ref] += 1
 
         for index in range(lesson_target):
-            lesson = _build_lesson(contexts[ref], ref=ref, index=index)
+            lesson = _build_lesson(
+                scope,
+                contexts[ref],
+                ref=ref,
+                index=index,
+                source_builder=source_builder,
+                lesson_generator=lesson_generator,
+            )
+            source_context_hashes[ref] = str(lesson.get("source_context_hash") or "")
             validation = lesson_validator.validate(_lesson_validation_payload(lesson), require_verified=True)
             if not validation.passed:
                 lesson_errors.append(f"{ref}/{lesson['lesson_id']}: {validation.failures}")
+            quality_issues = lesson_quality_validator.validate_lesson(
+                lesson,
+                scope_id=scope.scope_id,
+                subject_code=scope.subject_code,
+                subject=scope.subject,
+                source_document_ids=list(scope.source_documents or []),
+            )
+            if quality_issues:
+                lesson_errors.append(
+                    f"{ref}/{lesson['lesson_id']}: {[f'{issue.field}: {issue.reason}' for issue in quality_issues]}"
+                )
             generated_lessons.append(lesson)
             lesson_counts[ref] += 1
 
-    blueprints = _build_blueprints(scope_id, list(scope.caps_refs), contexts)
-    study_plans = _build_study_plans(scope_id, list(scope.caps_refs), contexts)
+    item_payload_for_quality = {"items": generated_items}
+    file_item_issues = item_quality_validator.validate_file_payload(item_payload_for_quality)
+    if file_item_issues.issues:
+        item_errors.append(
+            f"item_bank: {[f'{issue.item_id}/{issue.field}: {issue.reason}' for issue in file_item_issues.issues[:5]]}"
+        )
+
+    blueprints = blueprint_generator.generate(
+        scope_id,
+        list(scope.caps_refs),
+        contexts,
+        source_context_hashes=source_context_hashes,
+    )
+    study_plans = study_plan_generator.generate(
+        scope_id,
+        list(scope.caps_refs),
+        contexts,
+        source_context_hashes=source_context_hashes,
+    )
 
     blueprint_errors: list[str] = []
-    blueprint_refs = {ref for blueprint in blueprints["blueprints"] for ref in blueprint.get("selection_rules", {}).get("caps_refs", [])}
+    blueprint_refs = {
+        ref for blueprint in blueprints["blueprints"] for ref in blueprint.get("selection_rules", {}).get("caps_refs", [])
+    }
     if not blueprint_refs <= set(scope.caps_refs):
         blueprint_errors.append(f"blueprint refs outside scope: {sorted(blueprint_refs - set(scope.caps_refs))}")
 
@@ -525,6 +329,7 @@ def build_scope_content_artifacts(
         "scope": scope_id,
         "language": scope.language,
         "approval_policy": "auto_approved_when_schema_caps_safety_answer_quality_pass",
+        "generator_version": "scope_content_v2",
         "items": generated_items,
     }
     lesson_payload = {
@@ -533,6 +338,7 @@ def build_scope_content_artifacts(
         "scope": scope_id,
         "language": scope.language,
         "approval_policy": "auto_approved_when_schema_caps_safety_answer_quality_pass",
+        "generator_version": "scope_content_v2",
         "lessons": generated_lessons,
     }
 
@@ -560,6 +366,7 @@ def build_scope_content_artifacts(
         "subject_code": scope.subject_code,
         "subject": scope.subject,
         "language": scope.language,
+        "generator_version": "scope_content_v2",
         "generation_ready": generation_ready(scope_id, registry=registry),
         "source_manifest_validation_passed": source_result.passed,
         "source_manifest_errors": source_result.errors,
@@ -571,6 +378,7 @@ def build_scope_content_artifacts(
             "remediation_mappings": len(study_plans["remediation_mappings"]),
             "extension_mappings": len(study_plans["extension_mappings"]),
         },
+        "source_context_hashes": source_context_hashes,
         "output_files": output_files,
         "validation": {
             "items": item_errors,
@@ -594,6 +402,7 @@ def build_scope_content_artifacts(
         "lesson_counts": dict(lesson_counts),
         "blueprint_count": len(blueprints["blueprints"]),
         "study_plan_counts": run_manifest["study_plan_counts"],
+        "source_context_hashes": source_context_hashes,
         "validation": run_manifest["validation"],
     }
 

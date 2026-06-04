@@ -1,11 +1,18 @@
-"""Lesson generation and validation."""
+"""Enhanced validation for generated lesson payloads."""
 from __future__ import annotations
 
 from app.services.content_generation.prompt_payloads import GeneratedLesson
 
 
 class LessonGenerator:
-    def validate(self, lesson: GeneratedLesson, *, caps_ref: str, existing_hashes: set[str] | None = None, artifact_hash: str | None = None) -> list[str]:
+    def validate(
+        self,
+        lesson: GeneratedLesson,
+        *,
+        caps_ref: str,
+        existing_hashes: set[str] | None = None,
+        artifact_hash: str | None = None,
+    ) -> list[str]:
         errors: list[str] = []
         if not lesson.learning_objectives:
             errors.append("lesson requires learning objectives.")

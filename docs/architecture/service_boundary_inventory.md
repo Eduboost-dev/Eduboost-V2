@@ -1,6 +1,6 @@
 # Service Boundary Inventory
 
-Generated at: `2026-05-22T14:21:45Z`
+Generated at: `2026-06-04T11:15:53Z`
 
 | Path | Classification |
 |---|---|
@@ -33,8 +33,55 @@ Generated at: `2026-05-22T14:21:45Z`
 | `app/services/consent_runtime_compatibility.py` | active_runtime_facade |
 | `app/services/consent_runtime_orchestrator.py` | active_runtime_facade |
 | `app/services/consent_service.py` | deprecated_pending_callsite_removal |
+| `app/services/content_artifact_lifecycle.py` | unclassified |
+| `app/services/content_blueprint_validation.py` | unclassified |
+| `app/services/content_bulk_review.py` | unclassified |
+| `app/services/content_coverage_service.py` | domain_or_cross_cutting_service |
+| `app/services/content_factory.py` | unclassified |
+| `app/services/content_factory_orchestrator.py` | unclassified |
+| `app/services/content_file_artifact_import.py` | unclassified |
+| `app/services/content_file_lesson_quality.py` | unclassified |
+| `app/services/content_file_promotion_readiness.py` | unclassified |
+| `app/services/content_file_review_workflow.py` | unclassified |
+| `app/services/content_generation/blueprint_generator.py` | unclassified |
+| `app/services/content_generation/diagnostic_generator.py` | unclassified |
+| `app/services/content_generation/generated_item_contract.py` | unclassified |
+| `app/services/content_generation/generated_lesson_contract.py` | unclassified |
+| `app/services/content_generation/lesson_generator.py` | unclassified |
+| `app/services/content_generation/prompt_payloads.py` | unclassified |
+| `app/services/content_generation/provider_factory.py` | unclassified |
+| `app/services/content_generation/providers/base.py` | unclassified |
+| `app/services/content_generation/providers/deterministic.py` | unclassified |
+| `app/services/content_generation/providers/llm.py` | unclassified |
+| `app/services/content_generation/scope_blueprint_generator.py` | unclassified |
+| `app/services/content_generation/scope_item_generator.py` | unclassified |
+| `app/services/content_generation/scope_lesson_generator.py` | unclassified |
+| `app/services/content_generation/scope_mcq_templates.py` | unclassified |
+| `app/services/content_generation/scope_study_plan_generator.py` | unclassified |
+| `app/services/content_generation/source_context.py` | deprecated_pending_callsite_removal |
+| `app/services/content_generation/study_plan_template_generator.py` | unclassified |
+| `app/services/content_generation/topic_map_source_context.py` | unclassified |
+| `app/services/content_generation_executor.py` | unclassified |
+| `app/services/content_generation_planner.py` | unclassified |
+| `app/services/content_generation_reporter.py` | unclassified |
+| `app/services/content_generation_run_lock.py` | unclassified |
+| `app/services/content_generation_runs.py` | unclassified |
+| `app/services/content_learner_read_service.py` | domain_or_cross_cutting_service |
+| `app/services/content_production_promotion_executor.py` | unclassified |
+| `app/services/content_production_promotion_gate.py` | unclassified |
+| `app/services/content_production_read_verification.py` | unclassified |
+| `app/services/content_review_queue.py` | unclassified |
+| `app/services/content_review_risk.py` | deprecated_pending_callsite_removal |
+| `app/services/content_reviewer_assignment.py` | unclassified |
 | `app/services/content_safety/lesson_contracts.py` | unclassified |
 | `app/services/content_safety/pii.py` | unclassified |
+| `app/services/content_scope_registry.py` | unclassified |
+| `app/services/content_seed_promotion.py` | unclassified |
+| `app/services/content_staging_preview_service.py` | domain_or_cross_cutting_service |
+| `app/services/content_staging_read_verification.py` | unclassified |
+| `app/services/content_staging_readiness.py` | unclassified |
+| `app/services/content_staging_seed_executor.py` | unclassified |
+| `app/services/content_template_validation.py` | unclassified |
 | `app/services/curriculum/caps_topic_map.py` | unclassified |
 | `app/services/curriculum/coverage.py` | unclassified |
 | `app/services/data_subject_rights_service.py` | domain_or_cross_cutting_service |
@@ -50,8 +97,13 @@ Generated at: `2026-05-22T14:21:45Z`
 | `app/services/diagnostic_session_integrity.py` | unclassified |
 | `app/services/diagnostic_session_service.py` | domain_or_cross_cutting_service |
 | `app/services/diagnostic_transactional_response.py` | unclassified |
+| `app/services/email_service.py` | domain_or_cross_cutting_service |
 | `app/services/ether.py` | unclassified |
 | `app/services/ether_service.py` | domain_or_cross_cutting_service |
+| `app/services/etl/etl_pipeline.py` | unclassified |
+| `app/services/etl/etl_pipeline_v2.py` | deprecated_pending_callsite_removal |
+| `app/services/etl/etl_pipeline_v3_additions.py` | deprecated_pending_callsite_removal |
+| `app/services/etl/factory.py` | unclassified |
 | `app/services/executive.py` | unclassified |
 | `app/services/first_audit_runtime_wiring.py` | active_runtime_facade |
 | `app/services/first_consent_runtime_wiring.py` | active_runtime_facade |
@@ -62,12 +114,14 @@ Generated at: `2026-05-22T14:21:45Z`
 | `app/services/job_runtime_integrity.py` | active_runtime_facade |
 | `app/services/judiciary.py` | unclassified |
 | `app/services/jwt_keyring.py` | unclassified |
+| `app/services/launch_content_seed.py` | unclassified |
 | `app/services/learner_service.py` | domain_or_cross_cutting_service |
 | `app/services/lesson_authorization.py` | unclassified |
 | `app/services/lesson_context_builder.py` | unclassified |
 | `app/services/lesson_service_v2.py` | domain_or_cross_cutting_service |
 | `app/services/lesson_transactional_completion.py` | unclassified |
 | `app/services/llm/gateway.py` | unclassified |
+| `app/services/llm/json_completion.py` | unclassified |
 | `app/services/parent_report_service_v2.py` | domain_or_cross_cutting_service |
 | `app/services/pii_sweep.py` | unclassified |
 | `app/services/popia_consent_lifecycle_adapter.py` | unclassified |

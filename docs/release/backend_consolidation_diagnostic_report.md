@@ -1,14 +1,14 @@
 # Backend Consolidation Diagnostic Report
 
-Generated at: `2026-05-22T14:20:24Z`
+Generated at: `2026-06-04T11:11:56Z`
 
 | Check | Return code | Command |
 |---|---:|---|
-| backend dragons | 0 | `/home/nkgolol/Dev/SandBox/dev/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_dragons.py` |
-| audit inventory | 0 | `/home/nkgolol/Dev/SandBox/dev/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty` |
-| consent inventory | 0 | `/home/nkgolol/Dev/SandBox/dev/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty` |
-| health readiness contract | 0 | `/home/nkgolol/Dev/SandBox/dev/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py` |
-| schema drift contract | 0 | `/home/nkgolol/Dev/SandBox/dev/Eduboost-V2/.venv/bin/python scripts/check_schema_drift_contract.py` |
+| backend dragons | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_consolidation_dragons.py` |
+| audit inventory | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/generate_audit_callsite_inventory.py --fail-empty` |
+| consent inventory | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/generate_consent_callsite_inventory.py --fail-empty` |
+| health readiness contract | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_health_readiness_contract.py` |
+| schema drift contract | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_schema_drift_contract.py` |
 
 ## Interpretation
 
@@ -19,13 +19,13 @@ Generated at: `2026-05-22T14:20:24Z`
 
 ## backend dragons
 
-Command: `/home/nkgolol/Dev/SandBox/dev/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_dragons.py`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_consolidation_dragons.py`
 
 Return code: `0`
 
 ```text
 Backend consolidation dragon diagnostic
-- audit_repository: 49 match(es)
+- audit_repository: 50 match(es)
   - app/core/audit.py
   - app/modules/consent/service.py
   - app/repositories/__init__.py
@@ -36,10 +36,10 @@ Backend consolidation dragon diagnostic
   - app/services/data_subject_rights_service.py
   - app/services/job_dependency_factory.py
   - app/services/popia_service.py
+  - scripts/audit_write_flow_command.py
   - scripts/check_auth_service_extraction.py
-  - scripts/check_backend_runtime_compatibility.py
-  - ... 8 more file(s)
-- audit_events: 119 match(es)
+  - ... 9 more file(s)
+- audit_events: 151 match(es)
   - alembic/versions/0006_v2_audit_events.py
   - alembic/versions/20260507_1200_popia_consent_audit_hardening.py
   - alembic/versions/20260507_1330_database_integrity_constraints.py
@@ -52,8 +52,8 @@ Backend consolidation dragon diagnostic
   - app/models/__init__.py
   - app/repositories/audit_repository.py
   - app/services/data_subject_rights_service.py
-  - ... 14 more file(s)
-- audit_logs: 24 match(es)
+  - ... 24 more file(s)
+- audit_logs: 26 match(es)
   - alembic/versions/0001_v2_consolidated_schema.py
   - app/models/__init__.py
   - app/modules/disaster_recovery/production_readiness_contracts.py
@@ -66,8 +66,9 @@ Backend consolidation dragon diagnostic
   - scripts/generate_backend_deletion_candidate_inventory.py
   - scripts/generate_release_owner_beta_go_no_go.py
   - scripts/generate_truthful_release_owner_beta_go_no_go.py
-  - ... 2 more file(s)
-- consent_records: 19 match(es)
+  - ... 3 more file(s)
+- consent_records: 20 match(es)
+  - alembic/env.py
   - alembic/versions/20260510_0300_popia_consent_audit_dsr.py
   - app/repositories/consent_repository.py
   - app/services/data_subject_rights_service.py
@@ -79,11 +80,12 @@ Backend consolidation dragon diagnostic
   - scripts/generate_consent_callsite_inventory.py
   - tests/legacy/integration/test_api_contracts.py
   - tests/legacy/integration/test_parent_portal_integration.py
-- parental_consents: 47 match(es)
+- parental_consents: 54 match(es)
   - alembic/versions/0001_v2_consolidated_schema.py
   - alembic/versions/20260505_1734_add_missing_production_indexes.py
   - alembic/versions/20260507_1200_popia_consent_audit_hardening.py
   - alembic/versions/20260507_1330_database_integrity_constraints.py
+  - alembic/versions/20260528_1600_popia_consent_versioning.py
   - alembic/versions/_deprecated/0001_initial_consolidated_schema.py
   - alembic/versions/_deprecated/0001_schema_from_technical_report.py
   - app/models/__init__.py
@@ -91,9 +93,8 @@ Backend consolidation dragon diagnostic
   - scripts/check_backend_consolidation_dragons.py
   - scripts/check_first_audit_runtime_wiring_no_destructive_actions.py
   - scripts/check_runtime_wiring_no_destructive_actions.py
-  - scripts/db_migration_seed_repeatability.py
-  - ... 3 more file(s)
-- consent_service: 140 match(es)
+  - ... 7 more file(s)
+- consent_service: 167 match(es)
   - app/api_v2_deps/consent_lifecycle.py
   - app/api_v2_routers/consent.py
   - app/api_v2_routers/learners.py
@@ -106,17 +107,17 @@ Backend consolidation dragon diagnostic
   - app/modules/lessons/service.py
   - app/security/dependencies.py
   - app/services/consent.py
-  - ... 36 more file(s)
+  - ... 39 more file(s)
 - deep_health: 42 match(es)
   - app/api_v2.py
   - app/core/health.py
   - scripts/check_backend_consolidation_dragons.py
   - scripts/check_diag_deep_health_runtime.py
   - scripts/check_runtime_entrypoints.py
-  - scripts/check_runtime_release_evidence.py
   - scripts/diag_deep_health_runtime_evidence.py
   - scripts/generate_route_inventory.py
   - scripts/run_staging_smoke.py
+  - scripts/staging_smoke_evidence_acceptance.py
   - tests/integration/test_deep_health.py
   - tests/test_entrypoints.py
   - tests/test_health_checks.py
@@ -126,27 +127,27 @@ Backend consolidation dragon diagnostic
 
 ## audit inventory
 
-Command: `/home/nkgolol/Dev/SandBox/dev/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/generate_audit_callsite_inventory.py --fail-empty`
 
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/audit_callsite_inventory.md (2641 row(s))
+Wrote /home/azureuser/Dev/Eduboost-V2/docs/release/audit_callsite_inventory.md (3117 row(s))
 ```
 
 ## consent inventory
 
-Command: `/home/nkgolol/Dev/SandBox/dev/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/generate_consent_callsite_inventory.py --fail-empty`
 
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/SandBox/dev/Eduboost-V2/docs/release/consent_callsite_inventory.md (474 row(s))
+Wrote /home/azureuser/Dev/Eduboost-V2/docs/release/consent_callsite_inventory.md (575 row(s))
 ```
 
 ## health readiness contract
 
-Command: `/home/nkgolol/Dev/SandBox/dev/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_health_readiness_contract.py`
 
 Return code: `0`
 
@@ -170,7 +171,7 @@ Health/readiness diagnostic contract check
 
 ## schema drift contract
 
-Command: `/home/nkgolol/Dev/SandBox/dev/Eduboost-V2/.venv/bin/python scripts/check_schema_drift_contract.py`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_schema_drift_contract.py`
 
 Return code: `0`
 
@@ -179,24 +180,48 @@ Schema drift contract check
 - PASS [file] scripts/compare_orm_tables_to_database.py: present
 - PASS [file] docs/release/schema_drift_evidence_contract.md: present
 ORM tables
+- assessment_blueprints
 - audit_events
 - audit_logs
 - calibration_audits
+- consent_version_history
+- content_artifact_reviews
+- content_artifact_sources
+- content_coverage_targets
+- content_generation_artifacts
+- content_generation_runs
+- content_generation_tasks
+- content_production_artifacts
+- content_promotion_events
+- content_review_assignments
+- content_scopes
+- content_seed_runs
+- content_staging_artifacts
+- content_staging_seed_items
+- content_staging_verification_runs
+- content_staging_verification_scope_results
+- content_validation_reports
 - diagnostic_items
 - diagnostic_sessions
+- erasure_request
 - guardians
 - irt_items
 - item_exposures
 - knowledge_gaps
 - learner_profiles
+- lesson_bank
 - lesson_feedback
 - lessons
 - mastery_snapshots
+- onboarding_states
 - parental_consents
 - practice_queue
+- privacy_settings
 - rlhf_exports
+- secure_tokens
 - spaced_review_schedule
 - stripe_webhook_events
+- study_plan_templates
 - subject_mastery
 - topic_mastery
 DATABASE_URL not supplied; database comparison skipped.

@@ -1,23 +1,23 @@
 {
   "schema_version": "1.0",
   "summary": {
-    "scope_count": 50,
+    "scope_count": 51,
     "stage_unlocked": 50,
     "production_unlocked": 0,
-    "total_records": 41754,
-    "scopes_with_errors": 0
+    "total_records": 42716,
+    "scopes_with_errors": 1
   },
   "scopes": [
     {
       "scope_id": "grade1_coding_and_robotics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -25,12 +25,12 @@
       "scope_id": "grade1_home_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -38,12 +38,12 @@
       "scope_id": "grade1_life_skills_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -51,12 +51,12 @@
       "scope_id": "grade1_mathematics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -64,12 +64,12 @@
       "scope_id": "grade1_sepedi_first_additional_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -77,12 +77,12 @@
       "scope_id": "grade2_coding_and_robotics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -90,12 +90,12 @@
       "scope_id": "grade2_home_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -103,12 +103,12 @@
       "scope_id": "grade2_life_skills_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -116,12 +116,12 @@
       "scope_id": "grade2_mathematics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -129,12 +129,12 @@
       "scope_id": "grade2_sepedi_first_additional_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -142,12 +142,12 @@
       "scope_id": "grade3_coding_and_robotics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -155,12 +155,12 @@
       "scope_id": "grade3_home_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -168,12 +168,12 @@
       "scope_id": "grade3_life_skills_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -181,12 +181,12 @@
       "scope_id": "grade3_mathematics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -194,12 +194,12 @@
       "scope_id": "grade3_sepedi_first_additional_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -207,12 +207,12 @@
       "scope_id": "grade4_coding_and_robotics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -220,12 +220,12 @@
       "scope_id": "grade4_home_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -233,25 +233,40 @@
       "scope_id": "grade4_life_skills_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
+      }
+    },
+    {
+      "scope_id": "grade4_mathematics_en",
+      "review_status": "missing",
+      "db_status": "pending_review",
+      "record_count": 160,
+      "errors": [
+        "Review evidence packet is missing."
+      ],
+      "layers": {
+        "diagnostic_items": 120,
+        "lessons": 24,
+        "assessment_blueprints": 13,
+        "study_plan_templates": 3
       }
     },
     {
       "scope_id": "grade4_natural_sciences_and_technology_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 937,
+      "record_count": 955,
       "errors": [],
       "layers": {
         "diagnostic_items": 720,
         "lessons": 144,
-        "assessment_blueprints": 55,
+        "assessment_blueprints": 73,
         "study_plan_templates": 18
       }
     },
@@ -259,12 +274,12 @@
       "scope_id": "grade4_sepedi_first_additional_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -272,12 +287,12 @@
       "scope_id": "grade4_social_sciences_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -285,12 +300,12 @@
       "scope_id": "grade5_coding_and_robotics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -298,12 +313,12 @@
       "scope_id": "grade5_home_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -311,12 +326,12 @@
       "scope_id": "grade5_life_skills_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -324,12 +339,12 @@
       "scope_id": "grade5_mathematics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -337,12 +352,12 @@
       "scope_id": "grade5_natural_sciences_and_technology_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -350,12 +365,12 @@
       "scope_id": "grade5_sepedi_first_additional_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -363,12 +378,12 @@
       "scope_id": "grade5_social_sciences_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -376,12 +391,12 @@
       "scope_id": "grade6_coding_and_robotics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -389,12 +404,12 @@
       "scope_id": "grade6_home_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -402,12 +417,12 @@
       "scope_id": "grade6_life_skills_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -415,12 +430,12 @@
       "scope_id": "grade6_mathematics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -428,12 +443,12 @@
       "scope_id": "grade6_natural_sciences_and_technology_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -441,12 +456,12 @@
       "scope_id": "grade6_sepedi_first_additional_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -454,12 +469,12 @@
       "scope_id": "grade6_social_sciences_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -467,12 +482,12 @@
       "scope_id": "grade7_coding_and_robotics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -480,12 +495,12 @@
       "scope_id": "grade7_creative_arts_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -493,12 +508,12 @@
       "scope_id": "grade7_economic_management_sciences_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -506,12 +521,12 @@
       "scope_id": "grade7_home_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -519,12 +534,12 @@
       "scope_id": "grade7_life_orientation_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -532,12 +547,12 @@
       "scope_id": "grade7_mathematics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -545,12 +560,12 @@
       "scope_id": "grade7_natural_sciences_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -558,12 +573,12 @@
       "scope_id": "grade7_sepedi_first_additional_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -571,12 +586,12 @@
       "scope_id": "grade7_social_sciences_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -584,12 +599,12 @@
       "scope_id": "grade7_technology_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -597,12 +612,12 @@
       "scope_id": "grader_coding_and_robotics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -610,12 +625,12 @@
       "scope_id": "grader_home_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -623,12 +638,12 @@
       "scope_id": "grader_life_skills_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -636,12 +651,12 @@
       "scope_id": "grader_mathematics_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     },
@@ -649,12 +664,12 @@
       "scope_id": "grader_sepedi_first_additional_language_en",
       "review_status": "dev_approved",
       "db_status": "approved",
-      "record_count": 833,
+      "record_count": 849,
       "errors": [],
       "layers": {
         "diagnostic_items": 640,
         "lessons": 128,
-        "assessment_blueprints": 49,
+        "assessment_blueprints": 65,
         "study_plan_templates": 16
       }
     }

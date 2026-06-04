@@ -53,12 +53,33 @@ The next promotion-readiness batch adds file-backed manifests for all generated 
 Current promotion-readiness summary:
 
 - Scopes evaluated: 51.
-- Staging-eligible scopes: 51.
-- Production-eligible scopes: 1 (`grade4_mathematics_en`).
+- Staging-eligible scopes: 1 (`grade5_mathematics_en` after lesson regeneration).
+- Production-eligible scopes: 0.
 - Review-blocked scopes: 50.
+- Lesson-quarantined scopes: 50.
 - Learner-visible scopes: 1.
 
-Operational caveat: the 50 review scopes can now be staged from file artifacts, but production promotion remains blocked until educator approval/review evidence is added and the scope status is intentionally changed to `active`.
+Operational caveat: generated lesson files failed the new lesson-quality audit because they contained placeholder instructional content. Lesson-layer staging has been revoked until scopes are regenerated with `scope_lesson_generator_v2` and pass `scripts/curriculum/audit_generated_lesson_quality.py`. Review scopes remain non-learner-visible and must not be imported from file artifacts until lesson regeneration completes.
+
+## Lesson Quality Remediation Status - 2026-06-03
+
+The data-generator remediation batch from `data_generator_todo.md` is now implemented:
+
+- Lesson quality contract and validator: `app/services/content_generation/generated_lesson_contract.py`
+- Topic-map source context builder: `app/services/content_generation/topic_map_source_context.py`
+- Scope lesson generator v2: `app/services/content_generation/scope_lesson_generator.py`
+- Read-only audit and quarantine manifests: `scripts/curriculum/audit_generated_lesson_quality.py`
+- Promotion/import gating via `ContentFilePromotionReadinessService` and `ContentFileArtifactImportService`
+
+Current lesson-quality audit summary:
+
+- Scopes with lesson files: 51.
+- Scopes passing lesson-quality audit: 1 (`grade5_mathematics_en` regenerated).
+- Scopes quarantined: 50.
+- Total lessons audited: 6,440.
+- Failed lessons remaining: 6,312.
+
+Next batch: regenerate the remaining 50 review scopes with `scripts/curriculum/build_scope_content_artifacts.py --scope-id <scope>` and re-run the audit/manifest scripts until all scopes pass.
 
 ## Pilot Review Workflow Status - 2026-06-03
 
@@ -83,12 +104,12 @@ The Phase 7 file-to-DB staging plan now covers every `review` scope. `scripts/cu
 Current review-scope import-plan summary:
 
 - Review scopes planned for staging import: 50.
-- Stage-unlocked scopes: 50.
+- Stage-unlocked scopes: 1.
 - Production-unlocked scopes: 0.
-- Planned file artifact records: 41,754.
-- Scopes with import-plan errors: 0.
+- Planned file artifact records: 35,466 for scopes with regenerated lesson layers.
+- Scopes with import-plan errors: 49 (lesson layer still quarantined).
 
-Operational caveat: the import plan maps `dev_approved` review-scope artifacts to approved Content Factory records for non-production staging/import only. Learner-visible production promotion remains blocked by scope activation plus educator/content and legal approval evidence.
+Operational caveat: the import plan excludes quarantined lesson records and reports blocking errors until regenerated lessons pass the lesson-quality audit. Learner-visible production promotion remains blocked by scope activation plus educator/content and legal approval evidence.
 
 ## File Import Rollback Status - 2026-06-03
 

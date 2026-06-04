@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-22T14:17:20Z",
+  "generated_at": "2026-06-04T11:05:48Z",
   "auth_router": "app/api_v2_routers/auth.py",
   "repository_imports": [],
   "learner_repository_symbol_present": false,

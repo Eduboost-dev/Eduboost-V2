@@ -1,7 +1,7 @@
 # Auth Lifecycle Controlled Semantic Proof Status
 
-Generated at: `2026-05-22T14:17:01Z`
-Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+Generated at: `2026-06-04T11:05:37Z`
+Commit: `1faa5ed5f7e4961d9d8cc7f666684057494eb8fb`
 
 **Status:** `auth-lifecycle-controlled-semantic-proof-passing`
 

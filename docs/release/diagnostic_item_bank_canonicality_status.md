@@ -1,7 +1,7 @@
 # Diagnostic Item-Bank Policy Status
 
-Generated at: `2026-05-22T14:23:23Z`
-Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+Generated at: `2026-06-04T11:18:03Z`
+Commit: `1faa5ed5f7e4961d9d8cc7f666684057494eb8fb`
 
 **Status:** `diagnostic-item-bank-policy-accepted`
 **Policy:** `docs/architecture/diagnostic_item_bank_canonicality.yml`
@@ -27,11 +27,22 @@ Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 
 | Path | Line | Excerpt |
 |---|---:|---|
-| `app/models/diagnostic_item.py` | 108 | `ORM representation of the diagnostic_items table.` |
-| `app/models/diagnostic_item.py` | 114 | `__tablename__ = "diagnostic_items"` |
-| `app/models/item_exposure.py` | 54 | `ForeignKey("diagnostic_items.item_id", ondelete="RESTRICT"),` |
+| `app/api_v2_routers/content_factory.py` | 1091 | `diagnostic_items = await service.get_diagnostic_items(session, scope_id=scope_id, caps_ref=caps_ref)` |
+| `app/api_v2_routers/content_factory.py` | 1093 | `return {"diagnostic_items": diagnostic_items, "lessons": lessons}` |
+| `app/api_v2_routers/content_factory.py` | 1114 | `run_metadata={"layers": ["diagnostic_items", "lessons", "assessment_blueprints", "study_plan_templates"]},` |
+| `app/domain/content_coverage.py` | 11 | `DIAGNOSTIC_ITEMS = "diagnostic_items"` |
+| `app/models/content_factory.py` | 56 | `DIAGNOSTIC_ITEMS = "diagnostic_items"` |
+| `app/models/diagnostic_item.py` | 111 | `ORM representation of the diagnostic_items table.` |
+| `app/models/diagnostic_item.py` | 117 | `__tablename__ = "diagnostic_items"` |
+| `app/models/item_exposure.py` | 58 | `ForeignKey("diagnostic_items.item_id", ondelete="RESTRICT"),` |
+| `app/services/content_file_artifact_import.py` | 29 | `"diagnostic_items": (ContentLayer.DIAGNOSTIC_ITEMS, ContentArtifactType.DIAGNOSTIC_ITEM, "items"),` |
+| `app/services/content_file_promotion_readiness.py` | 22 | `"diagnostic_items": "diagnostic_items",` |
+| `app/services/content_file_promotion_readiness.py` | 252 | `if layer == "diagnostic_items":` |
+| `app/services/content_generation/scope_blueprint_generator.py` | 87 | `"source_item_bank": "diagnostic_items",` |
 | `app/services/curriculum/coverage.py` | 24 | `def detect_gaps(self, *, lessons: Iterable[Mapping[str, Any]], diagnostic_items: Iterable[Mapping[str, Any]]) -> list[CurriculumGap]:` |
 | `app/services/curriculum/coverage.py` | 27 | `item_refs = {row.get("caps_reference") for row in diagnostic_items if row.get("caps_reference")}` |
+| `app/services/launch_content_seed.py` | 48 | `item_bank_path = _artifact_path(scope, "diagnostic_items", "data/generated/items/grade4_maths_launch_item_bank.json")` |
+| `app/services/launch_content_seed.py` | 66 | `item_target = _target_for(scope, "diagnostic_items.approved", DEFAULT_ITEM_TARGET, registry=registry)` |
 
 ## Blockers
 
