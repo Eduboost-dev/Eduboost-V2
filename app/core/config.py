@@ -6,6 +6,7 @@ from functools import lru_cache
 import json
 from typing import Any
 from typing import Literal
+from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
 
 from pydantic import field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -168,6 +169,38 @@ class Settings(BaseSettings):
         if len(v) != 44:  # Base64 encoded 32 bytes
             raise ValueError("ENCRYPTION_KEY must be 44 characters (32 bytes base64 encoded)")
         return v
+
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def normalize_database_url(cls, v: object) -> str:
+        if not isinstance(v, str):
+            return v
+        parsed = urlparse(v)
+        scheme = parsed.scheme
+
+        # Only normalize Postgres-style URLs; leave others (sqlite, file, etc.) intact
+        if not scheme.startswith("postgresql"):
+            return v
+
+        netloc = parsed.netloc
+        path = parsed.path
+        query = parsed.query
+
+        # Convert sslmode param to ssl for asyncpg style
+        if query:
+            qlist = []
+            for k, val in parse_qsl(query, keep_blank_values=True):
+                if k == "sslmode":
+                    qlist.append(("ssl", val))
+                else:
+                    qlist.append((k, val))
+            query = urlencode(qlist)
+
+        # Normalize postgres scheme to async driver when appropriate
+        if scheme == "postgresql":
+            scheme = "postgresql+asyncpg"
+
+        return urlunparse((scheme, netloc, path, "", query, ""))
 
     def is_production(self) -> bool:
         return self.APP_ENV == "production" or self.ENVIRONMENT == "production"
