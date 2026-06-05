@@ -69,7 +69,7 @@ ETL_DB_URL  = os.getenv("ETL_DB_URL",      "sqlite:///eduboost_etl.db")
 ETL_STORAGE = os.getenv("ETL_STORAGE_ROOT", "./data")
 ETL_EXPORTS = os.getenv("ETL_EXPORTS_DIR",  "./exports")
 
-mcp = FastMCP("eduboost_etl_v2")
+mcp = FastMCP("eduboost_etl_v2", json_response=True)
 _pipeline: Optional[EduboostETLv2] = None
 
 
@@ -84,6 +84,62 @@ def pipeline() -> EduboostETLv2:
         except Exception:
             pass   # FTS5 unavailable in this SQLite build
     return _pipeline
+
+
+def _run_streamable_http_app(mcp_server, host: str, port: int) -> None:
+    """Run a browser-friendly Streamable HTTP app using uvicorn."""
+    import uvicorn
+    from starlette.responses import JSONResponse
+
+    class _BrowserFriendlyStreamableHTTPMiddleware:
+        def __init__(self, app):
+            self.app = app
+
+        async def __call__(self, scope, receive, send):
+            if (
+                scope.get("type") == "http"
+                and scope.get("method") == "GET"
+                and scope.get("path") == getattr(mcp_server.settings, "streamable_http_path", "/mcp")
+            ):
+                accept = ""
+                for key, value in scope.get("headers", []):
+                    if key == b"accept":
+                        accept = value.decode("latin-1")
+                        break
+                if "text/event-stream" not in accept and "application/json" not in accept:
+                    response = JSONResponse(
+                        {
+                            "jsonrpc": "2.0",
+                            "id": "server-error",
+                            "error": {
+                                "code": -32000,
+                                "message": "MCP endpoint. Use an MCP client or POST /mcp with MCP headers.",
+                            },
+                        },
+                        status_code=200,
+                    )
+                    await response(scope, receive, send)
+                    return
+            await self.app(scope, receive, send)
+
+    app = _BrowserFriendlyStreamableHTTPMiddleware(mcp_server.streamable_http_app())
+    uvicorn.run(app, host=host, port=port, log_level=mcp_server.settings.log_level.lower())
+
+
+def _start_mcp_server(mcp_server, transport: str, host: str, port: int) -> None:
+    """Start the MCP server across supported FastMCP SDK versions."""
+    if transport == "streamable-http":
+        try:
+            mcp_server.run(transport="streamable-http", host=host, port=port)
+        except TypeError as exc:
+            if "unexpected keyword argument 'host'" not in str(exc) and "unexpected keyword argument 'port'" not in str(exc):
+                raise
+            mcp_server.settings.host = host
+            mcp_server.settings.port = port
+            _run_streamable_http_app(mcp_server, host=host, port=port)
+            return
+    else:
+        mcp_server.run(transport=transport)
 
 
 # ===========================================================================
@@ -888,7 +944,4 @@ if __name__ == "__main__":
     print(f"  Storage: {ETL_STORAGE}", file=sys.stderr)
     print(f"  Exports: {ETL_EXPORTS}", file=sys.stderr)
 
-    if args.transport == "streamable-http":
-        mcp.run(transport="streamable-http", host=args.host, port=args.port)
-    else:
-        mcp.run(transport="stdio")
+    _start_mcp_server(mcp, transport=args.transport, host=args.host, port=args.port)
