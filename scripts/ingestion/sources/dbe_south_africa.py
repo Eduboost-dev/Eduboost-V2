@@ -63,8 +63,15 @@ class DBESouthAfricaScraper(BaseScraper):
         super().__init__(config=SOURCES["dbe"], **kwargs)
 
     async def scrape(self) -> AsyncIterator[RawContent]:
-        docs = [d for d in _MIND_THE_GAP
-                if self._within_grade_range(d["grade"])]
+        # Discover Mind the Gap PDFs dynamically from the DBE index page
+        discovered: list[dict[str, Any]] = []
+        try:
+            discovered = await self._discover_mind_the_gap_links()
+        except Exception as exc:  # pragma: no cover - best-effort discovery
+            logger.warning("[DBE] Discovery failed: %s", exc)
+
+        docs = [d for d in (discovered or _MIND_THE_GAP)
+                if self._within_grade_range(d.get("grade"))]
         self._total = len(docs)
         logger.info("[DBE] Downloading %d Mind the Gap guides", self._total)
 
@@ -148,6 +155,71 @@ class DBESouthAfricaScraper(BaseScraper):
             license  = "Government Open License (ZA)",
             language = "en",
         )
+
+    async def _discover_mind_the_gap_links(self) -> list[dict[str, Any]]:
+        """Scrape the DBE 'Mind the Gap' index page and return PDF links.
+
+        Falls back to returning an empty list if discovery fails; the caller
+        may choose to fall back to a static list.
+        """
+        index_url = self.config.extra.get("mind_the_gap") if self.config.extra else None
+        if not index_url:
+            index_url = f"{self.config.base_url}/Curriculum/LearningandTeachingSupportMaterials(LTSM)/MindtheGap.aspx"
+
+        html = await self._get(index_url)
+        if not html or not isinstance(html, str):
+            logger.info("[DBE] No Mind the Gap index HTML available at %s", index_url)
+            return []
+
+        from bs4 import BeautifulSoup  # type: ignore
+        from urllib.parse import urljoin
+
+        soup = BeautifulSoup(html, "html.parser")
+        anchors = soup.find_all("a", href=re.compile(r"\.pdf", re.I))
+        docs: list[dict[str, Any]] = []
+        seen: set[str] = set()
+
+        for a in anchors:
+            href = a.get("href", "")
+            text = a.get_text(strip=True) or ""
+            # Heuristics: prefer links that reference 'mind' or have MtG in the filename
+            if not re.search(r"mind|mtg|mindthegap", text + href, re.I):
+                continue
+            pdf_url = urljoin(self.config.base_url, href)
+            if pdf_url in seen:
+                continue
+            seen.add(pdf_url)
+
+            title = text or pdf_url.split("/")[-1]
+            t = (text + " " + href).lower()
+            subject = "unknown"
+            if "math" in t or "mathemat" in t:
+                subject = "mathematics"
+            elif "physical" in t or "physics" in t:
+                subject = "physical_sciences"
+            elif "life" in t or "biology" in t:
+                subject = "life_sciences"
+            elif "account" in t:
+                subject = "accounting"
+            elif "business" in t:
+                subject = "business_studies"
+            elif "economic" in t:
+                subject = "economics"
+            elif "geograph" in t:
+                subject = "geography"
+            elif "history" in t:
+                subject = "history"
+            elif "english" in t:
+                subject = "english_home_language"
+
+            docs.append({
+                "url": pdf_url,
+                "title": title,
+                "subject": subject,
+                "grade": 12,
+            })
+
+        return docs
 
     async def _scrape_past_papers(self) -> AsyncIterator[RawContent]:
         """Fetch NSC past paper listing and extract PDF links."""

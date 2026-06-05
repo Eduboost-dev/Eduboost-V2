@@ -127,7 +127,24 @@ class BaseScraper(ABC):
                     content_type = resp.headers.get("Content-Type", "")
                     if "json" in content_type:
                         return await resp.json(content_type=None)
-                    return await resp.text()
+
+                    # Try normal text decode first; if that fails fall back to
+                    # trying a few common encodings and finally a replace-mode
+                    # UTF-8 decode to avoid crashing on malformed pages.
+                    try:
+                        return await resp.text()
+                    except UnicodeDecodeError:
+                        raw = await resp.read()
+                        # Common fallbacks observed in the wild
+                        for enc in ("utf-8", "windows-1252", "iso-8859-1"):
+                            try:
+                                text = raw.decode(enc)
+                                logger.warning("Decoded %s using %s fallback", url, enc)
+                                return text
+                            except Exception:
+                                continue
+                        logger.warning("Unable to decode %s with common encodings; using replacement decoding", url)
+                        return raw.decode("utf-8", errors="replace")
 
             except (aiohttp.ClientError, asyncio.TimeoutError) as exc:
                 wait = self._backoff(attempt)
