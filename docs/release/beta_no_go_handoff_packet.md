@@ -1,11 +1,11 @@
 # Beta NO-GO Handoff Packet
 
-Generated at: `2026-05-22T14:21:44Z`
-Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+Generated at: `2026-06-05T20:19:21Z`
+Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 
 **Handoff status:** `handoff-ready-no-go`
 **Beta decision:** `NO-GO`
-**Blocker count:** `11`
+**Blocker count:** `10`
 
 ## Source surfaces
 

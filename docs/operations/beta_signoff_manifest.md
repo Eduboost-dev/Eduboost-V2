@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-22T14:22:57.890813+00:00`
-- branch: `codex/production_readiness`
-- commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+- generated_at_utc: `2026-06-05T20:19:22.311328+00:00`
+- branch: `feature/ingestion-pipeline`
+- commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 - release_candidate: `unset`
 
 ## Required Sign-Off Areas

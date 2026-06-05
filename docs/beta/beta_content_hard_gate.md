@@ -1,12 +1,12 @@
 # Beta Content Hard Gate
 
-**Status:** blocked
+**Status:** pass
 
 | Field | Value |
 |---|---|
-| Approved items | 14 |
+| Approved items | 40 |
 | Required items | 40 |
 | Waiver | None |
 | Waiver owner | None |
-| Blockers | insufficient_approved_items |
-| Captured at | 2026-05-22T14:21:43Z |
+| Blockers | None |
+| Captured at | 2026-06-05T20:19:19Z |

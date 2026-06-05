@@ -68,7 +68,7 @@ async def test_staging_executor_batch_size_respected():
     plan = StagingSeedPlan(
         scope_id="some_scope",
         layers=["diagnostic_items"],
-        seedable=[_seedable() for _ Coupe in range(5)],
+        seedable=[_seedable() for _ in range(5)],
         skipped=[],
     )
     

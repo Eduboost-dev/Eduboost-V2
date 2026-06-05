@@ -1,6 +1,6 @@
 # Backend Consolidation Evidence Manifest
 
-Generated at: `2026-06-04T11:09:30Z`
+Generated at: `2026-06-05T20:17:07Z`
 
 | Path | Exists | Bytes | SHA-256 |
 |---|---|---:|---|
@@ -8,25 +8,25 @@ Generated at: `2026-06-04T11:09:30Z`
 | `docs/release/backend_consolidation_dragons.md` | yes | 2693 | `d80face5640853421fb27e3cad3437998e5602992e331455a83f5cbece61d85e` |
 | `docs/release/backend_consolidation_decision_record.md` | yes | 1859 | `25d5c7b022b2508f45c2c4f12cd5b04773df1935b22106dbabbcf842a75a15c8` |
 | `docs/release/audit_repository_compatibility_contract.md` | yes | 1079 | `c0badadc8c4c5f5607d98e02b6059d976e56a7a29873b775849e061c2375e3d7` |
-| `docs/release/audit_callsite_inventory.md` | yes | 417952 | `97d7d70c403b1c736f1fe53e8a01bac1218c560f1896d4c1d66e9ef7e3aa2a5b` |
+| `docs/release/audit_callsite_inventory.md` | yes | 417501 | `4bbb2726c2ae3b18dce9389a0b8057871dd1b9720d9c2235a10782ec30fc46a8` |
 | `docs/release/consent_service_compatibility_contract.md` | yes | 1416 | `742b41ce9593e89f9c5111efa0206659c759a7b3a09a43734b45e04d28e70948` |
 | `docs/release/consent_callsite_inventory.md` | yes | 79825 | `3943d81407d2e7208a024cbbc317c7b768881ae21627155b3a99eb38a1cbab39` |
 | `docs/release/health_readiness_diagnostic_contract.md` | yes | 1329 | `2a5db06bab998ef98cd8fd32bdc82d9e3402d0bb204e5bf4375b31726ebd2fce` |
 | `docs/release/schema_drift_evidence_contract.md` | yes | 898 | `22e43404dbbcf97412caf61f2be316cb02602adeb9b4bf6f09ae299beebef3c0` |
 | `docs/release/backend_runtime_compatibility_contract.md` | yes | 1489 | `ae43ff04480b8c1bf6dd1f56db129d9f856d7176deb160991601a63646c2ad3b` |
-| `docs/release/backend_runtime_compatibility_report.md` | yes | 3899 | `c453cfe40e44c3fedbfd66f1769b752d72a0d5137747a686ba09471a5689eb67` |
+| `docs/release/backend_runtime_compatibility_report.md` | yes | 3921 | `cf92cc5d6b30be287481ae9eca7433e5a3a3ff06c31e1b3c84f3318a4c64c37c` |
 | `docs/release/backend_runtime_probe_contract.md` | yes | 1140 | `67c234fdaa9cd426051ef8f95b4fece354637ac25916f705386312601314ffb8` |
-| `docs/release/backend_runtime_probe_report.md` | yes | 6444 | `32a86554d2fa1795e534e173a5fab45baabd4a0a057aafbab10552936a9a783f` |
+| `docs/release/backend_runtime_probe_report.md` | yes | 6476 | `64424670055cea0872a2c392305c4e962fafc60bc2e3463d4d3fb02097282333` |
 | `docs/release/backend_consolidation_readiness_matrix.md` | yes | 1795 | `44d1e7c2551747ccebfffe610cbb578f43b638f5f1c859987ddd4dcc4e999b93` |
 | `docs/release/backend_data_retention_decision_checklist.md` | yes | 1404 | `6b4db479af32442bbd739f64d27ea09f887ca07d7709529a45765a6fa2b827a3` |
-| `docs/release/backend_deletion_candidate_inventory.md` | yes | 96050110 | `572b524f12ac7a2bebf306d00013c32563d0558e51c6678ebaa142fc7b3788e2` |
-| `docs/release/backend_consolidation_readiness_report.md` | yes | 2740 | `771018caee51f624a119e14912d32eb0a1226cfcfb8961836391a749c235c6d3` |
+| `docs/release/backend_deletion_candidate_inventory.md` | yes | 97710054 | `a2d74a10c069664ac4ad29bcf62d281d14f04241e1b55a78159bdf1b74fe9a68` |
+| `docs/release/backend_consolidation_readiness_report.md` | yes | 2773 | `cc02610ead22234481ebda6bec755f97d28b244e5a6b9f5387bb46a0de1e0f1c` |
 | `docs/release/backend_consolidation_execution_packet.md` | yes | 1359 | `2949590f64c07b1c15a76fcd69463f3b472c5bd838765ac535ce09226acb9338` |
 | `docs/release/audit_canonicalization_implementation_checklist.md` | yes | 957 | `cad37b5c53a5fa61fa8e8895d685320a90614e633463fdd5f25b1ce6a29eff54` |
 | `docs/release/consent_runtime_repair_checklist.md` | yes | 971 | `380379997fbb752faa789304025e4b2aa4b7b39e0b038e75196f1003ddabd680` |
 | `docs/release/schema_drift_db_execution_checklist.md` | yes | 852 | `d8f06f0b95dace09b78bf7f6380fe5941f73fb4052687ef525498dc83521de9c` |
 | `docs/release/deep_readiness_implementation_checklist.md` | yes | 750 | `4fb7c568b6b9a9dcdaa8659ec605cf392d697fa1fc62a62b29d14ab458267c43` |
-| `docs/release/backend_consolidation_execution_report.md` | yes | 6954 | `60fc962ffa69d2511ee13cd743596ed67ca60e6d334ca3896207c701d34162b2` |
+| `docs/release/backend_consolidation_execution_report.md` | yes | 6925 | `13b2ed301cea9a7ca79c9f30ea037e793fc61514e588ca428d03127cc03bc991` |
 | `docs/release/backend_consolidation_terminal_packet.md` | yes | 1481 | `bdc11a738d04d2ca359c377ee08f60d1e76d5756e869f49b21a66584842f2a65` |
 
 ## Boundary

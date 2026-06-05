@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-04T11:04:16Z",
-  "current_commit": "1faa5ed5f7e4961d9d8cc7f666684057494eb8fb",
-  "current_branch": "implementation/study-material-expansion-foundation",
+  "generated_at": "2026-06-05T20:15:21Z",
+  "current_commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
+  "current_branch": "feature/ingestion-pipeline",
   "status": "audit-baseline-refresh-current",
   "beta_decision": "NO-GO",
   "beta_blocker_count": 10,
@@ -9,7 +9,7 @@
     {
       "command": "make final-gate-refresh",
       "return_code": 0,
-      "output_excerpt": "make[1]: Entering directory '/home/azureuser/Dev/Eduboost-V2'\nPYTHONPATH=. python3 -c \"from scripts.final_gate_refresh import write_refresh; r = write_refresh(); print(r.beta_decision)\"\nNO-GO\nmake[1]: Leaving directory '/home/azureuser/Dev/Eduboost-V2'\n"
+      "output_excerpt": "PYTHONPATH=. python3 -c \"from scripts.final_gate_refresh import write_refresh; r = write_refresh(); print(r.beta_decision)\"\nNO-GO\n"
     },
     {
       "command": "write release_go_no_go_status from final_beta_gate_refresh",
@@ -29,7 +29,7 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "1faa5ed5f7e4961d9d8cc7f666684057494eb8fb",
+      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
       "stale": false
     },
     {
@@ -38,7 +38,7 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "1faa5ed5f7e4961d9d8cc7f666684057494eb8fb",
+      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
       "stale": false
     },
     {
@@ -65,7 +65,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "728436c96b178baca333a39aaa01a39a708944c5",
+      "commit": "1faa5ed5f7e4961d9d8cc7f666684057494eb8fb",
       "stale": true
     },
     {
@@ -74,8 +74,8 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
-      "stale": true
+      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
+      "stale": false
     },
     {
       "name": "staging_smoke_evidence",
@@ -110,7 +110,7 @@
       "exists": true,
       "status": "popia-response-contract-no-skip-passing",
       "decision": "",
-      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
+      "commit": "1faa5ed5f7e4961d9d8cc7f666684057494eb8fb",
       "stale": true
     },
     {
@@ -146,7 +146,7 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "1faa5ed5f7e4961d9d8cc7f666684057494eb8fb",
+      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
       "stale": false
     }
   ],
