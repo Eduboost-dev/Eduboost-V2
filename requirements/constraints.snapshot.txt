@@ -153,7 +153,7 @@ pytz==2026.1.post1
 PyYAML==6.0.3
 realtime==2.29.0
 redis==5.0.4
-reportlab==4.2.0
+reportlab==4.5.1
 requests==2.33.1
 rich==15.0.0
 rich-toolkit==0.19.7
