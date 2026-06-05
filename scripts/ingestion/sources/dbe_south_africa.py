@@ -168,8 +168,18 @@ class DBESouthAfricaScraper(BaseScraper):
 
         html = await self._get(index_url)
         if not html or not isinstance(html, str):
-            logger.info("[DBE] No Mind the Gap index HTML available at %s", index_url)
-            return []
+            # Some government sites block non-browser user-agents — try
+            # again with a common browser UA as a best-effort fallback.
+            headers = {
+                "User-Agent": (
+                    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                    "(KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+                )
+            }
+            html = await self._get(index_url, headers=headers)
+            if not html or not isinstance(html, str):
+                logger.info("[DBE] No Mind the Gap index HTML available at %s", index_url)
+                return []
 
         from bs4 import BeautifulSoup  # type: ignore
         from urllib.parse import urljoin
