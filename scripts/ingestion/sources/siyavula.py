@@ -79,8 +79,19 @@ class SiyavulaScraper(BaseScraper):
         soup    = BeautifulSoup(html, "html.parser")
         # Extract chapter/section links from the sidebar/ToC
         toc_links = self._extract_toc_links(soup, book["url"])
-        logger.info("[Siyavula] Grade %d %s — %d sections found",
-                    book["grade"], book["subject"], len(toc_links))
+        # If the initial fetch returned the skeleton SPA HTML, re-render
+        # with Playwright and try again (Siyavula uses client-side rendering).
+        if not toc_links:
+            logger.debug("[Siyavula] No TOC links found from HTTP fetch; trying Playwright render")
+            pw_html = await self._playwright_get(book["url"])
+            if pw_html and isinstance(pw_html, str):
+                soup = BeautifulSoup(pw_html, "html.parser")
+                toc_links = self._extract_toc_links(soup, book["url"])
+                logger.info("[Siyavula] Playwright render — %d sections found for %s Grade %d",
+                            len(toc_links), book["subject"], book["grade"])
+        else:
+            logger.info("[Siyavula] Grade %d %s — %d sections found",
+                        book["grade"], book["subject"], len(toc_links))
 
         for link_url, section_title in toc_links:
             if self._at_limit():

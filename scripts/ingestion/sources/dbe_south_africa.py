@@ -113,7 +113,33 @@ class DBESouthAfricaScraper(BaseScraper):
             async with self._session.get(doc["url"]) as resp:
                 if resp.status != 200:
                     logger.warning("[DBE] HTTP %d for %s", resp.status, doc["url"])
-                    return None
+                    # Try archive.org Wayback fallback for missing PDFs.
+                    wayback_url = (
+                        f"https://web.archive.org/web/*/{doc['url']}"
+                    )
+                    logger.info("[DBE] Attempting Wayback fallback for %s", doc["url"])
+                    try:
+                        async with self._session.get(wayback_url) as wb:
+                            if wb.status == 200:
+                                body = await wb.text()
+                                # Attempt to find the first capture link
+                                m = re.search(r'href="(https?://web\.archive\.org/web/[^\"]+)"', body)
+                                if m:
+                                    capture = m.group(1)
+                                    logger.info("[DBE] Found Wayback capture: %s", capture)
+                                    async with self._session.get(capture) as cap:
+                                        if cap.status == 200:
+                                            pdf_bytes = await cap.read()
+                                        else:
+                                            logger.warning("[DBE] Wayback capture HTTP %d", cap.status)
+                                            return None
+                                else:
+                                    logger.warning("[DBE] No Wayback captures found for %s", doc["url"])
+                                    return None
+                            else:
+                                return None
+                    except Exception:
+                        return None
                 pdf_bytes = await resp.read()
         except Exception as exc:  # noqa: BLE001
             logger.error("[DBE] Download failed: %s", exc)
