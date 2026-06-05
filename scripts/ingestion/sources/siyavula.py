@@ -69,9 +69,10 @@ class SiyavulaScraper(BaseScraper):
 
     async def _scrape_book(self, book: dict[str, Any]) -> AsyncIterator[RawContent]:
         html = await self._get(book["url"])
+        pw_network = []
         if not html or not isinstance(html, str):
-            # Siyavula may require browser rendering
-            html = await self._playwright_get(book["url"])
+            # Siyavula may require browser rendering; capture network XHRs
+            html, pw_network = await self._playwright_capture(book["url"])  # type: ignore[attr-defined]
         if not html:
             logger.warning("[Siyavula] Could not fetch: %s", book["url"])
             return
@@ -83,12 +84,21 @@ class SiyavulaScraper(BaseScraper):
         # with Playwright and try again (Siyavula uses client-side rendering).
         if not toc_links:
             logger.debug("[Siyavula] No TOC links found from HTTP fetch; trying Playwright render")
-            pw_html = await self._playwright_get(book["url"])
+            pw_html, pw_network = await self._playwright_capture(book["url"])  # type: ignore[attr-defined]
             if pw_html and isinstance(pw_html, str):
                 soup = BeautifulSoup(pw_html, "html.parser")
                 toc_links = self._extract_toc_links(soup, book["url"])
                 logger.info("[Siyavula] Playwright render — %d sections found for %s Grade %d",
                             len(toc_links), book["subject"], book["grade"])
+            # Log captured XHR/fetch responses for debugging (debug-level)
+            if pw_network:
+                for r in pw_network:
+                    body = r.get("body")
+                    snippet = None
+                    if body and isinstance(body, str):
+                        snippet = body[:1000]
+                    logger.debug("[Siyavula][Playwright XHR] %s %s status=%s snippet=%s",
+                                 r.get("resource_type"), r.get("url"), r.get("status"), snippet)
         else:
             logger.info("[Siyavula] Grade %d %s — %d sections found",
                         book["grade"], book["subject"], len(toc_links))
@@ -103,19 +113,28 @@ class SiyavulaScraper(BaseScraper):
 
     @staticmethod
     def _extract_toc_links(soup: BeautifulSoup, base_url: str) -> list[tuple[str, str]]:
-        """Extract chapter and section URLs from the Siyavula page sidebar."""
-        from urllib.parse import urljoin
+        """Extract chapter and section URLs for the current Siyavula book."""
+        from urllib.parse import urljoin, urlparse
+
+        canonical = soup.select_one('link[rel="canonical"][href]')
+        book_url = urljoin(base_url, canonical.get("href")) if canonical else base_url
+        parsed_book = urlparse(book_url)
+        book_prefix = f"{parsed_book.scheme}://{parsed_book.netloc}{parsed_book.path}".rstrip("/")
+
         links: list[tuple[str, str]] = []
-        for a in soup.select("nav a, .toc a, #sidebar a, .chapter-list a"):
-            href  = a.get("href", "")
-            text  = a.get_text(strip=True)
-            if not href or not text:
+        candidates = soup.select("main a[href], article a[href], .chapter-title[href], a.chapter-title[href]")
+        for el in candidates:
+            href = el.get("href") or ""
+            text = el.get_text(strip=True) or ""
+            if not href or not text or "#" in href:
                 continue
-            full_url = urljoin(base_url, href)
-            # Only include section URLs (skip external links, anchors, etc.)
-            if "siyavula.com/read/" in full_url and "#" not in full_url:
-                links.append((full_url, text))
-        # Deduplicate while preserving order
+            full_url = urljoin(book_prefix + "/", href)
+            if not full_url.startswith(book_prefix + "/"):
+                continue
+            if "/dashboard/" in full_url or "/set-preferences/" in full_url:
+                continue
+            links.append((full_url, text))
+
         seen: set[str] = set()
         unique: list[tuple[str, str]] = []
         for u, t in links:

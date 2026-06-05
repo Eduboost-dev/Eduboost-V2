@@ -521,8 +521,10 @@ CREATE TABLE training_records (
     subject         VARCHAR(64),
     content_type    VARCHAR(32),
     system          TEXT,
-    user_turn       TEXT,
-    assistant_turn  TEXT,
+    user            TEXT,
+    assistant       TEXT,
+    difficulty      VARCHAR(32),
+    jurisdiction    VARCHAR(16),
     language        VARCHAR(8),
     license         VARCHAR(128),
     tags            JSONB

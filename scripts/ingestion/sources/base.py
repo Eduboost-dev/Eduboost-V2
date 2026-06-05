@@ -194,6 +194,82 @@ class BaseScraper(ABC):
                 await browser.close()
         return html
 
+    async def _playwright_capture(self, url: str, capture_xhr: bool = True) -> tuple[str | None, list[dict]]:
+        """Fetch page HTML via Playwright and capture network responses (XHR/fetch).
+
+        Returns a tuple of (html, responses) where `responses` is a list of
+        dictionaries containing `url`, `status`, `resource_type`, `headers`,
+        and optionally `body` for JSON/XHR payloads. This helper is intended
+        for debugging JS-heavy SPAs to discover XHR endpoints used to populate
+        the DOM (e.g. TOC JSON APIs).
+        """
+        try:
+            from playwright.async_api import async_playwright  # type: ignore
+        except ImportError:
+            logger.error("playwright not installed — run: pip install playwright && playwright install chromium")
+            return None, []
+
+        allowed = await can_fetch(url, self.config.robots_txt_url)
+        if not allowed:
+            logger.warning("robots.txt disallows %s — skipping", url)
+            return None, []
+
+        await throttle(self.config.id, self.config.rate_limit_rps)
+
+        responses: list[dict] = []
+        async with async_playwright() as pw:
+            pending_reads: list[asyncio.Task[None]] = []
+            browser = await pw.chromium.launch(headless=True)
+            page = await browser.new_page(user_agent=self._user_agent)
+
+            def _on_response(response):
+                # Schedule reading the response body asynchronously so the
+                # event handler remains non-blocking.
+                async def _read():
+                    try:
+                        r_url = response.url
+                        status = response.status
+                        headers = dict(response.headers)
+                        resource_type = response.request.resource_type
+                        ct = headers.get("content-type", "")
+                        body = None
+                        if capture_xhr and (resource_type in ("xhr", "fetch") or "json" in ct or r_url.endswith(".json")):
+                            try:
+                                logger.debug("[Playwright capture] reading response body: %s", r_url)
+                                body = await response.text()
+                            except Exception:
+                                body = None
+                        responses.append({
+                            "url": r_url,
+                            "status": status,
+                            "resource_type": resource_type,
+                            "headers": headers,
+                            "method": response.request.method,
+                            "body": body,
+                        })
+                    except Exception:
+                        # best-effort; swallow errors to avoid breaking navigation
+                        return
+
+                try:
+                    pending_reads.append(asyncio.create_task(_read()))
+                except Exception:
+                    # If scheduling fails, ignore and continue
+                    pass
+
+            page.on("response", _on_response)
+            try:
+                await page.goto(url, wait_until="networkidle", timeout=30_000)
+                html = await page.content()
+                if pending_reads:
+                    await asyncio.gather(*pending_reads, return_exceptions=True)
+            finally:
+                await browser.close()
+
+        logger.info("[Playwright capture] captured %d network responses for %s", len(responses), url)
+
+        return html, responses
+
     # ── Shared utilities ──────────────────────────────────────────────────────
 
     def _within_grade_range(self, grade: int | None) -> bool:
