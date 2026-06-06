@@ -101,10 +101,12 @@ class Pipeline:
         batch_size: int = 200,
         dry_run: bool = False,
         export_jsonl: str | None = None,
+        export_format: str = "openai",
     ) -> None:
         self._storage    = StorageLayer(db_url=db_url, batch_size=batch_size)
         self._dry_run    = dry_run
         self._export_dir = export_jsonl
+        self._export_format = self._validate_export_format(export_format)
         self._stats      = PipelineStats()
         self._lock       = asyncio.Lock()
         self._raw_buf:    list[RawContent]     = []
@@ -236,13 +238,21 @@ class Pipeline:
             path.parent.mkdir(parents=True, exist_ok=True)
             with path.open("a", encoding="utf-8") as fh:
                 for rec in recs:
-                    fh.write(json.dumps(rec.to_openai_format()) + "\n")
+                    row = rec.to_anthropic_format() if self._export_format == "anthropic" else rec.to_openai_format()
+                    fh.write(json.dumps(row, ensure_ascii=False) + "\n")
 
     # ── Stats ─────────────────────────────────────────────────────────────────
 
     def stats(self) -> dict[str, Any]:
         """Return a snapshot of the current pipeline statistics."""
         return self._stats.as_dict()
+
+    @staticmethod
+    def _validate_export_format(fmt: str) -> str:
+        mode = fmt.lower().strip()
+        if mode not in {"openai", "anthropic"}:
+            raise ValueError(f"Unsupported export format: {fmt}")
+        return mode
 
 
 # ── Re-exports ────────────────────────────────────────────────────────────────

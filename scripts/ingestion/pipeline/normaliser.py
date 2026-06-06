@@ -49,7 +49,17 @@ def normalise(raw: RawContent) -> NormalisedContent | None:
     """
     # ── Text cleaning ────────────────────────────────────────────────────────
     body = _clean_text(raw.raw_text)
-    if len(body) < 80:
+    # For MCQ / structured items, include options in the length check so short
+    # questions with rich answer choices are not discarded.
+    check_body = body
+    if raw.raw_json:
+        _opts = _coerce_list(raw.raw_json.get("options"))
+        if _opts:
+            check_body = body + "\n" + "\n".join(f"• {o}" for o in _opts)
+        _support = raw.raw_json.get("support") or raw.raw_json.get("passage")
+        if _support and _support not in check_body:
+            check_body = f"{_support}\n\n{check_body}"
+    if len(check_body) < 80:
         logger.debug("[Normaliser] Skipping too-short content from %s", raw.source_id)
         return None
 

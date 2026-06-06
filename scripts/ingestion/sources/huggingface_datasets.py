@@ -99,7 +99,6 @@ class HuggingFaceDatasetsScraper(BaseScraper):
                         hf_id,
                         subset,
                         split=split,
-                        trust_remote_code=True,
                     )
                     loop = asyncio.get_event_loop()
                     ds   = await loop.run_in_executor(None, loader)
@@ -147,10 +146,12 @@ class HuggingFaceDatasetsScraper(BaseScraper):
                 except (ValueError, IndexError):
                     answer = ans_key
             options = texts if texts else []
+            option_block = "\n".join(f"{lbl}. {txt}" for lbl, txt in zip(labels, texts))
+            raw_text = f"{q}\n\n{option_block}" if option_block else q
             return RawContent(
                 source_id  = "huggingface",
                 source_internal_id = f"arc_{subset}_{row.get('id', '')}",
-                raw_text   = q,
+                raw_text   = raw_text,
                 raw_json   = {"question": q, "options": options, "answer": answer,
                               "subset": subset, "split": split},
                 metadata   = {
@@ -212,10 +213,12 @@ class HuggingFaceDatasetsScraper(BaseScraper):
             ans_idx = row.get("answer", -1)
             answer  = options[ans_idx] if isinstance(ans_idx, int) and options else str(ans_idx)
             subj    = (subset or "").replace("_", " ")
+            option_block = "\n".join(f"{chr(65+i)}. {o}" for i, o in enumerate(options))
+            raw_text = f"{q}\n\n{option_block}" if option_block else q
             return RawContent(
                 source_id  = "huggingface",
                 source_internal_id = f"mmlu_{subset}_{hash(q)}",
-                raw_text   = q,
+                raw_text   = raw_text,
                 raw_json   = {"question": q, "options": options,
                               "answer": answer, "subject_label": subj},
                 metadata   = {
