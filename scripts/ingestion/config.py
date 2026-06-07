@@ -250,7 +250,7 @@ SOURCES: dict[str, SourceConfig] = {
         grade_range    = (1, 12),
         extra          = {
             "curriculum_url": "https://www.education.gov.za/Curriculum/CurriculumAssessmentPolicyStatements(CAPS).aspx",
-            "mind_the_gap":   "https://www.education.gov.za/Curriculum/LearningandTeachingSupportMaterials(LTSM)/MindtheGap.aspx",
+            "mind_the_gap":   "https://www.education.gov.za/Curriculum/LearningandTeachingSupportMaterials(LTSM)/MindtheGapStudyGuides/tabid/670/Default.aspx",
         },
     ),
     "wced": SourceConfig(

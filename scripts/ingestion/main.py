@@ -82,6 +82,7 @@ async def run_ingestion(
     db_url: str | None = None,
     redis_url: str = "redis://localhost:6379",
     export_dir: str | None = None,
+    export_format: str = "openai",
     dry_run: bool = False,
     job_id: str | None = None,
 ) -> dict[str, Any]:
@@ -136,6 +137,7 @@ async def run_ingestion(
         db_url=db_url,
         dry_run=dry_run,
         export_jsonl=export_dir,
+        export_format=export_format,
     )
     await pipeline.init()
 
@@ -247,6 +249,11 @@ def run(
         "--export",
         help="Directory to write training JSONL files",
     ),
+    export_format: str = typer.Option(
+        "openai",
+        "--export-format",
+        help="JSONL export format: openai or anthropic",
+    ),
     dry_run: bool = typer.Option(
         False,
         "--dry-run",
@@ -270,6 +277,7 @@ def run(
             db_url=db_url or None,
             redis_url=redis_url,
             export_dir=export_dir or None,
+            export_format=export_format,
             dry_run=dry_run,
         )
     )
