@@ -81,7 +81,7 @@ def run_checks(
     if freshness_marker == "HEAD":
         marker_ok = bool(state.head_sha)
     root = Path(state.root)
-    root_ok = (root / "TODO.md").exists() and (root / "app").is_dir()
+    root_ok = (root / "docs" / "backlog" / "TODO.md").exists() and (root / "app").is_dir()
 
     return [
         CheckResult(

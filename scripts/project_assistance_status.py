@@ -27,10 +27,10 @@ LANES: tuple[AssistanceLane, ...] = (
         1,
         "Current-state triage",
         "Keep the project honest about what is implemented, verified, blocked, or external.",
-        ("docs/current_state.md", "docs/project_status.md", "TODO.md"),
+        ("docs/current_state.md", "docs/project_status.md", "docs/backlog/TODO.md"),
         ("make refresh-current-state", "make project-assistance-status"),
         "Updated project status and current-state evidence.",
-        "Open blockers are reflected in TODO.md and no release-ready claim exceeds the evidence.",
+        "Open blockers are reflected in docs/backlog/TODO.md and no release-ready claim exceeds the evidence.",
     ),
     AssistanceLane(
         2,

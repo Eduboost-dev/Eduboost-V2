@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-TODO = REPO_ROOT / "TODO.md"
+TODO = REPO_ROOT / "docs" / "backlog" / "TODO.md"
 PLAN = REPO_ROOT / "docs" / "operations" / "todo_implementation_plan.md"
 
 NS_ID_RE = re.compile(r"NS-\d{2}")

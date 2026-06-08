@@ -16,9 +16,9 @@ working control surface, not a release approval.
 | `.github/PULL_REQUEST_TEMPLATE.md` | present |
 | `.github/workflows/` | present |
 | `Makefile` | present |
-| `TODO.md` | present |
 | `app/` | present |
 | `docs/POPIA_COMPLIANCE.md` | present |
+| `docs/backlog/TODO.md` | present |
 | `docs/current_state.md` | present |
 | `docs/operations/` | present |
 | `docs/operations/recommended_operating_model.md` | present |
@@ -45,13 +45,13 @@ Keep the project honest about what is implemented, verified, blocked, or externa
 Sources:
 - `docs/current_state.md` (present)
 - `docs/project_status.md` (present)
-- `TODO.md` (present)
+- `docs/backlog/TODO.md` (present)
 
 Commands:
 - `make refresh-current-state`
 - `make project-assistance-status`
 
-Done when: Open blockers are reflected in TODO.md and no release-ready claim exceeds the evidence.
+Done when: Open blockers are reflected in docs/backlog/TODO.md and no release-ready claim exceeds the evidence.
 
 ## 2. Verification and repair
 
