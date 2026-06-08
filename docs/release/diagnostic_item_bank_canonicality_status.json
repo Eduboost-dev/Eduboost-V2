@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-04T11:18:03Z",
-  "current_commit": "1faa5ed5f7e4961d9d8cc7f666684057494eb8fb",
+  "generated_at": "2026-06-08T15:23:48Z",
+  "current_commit": "d8f1d702b13a2337b17e02f73b7edbabe91cf06f",
   "status": "diagnostic-item-bank-policy-accepted",
   "policy_path": "docs/architecture/diagnostic_item_bank_canonicality.yml",
   "decision": "diagnostic_items-runtime-required",
@@ -458,31 +458,31 @@
     },
     {
       "path": "docs/release/audit_callsite_inventory.md",
-      "line_number": 2355,
+      "line_number": 2366,
       "line_excerpt": "| `scripts/diagnostic_item_bank_canonicality.py` | 142 | audit_append_call | `blockers.append(\"no diagnostic_items references found; runtime-required policy is unsupported\")` |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/audit_callsite_inventory.md",
-      "line_number": 2374,
+      "line_number": 2385,
       "line_excerpt": "| `scripts/diagnostic_score_live_audit.py` | 493 | audit_append_call | `blockers.append(\"diagnostic_items table is missing\")` |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/audit_callsite_inventory.md",
-      "line_number": 2377,
+      "line_number": 2388,
       "line_excerpt": "| `scripts/diagnostic_score_live_audit.py` | 513 | audit_append_call | `blockers.append(\"DIAG_SCORE_ALLOW_BRIDGE_SEED must be 1 before mutating diagnostic_items\")` |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/audit_callsite_inventory.md",
-      "line_number": 2378,
+      "line_number": 2389,
       "line_excerpt": "| `scripts/diagnostic_score_live_audit.py` | 515 | audit_append_call | `blockers.append(\"cannot bridge-seed without both diagnostic_items and irt_items\")` |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/audit_callsite_inventory.md",
-      "line_number": 2380,
+      "line_number": 2391,
       "line_excerpt": "| `scripts/diagnostic_score_live_audit.py` | 531 | audit_append_call | `blockers.append(\"diagnostic_items has 0 rows; runtime-required item bank is not seeded\")` |",
       "runtime_surface": false
     },
@@ -494,55 +494,25 @@
     },
     {
       "path": "docs/release/backend_deletion_candidate_inventory.md",
-      "line_number": 293667,
-      "line_excerpt": "| `docs/release/backend_deletion_candidate_inventory.md` | 292918 | legacy_audit | `\\| `docs/release/db_migration_seed_repeatability_status.md` \\| 62 \\| legacy_audit \\| `- required runtime table DDL missing: audit_events, audit_logs, calibr",
+      "line_number": 339581,
+      "line_excerpt": "| `docs/release/backend_deletion_candidate_inventory.md` | 338837 | legacy_consent | `\\| `docs/release/no_false_closure_status_after_3311_3350.md` \\| 20 \\| legacy_consent \\| `- Key table counts match for `alembic_version`, `audit_events`, `",
       "runtime_surface": false
     },
     {
       "path": "docs/release/backend_deletion_candidate_inventory.md",
-      "line_number": 293668,
-      "line_excerpt": "| `docs/release/backend_deletion_candidate_inventory.md` | 292919 | legacy_audit | `\\| `docs/release/db_migration_seed_repeatability_status.md` \\| 62 \\| legacy_consent \\| `- required runtime table DDL missing: audit_events, audit_logs, cali",
-      "runtime_surface": false
-    },
-    {
-      "path": "docs/release/backend_deletion_candidate_inventory.md",
-      "line_number": 293685,
-      "line_excerpt": "| `docs/release/backend_deletion_candidate_inventory.md` | 292936 | legacy_consent | `\\| `docs/release/no_false_closure_status_after_3311_3350.md` \\| 20 \\| legacy_consent \\| `- Key table counts match for `alembic_version`, `audit_events`, `",
-      "runtime_surface": false
-    },
-    {
-      "path": "docs/release/backend_deletion_candidate_inventory.md",
-      "line_number": 294661,
-      "line_excerpt": "| `docs/release/db_migration_seed_repeatability_status.md` | 62 | legacy_audit | `- required runtime table DDL missing: audit_events, audit_logs, calibration_audits, diagnostic_items, diagnostic_sessions, guardians, irt_items, item_exposure",
-      "runtime_surface": false
-    },
-    {
-      "path": "docs/release/backend_deletion_candidate_inventory.md",
-      "line_number": 294662,
-      "line_excerpt": "| `docs/release/db_migration_seed_repeatability_status.md` | 62 | legacy_consent | `- required runtime table DDL missing: audit_events, audit_logs, calibration_audits, diagnostic_items, diagnostic_sessions, guardians, irt_items, item_exposu",
-      "runtime_surface": false
-    },
-    {
-      "path": "docs/release/backend_deletion_candidate_inventory.md",
-      "line_number": 294679,
+      "line_number": 340575,
       "line_excerpt": "| `docs/release/no_false_closure_status_after_3311_3350.md` | 20 | legacy_consent | `- Key table counts match for `alembic_version`, `audit_events`, `diagnostic_items`, `irt_items`, and `parental_consents`.` | TODO | no |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/db_migration_seed_repeatability_status.md",
       "line_number": 29,
-      "line_excerpt": "| `diagnostic_items` | False |",
+      "line_excerpt": "| `diagnostic_items` | True |",
       "runtime_surface": false
     },
     {
       "path": "docs/release/db_migration_seed_repeatability_status.md",
-      "line_number": 62,
-      "line_excerpt": "- required runtime table DDL missing: audit_events, audit_logs, calibration_audits, diagnostic_items, diagnostic_sessions, guardians, irt_items, item_exposures, knowledge_gaps, learner_profiles, lesson_feedback, lessons, mastery_snapshots, ",
-      "runtime_surface": false
-    },
-    {
-      "path": "docs/release/db_migration_seed_repeatability_status.md",
-      "line_number": 68,
+      "line_number": 66,
       "line_excerpt": "- It does not decide whether `diagnostic_items` should be populated.",
       "runtime_surface": false
     },
@@ -1082,37 +1052,37 @@
     },
     {
       "path": "tests/api/test_content_factory_coverage_routes.py",
-      "line_number": 97,
+      "line_number": 101,
       "line_excerpt": "assert report[\"layers\"][\"diagnostic_items\"][\"target_total\"] == 120",
       "runtime_surface": false
     },
     {
       "path": "tests/api/test_content_factory_coverage_routes.py",
-      "line_number": 110,
+      "line_number": 114,
       "line_excerpt": "assert report[\"layers\"][\"diagnostic_items\"][\"target\"] == 40",
       "runtime_surface": false
     },
     {
       "path": "tests/api/test_content_factory_coverage_routes.py",
-      "line_number": 111,
+      "line_number": 115,
       "line_excerpt": "assert report[\"layers\"][\"diagnostic_items\"][\"status\"] == \"green\"",
       "runtime_surface": false
     },
     {
       "path": "tests/api/test_content_factory_coverage_routes.py",
-      "line_number": 122,
+      "line_number": 126,
       "line_excerpt": "params={\"layer\": \"diagnostic_items\"},",
       "runtime_surface": false
     },
     {
       "path": "tests/api/test_content_factory_coverage_routes.py",
-      "line_number": 127,
+      "line_number": 131,
       "line_excerpt": "assert list(report[\"layers\"]) == [\"diagnostic_items\"]",
       "runtime_surface": false
     },
     {
       "path": "tests/api/test_content_factory_coverage_routes.py",
-      "line_number": 128,
+      "line_number": 132,
       "line_excerpt": "assert list(report[\"per_caps_ref\"][0][\"layers\"]) == [\"diagnostic_items\"]",
       "runtime_surface": false
     },
@@ -1136,7 +1106,7 @@
     },
     {
       "path": "tests/api/test_content_factory_scope_routes.py",
-      "line_number": 81,
+      "line_number": 82,
       "line_excerpt": "assert targets[0][\"targets\"][\"diagnostic_items.approved\"] == 40",
       "runtime_surface": false
     },
@@ -1232,13 +1202,13 @@
     },
     {
       "path": "tests/unit/test_content_file_review_workflow.py",
-      "line_number": 113,
+      "line_number": 114,
       "line_excerpt": "\"diagnostic_items\": 1,",
       "runtime_surface": false
     },
     {
       "path": "tests/unit/test_content_file_review_workflow.py",
-      "line_number": 133,
+      "line_number": 135,
       "line_excerpt": "assert len(grade5[\"layers\"][\"diagnostic_items\"]) == 1",
       "runtime_surface": false
     },
@@ -1396,6 +1366,36 @@
       "path": "tests/unit/test_scope_content_builder.py",
       "line_number": 116,
       "line_excerpt": "\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/unit/test_seed_staging_review_scopes.py",
+      "line_number": 55,
+      "line_excerpt": "layer=\"diagnostic_items\",",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/unit/test_seed_staging_review_scopes.py",
+      "line_number": 70,
+      "line_excerpt": "layers=[\"diagnostic_items\"],",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/unit/test_seed_staging_review_scopes.py",
+      "line_number": 88,
+      "line_excerpt": "layers=[\"diagnostic_items\"],",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/unit/test_seed_staging_review_scopes.py",
+      "line_number": 121,
+      "line_excerpt": "layers=[\"diagnostic_items\"],",
+      "runtime_surface": false
+    },
+    {
+      "path": "tests/unit/test_seed_staging_review_scopes.py",
+      "line_number": 156,
+      "line_excerpt": "layers=[\"diagnostic_items\"],",
       "runtime_surface": false
     }
   ],

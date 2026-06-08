@@ -1,8 +1,8 @@
 # Release Evidence Manifest
 
-Generated: `2026-06-08T12:35:54Z`
+Generated: `2026-06-08T15:21:33Z`
 Branch: `fix/failing-tests`
-Commit: `6b3c219669d08c2adae04015f40699bcbb153806`
+Commit: `d8f1d702b13a2337b17e02f73b7edbabe91cf06f`
 
 ## Required Evidence Commands
 

@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-06-08T12:36:25.183627+00:00`
+- generated_at_utc: `2026-06-08T15:23:02.858726+00:00`
 - branch: `fix/failing-tests`
-- commit: `6b3c219669d08c2adae04015f40699bcbb153806`
+- commit: `d8f1d702b13a2337b17e02f73b7edbabe91cf06f`
 - release_candidate: `unset`
 
 ## Evidence Artifacts

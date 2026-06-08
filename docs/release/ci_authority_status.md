@@ -1,10 +1,10 @@
 # CI Authority Status
 
-Generated at: `2026-06-08T12:35:50Z`
+Generated at: `2026-06-08T15:21:29Z`
 
 **Status:** `external-blocked`
 
-- Current commit: `6b3c219669d08c2adae04015f40699bcbb153806`
+- Current commit: `d8f1d702b13a2337b17e02f73b7edbabe91cf06f`
 - Workflow files: `['.github/workflows/api-envelope-error-contract.yml', '.github/workflows/architecture-gates.yml', '.github/workflows/audit-write-runtime-evidence.yml', '.github/workflows/auth-boundary.yml', '.github/workflows/auth-refresh-db-proof.yml', '.github/workflows/backend-consolidation.yml', '.github/workflows/backend-nightly-coverage.yml', '.github/workflows/beta-release-approval.yml', '.github/workflows/caps-source-topic-map.yml', '.github/workflows/ci-cd.yml', '.github/workflows/ci-core.yml', '.github/workflows/ci_diagnostics_assessment.yml', '.github/workflows/ci_lesson_quality.yml', '.github/workflows/cluster-d-ci.yml', '.github/workflows/cluster-e-data-resilience.yml', '.github/workflows/cluster-f-ai-safety.yml', '.github/workflows/cluster-g-frontend.yml', '.github/workflows/cluster-h-release-readiness.yml', '.github/workflows/db-backup-dryrun.yml', '.github/workflows/db-backup-matrix.yml', '.github/workflows/db-backup-restore-rollback-evidence.yml', '.github/workflows/deploy-frontend.yml', '.github/workflows/diag-score-live-audit.yml', '.github/workflows/frontend-e2e.yml', '.github/workflows/item_bank_ci.yml', '.github/workflows/jwt-secret-rotation-evidence.yml', '.github/workflows/learner-authz-coverage.yml', '.github/workflows/learning-evidence.yml', '.github/workflows/legacy-route-guard.yml', '.github/workflows/lighthouse.yml', '.github/workflows/migration_check.yml', '.github/workflows/observability_check.yml', '.github/workflows/openapi-contract.yml', '.github/workflows/openapi-drift.yml', '.github/workflows/persistence-resilience.yml', '.github/workflows/popia-consent-audit.yml', '.github/workflows/privacy-boundary.yml', '.github/workflows/release.yml', '.github/workflows/repo-state.yml', '.github/workflows/runtime-contract.yml', '.github/workflows/staging-smoke.yml']`
 - CI evidence file exists: `True`
 - CI run URL present: `False`

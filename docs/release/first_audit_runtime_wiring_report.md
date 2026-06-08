@@ -1,13 +1,13 @@
 # First Audit Runtime Wiring Report
 
-Generated at: `2026-06-04T11:18:31Z`
+Generated at: `2026-06-08T15:25:52Z`
 
 | Check | Return code | Command |
 |---|---:|---|
-| first audit runtime wiring | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_first_audit_runtime_wiring.py` |
-| destructive-action guard | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_first_audit_runtime_wiring_no_destructive_actions.py` |
-| runtime enablement guard | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_runtime_enablement_guard.py` |
-| first wiring candidates | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_first_wiring_candidates.py` |
+| first audit runtime wiring | 0 | `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/check_first_audit_runtime_wiring.py` |
+| destructive-action guard | 0 | `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/check_first_audit_runtime_wiring_no_destructive_actions.py` |
+| runtime enablement guard | 0 | `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/check_backend_runtime_enablement_guard.py` |
+| first wiring candidates | 0 | `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/check_backend_first_wiring_candidates.py` |
 
 ## Boundary
 
@@ -15,7 +15,7 @@ This report covers one non-destructive audit runtime wiring candidate only.
 
 ## first audit runtime wiring
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_first_audit_runtime_wiring.py`
+Command: `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/check_first_audit_runtime_wiring.py`
 
 Return code: `0`
 
@@ -33,7 +33,7 @@ First audit runtime wiring check
 
 ## destructive-action guard
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_first_audit_runtime_wiring_no_destructive_actions.py`
+Command: `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/check_first_audit_runtime_wiring_no_destructive_actions.py`
 
 Return code: `0`
 
@@ -47,7 +47,7 @@ First audit runtime wiring destructive-action guard
 
 ## runtime enablement guard
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_runtime_enablement_guard.py`
+Command: `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/check_backend_runtime_enablement_guard.py`
 
 Return code: `0`
 
@@ -74,7 +74,7 @@ Backend runtime enablement guard
 
 ## first wiring candidates
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_first_wiring_candidates.py`
+Command: `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/check_backend_first_wiring_candidates.py`
 
 Return code: `0`
 

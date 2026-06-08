@@ -2,19 +2,16 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-22T14:25:55.704830+00:00`
-- branch: `codex/production_readiness`
-- commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+- generated_at_utc: `2026-06-08T15:27:25.515504+00:00`
+- branch: `fix/failing-tests`
+- commit: `d8f1d702b13a2337b17e02f73b7edbabe91cf06f`
 - release_candidate: `unset`
 
 ## Working Tree Status
 
 ```text
-M docs/ai/ai_prompt_surface_inventory.md
- M docs/architecture/auth_boundary_debt_report.json
+M docs/architecture/auth_boundary_debt_report.json
  M docs/architecture/auth_boundary_debt_report.md
- M docs/architecture/auth_service_extraction_followup.json
- M docs/architecture/auth_service_extraction_followup.md
  M docs/architecture/auth_service_extraction_report.json
  M docs/architecture/auth_service_extraction_report.md
  M docs/architecture/import_linter_availability.md
@@ -36,9 +33,9 @@ M docs/ai/ai_prompt_surface_inventory.md
  M docs/beta/beta_content_hard_gate.json
  M docs/beta/beta_content_hard_gate.md
  M docs/docs_gap_report.md
- M docs/docs_generation_plan.md
  M docs/docs_inventory.json
  M docs/docs_inventory.md
+ M docs/frontend/frontend_route_inventory.md
  M docs/operations/beta_release_evidence_bundle.md
  M docs/operations/beta_release_pr_body.md
  M docs/operations/beta_signoff_manifest.md
@@ -107,12 +104,10 @@ M docs/ai/ai_prompt_surface_inventory.md
  M docs/release/ci_authority_status.json
  M docs/release/ci_authority_status.md
  M docs/release/ci_evidence.json
- M docs/release/ci_evidence.md
  M docs/release/ci_evidence_status.json
  M docs/release/ci_evidence_status.md
  M docs/release/ci_run_evidence_status.json
  M docs/release/ci_run_evidence_status.md
- M docs/release/consent_callsite_inventory.md
  M docs/release/db_live_only_table_ownership_status.json
  M docs/release/db_live_only_table_ownership_status.md
  M docs/release/db_migration_seed_repeatability_status.json
@@ -121,8 +116,6 @@ M docs/ai/ai_prompt_surface_inventory.md
  M docs/release/diag_deep_health_runtime_status.md
  M docs/release/diagnostic_item_bank_canonicality_status.json
  M docs/release/diagnostic_item_bank_canonicality_status.md
- M docs/release/diagnostic_score_live_audit_status.json
- M docs/release/diagnostic_score_live_audit_status.md
  M docs/release/diagnostics_db_integrity_proof.json
  M docs/release/diagnostics_db_integrity_proof.md
  M docs/release/diagnostics_route_transaction_gap_plan.json
@@ -180,18 +173,6 @@ M docs/ai/ai_prompt_surface_inventory.md
  M docs/security/jwt_rotation_introspection.json
  M docs/security/jwt_rotation_introspection.md
  M docs/security/jwt_rotation_repair_report.md
- M docs/security/popia_consent_boundary_matrix.md
- M scripts/check_popia_lifecycle_response_contract.py
- M scripts/diagnostic_score_live_audit.py
- M scripts/evidence_registry.py
- M scripts/final_gate_classifier.py
- M scripts/final_gate_refresh.py
- M tests/unit/test_config_key_vault.py
- M tests/unit/test_production_key_vault_behavior.py
-?? scripts/create_diagnostic_items.py
-?? scripts/generate_irt_seed_sql.py
-?? scripts/generate_irt_seed_sql_runner.py
-?? scripts/irt_seed_1600.sql
 ```
 
 ## State Artifacts
@@ -206,7 +187,7 @@ M docs/ai/ai_prompt_surface_inventory.md
 | `docs/operations/final_release_verification_bundle.md` | `yes` |
 | `docs/operations/project_release_closure_index.md` | `yes` |
 | `docs/operations/CLUSTER_H_CLOSURE.md` | `yes` |
-| `PR_INTEGRATION_SUMMARY.md` | `yes` |
+| `audits/reports/PR_INTEGRATION_SUMMARY.md` | `yes` |
 | `docs/project_status.md` | `yes` |
 
 ## Snapshot Boundary

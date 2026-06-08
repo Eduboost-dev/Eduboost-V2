@@ -19,129 +19,25 @@ This inventory records frontend route, page, and journey-related surfaces.
 | Path | Route markers | Journey markers |
 | --- | --- | --- |
 | `app/frontend/.eslintrc.js` | `_none_` | `learner, consent` |
-| `app/frontend/.next/server/app/(auth)/login/page.js` | `Route, Routes, path:, href=, Link` | `learner, parent, dashboard, lesson, progress` |
-| `app/frontend/.next/server/app/(auth)/login/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/(auth)/register/page.js` | `Route, Routes, path:` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
-| `app/frontend/.next/server/app/(auth)/register/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/(learner)/badges/page.js` | `Route, Routes, path:` | `learner, lesson, diagnostic, progress` |
-| `app/frontend/.next/server/app/(learner)/badges/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/(learner)/dashboard/page.js` | `Route, Routes, path:` | `learner, parent, dashboard, lesson, diagnostic, assessment, progress` |
-| `app/frontend/.next/server/app/(learner)/dashboard/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/(learner)/diagnostic/page.js` | `Route, Routes, path:` | `learner, dashboard, diagnostic, assessment, progress` |
-| `app/frontend/.next/server/app/(learner)/diagnostic/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/(learner)/lesson/page.js` | `Route, Routes, path:` | `learner, dashboard, lesson` |
-| `app/frontend/.next/server/app/(learner)/lesson/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/(learner)/parent/page.js` | `Route, Routes, path:, Link` | `learner, parent, progress` |
-| `app/frontend/.next/server/app/(learner)/parent/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/(learner)/plan/page.js` | `Route, Routes, path:` | `learner, lesson, diagnostic, assessment, progress` |
-| `app/frontend/.next/server/app/(learner)/plan/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/(parent)/parent-dashboard/page.js` | `Route, Routes, path:` | `learner, parent, dashboard` |
-| `app/frontend/.next/server/app/(parent)/parent-dashboard/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/_not-found/page.js` | `Route, Routes, path:` | `_none_` |
-| `app/frontend/.next/server/app/_not-found/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/admin/content-factory/page.js` | `Route, Routes, path:` | `learner, parent, dashboard, lesson, diagnostic, assessment` |
-| `app/frontend/.next/server/app/admin/content-factory/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/auth/reset-password/page.js` | `Route, Routes, path:, Link` | `learner, parent` |
-| `app/frontend/.next/server/app/auth/reset-password/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/auth/verify-email/page.js` | `Route, Routes, path:, Link` | `onboarding` |
-| `app/frontend/.next/server/app/auth/verify-email/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/onboarding/page.js` | `Route, Routes, path:, Link` | `learner, parent, dashboard, lesson, diagnostic, assessment, progress, consent, onboarding` |
-| `app/frontend/.next/server/app/onboarding/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/page.js` | `Route, Routes, path:` | `learner, parent` |
-| `app/frontend/.next/server/app/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/parent-portal/page.js` | `Route, Routes, path:` | `parent` |
-| `app/frontend/.next/server/app/parent-portal/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/app/settings/privacy/page.js` | `Route, Routes, path:` | `learner, parent, lesson` |
-| `app/frontend/.next/server/app/settings/privacy/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/server/chunks/165.js` | `_none_` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
-| `app/frontend/.next/server/chunks/193.js` | `Link` | `learner, parent, dashboard, lesson, progress` |
-| `app/frontend/.next/server/chunks/213.js` | `Route, Routes, path:, Link` | `parent` |
-| `app/frontend/.next/server/chunks/400.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, assessment` |
-| `app/frontend/.next/server/chunks/611.js` | `Route, Routes, path:, Link` | `parent` |
-| `app/frontend/.next/server/chunks/735.js` | `Route, path:, Link` | `parent, progress` |
+| `app/frontend/.next/server/app/page.js` | `Route, Routes, path:, Link` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
+| `app/frontend/.next/server/app/page_client-reference-manifest.js` | `Route` | `learner` |
+| `app/frontend/.next/server/edge-instrumentation.js` | `path:, Link` | `parent` |
+| `app/frontend/.next/server/edge-runtime-webpack.js` | `_none_` | `parent, progress` |
 | `app/frontend/.next/server/interception-route-rewrite-manifest.js` | `Route` | `_none_` |
-| `app/frontend/.next/server/pages/_error.js` | `Route, Routes, path:, Link` | `_none_` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(auth)/login/page.js` | `Route, Routes, path:, href=, Link` | `learner, parent, dashboard, lesson, progress` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(auth)/login/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(auth)/register/page.js` | `Route, Routes, path:` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(auth)/register/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(learner)/badges/page.js` | `Route, Routes, path:` | `learner, lesson, diagnostic, progress` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(learner)/badges/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(learner)/dashboard/page.js` | `Route, Routes, path:` | `learner, parent, dashboard, lesson, diagnostic, assessment, progress` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(learner)/dashboard/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(learner)/diagnostic/page.js` | `Route, Routes, path:` | `learner, dashboard, diagnostic, assessment, progress` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(learner)/diagnostic/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(learner)/lesson/page.js` | `Route, Routes, path:` | `learner, dashboard, lesson` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(learner)/lesson/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(learner)/parent/page.js` | `Route, Routes, path:, Link` | `learner, parent, progress` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(learner)/parent/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(learner)/plan/page.js` | `Route, Routes, path:` | `learner, lesson, diagnostic, assessment, progress` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(learner)/plan/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(parent)/parent-dashboard/page.js` | `Route, Routes, path:` | `learner, parent, dashboard` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/(parent)/parent-dashboard/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/_not-found/page.js` | `Route, Routes, path:` | `_none_` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/_not-found/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/admin/content-factory/page.js` | `Route, Routes, path:` | `learner, parent, dashboard, lesson, diagnostic, assessment` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/admin/content-factory/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/auth/reset-password/page.js` | `Route, Routes, path:, Link` | `learner, parent` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/auth/reset-password/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/auth/verify-email/page.js` | `Route, Routes, path:, Link` | `onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/auth/verify-email/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/onboarding/page.js` | `Route, Routes, path:, Link` | `learner, parent, dashboard, lesson, diagnostic, assessment, progress, consent, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/onboarding/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/page.js` | `Route, Routes, path:` | `learner, parent` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/parent-portal/page.js` | `Route, Routes, path:` | `parent` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/parent-portal/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/settings/privacy/page.js` | `Route, Routes, path:` | `learner, parent, lesson` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/app/settings/privacy/page_client-reference-manifest.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/chunks/165.js` | `_none_` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/chunks/193.js` | `Link` | `learner, parent, dashboard, lesson, progress` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/chunks/213.js` | `Route, Routes, path:, Link` | `parent` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/chunks/400.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, assessment` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/chunks/611.js` | `Route, Routes, path:, Link` | `parent` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/chunks/735.js` | `Route, path:, Link` | `parent, progress` |
-| `app/frontend/.next/standalone/app/frontend/.next/server/pages/_error.js` | `Route, Routes, path:, Link` | `_none_` |
-| `app/frontend/.next/standalone/app/frontend/server.js` | `Route, Routes, Link` | `_none_` |
-| `app/frontend/.next/static/TtWvn9vmsbyTCfedios5U/_buildManifest.js` | `Route` | `_none_` |
-| `app/frontend/.next/static/chunks/110-949ec191f1fd39a7.js` | `_none_` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
-| `app/frontend/.next/static/chunks/255-e881f48ae1d2333a.js` | `Route, Routes, path:, href=, Link` | `parent` |
-| `app/frontend/.next/static/chunks/4bd1b696-409494caf8c83275.js` | `href=, Link` | `parent, progress` |
-| `app/frontend/.next/static/chunks/644-903772fc124e9b53.js` | `Route, path:, href=, Link` | `parent, progress` |
-| `app/frontend/.next/static/chunks/721-0f63de3333de4ce1.js` | `Link` | `_none_` |
-| `app/frontend/.next/static/chunks/937-26ebe32dcb6a43aa.js` | `Link` | `learner, parent, dashboard, lesson, progress` |
-| `app/frontend/.next/static/chunks/987-49423a66c656ed10.js` | `Route, path:, Link` | `parent, progress` |
-| `app/frontend/.next/static/chunks/app/(auth)/login/page-2f227aeac5adcfc0.js` | `Route, Link` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
-| `app/frontend/.next/static/chunks/app/(auth)/register/page-7e6060369d2777a2.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
-| `app/frontend/.next/static/chunks/app/(learner)/badges/page-1a83fd70a673e0c5.js` | `_none_` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
-| `app/frontend/.next/static/chunks/app/(learner)/dashboard/page-ab09f86cee7a0f4e.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, assessment, progress` |
-| `app/frontend/.next/static/chunks/app/(learner)/diagnostic/page-89a4698a14e09d11.js` | `Route` | `learner, dashboard, diagnostic, assessment, progress` |
-| `app/frontend/.next/static/chunks/app/(learner)/layout-7ea400d1d1a072ea.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, assessment` |
-| `app/frontend/.next/static/chunks/app/(learner)/lesson/page-7ce15d235360eaa3.js` | `Route` | `learner, dashboard, lesson` |
-| `app/frontend/.next/static/chunks/app/(learner)/parent/page-95c05556818b3a79.js` | `Link` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
-| `app/frontend/.next/static/chunks/app/(learner)/plan/page-dd4ab4d9f3c4c892.js` | `Route` | `learner, parent, dashboard, lesson, diagnostic, assessment, progress, consent` |
-| `app/frontend/.next/static/chunks/app/(parent)/parent-dashboard/page-dbb02e320e62ca0e.js` | `Route` | `learner, parent, dashboard` |
-| `app/frontend/.next/static/chunks/app/admin/content-factory/page-3dad812790390f31.js` | `path:` | `learner, parent, lesson, diagnostic, assessment, consent` |
-| `app/frontend/.next/static/chunks/app/auth/reset-password/page-bff90ce6fba31b60.js` | `Route, Link` | `learner, parent` |
-| `app/frontend/.next/static/chunks/app/auth/verify-email/page-3df69efa19a275a3.js` | `Route, Link` | `onboarding` |
-| `app/frontend/.next/static/chunks/app/layout-e6681db4ff8ab396.js` | `_none_` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
-| `app/frontend/.next/static/chunks/app/onboarding/page-f71f03de40dd120a.js` | `Route, Link` | `learner, parent, dashboard, lesson, diagnostic, assessment, progress, consent, onboarding` |
-| `app/frontend/.next/static/chunks/app/page-9e6fd6aa3ffe79e4.js` | `Route` | `learner, parent` |
-| `app/frontend/.next/static/chunks/app/parent-portal/page-3fe767d22c009b83.js` | `Route` | `_none_` |
-| `app/frontend/.next/static/chunks/app/settings/privacy/page-d733b3a68218233f.js` | `_none_` | `learner, parent, lesson` |
-| `app/frontend/.next/static/chunks/framework-1ce91eb6f9ecda85.js` | `path:, href=, Link` | `parent, progress` |
-| `app/frontend/.next/static/chunks/main-973f463e1e1b3507.js` | `Route, Routes, path:, href=, Link` | `parent, progress` |
-| `app/frontend/.next/static/chunks/polyfills-42372ed130431b0a.js` | `path:, href=` | `parent` |
-| `app/frontend/.next/static/chunks/webpack-8fdc395da7a0cd74.js` | `_none_` | `parent` |
-| `app/frontend/.next/types/app/(learner)/badges/page.ts` | `_none_` | `learner` |
-| `app/frontend/.next/types/app/(learner)/dashboard/page.ts` | `_none_` | `learner, dashboard` |
-| `app/frontend/.next/types/app/(learner)/diagnostic/page.ts` | `_none_` | `learner, diagnostic` |
-| `app/frontend/.next/types/app/(learner)/lesson/page.ts` | `_none_` | `learner, lesson` |
-| `app/frontend/.next/types/app/(learner)/parent/page.ts` | `_none_` | `learner, parent` |
-| `app/frontend/.next/types/app/(learner)/plan/page.ts` | `_none_` | `learner` |
-| `app/frontend/.next/types/app/(parent)/parent-dashboard/page.ts` | `_none_` | `parent, dashboard` |
-| `app/frontend/.next/types/app/onboarding/page.ts` | `_none_` | `onboarding` |
-| `app/frontend/.next/types/app/parent-portal/page.ts` | `_none_` | `parent` |
+| `app/frontend/.next/server/vendor-chunks/lucide-react@1.17.0_react@18.3.1.js` | `Route` | `_none_` |
+| `app/frontend/.next/server/vendor-chunks/next-themes@0.4.6_react-dom@18.3.1_react@18.3.1__react@18.3.1.js` | `Route` | `_none_` |
+| `app/frontend/.next/server/vendor-chunks/next@15.5.18_@babel+core@7.29.7_react-dom@18.3.1_react@18.3.1__react@18.3.1.js` | `Route, Routes, path:, href=, Link` | `parent, dashboard, progress` |
+| `app/frontend/.next/server/vendor-chunks/sonner@2.0.7_react-dom@18.3.1_react@18.3.1__react@18.3.1.js` | `Route, Link` | `_none_` |
+| `app/frontend/.next/server/vendor-chunks/zod@4.4.3.js` | `path:, Link` | `parent` |
+| `app/frontend/.next/static/chunks/app/error.js` | `Link` | `_none_` |
+| `app/frontend/.next/static/chunks/app/layout.js` | `Route, href=, Link` | `learner, parent, dashboard, lesson, diagnostic, progress, consent` |
+| `app/frontend/.next/static/chunks/app/loading.js` | `Link` | `_none_` |
+| `app/frontend/.next/static/chunks/app/page.js` | `Route, Link` | `learner, parent` |
+| `app/frontend/.next/static/chunks/app-pages-internals.js` | `Route, Routes, path:, Link` | `parent` |
+| `app/frontend/.next/static/chunks/main-app.js` | `Route, Routes, path:, href=, Link` | `parent, progress` |
+| `app/frontend/.next/static/chunks/polyfills.js` | `path:, href=` | `parent` |
+| `app/frontend/.next/static/chunks/webpack.js` | `Link` | `parent, progress` |
+| `app/frontend/.next/static/development/_buildManifest.js` | `Route` | `_none_` |
 | `app/frontend/.next/types/routes.d.ts` | `Route, Routes` | `parent, dashboard, lesson, diagnostic, onboarding` |
 | `app/frontend/.next/types/validator.ts` | `Route, Routes` | `learner, parent, dashboard, lesson, diagnostic, onboarding` |
 | `app/frontend/__tests__/BetaAndFeedback.test.tsx` | `Link` | `_none_` |

@@ -1,7 +1,7 @@
 # CI Evidence Status
 
-Generated at: `2026-06-08T12:35:51Z`
-Commit: `6b3c219669d08c2adae04015f40699bcbb153806`
+Generated at: `2026-06-08T15:21:29Z`
+Commit: `d8f1d702b13a2337b17e02f73b7edbabe91cf06f`
 Branch: `fix/failing-tests`
 
 **Status:** `ci-evidence-not-accepted`
@@ -20,7 +20,7 @@ Branch: `fix/failing-tests`
 - run ID is missing or non-numeric
 - GitHub Actions run status is missing, expected completed
 - GitHub Actions run conclusion is missing, expected success
-- GitHub Actions run SHA missing does not match current commit 6b3c219669d08c2adae04015f40699bcbb153806
+- GitHub Actions run SHA missing does not match current commit d8f1d702b13a2337b17e02f73b7edbabe91cf06f
 - workflow name is missing
 
 ## No false-closure rules

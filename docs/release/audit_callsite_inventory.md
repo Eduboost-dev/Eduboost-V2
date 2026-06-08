@@ -1112,17 +1112,17 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/content_staging_readiness.py` | 362 | audit_append_call | `blockers.append(ScopeBlocker(code="invalid_provenance", severity=BlockerSeverity.BLOCKING, **common))` |
 | `app/services/content_staging_readiness.py` | 364 | audit_append_call | `blockers.append(ScopeBlocker(code="invalid_license", severity=BlockerSeverity.BLOCKING, **common))` |
 | `app/services/content_staging_readiness.py` | 366 | audit_append_call | `blockers.append(ScopeBlocker(code="low_source_quality", severity=BlockerSeverity.BLOCKING, **common))` |
-| `app/services/content_staging_seed_executor.py` | 294 | audit_append_call | `errors.append(f"Constraint violation for artifact {artifact.artifact_id}: {item_integrity_err}")` |
-| `app/services/content_staging_seed_executor.py` | 363 | audit_append_call | `items.append(StagingSeedRunResult(` |
-| `app/services/content_staging_seed_executor.py` | 452 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is pending review"))` |
-| `app/services/content_staging_seed_executor.py` | 456 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is rejected"))` |
-| `app/services/content_staging_seed_executor.py` | 460 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is quarantined"))` |
-| `app/services/content_staging_seed_executor.py` | 464 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact validation failed"))` |
-| `app/services/content_staging_seed_executor.py` | 468 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, f"Artifact status {status_val} is not seedable"))` |
-| `app/services/content_staging_seed_executor.py` | 474 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Invalid provenance"))` |
-| `app/services/content_staging_seed_executor.py` | 481 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Latest validation report missing"))` |
-| `app/services/content_staging_seed_executor.py` | 484 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Latest validation failed"))` |
-| `app/services/content_staging_seed_executor.py` | 487 | audit_append_call | `seedable.append(SeedableArtifact(` |
+| `app/services/content_staging_seed_executor.py` | 317 | audit_append_call | `errors.append(f"Constraint violation for artifact {artifact.artifact_id}: {item_integrity_err}")` |
+| `app/services/content_staging_seed_executor.py` | 394 | audit_append_call | `items.append(StagingSeedRunResult(` |
+| `app/services/content_staging_seed_executor.py` | 483 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is pending review"))` |
+| `app/services/content_staging_seed_executor.py` | 487 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is rejected"))` |
+| `app/services/content_staging_seed_executor.py` | 491 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is quarantined"))` |
+| `app/services/content_staging_seed_executor.py` | 495 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact validation failed"))` |
+| `app/services/content_staging_seed_executor.py` | 499 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, f"Artifact status {status_val} is not seedable"))` |
+| `app/services/content_staging_seed_executor.py` | 505 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Invalid provenance"))` |
+| `app/services/content_staging_seed_executor.py` | 512 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Latest validation report missing"))` |
+| `app/services/content_staging_seed_executor.py` | 515 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Latest validation failed"))` |
+| `app/services/content_staging_seed_executor.py` | 518 | audit_append_call | `seedable.append(SeedableArtifact(` |
 | `app/services/content_template_validation.py` | 18 | audit_append_call | `errors.append("Study plan template requires content_json or template_json.")` |
 | `app/services/content_template_validation.py` | 21 | audit_append_call | `errors.append("Study templates may reference only approved lessons or blueprints: " + ", ".join(sorted(missing)))` |
 | `app/services/curriculum/coverage.py` | 34 | audit_append_call | `gaps.append(` |
@@ -3126,7 +3126,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/unit/test_content_factory_table_reconciliation.py` | 84 | audit_append_call | `mismatches.append(` |
 | `tests/unit/test_content_factory_table_reconciliation.py` | 98 | audit_append_call | `undeclared.append(` |
 | `tests/unit/test_content_factory_table_reconciliation.py` | 125 | audit_append_call | `missing.append(table_name)` |
-| `tests/unit/test_content_file_review_workflow.py` | 175 | audit_append_call | `self.added.append(obj)` |
+| `tests/unit/test_content_file_review_workflow.py` | 178 | audit_append_call | `self.added.append(obj)` |
 | `tests/unit/test_content_generation_executor.py` | 32 | audit_append_call | `self.added.append(obj)` |
 | `tests/unit/test_content_generation_planner.py` | 32 | audit_append_call | `self.added.append(obj)` |
 | `tests/unit/test_content_generation_runs.py` | 23 | audit_append_call | `self.objects.append(obj)` |

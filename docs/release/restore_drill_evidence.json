@@ -9,7 +9,7 @@
   "required": true,
   "evidence_source_type": "unknown",
   "integrity_status": "synthetic_invalid",
-  "integrity_checked_at": "2026-06-08T12:35:40Z",
+  "integrity_checked_at": "2026-06-08T15:21:19Z",
   "trusted_source_required": [
     "real_restore_drill"
   ],

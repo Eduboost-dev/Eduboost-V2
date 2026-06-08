@@ -1,13 +1,13 @@
 # Backend Runtime Compatibility Report
 
-Generated at: `2026-06-08T12:34:17Z`
+Generated at: `2026-06-08T15:20:02Z`
 
 | Check | Return code | Command |
 |---|---:|---|
-| runtime compatibility | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_runtime_compatibility.py` |
-| audit compatibility | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/generate_audit_callsite_inventory.py --fail-empty` |
-| consent compatibility | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/generate_consent_callsite_inventory.py --fail-empty` |
-| health readiness | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_health_readiness_contract.py` |
+| runtime compatibility | 0 | `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/check_backend_runtime_compatibility.py` |
+| audit compatibility | 0 | `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty` |
+| consent compatibility | 0 | `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty` |
+| health readiness | 0 | `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py` |
 
 ## Boundary
 
@@ -15,7 +15,7 @@ This report proves compatibility surfaces exist. It does not approve deletion, t
 
 ## runtime compatibility
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_runtime_compatibility.py`
+Command: `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/check_backend_runtime_compatibility.py`
 
 Return code: `0`
 
@@ -41,7 +41,7 @@ Deep-health compatibility surface
 
 ## audit compatibility
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/generate_audit_callsite_inventory.py --fail-empty`
+Command: `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty`
 
 Return code: `0`
 
@@ -51,7 +51,7 @@ Wrote /home/azureuser/Dev/SandBox/ml/Eduboost-V2/docs/release/audit_callsite_inv
 
 ## consent compatibility
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/generate_consent_callsite_inventory.py --fail-empty`
+Command: `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty`
 
 Return code: `0`
 
@@ -61,7 +61,7 @@ Wrote /home/azureuser/Dev/SandBox/ml/Eduboost-V2/docs/release/consent_callsite_i
 
 ## health readiness
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_health_readiness_contract.py`
+Command: `/home/azureuser/Dev/SandBox/ml/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py`
 
 Return code: `0`
 

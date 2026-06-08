@@ -2,10 +2,10 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-06-08T12:36:25.226556+00:00`
+- generated_at_utc: `2026-06-08T15:27:24.677547+00:00`
 - branch: `fix/failing-tests`
-- commit: `6b3c219669d08c2adae04015f40699bcbb153806`
-- release_candidate: `beta-6b3c2196`
+- commit: `d8f1d702b13a2337b17e02f73b7edbabe91cf06f`
+- release_candidate: `beta-d8f1d702`
 
 ## Tagging Convention
 
@@ -26,8 +26,8 @@
 ## Example Commands
 
 ```bash
-git tag -a beta-6b3c2196 -m "Beta release candidate beta-6b3c2196"
-git push origin beta-6b3c2196
+git tag -a beta-d8f1d702 -m "Beta release candidate beta-d8f1d702"
+git push origin beta-d8f1d702
 ```
 
 ## Safety Boundary

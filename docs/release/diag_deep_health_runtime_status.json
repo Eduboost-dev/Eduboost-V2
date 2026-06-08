@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-22T14:23:12Z",
-  "current_commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
-  "current_branch": "codex/production_readiness",
+  "generated_at": "2026-06-08T15:23:34Z",
+  "current_commit": "d8f1d702b13a2337b17e02f73b7edbabe91cf06f",
+  "current_branch": "fix/failing-tests",
   "status": "diag-deep-health-runtime-not-accepted",
   "deep_health_url": "",
   "test_command": "",
@@ -26,7 +26,7 @@
   },
   "inferred_component_signals": {},
   "verified_by": "unverified",
-  "date_verified": "2026-05-22",
+  "date_verified": "2026-06-08",
   "blockers": [
     "deep health URL is missing, non-HTTPS, localhost/example, or placeholder",
     "DIAG_DEEP_HEALTH_TEST_COMMAND is missing or placeholder",
