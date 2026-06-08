@@ -193,7 +193,7 @@ class ContentStagingSeedExecutor:
             batch_artifact_ids = [artifact.artifact_id for artifact in batch]
             existing_stmt = select(ContentStagingArtifact).where(ContentStagingArtifact.artifact_id.in_(batch_artifact_ids))
             existing_res = await session.execute(existing_stmt)
-                    existing_map = {a.artifact_id: a for a in existing_res.scalars().all()}
+            existing_map = {a.artifact_id: a for a in existing_res.scalars().all() if hasattr(a, "staging_status")}
             
             retries = 0
             while True:
@@ -329,9 +329,9 @@ class ContentStagingSeedExecutor:
                                         skip_reason=f"Constraint violation: {item_integrity_err}",
                                     )
                                     session.add(item)
-                                     await self._maybe_await(session, "commit")
+                                    await self._maybe_await(session, "commit")
                                 except Exception as log_err:
-                                     await self._maybe_await(session, "rollback")
+                                    await self._maybe_await(session, "rollback")
                                     logger.error(f"Failed to log skipped item: {log_err}")
                         except Exception as item_err:
                             await self._maybe_await(session, "rollback")
@@ -353,6 +353,14 @@ class ContentStagingSeedExecutor:
                     await self._maybe_await(session, "rollback")
                     logger.exception(f"Unhandled exception in batch commit for scope {scope_id}: {unhandled_err}")
                     raise
+        return StagingSeedRunResult(
+            seed_run_id=run_id,
+            scope_id=scope_id,
+            status=status,
+            seeded_count=seeded_count,
+            skipped_count=skipped_count_total,
+            errors=errors,
+        )
 
     async def get_seed_run(self, session: AsyncSession, seed_run_id: str | uuid.UUID) -> StagingSeedRunResult:
         run = await session.get(ContentSeedRun, uuid.UUID(str(seed_run_id)))

@@ -268,7 +268,7 @@ app/frontend/src/
 
 ### 5.3 Frontend Recovery Status
 
-The [Frontend-Backend Recovery Roadmap](file:///home/nkgolol/Dev/SandBox/dev/Eduboost-V2/RoadMap.md) is **fully complete** across all 5 phases:
+The [Frontend-Backend Recovery Roadmap](../roadmap/RoadMap.md) is **fully complete** across all 5 phases:
 
 - ✅ Phase 1: Connectivity and reproduction
 - ✅ Phase 2: Backend contract repair (dashboard, study plan, badges, lessons)
@@ -417,7 +417,7 @@ tests/
 | Contributing Guide | `CONTRIBUTING.md` | ✅ Current |
 | Code of Conduct | `CODE_OF_CONDUCT.md` | ✅ Current |
 | LLM Integration Roadmap | `LLM_Integration_Roadmap.md` | ✅ Current |
-| Frontend Recovery Roadmap | `RoadMap.md` | ✅ Complete |
+| Frontend Recovery Roadmap | [docs/roadmap/RoadMap.md](../roadmap/RoadMap.md) | ✅ Complete |
 | Documentation TODO | `TODO.md` | ⚠️ 5 pending items |
 | V2 Architecture | `docs/architecture/V2_ARCHITECTURE.md` | ✅ Current |
 | Project Status | `docs/project_status.md` | ✅ Current |

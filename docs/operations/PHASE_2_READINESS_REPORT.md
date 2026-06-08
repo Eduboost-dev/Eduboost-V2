@@ -441,4 +441,4 @@ Phase 2 is **COMPLETE** when:
 For detailed information, see:
 - [PHASE_2_EXECUTION_PLAN.md](PHASE_2_EXECUTION_PLAN.md) - Complete roadmap
 - [TOPIC_MAP_REVIEW_CHECKLIST.md](TOPIC_MAP_REVIEW_CHECKLIST.md) - Review framework
-- [CONTENT_GENERATION_CONFIG.md](CONTENT_GENERATION_CONFIG.md) - Technical configuration
+- [CONTENT_GENERATION_CONFIG.md](../content_factory/CONTENT_GENERATION_CONFIG.md) - Technical configuration

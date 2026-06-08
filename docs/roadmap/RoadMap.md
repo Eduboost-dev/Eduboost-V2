@@ -2,7 +2,7 @@
 
 Date: 2026-06-02
 
-Source audit: `eduboost-v2-technical-audit-2026-06-02.md`
+Source audit: [docs/release/eduboost-v2-technical-audit-2026-06-02.md](../release/eduboost-v2-technical-audit-2026-06-02.md)
 
 ## Objective
 
@@ -30,7 +30,7 @@ Deliverables:
 Acceptance checks:
 
 - `git status` is clean before implementation begins.
-- `RoadMap.md` and the audit report are present in the repo root.
+- [docs/roadmap/RoadMap.md](../roadmap/RoadMap.md) and [docs/release/eduboost-v2-technical-audit-2026-06-02.md](../release/eduboost-v2-technical-audit-2026-06-02.md) are present in the repository.
 
 ## Phase 1 - Release-Blocking Correctness Fixes
 
