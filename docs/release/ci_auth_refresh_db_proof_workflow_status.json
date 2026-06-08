@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-04T11:16:14Z",
-  "current_commit": "1faa5ed5f7e4961d9d8cc7f666684057494eb8fb",
-  "status": "ci-auth-refresh-db-proof-workflow-not-proven",
+  "generated_at": "2026-06-08T12:35:50Z",
+  "current_commit": "6b3c219669d08c2adae04015f40699bcbb153806",
+  "status": "ci-auth-refresh-db-proof-workflow-configured",
   "checks": [
     {
       "name": "workflow exists",
@@ -50,7 +50,7 @@
     },
     {
       "name": "artifact upload configured",
-      "passed": false,
+      "passed": true,
       "detail": "proof artifacts uploaded"
     },
     {
@@ -64,7 +64,5 @@
       "detail": "no REAL_* evidence placeholder"
     }
   ],
-  "blockers": [
-    "artifact upload configured"
-  ]
+  "blockers": []
 }

@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-06-05T20:19:21.854371+00:00`
-- branch: `feature/ingestion-pipeline`
-- commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
+- generated_at_utc: `2026-06-08T12:36:25.183627+00:00`
+- branch: `fix/failing-tests`
+- commit: `6b3c219669d08c2adae04015f40699bcbb153806`
 - release_candidate: `unset`
 
 ## Evidence Artifacts

@@ -9,7 +9,7 @@
   "required": true,
   "evidence_source_type": "unknown",
   "integrity_status": "synthetic_invalid",
-  "integrity_checked_at": "2026-06-05T20:19:19Z",
+  "integrity_checked_at": "2026-06-08T12:35:40Z",
   "trusted_source_required": [
     "real_alertmanager_notification"
   ],

@@ -56,7 +56,7 @@ def build_status() -> WorkflowStatus:
         WorkflowCheck("evidence release check executed", "make auth-refresh-db-evidence-release-check" in source, "release evidence target"),
         WorkflowCheck("concrete run URL uses github.run_id", "actions/runs/${{ github.run_id }}" in source, "numeric run id at runtime"),
         WorkflowCheck("commit SHA uses github.sha", "AUTH_REFRESH_DB_COMMIT_SHA: ${{ github.sha }}" in source, "concrete commit SHA"),
-        WorkflowCheck("artifact upload configured", "actions/upload-artifact@v4" in source, "proof artifacts uploaded"),
+        WorkflowCheck("artifact upload configured", "actions/upload-artifact@v7" in source, "proof artifacts uploaded"),
         WorkflowCheck("no placeholder REAL_RUN_ID", "REAL_RUN_ID" not in source, "placeholder rejected"),
         WorkflowCheck("no symbolic REAL_DSN", "$REAL_" not in source and "REAL_AUTH_REFRESH" not in source, "no REAL_* evidence placeholder"),
     ]

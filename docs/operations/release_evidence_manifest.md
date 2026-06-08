@@ -1,8 +1,8 @@
 # Release Evidence Manifest
 
-Generated: `2026-06-01T15:01:27Z`
-Branch: `remediation/phase0-phase1`
-Commit: `7a24a9a7f59c5fba6ec62b983203d8e268932af4`
+Generated: `2026-06-08T12:35:54Z`
+Branch: `fix/failing-tests`
+Commit: `6b3c219669d08c2adae04015f40699bcbb153806`
 
 ## Required Evidence Commands
 

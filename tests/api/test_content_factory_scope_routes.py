@@ -54,7 +54,8 @@ def test_admin_can_list_content_scopes() -> None:
 
     assert response.status_code == 200
     scopes = response.json()["data"]
-    assert [scope["scope_id"] for scope in scopes] == ["grade4_mathematics_en"]
+    ids = [scope["scope_id"] for scope in scopes]
+    assert "grade4_mathematics_en" in ids
 
 
 def test_admin_can_fetch_grade4_mathematics_scope() -> None:

@@ -51,7 +51,7 @@ def build_status() -> WorkflowConfigStatus:
     has_workflow_dispatch = "workflow_dispatch:" in workflow_text
     has_staging_base_url_secret = "secrets.STAGING_SMOKE_BASE_URL" in workflow_text
     has_probe_step = "python scripts/staging_smoke_probe.py" in workflow_text
-    has_artifact_upload = "actions/upload-artifact@v4" in workflow_text
+    has_artifact_upload = "actions/upload-artifact@v7" in workflow_text
 
     checks = {
         "workflow file missing": workflow_exists,

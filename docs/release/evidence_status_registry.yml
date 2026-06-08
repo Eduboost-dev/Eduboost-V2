@@ -383,7 +383,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1951-1990-full-check
     evidence_file: docs/release/ci_run_evidence_status.md
-    last_verified_commit: ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+    last_verified_commit: 6b3c219669d08c2adae04015f40699bcbb153806
     closure_blocker: scaffold only; CI-001 remains external-blocked until accepted CI evidence is attached
     blocks_beta: false
     external_dependency: false
@@ -396,7 +396,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-1991-2030-full-check
     evidence_file: docs/release/approval_evidence_status.md
-    last_verified_commit: 0de0d192ba93b2e7a75a6bde112d30c0dae4db51
+    last_verified_commit: 6b3c219669d08c2adae04015f40699bcbb153806
     closure_blocker: scaffold only; individual approvals remain external-blocked until accepted metadata is attached
     blocks_beta: false
     external_dependency: false
@@ -526,7 +526,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2351-2390-full-check
     evidence_file: docs/release/beta_no_go_handoff_packet.md
-    last_verified_commit: 0de0d192ba93b2e7a75a6bde112d30c0dae4db51
+    last_verified_commit: 6b3c219669d08c2adae04015f40699bcbb153806
     closure_blocker: handoff only; beta decision remains NO-GO
     blocks_beta: false
     external_dependency: false
@@ -565,7 +565,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2511-2550-full-check
     evidence_file: docs/release/auth_service_cleanup_status.md
-    last_verified_commit: 0de0d192ba93b2e7a75a6bde112d30c0dae4db51
+    last_verified_commit: 6b3c219669d08c2adae04015f40699bcbb153806
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
@@ -578,7 +578,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2551-2590-full-check
     evidence_file: docs/release/auth_route_logout_delegate_status.md
-    last_verified_commit: 0de0d192ba93b2e7a75a6bde112d30c0dae4db51
+    last_verified_commit: 6b3c219669d08c2adae04015f40699bcbb153806
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
@@ -591,7 +591,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2591-2630-full-check
     evidence_file: docs/release/auth_lifecycle_http_proof_status.md
-    last_verified_commit: 0de0d192ba93b2e7a75a6bde112d30c0dae4db51
+    last_verified_commit: 6b3c219669d08c2adae04015f40699bcbb153806
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
@@ -604,7 +604,7 @@ findings:
     proof_status: runtime-passing
     proof_command: make backend-implementation-2631-2670-full-check
     evidence_file: docs/release/auth_lifecycle_semantic_proof_status.md
-    last_verified_commit: 0de0d192ba93b2e7a75a6bde112d30c0dae4db51
+    last_verified_commit: 6b3c219669d08c2adae04015f40699bcbb153806
     closure_blocker: none
     blocks_beta: false
     external_dependency: false
@@ -640,11 +640,11 @@ findings:
     gate: 3
     owner: platform
     implementation_batch: code_2751_2790
-    proof_status: not-proven
+    proof_status: runtime-passing
     proof_command: make backend-implementation-2751-2790-full-check
     evidence_file: docs/release/ci_auth_refresh_db_proof_workflow_status.md
-    last_verified_commit: null
-    closure_blocker: artifact upload configured; real workflow run URL still required for release evidence
+    last_verified_commit: 6b3c219669d08c2adae04015f40699bcbb153806
+    closure_blocker: none; real workflow run URL still required for release evidence
     blocks_beta: false
     external_dependency: false
   - id: POPIA-001R

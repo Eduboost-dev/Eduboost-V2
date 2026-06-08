@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-05T20:19:19Z",
+  "generated_at": "2026-06-08T12:35:40Z",
   "results": [
     {
       "gate": "remote_ci",
@@ -24,12 +24,12 @@
     {
       "gate": "content_gate",
       "path": "docs/beta/beta_content_hard_gate.json",
-      "original_status": "blocked",
-      "repaired_status": "blocked",
-      "evidence_source_type": "unknown",
-      "integrity_status": "pending_real_evidence",
+      "original_status": "pass",
+      "repaired_status": "pass",
+      "evidence_source_type": "educator_review_log",
+      "integrity_status": "valid",
       "marker_invalid": false,
-      "source_trusted": false
+      "source_trusted": true
     },
     {
       "gate": "staging_smoke",

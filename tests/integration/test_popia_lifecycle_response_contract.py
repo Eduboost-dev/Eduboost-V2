@@ -72,7 +72,13 @@ def _client(monkeypatch: pytest.MonkeyPatch, service: FakeConsentService, *, den
     monkeypatch.setattr(popia, "_enforce_popia_learner_write", fake_enforce)
     app = FastAPI()
     app.include_router(popia.router)
-    app.dependency_overrides[get_current_user] = lambda: {"id": str(ACTOR_ID), "guardian_id": str(GUARDIAN_ID)}
+    # Provide a legacy-style JWT payload compatible with get_current_user/_claims_to_auth_context
+    app.dependency_overrides[get_current_user] = lambda: {
+        "sub": str(ACTOR_ID),
+        "guardian_id": str(GUARDIAN_ID),
+        "type": "access",
+        "role": "parent",
+    }
     app.dependency_overrides[get_canonical_consent_service] = lambda: POPIAConsentLifecycleAdapter(service)
     return TestClient(app, raise_server_exceptions=True)
 

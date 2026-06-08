@@ -135,8 +135,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/core/audit.py` | 111 | audit_record_call | `await self.record(event.lower(), actor_id=actor_id, payload=detail or {})` |
 | `app/core/audit.py` | 114 | audit_record_call | `await self.record(` |
 | `app/core/audit.py` | 122 | audit_record_call | `await self.record(` |
-| `app/core/config.py` | 194 | audit_append_call | `qlist.append(("ssl", val))` |
-| `app/core/config.py` | 196 | audit_append_call | `qlist.append((k, val))` |
+| `app/core/config.py` | 196 | audit_append_call | `qlist.append(("ssl", val))` |
+| `app/core/config.py` | 198 | audit_append_call | `qlist.append((k, val))` |
 | `app/core/database.py` | 84 | audit_events_table | `await conn.execute(text("DROP RULE IF EXISTS audit_events_no_update ON audit_events"))` |
 | `app/core/database.py` | 85 | audit_events_table | `await conn.execute(text("DROP RULE IF EXISTS audit_events_no_delete ON audit_events"))` |
 | `app/core/database.py` | 90 | audit_events_table | `ON UPDATE TO audit_events` |
@@ -164,6 +164,57 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/core/stripe_client.py` | 67 | audit_record_call | `await self._event_repo.record(event["id"], event["type"], dict(event))` |
 | `app/domain/consent.py` | 69 | audit_log_identifier | `# audit_log` |
 | `app/domain/entities.py` | 18 | audit_log_identifier | `class AuditLog:` |
+| `app/frontend/node_modules/.pnpm/combined-stream@1.0.8/node_modules/combined-stream/Readme.md` | 27 | audit_append_call | `combinedStream.append(fs.createReadStream('file1.txt'));` |
+| `app/frontend/node_modules/.pnpm/combined-stream@1.0.8/node_modules/combined-stream/Readme.md` | 28 | audit_append_call | `combinedStream.append(fs.createReadStream('file2.txt'));` |
+| `app/frontend/node_modules/.pnpm/combined-stream@1.0.8/node_modules/combined-stream/Readme.md` | 42 | audit_append_call | `combinedStream.append(fs.createReadStream('file1.txt'));` |
+| `app/frontend/node_modules/.pnpm/combined-stream@1.0.8/node_modules/combined-stream/Readme.md` | 43 | audit_append_call | `combinedStream.append(fs.createReadStream('file2.txt'));` |
+| `app/frontend/node_modules/.pnpm/combined-stream@1.0.8/node_modules/combined-stream/Readme.md` | 58 | audit_append_call | `combinedStream.append(function(next) {` |
+| `app/frontend/node_modules/.pnpm/combined-stream@1.0.8/node_modules/combined-stream/Readme.md` | 61 | audit_append_call | `combinedStream.append(function(next) {` |
+| `app/frontend/node_modules/.pnpm/combined-stream@1.0.8/node_modules/combined-stream/Readme.md` | 95 | audit_append_call | `### combinedStream.append(stream)` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 46 | audit_append_call | `input.append(value)` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 48 | audit_append_call | `known.key.append(value)` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 49 | audit_append_call | `known.value.append(index)` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 70 | audit_append_call | `parsed.append(tmp)` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 71 | audit_append_call | `lazy.append([output, key])` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 81 | audit_append_call | `output.append(_relate(known, input, val))` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 112 | audit_append_call | `wrapped.append(_wrap(value))` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 117 | audit_append_call | `input.append(value.value)` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 119 | audit_append_call | `input.append(value)` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 142 | audit_append_call | `output.append(_transform(known, input, input[i]))` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 32 | audit_append_call | `form.append('my_field', 'my value');` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 33 | audit_append_call | `form.append('my_buffer', new Buffer(10));` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 34 | audit_append_call | `form.append('my_file', fs.createReadStream('/foo/bar.jpg'));` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 46 | audit_append_call | `form.append('my_field', 'my value');` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 47 | audit_append_call | `form.append('my_buffer', new Buffer(10));` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 48 | audit_append_call | `form.append('my_logo', response);` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 60 | audit_append_call | `form.append('my_field', 'my value');` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 61 | audit_append_call | `form.append('my_buffer', new Buffer(10));` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 62 | audit_append_call | `form.append('my_logo', request('http://nodejs.org/images/logo.png'));` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 85 | audit_append_call | `form.append('my_field', 'my value');` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 86 | audit_append_call | `form.append('my_buffer', /* something big */);` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 131 | audit_append_call | `form.append('my_buffer', buffer, options);` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 147 | audit_append_call | `form.append('file', stdout, {` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 204 | audit_append_call | `form.append('my_string', 'my value');` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 205 | audit_append_call | `form.append('my_integer', 1);` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 206 | audit_append_call | `form.append('my_boolean', true);` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 207 | audit_append_call | `form.append('my_buffer', new Buffer(10));` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 208 | audit_append_call | `form.append('my_array_as_json', JSON.stringify(['bird', 'cute']));` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 214 | audit_append_call | `form.append('my_file', fs.createReadStream('/foo/bar.jpg'), 'bar.jpg');` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 217 | audit_append_call | `form.append('my_file', fs.createReadStream('/foo/bar.jpg'), { filename: 'bar.jpg', contentType: 'image/jpeg', knownLength: 19806 });` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 239 | audit_append_call | `form.append('my_buffer', Buffer.from([0x4a,0x42,0x20,0x52,0x6f,0x63,0x6b,0x73]));` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 240 | audit_append_call | `form.append('my_file', fs.readFileSync('/foo/bar.jpg'));` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 274 | audit_append_call | `form.append('my_string', 'Hello World');` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 314 | audit_append_call | `form.append('a', 1);` |
+| `app/frontend/node_modules/.pnpm/form-data@4.0.5/node_modules/form-data/README.md` | 331 | audit_append_call | `form.append('image', stream);` |
+| `app/frontend/node_modules/.pnpm/jsdom@24.1.3/node_modules/jsdom/README.md` | 69 | audit_append_call | `<script>document.getElementById("content").append(document.createElement("hr"));</script>` |
+| `app/frontend/node_modules/.pnpm/jsdom@24.1.3/node_modules/jsdom/README.md` | 81 | audit_append_call | `<script>document.getElementById("content").append(document.createElement("hr"));</script>` |
+| `app/frontend/node_modules/.pnpm/jsdom@24.1.3/node_modules/jsdom/README.md` | 99 | audit_append_call | `<script>document.getElementById("content").append(document.createElement("hr"));</script>` |
+| `app/frontend/node_modules/.pnpm/jsdom@24.1.3/node_modules/jsdom/README.md` | 103 | audit_append_call | `dom.window.eval('document.getElementById("content").append(document.createElement("p"));');` |
+| `app/frontend/node_modules/.pnpm/magic-string@0.30.21/node_modules/magic-string/README.md` | 52 | audit_append_call | `s.prepend('var ').append(';'); // most methods are chainable` |
+| `app/frontend/node_modules/.pnpm/magic-string@0.30.21/node_modules/magic-string/README.md` | 101 | audit_append_call | `### s.append( content )` |
+| `app/frontend/node_modules/.pnpm/magic-string@0.30.21/node_modules/magic-string/README.md` | 296 | audit_append_call | `.append('}());');` |
+| `app/frontend/node_modules/.pnpm/postcss-selector-parser@6.1.2/node_modules/postcss-selector-parser/API.md` | 520 | audit_append_call | `### `container.prepend(node)` & `container.append(node)`` |
+| `app/frontend/node_modules/.pnpm/postcss-selector-parser@6.1.2/node_modules/postcss-selector-parser/API.md` | 527 | audit_append_call | `selector.append(id);` |
 | `app/models/__init__.py` | 323 | audit_events_table | `__tablename__ = "audit_events"` |
 | `app/models/__init__.py` | 669 | audit_log_identifier | `class AuditLog(Base):` |
 | `app/models/__init__.py` | 670 | audit_logs_table | `__tablename__ = "audit_logs"` |
@@ -2538,14 +2589,14 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_truthful_release_owner_beta_go_no_go.py` | 38 | audit_append_call | `lines.append("- None")` |
 | `scripts/generate_truthful_release_owner_beta_go_no_go.py` | 43 | audit_logs_table | `"This memo does not approve production launch, destructive database changes, consent-table merge, audit_logs drop, public mutating health probes, or synthetic evidence substitution.",` |
 | `scripts/ingestion/api.py` | 134 | audit_append_call | `result.append(SourceInfo(` |
-| `scripts/ingestion/main.py` | 350 | audit_append_call | `resolved.append(sid)` |
-| `scripts/ingestion/pipeline/__init__.py` | 179 | audit_append_call | `self._raw_buf.append(raw)` |
-| `scripts/ingestion/pipeline/__init__.py` | 180 | audit_append_call | `self._norm_buf.append(aligned)` |
-| `scripts/ingestion/pipeline/__init__.py` | 181 | audit_append_call | `self._train_buf.append(record)` |
-| `scripts/ingestion/pipeline/__init__.py` | 232 | audit_append_call | `by_source.setdefault(rec.source_id, []).append(rec)` |
+| `scripts/ingestion/main.py` | 358 | audit_append_call | `resolved.append(sid)` |
+| `scripts/ingestion/pipeline/__init__.py` | 181 | audit_append_call | `self._raw_buf.append(raw)` |
+| `scripts/ingestion/pipeline/__init__.py` | 182 | audit_append_call | `self._norm_buf.append(aligned)` |
+| `scripts/ingestion/pipeline/__init__.py` | 183 | audit_append_call | `self._train_buf.append(record)` |
+| `scripts/ingestion/pipeline/__init__.py` | 234 | audit_append_call | `by_source.setdefault(rec.source_id, []).append(rec)` |
 | `scripts/ingestion/pipeline/caps_aligner.py` | 151 | audit_append_call | `results.append(align(item))` |
 | `scripts/ingestion/pipeline/caps_aligner.py` | 154 | audit_append_call | `results.append(item)` |
-| `scripts/ingestion/pipeline/normaliser.py` | 134 | audit_append_call | `results.append(norm)` |
+| `scripts/ingestion/pipeline/normaliser.py` | 144 | audit_append_call | `results.append(norm)` |
 | `scripts/ingestion/pipeline/storage.py` | 292 | audit_append_call | `where_parts.append("subject = :subject")` |
 | `scripts/ingestion/pipeline/storage.py` | 295 | audit_append_call | `where_parts.append("grade = :grade")` |
 | `scripts/ingestion/pipeline/storage.py` | 298 | audit_append_call | `where_parts.append("caps_phase = :caps_phase")` |
@@ -2560,6 +2611,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/ingestion/pipeline/training_formatter.py` | 339 | audit_append_call | `tags.append(f"source-{c.source_id}")` |
 | `scripts/ingestion/pipeline/training_formatter.py` | 340 | audit_append_call | `tags.append(f"type-{c.content_type.value}")` |
 | `scripts/ingestion/queue_manager.py` | 284 | audit_append_call | `jobs.append(json.loads(payload))` |
+| `scripts/ingestion/run_live_ingestion.py` | 79 | audit_append_call | `self.metrics["confidence_scores"].append(data["confidence"])` |
 | `scripts/ingestion/sources/base.py` | 242 | audit_append_call | `responses.append({` |
 | `scripts/ingestion/sources/base.py` | 255 | audit_append_call | `pending_reads.append(asyncio.create_task(_read()))` |
 | `scripts/ingestion/sources/bbc_bitesize.py` | 130 | audit_append_call | `links.append(full)` |
@@ -2568,9 +2620,10 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/ingestion/sources/ck12.py` | 241 | audit_append_call | `questions.append({` |
 | `scripts/ingestion/sources/commonlit.py` | 126 | audit_append_call | `links.append(full)` |
 | `scripts/ingestion/sources/commonlit.py` | 230 | audit_append_call | `questions.append({` |
-| `scripts/ingestion/sources/dbe_south_africa.py` | 186 | audit_append_call | `pages.append({"page": page_num, "text": text.strip()})` |
-| `scripts/ingestion/sources/dbe_south_africa.py` | 282 | audit_append_call | `docs.append({` |
-| `scripts/ingestion/sources/khan_academy.py` | 129 | audit_append_call | `questions.append(q)` |
+| `scripts/ingestion/sources/dbe_south_africa.py` | 113 | audit_append_call | `pages.append({"page": page_num, "text": text.strip()})` |
+| `scripts/ingestion/sources/dbe_south_africa.py` | 211 | audit_append_call | `docs.append({` |
+| `scripts/ingestion/sources/khan_academy.py` | 105 | audit_append_call | `links.append((match, kind))` |
+| `scripts/ingestion/sources/khan_academy.py` | 224 | audit_append_call | `questions.append(parsed)` |
 | `scripts/ingestion/sources/libretexts.py` | 152 | audit_append_call | `links.append(full)` |
 | `scripts/ingestion/sources/libretexts.py` | 198 | audit_append_call | `examples.append(text)` |
 | `scripts/ingestion/sources/siyavula.py` | 136 | audit_append_call | `links.append((full_url, text))` |

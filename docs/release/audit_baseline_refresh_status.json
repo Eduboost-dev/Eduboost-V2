@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-05T20:15:21Z",
-  "current_commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
-  "current_branch": "feature/ingestion-pipeline",
+  "generated_at": "2026-06-08T12:31:04Z",
+  "current_commit": "6b3c219669d08c2adae04015f40699bcbb153806",
+  "current_branch": "fix/failing-tests",
   "status": "audit-baseline-refresh-current",
   "beta_decision": "NO-GO",
   "beta_blocker_count": 10,
@@ -19,7 +19,7 @@
     {
       "command": "python3 scripts/docs_inventory.py --write",
       "return_code": 0,
-      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1243\n"
+      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1257\n"
     }
   ],
   "surfaces": [
@@ -29,7 +29,7 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
+      "commit": "6b3c219669d08c2adae04015f40699bcbb153806",
       "stale": false
     },
     {
@@ -38,17 +38,17 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
+      "commit": "6b3c219669d08c2adae04015f40699bcbb153806",
       "stale": false
     },
     {
       "name": "ci_evidence",
       "path": "docs/release/ci_evidence_status.json",
       "exists": true,
-      "status": "ci-evidence-accepted",
+      "status": "ci-evidence-not-accepted",
       "decision": "",
-      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
-      "stale": true
+      "commit": "6b3c219669d08c2adae04015f40699bcbb153806",
+      "stale": false
     },
     {
       "name": "ci_run_evidence",
@@ -56,8 +56,8 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
-      "stale": true
+      "commit": "6b3c219669d08c2adae04015f40699bcbb153806",
+      "stale": false
     },
     {
       "name": "external_approval",
@@ -74,7 +74,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
+      "commit": "6b3c219669d08c2adae04015f40699bcbb153806",
       "stale": false
     },
     {
@@ -101,8 +101,8 @@
       "exists": true,
       "status": "auth-refresh-db-evidence-accepted",
       "decision": "",
-      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
-      "stale": true
+      "commit": "6b3c219669d08c2adae04015f40699bcbb153806",
+      "stale": false
     },
     {
       "name": "popia_response_contract_no_skip",
@@ -137,8 +137,8 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
-      "stale": true
+      "commit": "6b3c219669d08c2adae04015f40699bcbb153806",
+      "stale": false
     },
     {
       "name": "docs_inventory",
@@ -146,7 +146,7 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
+      "commit": "6b3c219669d08c2adae04015f40699bcbb153806",
       "stale": false
     }
   ],
@@ -170,14 +170,14 @@
       "path": "docs/release/ci_evidence_status.json",
       "expected_marker": "ci-evidence-accepted",
       "exists": true,
-      "accepted": true
+      "accepted": false
     },
     {
       "id": "EVID-001",
       "path": "docs/release/ci_evidence_status.json",
       "expected_marker": "ci-evidence-accepted",
       "exists": true,
-      "accepted": true
+      "accepted": false
     },
     {
       "id": "STAGING-001",

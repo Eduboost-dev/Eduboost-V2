@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-05T20:19:21Z",
-  "current_commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
+  "generated_at": "2026-06-08T12:35:41Z",
+  "current_commit": "6b3c219669d08c2adae04015f40699bcbb153806",
   "decision": "NO-GO",
   "beta_blocker_count": 7,
   "engineering_blocker_count": 1,
@@ -285,11 +285,11 @@
       "title": "GitHub Actions auth refresh DB proof workflow",
       "severity": "P1",
       "gate": "3",
-      "proof_status": "not-proven",
+      "proof_status": "runtime-passing",
       "blocks_beta": false,
       "external_dependency": false,
       "evidence_file": "docs/release/ci_auth_refresh_db_proof_workflow_status.md",
-      "closure_blocker": "artifact upload configured; real workflow run URL still required for release evidence",
+      "closure_blocker": "none; real workflow run URL still required for release evidence",
       "go_eligible": true,
       "reason": "non-beta-blocking item"
     },

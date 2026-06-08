@@ -47,7 +47,7 @@ def test_audit_log_visibility():
 # ---------------------------------------------------------------------------
 
 def test_popia_full_flow_success():
-    fake_user = {"sub": "guardian-123", "role": "guardian"}
+    fake_user = {"sub": "guardian-123", "role": "parent"}
 
     async def fake_current_user():
         return fake_user

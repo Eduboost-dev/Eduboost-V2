@@ -36,7 +36,7 @@ class FakeLearnerReadService:
 
 
 def _learner_user():
-    return {"sub": str(uuid.uuid4()), "role": "learner", "type": "access"}
+    return {"sub": str(uuid.uuid4()), "role": "student", "type": "access"}
 
 
 def _admin_user():

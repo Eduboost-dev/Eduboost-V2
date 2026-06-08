@@ -1,8 +1,8 @@
 # Audit Baseline Refresh Status
 
-Generated at: `2026-06-05T20:15:21Z`
-Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
-Branch: `feature/ingestion-pipeline`
+Generated at: `2026-06-08T12:31:04Z`
+Commit: `6b3c219669d08c2adae04015f40699bcbb153806`
+Branch: `fix/failing-tests`
 
 **Status:** `audit-baseline-refresh-current`
 **Beta decision:** `NO-GO`
@@ -20,20 +20,20 @@ Branch: `feature/ingestion-pipeline`
 
 | Surface | Exists | Status | Decision | Commit | Stale |
 |---|---:|---|---|---|---:|
-| `final_beta_gate_refresh` | True | `NO-GO` | `NO-GO` | `0de0d192ba93b2e7a75a6bde112d30c0dae4db51` | False |
-| `release_go_no_go_status` | True | `NO-GO` | `NO-GO` | `0de0d192ba93b2e7a75a6bde112d30c0dae4db51` | False |
-| `ci_evidence` | True | `ci-evidence-accepted` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
-| `ci_run_evidence` | True | `external-blocked` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
+| `final_beta_gate_refresh` | True | `NO-GO` | `NO-GO` | `6b3c219669d08c2adae04015f40699bcbb153806` | False |
+| `release_go_no_go_status` | True | `NO-GO` | `NO-GO` | `6b3c219669d08c2adae04015f40699bcbb153806` | False |
+| `ci_evidence` | True | `ci-evidence-not-accepted` | `` | `6b3c219669d08c2adae04015f40699bcbb153806` | False |
+| `ci_run_evidence` | True | `external-blocked` | `` | `6b3c219669d08c2adae04015f40699bcbb153806` | False |
 | `external_approval` | True | `external-blocked` | `` | `1faa5ed5f7e4961d9d8cc7f666684057494eb8fb` | True |
-| `approval_evidence` | True | `external-blocked` | `` | `0de0d192ba93b2e7a75a6bde112d30c0dae4db51` | False |
+| `approval_evidence` | True | `external-blocked` | `` | `6b3c219669d08c2adae04015f40699bcbb153806` | False |
 | `staging_smoke_evidence` | True | `staging-smoke-evidence-not-accepted` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
 | `staging_acceptance` | True | `external-blocked` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
-| `auth_refresh_db_evidence` | True | `auth-refresh-db-evidence-accepted` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
+| `auth_refresh_db_evidence` | True | `auth-refresh-db-evidence-accepted` | `` | `6b3c219669d08c2adae04015f40699bcbb153806` | False |
 | `popia_response_contract_no_skip` | True | `popia-response-contract-no-skip-passing` | `` | `1faa5ed5f7e4961d9d8cc7f666684057494eb8fb` | True |
 | `diag_deep_health_runtime` | True | `diag-deep-health-runtime-not-accepted` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
 | `live_db_transaction_evidence` | True | `external-blocked` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
-| `beta_blocker_burndown` | True | `` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
-| `docs_inventory` | True | `` | `` | `0de0d192ba93b2e7a75a6bde112d30c0dae4db51` | False |
+| `beta_blocker_burndown` | True | `` | `` | `6b3c219669d08c2adae04015f40699bcbb153806` | False |
+| `docs_inventory` | True | `` | `` | `6b3c219669d08c2adae04015f40699bcbb153806` | False |
 
 ## Accepted evidence marker preservation
 
@@ -41,8 +41,8 @@ Branch: `feature/ingestion-pipeline`
 |---|---|---|---:|---:|
 | `AUTH-REFRESH-DB-EVIDENCE-001` | `docs/release/auth_refresh_db_evidence_status.json` | `auth-refresh-db-evidence-accepted` | True | True |
 | `POPIA-001` | `docs/release/popia_response_contract_no_skip_status.json` | `popia-response-contract-no-skip-passing` | True | True |
-| `CI-001` | `docs/release/ci_evidence_status.json` | `ci-evidence-accepted` | True | True |
-| `EVID-001` | `docs/release/ci_evidence_status.json` | `ci-evidence-accepted` | True | True |
+| `CI-001` | `docs/release/ci_evidence_status.json` | `ci-evidence-accepted` | True | False |
+| `EVID-001` | `docs/release/ci_evidence_status.json` | `ci-evidence-accepted` | True | False |
 | `STAGING-001` | `docs/release/staging_smoke_evidence_status.json` | `staging-smoke-evidence-accepted` | True | False |
 | `DIAG-001` | `docs/release/diag_deep_health_runtime_status.json` | `diag-deep-health-runtime-accepted` | True | False |
 

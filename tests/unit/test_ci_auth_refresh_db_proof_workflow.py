@@ -30,7 +30,7 @@ def test_auth_refresh_db_proof_workflow_runs_proof_and_evidence_gate():
     assert "tests/integration/test_auth_refresh_db_proof.py" in source
     assert "make auth-refresh-db-evidence-attach" in source
     assert "make auth-refresh-db-evidence-release-check" in source
-    assert "actions/upload-artifact@v4" in source
+    assert "actions/upload-artifact@v7" in source
 
 
 def test_ci_auth_refresh_db_proof_workflow_status_passing():

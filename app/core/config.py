@@ -126,6 +126,8 @@ class Settings(BaseSettings):
     PASSWORD_MIN_LENGTH: int = 12
     PASSWORD_PASSPHRASE_MIN_LENGTH: int = 16
     PASSWORD_BCRYPT_ROUNDS: int = 12
+    # Feature flags for Content Factory
+    CONTENT_FACTORY_GENERATION_ENABLED: bool = False
     CONTENT_STARTUP_SEED_ENABLED: bool = False
 
     # ── CORS ──────────────────────────────────────────────────────────────────
