@@ -1,16 +1,22 @@
 {
   "models": [
     {
-      "title": "Qwen 2.5 Coder (VM)",
+      "title": "Qwen 2.5 Coder 32B",
       "provider": "ollama",
-      "model": "qwen2.5-coder:1.5b",
-      "apiBase": "http://127.0.0.1:11434"
+      "model": "qwen2.5-coder:32b",
+      "apiBase": "http://4.236.163.249:11434/v1"
+    },
+    {
+      "title": "Qwen 3 Coder 30B",
+      "provider": "ollama",
+      "model": "qwen3-coder:30b",
+      "apiBase": "http://4.236.163.249:11434/v1"
     }
   ],
   "tabAutocompleteModel": {
-    "title": "Qwen 2.5 Coder (VM)",
+    "title": "Qwen 2.5 Coder 32B",
     "provider": "ollama",
-    "model": "qwen2.5-coder:1.5b",
-    "apiBase": "http://127.0.0.1:11434"
+    "model": "qwen2.5-coder:32b",
+    "apiBase": "http://4.236.163.249:11434/v1"
   }
 }
