@@ -24,9 +24,9 @@ def test_planned_scopes_are_registered_but_not_active() -> None:
 
     planned_scope = registry.get_scope("grade5_mathematics_en")
 
-    assert planned_scope.status.value == "planned"
-    assert planned_scope.caps_refs == []
-    assert planned_scope.topic_map_path is None
+    assert planned_scope.status.value == 'review'
+    assert len(planned_scope.caps_refs) == 16
+    assert planned_scope.topic_map_path is not None
     assert "grade5_mathematics_en" not in {scope.scope_id for scope in registry.list_active_scopes()}
     assert "grade4_mathematics_en" in {scope.scope_id for scope in registry.list_active_scopes()}
 
@@ -36,7 +36,7 @@ def test_planned_scope_validation_is_skipped_and_not_failed_as_missing_content()
 
     assert result.passed is True
     assert result.skipped is True
-    assert result.status == "planned"
+    assert result.status == 'review'
     assert result.item_counts == {}
     assert result.lesson_counts == {}
 
@@ -67,10 +67,10 @@ def test_coverage_report_separates_active_and_planned_scopes() -> None:
 
     assert report["summary"]["scopes.active"] == 1
     assert report["summary"]["scopes.learner_visible"] == 1
-    assert report["summary"]["scopes.planned"] > 1
+    assert report['summary']['scopes.review'] > 1
     assert report["summary"]["caps_refs.active"] == 3
     grade5 = next(row for row in report["scopes"] if row["scope_id"] == "grade5_mathematics_en")
-    assert grade5["status"] == "planned"
+    assert grade5['status'] == 'review'
     assert grade5["learner_visible"] is False
-    assert grade5["caps_ref_count"] == 0
+    assert grade5['caps_ref_count'] == 16
     assert grade5["validation_status"] == "not_applicable"

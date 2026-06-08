@@ -243,7 +243,7 @@ def _expr_for_diag_column(column: ColumnInfo, irt_columns: set[str]) -> str | No
         return f"i.{_quote_ident(name)}"
 
     if name == "item_id" and "id" in irt_columns:
-        return 'i."id"'
+        return 'gen_random_uuid()'
 
     if name == "id" and "id" in irt_columns:
         return 'i."id"'

@@ -28,7 +28,7 @@ def test_generic_scope_builder_generates_valid_launch_slice(tmp_path: Path) -> N
     assert report["scope_id"] == "grade4_mathematics_en"
     assert report["item_counts"] == {"4.M.1.1": 40, "4.M.1.2": 40, "4.M.1.3": 40}
     assert report["lesson_counts"] == {"4.M.1.1": 8, "4.M.1.2": 8, "4.M.1.3": 8}
-    assert report["blueprint_count"] == 10
+    assert report['blueprint_count'] == 13
     assert report["study_plan_counts"]["topic_sequence"] == 3
     assert report["validation"] == {
         "items": [],
@@ -63,7 +63,7 @@ def test_generic_scope_builder_generates_valid_launch_slice(tmp_path: Path) -> N
 
     assert len(item_payload["items"]) == 120
     assert len(lesson_payload["lessons"]) == 24
-    assert len(blueprint_payload["blueprints"]) == 10
+    assert len(blueprint_payload['blueprints']) == 13
     assert len(study_plan_payload["topic_sequence"]) == 3
     assert len(study_plan_payload["remediation_mappings"]) >= 3
     assert len(study_plan_payload["extension_mappings"]) == 3
