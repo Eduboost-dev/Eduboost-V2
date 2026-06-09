@@ -1,7 +1,8 @@
 # Phase 3 Execution Plan — Frontend Build and Test Health
 
-**Date**: 2026-06-09  
+**Date**: 2026-06-09 (updated after review)  
 **Branch**: `phase-3/frontend-build-and-test-health`  
+**Reviewed:** `docs/release/phase_3_plan_review.md` (6 gaps addressed)  
 **Scope**: 3 interconnected frontend health checks (dependencies, TypeScript, Vitest)  
 **Acceptance Criteria**: All CI gates passing for frontend build, type-check, and test suite
 
@@ -15,9 +16,25 @@ Phase 3 addresses critical frontend build, type-checking, and test infrastructur
 2. **3.2**: Fix frontend TypeScript compilation errors
 3. **3.3**: Fix Vitest TSX parsing failures
 
-All three components must pass in CI before merging to master.
+All three components must pass in CI before merging to master.---
 
----
+## Pre-Execution Baseline (Capture Before Starting)
+
+Before any fixes, capture the current state for before/after comparison evidence:
+
+```bash
+# Save current TypeScript errors
+cd app/frontend && npx tsc --noEmit --pretty false 2>&1 | tee /tmp/phase3_tsc_before.txt
+
+# Save current Vitest output
+cd app/frontend && npx vitest run --reporter=verbose 2>&1 | tee /tmp/phase3_vitest_before.txt
+```
+
+**Current known baseline (2026-06-09):**
+- TypeScript: 4 errors (2 x accent/undefined in LessonRoadmap.tsx, 2 x dexie/module in schema.ts)
+- Vitest: 15 suites reportedly failing (to be confirmed)
+- pnpm: 9.14.4 installed, matches packageManager (no action needed)
+- vitest.config.ts: @vitejs/plugin-react, jsdom, path aliases already configured
 
 ## Phase 3.1 — Reconcile Frontend Dependencies
 
@@ -35,11 +52,14 @@ All three components must pass in CI before merging to master.
 
 ### Implementation Tasks
 
-- [ ] Verify pnpm version matches `packageManager` in `app/frontend/package.json`
-- [ ] Clean `node_modules` and reinstall with `pnpm install --frozen-lockfile`
+- [x] Verify pnpm version matches `packageManager` in `app/frontend/package.json` (confirmed: 9.14.4 == 9.14.4)
+- [ ] Backup current `node_modules` state: `mv node_modules node_modules.bak`
+- [ ] Clean install with `pnpm install --frozen-lockfile`
+- [ ] **Fallback:** If `--frozen-lockfile` fails, run `pnpm install` (without frozen) to regenerate lockfile, then diagnose the drift before committing
 - [ ] Verify dexie resolution: `node -e "require.resolve('dexie')"`
-- [ ] Update local setup documentation if needed
-- [ ] Add pnpm install to CI frontend job
+- [ ] Compare lockfile diff if fallback was used; commit updated lockfile only if drift is intentional
+- [ ] Update local setup documentation in `SYSTEM_STARTUP_GUIDE.md` if changed
+- [ ] Add `pnpm install --frozen-lockfile` to CI frontend job
 
 ---
 
@@ -47,23 +67,28 @@ All three components must pass in CI before merging to master.
 
 ### Problem Statement
 
-- `pnpm exec tsc --noEmit --pretty false` fails with implicit `any` errors
-- Dexie type resolution currently fails (depends on Phase 3.1)
-- TypeScript JSX configuration may be incomplete
+- `npx tsc --noEmit --pretty false` fails with 4 TypeScript errors (verified 2026-06-09):
+  1. `LessonRoadmap.tsx:426` -- `accent` is possibly undefined
+  2. `LessonRoadmap.tsx:458` -- `accent` is possibly undefined
+  3. `lib/db/schema.ts:1` -- Cannot find module `dexie`
+  4. `lib/db/schema.ts:28` -- Property `version` does not exist on type `EduBoostOfflineDB`
+- Dexie type resolution currently fails (depends on Phase 3.1 fixing module resolution)
+- Note: `npx tsc` is used as the command; `pnpm exec tsc` is equivalent if pnpm is available
 
 ### Acceptance Criteria
 
-- ✅ `pnpm exec tsc --noEmit --pretty false` passes from `app/frontend`
+- ✅ `npx tsc --noEmit --pretty false` passes from `app/frontend` (0 errors)
 - ✅ All explicit parameter types are correctly annotated
 - ✅ Dexie types resolve correctly
 
 ### Implementation Tasks
 
-- [ ] Run TypeScript check and collect error list
-- [ ] Fix implicit `any` annotations in frontend source
-- [ ] Verify `tsconfig.json` JSX settings are correct
-- [ ] Verify Dexie types resolve after Phase 3.1
-- [ ] Add typecheck to CI frontend job
+- [ ] Run `npx tsc --noEmit` and collect error list (baseline: 4 errors captured above)
+- [ ] Fix error 1-2: Add null guard or non-null assertion for `accent` in `LessonRoadmap.tsx` (lines 426, 458)
+- [ ] Errors 3-4 should resolve automatically after Phase 3.1 (dexie module + types)
+- [ ] Verify `tsconfig.json` JSX settings (`jsx: preserve` is correct for Next.js)
+- [ ] Re-run `npx tsc --noEmit` -- expect 0 errors
+- [ ] Add `npx tsc --noEmit` to CI frontend job
 
 ---
 
@@ -71,9 +96,11 @@ All three components must pass in CI before merging to master.
 
 ### Problem Statement
 
-- Vitest fails 15 suites with JSX/TSX parse failures
-- JSX/compiler settings do not match Vite/Vitest/Rolldown pipeline
+- Vitest reportedly fails 15 suites with JSX/TSX parse failures (2026-06-02 audit)
+- The vitest.config.ts already includes @vitejs/plugin-react, jsdom environment, and path aliases -- the root cause may be simpler than a JSX config mismatch
+- Dexie module resolution failures (Phase 3.1) may cascade into test failures
 - Tests are currently unusable in CI
+- **Coverage thresholds** (80% branches/functions/lines/statements) are aspirational. Phase 3 only requires tests to RUN; coverage targets are a Phase 9 concern.
 
 ### Acceptance Criteria
 
@@ -83,13 +110,15 @@ All three components must pass in CI before merging to master.
 
 ### Implementation Tasks
 
-- [ ] Identify failing Vitest test suites
-- [ ] Audit `vitest.config.ts` JSX/TS settings
-- [ ] Compare with Vite and TypeScript configuration
-- [ ] Fix JSX transform or preset mismatch
-- [ ] Ensure configuration does not diverge from Next.js build
-- [ ] Run full test suite and verify all suites pass
-- [ ] Add Vitest to CI frontend job
+- [ ] **Discovery first:** Run `npx vitest run --reporter=verbose 2>&1 | head -100` to capture actual failures
+- [ ] Diagnose root cause: JSX config, module resolution (dexie), or test setup issues
+- [ ] If dexie-related: should resolve after Phase 3.1
+- [ ] If JSX-related: audit `vitest.config.ts` vs TypeScript JSX settings (`jsx: preserve`)
+- [ ] Ensure configuration does not diverge from Next.js build (`next.config` uses SWC, not Babel)
+- [ ] Fix failing tests (do NOT lower coverage thresholds if tests are genuinely broken; skip coverage check with `--no-coverage` if needed)
+- [ ] **Coverage note:** 80% thresholds in vitest.config.ts are aspirational; Phase 3 gates on test execution, not coverage percentage (Phase 9 handles coverage)
+- [ ] Run full test suite: `npx vitest run --reporter=dot` -- expect all suites to pass
+- [ ] Add `npx vitest run` to CI frontend job
 
 ---
 
@@ -102,13 +131,22 @@ Once all three components pass, the frontend CI job should run:
   run: cd app/frontend && pnpm install --frozen-lockfile
 
 - name: Frontend TypeScript
-  run: cd app/frontend && pnpm exec tsc --noEmit --pretty false
+  run: cd app/frontend && npx tsc --noEmit --pretty false
 
 - name: Frontend Tests
-  run: cd app/frontend && pnpm exec vitest run --reporter=dot
+  run: cd app/frontend && npx vitest run --reporter=dot
 ```
 
 ---
+
+## Evidence Output
+
+On completion, produce `docs/release/phase_3_evidence.md` containing:
+- Before/after TypeScript error output
+- Before/after Vitest test output
+- pnpm install verification
+- CI job configuration
+- Any lockfile changes and rationale
 
 ## Success Criteria
 
@@ -116,6 +154,7 @@ Once all three components pass, the frontend CI job should run:
 - ✅ All 3 sub-phases have acceptance criteria met
 - ✅ Frontend CI job passes on `master`
 - ✅ No TypeScript or test failures remain
+- ✅ `docs/release/phase_3_evidence.md` committed with before/after evidence
 - ✅ Documentation updated
 
 ---
