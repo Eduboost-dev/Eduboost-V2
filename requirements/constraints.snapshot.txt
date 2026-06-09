@@ -59,7 +59,7 @@ flower==2.0.1
 fsspec==2026.3.0
 greenlet==3.5.0
 grimp==3.14
-groq==0.9.0
+groq==1.4.0
 gyp==0.1
 h11==0.16.0
 h2==4.3.0
