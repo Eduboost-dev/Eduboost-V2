@@ -1,69 +1,90 @@
 # Architecture
 
-## Technology Stack
+**Last updated:** 2026-06-09
+**Current state tracked in:** RoadMap.md (17 phases) and TODO.md (North Star)
 
-| Component | Technology | Version |
-|-----------|-----------|---------|
-| Runtime | Python | 3.11+ |
-| HTTP Framework | FastAPI | 0.104+ |
-| Database | PostgreSQL | 15+ |
-| ORM | SQLAlchemy | 2.0+ |
-| Async Driver | asyncpg | 0.28+ |
-| Validation | Pydantic | v2 |
-| Testing | pytest | 7.4+ |
-| AI/LLM | OpenAI GPT-4o | — |
-| Frontend | React | 18+ |
-| Monitoring | Prometheus | — |
+## Technology Stack (Verified)
 
-## Folder Structure
+| Component | Technology | Version | Notes |
+|-----------|-----------|---------|-------|
+| Runtime | Python | 3.12.3 (target) / 3.11-slim (Docker) | RoadMap Phase 4 resolves |
+| HTTP Framework | FastAPI | 0.104+ | 355 routes on app/api_v2.py |
+| Database | PostgreSQL | 15+ | 35 Alembic migrations |
+| ORM | SQLAlchemy | 2.0+ | AsyncSession throughout |
+| Async Driver | asyncpg | 0.28+ | |
+| Validation | Pydantic | v2 | model_config from_attributes=True |
+| Testing | pytest | 7.4+ | 2051 passed, 1 skipped, 1 warning (local) |
+| LLM Providers | Groq (primary), Anthropic, Gemini, HuggingFace | | 4 providers configured |
+| Frontend | Next.js 15.5, React 18, TypeScript 5.4 | 15.5.18 | pnpm 9.x, Vitest 4.x, Tailwind 3.4 |
+| Monitoring | Prometheus + Grafana | | 3 dashboards provisioned |
+| Cache/Jobs | Redis + ARQ | | Durable jobs pending (Phase 6) |
 
-```
+## Folder Structure (Verified, June 2026)
+
 app/
-├── api_v2.py                    # FastAPI app entrypoint
-├── api_v2_routers/              # HTTP routers by domain
-│   ├── auth.py, ether.py, diagnostics.py, practice.py, study_plans.py, gamification.py, parent.py, admin.py
-├── modules/                     # Business logic
-│   ├── learners/, assessment/, practice/, study_plans/, content_factory/, gamification/
-├── repositories/                # Data access layer
-├── models/                      # SQLAlchemy ORM models
-├── domain/                      # Domain entities & schemas
-├── core/                        # Infrastructure (database, config, logging, security)
-├── middleware/                  # FastAPI middleware
-├── services/                    # Shared services
-└── utils/                       # Utilities
+  api_v2.py                   # FastAPI entrypoint (355 routes)
+  api_v2_routers/             # 28 HTTP routers
+  modules/                    # 22 bounded-context domains
+  repositories/               # Async data access
+  models/                     # ORM (Alembic-managed)
+  domain/                     # Entities, schemas, contracts
+  core/                       # Infrastructure (35 modules)
+  middleware/                  # Rate-limit, CORS, timing, security headers
+  services/                   # Content gen, ETL, LLM, curriculum, safety
+  jobs/                       # ARQ background jobs
+  legacy/                     # Deprecated V1 shims
+  utils/
 
-tests/
-├── api/                         # Router tests
-├── modules/                     # Service tests
-└── integration/                 # End-to-end tests
-```
+tests/                        # 716 test files
+  unit/                       # 2051 passing (local green baseline)
+  integration/                # Security, Stripe, routers, jobs
+  e2e/                        # Playwright (broken - Phase 13)
 
 ## Data Flow
 
-1. **Request Flow:** Client HTTP → FastAPI Router → Service → Repository → Database → ORM → Domain → Response
-2. **Diagnostic Session:** Start → Select item (IRT) → User responds → Update theta/SE → Check termination
-3. **Practice Session:** Start → Select items (difficulty proximity + spaced rep) → User responds → Award points → Update mastery
-4. **ETL Pipeline:** Upload → Parse → Extract items → Map to CAPS → Create artifacts → Review queue
+1. Request: Client -> Router -> Service -> Repository -> DB -> Response (EnvelopedRoute)
+2. Diagnostic: Start -> IRT item (3PL+MFIS) -> Respond -> Update theta/SE (EAP) -> Terminate -> Mastery
+3. Practice: Start -> Select items (difficulty+spaced rep) -> Respond -> Points -> Mastery *(in-memory; Phase 2.2)*
+4. ETL: Upload -> Parse -> Extract -> Map CAPS -> Validate -> Review queue
+5. Content Gen: Scope registry -> LLM provider -> CAPS prompt -> Safety check -> Staging -> Promote
 
-## Database Schema (Core Tables)
+## Database Schema (Core)
 
-- `learners` - learner profile
-- `diagnostic_sessions` - assessment state and responses
-- `learner_mastery` - topic mastery (theta, SE, status)
-- `practice_items` - item pool
-- `practice_sessions` - session tracking
-- `study_plans` - study plan records
-- `audit_logs` - POPIA compliance audit trail
+| Table | Purpose | Status |
+|-------|---------|--------|
+| learners | Profile, consent tracking | Live |
+| diagnostic_sessions | Assessment state, IRT params | Live |
+| learner_mastery | Topic mastery (theta, SE) | Live |
+| practice_items | Item bank (120 Grade 4 Math) | Live |
+| practice_sessions | Session tracking, responses | Live |
+| study_plans | AI-generated plans | Live |
+| lessons | 24 Grade 4 Math lessons | Live |
+| audit_logs | POPIA audit (append-only, HMAC) | Live |
+| content_factory_* | ETL provenance, generation runs | Live |
 
-## System Invariants
+## System Invariants (Verified)
 
-1. All learner data queries scoped to learner_id
-2. IRT theta/SE always updated together, never stale
-3. Mastery status only improves or stays same, never regresses
-4. POPIA consent always checked before analytics
-5. All database writes include audit logging
-6. Items only served if review_status = 'approved'
-7. No hardcoded secrets - config from env vars only
-8. All async operations wrapped in try/catch
-9. All responses wrapped in EnvelopedRoute
-10. Practice items filtered by difficulty proximity (θ ± 0.3)
+| # | Invariant | Status | Notes |
+|---|-----------|--------|-------|
+| 1 | Learner queries scoped to learner_id | Enforced | Object auth in most routes |
+| 2 | IRT theta/SE always updated together | Enforced | |
+| 3 | Mastery only improves | Enforced | |
+| 4 | POPIA consent before data access | PARTIAL | Practice routes need auth (Phase 2) |
+| 5 | All writes include audit logging | Enforced | Append-only PostgreSQL |
+| 6 | Items only served if approved | Enforced | |
+| 7 | No hardcoded secrets | PARTIAL | Stripe localhost URLs (Phase 7) |
+| 8 | Async ops wrapped in try/catch | PARTIAL | 861 Ruff findings (Phase 11) |
+| 9 | Responses wrapped in EnvelopedRoute | Enforced | Global exception handlers |
+| 10 | Practice items filtered by difficulty | Enforced | In-memory state (Phase 2.2) |
+
+## Known Architecture Gaps (see RoadMap.md)
+
+- P0: Practice session routes unauthenticated; in-memory state (Phase 2)
+- P0: Python version inconsistency across Docker/CI/local (Phase 4)
+- P1: Startup schema repair outside Alembic (Phase 5)
+- P1: ARQ durable jobs not wired (Phase 6)
+- P1: CSP permissive; HSTS unconditional (Phase 12)
+- P1: /metrics unauthenticated (Phase 12)
+- P2: core->services import violations (Phase 11)
+- P2: Dual route registration (/api/v2 AND /v2) (Phase 11)
+- P2: 861 Ruff findings backlog (Phase 11)

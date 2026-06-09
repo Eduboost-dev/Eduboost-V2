@@ -1,55 +1,51 @@
 # Build Plan
 
-19 features across 9 phases.
+**Last updated:** 2026-06-09
+**Authoritative execution plan:** RoadMap.md (17 phases)
+**Live task tracker:** TODO.md (North Star)
 
-## Phase 1 — Foundation (3 features)
+This file is now a summary index. The authoritative build execution plan is RoadMap.md (17 phases, Phase 0-16). Day-to-day task tracking lives in TODO.md.
 
-- 01 Database Schema & Migrations
-- 02 Auth & Security
-- 03 Logging & Monitoring
+## Current Phase Status
 
-## Phase 2 — Onboarding (3 features)
+| Phase | Name | Priority | Status |
+|-------|------|----------|--------|
+| 0 | Branch, Evidence, Artifacts | -- | In progress |
+| 1 | Release-Blocking Correctness Fixes | P0 | Not started |
+| 2 | Practice Session Security & Durability | P0 | Not started |
+| 3 | Frontend Build and Test Health | P0 | Not started |
+| 4 | Runtime and Environment Alignment | P0 | Not started |
+| 5 | Migrations and Schema Management | P1 | Not started |
+| 6 | Durable Background Jobs | P1 | Not started |
+| 7 | Deployment and Security Hardening | P1 | Not started |
+| 8 | Privacy and Authorization Completion | P1 | Not started |
+| 9 | Coverage, CI, and Evidence Renewal | P1 | Not started |
+| 10 | Workspace Hygiene and Auditability | P2 | Not started |
+| 11 | Technical Debt Burn-Down | P2 | Not started |
+| 12 | Security Posture Deepening | P2 | Not started |
+| 13 | Frontend and Product Completeness | P2 | Not started |
+| 14 | Operational Readiness | P2 | Not started |
+| 15 | Governance and Process | P2 | Not started |
+| 16 | Beta Period with Real Learner Feedback | -- | Not started |
 
-- 04 Learner Registration
-- 05 Ether Archetype Onboarding (visual questionnaire)
-- 06 POPIA Consent Collection
+## Verified Implementation Baseline
 
-## Phase 3 — Diagnostic (2 features)
+The following are already implemented and tested locally (not CI-verified):
 
-- 07 Diagnostic Assessment Engine (IRT adaptive test)
-- 08 Mastery Calculation
+- Backend: 2051 unit tests passing, 355 API routes, 35 Alembic migrations
+- Grade 4 Mathematics: 120 diagnostic items + 24 lessons live
+- 22 domain modules, 28 API routers, Content Factory ETL pipeline
+- POPIA consent/audit/erasure/export workflows (partial -- Phase 8)
+- Grafana dashboards, Prometheus metrics, structured logging
+- JWT auth with keyring, token revocation, Redis-backed
 
-## Phase 4 — Content (2 features)
+## Status Legend
 
-- 09 Study Plan Generation (AI-powered)
-- 10 Lesson Content & Retrieval
+- Not started
+- In progress
+- Complete (repository-side)
+- CI verified
+- Staging verified
+- Production verified
 
-## Phase 5 — Practice & Gamification (2 features)
-
-- 11 Dynamic Practice Item Selection (difficulty proximity + spaced rep)
-- 12 Gamification (points, badges, streaks)
-
-## Phase 6 — Parents (1 feature)
-
-- 13 Parent Dashboard & Progress Views
-
-## Phase 7 — Admin Content Factory (3 features)
-
-- 14 Content Ingestion (ETL pipeline)
-- 15 Quality Review & Approval
-- 16 Staging & Production Promotion
-
-## Phase 8 — POPIA (1 feature)
-
-- 17 Export & Erasure Implementation
-
-## Phase 9 — Testing (2 features)
-
-- 18 Unit Tests (>80% coverage)
-- 19 Integration Tests
-
-Each feature:
-- Has specific endpoints and logic requirements
-- Is testable and verifiable immediately after implementation
-- Includes acceptance criteria
-- Never proceeds without tests passing
+Update RoadMap.md and TODO.md for detailed status. This file is the high-level index.

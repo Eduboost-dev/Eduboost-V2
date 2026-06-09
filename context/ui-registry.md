@@ -1,93 +1,111 @@
 # UI Registry
 
+**Last updated:** 2026-06-09
+**Implementation tracked in:** RoadMap.md Phase 3 (build health), Phase 13 (completeness)
+**Component status:** Most shared components implemented; feature components in progress
+
 Component inventory for EduBoost learner UI, parent portal, and admin interface.
 
 ## Learner UI Components
 
 ### Navigation & Layout
-- Navbar | Top navigation | To be built in Feature 04
-- Sidebar | Mobile bottom navigation | To be built in Feature 04
-- Layout | Main page wrapper | To be built in Feature 04
+- Navbar | Top navigation | Implemented (Phase 2)
+- Sidebar | Mobile bottom navigation | Implemented (Phase 2)
+- Layout | Main page wrapper | Implemented (Phase 2)
 
 ### Auth
-- LoginForm | Email/password login | To be built in Feature 04
-- RegisterForm | Learner registration | To be built in Feature 04
+- LoginForm | Email/password login | Implemented
+- RegisterForm | Learner registration | Implemented
 
 ### Ether Onboarding
-- EtherQuestion | Single question card | To be built in Feature 05
-- EtherStepper | Progress through questions | To be built in Feature 05
-- EtherResults | Display learner archetype | To be built in Feature 05
+- EtherQuestion | Single question card | Implemented
+- EtherStepper | Progress through questions | Implemented
+- EtherResults | Display learner archetype | Implemented
 
 ### Diagnostic Assessment
-- DiagnosticSession | Main diagnostic UI | To be built in Feature 07
-- ItemRenderer | Render single item | To be built in Feature 07
-- ResponseForm | Input for answer | To be built in Feature 07
-- SessionProgress | Progress bar | To be built in Feature 07
+- DiagnosticSession | Main diagnostic UI | Implemented
+- ItemRenderer | Render single item | Implemented
+- ResponseForm | Input for answer | Implemented
+- SessionProgress | Progress bar | Implemented
 
 ### Practice Sessions
-- PracticeSession | Main practice UI | To be built in Feature 11
-- PracticeItem | Single practice item | To be built in Feature 11
-- PracticeResult | Feedback on response | To be built in Feature 11
-- SessionStats | Points, streak display | To be built in Feature 11
+- PracticeSession | Main practice UI | Implemented
+- PracticeItem | Single practice item | Implemented
+- PracticeResult | Feedback on response | Implemented
+- SessionStats | Points, streak display | Implemented
 
 ### Study Plan
-- StudyPlanView | Display current plan | To be built in Feature 09
-- TopicCard | Topic in study plan | To be built in Feature 09
-- LearnButton | Link to lesson | To be built in Feature 09
+- StudyPlanView | Display current plan | Implemented
+- TopicCard | Topic in study plan | Implemented
+- LearnButton | Link to lesson | Implemented
 
 ### Gamification
-- StreakCounter | Display current streak | To be built in Feature 12
-- BadgesDisplay | Show earned badges | To be built in Feature 12
-- PointsCounter | Show earned points | To be built in Feature 12
-- Leaderboard | Global leaderboard | To be built in Feature 12
+- StreakCounter | Display current streak | Implemented
+- BadgesDisplay | Show earned badges | Implemented
+- PointsCounter | Show earned points | Implemented
+- Leaderboard | Global leaderboard | Implemented (unauthenticated, Phase 2)
 
 ## Parent Portal Components
 
-- ParentNavbar | Top navigation | To be built in Feature 13
-- ParentLogin | Parent authentication | To be built in Feature 13
-- ParentDashboard | Overview of child(ren) | To be built in Feature 13
-- ChildCard | Child profile + stats | To be built in Feature 13
-- MasteryHeatmap | CAPS topics grid | To be built in Feature 13
-- ProgressChart | Mastery over time | To be built in Feature 13
-- InsightsPanel | Actionable recommendations | To be built in Feature 13
+- ParentNavbar | Top navigation | Implemented
+- ParentLogin | Parent authentication | Implemented
+- ParentDashboard | Overview of children | Implemented
+- ChildCard | Child profile + stats | Implemented
+- MasteryHeatmap | CAPS topics grid | Implemented
+- ProgressChart | Mastery over time | Implemented
+- InsightsPanel | Actionable recommendations | Implemented
 
 ## Admin Components
 
-- AdminSidebar | Left navigation | To be built in Feature 14
-- FileUpload | Upload content | To be built in Feature 14
-- ETLStatus | Pipeline status | To be built in Feature 14
-- ReviewQueue | Pending items | To be built in Feature 15
-- ItemReviewForm | Review checklist | To be built in Feature 15
-- CoverageVerification | Coverage checker | To be built in Feature 16
-- PromotionForm | Staging → Production | To be built in Feature 16
-- AuditLog | Searchable audit log | To be built in Feature 08
-- ConsentStatus | Learner consent view | To be built in Feature 06
+- AdminSidebar | Left navigation | Implemented
+- FileUpload | Upload content | Implemented
+- ETLStatus | Pipeline status | Implemented
+- ReviewQueue | Pending items | Implemented
+- ItemReviewForm | Review checklist | Implemented
+- CoverageVerification | Coverage checker | Implemented
+- PromotionForm | Staging to Production | Implemented
+- AuditLog | Searchable audit log | Implemented
+- ConsentStatus | Learner consent view | Implemented
 
 ## Shared Components
 
-- Button | Primary, secondary, danger | To be built Phase 2
-- Input | Text, number, date inputs | To be built Phase 2
-- Card | Container with shadow | To be built Phase 2
-- Modal | Overlay dialog | To be built Phase 2
-- Badge | Status/tag label | To be built Phase 2
-- Alert | Information, warning, error | To be built Phase 2
-- Table | Data table with sorting | To be built Phase 2
-- Pagination | Prev/next, page jump | To be built Phase 2
-- Dropdown | Select from options | To be built Phase 2
-- Checkbox | Boolean input | To be built Phase 2
-- ProgressBar | Visual progress | To be built Phase 2
-- Spinner | Loading indicator | To be built Phase 2
-- Toast | Notification pop-up | To be built Phase 2
-- Avatar | User profile picture | To be built Phase 2
-- Icon | SVG icon wrapper | To be built Phase 2
-- Skeleton | Loading placeholder | To be built Phase 2
-- EmptyState | "No data" message | To be built Phase 2
+- Button | Primary, secondary, danger | Implemented
+- Input | Text, number, date inputs | Implemented
+- Card | Container with shadow | Implemented
+- Modal | Overlay dialog | Implemented
+- Badge | Status/tag label | Implemented
+- Alert | Information, warning, error | Implemented
+- Table | Data table with sorting | Implemented
+- Pagination | Prev/next, page jump | Implemented
+- Dropdown | Select from options | Implemented
+- Checkbox | Boolean input | Implemented
+- ProgressBar | Visual progress | Implemented
+- Spinner | Loading indicator | Implemented
+- Toast | Notification pop-up | Implemented
+- Avatar | User profile picture | Implemented
+- Icon | SVG icon wrapper | Implemented
+- Skeleton | Loading placeholder | Implemented
+- EmptyState | No data message | Implemented
 
 ## Status Legend
 
-- — Not started
-- 🔨 In progress
-- ✅ Complete & tested
-- 🔄 Refinement needed
+- Not started
+- In progress
+- Implemented (code exists)
+- Tested (unit tests pass)
+- E2E verified (Playwright)
+- Beta validated (real learner feedback)
 
-Update this file as features are built by adding source file links and changing status.
+## Verification Status
+
+| Check | Status | Phase |
+|-------|--------|:---:|
+| TypeScript compilation | FAIL (Phase 3.2) | 3 |
+| Vitest unit tests | FAIL (15 suites, Phase 3.3) | 3 |
+| Playwright E2E | FAIL (Phase 13.1) | 13 |
+| ESLint | Warning (Phase 9) | 9 |
+| pnpm install --frozen-lockfile | FAIL (Phase 3.1) | 3 |
+| Accessibility audit | Not done (Phase 13.4) | 13 |
+| PWA verification | Not done (Phase 13.5) | 13 |
+
+Update this file as RoadMap phases complete. Cross-reference RoadMap.md for the authoritative execution plan.
