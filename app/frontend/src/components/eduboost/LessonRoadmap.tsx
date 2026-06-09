@@ -407,7 +407,7 @@ function PhaseCard({ phase, taskState, onToggleTask }: PhaseCardProps) {
   const doneTasks = phase.tasks.filter((t) => taskState[t.id]).length;
   const totalTasks = phase.tasks.length;
   const pct = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
-  const accent = PHASE_ACCENT[phase.id];
+  const accent = PHASE_ACCENT[phase.id] ?? PHASE_ACCENT.ph0;
 
   return (
     <div className="rounded-lg border border-gray-700 shadow-sm" style={{ backgroundColor: '#252525' }}>
