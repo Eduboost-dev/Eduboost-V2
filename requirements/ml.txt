@@ -172,10 +172,8 @@ pyarrow==16.1.0
     #   datasets
 pyarrow-hotfix==0.7
     # via datasets
-pymupdf==1.24.4
+pymupdf==1.27.2.3
     # via -r requirements/ml.in
-pymupdfb==1.24.3
-    # via pymupdf
 python-dateutil==2.9.0.post0
     # via pandas
 pytz==2026.2
