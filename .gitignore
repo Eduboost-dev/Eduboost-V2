@@ -11,6 +11,7 @@ __pycache__/
 coverage_html/
 node_modules/
 .next/
+*.tsbuildinfo
 *.db
 *.sqlite
 .env
@@ -23,7 +24,43 @@ app/api/celerybeat-schedule*
 .venv/
 site/
 app/frontend/coverage/
-data/caps/
+data/caps/*
+!data/caps/caps_topic_map_grade4_maths.json
+!data/caps/grade4_maths_item_bank.json
+!data/caps/launch_coverage_targets.json
+!data/caps/topic_maps/
+!data/caps/topic_maps/*.json
 artifacts/llm/
 # Sensitive keys
 *.pem
+coverage.xml
+.hypothesis/
+htmlcov/
+playwright-report/
+test-results/
+temp/
+.mypy_cache/
+docker-compose.override.yml
+
+# NextJS static export output
+app/frontend/out/
+
+# Cloudflare Wrangler Cache
+.wrangler/
+
+# Data directories (stored on WSL external storage)
+data/content_factory/
+data/exports/
+data/generated/
+data/synthetic/
+data/temp/
+
+# IDE index files and settings
+.idea/
+.vscode/
+.continue/
+.claude/
+.cursor/
+
+# Large files tracked via Git LFS (see docs/release/README_LFS.md)
+# docs/release/backend_deletion_candidate_inventory.md is in LFS

@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-06-05T20:15:51Z",
+  "current_commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
+  "status": "auth-service-cleanup-passing",
+  "monkey_patches": [],
+  "service_methods_present": [
+    "create_dev_session",
+    "login",
+    "logout",
+    "refresh",
+    "register",
+    "revoke_all_tokens"
+  ],
+  "route_delegations_present": [
+    "logout",
+    "revoke_all_tokens"
+  ],
+  "route_delegations_missing": [],
+  "blockers": []
+}

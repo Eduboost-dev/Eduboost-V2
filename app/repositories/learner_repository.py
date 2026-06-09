@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from uuid import UUID
 
 from sqlalchemy import delete, update
@@ -41,7 +41,7 @@ class LearnerRepository(BaseRepository[Learner]):
             return
         learner.display_name = "[erased]"
         learner.is_deleted = True
-        learner.deletion_requested_at = datetime.now(UTC)
+        learner.deletion_requested_at = datetime.now(timezone.utc)
         db.add(learner)
         await db.flush()
 

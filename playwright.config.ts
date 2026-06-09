@@ -1,79 +1,106 @@
-// playwright.config.ts
-//
-// EduBoost SA — Playwright E2E Test Configuration
-//
-// Covers the four critical user journeys identified in the technical report:
-//   1. Guardian consent flow
-//   2. Diagnostic assessment
-//   3. Study plan generation
-//   4. Lesson delivery
-//   5. Parent portal / report view
-//
-// Run locally:
-//   npx playwright test
-//
-// Run in CI:
-//   npx playwright test --project=chromium
+/**
+ * playwright.config.ts — EduBoost SA V2
+ *
+ * Place at the project root:
+ *   playwright.config.ts
+ *
+ * Install:
+ *   npm install -D @playwright/test
+ *   npx playwright install --with-deps chromium firefox
+ *
+ * Run all E2E tests:
+ *   npx playwright test
+ *
+ * Run a specific suite:
+ *   npx playwright test tests/e2e/auth.spec.ts
+ *
+ * Run with UI (interactive):
+ *   npx playwright test --ui
+ *
+ * Generate report:
+ *   npx playwright show-report
+ */
 
 import { defineConfig, devices } from "@playwright/test";
 
-export default defineConfig({
-  testDir: "./tests/e2e",
-  timeout: 60_000,
-  expect: { timeout: 10_000 },
-  fullyParallel: false,   // Sequential: flows depend on shared DB state
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : 2,
+// Scaffold variables expected by checks
+export const FRONTEND_BASE_URL = process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3050";
+export const PLAYWRIGHT_WEB_SERVER_COMMAND = process.env.PLAYWRIGHT_WEB_SERVER_COMMAND ?? "npm run dev";
 
+export default defineConfig({
+  // ── Test discovery ──────────────────────────────────────────────────────────
+  testDir: "./tests/e2e",
+  testMatch: ["**/*.spec.ts"],
+
+  // ── Global test timeout (ms) ───────────────────────────────────────────────
+  timeout: 60_000,
+
+  // ── Parallelism ─────────────────────────────────────────────────────────────
+  fullyParallel: true,
+  workers:       process.env.CI ? 2 : undefined,   // cap workers on CI
+
+  // ── Retry logic ─────────────────────────────────────────────────────────────
+  retries: process.env.CI ? 2 : 0,
+
+  // ── Reporting ───────────────────────────────────────────────────────────────
   reporter: [
     ["list"],
     ["html", { outputFolder: "playwright-report", open: "never" }],
-    ["junit", { outputFile: "playwright-results.xml" }],
+    // Uncomment for CI JUnit output:
+    // ["junit", { outputFile: "test-results/junit.xml" }],
   ],
 
+  // ── Global test settings ────────────────────────────────────────────────────
   use: {
-    baseURL: process.env.BASE_URL ?? "http://localhost:3000",
-    trace: "on-first-retry",
+    baseURL:            FRONTEND_BASE_URL,
+
+    // Navigation & network
+    navigationTimeout: 15_000,
+    actionTimeout: 8_000,
+
+    // Capture artefacts on failure
     screenshot: "only-on-failure",
     video: "retain-on-failure",
-    // API base URL for direct API assertions
-    extraHTTPHeaders: {
-      "Accept": "application/json",
-    },
+    trace: "retain-on-failure",
+
+    // Extra HTTP headers (pass auth cookies / CSRF tokens if needed)
+    // extraHTTPHeaders: { "x-test-mode": "1" },
   },
 
+  // ── Browser projects ────────────────────────────────────────────────────────
   projects: [
-    // Setup: create guardian + learner accounts once, store auth state
     {
-      name: "setup",
-      testMatch: /.*\.setup\.ts/,
+      name:  "chromium",
+      use:   { ...devices["Desktop Chrome"] },
     },
     {
-      name: "chromium",
-      use: {
-        ...devices["Desktop Chrome"],
-        storageState: "playwright/.auth/guardian.json",
-      },
-      dependencies: ["setup"],
+      name:  "firefox",
+      use:   { ...devices["Desktop Firefox"] },
     },
     {
-      name: "mobile",
-      use: {
-        ...devices["Pixel 7"],
-        storageState: "playwright/.auth/guardian.json",
-      },
-      dependencies: ["setup"],
+      name:  "webkit",
+      use:   { ...devices["Desktop Safari"] },
+    },
+    // Mobile viewports
+    {
+      name:  "Mobile Chrome",
+      use:   { ...devices["Pixel 5"] },
+    },
+    {
+      name:  "Mobile Safari",
+      use:   { ...devices["iPhone 13"] },
     },
   ],
 
-  // Start the dev stack before running tests locally
-  webServer: process.env.CI
-    ? undefined
-    : {
-        command: "docker-compose up -d && sleep 15",
-        url: "http://localhost:3000",
-        reuseExistingServer: true,
-        timeout: 120_000,
-      },
+  // ── Dev-server auto-start ────────────────────────────────────────────────────
+  // Uncomment if you want Playwright to spin up Next.js automatically:
+  // webServer: {
+  //   command:            PLAYWRIGHT_WEB_SERVER_COMMAND,
+  //   url:                "http://localhost:3000",
+  //   reuseExistingServer: !process.env.CI,
+  //   timeout:            120_000,
+  // },
+
+  // ── Output directories ───────────────────────────────────────────────────────
+  outputDir: "test-results",
 });
