@@ -80,6 +80,32 @@ irt_computation_seconds = Histogram(
     registry=REGISTRY,
 )
 
+item_bank_coverage_ratio = Gauge(
+    "eduboost_item_bank_coverage_ratio",
+    "Fraction of target approved item count per CAPS reference",
+    ["caps_ref"],
+    registry=REGISTRY,
+)
+
+diagnostic_sessions_total = Counter(
+    "eduboost_diagnostic_sessions_total",
+    "Diagnostic sessions by CAPS reference and outcome",
+    ["caps_ref", "outcome"],
+    registry=REGISTRY,
+)
+
+item_selection_latency_seconds = Histogram(
+    "eduboost_item_selection_latency_seconds",
+    "Item-bank selection latency",
+    ["caps_ref"],
+    buckets=[0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25],
+    registry=REGISTRY,
+)
+
+ITEM_BANK_COVERAGE_RATIO = item_bank_coverage_ratio
+DIAGNOSTIC_SESSIONS_TOTAL = diagnostic_sessions_total
+ITEM_SELECTION_LATENCY_SECONDS = item_selection_latency_seconds
+
 # ── Learner Activity ──────────────────────────────────────────────────────────
 active_learners_gauge = Gauge(
     "eduboost_active_learners",
@@ -106,6 +132,61 @@ consent_gate_blocks_total = Counter(
     "eduboost_consent_gate_blocks_total",
     "Requests blocked by consent gate",
     ["endpoint"],
+    registry=REGISTRY,
+)
+
+# ── Infrastructure ───────────────────────────────────────────────────────────
+db_pool_size = Gauge(
+    "eduboost_db_pool_size_total",
+    "Total database connections in the pool",
+    registry=REGISTRY,
+)
+
+db_pool_checkedout = Gauge(
+    "eduboost_db_pool_checkedout_total",
+    "Database connections currently in use",
+    registry=REGISTRY,
+)
+
+db_pool_overflow = Gauge(
+    "eduboost_db_pool_overflow_total",
+    "Database connections beyond the pool_size",
+    registry=REGISTRY,
+)
+
+redis_connected_clients = Gauge(
+    "eduboost_redis_connected_clients",
+    "Number of clients connected to Redis",
+    registry=REGISTRY,
+)
+
+
+
+# ── Readiness / Release Operations ──────────────────────────────────────────
+readiness_component_status = Gauge(
+    "eduboost_readiness_component_status",
+    "Dependency readiness status by component; 1=ok, 0=unavailable/degraded",
+    ["component", "criticality"],
+    registry=REGISTRY,
+)
+
+audit_write_failures_total = Counter(
+    "eduboost_audit_write_failures_total",
+    "Audit write failures observed by the application",
+    ["operation"],
+    registry=REGISTRY,
+)
+
+backup_last_success_timestamp = Gauge(
+    "eduboost_backup_last_success_timestamp",
+    "Unix timestamp of the last successful PostgreSQL backup reported by backup automation",
+    registry=REGISTRY,
+)
+
+backup_failures_total = Counter(
+    "eduboost_backup_failures_total",
+    "PostgreSQL backup failures reported by backup automation",
+    ["stage"],
     registry=REGISTRY,
 )
 

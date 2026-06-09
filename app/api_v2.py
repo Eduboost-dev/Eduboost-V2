@@ -7,34 +7,169 @@ from __future__ import annotations
 import asyncio
 from contextlib import asynccontextmanager
 
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
-from starlette.middleware.base import BaseHTTPMiddleware
-from app.middleware.security_headers import SecurityHeadersMiddleware
-
-from slowapi.errors import RateLimitExceeded
 
 from app.core.analytics import analytics_middleware
 from app.core.config import settings
-from app.core.health import gather_deep_health
 from app.core.exceptions import register_exception_handlers
+from app.core.health import gather_deep_health
+from app.services.launch_content_seed import seed_launch_content_if_needed
 from app.core.logging import configure_logging, get_logger
 from app.core.metrics import REGISTRY
 from app.core.middleware import RequestIDMiddleware, StructuredLoggingMiddleware, TimingMiddleware
 from app.core.rate_limit import limiter
 from app.core.secret_rotation import key_vault_rotation_loop
+from app.middleware.security_headers import SecurityHeadersMiddleware
 from app.services.consent_expiry_service import consent_expiry_loop
-from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
+from app.services.jwt_keyring import validate_jwt_keyring_environment
+
+validate_jwt_keyring_environment()
 
 configure_logging()
 log = get_logger(__name__)
 
-# SecurityHeadersMiddleware moved to app/middleware/security_headers.py
+
+async def run_startup_migrations() -> None:
+    if not settings.is_production():
+        return
+    from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+
+    import asyncpg
+
+    log.info("startup_schema_repair_begin")
+    repairs = (
+        (
+            "guardians.email_verified",
+            """
+            SELECT EXISTS (
+                SELECT 1
+                FROM information_schema.columns
+                WHERE table_schema = current_schema()
+                  AND table_name = 'guardians'
+                  AND column_name = 'email_verified'
+            )
+            """,
+            "ALTER TABLE guardians ADD COLUMN IF NOT EXISTS email_verified BOOLEAN NOT NULL DEFAULT false",
+        ),
+        (
+            "tokenpurpose",
+            "SELECT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'tokenpurpose')",
+            """
+        DO $$
+        BEGIN
+            CREATE TYPE tokenpurpose AS ENUM ('password_reset', 'email_verify');
+        EXCEPTION WHEN duplicate_object THEN NULL;
+        END $$;
+        """,
+        ),
+        (
+            "secure_tokens",
+            "SELECT to_regclass('secure_tokens') IS NOT NULL",
+            """
+        CREATE TABLE IF NOT EXISTS secure_tokens (
+            id SERIAL PRIMARY KEY,
+            user_id VARCHAR(36) NOT NULL REFERENCES guardians(id) ON DELETE CASCADE,
+            purpose tokenpurpose NOT NULL,
+            token_hash VARCHAR(256) NOT NULL,
+            expires_at TIMESTAMPTZ NOT NULL,
+            used_at TIMESTAMPTZ NULL,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        )
+        """,
+        ),
+        (
+            "ix_secure_tokens_user_purpose",
+            "SELECT to_regclass('ix_secure_tokens_user_purpose') IS NOT NULL",
+            "CREATE INDEX IF NOT EXISTS ix_secure_tokens_user_purpose ON secure_tokens (user_id, purpose)",
+        ),
+        (
+            "ix_secure_tokens_expires_at",
+            "SELECT to_regclass('ix_secure_tokens_expires_at') IS NOT NULL",
+            "CREATE INDEX IF NOT EXISTS ix_secure_tokens_expires_at ON secure_tokens (expires_at)",
+        ),
+        (
+            "onboarding_states",
+            "SELECT to_regclass('onboarding_states') IS NOT NULL",
+            """
+        CREATE TABLE IF NOT EXISTS onboarding_states (
+            id SERIAL PRIMARY KEY,
+            user_id VARCHAR(36) NOT NULL UNIQUE REFERENCES guardians(id) ON DELETE CASCADE,
+            email_verified BOOLEAN NULL,
+            profile_complete BOOLEAN NULL,
+            guardian_consent BOOLEAN NULL,
+            diagnostic_done BOOLEAN NULL,
+            plan_accepted BOOLEAN NULL,
+            completed_at TIMESTAMPTZ NULL,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+            updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        )
+        """,
+        ),
+        (
+            "privacy_settings",
+            "SELECT to_regclass('privacy_settings') IS NOT NULL",
+            """
+        CREATE TABLE IF NOT EXISTS privacy_settings (
+            id SERIAL PRIMARY KEY,
+            user_id VARCHAR(36) NOT NULL UNIQUE REFERENCES guardians(id) ON DELETE CASCADE,
+            analytics_enabled BOOLEAN NOT NULL DEFAULT true,
+            ai_improvement BOOLEAN NOT NULL DEFAULT true,
+            marketing_emails BOOLEAN NOT NULL DEFAULT false,
+            data_retention_days INTEGER NOT NULL DEFAULT 365,
+            show_leaderboard BOOLEAN NOT NULL DEFAULT true,
+            export_requested_at TIMESTAMPTZ NULL,
+            deletion_requested_at TIMESTAMPTZ NULL,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+            updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        )
+        """,
+        ),
+    )
+
+    parsed = urlsplit(settings.DATABASE_URL.replace("postgresql+asyncpg://", "postgresql://", 1))
+    query = dict(parse_qsl(parsed.query, keep_blank_values=True))
+    ssl_mode = query.pop("ssl", None)
+    query.pop("prepared_statement_cache_size", None)
+    dsn = urlunsplit((parsed.scheme, parsed.netloc, parsed.path, urlencode(query), parsed.fragment))
+    connect_kwargs = {"statement_cache_size": 0, "timeout": 10}
+    if ssl_mode:
+        connect_kwargs["ssl"] = ssl_mode
+
+    conn = await asyncpg.connect(dsn, **connect_kwargs)
+    locked = False
+    try:
+        locked = bool(await conn.fetchval("SELECT pg_try_advisory_lock($1, $2)", 443352, 20260524))
+        if not locked:
+            log.warning("startup_schema_repair_skipped_lock_busy")
+            return
+
+        await conn.execute("SET lock_timeout = '5s'")
+        await conn.execute("SET statement_timeout = '30s'")
+        for name, exists_sql, statement in repairs:
+            if await conn.fetchval(exists_sql):
+                log.info("startup_schema_repair_skip_existing", repair=name)
+                continue
+            try:
+                await conn.execute(statement)
+            except (asyncpg.LockNotAvailableError, asyncpg.QueryCanceledError) as exc:
+                log.warning("startup_schema_repair_deferred", repair=name, error=str(exc))
+                continue
+            log.info("startup_schema_repair_applied", repair=name)
+    finally:
+        if locked:
+            await conn.execute("SELECT pg_advisory_unlock($1, $2)", 443352, 20260524)
+        await conn.close()
+    log.info("startup_schema_repair_complete")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     log.info("eduboost_v2_starting", env=settings.ENVIRONMENT, version=settings.APP_VERSION)
+    await run_startup_migrations()
+    await seed_launch_content_if_needed()
     consent_task = None
     secret_rotation_task = None
     if settings.ENVIRONMENT != "test":
@@ -49,9 +184,30 @@ async def lifespan(app: FastAPI):
     log.info("eduboost_v2_shutdown")
 
 
+OPENAPI_TAGS = [
+    {"name": "ops", "description": "Health, readiness, and system status"},
+    {"name": "auth", "description": "Authentication and token management"},
+    {"name": "learners", "description": "Learner profiles and progress"},
+    {"name": "lessons", "description": "CAPS-aligned lesson content"},
+    {"name": "study_plans", "description": "Personalised study plans"},
+    {"name": "diagnostics", "description": "Diagnostic assessments"},
+    {"name": "practice", "description": "Practice activities and attempts"},
+    {"name": "gamification", "description": "Points, badges, and streaks"},
+    {"name": "onboarding", "description": "New learner and parent onboarding"},
+    {"name": "parents", "description": "Parent/guardian management"},
+    {"name": "billing", "description": "Subscription and payment"},
+    {"name": "consent", "description": "POPIA consent collection"},
+    {"name": "popia", "description": "POPIA data subject rights"},
+    {"name": "jobs", "description": "Background job status"},
+    {"name": "admin-content-factory", "description": "Admin-only content factory and ETL provenance controls"},
+    {"name": "admin-etl", "description": "Admin-only read visibility into ETL source material"},
+    {"name": "learner-content", "description": "Learner-facing production content from Content Factory"},
+]
+
 app = FastAPI(
     title="EduBoost SA V2",
     version=settings.APP_VERSION,
+    openapi_tags=OPENAPI_TAGS,
     description="AI-powered adaptive learning platform — Grade R to 7. CAPS-aligned. POPIA-compliant.",
     lifespan=lifespan,
     docs_url="/docs",
@@ -77,48 +233,79 @@ app.add_middleware(TimingMiddleware)
 app.add_middleware(RequestIDMiddleware)
 app.middleware("http")(analytics_middleware)
 
+
 # ── Routers ───────────────────────────────────────────────────────────────────
-from app.api_v2_routers import auth, billing, consent, consent_renewal, diagnostics, gamification, jobs, learners, lessons, onboarding, parents, popia, study_plans  # noqa: E402
+from app.modules.practice import router as practice_router  # noqa: E402
+from app.api_v2_routers import (  # noqa: E402
+    assessments,
+    auth,
+    auth_extended,
+    audit,
+    billing,
+    consent,
+    consent_renewal,
+    content_factory,
+    admin_etl,
+    diagnostics,
+    gamification,
+    jobs,
+    learner_content,
+    learners,
+    lessons,
+    onboarding,
+    parents,
+    popia,
+    study_plans,
+    system,
+)
 
 API_V2 = "/api/v2"
-for prefix in (API_V2, "/v2"):
-    app.include_router(auth.router, prefix=prefix)
-    app.include_router(learners.router, prefix=prefix)
-    app.include_router(lessons.router, prefix=prefix)
-    app.include_router(study_plans.router, prefix=prefix)
-    app.include_router(diagnostics.router, prefix=prefix)
-    app.include_router(gamification.router, prefix=prefix)
-    app.include_router(onboarding.router, prefix=prefix)
-    app.include_router(parents.router, prefix=prefix)
-    app.include_router(billing.router, prefix=prefix)
-    app.include_router(consent.router, prefix=prefix)
-    app.include_router(consent_renewal.router, prefix=prefix)
-    app.include_router(popia.router, prefix=prefix)
-    app.include_router(jobs.router, prefix=prefix)
+API_PREFIXES = (API_V2, "/v2")
+ROUTER_REGISTRY = (
+    ("assessments", assessments.router),
+    ("auth", auth.router),
+    ("auth_extended", auth_extended.router),
+    ("audit", audit.router),
+    ("learners", learners.router),
+    ("lessons", lessons.router),
+    ("study_plans", study_plans.router),
+    ("diagnostics", diagnostics.router),
+    ("practice", practice_router.router),
+    ("gamification", gamification.router),
+    ("onboarding", onboarding.router),
+    ("parents", parents.router),
+    ("billing", billing.router),
+    ("consent", consent.router),
+    ("consent_renewal", consent_renewal.router),
+    ("content_factory", content_factory.router),
+    ("admin_etl", admin_etl.router),
+    ("popia", popia.router),
+    ("jobs", jobs.router),
+    ("system", system.router),
+    ("learner_content", learner_content.router),
+)
 
+# ── Operational Routes ─────────────────────────────────────────────────────────
 
-# ── Health & meta ─────────────────────────────────────────────────────────────
 @app.get("/health", tags=["ops"])
 async def health():
-    return {"status": "ok", "version": settings.APP_VERSION, "environment": settings.ENVIRONMENT, "mode": "v2-baseline"}
+    return {
+        "status": "ok",
+        "version": settings.APP_VERSION,
+        "environment": settings.ENVIRONMENT,
+        "mode": "v2-baseline",
+    }
 
 
 @app.get("/ready", tags=["ops"])
+@app.get("/v2/health/deep", tags=["ops"])
+@app.get("/api/v2/health/deep", tags=["ops"])
 async def ready():
-    # Perform deep health checks and return appropriate status
-    # 'ok' or 'degraded' returns 200, 'error' returns 503
+    # Perform deep health checks and return appropriate status.
+    # 'ok' or 'degraded' returns 200, 'error' returns 503.
     health_data = await gather_deep_health()
     status_code = 200 if health_data["status"] in ("ok", "degraded") else 503
     return JSONResponse(status_code=status_code, content=health_data)
-
-
-
-@app.get("/api/v2/health/deep", tags=["ops"])
-@app.get("/v2/health/deep", tags=["ops"])
-async def deep_health():
-    payload = await gather_deep_health()
-    status_code = 200 if payload["status"] in ("ok", "degraded") else 503
-    return JSONResponse(status_code=status_code, content=payload)
 
 
 @app.get("/metrics", tags=["ops"])
@@ -129,3 +316,28 @@ async def metrics():
 @app.get("/", tags=["ops"])
 async def root():
     return JSONResponse({"message": "EduBoost SA V2 — Ngiyabonga! 🦁", "docs": "/docs"})
+
+
+# ── Router Registration ───────────────────────────────────────────────────────
+
+for prefix in API_PREFIXES:
+    for _router_name, router in ROUTER_REGISTRY:
+        app.include_router(router, prefix=prefix)
+
+
+# Dev-only helper to simulate a slow DB query for testing slow-query logging.
+# Executes `pg_sleep(0.02)` via an AsyncSession; only enabled outside production.
+@app.get("/__dev/slow_query", tags=["dev"])
+async def dev_slow_query():
+    if settings.is_production():
+        return JSONResponse(status_code=404, content={"detail": "not found"})
+    try:
+        from app.core.database import AsyncSessionLocal
+        from sqlalchemy import text
+
+        async with AsyncSessionLocal() as session:
+            # 0.02s sleep should exceed low thresholds like 0.01s
+            await session.execute(text("SELECT pg_sleep(0.02)"))
+        return JSONResponse({"status": "ok", "note": "executed pg_sleep(0.02)"})
+    except Exception as exc:  # pragma: no cover - dev helper
+        return JSONResponse(status_code=500, content={"status": "error", "detail": str(exc)})
