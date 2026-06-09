@@ -58,6 +58,29 @@ To get access to the TypeScript compiler,  tsc, from the command line either:
 <paste /tmp/phase3_vitest_after.txt here>
 ```
 
+### pnpm install output (excerpt)
+
+```
+Lockfile is up to date, resolution step is skipped
+Packages: +651
+...
+dependencies:
++ dexie 4.4.3
+devDependencies:
++ typescript 5.4.5
+Done in 1m 29.5s
+FROZEN_FAILED
+Lockfile is up to date, resolution step is skipped
+Already up to date
+Done in 2.8s
+```
+
+### dexie verification
+
+- `dexie` was installed at `app/frontend/node_modules/dexie` (version 4.4.3). See `app/frontend/node_modules/dexie/package.json`.
+
+> Note: I will append the full `tsc` and `vitest` "after" outputs once the local runs complete and I can capture their logs to `/tmp/phase3_tsc_after.txt` and `/tmp/phase3_vitest_after.txt`.
+
 ### CI job snippet
 
 ```yaml
