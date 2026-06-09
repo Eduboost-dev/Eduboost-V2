@@ -12,7 +12,7 @@ from app.repositories.practice_session_repository import PracticeSessionReposito
 
 
 @pytest.mark.asyncio
-async def test_next_practice_item_rejects_wrong_session_owner():
+async def test_next_practice_item_rejects_wrong_session_owner(monkeypatch):
     """Test that next_practice_item rejects access from wrong user (owner_subject mismatch)"""
     learner_id = str(uuid4())
     item_id = str(uuid4())
@@ -34,6 +34,9 @@ async def test_next_practice_item_rejects_wrong_session_owner():
     
     # Mock db session
     mock_db = AsyncMock()
+    
+    # Inject mock repository
+    monkeypatch.setattr(practice_router, "PracticeSessionRepository", lambda db: mock_repo)
     
     # Try to access with different owner
     with pytest.raises(HTTPException) as exc:
@@ -91,7 +94,7 @@ async def test_next_practice_item_requires_consent_for_session_owner(monkeypatch
 
 
 @pytest.mark.asyncio
-async def test_respond_practice_rejects_wrong_session_owner_without_advancing():
+async def test_respond_practice_rejects_wrong_session_owner_without_advancing(monkeypatch):
     """Test that respond_practice rejects access from wrong user without advancing session"""
     learner_id = str(uuid4())
     item_id = str(uuid4())
@@ -114,6 +117,9 @@ async def test_respond_practice_rejects_wrong_session_owner_without_advancing():
     # Mock db session
     mock_db = AsyncMock()
     
+    # Inject mock repository
+    monkeypatch.setattr(practice_router, "PracticeSessionRepository", lambda db: mock_repo)
+    
     # Try to respond with different owner
     with pytest.raises(HTTPException) as exc:
         await practice_router.respond_practice(
@@ -132,16 +138,17 @@ async def test_respond_practice_rejects_wrong_session_owner_without_advancing():
 async def test_respond_practice_requires_consent_before_advancing(monkeypatch):
     """Test that respond_practice checks active consent before advancing session"""
     learner_id = str(uuid4())
-    item_id = str(uuid4())
+    item_id_1 = str(uuid4())
+    item_id_2 = str(uuid4())  # Use 2 items to avoid immediate completion
     session_id = str(uuid4())
     owner_subject = learner_id
     
-    # Create a mock session
+    # Create a mock session with 2 items
     session = MagicMock(spec=PracticeSession)
     session.id = session_id
     session.learner_id = learner_id
     session.owner_subject = owner_subject
-    session.items = [item_id]
+    session.items = [item_id_1, item_id_2]
     session.cursor = 0
     session.responses = []
     session.expires_at = datetime.now(timezone.utc) + timedelta(hours=24)
@@ -165,13 +172,17 @@ async def test_respond_practice_requires_consent_before_advancing(monkeypatch):
     
     result = await practice_router.respond_practice(
         session_id,
-        PracticeResponseRequest(item_id=uuid4(), correct=True),
+        PracticeResponseRequest(item_id=item_id_1, correct=False),
         current_user={"sub": owner_subject, "role": "learner", "learner_id": learner_id},
         db=mock_db,
     )
     
-    assert result.get("accepted") == True or result.get("completed") == False
+    # Should return "accepted" (not completed since we have 2 items)
+    assert result.get("accepted") == True
     assert consent_calls and consent_calls[0][2] == learner_id
-    # Verify repository was called to update
+    # Verify repository was called to update with new cursor=1 and response
     mock_repo.update_cursor_and_responses.assert_called_once()
-    assert practice_router._SESSIONS[session_id]["responses"][0]["correct"] is False
+    call_args = mock_repo.update_cursor_and_responses.call_args
+    assert call_args[0][1] == 1  # new_cursor should be 1
+    assert len(call_args[0][2]) == 1  # 1 response
+    assert call_args[0][2][0]["correct"] == False
