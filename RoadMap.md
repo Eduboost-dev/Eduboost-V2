@@ -41,7 +41,9 @@ Acceptance checks:
 
 ## Phase 1 - Release-Blocking Correctness Fixes
 
-Priority: P0
+**Status: Complete (2026-06-09)**  
+Priority: P0  
+Evidence: `docs/release/phase_1_evidence.md`
 
 ### 1.1 Fix Python Syntax and Compile Gates
 

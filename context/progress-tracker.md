@@ -7,27 +7,29 @@ Update after every completed RoadMap phase or major TODO milestone.
 
 ## Current Status
 
-**Active RoadMap Phase:** Phase 0 (Branch, Evidence, Audit Artifacts) -- in progress
-**Last completed:** N/A (RoadMap implementation beginning)
-**Next:** Phase 1 (Release-Blocking Correctness Fixes)
+**Active RoadMap Phase:** Phase 2 (Practice Session Security and Durability)
+**Last completed:** Phase 1 (Release-Blocking Correctness Fixes) - 2026-06-09
+**Next:** Phase 2 (Practice Session Security and Durability)
 **Quality gate:** RED (9/11 checks passing as of 2026-05-17)
 **Local unit tests:** 2051 passed, 1 skipped, 1 warning
 
 ## RoadMap Phase Progress
 
-### Phase 0 -- Branch, Evidence, and Audit Artifacts (in progress)
+### Phase 0 -- Branch, Evidence, and Audit Artifacts (complete)
 - [x] Audit report added (eduboost-v2-technical-audit-2026-06-02.md)
 - [x] RoadMap.md created (17 phases)
 - [x] Gap analysis added (Eduboost-V2_Gap_Analysis.md)
 - [x] TODO.md updated with 5 gap categories + beta period
 - [x] Context files updated (this directory)
-- [ ] Clean implementation branch from master
+- [x] Clean implementation branch from master (phase-1/release-blocking-correctness)
 
-### Phase 1 -- Release-Blocking Correctness Fixes
-- [ ] 1.1 Fix compileall syntax error in audit_todo_backlog.py
-- [ ] 1.1 Add CI compile gate for app and scripts
-- [ ] 1.2 Fix all F821 (undefined name) findings
-- [ ] 1.2 Add CI Ruff gate: E9,F63,F7,F82,F821
+### Phase 1 -- Release-Blocking Correctness Fixes (complete 2026-06-09)
+- [x] 1.1 Fix compileall syntax error (no errors found; CI gate verified) in audit_todo_backlog.py
+- [x] 1.1 Add CI compile gate for app and scripts (already active in ci-cd.yml)
+- [x] 1.2 Fix all F821 (undefined name) findings (0 findings; gate passes)
+- [x] 1.2 Add CI Ruff gate: E9,F63,F7,F82,F821 (already active; ~1,000 non-blocking debt in ruff_debt.md)
+
+Evidence: `docs/release/phase_1_evidence.md`, `docs/backlog/ruff_debt.md`
 
 ### Phase 2 -- Practice Session Security
 - [ ] 2.1 Authenticate practice session continuation routes
@@ -83,3 +85,6 @@ These are repository-side complete but need CI/staging/production proof:
 - Context files reference both; update them together
 - The 5 gap categories (GAP-1 through GAP-5) were identified 2026-06-09
 - Beta period (Phase 16) is the final gate before any production claim
+
+| 2026-06-09 | Phase 1 complete (no fixes needed) | Codebase already clean; compileall + ruff gates pass | phase_1_evidence.md |
+| 2026-06-09 | ~1,000 Ruff findings deferred to Phase 11 | Only correctness-blocking rules gated; style debt tracked | ruff_debt.md |
