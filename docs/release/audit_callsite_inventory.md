@@ -135,6 +135,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/core/audit.py` | 111 | audit_record_call | `await self.record(event.lower(), actor_id=actor_id, payload=detail or {})` |
 | `app/core/audit.py` | 114 | audit_record_call | `await self.record(` |
 | `app/core/audit.py` | 122 | audit_record_call | `await self.record(` |
+| `app/core/config.py` | 194 | audit_append_call | `qlist.append(("ssl", val))` |
+| `app/core/config.py` | 196 | audit_append_call | `qlist.append((k, val))` |
 | `app/core/database.py` | 84 | audit_events_table | `await conn.execute(text("DROP RULE IF EXISTS audit_events_no_update ON audit_events"))` |
 | `app/core/database.py` | 85 | audit_events_table | `await conn.execute(text("DROP RULE IF EXISTS audit_events_no_delete ON audit_events"))` |
 | `app/core/database.py` | 90 | audit_events_table | `ON UPDATE TO audit_events` |
@@ -162,57 +164,6 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/core/stripe_client.py` | 67 | audit_record_call | `await self._event_repo.record(event["id"], event["type"], dict(event))` |
 | `app/domain/consent.py` | 69 | audit_log_identifier | `# audit_log` |
 | `app/domain/entities.py` | 18 | audit_log_identifier | `class AuditLog:` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 27 | audit_append_call | `combinedStream.append(fs.createReadStream('file1.txt'));` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 28 | audit_append_call | `combinedStream.append(fs.createReadStream('file2.txt'));` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 42 | audit_append_call | `combinedStream.append(fs.createReadStream('file1.txt'));` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 43 | audit_append_call | `combinedStream.append(fs.createReadStream('file2.txt'));` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 58 | audit_append_call | `combinedStream.append(function(next) {` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 61 | audit_append_call | `combinedStream.append(function(next) {` |
-| `app/frontend/node_modules/combined-stream/Readme.md` | 95 | audit_append_call | `### combinedStream.append(stream)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 46 | audit_append_call | `input.append(value)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 48 | audit_append_call | `known.key.append(value)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 49 | audit_append_call | `known.value.append(index)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 70 | audit_append_call | `parsed.append(tmp)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 71 | audit_append_call | `lazy.append([output, key])` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 81 | audit_append_call | `output.append(_relate(known, input, val))` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 112 | audit_append_call | `wrapped.append(_wrap(value))` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 117 | audit_append_call | `input.append(value.value)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 119 | audit_append_call | `input.append(value)` |
-| `app/frontend/node_modules/flatted/python/flatted.py` | 142 | audit_append_call | `output.append(_transform(known, input, input[i]))` |
-| `app/frontend/node_modules/form-data/README.md` | 32 | audit_append_call | `form.append('my_field', 'my value');` |
-| `app/frontend/node_modules/form-data/README.md` | 33 | audit_append_call | `form.append('my_buffer', new Buffer(10));` |
-| `app/frontend/node_modules/form-data/README.md` | 34 | audit_append_call | `form.append('my_file', fs.createReadStream('/foo/bar.jpg'));` |
-| `app/frontend/node_modules/form-data/README.md` | 46 | audit_append_call | `form.append('my_field', 'my value');` |
-| `app/frontend/node_modules/form-data/README.md` | 47 | audit_append_call | `form.append('my_buffer', new Buffer(10));` |
-| `app/frontend/node_modules/form-data/README.md` | 48 | audit_append_call | `form.append('my_logo', response);` |
-| `app/frontend/node_modules/form-data/README.md` | 60 | audit_append_call | `form.append('my_field', 'my value');` |
-| `app/frontend/node_modules/form-data/README.md` | 61 | audit_append_call | `form.append('my_buffer', new Buffer(10));` |
-| `app/frontend/node_modules/form-data/README.md` | 62 | audit_append_call | `form.append('my_logo', request('http://nodejs.org/images/logo.png'));` |
-| `app/frontend/node_modules/form-data/README.md` | 85 | audit_append_call | `form.append('my_field', 'my value');` |
-| `app/frontend/node_modules/form-data/README.md` | 86 | audit_append_call | `form.append('my_buffer', /* something big */);` |
-| `app/frontend/node_modules/form-data/README.md` | 131 | audit_append_call | `form.append('my_buffer', buffer, options);` |
-| `app/frontend/node_modules/form-data/README.md` | 147 | audit_append_call | `form.append('file', stdout, {` |
-| `app/frontend/node_modules/form-data/README.md` | 204 | audit_append_call | `form.append('my_string', 'my value');` |
-| `app/frontend/node_modules/form-data/README.md` | 205 | audit_append_call | `form.append('my_integer', 1);` |
-| `app/frontend/node_modules/form-data/README.md` | 206 | audit_append_call | `form.append('my_boolean', true);` |
-| `app/frontend/node_modules/form-data/README.md` | 207 | audit_append_call | `form.append('my_buffer', new Buffer(10));` |
-| `app/frontend/node_modules/form-data/README.md` | 208 | audit_append_call | `form.append('my_array_as_json', JSON.stringify(['bird', 'cute']));` |
-| `app/frontend/node_modules/form-data/README.md` | 214 | audit_append_call | `form.append('my_file', fs.createReadStream('/foo/bar.jpg'), 'bar.jpg');` |
-| `app/frontend/node_modules/form-data/README.md` | 217 | audit_append_call | `form.append('my_file', fs.createReadStream('/foo/bar.jpg'), { filename: 'bar.jpg', contentType: 'image/jpeg', knownLength: 19806 });` |
-| `app/frontend/node_modules/form-data/README.md` | 239 | audit_append_call | `form.append('my_buffer', Buffer.from([0x4a,0x42,0x20,0x52,0x6f,0x63,0x6b,0x73]));` |
-| `app/frontend/node_modules/form-data/README.md` | 240 | audit_append_call | `form.append('my_file', fs.readFileSync('/foo/bar.jpg'));` |
-| `app/frontend/node_modules/form-data/README.md` | 274 | audit_append_call | `form.append('my_string', 'Hello World');` |
-| `app/frontend/node_modules/form-data/README.md` | 314 | audit_append_call | `form.append('a', 1);` |
-| `app/frontend/node_modules/form-data/README.md` | 331 | audit_append_call | `form.append('image', stream);` |
-| `app/frontend/node_modules/jsdom/README.md` | 69 | audit_append_call | `<script>document.getElementById("content").append(document.createElement("hr"));</script>` |
-| `app/frontend/node_modules/jsdom/README.md` | 81 | audit_append_call | `<script>document.getElementById("content").append(document.createElement("hr"));</script>` |
-| `app/frontend/node_modules/jsdom/README.md` | 99 | audit_append_call | `<script>document.getElementById("content").append(document.createElement("hr"));</script>` |
-| `app/frontend/node_modules/jsdom/README.md` | 103 | audit_append_call | `dom.window.eval('document.getElementById("content").append(document.createElement("p"));');` |
-| `app/frontend/node_modules/magic-string/README.md` | 52 | audit_append_call | `s.prepend('var ').append(';'); // most methods are chainable` |
-| `app/frontend/node_modules/magic-string/README.md` | 101 | audit_append_call | `### s.append( content )` |
-| `app/frontend/node_modules/magic-string/README.md` | 296 | audit_append_call | `.append('}());');` |
-| `app/frontend/node_modules/postcss-selector-parser/API.md` | 520 | audit_append_call | `### `container.prepend(node)` & `container.append(node)`` |
-| `app/frontend/node_modules/postcss-selector-parser/API.md` | 527 | audit_append_call | `selector.append(id);` |
 | `app/models/__init__.py` | 323 | audit_events_table | `__tablename__ = "audit_events"` |
 | `app/models/__init__.py` | 669 | audit_log_identifier | `class AuditLog(Base):` |
 | `app/models/__init__.py` | 670 | audit_logs_table | `__tablename__ = "audit_logs"` |
@@ -1110,16 +1061,17 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/content_staging_readiness.py` | 362 | audit_append_call | `blockers.append(ScopeBlocker(code="invalid_provenance", severity=BlockerSeverity.BLOCKING, **common))` |
 | `app/services/content_staging_readiness.py` | 364 | audit_append_call | `blockers.append(ScopeBlocker(code="invalid_license", severity=BlockerSeverity.BLOCKING, **common))` |
 | `app/services/content_staging_readiness.py` | 366 | audit_append_call | `blockers.append(ScopeBlocker(code="low_source_quality", severity=BlockerSeverity.BLOCKING, **common))` |
-| `app/services/content_staging_seed_executor.py` | 217 | audit_append_call | `items.append(StagingSeedRunResult(` |
-| `app/services/content_staging_seed_executor.py` | 306 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is pending review"))` |
-| `app/services/content_staging_seed_executor.py` | 310 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is rejected"))` |
-| `app/services/content_staging_seed_executor.py` | 314 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is quarantined"))` |
-| `app/services/content_staging_seed_executor.py` | 318 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact validation failed"))` |
-| `app/services/content_staging_seed_executor.py` | 322 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, f"Artifact status {status_val} is not seedable"))` |
-| `app/services/content_staging_seed_executor.py` | 328 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Invalid provenance"))` |
-| `app/services/content_staging_seed_executor.py` | 335 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Latest validation report missing"))` |
-| `app/services/content_staging_seed_executor.py` | 338 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Latest validation failed"))` |
-| `app/services/content_staging_seed_executor.py` | 341 | audit_append_call | `seedable.append(SeedableArtifact(` |
+| `app/services/content_staging_seed_executor.py` | 294 | audit_append_call | `errors.append(f"Constraint violation for artifact {artifact.artifact_id}: {item_integrity_err}")` |
+| `app/services/content_staging_seed_executor.py` | 363 | audit_append_call | `items.append(StagingSeedRunResult(` |
+| `app/services/content_staging_seed_executor.py` | 452 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is pending review"))` |
+| `app/services/content_staging_seed_executor.py` | 456 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is rejected"))` |
+| `app/services/content_staging_seed_executor.py` | 460 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is quarantined"))` |
+| `app/services/content_staging_seed_executor.py` | 464 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact validation failed"))` |
+| `app/services/content_staging_seed_executor.py` | 468 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, f"Artifact status {status_val} is not seedable"))` |
+| `app/services/content_staging_seed_executor.py` | 474 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Invalid provenance"))` |
+| `app/services/content_staging_seed_executor.py` | 481 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Latest validation report missing"))` |
+| `app/services/content_staging_seed_executor.py` | 484 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Latest validation failed"))` |
+| `app/services/content_staging_seed_executor.py` | 487 | audit_append_call | `seedable.append(SeedableArtifact(` |
 | `app/services/content_template_validation.py` | 18 | audit_append_call | `errors.append("Study plan template requires content_json or template_json.")` |
 | `app/services/content_template_validation.py` | 21 | audit_append_call | `errors.append("Study templates may reference only approved lessons or blueprints: " + ", ".join(sorted(missing)))` |
 | `app/services/curriculum/coverage.py` | 34 | audit_append_call | `gaps.append(` |
@@ -2205,8 +2157,16 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/curriculum/resolve_dbe_caps_urls.py` | 172 | audit_append_call | `changed.append(grade_r_doc["document_id"])` |
 | `scripts/curriculum/resolve_dbe_caps_urls.py` | 180 | audit_append_call | `changed.append(document_id)` |
 | `scripts/curriculum/resolve_dbe_caps_urls.py` | 190 | audit_append_call | `changed.append(scope["scope_id"])` |
+| `scripts/curriculum/rollback_staging_seed.py` | 44 | audit_append_call | `run_ids_to_rollback.append((scope_id, UUID(run_id_str)))` |
+| `scripts/curriculum/rollback_staging_seed.py` | 58 | audit_append_call | `run_ids_to_rollback.append((args.scope_id, run.seed_run_id))` |
+| `scripts/curriculum/rollback_staging_seed.py` | 87 | audit_append_call | `failed_rollbacks.append(run_id)` |
 | `scripts/curriculum/scaffold_topic_map_drafts.py` | 62 | audit_append_call | `skipped.append(item["scope_id"])` |
 | `scripts/curriculum/scaffold_topic_map_drafts.py` | 66 | audit_append_call | `created.append(str(target.relative_to(ROOT)))` |
+| `scripts/curriculum/seed_staging_review_scopes.py` | 61 | audit_append_call | `scopes_summary.append({` |
+| `scripts/curriculum/seed_staging_review_scopes.py` | 108 | audit_append_call | `failed_scopes.append(scope_id)` |
+| `scripts/curriculum/seed_staging_review_scopes.py` | 113 | audit_append_call | `succeeded_scopes.append(scope_id)` |
+| `scripts/curriculum/seed_staging_review_scopes.py` | 119 | audit_append_call | `failed_scopes.append(scope_id)` |
+| `scripts/curriculum/seed_staging_review_scopes.py` | 123 | audit_append_call | `failed_scopes.append(scope_id)` |
 | `scripts/curriculum/source_inventory.py` | 74 | audit_append_call | `rows.append(` |
 | `scripts/curriculum/stamp_dev_approved_review_scopes.py` | 47 | audit_append_call | `rows.append({` |
 | `scripts/curriculum/upload_caps_sources_to_azure.py` | 143 | audit_append_call | `errors.append(f"container create failed: {exc}")` |
@@ -2577,6 +2537,48 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_truthful_beta_readiness_status.py` | 76 | audit_append_call | `lines.append("- None")` |
 | `scripts/generate_truthful_release_owner_beta_go_no_go.py` | 38 | audit_append_call | `lines.append("- None")` |
 | `scripts/generate_truthful_release_owner_beta_go_no_go.py` | 43 | audit_logs_table | `"This memo does not approve production launch, destructive database changes, consent-table merge, audit_logs drop, public mutating health probes, or synthetic evidence substitution.",` |
+| `scripts/ingestion/api.py` | 134 | audit_append_call | `result.append(SourceInfo(` |
+| `scripts/ingestion/main.py` | 350 | audit_append_call | `resolved.append(sid)` |
+| `scripts/ingestion/pipeline/__init__.py` | 179 | audit_append_call | `self._raw_buf.append(raw)` |
+| `scripts/ingestion/pipeline/__init__.py` | 180 | audit_append_call | `self._norm_buf.append(aligned)` |
+| `scripts/ingestion/pipeline/__init__.py` | 181 | audit_append_call | `self._train_buf.append(record)` |
+| `scripts/ingestion/pipeline/__init__.py` | 232 | audit_append_call | `by_source.setdefault(rec.source_id, []).append(rec)` |
+| `scripts/ingestion/pipeline/caps_aligner.py` | 151 | audit_append_call | `results.append(align(item))` |
+| `scripts/ingestion/pipeline/caps_aligner.py` | 154 | audit_append_call | `results.append(item)` |
+| `scripts/ingestion/pipeline/normaliser.py` | 134 | audit_append_call | `results.append(norm)` |
+| `scripts/ingestion/pipeline/storage.py` | 292 | audit_append_call | `where_parts.append("subject = :subject")` |
+| `scripts/ingestion/pipeline/storage.py` | 295 | audit_append_call | `where_parts.append("grade = :grade")` |
+| `scripts/ingestion/pipeline/storage.py` | 298 | audit_append_call | `where_parts.append("caps_phase = :caps_phase")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 109 | audit_append_call | `records.append(rec)` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 326 | audit_append_call | `tags.append(f"grade-{c.grade}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 328 | audit_append_call | `tags.append(f"phase-{c.caps_phase}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 330 | audit_append_call | `tags.append(f"subject-{c.subject}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 332 | audit_append_call | `tags.append(f"topic-{c.caps_topic_code}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 334 | audit_append_call | `tags.append(f"jurisdiction-{c.jurisdiction}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 336 | audit_append_call | `tags.append(f"difficulty-{c.difficulty.value}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 338 | audit_append_call | `tags.append(f"lang-{c.language}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 339 | audit_append_call | `tags.append(f"source-{c.source_id}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 340 | audit_append_call | `tags.append(f"type-{c.content_type.value}")` |
+| `scripts/ingestion/queue_manager.py` | 284 | audit_append_call | `jobs.append(json.loads(payload))` |
+| `scripts/ingestion/sources/base.py` | 242 | audit_append_call | `responses.append({` |
+| `scripts/ingestion/sources/base.py` | 255 | audit_append_call | `pending_reads.append(asyncio.create_task(_read()))` |
+| `scripts/ingestion/sources/bbc_bitesize.py` | 130 | audit_append_call | `links.append(full)` |
+| `scripts/ingestion/sources/bbc_bitesize.py` | 156 | audit_append_call | `key_points.append(text)` |
+| `scripts/ingestion/sources/bbc_bitesize.py` | 214 | audit_append_call | `items.append({"question": q, "options": opts, "answer": correct})` |
+| `scripts/ingestion/sources/ck12.py` | 241 | audit_append_call | `questions.append({` |
+| `scripts/ingestion/sources/commonlit.py` | 126 | audit_append_call | `links.append(full)` |
+| `scripts/ingestion/sources/commonlit.py` | 230 | audit_append_call | `questions.append({` |
+| `scripts/ingestion/sources/dbe_south_africa.py` | 186 | audit_append_call | `pages.append({"page": page_num, "text": text.strip()})` |
+| `scripts/ingestion/sources/dbe_south_africa.py` | 282 | audit_append_call | `docs.append({` |
+| `scripts/ingestion/sources/khan_academy.py` | 129 | audit_append_call | `questions.append(q)` |
+| `scripts/ingestion/sources/libretexts.py` | 152 | audit_append_call | `links.append(full)` |
+| `scripts/ingestion/sources/libretexts.py` | 198 | audit_append_call | `examples.append(text)` |
+| `scripts/ingestion/sources/siyavula.py` | 136 | audit_append_call | `links.append((full_url, text))` |
+| `scripts/ingestion/sources/siyavula.py` | 143 | audit_append_call | `unique.append((u, t))` |
+| `scripts/ingestion/sources/siyavula.py` | 175 | audit_append_call | `worked_examples.append({` |
+| `scripts/ingestion/sources/siyavula.py` | 185 | audit_append_call | `exercises.append(text)` |
+| `scripts/ingestion/sources/wced.py` | 138 | audit_append_call | `links.append((full, title))` |
+| `scripts/ingestion/sources/wced.py` | 210 | audit_append_call | `pages.append({"page": page_num, "text": text.strip()})` |
 | `scripts/inspect_auth_router_boundary.py` | 23 | audit_append_call | `modules.append(node.module or "")` |
 | `scripts/inspect_auth_router_boundary.py` | 36 | audit_append_call | `rows.append({` |
 | `scripts/inspect_auth_token_claims.py` | 35 | audit_append_call | `rows.append(node.module or "")` |
@@ -3085,6 +3087,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/unit/test_db_migration_seed_repeatability.py` | 102 | audit_events_table | `assert presence['audit_events'] is True` |
 | `tests/unit/test_diagnostics_scoring_snapshot.py` | 67 | audit_append_call | `captured.append([float(getattr(item, "difficulty_b", getattr(item, "b_param", 0.0))) for item, _ in responses])` |
 | `tests/unit/test_envelope_route_background.py` | 12 | audit_append_call | `calls.append("ran")` |
+| `tests/unit/test_etl_mcp_server_startup.py` | 22 | audit_append_call | `self.calls.append(kwargs)` |
+| `tests/unit/test_etl_mcp_server_startup.py` | 30 | audit_append_call | `called.append((mcp_server, host, port))` |
 | `tests/unit/test_lesson_object_authorization_contracts.py` | 48 | audit_append_call | `candidates.append(node)` |
 | `tests/unit/test_lesson_object_authorization_contracts.py` | 62 | audit_append_call | `candidates.append(node)` |
 | `tests/unit/test_no_raw_dict_responses.py` | 74 | audit_append_call | `violations.append(` |
@@ -3110,6 +3114,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/unit/test_runtime_blockers_after_followup_audit.py` | 20 | audit_append_call | `self.calls.append(("revoke", guardian_id, learner_id, actor_id, reason))` |
 | `tests/unit/test_schema_drift_deep_readiness_audit_slice.py` | 48 | audit_events_table | `for bad in ["session.commit()", "INSERT INTO audit_events", "alembic stamp head"]:` |
 | `tests/unit/test_schema_drift_deep_readiness_audit_slice.py` | 65 | audit_append_call | `self.calls.append(kwargs)` |
+| `tests/unit/test_seed_staging_review_scopes.py` | 38 | audit_append_call | `self.added.append(obj)` |
 | `tests/unit/test_sprint3_popia_router_data_rights.py` | 24 | audit_append_call | `self.calls.append(("export", {"learner_id": learner_id, "current_user": current_user}))` |
 | `tests/unit/test_sprint3_popia_router_data_rights.py` | 28 | audit_append_call | `self.calls.append(("erasure", {"learner_id": learner_id, "current_user": current_user, "reason": reason}))` |
 | `tests/unit/test_sprint3_popia_router_data_rights.py` | 32 | audit_append_call | `self.calls.append(("cancel_erasure", {"learner_id": learner_id, "current_user": current_user}))` |

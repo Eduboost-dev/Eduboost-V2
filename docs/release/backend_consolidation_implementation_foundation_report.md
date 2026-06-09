@@ -1,13 +1,13 @@
 # Backend Consolidation Implementation Foundation Report
 
-Generated at: `2026-06-04T11:08:29Z`
+Generated at: `2026-06-05T20:16:41Z`
 
 | Check | Return code | Command |
 |---|---:|---|
-| implementation foundation | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_consolidation_implementation_foundation.py` |
-| runtime compatibility | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_runtime_compatibility.py` |
-| execution packet | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_consolidation_execution_packet.py` |
-| terminal packet | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_consolidation_terminal_packet.py` |
+| implementation foundation | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_implementation_foundation.py` |
+| runtime compatibility | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_runtime_compatibility.py` |
+| execution packet | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_execution_packet.py` |
+| terminal packet | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_terminal_packet.py` |
 
 ## Boundary
 
@@ -15,7 +15,7 @@ This report confirms implementation foundation readiness only. It does not appro
 
 ## implementation foundation
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_consolidation_implementation_foundation.py`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_implementation_foundation.py`
 
 Return code: `0`
 
@@ -40,7 +40,7 @@ Backend consolidation implementation foundation check
 
 ## runtime compatibility
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_runtime_compatibility.py`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_runtime_compatibility.py`
 
 Return code: `0`
 
@@ -66,7 +66,7 @@ Deep-health compatibility surface
 
 ## execution packet
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_consolidation_execution_packet.py`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_execution_packet.py`
 
 Return code: `0`
 
@@ -97,7 +97,7 @@ Backend consolidation execution packet check
 
 ## terminal packet
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python3.11 scripts/check_backend_consolidation_terminal_packet.py`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_terminal_packet.py`
 
 Return code: `0`
 

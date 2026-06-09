@@ -152,7 +152,7 @@ greenlet==3.0.3
     #   sqlalchemy
 grimp==3.14
     # via import-linter
-groq==0.9.0
+groq==1.4.0
     # via -r requirements/base.in
 h11==0.16.0
     # via

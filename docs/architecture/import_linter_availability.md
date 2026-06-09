@@ -1,11 +1,12 @@
 # Import-Linter Availability
 
-Generated at: `2026-06-04T11:15:52Z`
+Generated at: `2026-06-05T20:19:22Z`
 
-**Status:** missing
+**Status:** available
 
-Install in the active project virtual environment before Phase 1 strict import contracts:
+```text
+Usage: lint-imports [OPTIONS]
+Try 'lint-imports --help' for help.
 
-```bash
-python -m pip install import-linter
+Error: No such option: --version Did you mean --verbose?
 ```
