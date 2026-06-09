@@ -1,7 +1,7 @@
 # Staging Acceptance Status
 
-Generated at: `2026-05-26T18:41:16Z`
-Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+Generated at: `2026-05-22T14:26:00Z`
+Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 
 **Status:** `external-blocked`
 

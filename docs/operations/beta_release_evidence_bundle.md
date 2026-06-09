@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-26T20:29:05.428059+00:00`
-- branch: `pr-cf-013-full-generation-runner`
-- commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+- generated_at_utc: `2026-06-05T20:19:21.854371+00:00`
+- branch: `feature/ingestion-pipeline`
+- commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 - release_candidate: `unset`
 
 ## Evidence Artifacts

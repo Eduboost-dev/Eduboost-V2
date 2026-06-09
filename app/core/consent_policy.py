@@ -8,12 +8,12 @@ checks.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import UTC, datetime, timedelta
-from enum import StrEnum
+from datetime import datetime, timedelta, timezone
+from enum import Enum
 from typing import Any
 
 
-class ConsentState(StrEnum):
+class ConsentState(str, Enum):
     """Canonical learner consent states for POPIA workflows."""
 
     PENDING = "pending"
@@ -51,7 +51,7 @@ def _as_aware(value: datetime | None) -> datetime | None:
     if value is None:
         return None
     if value.tzinfo is None:
-        return value.replace(tzinfo=UTC)
+        return value.replace(tzinfo=timezone.utc)
     return value
 
 
@@ -70,7 +70,7 @@ def derive_consent_state(
     product/ops can surface notices.  ``expired`` and ``withdrawn`` block all
     learner-data processing.
     """
-    current_time = _as_aware(now) or datetime.now(UTC)
+    current_time = _as_aware(now) or datetime.now(timezone.utc)
     if consent is None:
         return ConsentPolicyDecision(
             learner_id=str(learner_id),

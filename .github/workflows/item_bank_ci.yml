@@ -33,7 +33,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PYTHON_VERSION: "3.12"
+  PYTHON_VERSION: "3.12.3"
   ITEM_BANK_MIN_APPROVED: "1"
   ITEM_BANK_MIN_APPROVED_TOTAL: "14"
   DATABASE_URL: "postgresql://eduboost:eduboost@localhost:5432/eduboost"
@@ -94,7 +94,7 @@ jobs:
 
       - name: Upload validation report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: item-bank-validation-report
           path: reports/validation/
@@ -165,7 +165,7 @@ jobs:
 
       - name: Publish coverage assertion results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-assertion-results
           path: reports/ci/
@@ -173,7 +173,7 @@ jobs:
 
       - name: Post coverage summary to PR
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');

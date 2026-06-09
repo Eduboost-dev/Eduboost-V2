@@ -12,6 +12,23 @@ const STATIC_ASSETS = [
   "/manifest.json",
 ];
 
+// Routes that should use cache-first strategy
+const CACHE_FIRST_PATTERNS = [
+  /\/_next\/static\//,
+  /\/v2\/lessons\/[^/]+$/,
+  /\/v2\/study-plans\/[^/]+\/current$/,
+];
+
+// Routes that should queue when offline
+const QUEUEABLE_API_PATTERNS = [
+  /\/v2\/diagnostics\/session\/[^/]+\/respond/,
+  /\/v2\/lessons\/[^/]+\/feedback/,
+  /\/v2\/assessments\/[^/]+\/submit/,
+];
+
+// ---------------------------------------------------------------------------
+// Install: precache static assets
+// ---------------------------------------------------------------------------
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.addAll(STATIC_ASSETS)));
   self.skipWaiting();

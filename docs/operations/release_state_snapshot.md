@@ -2,16 +2,15 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-26T20:31:01.490181+00:00`
-- branch: `pr-cf-013-full-generation-runner`
-- commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+- generated_at_utc: `2026-05-22T14:25:55.704830+00:00`
+- branch: `codex/production_readiness`
+- commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
 - release_candidate: `unset`
 
 ## Working Tree Status
 
 ```text
-M app/api_v2_routers/content_factory.py
- M app/domain/content_factory_schemas.py
+M docs/ai/ai_prompt_surface_inventory.md
  M docs/architecture/auth_boundary_debt_report.json
  M docs/architecture/auth_boundary_debt_report.md
  M docs/architecture/auth_service_extraction_followup.json
@@ -54,6 +53,7 @@ M app/api_v2_routers/content_factory.py
  M docs/release/approval_evidence_status.md
  M docs/release/audit_baseline_refresh_status.json
  M docs/release/audit_baseline_refresh_status.md
+ M docs/release/audit_callsite_inventory.md
  M docs/release/auth_db_lifecycle_proof_report.json
  M docs/release/auth_db_lifecycle_proof_report.md
  M docs/release/auth_http_success_scope_report.json
@@ -107,10 +107,12 @@ M app/api_v2_routers/content_factory.py
  M docs/release/ci_authority_status.json
  M docs/release/ci_authority_status.md
  M docs/release/ci_evidence.json
+ M docs/release/ci_evidence.md
  M docs/release/ci_evidence_status.json
  M docs/release/ci_evidence_status.md
  M docs/release/ci_run_evidence_status.json
  M docs/release/ci_run_evidence_status.md
+ M docs/release/consent_callsite_inventory.md
  M docs/release/db_live_only_table_ownership_status.json
  M docs/release/db_live_only_table_ownership_status.md
  M docs/release/db_migration_seed_repeatability_status.json
@@ -119,6 +121,8 @@ M app/api_v2_routers/content_factory.py
  M docs/release/diag_deep_health_runtime_status.md
  M docs/release/diagnostic_item_bank_canonicality_status.json
  M docs/release/diagnostic_item_bank_canonicality_status.md
+ M docs/release/diagnostic_score_live_audit_status.json
+ M docs/release/diagnostic_score_live_audit_status.md
  M docs/release/diagnostics_db_integrity_proof.json
  M docs/release/diagnostics_db_integrity_proof.md
  M docs/release/diagnostics_route_transaction_gap_plan.json
@@ -176,17 +180,18 @@ M app/api_v2_routers/content_factory.py
  M docs/security/jwt_rotation_introspection.json
  M docs/security/jwt_rotation_introspection.md
  M docs/security/jwt_rotation_repair_report.md
- M package.json
- M pytest.ini
- M scripts/check_auth_refresh_db_proof.py
- M scripts/check_final_gate_refresh.py
- M scripts/check_popia_response_contract_no_skips.py
- M scripts/check_prod_frontend_deployment.py
- M scripts/check_prod_frontend_runtime.py
- M scripts/popia_response_contract_no_skips.py
-?? docs/content_factory_overnight_batch_pipeline.md
-?? docs/input/
-?? reports/content_factory/full_generation/20260526_174919/review_bundles/
+ M docs/security/popia_consent_boundary_matrix.md
+ M scripts/check_popia_lifecycle_response_contract.py
+ M scripts/diagnostic_score_live_audit.py
+ M scripts/evidence_registry.py
+ M scripts/final_gate_classifier.py
+ M scripts/final_gate_refresh.py
+ M tests/unit/test_config_key_vault.py
+ M tests/unit/test_production_key_vault_behavior.py
+?? scripts/create_diagnostic_items.py
+?? scripts/generate_irt_seed_sql.py
+?? scripts/generate_irt_seed_sql_runner.py
+?? scripts/irt_seed_1600.sql
 ```
 
 ## State Artifacts

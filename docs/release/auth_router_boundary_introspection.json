@@ -1,7 +1,8 @@
 {
-  "generated_at": "2026-05-26T18:26:45Z",
+  "generated_at": "2026-06-05T20:15:51Z",
   "auth_router_exists": true,
   "imports": [
+    "app.api_v2_deps.auth",
     "app.api_v2_deps.auth_runtime",
     "app.api_v2_deps.auth_service",
     "app.core.config",
@@ -115,7 +116,7 @@
     },
     {
       "name": "logout",
-      "lineno": 187,
+      "lineno": 188,
       "args": [
         "response",
         "current_user",
@@ -126,7 +127,7 @@
     },
     {
       "name": "revoke_all_tokens",
-      "lineno": 198,
+      "lineno": 204,
       "args": [
         "response",
         "current_user",

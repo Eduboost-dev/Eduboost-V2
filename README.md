@@ -41,12 +41,30 @@ Item-bank coverage details live in
 [`docs/caps/grade4_maths_coverage_matrix.md`](/docs/caps/grade4_maths_coverage_matrix.md).
 The launch content evidence lives in docs/release/runtime_launch_content_evidence_status.md.
 
+
+## Authoritative Documentation Map
+
+Use these domain indexes for current implementation guidance:
+
+- [Backend](docs/backend/README.md)
+- [Frontend](docs/frontend/README.md)
+- [Diagnostics and assessment](docs/diagnostics/README.md)
+- [IRT engine](docs/irt/README.md)
+- [ETL and source evidence](docs/etl/README.md)
+- [POPIA and data rights](docs/popia/README.md)
+- [Security](docs/security/README.md)
+- [Testing](docs/testing/README.md)
+- [Deployment and operations](docs/deployment/README.md)
+- [Roadmap index](docs/roadmap/README.md)
+
+The active deep-audit baseline is in [audits/deep_app_audit](audits/deep_app_audit/implementation_reality_report.md).
+
 ## Quick Start
 
 ### Prerequisites
 
 - Docker Desktop with Compose v2
-- Python 3.11+
+- Python 3.12.3 (managed via `.python-version`; see `docs/adr/ADR-001-python-runtime-version.md`)
 - Node.js 20 LTS
 
 ### Start the default stack

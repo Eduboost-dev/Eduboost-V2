@@ -185,7 +185,7 @@ request-ID propagation confirmed in `app/core/exceptions.py`.
 - [ ] CI `legacy-route-guard` job is green.
 - [ ] `docs/openapi.json` committed and hash recorded in release evidence.
 - [ ] Completion note added to `docs/project_status.md` and
-  `PR_INTEGRATION_SUMMARY.md`.
+  `audits/reports/PR_INTEGRATION_SUMMARY.md`.
 
 ---
 

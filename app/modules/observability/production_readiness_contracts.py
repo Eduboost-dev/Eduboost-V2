@@ -9,19 +9,19 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from enum import StrEnum
+from enum import Enum
 import re
 from typing import Mapping
 
 
-class TelemetrySignal(StrEnum):
+class TelemetrySignal(str, Enum):
     METRIC = "metric"
     LOG = "log"
     TRACE = "trace"
     EVENT = "event"
 
 
-class ServiceTier(StrEnum):
+class ServiceTier(str, Enum):
     API = "api"
     WORKER = "worker"
     FRONTEND = "frontend"
@@ -31,14 +31,14 @@ class ServiceTier(StrEnum):
     NOTIFICATION_PROVIDER = "notification_provider"
 
 
-class AlertSeverity(StrEnum):
+class AlertSeverity(str, Enum):
     INFO = "info"
     WARNING = "warning"
     CRITICAL = "critical"
     PAGE = "page"
 
 
-class IncidentRoute(StrEnum):
+class IncidentRoute(str, Enum):
     ENGINEERING = "engineering"
     SECURITY = "security"
     PRIVACY = "privacy"

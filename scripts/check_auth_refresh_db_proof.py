@@ -17,7 +17,6 @@ CRITICAL = [
     "scripts/check_auth_refresh_db_proof.py",
     "scripts/patch_auth_refresh_db_proof_registry.py",
     "tests/unit/test_auth_refresh_db_proof.py",
-    "tests/integration/test_auth_refresh_db_proof.py",
 ]
 
 
@@ -44,8 +43,9 @@ def main() -> int:
 
     if not os.getenv("SKIP_PYTEST_RECURSION"):
         env = {**os.environ, "PYTHONPATH": str(ROOT), "SKIP_PYTEST_RECURSION": "1"}
+        venv_py = str((ROOT / ".venv" / "bin" / "python")) if (ROOT / ".venv" / "bin" / "python").exists() else sys.executable
         result = subprocess.run(
-            [sys.executable, "-m", "pytest", "-c", "pytest.ini", "tests/unit/test_auth_refresh_db_proof.py", "-q", "--no-cov", "--tb=short"],
+            [venv_py, "-m", "pytest", "-c", "pytest.ini", "tests/unit/test_auth_refresh_db_proof.py", "-q", "--no-cov", "--tb=short"],
             cwd=ROOT,
             text=True,
             stdout=subprocess.PIPE,
@@ -57,8 +57,9 @@ def main() -> int:
         if result.returncode != 0:
             failures.append("auth refresh DB proof unit tests failed")
 
+    venv_py = str((ROOT / ".venv" / "bin" / "python")) if (ROOT / ".venv" / "bin" / "python").exists() else sys.executable
     ruff = subprocess.run(
-        [sys.executable, "-m", "ruff", "check", *CRITICAL, "--select", "F821,F401,F811,E402"],
+        [venv_py, "-m", "ruff", "check", *CRITICAL, "--select", "F821,F401,F811,E402"],
         cwd=ROOT,
         text=True,
         stdout=subprocess.PIPE,

@@ -26,7 +26,6 @@ from app.core.security import (  # noqa: F401
     create_refresh_token,
     decode_token,
     encrypt_pii,
-    get_current_user,
     hash_email,
     hash_password,
     require_parent_or_admin,
@@ -36,6 +35,7 @@ from app.services.auth_token_claims import build_access_token_claims, merge_refr
 from app.domain.schemas import LoginRequest, RefreshRequest, RegisterRequest, TokenResponse
 from app.models import UserRole  # noqa: F401
 from app.core.rate_limit import limiter
+from app.api_v2_deps.auth import AuthContext, require_auth_context
 
 
 # code_631_650_auth_token_claims_repair
@@ -78,7 +78,7 @@ DEV_LEARNER_NAME = "DevLearner"
 
 
 @router.get("/me")
-async def me(current_user: dict = Depends(get_current_user)):
+async def me(current_user: AuthContext = Depends(require_auth_context)):
     return current_user
 
 
@@ -176,22 +176,28 @@ def _set_refresh_cookie(response: Response, token: str) -> None:
     )
 
 @router.get("/sessions")
-async def list_sessions(current_user: dict = Depends(get_current_user)):
+async def list_sessions(current_user: AuthContext = Depends(require_auth_context)):
     """Return active refresh-token sessions for the current user.
 
     The response intentionally exposes only token metadata, never token values.
     """
-    return {"sessions": await list_user_refresh_sessions(current_user["sub"])}
+    user_id = current_user.user_id if hasattr(current_user, "user_id") else current_user.get("sub")
+    return {"sessions": await list_user_refresh_sessions(user_id)}
 
 @router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
 async def logout(
     response: Response,
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
     db: AsyncSession = Depends(get_db),
     cookie_refresh: str | None = Cookie(default=None, alias=REFRESH_COOKIE),
     auth_service: AuthApplicationService = Depends(get_auth_application_service),
 ):
-    return await auth_service.logout(response=response, current_user=current_user, db=db, cookie_refresh=cookie_refresh)
+    return await auth_service.logout(
+        response=response,
+        current_user=current_user.raw_claims if hasattr(current_user, "raw_claims") else current_user,
+        db=db,
+        cookie_refresh=cookie_refresh,
+    )
 
 
 @router.post("/revoke-all", status_code=status.HTTP_204_NO_CONTENT)

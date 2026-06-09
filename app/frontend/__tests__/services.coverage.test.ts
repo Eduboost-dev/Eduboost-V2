@@ -4,7 +4,7 @@ import { AuthService, LearnerService, ConsentService, DataRightsService, ParentS
 // @ts-ignore
 globalThis.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
   const url = typeof input === 'string' ? input : input instanceof URL ? input.toString() : input.url
-  if (url.includes('/auth/dev-session')) {
+  if (url.includes('/api/auth/login') || url.includes('/auth/dev-session')) {
     return new Response(JSON.stringify({ access_token: 'tk', learner: { id: 'L1', learner_id: 'L1', display_name: 'Kid' } }), { status: 200 })
   }
   if (url.includes('/auth/sessions')) {

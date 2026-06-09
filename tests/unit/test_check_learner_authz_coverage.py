@@ -66,5 +66,5 @@ def test_ether_questions_is_covered_by_auth_marker_not_allowlist() -> None:
 
     assert matches
     assert matches[0].status == "covered"
-    assert matches[0].authz_marker == "get_current_user"
+    assert matches[0].authz_marker == "require_auth_context"
     assert ("ether.py", "GET", "/onboarding/questions") not in ALLOWLIST

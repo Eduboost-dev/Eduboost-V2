@@ -28,6 +28,7 @@ export default function GenerationRunsPanel({ runs }: Props) {
   const [loading, setLoading] = useState(false);
 
   const queuedTasks = useMemo(() => tasks.filter((task) => task.status === "queued"), [tasks]);
+  const firstQueuedTask = queuedTasks[0];
 
   async function refresh(runId = selectedRunId) {
     if (!runId) return;
@@ -78,7 +79,20 @@ export default function GenerationRunsPanel({ runs }: Props) {
       <div className="mb-4 flex flex-wrap gap-2">
         <button disabled={!selectedRunId || loading} onClick={() => runAction(async () => { const next = await planMissingGenerationTasks(selectedRunId); setPlan(next); await refresh(); })} className="rounded bg-cyan-500 px-3 py-2 text-sm font-semibold text-slate-950 disabled:bg-slate-700 disabled:text-slate-300">Plan tasks</button>
         <button disabled={!selectedRunId || loading} onClick={() => runAction(async () => { const next = await executeGenerationRun(selectedRunId); setExecution(next); await refresh(); })} className="rounded bg-slate-700 px-3 py-2 text-sm font-semibold text-slate-100 disabled:text-slate-400">Execute run</button>
-        <button disabled={!queuedTasks[0] || loading} onClick={() => runAction(async () => { const next = await executeGenerationTask(queuedTasks[0].task_id); setExecution(next); await refresh(); })} className="rounded bg-slate-700 px-3 py-2 text-sm font-semibold text-slate-100 disabled:text-slate-400">Execute selected task</button>
+        <button
+          disabled={!firstQueuedTask || loading}
+          onClick={() =>
+            runAction(async () => {
+              if (!firstQueuedTask) return;
+              const next = await executeGenerationTask(firstQueuedTask.task_id);
+              setExecution(next);
+              await refresh();
+            })
+          }
+          className="rounded bg-slate-700 px-3 py-2 text-sm font-semibold text-slate-100 disabled:text-slate-400"
+        >
+          Execute selected task
+        </button>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">

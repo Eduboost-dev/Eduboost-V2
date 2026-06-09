@@ -35,10 +35,9 @@ config.set_main_option("sqlalchemy.url", database_url)
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# ── Import ALL models so autogenerate can diff them ───────────────────────
-# All V2 models live in app.models.__init__.py
-from app.core.database import Base    # noqa: E402
-import app.models                      # noqa: F401  (imports all ORM models)
+# Import V2 models so autogenerate can diff the active schema.
+from app.core.database import Base  # noqa: E402
+import app.models  # noqa: F401,E402
 
 target_metadata = Base.metadata
 

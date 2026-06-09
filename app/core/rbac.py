@@ -7,13 +7,13 @@ migration introduces persisted assignments.
 """
 from __future__ import annotations
 
-from enum import StrEnum
+from enum import Enum
 
 from app.core.security import Role, require_roles
 from app.models import UserRole
 
 
-class OperationalRole(StrEnum):
+class OperationalRole(str, Enum):
     LEARNER = "student"
     PARENT_GUARDIAN = "parent"
     TEACHER_TUTOR = "teacher"

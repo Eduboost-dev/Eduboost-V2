@@ -11,8 +11,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.domain.content_coverage import ContentLayer, CoverageLayerStatus
 from app.models.content_factory import (
+    ContentArtifactReview,
+    ContentArtifactSource,
     ContentArtifactStatus,
     ContentGenerationArtifact,
+    ContentReviewAction,
     ContentStagingArtifact,
     ContentStagingSeedItem,
     ContentValidationReport,
@@ -64,7 +67,7 @@ class ContentProductionPromotionGate:
         layers: list[ContentLayer] | None = None,
     ) -> ProductionGateReport:
         """Evaluate a scope for production eligibility."""
-        layers = layers or [ContentLayer.DIAGNOSTIC_ITEMS, ContentLayer.LESSONS]
+        layers = [ContentLayer(layer) for layer in (layers or list(ContentLayer))]
         blockers: list[ProductionGateBlocker] = []
         
         # Check coverage
@@ -231,9 +234,11 @@ class ContentProductionPromotionGate:
     ) -> None:
         """Check that all production-bound artifacts are approved and valid."""
         # Get all artifacts for the scope
+        layer_values = [layer.value for layer in layers]
         result = await session.execute(
             select(ContentGenerationArtifact).where(
                 ContentGenerationArtifact.scope_id == scope_id,
+                ContentGenerationArtifact.content_layer.in_(layer_values),
             )
         )
         
@@ -252,12 +257,34 @@ class ContentProductionPromotionGate:
                 )
                 continue
             
-            # Check provenance
-            if not artifact.provenance_valid:
+            # Check provenance evidence
+            source_count_result = await session.execute(
+                select(ContentArtifactSource).where(
+                    ContentArtifactSource.artifact_id == artifact.artifact_id,
+                )
+            )
+            if not source_count_result.scalars().first():
                 blockers.append(
                     ProductionGateBlocker(
                         type="provenance",
-                        message=f"Artifact provenance is invalid",
+                        message="Artifact has no source citation evidence",
+                        artifact_id=artifact.artifact_id,
+                        caps_ref=artifact.caps_ref,
+                    )
+                )
+                continue
+
+            review_result = await session.execute(
+                select(ContentArtifactReview).where(
+                    ContentArtifactReview.artifact_id == artifact.artifact_id,
+                    ContentArtifactReview.review_action == ContentReviewAction.APPROVE,
+                )
+            )
+            if not review_result.scalars().first():
+                blockers.append(
+                    ProductionGateBlocker(
+                        type="review",
+                        message="Artifact has no approval review evidence",
                         artifact_id=artifact.artifact_id,
                         caps_ref=artifact.caps_ref,
                     )
@@ -276,18 +303,18 @@ class ContentProductionPromotionGate:
                 blockers.append(
                     ProductionGateBlocker(
                         type="validation",
-                        message=f"No validation report found for artifact",
+                        message="No validation report found for artifact",
                         artifact_id=artifact.artifact_id,
                         caps_ref=artifact.caps_ref,
                     )
                 )
                 continue
             
-            if not validation_report.is_clean:
+            if not validation_report.passed:
                 blockers.append(
                     ProductionGateBlocker(
                         type="validation",
-                        message=f"Validation report is not clean",
+                        message="Validation report is not clean",
                         artifact_id=artifact.artifact_id,
                         caps_ref=artifact.caps_ref,
                     )

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T18:40:46Z",
+  "generated_at": "2026-05-22T14:25:43Z",
   "auth_router_repository_imports": [],
   "next_steps": [
     "Move remaining auth repository interactions into canonical AuthService",

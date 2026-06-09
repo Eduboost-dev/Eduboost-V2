@@ -6,6 +6,7 @@ from typing import Annotated
 
 from fastapi import Header, HTTPException, status
 
+from app.api_v2_deps.auth import AuthContext
 from app.security.object_authorization import (
     Actor,
     AuthorizationDecision,
@@ -178,18 +179,19 @@ def _role_from_current_user(raw_role: _Any) -> Role:
 
 
 def build_actor_from_current_user_for_learner(
-    current_user: dict[str, _Any],
+    current_user: dict[str, _Any] | AuthContext,
     learner: _Any,
 ) -> Actor:
     """Build an authorization Actor from the JWT payload and learner object."""
-    subject_id = str(current_user.get("sub") or "")
+    claims = _current_user_claims(current_user)
+    subject_id = _current_user_subject(current_user)
     if not subject_id:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Missing authenticated subject.",
         )
 
-    role = _role_from_current_user(current_user.get("role"))
+    role = _role_from_current_user(claims.get("role"))
     learner_id = str(getattr(learner, "id"))
 
     learner_ids: tuple[str, ...] = ()
@@ -206,7 +208,7 @@ def build_actor_from_current_user_for_learner(
     # assignment repository. For now, educators only receive scope when the
     # token payload already carries learner_ids.
     if role == Role.EDUCATOR:
-        educator_learner_ids = tuple(str(value) for value in current_user.get("learner_ids", ()) or ())
+        educator_learner_ids = tuple(str(value) for value in claims.get("learner_ids", ()) or ())
 
     return Actor.from_values(
         subject_id=subject_id,
@@ -218,7 +220,7 @@ def build_actor_from_current_user_for_learner(
 
 
 def require_learner_read_for_current_user(
-    current_user: dict[str, _Any],
+    current_user: dict[str, _Any] | AuthContext,
     learner: _Any,
 ) -> AuthorizationDecision:
     """Authorize read access to a loaded learner for the current user payload."""
@@ -236,54 +238,80 @@ def _iter_claim_values(value: _Any) -> tuple[str, ...]:
     return (str(value),)
 
 
-def build_actor_from_current_user_claims(current_user: dict[str, _Any]) -> Actor:
+def _current_user_claims(current_user: dict[str, _Any] | AuthContext | None) -> dict[str, _Any]:
+    if current_user is None:
+        return {}
+    if isinstance(current_user, AuthContext):
+        return dict(current_user.raw_claims)
+    return current_user
+
+
+def _current_user_subject(current_user: dict[str, _Any] | AuthContext | None) -> str:
+    if isinstance(current_user, AuthContext):
+        return str(current_user.user_id)
+
+    claims = _current_user_claims(current_user)
+    value = (
+        claims.get("sub")
+        or claims.get("id")
+        or claims.get("user_id")
+        or claims.get("guardian_id")
+    )
+    return str(value) if value is not None else ""
+
+
+def build_actor_from_current_user_claims(current_user: dict[str, _Any] | AuthContext) -> Actor:
     """Build an Actor from current-user claims without loading a resource."""
-    subject_id = str(current_user.get("sub") or "")
+    claims = _current_user_claims(current_user)
+    subject_id = _current_user_subject(current_user)
     if not subject_id:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Missing authenticated subject.",
         )
 
-    role = _role_from_current_user(current_user.get("role"))
+    role = _role_from_current_user(claims.get("role"))
 
     return Actor.from_values(
         subject_id=subject_id,
         roles=(role,),
-        learner_ids=_iter_claim_values(current_user.get("learner_ids") or current_user.get("learner_id")),
+        learner_ids=_iter_claim_values(claims.get("learner_ids") or claims.get("learner_id")),
         guardian_learner_ids=_iter_claim_values(
-            current_user.get("guardian_learner_ids") or current_user.get("guardian_learner_id")
+            claims.get("guardian_learner_ids") or claims.get("guardian_learner_id")
         ),
         educator_learner_ids=_iter_claim_values(
-            current_user.get("educator_learner_ids") or current_user.get("educator_learner_id")
+            claims.get("educator_learner_ids") or claims.get("educator_learner_id")
         ),
     )
 
 
 def require_learner_write_for_current_user(
-    current_user: dict[str, _Any],
+    current_user: dict[str, _Any] | AuthContext,
     learner_id: str,
 ) -> AuthorizationDecision:
     """Authorize write access to a learner id for the current user payload."""
     actor = build_actor_from_current_user_claims(current_user)
     return require_learner_write(actor, learner_id)
 
-def actor_id_from_current_user(current_user: dict | None) -> str | None:
+def actor_id_from_current_user(current_user: dict | AuthContext | None) -> str | None:
     """Return the canonical actor id from the authenticated-user payload."""
     if not current_user:
         return None
+    if isinstance(current_user, AuthContext):
+        return current_user.user_id
+    claims = _current_user_claims(current_user)
     value = (
-        current_user.get("sub")
-        or current_user.get("id")
-        or current_user.get("user_id")
-        or current_user.get("guardian_id")
+        claims.get("sub")
+        or claims.get("id")
+        or claims.get("user_id")
+        or claims.get("guardian_id")
     )
     return str(value) if value is not None else None
 
 
 async def require_active_consent_for_current_user(
     db: AsyncSession,
-    current_user: dict | None,
+    current_user: dict | AuthContext | None,
     learner_id: str,
 ):
     """Enforce active POPIA consent for a learner-scoped operation.

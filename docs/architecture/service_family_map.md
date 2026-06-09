@@ -1,6 +1,6 @@
 # Service Family Map
 
-Generated at: `2026-05-26T18:25:29Z`
+Generated at: `2026-06-05T20:15:02Z`
 
 | Domain | Path | Classification | Classes |
 |---|---|---|---|
@@ -36,19 +36,31 @@ Generated at: `2026-05-26T18:25:29Z`
 | other | `app/services/content_artifact_lifecycle.py` | unclassified | `ArtifactStatusTransition`, `ContentArtifactLifecycleService` |
 | other | `app/services/content_blueprint_validation.py` | unclassified | `AssessmentBlueprintValidationService`, `BlueprintValidationResult` |
 | other | `app/services/content_bulk_review.py` | unclassified | `BulkReviewResult`, `ContentBulkReviewService` |
-| other | `app/services/content_coverage_service.py` | duplicate_domain_service | `ContentCoverageService`, `DiagnosticCoverageRepository`, `LessonCoverageRepository` |
+| other | `app/services/content_coverage_service.py` | duplicate_domain_service | `ContentCoverageService`, `CoverageGateLayerReport`, `DiagnosticCoverageRepository`, `LessonCoverageRepository` |
 | other | `app/services/content_factory.py` | unclassified | `ArtifactProvenanceReport`, `ContentFactoryService`, `ContentValidationService`, `ETLProvenanceService`, `SourceGateResult` |
 | other | `app/services/content_factory_orchestrator.py` | unclassified | `ContentFactoryOrchestrator`, `OrchestratorPlan` |
+| other | `app/services/content_file_artifact_import.py` | unclassified | `ContentFileArtifactImportService`, `FileArtifactImportBatchPlan`, `FileArtifactImportPlan`, `FileArtifactImportRecord` |
+| lesson | `app/services/content_file_lesson_quality.py` | unclassified | `ContentFileLessonQualityService`, `LessonFileQualityResult` |
+| other | `app/services/content_file_promotion_readiness.py` | unclassified | `ContentFilePromotionReadinessService`, `PromotionReadinessResult` |
+| other | `app/services/content_file_review_workflow.py` | unclassified | `ContentFileReviewWorkflowService`, `ScopeReviewEvidenceStatus` |
 | other | `app/services/content_generation/blueprint_generator.py` | unclassified | `BlueprintGenerationResult`, `BlueprintGenerator` |
 | diagnostic | `app/services/content_generation/diagnostic_generator.py` | unclassified | `DiagnosticGenerator` |
+| other | `app/services/content_generation/generated_item_contract.py` | unclassified | `GeneratedItemQualityIssue`, `GeneratedItemQualityResult`, `GeneratedItemQualityValidator` |
+| lesson | `app/services/content_generation/generated_lesson_contract.py` | unclassified | `GeneratedLessonQualityIssue`, `GeneratedLessonQualityResult`, `GeneratedLessonQualityValidator` |
 | lesson | `app/services/content_generation/lesson_generator.py` | unclassified | `LessonGenerator` |
 | other | `app/services/content_generation/prompt_payloads.py` | unclassified | `DiagnosticGenerationRequest`, `GeneratedDiagnosticItem`, `GeneratedLesson`, `GenerationRequestBase`, `LessonGenerationRequest`, `SourceContextChunk` |
 | other | `app/services/content_generation/provider_factory.py` | unclassified | `GenerationSettings` |
 | other | `app/services/content_generation/providers/base.py` | unclassified | `ContentGenerationProvider` |
 | other | `app/services/content_generation/providers/deterministic.py` | unclassified | `DeterministicContentGenerationProvider` |
 | other | `app/services/content_generation/providers/llm.py` | unclassified | `LLMContentGenerationProvider` |
+| other | `app/services/content_generation/scope_blueprint_generator.py` | unclassified | `ScopeBlueprintGenerator` |
+| other | `app/services/content_generation/scope_item_generator.py` | unclassified | `ScopeItemGenerator` |
+| lesson | `app/services/content_generation/scope_lesson_generator.py` | unclassified | `ScopeLessonGenerator` |
+| other | `app/services/content_generation/scope_mcq_templates.py` | unclassified | - |
+| other | `app/services/content_generation/scope_study_plan_generator.py` | unclassified | `ScopeStudyPlanGenerator` |
 | other | `app/services/content_generation/source_context.py` | deprecated_legacy_service | `ContentGenerationSourceContextService`, `SourceContextResult` |
 | other | `app/services/content_generation/study_plan_template_generator.py` | unclassified | `StudyPlanTemplateGenerationResult`, `StudyPlanTemplateGenerator` |
+| other | `app/services/content_generation/topic_map_source_context.py` | unclassified | `TopicMapSourceContext`, `TopicMapSourceContextBuilder`, `TopicMapSourceContextResult` |
 | other | `app/services/content_generation_executor.py` | unclassified | `ContentGenerationExecutor`, `GenerationDisabledError`, `RunExecutionResult`, `TaskExecutionResult` |
 | other | `app/services/content_generation_planner.py` | unclassified | `ContentGenerationPlanner`, `GenerationPlanResult` |
 | other | `app/services/content_generation_reporter.py` | unclassified | `ContentGenerationReporter`, `GenerationReportData` |
@@ -68,7 +80,7 @@ Generated at: `2026-05-26T18:25:29Z`
 | other | `app/services/content_staging_preview_service.py` | duplicate_domain_service | `ContentStagingPreviewService`, `StagingArtifactPreview`, `StagingCapsRefPreview`, `StagingPreviewReport` |
 | other | `app/services/content_staging_read_verification.py` | unclassified | `ContentStagingReadVerificationService`, `ScopeStagingReadReport`, `StagingReadVerificationReport` |
 | other | `app/services/content_staging_readiness.py` | unclassified | `AllScopeStagingVerificationReport`, `BlockerSeverity`, `ContentStagingReadinessService`, `LayerReadinessSummary`, `ScopeBlocker`, `ScopeStagingVerificationReport`, `StagingReadinessStatus` |
-| other | `app/services/content_staging_seed_executor.py` | unclassified | `ContentStagingSeedExecutor`, `SeedableArtifact`, `SkippedArtifact`, `StagingRollbackResult`, `StagingSeedItemResult`, `StagingSeedPlan`, `StagingSeedRunPage`, `StagingSeedRunResult` |
+| other | `app/services/content_staging_seed_executor.py` | unclassified | `ContentStagingSeedExecutor`, `MissingForeignKeyError`, `SeedableArtifact`, `SkippedArtifact`, `StagingRollbackResult`, `StagingSeedItemResult`, `StagingSeedPlan`, `StagingSeedRunPage`, `StagingSeedRunResult` |
 | other | `app/services/content_template_validation.py` | unclassified | `StudyPlanTemplateValidationResult`, `StudyPlanTemplateValidationService` |
 | other | `app/services/curriculum/caps_topic_map.py` | unclassified | `CAPSTopic`, `CAPSTopicMap` |
 | other | `app/services/curriculum/coverage.py` | unclassified | `CurriculumCoverageAnalyzer`, `CurriculumGap` |

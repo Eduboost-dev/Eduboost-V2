@@ -13,7 +13,7 @@ class TestContentFactoryAdminAPISmoke:
     @pytest.fixture
     def client(self):
         """Create test client with app."""
-        from app.main import app
+        from app.api_v2 import app
         return TestClient(app)
 
     @pytest.fixture

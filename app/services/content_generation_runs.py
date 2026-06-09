@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import uuid
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import Any
 
 from sqlalchemy import select
@@ -79,21 +79,21 @@ class ContentGenerationRunService:
 
     async def mark_task_running(self, session: AsyncSession, task_id: uuid.UUID) -> ContentGenerationTask:
         task = await self._mark_task(session, task_id, "running")
-        task.started_at = datetime.now(UTC)
+        task.started_at = datetime.now(timezone.utc)
         await session.flush()
         return task
 
     async def mark_task_succeeded(self, session: AsyncSession, task_id: uuid.UUID, artifact_ids: list[str]) -> ContentGenerationTask:
         task = await self._mark_task(session, task_id, "succeeded")
         task.output_artifact_ids = artifact_ids
-        task.finished_at = datetime.now(UTC)
+        task.finished_at = datetime.now(timezone.utc)
         await session.flush()
         return task
 
     async def mark_task_failed(self, session: AsyncSession, task_id: uuid.UUID, error: str) -> ContentGenerationTask:
         task = await self._mark_task(session, task_id, "failed")
         task.validation_failures = [error]
-        task.finished_at = datetime.now(UTC)
+        task.finished_at = datetime.now(timezone.utc)
         await session.flush()
         return task
 

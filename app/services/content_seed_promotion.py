@@ -114,7 +114,7 @@ class ContentSeedPromotionService:
         return GateResult(True, [], gate_report.coverage_summary | gate_report.staging_summary)
 
     async def _seed_gate(self, session: AsyncSession, scope_id: str, layers: list[ContentLayer] | None) -> GateResult:
-        layers = layers or [ContentLayer.DIAGNOSTIC_ITEMS, ContentLayer.LESSONS]
+        layers = layers or list(ContentLayer)
         coverage = await self.coverage_service.get_scope_coverage(scope_id, layers=layers)
         errors: list[str] = []
         stageable_approved = 0

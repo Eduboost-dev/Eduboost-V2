@@ -78,7 +78,7 @@ jobs:
       - name: Set up Python 3.11
         uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
+          python-version: "3.12.3"
           cache: pip
 
       - name: Install Python dependencies
@@ -92,6 +92,23 @@ jobs:
             echo "Waiting for PostgreSQL…"
             sleep 2
           done
+
+      # -----------------------------------------------------------------
+      # Step 0: Reject divergent migration history (multiple heads)
+      # T023 — Phase 0 release blocker.
+      # -----------------------------------------------------------------
+      - name: Assert single Alembic head
+        run: |
+          set -euo pipefail
+          heads_count=$(alembic heads | grep -c '(head)' || true)
+          echo "alembic heads count = ${heads_count}"
+          if [ "${heads_count}" -ne 1 ]; then
+            echo "::error::Expected exactly 1 Alembic head, found ${heads_count}." >&2
+            alembic heads
+            exit 1
+          fi
+        env:
+          DATABASE_URL: ${{ env.SYNC_DATABASE_URL }}
 
       # -----------------------------------------------------------------
       # Step 1: Run all migrations from an empty database

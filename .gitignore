@@ -47,3 +47,20 @@ app/frontend/out/
 
 # Cloudflare Wrangler Cache
 .wrangler/
+
+# Data directories (stored on WSL external storage)
+data/content_factory/
+data/exports/
+data/generated/
+data/synthetic/
+data/temp/
+
+# IDE index files and settings
+.idea/
+.vscode/
+.continue/
+.claude/
+.cursor/
+
+# Large files tracked via Git LFS (see docs/release/README_LFS.md)
+# docs/release/backend_deletion_candidate_inventory.md is in LFS

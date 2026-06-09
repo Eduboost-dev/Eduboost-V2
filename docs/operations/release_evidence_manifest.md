@@ -1,8 +1,8 @@
 # Release Evidence Manifest
 
-Generated: `2026-05-26T20:27:47Z`
-Branch: `pr-cf-013-full-generation-runner`
-Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+Generated: `2026-06-01T15:01:27Z`
+Branch: `remediation/phase0-phase1`
+Commit: `7a24a9a7f59c5fba6ec62b983203d8e268932af4`
 
 ## Required Evidence Commands
 

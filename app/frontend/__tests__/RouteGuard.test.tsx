@@ -7,49 +7,22 @@ import { vi } from 'vitest'
 const MockRouter = { push: vi.fn() }
 vi.mock('next/navigation', () => ({ useRouter: () => MockRouter }))
 
+const mockSessionResponse = (authenticated: boolean) =>
+  new Response(JSON.stringify({ authenticated }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+
+const originalFetch = global.fetch
+
 beforeEach(() => {
   MockRouter.push.mockClear()
 })
 
-test('shows loading state when loading', () => {
-  // Use a provider but ensure eb_active_learner not set so loading becomes false quickly
-  // Simulate loading by temporarily mocking useLearner via localStorage manipulation
-  // @ts-ignore
-  global.window = Object.create(window)
-  const store: Record<string,string> = {}
-  // @ts-ignore
-  global.window.localStorage = { getItem: (k:string)=>store[k]||null, setItem: (k:string,v:string)=>store[k]=v, removeItem: (k:string)=>delete store[k] }
-
-  render(
-    <LearnerProvider>
-      <RouteGuard required="learner"><div>ok</div></RouteGuard>
-    </LearnerProvider>
-  )
-  expect(screen.queryByText(/Checking your session/)).not.toBeInTheDocument()
+afterEach(() => {
+  global.fetch = originalFetch
+  vi.restoreAllMocks()
 })
 
-test('redirects when not allowed and not loading', () => {
-  // Ensure no learner in localStorage so allowed=false
-  // @ts-ignore
-  global.window = Object.create(window)
-  const store: Record<string,string> = {}
-  // @ts-ignore
-  global.window.localStorage = { getItem: (k:string)=>store[k]||null, setItem: (k:string,v:string)=>store[k]=v, removeItem: (k:string)=>delete store[k] }
-
-  render(
-    <LearnerProvider>
-      <RouteGuard required="learner"><div>ok</div></RouteGuard>
-    </LearnerProvider>
-  )
-  expect(MockRouter.push).toHaveBeenCalled()
-})
-
-test('allows parent access when guardian token exists', () => {
-  // @ts-ignore
-  global.window = Object.create(window)
-  const store: Record<string,string> = { guardian_token: 'abc' }
-  // @ts-ignore
-  global.window.localStorage = { getItem: (k:string)=>store[k]||null, setItem: (k:string,v:string)=>store[k]=v, removeItem: (k:string)=>delete store[k] }
+test('shows loading state while guardian session request is pending', () => {
+  global.fetch = vi.fn(() => new Promise(() => {}) as any)
 
   render(
     <LearnerProvider>
@@ -57,16 +30,34 @@ test('allows parent access when guardian token exists', () => {
     </LearnerProvider>
   )
 
-  expect(screen.getByText('ok')).toBeInTheDocument()
-  expect(MockRouter.push).not.toHaveBeenCalled()
+  expect(screen.getByText(/Checking your session/i)).toBeInTheDocument()
 })
 
-test('shows guardian login prompt and retry on parent route when token is missing', async () => {
-  // @ts-ignore
-  global.window = Object.create(window)
-  const store: Record<string,string> = {}
-  // @ts-ignore
-  global.window.localStorage = { getItem: (k:string)=>store[k]||null, setItem: (k:string,v:string)=>store[k]=v, removeItem: (k:string)=>delete store[k] }
+test('redirects learner routes when learner context is empty', () => {
+  render(
+    <LearnerProvider>
+      <RouteGuard required="learner"><div>ok</div></RouteGuard>
+    </LearnerProvider>
+  )
+
+  expect(MockRouter.push).toHaveBeenCalled()
+})
+
+test('allows parent route when session endpoint returns authenticated=true', async () => {
+  global.fetch = vi.fn(async () => mockSessionResponse(true)) as any
+
+  render(
+    <LearnerProvider>
+      <RouteGuard required="parent"><div>ok</div></RouteGuard>
+    </LearnerProvider>
+  )
+
+  expect(await screen.findByText('ok')).toBeInTheDocument()
+  expect(global.fetch).toHaveBeenCalledWith('/api/auth/session', expect.any(Object))
+})
+
+test('shows guardian prompt and retry navigates to login when session is missing', async () => {
+  global.fetch = vi.fn(async () => mockSessionResponse(false)) as any
 
   render(
     <LearnerProvider>
@@ -80,12 +71,8 @@ test('shows guardian login prompt and retry on parent route when token is missin
   expect(MockRouter.push).toHaveBeenCalledWith('/login')
 })
 
-test('shows default learner prompt and retry navigates home for teacher route', async () => {
-  // @ts-ignore
-  global.window = Object.create(window)
-  const store: Record<string,string> = {}
-  // @ts-ignore
-  global.window.localStorage = { getItem: (k:string)=>store[k]||null, setItem: (k:string,v:string)=>store[k]=v, removeItem: (k:string)=>delete store[k] }
+test('teacher routes show default prompt and retry navigates home', async () => {
+  global.fetch = vi.fn(async () => mockSessionResponse(false)) as any
 
   render(
     <LearnerProvider>

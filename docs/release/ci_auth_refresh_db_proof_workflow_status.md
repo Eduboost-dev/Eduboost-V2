@@ -1,9 +1,9 @@
 # CI Auth Refresh DB Proof Workflow Status
 
-Generated at: `2026-05-26T18:33:54Z`
-Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+Generated at: `2026-06-04T11:16:14Z`
+Commit: `1faa5ed5f7e4961d9d8cc7f666684057494eb8fb`
 
-**Status:** `ci-auth-refresh-db-proof-workflow-configured`
+**Status:** `ci-auth-refresh-db-proof-workflow-not-proven`
 
 | Check | Passed | Detail |
 |---|---:|---|
@@ -16,13 +16,13 @@ Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 | `evidence release check executed` | True | release evidence target |
 | `concrete run URL uses github.run_id` | True | numeric run id at runtime |
 | `commit SHA uses github.sha` | True | concrete commit SHA |
-| `artifact upload configured` | True | proof artifacts uploaded |
+| `artifact upload configured` | False | proof artifacts uploaded |
 | `no placeholder REAL_RUN_ID` | True | placeholder rejected |
 | `no symbolic REAL_DSN` | True | no REAL_* evidence placeholder |
 
 ## Blockers
 
-- None
+- artifact upload configured
 
 ## No false-closure rules
 

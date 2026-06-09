@@ -4,7 +4,7 @@ import pytest
 
 
 @pytest.mark.unit
-def test_production_settings_skip_key_vault_without_url(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_production_settings_require_key_vault_url(monkeypatch: pytest.MonkeyPatch) -> None:
     from app.core import config
 
     monkeypatch.setattr(
@@ -13,13 +13,12 @@ def test_production_settings_skip_key_vault_without_url(monkeypatch: pytest.Monk
         lambda vault_url: pytest.fail("Key Vault fetch should not run without a URL"),
     )
 
-    settings = config.Settings(
-        APP_ENV="production",
-        ENVIRONMENT="production",
-        AZURE_KEY_VAULT_URL="",
-    )
-
-    assert settings.refresh_from_key_vault() == set()
+    with pytest.raises(ValueError, match="AZURE_KEY_VAULT_URL is required when APP_ENV is production"):
+        config.Settings(
+            APP_ENV="production",
+            ENVIRONMENT="production",
+            AZURE_KEY_VAULT_URL="",
+        )
 
 
 @pytest.mark.unit

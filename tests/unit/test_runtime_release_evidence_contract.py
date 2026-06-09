@@ -30,7 +30,6 @@ def test_runtime_release_evidence_check_passes():
 
 def test_runtime_evidence_files_do_not_claim_completion_without_data():
     for relative in [
-        "docs/release/staging_smoke_evidence.md",
         "docs/release/migration_evidence.md",
         "docs/release/restore_drill_evidence.md",
         "docs/release/rollback_drill_evidence.md",

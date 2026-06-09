@@ -1,27 +1,27 @@
-# CI Evidence Status
+# CI Evidence
 
-Generated at: `2026-05-26T20:59:26Z`
-Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
-Branch: `pr-cf-013-full-generation-runner`
+Status: pending remote CI verification
 
-**Status:** `ci-evidence-accepted`
-**Run ID:** `26466298748`
-**Run URL:** `https://github.com/NkgoloL/Eduboost-V2/actions/runs/26466298748`
-**Workflow:** `Runtime Contract`
-**Run status:** `completed`
-**Conclusion:** `success`
-**Head SHA:** `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
-**Verified by:** `github-actions`
-**Date verified:** `2026-05-26`
+**Status:** pending remote CI verification
 
-## Blockers
+| Field | Value |
+|---|---|
+| GitHub Actions run URL | PENDING |
+| Commit SHA | PENDING |
+| Branch | PENDING |
+| Result | PENDING |
+| Test summary | PENDING |
+| Captured at | 2026-06-05T20:19:19Z |
 
-- None
+## Usage
 
-## No false-closure rules
+```bash
+GITHUB_ACTIONS_RUN_URL=https://github.com/<owner>/<repo>/actions/runs/<id> \
+CI_RESULT=success \
+CI_COMMIT_SHA=<sha> \
+CI_BRANCH=codex/production_readiness \
+make remote-ci-evidence-capture
+```
 
-- The accepted run must be completed and successful.
-- The accepted run must match the current commit SHA.
-- Placeholder run URLs or placeholder SHAs are rejected.
-- The auth refresh DB proof workflow is not accepted as general CI evidence.
-- This CI evidence does not close staging, external approvals, JWT rotation, ARQ live Redis evidence, diagnostics live DB proof, lesson authorization staging proof, or diagnostic scoring audit.
+## Checklists
+- Route alias policy: pending verification

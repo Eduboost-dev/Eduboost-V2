@@ -113,7 +113,7 @@ REQUIRED_FILES = (
 
 CONTENT_REQUIREMENTS = {
     "app/api_v2_routers/ether.py": (
-        "async def get_questions(user: dict = Depends(get_current_user))",
+        "async def get_questions(user: AuthContext = Depends(require_auth_context))",
     ),
     "scripts/generate_learner_authz_matrix.py": (
         "require_admin",
@@ -285,7 +285,7 @@ CONTENT_REQUIREMENTS = {
         "require_learner_write_for_current_user(current_user, learner_id)",
     ),
     "app/api_v2_routers/lessons.py": (
-        "require_learner_write_for_current_user(current_user, str(body.learner_id))",
+        "require_learner_write_for_current_user(auth, str(body.learner_id))",
     ),
     "app/api_v2_routers/diagnostics.py": (
         "require_learner_read_for_current_user(current_user, learner)",

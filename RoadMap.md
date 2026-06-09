@@ -1,170 +1,655 @@
-# Frontend-Backend Recovery Roadmap
+# EduBoost V2 Remediation Roadmap
 
-Updated: 2026-05-22
-Source: user-reported frontend failures plus screenshots from the learner flow
+Date: 2026-06-09 (updated from 2026-06-02)
 
-Status legend:
+Source audit: `eduboost-v2-technical-audit-2026-06-02.md`
+Gap analysis: `Eduboost-V2_Gap_Analysis.md` (2026-06-09)
 
-- `[open]` not started
-- `[in-progress]` being worked on
-- `[done]` completed
-- `[blocked]` waiting on another fix
+## Objective
 
-## Problem Summary
+Bring the project from "substantial but not production-ready" through release-candidate, controlled beta, and into verified production-ready state by fixing all verified implementation gaps, aligning runtime and deployment assumptions, replacing documentation-only confidence with executable checks, and proving real-learner safety through a gated beta period.
 
-The current frontend is reachable, but several core learner journeys are not
-working end to end:
+## Guiding Rules
 
-- Dashboard loads with an error banner instead of real progress data.
-- Study plan page shows an error state and falls back to placeholder content.
-- Badges page shows an error state and empty achievement data.
-- Lesson generation fails after subject and topic selection.
-- Buttons and interactive controls appear unreliable because route transitions
-  work, but the underlying API actions fail.
-- Some UI polish has regressed while errors are showing, including raw HTML
-  entities and awkward layout/text presentation.
+- Treat executable checks as the source of truth.
+- Keep fixes scoped and mergeable.
+- Make release-blocking failures visible in CI.
+- Prefer durable, migrated, observable production behavior over request-local or startup-repair behavior.
+- Keep public routes explicit and intentional.
+- No phase is complete until its CI gate is green on `master`.
 
-## Evidence From The Current Screens
+---
 
-1. `Dashboard` shows: `Failed to load dashboard data. Please try again.`
-2. `Study Plan` shows: `Failed to load your study plan. Please try again.`
-3. `Badges` shows: `Failed to load your achievements. Keep learning to earn more!`
-4. `Lesson` shows: `Failed to generate lesson. Our AI is taking a quick nap, please try again!`
-5. The learner flow still renders fallback values such as `0%`, empty badges,
-   and generic rest-day content even after API failures.
-6. Copy/layout regressions are visible, for example:
-   - `Let&apos;s` rendering literally on the dashboard
-   - `MonTODAY` appearing jammed together on the study-plan page
-   - lesson subject/topic cards looking poorly styled in the broken state
+## Phase 0 - Branch, Evidence, and Audit Artifacts
 
-## Phase 1: Connectivity and Reproduction
+Priority: P0 | Status: in progress
 
-1. `[done]` Reproduce the learner flow failures with the frontend and backend
-   running together and capture the exact failing HTTP requests for:
-   - dashboard
-   - study plan
-   - badges
-   - lesson generation
-2. `[done]` Verify the active API base URL, container networking, and local
-   environment wiring for `NEXT_PUBLIC_API_URL`, backend port exposure, and
-   CORS.
-3. `[done]` Confirm that the frontend is sending the correct auth token for
-   learner-scoped calls and that the backend accepts that token shape.
-4. `[done]` Check whether the backend routes used by the frontend still match
-   the current V2 route contracts and payload shapes.
+Deliverables:
 
-## Phase 2: Backend Contract Repair
+- Add the technical audit report to the repository. ✅
+- Add this roadmap to the repository. ✅
+- Add the gap analysis to the repository.
+- Create an implementation branch from the clean `master` state.
+- Keep a running implementation log in commits and verification notes.
 
-5. `[done]` Restore dashboard data loading by validating and fixing the
-   mastery and gamification endpoints used by:
-   - `LearnerService.getMastery(...)`
-   - `LearnerService.getGamificationProfile(...)`
-6. `[done]` Restore study-plan loading by validating the study-plan endpoint,
-   response schema, and learner lookup path.
-7. `[done]` Restore badges and achievements loading by validating the
-   gamification profile endpoint and badge payload format.
-8. `[done]` Restore lesson generation by validating:
-   - request payload from the frontend
-   - lesson-generation endpoint availability
-   - async job completion or direct response flow
-   - required provider/config dependencies in local development
-9. `[done]` Verify that lesson completion, XP award, and post-lesson state
-   refresh work after lesson generation succeeds.
+Acceptance checks:
 
-## Phase 3: Frontend Behavior Repair
+- `git status` is clean before implementation begins.
+- `RoadMap.md`, the audit report, and gap analysis are present in the repo root.
 
-10. `[done]` Fix broken learner-page error handling so failed API calls do not
-    quietly render misleading fallback success content underneath the error
-    banner.
-11. `[done]` Add clear empty, loading, offline, and failed states for
-    dashboard, plan, badges, and lesson pages so the learner experience is
-    consistent and understandable.
-12. `[done]` Make the primary learner CTAs reliable and explicit:
-    - `Start New Lesson`
-    - `Take Assessment`
-    - `Start Adventure`
-    - study-plan item `Start` buttons
-13. `[done]` Audit the frontend service layer for request/response mismatch,
-    especially where the UI assumes fields that may not exist in the active V2
-    responses.
+---
 
-## Phase 4: UI Regression Cleanup
+## Phase 1 - Release-Blocking Correctness Fixes
 
-14. `[done]` Replace raw HTML entity artifacts like `Let&apos;s` with clean
-    rendered copy.
-15. `[done]` Fix layout glitches such as `MonTODAY` on the study-plan page and
-    spacing/alignment issues in the learner panels.
-16. `[done]` Repair lesson subject/topic card styling so the chooser looks like
-    a deliberate product surface instead of fallback browser controls.
-17. `[done]` Review dark-theme contrast, card backgrounds, and button states on
-    broken and recovered screens.
+**Status: Complete (2026-06-09)**  
+Priority: P0  
+Evidence: `docs/release/phase_1_evidence.md`
 
-## Phase 5: Test and Release Guardrails
+### 1.1 Fix Python Syntax and Compile Gates
 
-18. `[done]` Add or repair frontend tests that cover the learner data-fetching
-    journeys for dashboard, plan, badges, and lesson generation.
-19. `[done]` Add backend contract tests for the specific V2 endpoints used by
-    the current frontend learner flow.
-20. `[done]` Add an end-to-end smoke test for the critical learner journey:
-    login -> dashboard -> assessment or lesson -> study plan -> badges.
-21. `[done]` Add a pre-release validation checklist that confirms the frontend
-    can talk to the backend in the local Docker stack before marking a build as
-    healthy.
+Problems addressed:
 
-## Likely Hotspots
+- `python -m compileall -q app scripts` fails.
+- `scripts/maintenance/audit_todo_backlog.py` contains an invalid f-string expression.
 
-The screenshots and current code suggest these areas deserve first attention:
+Actions:
 
-- `app/frontend/src/lib/api/client.ts`
-- `app/frontend/src/app/(learner)/dashboard/page.tsx`
-- `app/frontend/src/app/(learner)/plan/page.tsx`
-- `app/frontend/src/app/(learner)/badges/page.tsx`
-- `app/frontend/src/app/(learner)/lesson/page.tsx`
-- `app/api_v2.py`
-- the V2 learner, lesson, study-plan, and gamification routes/services they
-  depend on
+- Fix the invalid f-string escaping in `scripts/maintenance/audit_todo_backlog.py`.
+- Run `python -m compileall -q app scripts`.
+- Add or tighten CI so compile checks run for `app` and `scripts`.
 
-## Definition of Done
+Acceptance checks:
 
-This roadmap is complete when:
+- `python -m compileall -q app scripts` passes.
+- CI contains a compile gate for backend source and scripts.
 
-- the project assistance report stays current through `make project-assistance-status-check`
-- the recommended operating model stays current through `make recommended-operating-model-check`
+### 1.2 Treat Undefined Names as Release-Blocking
 
-- dashboard data loads without the current error banner
-- study plans load real learner data
-- badges load real progress and earned badge data
-- lessons generate successfully from the UI
-- learner buttons trigger working backend behavior instead of dead ends
-- the visibly broken copy/layout issues are cleaned up
-- the happy path is covered by automated smoke coverage
+Problems addressed:
 
-## Progress Notes
+- Full Ruff found 861 findings.
+- At least one `F821 Undefined name` exists in `app/services/etl/etl_pipeline_v2.py`.
+- Current CI Ruff gate is too narrow to represent source health.
 
-- Added a non-production dev-session bootstrap path so the learner bypass login
-  creates a real guardian token, learner record, and active consent instead of
-  a fake local-only persona.
-- Rewired the gamification backend path toward the active learner model so
-  dashboard and badges can fetch against a real repository instead of a broken
-  placeholder query.
-- Normalized study-plan schedule output to the day keys the frontend expects.
-- Added a local lesson-generation fallback for environments without configured
-  LLM provider keys.
-- Started cleaning visible learner-flow UI regressions in the dashboard, study
-  plan, and lesson chooser.
-- Improved frontend error normalization and handling for V2 API contracts.
-- Fixed `MonTODAY` layout and polished the lesson chooser UI.
-- Updated E2E and Vitest contract tests for V2 endpoints.
-- Verified backend contracts using `tests/integration/test_learner_flow_contract.py`.
-- Added Playwright dev-session setup and `tests/e2e/learner_smoke.spec.ts`
-  to cover dashboard -> study plan -> lesson completion + XP -> badges.
-- Confirmed dark-theme surfaces use the shared `--bg`, `--surface`,
-  `--surface2`, `--border`, `--text`, and `--muted` tokens across recovered
-  learner screens.
-- Published the pre-release frontend-backend validation checklist at
-  `docs/release/frontend_backend_validation.md`.
-- Added the Recommended Operating Model and five-lane Project Assistance Status
-  docs so recovery, release evidence, and staging-readiness work can be planned
-  through checkable Make targets instead of loose notes.
-- Compiled `docs/operations/todo_implementation_plan.md` to turn the open
-  North Star TODO items into evidence-first implementation waves.
+Actions:
+
+- Fix all `F821` findings.
+- Ensure CI blocks on at least `E9,F63,F7,F82,F821`.
+- Separate broader style cleanup from correctness gates if needed.
+- Log remaining ~830 Ruff findings as tracked debt with a phase-gated burn-down schedule (see Phase 11).
+
+Acceptance checks:
+
+- `ruff check app tests scripts --select E9,F63,F7,F82,F821` passes.
+- CI has the same release-blocking correctness gate.
+- Remaining Ruff debt is quantified and tracked in `docs/backlog/ruff_debt.md`.
+
+---
+
+## Phase 2 - Practice Session Security and Durability
+
+Priority: P0
+
+### 2.1 Authenticate Practice Session Continuation Routes
+
+Problems addressed:
+
+- `next-item` and `respond` routes are unauthenticated.
+- Session IDs are not bound to current user identity.
+- Consent is checked when a session starts, but not when it is continued.
+
+Actions:
+
+- Require authenticated user dependencies on practice session continuation routes.
+- Bind in-memory session records to learner/user identity at creation time.
+- Reject continuation requests from any other user.
+- Re-check learner write/access authorization and active consent on continuation and response.
+- Add tests for unauthorized, wrong-user, and consent-denied flows.
+
+Acceptance checks:
+
+- Route introspection shows practice continuation routes have auth dependencies.
+- Tests prove a second user cannot read or advance another learner's session.
+- Tests prove missing/expired consent blocks continuation.
+
+### 2.2 Replace In-Memory Practice Session State
+
+Problems addressed:
+
+- `_SESSIONS` is process-local.
+- Sessions are lost on restart and inconsistent across multiple workers.
+
+Actions:
+
+- Define a durable session storage strategy using the existing database or Redis layer.
+- Persist owner identity, learner identity, mastery inputs, item sequence, current index, and response state.
+- Add migration if database-backed.
+- Add expiry and cleanup behavior.
+
+Acceptance checks:
+
+- Practice sessions survive API process restart in the chosen storage layer.
+- Multi-worker access is consistent.
+- Expired sessions cannot be advanced.
+
+---
+
+## Phase 3 - Frontend Build and Test Health
+
+Priority: P0
+
+### 3.1 Reconcile Frontend Dependencies
+
+Problems addressed:
+
+- `dexie` is declared and locked but not resolvable from installed `node_modules`.
+- The checked-out frontend dependency state does not match the manifest.
+- Package manager context differs between global pnpm and `packageManager`.
+
+Actions:
+
+- Use the declared package manager version from `app/frontend/package.json`.
+- Reinstall frontend dependencies from `pnpm-lock.yaml`.
+- Verify `dexie` resolves.
+- Document the expected frontend install command.
+
+Acceptance checks:
+
+- `pnpm install --frozen-lockfile` completes in `app/frontend`.
+- `node -e "require.resolve('dexie')"` succeeds from `app/frontend`.
+
+### 3.2 Fix Frontend TypeScript Errors
+
+Problems addressed:
+
+- `pnpm exec tsc --noEmit --pretty false` fails with implicit `any` errors.
+- Dexie type resolution currently fails.
+
+Actions:
+
+- Fix explicit parameter types in offline cache/storage modules.
+- Confirm Dexie imports/types compile after dependency reconciliation.
+
+Acceptance checks:
+
+- `pnpm exec tsc --noEmit --pretty false` passes from `app/frontend`.
+
+### 3.3 Fix Vitest TSX Parsing
+
+Problems addressed:
+
+- Vitest fails 15 suites with JSX/TSX parse failures.
+- Current JSX/compiler settings do not match the active Vite/Vitest/Rolldown path.
+
+Actions:
+
+- Adjust Vitest/Vite TypeScript JSX handling.
+- Keep Next.js build settings compatible.
+- Avoid test-only hacks that diverge from application compilation.
+
+Acceptance checks:
+
+- `pnpm exec vitest run --reporter=dot` passes from `app/frontend`.
+- A frontend CI job runs install, typecheck, and tests from `app/frontend`.
+
+---
+
+## Phase 4 - Runtime and Environment Alignment
+
+Priority: P0
+
+Problems addressed:
+
+- `.python-version` says Python 3.12.3.
+- Docker uses Python 3.11.
+- Remote venv uses Python 3.11.0rc1.
+- CI mostly uses Python 3.12.3.
+- Requirements are generated with Python 3.12 metadata.
+
+Actions:
+
+- Choose the supported production Python version (recommend: Python 3.12.x).
+- Document the decision in `docs/adr/ADR-XXX-python-version-alignment.md`.
+- Align `.python-version`, Dockerfiles, CI, local setup docs, and lock/requirements generation.
+- Rebuild the VM venv with the chosen stable version.
+- Remove Python release-candidate runtimes from production-like verification.
+
+Acceptance checks:
+
+- `python --version` in local/CI/Docker contexts matches the chosen version.
+- Backend smoke tests pass on the chosen version.
+- Requirements metadata matches the chosen version.
+
+---
+
+## Phase 5 - Migrations and Schema Management
+
+Priority: P1
+
+Problems addressed:
+
+- App startup performs production schema repair.
+- Migration commands fail without environment preparation.
+- Runtime startup repair overlaps with Alembic responsibility.
+
+Actions:
+
+- Convert startup schema repair into explicit Alembic migrations or a controlled migration job.
+- Remove production schema mutation from application startup after migration coverage exists.
+- Make `alembic current` and `alembic upgrade head` usable in local and CI environments.
+- Add migration verification to CI.
+
+Acceptance checks:
+
+- `alembic upgrade head` succeeds in an isolated test database.
+- `alembic current --verbose` reports the expected head.
+- API startup does not mutate production schema.
+
+---
+
+## Phase 6 - Durable Background Jobs
+
+Priority: P1
+
+Problems addressed:
+
+- API routes return job IDs for FastAPI `BackgroundTasks`.
+- Work is lost if the API process restarts.
+- ARQ job code exists but is not deployed.
+- ARQ settings references likely use wrong casing.
+
+Actions:
+
+- Fix ARQ settings references.
+- Decide which workloads must use durable queueing.
+- Wire ARQ worker into Compose and production deployment.
+- Add health/readiness checks for worker/Redis connectivity.
+- Stop presenting non-durable background tasks as durable jobs.
+
+Acceptance checks:
+
+- ARQ worker starts in local Compose.
+- Durable job tests cover enqueue, execution, and status retrieval.
+- API restart does not lose queued durable work.
+
+---
+
+## Phase 7 - Deployment and Security Hardening
+
+Priority: P1
+
+Problems addressed:
+
+- Stripe success/cancel URLs are hardcoded to localhost.
+- Nginx auth rate limit targets `/api/v1/auth/` while active routes are `/api/v2/auth/`.
+- ACA Bicep uses wildcard CORS.
+- Production secrets are passed directly as environment variables in Compose.
+- `/metrics` and dev diagnostic routes need deployment-level decisions.
+- Permissive CSP with `script-src 'self' 'unsafe-inline'` allows XSS vector.
+- HSTS set unconditionally, including dev HTTP contexts.
+- Generic V1 route remnants may still exist beyond Nginx config.
+
+Actions:
+
+- Move Stripe redirect URLs to environment-derived public frontend URLs.
+- Fix Nginx auth rate-limit path.
+- Replace wildcard CORS with explicit allowed origins.
+- Tighten CSP: remove `unsafe-inline`, add nonce-based or hash-based approach.
+- Condition HSTS on `APP_ENV=production` only.
+- Audit and remove any remaining V1 route references.
+- Define which deployment target is authoritative: Compose, ACA, or another path.
+- Retire or mark non-authoritative deployment drafts.
+- Put production secrets behind the target platform's secret-management mechanism.
+- Decide whether `/metrics` is private-network only or requires app-level protection.
+- Restrict `/__dev/slow_query` to explicitly allowed development contexts (or remove it).
+
+Acceptance checks:
+
+- Production config contains no localhost redirect defaults.
+- Nginx rate limits apply to active auth routes.
+- ACA CORS does not use `*`.
+- CSP does not contain `unsafe-inline` in production.
+- HSTS header absent in dev, present in production.
+- No V1 URL patterns remain in active config.
+- Secret handling is platform-native or explicitly documented as local-only.
+
+---
+
+## Phase 8 - Privacy and Authorization Completion
+
+Priority: P1
+
+Problems addressed:
+
+- POPIA legal-hold and export-offered checks are TODOs.
+- Auth extended export/deletion task enqueueing is TODO.
+- Some authorization checks have repository-backed TODOs.
+
+Actions:
+
+- Implement legal-hold checks before erasure.
+- Ensure export-offered and deletion-request flows are persisted and auditable.
+- Replace placeholder authorization checks with repository-backed enforcement.
+- Add tests for POPIA erasure, export, consent expiry, and audit immutability paths.
+
+Acceptance checks:
+
+- POPIA workflows enforce legal hold and export preconditions.
+- Erasure/export requests create auditable state transitions.
+- Authorization tests fail closed when repository checks deny access.
+
+---
+
+## Phase 9 - Coverage, CI, and Evidence Renewal
+
+Priority: P1
+
+Problems addressed:
+
+- Stored coverage artifact reports 40.9 percent, below declared threshold.
+- Mypy and quality checks are partially non-blocking.
+- Documentation has stronger claims than current executable evidence.
+- Dual route registration: 355 routes registered twice (under `/api/v2` AND `/v2`).
+
+Actions:
+
+- Regenerate coverage from the current commit.
+- Decide the release coverage threshold and enforce it (recommend: 70% line for RC, 80% for production).
+- Make correctness, frontend typecheck, frontend tests, import-linter, migration checks, and launch-content validation visible in CI.
+- Keep broader lint/style debt tracked separately when not immediately release-blocking (see Phase 11).
+- Consolidate route registration to a single prefix (`/api/v2`); retire the duplicate `/v2` prefix.
+- Clean up dormant router files: `ether.py`, `judiciary.py`, `test_api.py`, `test_services.py` — retire or archive.
+
+Acceptance checks:
+
+- Current coverage report is regenerated and committed only if policy allows artifacts.
+- CI fails on agreed release-blocking checks.
+- Release documentation references current evidence, not stale artifacts.
+- Routes are registered under exactly one prefix.
+- Dormant router files are retired or documented as intentional.
+
+---
+
+## Phase 10 - Workspace Hygiene and Auditability
+
+Priority: P2
+
+Problems addressed:
+
+- Ignored local state is large and can mislead audits.
+- `.venv`, `.next`, `node_modules`, coverage output, caches, and pyc files inflate scans.
+
+Actions:
+
+- Add a safe cleanup target or script that removes ignored build/cache artifacts only after confirmation.
+- Add audit inventory commands that operate on tracked files by default.
+- Keep dependency installs reproducible.
+
+Acceptance checks:
+
+- Clean-checkout audit counts are reproducible.
+- Scanners can run on tracked files without timing out on build artifacts.
+
+---
+
+## Phase 11 - Technical Debt Burn-Down
+
+Priority: P2 | **NEW**
+
+Problems addressed (Gap Category 1 — Technical Debt):
+
+- ~830 Ruff findings beyond `F821` are untracked and unplanned.
+- 6 core→services import-linter boundary violations.
+- Comments in route handlers lag behind actual behavior (e.g., "trust the lesson_id" comments now inaccurate).
+- 35 accumulated Alembic migrations may benefit from squash/audit.
+- Dormant router files (`ether.py`, `judiciary.py`, `test_api.py`, `test_services.py`) clutter the tree.
+
+Actions:
+
+- Capture all remaining Ruff findings in `docs/backlog/ruff_debt.md` with severity classification.
+- Fix import-linter boundary violations or document explicit exceptions in `.importlinter` config.
+- Audit route comments against actual dependency injection; fix misleading comments.
+- Review migration history; squash pre-V2 migrations if safe, or document the migration audit status.
+- Retire or archive dormant router files if Phase 9 did not complete this.
+
+Acceptance checks:
+
+- `docs/backlog/ruff_debt.md` exists and is current.
+- Import-linter passes or has documented, approved exceptions.
+- No route comment contradicts the actual dependency injection.
+- Migration audit is documented at `docs/database/migration_audit.md`.
+
+---
+
+## Phase 12 - Security Posture Deepening
+
+Priority: P1 | **NEW**
+
+Problems addressed (Gap Category 2 — Security):
+
+- No current threat model exists for the V2 architecture.
+- Existing pen-test checklist is stale (references pre-V2 surfaces).
+- CSP and HSTS hardening are covered in Phase 7, but broader security posture is not.
+- No secrets scanning (e.g., Gitleaks, detect-secrets) in pre-commit or CI.
+- No dependency vulnerability scanning (e.g., Dependabot, pip-audit) enforcement.
+
+Actions:
+
+- Create or refresh a V2 threat model document at `docs/security/threat_model_v2.md`.
+- Refresh the pen-test checklist at `audits/security/pen_test_checklist.md` for V2 surfaces.
+- Enable Dependabot or equivalent for Python (pip) and Node (npm/pnpm) dependency alerts with CI gating on critical CVEs.
+- Add Gitleaks or detect-secrets to pre-commit hooks and CI.
+- Add `pip-audit` or `safety` check to CI.
+
+Acceptance checks:
+
+- `docs/security/threat_model_v2.md` covers V2 auth, session, API, data, and infrastructure surfaces.
+- Pen-test checklist references current V2 routes and modules.
+- CI blocks on critical-severity dependency vulnerabilities.
+- Secrets scanning runs in pre-commit and CI; no live secrets in repo.
+
+---
+
+## Phase 13 - Frontend and Product Completeness
+
+Priority: P2 | **NEW**
+
+Problems addressed (Gap Category 3 — Frontend/Product):
+
+- Playwright E2E suite exists but has not been verified passing against the current codebase.
+- Content is limited to Grade 4 Mathematics; Grades R-3, 5-7 and other subjects are unplanned.
+- Load testing infrastructure (`locust/`) is empty.
+- Accessibility (a11y) and PWA offline support have no verification plan.
+- Multilingual lesson generation (isiZulu, Afrikaans, isiXhosa) is mentioned but unverified.
+- Supabase vs raw Postgres auth strategy is unresolved.
+
+Actions:
+
+- Run and fix the Playwright E2E suite; add to CI.
+- Create a content expansion roadmap for Grades R-3 and 5-7 in `docs/caps/content_expansion_roadmap.md`.
+- Implement at least one Locust load-test scenario targeting the diagnostic and lesson endpoints; wire into CI or a manual pre-release gate.
+- Add a11y audit (axe-core or Lighthouse) to CI; verify PWA offline behavior.
+- Verify multilingual lesson generation end-to-end with at least one lesson per language.
+- Document Supabase-vs-raw-Postgres decision in `docs/adr/`; remove ambiguity from env files.
+
+Acceptance checks:
+
+- Playwright E2E suite passes locally and in CI.
+- Content expansion roadmap exists with estimated effort and CAPS source mapping.
+- Locust scenario runs against a local Compose stack with documented results.
+- Lighthouse a11y score ≥ 90; PWA installs and works offline for cached lessons.
+- One lesson per supported language passes generation + quality checks.
+- ADR documents the Supabase decision.
+
+---
+
+## Phase 14 - Operational Readiness
+
+Priority: P2 | **NEW**
+
+Problems addressed (Gap Category 4 — Operations):
+
+- No SRE runbooks (incident response, on-call, paging).
+- No capacity planning or scaling model.
+- No SLO definitions for the existing Grafana dashboards.
+- No cost model for LLM API usage or inference service sizing.
+
+Actions:
+
+- Create an incident response runbook at `docs/operations/incident_response.md`.
+- Define SLOs for key learner journeys (diagnostic session start, item response, lesson generation) in `docs/operations/slo_definitions.md`.
+- Add capacity planning notes: expected concurrent learners, per-request resource profile, scaling triggers.
+- Build a cost estimation model for LLM API calls per lesson generation, stored in `docs/operations/llm_cost_model.md`.
+
+Acceptance checks:
+
+- `docs/operations/incident_response.md` covers alert routing, escalation, and communication.
+- SLO definitions are instrumented as Grafana alerts where applicable.
+- Capacity notes are documented and reviewed before beta launch.
+- LLM cost model produces per-lesson and per-month estimates.
+
+---
+
+## Phase 15 - Governance and Process
+
+Priority: P2 | **NEW**
+
+Problems addressed (Gap Category 5 — Governance):
+
+- Branch protection on `master` is marked `[external]` in TODO with no follow-up.
+- Evidence documents reference a stale commit (May 17); current-state doc is 3+ weeks old.
+- Several outstanding architectural decisions lack ADRs (Python version, deployment target, Supabase).
+- "External" TODO tasks have no named owners.
+
+Actions:
+
+- Enable branch protection on `master`: require PR, require status checks, require review.
+- Run `make refresh-current-state` and commit updated `docs/current_state.md`.
+- Create ADRs for: Python version alignment (Phase 4), deployment target selection (Phase 7), Supabase decision (Phase 13).
+- Assign owners to all `[external]` TODO tasks and track them in a project board or issue tracker.
+
+Acceptance checks:
+
+- Branch protection is active and evidenced in `docs/release/branch_protection_evidence.md`.
+- `docs/current_state.md` is ≤ 7 days old at any point past Phase 0.
+- All outstanding architectural decisions have ADRs.
+- Every `[external]` task has a named owner and target date.
+
+---
+
+## Phase 16 - Beta Period with Real Learner Feedback
+
+Priority: P0 (release gate) | **NEW**
+
+Objective: Prove the system is safe and effective with real learners before declaring production-ready.
+
+Preconditions:
+
+- All Phase 1-15 acceptance checks pass in CI on `master`.
+- Staging environment is deployed and smoke-tested.
+- Rollback runbook (`docs/release/rollback_runbook.md`) is verified in a drill.
+- Backup/restore drill is completed and evidenced.
+- POPIA consent flows are verified end-to-end with test data.
+- Content quality review by at least one qualified educator is documented.
+
+Beta design:
+
+- **Duration**: Minimum 4 weeks, extendable based on incident rate.
+- **Cohort**: 20-50 learners, supervised by educators who can provide structured feedback.
+- **Scope**: Grade 4 Mathematics (the verified launch slice) only.
+- **Metrics tracked**:
+  - System: uptime, p95 latency, error rate, LLM provider health.
+  - Learner: session completion rate, time-on-task, item response patterns.
+  - Safety: consent gate denials, unauthorized access attempts, PII exposure events.
+  - Content: educator quality ratings, lesson flag rate, CAPS alignment checks.
+
+Go/no-go criteria for production launch:
+
+| Criterion | Threshold |
+|---|---|
+| Uptime | ≥ 99.5% over beta period |
+| P95 diagnostic response latency | ≤ 2 seconds |
+| Critical security incidents | 0 |
+| PII exposure events | 0 |
+| Consent-related incidents | 0 |
+| Educator content approval rate | ≥ 80% |
+| Learner session completion rate | ≥ 70% |
+| Backup/restore drill success | 2/2 drills passed |
+
+Actions:
+
+- Deploy the release candidate to a staging environment matching production topology.
+- Recruit beta cohort and obtain informed consent (POPIA-compliant).
+- Instrument all beta metrics; create a beta dashboard in Grafana.
+- Run weekly beta health reviews with documented outcomes.
+- Collect and triage all feedback; feed critical fixes back into the roadmap.
+
+Acceptance checks:
+
+- Beta period completes with all go/no-go criteria met.
+- Beta health review documents exist for each week.
+- All P0/P1 bugs discovered during beta are fixed and verified.
+- Production launch decision is documented with evidence.
+
+---
+
+## Updated Implementation Order
+
+1. Add audit, roadmap, and gap analysis artifacts. (Phase 0)
+2. Fix compileall syntax failure. (Phase 1.1)
+3. Fix `F821` release-blocking Ruff failures. (Phase 1.2)
+4. Secure practice session continuation routes with tests. (Phase 2)
+5. Fix frontend dependency/type/test gates. (Phase 3)
+6. Align Python runtime across all contexts. (Phase 4)
+7. Align CI gates with the correctness checks above. (Phase 1 CI, Phase 9)
+8. Fix migrations and remove startup schema repair. (Phase 5)
+9. Wire ARQ durable jobs. (Phase 6)
+10. Harden deployment config (Stripe, CORS, CSP, HSTS, secrets). (Phase 7)
+11. Complete POPIA and authorization enforcement. (Phase 8)
+12. Fix dual route registration; clean dormant routers. (Phase 9)
+13. Workspace hygiene and auditability. (Phase 10)
+14. Burn down tracked technical debt. (Phase 11)
+15. Deepen security posture (threat model, dependency scanning). (Phase 12)
+16. Frontend/product completeness (E2E, content roadmap, a11y, i18n). (Phase 13)
+17. Operational readiness (SRE runbooks, SLOs, cost model). (Phase 14)
+18. Governance (branch protection, ADRs, owner assignment). (Phase 15)
+19. **GATE: All CI checks green on `master`.**
+20. Deploy to staging; run backup/restore and rollback drills.
+21. **GATE: Staging smoke tests pass.**
+22. Begin controlled beta period. (Phase 16)
+23. **GATE: Beta go/no-go criteria met.**
+24. Production launch.
+
+---
+
+## Phase Dependency Graph
+
+```
+Phase 0 ──> Phase 1 ──> Phase 2 ──> Phase 3 ──> Phase 4
+                │                                      │
+                v                                      v
+           Phase 5 ──> Phase 6 ──> Phase 7 ──> Phase 8
+                                              │
+                                              v
+                                         Phase 9 ──> Phase 10
+                                              │
+                                              v
+                                         Phase 11 ──> Phase 12
+                                              │
+                                              v
+                                         Phase 13 ──> Phase 14
+                                              │
+                                              v
+                                         Phase 15
+                                              │
+                                              v
+                                    ┌─── CI GATE (all green) ───┐
+                                    │                            │
+                                    v                            v
+                              Staging Deploy              Phase 16 (Beta)
+                                                            │
+                                                            v
+                                                    PRODUCTION LAUNCH
+```
+
+Phases 11-15 can be parallelized with appropriate staffing.

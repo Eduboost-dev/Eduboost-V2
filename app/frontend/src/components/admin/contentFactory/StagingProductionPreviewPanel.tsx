@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   fetchStagingPreview,
   fetchProductionPreview,
@@ -33,7 +33,8 @@ export default function StagingProductionPreviewPanel({ scopes }: Props) {
   const [loading, setLoading] = useState(false);
   const [view, setView] = useState<"summary" | "caps">("summary");
 
-  async function refreshStaging() {
+  const refreshStaging = useCallback(async () => {
+    if (!scopeId) return;
     setLoading(true);
     setMessage(null);
     try {
@@ -44,9 +45,10 @@ export default function StagingProductionPreviewPanel({ scopes }: Props) {
     } finally {
       setLoading(false);
     }
-  }
+  }, [scopeId]);
 
-  async function refreshProduction() {
+  const refreshProduction = useCallback(async () => {
+    if (!scopeId) return;
     setLoading(true);
     setMessage(null);
     try {
@@ -64,7 +66,7 @@ export default function StagingProductionPreviewPanel({ scopes }: Props) {
     } finally {
       setLoading(false);
     }
-  }
+  }, [capsRef, scopeId, view]);
 
   useEffect(() => {
     setScopeId(scopes[0]?.scope_id ?? "");
@@ -75,13 +77,13 @@ export default function StagingProductionPreviewPanel({ scopes }: Props) {
       void refreshStaging();
       void refreshProduction();
     }
-  }, [scopeId, view]);
+  }, [refreshProduction, refreshStaging, scopeId]);
 
   useEffect(() => {
     if (scopeId && capsRef && view === "caps") {
       void refreshProduction();
     }
-  }, [capsRef]);
+  }, [capsRef, refreshProduction, scopeId, view]);
 
   const stagingCount = stagingReport?.total_artifacts_count ?? 0;
   const stagingActive = stagingReport?.active_artifacts_count ?? 0;

@@ -563,7 +563,7 @@ class EduboostETLv2(EduboostETL):
                 int(b) for b in (
                     b''.join(
                         x.to_bytes(4, 'little') if isinstance(x, int)
-                        else bytes([int(f * 127 + 128)]) * 4
+                        else bytes([int(x * 127 + 128)]) * 4
                         for x in embedding[:1]  # stub: store first element only
                     )
                 )

@@ -6,10 +6,14 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from scripts.docs_inventory import IMPORTANT_DOCS, build_inventory, write_inventory
 
 
 ROOT = Path(__file__).resolve().parents[2]
+
+pytestmark = pytest.mark.governance
 
 
 def test_docs_inventory_includes_recent_release_and_architecture_docs():

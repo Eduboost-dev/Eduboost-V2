@@ -23,7 +23,7 @@ STATE_ARTIFACTS = (
     "docs/operations/final_release_verification_bundle.md",
     "docs/operations/project_release_closure_index.md",
     "docs/operations/CLUSTER_H_CLOSURE.md",
-    "PR_INTEGRATION_SUMMARY.md",
+    "audits/reports/PR_INTEGRATION_SUMMARY.md",
     "docs/project_status.md",
 )
 

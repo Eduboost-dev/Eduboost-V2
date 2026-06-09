@@ -6,8 +6,22 @@ HTTP objects, LLM clients, or any infrastructure code.
 from __future__ import annotations
 
 import uuid
-from datetime import UTC, datetime, timedelta
-from enum import StrEnum
+from datetime import datetime, timedelta
+from enum import Enum as PyEnum
+try:
+    # Python 3.11+ exposes datetime.UTC
+    from datetime import UTC  # type: ignore
+except Exception:
+    from datetime import timezone as _timezone
+
+    UTC = _timezone.utc
+try:
+    from enum import StrEnum
+except Exception:
+    from enum import Enum as _Enum
+
+    class StrEnum(str, _Enum):
+        pass
 
 import sqlalchemy as sa
 from sqlalchemy import (
@@ -44,19 +58,19 @@ def _enum_values(enum_cls):
 # ── Enums ─────────────────────────────────────────────────────────────────────
 
 
-class UserRole(StrEnum):
+class UserRole(str, PyEnum):
     STUDENT = "student"
     PARENT = "parent"
     TEACHER = "teacher"
     ADMIN = "admin"
 
 
-class SubscriptionTier(StrEnum):
+class SubscriptionTier(str, PyEnum):
     FREE = "free"
     PREMIUM = "premium"
 
 
-class ArchetypeLabel(StrEnum):
+class ArchetypeLabel(str, PyEnum):
     KETER = "Keter"
     CHOKMAH = "Chokmah"
     BINAH = "Binah"
@@ -69,14 +83,14 @@ class ArchetypeLabel(StrEnum):
     MALKUTH = "Malkuth"
 
 
-class Language(StrEnum):
+class Language(str, PyEnum):
     ENGLISH = "en"
     ISIZULU = "zu"
     AFRIKAANS = "af"
     ISIXHOSA = "xh"
 
 
-class ConsentState(StrEnum):
+class ConsentState(str, PyEnum):
     PENDING = "pending"
     GRANTED = "granted"
     DENIED = "denied"
@@ -85,7 +99,7 @@ class ConsentState(StrEnum):
     RENEWAL_REQUIRED = "renewal_required"
 
 
-class ItemReviewStatus(StrEnum):
+class ItemReviewStatus(str, PyEnum):
     DRAFT = "draft"
     AI_GENERATED = "ai_generated"
     HUMAN_REVIEWED = "human_reviewed"
@@ -201,6 +215,7 @@ class ParentalConsent(Base):
 
     guardian: Mapped[Guardian] = relationship("Guardian", back_populates="consents")
     learner: Mapped[LearnerProfile] = relationship("LearnerProfile", back_populates="consents")
+    version_history: Mapped[list["ConsentVersionHistory"]] = relationship("ConsentVersionHistory", back_populates="consent", cascade="all, delete-orphan")
 
     @property
     def is_active(self) -> bool:
@@ -237,6 +252,71 @@ class ParentalConsent(Base):
             ),
         ),
     )
+
+
+# ── Consent Version History ───────────────────────────────────────────────────────
+
+
+class ConsentVersionHistory(Base):
+    """POPIA consent version history for tracking consent lifecycle and policy version changes."""
+
+    __tablename__ = "consent_version_history"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    consent_id: Mapped[str] = mapped_column(ForeignKey("parental_consents.id", ondelete="CASCADE"), nullable=False)
+    policy_version: Mapped[str] = mapped_column(String(20), nullable=False)
+    status: Mapped[str] = mapped_column(String(20), nullable=False)
+    granted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    transition_reason: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, nullable=False)
+
+    consent: Mapped[ParentalConsent] = relationship("ParentalConsent", back_populates="version_history")
+
+    __table_args__ = (
+        Index("ix_consent_version_history_consent_id", "consent_id"),
+        Index("ix_consent_version_history_created_at", "created_at"),
+    )
+
+
+# ── Erasure Request State Machine ─────────────────────────────────────────────────
+
+
+class ErasureRequest(Base):
+    """POPIA Right to Erasure request state machine with safety checks and audit trail."""
+
+    __tablename__ = "erasure_request"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    learner_id: Mapped[str] = mapped_column(ForeignKey("learner_profiles.id", ondelete="CASCADE"), nullable=False)
+    requester_id: Mapped[str] = mapped_column(String(36), nullable=False)
+    requester_role: Mapped[str] = mapped_column(String(20), nullable=False)  # guardian, admin, data_subject
+    state: Mapped[str] = mapped_column(String(20), nullable=False, default="requested")  # requested, verified, scheduled, cancelled, executed, failed
+    reason: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    legal_basis: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    export_offered: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    export_waived: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    legal_hold: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    grace_period_end_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    scheduled_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    executed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    execution_method: Mapped[str | None] = mapped_column(String(20), nullable=True)  # soft, physical, purge
+    preflight_result: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    postflight_result: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    admin_override: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    admin_override_reason: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, onupdate=_now, nullable=False)
+
+    __table_args__ = (
+        Index("ix_erasure_request_learner_id", "learner_id"),
+        Index("ix_erasure_request_state", "state"),
+        Index("ix_erasure_request_grace_period_end", "grace_period_end_at"),
+    )
+
+
+# ── Audit Event ───────────────────────────────────────────────────────────────
 
 
 class AuditEvent(Base):
@@ -563,6 +643,16 @@ class LessonFeedback(Base):
         Index("ix_feedback_exported_at", "exported_at"),
     )
 
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=_uuid)
+    action: Mapped[str] = mapped_column(String(128), nullable=False)
+    actor_id: Mapped[str | None] = mapped_column(String(128))      # Guardian/admin UUID
+    learner_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), index=True)
+    resource_type: Mapped[str | None] = mapped_column(String(64))
+    resource_id: Mapped[str | None] = mapped_column(String(128))
+    metadata_json: Mapped[str | None] = mapped_column("metadata", Text)  # JSON, PII-stripped
+    ip_address: Mapped[str | None] = mapped_column(String(45))
+    user_agent: Mapped[str | None] = mapped_column(Text)
+    occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, nullable=False)
 
 class RLHFExport(Base):
     __tablename__ = "rlhf_exports"

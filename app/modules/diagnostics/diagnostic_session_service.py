@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import Any
 from uuid import UUID, uuid4
 
@@ -98,7 +98,7 @@ class DiagnosticSessionService:
         score = compute_mastery_score(snap.theta, snap.se_estimate)
         label = label_for_score(score).value
         if self.sessions:
-            await self.sessions.update_session_state(str(session_id), "completed", theta_after=snap.theta, se_estimate=snap.se_estimate, items_served=snap.items_served, gap_topics=snap.gap_topics, misconception_tags=snap.misconception_tags, completed_at=datetime.now(UTC))
+            await self.sessions.update_session_state(str(session_id), "completed", theta_after=snap.theta, se_estimate=snap.se_estimate, items_served=snap.items_served, gap_topics=snap.gap_topics, misconception_tags=snap.misconception_tags, completed_at=datetime.now(timezone.utc))
         if self.mastery:
             caps_refs = snap.gap_topics or [snap.caps_ref]
             for caps_ref in caps_refs:

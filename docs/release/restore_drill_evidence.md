@@ -5,11 +5,11 @@
 
 | Field | Value |
 |---|---|
-| Result | TODO |
-| Evidence URL/path | TODO |
-| Operator | TODO |
-| Notes | TODO |
-| Captured at | TODO |
+| Result | Preflight failed; runtime restore not executed |
+| Evidence URL/path | `make database-restore-dry-run` output captured in session |
+| Operator | Codex |
+| Notes | Missing `DATABASE_URL` and `BACKUP_ENCRYPTION_KEY`; target environment `staging` was accepted. Dry-run printed required verification steps. |
+| Captured at | 2026-05-22T14:26:54Z |
 
 ## Checklists
 - Backup checksum: TODO

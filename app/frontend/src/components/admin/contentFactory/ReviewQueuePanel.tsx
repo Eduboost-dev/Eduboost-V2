@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { assignReviewBatch, bulkApproveReview, bulkQuarantineReview, bulkRejectReview, fetchContentFactoryReviewQueue, fetchReviewBundle, type ReviewBundle, type ReviewQueueItem } from "@/lib/api/contentFactory";
 import BulkReviewToolbar from "./BulkReviewToolbar";
 import ReviewBundleDrawer from "./ReviewBundleDrawer";
@@ -13,15 +13,19 @@ export default function ReviewQueuePanel() {
   const [bundle, setBundle] = useState<ReviewBundle | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
-  async function load() {
+  const load = useCallback(async (filters?: { risk?: string; scope?: string }) => {
     const params: Record<string, string> = {};
-    if (risk) params.risk_level = risk;
-    if (scope) params.scope_id = scope;
+    const riskFilter = filters?.risk ?? "";
+    const scopeFilter = filters?.scope ?? "";
+    if (riskFilter) params.risk_level = riskFilter;
+    if (scopeFilter) params.scope_id = scopeFilter;
     const page = await fetchContentFactoryReviewQueue(params);
     setItems(page.items);
-  }
+  }, []);
 
-  useEffect(() => { void load(); }, []);
+  const loadCurrentFilters = useCallback(() => load({ risk, scope }), [load, risk, scope]);
+
+  useEffect(() => { void load(); }, [load]);
   const selectedItems = useMemo(() => items.filter((item) => selected.includes(item.artifact_id)), [items, selected]);
 
   async function run(action: () => Promise<unknown>) {
@@ -30,7 +34,7 @@ export default function ReviewQueuePanel() {
       const result = await action();
       setMessage(JSON.stringify(result));
       setSelected([]);
-      await load();
+      await loadCurrentFilters();
     } catch (err) {
       setMessage(err instanceof Error ? err.message : "Review action failed");
     }
@@ -48,7 +52,7 @@ export default function ReviewQueuePanel() {
           <select className="rounded border border-slate-700 bg-slate-950 px-3 py-2 text-sm" value={risk} onChange={(event) => setRisk(event.target.value)}>
             <option value="">All risk</option><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option><option value="critical">Critical</option>
           </select>
-          <button className="rounded bg-slate-700 px-3 py-2 text-sm" onClick={() => void load()}>Filter</button>
+          <button className="rounded bg-slate-700 px-3 py-2 text-sm" onClick={() => void loadCurrentFilters()}>Filter</button>
         </div>
       </div>
 

@@ -1,8 +1,8 @@
 # Diagnostic Deep Health Runtime Evidence Status
 
-Generated at: `2026-05-26T18:36:32Z`
-Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
-Branch: `pr-cf-013-full-generation-runner`
+Generated at: `2026-05-22T14:23:12Z`
+Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+Branch: `codex/production_readiness`
 
 **Status:** `diag-deep-health-runtime-not-accepted`
 **Deep health URL:** ``
@@ -15,7 +15,7 @@ Branch: `pr-cf-013-full-generation-runner`
 **Head SHA:** ``
 **Test command:** ``
 **Verified by:** `unverified`
-**Date verified:** `2026-05-26`
+**Date verified:** `2026-05-22`
 
 ## Required component results
 

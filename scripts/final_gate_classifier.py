@@ -98,6 +98,12 @@ class FinalGateRefresh:
     resolved_non_blocking_findings: list[RegistryFinding]
     required_next_actions: list[str]
     no_false_closure_rules: list[str]
+    # Note: keep the canonical fields above. Backward-compatible aliases
+    # (e.g. `refresh_results`, `non_ready_beta_findings`, `no_false_closure_rules`)
+    # are provided as dataclass fields to ensure the object is directly
+    # serializable and compatible with legacy consumers. Do not shadow
+    # these names with @property definitions, which breaks dataclass field
+    # initialization order.
 
 
 def current_commit() -> str:

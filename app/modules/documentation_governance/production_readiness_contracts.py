@@ -3,12 +3,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
-from enum import StrEnum
+from enum import Enum
 import hashlib
 import re
 
 
-class DocumentationAudience(StrEnum):
+class DocumentationAudience(str, Enum):
     DEVELOPER = "developer"
     OPERATOR = "operator"
     REVIEWER = "reviewer"
@@ -19,21 +19,21 @@ class DocumentationAudience(StrEnum):
     END_USER = "end_user"
 
 
-class DocumentationStatus(StrEnum):
+class DocumentationStatus(str, Enum):
     DRAFT = "draft"
     ACTIVE = "active"
     SUPERSEDED = "superseded"
     ARCHIVED = "archived"
 
 
-class AdrStatus(StrEnum):
+class AdrStatus(str, Enum):
     PROPOSED = "proposed"
     ACCEPTED = "accepted"
     SUPERSEDED = "superseded"
     REJECTED = "rejected"
 
 
-class ClaimType(StrEnum):
+class ClaimType(str, Enum):
     REPOSITORY_EVIDENCE = "repository_evidence"
     MANUAL_APPROVAL = "manual_approval"
     EXTERNAL_SYSTEM = "external_system"
@@ -42,14 +42,14 @@ class ClaimType(StrEnum):
     SECURITY_REVIEW = "security_review"
 
 
-class ClaimConfidence(StrEnum):
+class ClaimConfidence(str, Enum):
     VERIFIED = "verified"
     VERIFY_PENDING = "verify_pending"
     MANUAL_ONLY = "manual_only"
     UNSUPPORTED = "unsupported"
 
 
-class ReleaseNoteType(StrEnum):
+class ReleaseNoteType(str, Enum):
     FEATURE = "feature"
     FIX = "fix"
     SECURITY = "security"

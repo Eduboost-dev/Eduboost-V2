@@ -2,33 +2,33 @@
 
 from __future__ import annotations
 
-from sqlalchemy import desc, select
+from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import AsyncSessionLocal
-from app.models import LearnerProfile
 
 
 class GamificationRepository:
-    def __init__(self, db: AsyncSession | None = None) -> None:
-        self._db = db
-
-    async def get_profile_rows(self, learner_id: str):
-        async with _optional_session(self._db) as session:
-            learner = await session.get(LearnerProfile, learner_id)
-            if learner is None or learner.is_deleted:
-                return None, []
-            return learner, []
-
-    async def get_leaderboard_rows(self, limit: int = 10):
-        async with _optional_session(self._db) as session:
-            result = await session.execute(
-                select(LearnerProfile)
-                .where(LearnerProfile.is_deleted == False)  # noqa: E712
-                .order_by(desc(LearnerProfile.xp), desc(LearnerProfile.streak_days))
-                .limit(limit)
+    async def get_profile_rows(self, learner_id: str, db: AsyncSession | None = None):
+        session_context = _optional_session(db)
+        async with session_context as session:
+            learner = await session.execute(
+                text("SELECT * FROM learners WHERE id = :learner_id"),
+                {"learner_id": learner_id},
             )
-            return list(result.scalars().all())
+            learner_row = learner.mappings().first()
+            if learner_row is None:
+                return None, []
+            return learner_row, []
+
+    async def get_leaderboard_rows(self, limit: int = 10, db: AsyncSession | None = None):
+        session_context = _optional_session(db)
+        async with session_context as session:
+            result = await session.execute(
+                text("SELECT * FROM learners ORDER BY created_at DESC LIMIT :limit"),
+                {"limit": limit},
+            )
+            return result.mappings().all()
 
 
 class _optional_session:

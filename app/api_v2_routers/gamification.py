@@ -7,7 +7,8 @@ from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.security import get_current_user
+from app.api_v2_deps.auth import AuthContext, require_auth_context
+from app.core.security import get_current_user  # noqa: F401
 from app.security.dependencies import require_active_consent_for_current_user, require_learner_read_for_current_user
 from app.security.dependencies import require_learner_write_for_current_user
 from app.repositories.gamification_repository import GamificationRepository
@@ -29,7 +30,7 @@ class AwardXPRequest(BaseModel):
 async def get_profile(
     learner_id: str,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     learner = await LearnerRepository(db).get_by_id(learner_id)
     if learner is None:
@@ -46,7 +47,7 @@ async def get_profile(
 async def award_xp(
     body: AwardXPRequest,
     db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
 ):
     learner = await LearnerRepository(db).get_by_id(body.learner_id)
     if learner is None:
@@ -61,7 +62,7 @@ async def award_xp(
 
     await FourthEstateService(db).record(
         event_type="gamification.xp_awarded",
-        actor_id=current_user.get("sub"),
+        actor_id=current_user.user_id,
         learner_pseudonym=learner.pseudonym_id,
         resource_id=body.learner_id,
         payload={

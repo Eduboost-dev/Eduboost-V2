@@ -26,8 +26,8 @@ groups:
             Item bank coverage for {{ $labels.caps_ref }} is below 80%
           description: >-
             The approved item count for CAPS ref {{ $labels.caps_ref }} has
-            dropped to {{ printf "%.0f" ($value * 40) }} approved items
-            ({{ printf "%.0f" ($value * 100) }}% of the 40-item target).
+            dropped below 80% of the 40-item target
+            (current ratio: {{ printf "%.2f" $value }}).
             Run `make generate-items CAPS_REF={{ $labels.caps_ref }} N=20`
             and trigger a human review before the next diagnostic sessions.
           runbook_url: >-

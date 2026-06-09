@@ -15,6 +15,8 @@
 
 import { useState, useEffect } from "react";
 
+type ApiDetail = { detail?: string };
+
 interface PrivacyState {
   analytics_enabled:     boolean;
   ai_improvement:        boolean;
@@ -68,15 +70,15 @@ export default function PrivacySettingsPage() {
         }),
       });
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error((data as any).detail ?? "Save failed.");
+        const data: ApiDetail = await res.json().catch(() => ({}));
+        throw new Error(data.detail ?? "Save failed.");
       }
       const updated = await res.json();
       setSettings(updated);
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
-    } catch (e: any) {
-      setError(e.message ?? "Save failed.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Save failed.");
     } finally {
       setSaving(false);
     }
@@ -91,14 +93,14 @@ export default function PrivacySettingsPage() {
         method: "POST", credentials: "include",
       });
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error((data as any).detail);
+        const data: ApiDetail = await res.json().catch(() => ({}));
+        throw new Error(data.detail || "Export request failed");
       }
       setSettings(prev =>
         prev ? { ...prev, export_requested_at: new Date().toISOString() } : prev
       );
-    } catch (e: any) {
-      setError(e.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Export request failed");
     } finally {
       setExportLoading(false);
     }
@@ -113,15 +115,15 @@ export default function PrivacySettingsPage() {
         method: "POST", credentials: "include",
       });
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error((data as any).detail);
+        const data: ApiDetail = await res.json().catch(() => ({}));
+        throw new Error(data.detail || "Deletion request failed");
       }
       setSettings(prev =>
         prev ? { ...prev, deletion_requested_at: new Date().toISOString() } : prev
       );
       setDeleteConfirm(false);
-    } catch (e: any) {
-      setError(e.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Deletion request failed");
     } finally {
       setDeleteLoading(false);
     }

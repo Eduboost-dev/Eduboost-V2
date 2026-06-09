@@ -53,10 +53,11 @@ def main() -> int:
         print(f"- PASS syntax {path}")
 
     if not os.getenv("SKIP_PYTEST_RECURSION"):
+        venv_py = str((ROOT / ".venv" / "bin" / "python")) if (ROOT / ".venv" / "bin" / "python").exists() else sys.executable
         env = {**os.environ, "PYTHONPATH": str(ROOT), "SKIP_PYTEST_RECURSION": "1"}
         result = subprocess.run(
             [
-                sys.executable,
+                venv_py,
                 "-m",
                 "pytest",
                 "-c",
@@ -79,9 +80,10 @@ def main() -> int:
         else:
             failures.append("production frontend runtime tests failed")
 
+    venv_py = str((ROOT / ".venv" / "bin" / "python")) if (ROOT / ".venv" / "bin" / "python").exists() else sys.executable
     ruff = subprocess.run(
         [
-            sys.executable,
+            venv_py,
             "-m",
             "ruff",
             "check",

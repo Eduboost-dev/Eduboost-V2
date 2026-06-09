@@ -1,9 +1,12 @@
 # Import-Linter Availability
 
-Generated at: `2026-05-26T18:33:41Z`
+Generated at: `2026-06-05T20:19:22Z`
 
 **Status:** available
 
 ```text
-import-linter 2.11
+Usage: lint-imports [OPTIONS]
+Try 'lint-imports --help' for help.
+
+Error: No such option: --version Did you mean --verbose?
 ```

@@ -22,7 +22,7 @@ Example:
         )
 """
 
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import TYPE_CHECKING
 from uuid import UUID
 

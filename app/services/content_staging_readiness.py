@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import uuid
 from collections import defaultdict
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
@@ -98,7 +98,7 @@ class AllScopeStagingVerificationReport(BaseModel):
     scopes: list[ScopeStagingVerificationReport]
     summary: dict[str, Any] = Field(default_factory=dict)
     created_by: str | None = None
-    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class ContentStagingReadinessService:
@@ -213,7 +213,7 @@ class ContentStagingReadinessService:
             status=report.status,
             summary_json=report.summary,
             created_by=actor_id,
-            completed_at=datetime.now(UTC),
+            completed_at=datetime.now(timezone.utc),
         )
         session.add(stored)
         for scope_report in report.scopes:
@@ -227,7 +227,7 @@ class ContentStagingReadinessService:
                     summary_json={**scope_report.summary, "layers": [layer.model_dump(mode="json") for layer in scope_report.layers]},
                     blockers_json=[blocker.model_dump(mode="json", exclude_none=True) for blocker in scope_report.blockers],
                     created_by=actor_id,
-                    completed_at=datetime.now(UTC),
+                    completed_at=datetime.now(timezone.utc),
                 )
             )
         await session.flush()

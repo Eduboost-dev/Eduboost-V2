@@ -49,22 +49,25 @@ class FourthEstateService:
                 outcome=constitutional_outcome,
                 audit_id=str(entry.id),
             )
-        except AttributeError:
-            # Some test logging setups expose a minimal logger without the
-            # stdlib attributes structlog processors expect. The audit record
-            # itself is the source of truth, so logging must not break the
-            # protected action.
-            pass
+            # Both committed together — no partial state possible.
+    """
+    from app.models import AuditLog  # avoid circular import
 
     # ── Convenience helpers ───────────────────────────────────────────────────
 
-    async def consent_granted(self, guardian_id: str, learner_id: str, policy_version: str) -> None:
-        await self.record(
-            "CONSENT_GRANTED",
-            actor_id=guardian_id,
-            payload={"learner_id": learner_id, "policy_version": policy_version},
-            constitutional_outcome="APPROVED",
-        )
+    entry = AuditLog(
+        action=str(action),
+        actor_id=str(actor_id) if actor_id else None,
+        learner_id=learner_id,
+        resource_type=resource_type,
+        resource_id=resource_id,
+        metadata_json=json.dumps(safe_metadata),
+        ip_address=ip_address,
+        user_agent=user_agent,
+        occurred_at=datetime.now(UTC),
+    )
+    db.add(entry)
+    # Will be committed with the parent transaction.
 
     async def consent_revoked(self, guardian_id: str, learner_id: str) -> None:
         await self.record(

@@ -227,17 +227,46 @@ class ItemValidator:
             )
 
     def _rule_stem_readability(self, item: dict) -> None:
-        """Rule 3: stem readability must be ≤ Grade 6 Flesch-Kincaid."""
+        """Rule 3: stem readability must be ≤ Grade 6 Flesch-Kincaid for Grade R–6 items.
+
+        The generator rewrites stems for younger grades (R–6). Enforce the
+        FK threshold only for those grades; allow higher-grade items to bypass
+        this specific restriction.
+        """
         stem = item.get("stem", "")
         if not stem or not stem.strip():
             raise ValidationError("stem_readability", "stem is missing or empty.")
+
+        # Determine item grade. Accept numeric grades and 'R' (reception).
+        grade_field = item.get("grade")
+        grade_num: Optional[int]
+        grade_num = None
+        if isinstance(grade_field, str):
+            g = grade_field.strip()
+            if g.upper() == "R":
+                grade_num = 0
+            else:
+                try:
+                    grade_num = int(float(g))
+                except Exception:
+                    grade_num = None
+        elif isinstance(grade_field, (int, float)):
+            try:
+                grade_num = int(grade_field)
+            except Exception:
+                grade_num = None
+
+        # Only enforce the FK threshold for Grade R–6 items (inclusive).
+        enforce_fk = grade_num is None or grade_num <= 6
+        if not enforce_fk:
+            return
 
         fk = flesch_kincaid_grade(stem)
         if fk > MAX_FK_GRADE:
             raise ValidationError(
                 "stem_readability",
                 f"Stem FK grade {fk:.1f} exceeds maximum {MAX_FK_GRADE}. "
-                f"Simplify language for Grade 4 learners.",
+                f"Simplify language for Grade R–6 learners.",
             )
 
     def _rule_no_pii_or_harmful(self, item: dict) -> None:

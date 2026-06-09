@@ -2,25 +2,41 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
+from dataclasses import dataclass
 from typing import Any, Protocol
 
 from app.domain.content_coverage import (
     CapsRefCoverageReport,
     ContentLayer,
     CoverageLayerCounts,
+    CoverageLayerStatus,
     ScopeCoverageLayerSummary,
     ScopeCoverageReport,
     ScopeCoverageSummary,
     coverage_status,
 )
+from sqlalchemy import func, select
+
+from app.models.content_factory import ContentArtifactStatus, ContentGenerationArtifact
 from app.repositories.item_bank_repository import ItemBankRepository
 from app.repositories.lesson_repository import LessonRepository
 from app.services.content_scope_registry import ContentScopeRegistry
 
 
+@dataclass(frozen=True)
+class CoverageGateLayerReport:
+    status: CoverageLayerStatus
+    coverage_percentage: float
+    target_percentage: float
+    approved_total: int
+    target_total: int
+
+
 DEFAULT_COVERAGE_LAYERS = [
     ContentLayer.DIAGNOSTIC_ITEMS,
     ContentLayer.LESSONS,
+    ContentLayer.ASSESSMENT_BLUEPRINTS,
+    ContentLayer.STUDY_PLAN_TEMPLATES,
 ]
 
 
@@ -67,6 +83,35 @@ class ContentCoverageService:
             per_caps_ref=per_caps_ref,
         )
 
+    async def get_coverage(
+        self,
+        session: Any,
+        scope_id: str,
+        layer: ContentLayer,
+    ) -> CoverageGateLayerReport:
+        """Return layer-level coverage in the shape expected by promotion gates.
+
+        The session parameter is accepted for compatibility with DB-backed gate
+        callers; this service already receives its repositories at construction.
+        """
+        layer = ContentLayer(layer)
+        scope_report = await self.get_scope_coverage(scope_id, layers=[layer])
+        layer_summary = scope_report.layers[layer]
+        approved_total = layer_summary.approved_total
+
+        if layer in {ContentLayer.ASSESSMENT_BLUEPRINTS, ContentLayer.STUDY_PLAN_TEMPLATES}:
+            approved_total = await self._artifact_layer_approved_total(session, scope_id, layer)
+
+        status = coverage_status(approved_total, layer_summary.target_total)
+        coverage_ratio = round(approved_total / layer_summary.target_total, 4) if layer_summary.target_total else 0.0
+        return CoverageGateLayerReport(
+            status=status,
+            coverage_percentage=round(coverage_ratio * 100, 2),
+            target_percentage=100.0,
+            approved_total=approved_total,
+            target_total=layer_summary.target_total,
+        )
+
     async def get_caps_ref_coverage(
         self,
         scope_id: str,
@@ -109,6 +154,20 @@ class ContentCoverageService:
             status=coverage_status(approved, target),
             coverage_ratio=round(approved / target, 4) if target > 0 else 0.0,
         )
+
+
+    async def _artifact_layer_approved_total(self, session: Any, scope_id: str, layer: ContentLayer) -> int:
+        if session is None or not hasattr(session, "execute"):
+            return 0
+        result = await session.execute(
+            select(func.count(ContentGenerationArtifact.artifact_id)).where(
+                ContentGenerationArtifact.scope_id == scope_id,
+                ContentGenerationArtifact.content_layer == layer,
+                ContentGenerationArtifact.status == ContentArtifactStatus.APPROVED,
+            )
+        )
+        scalar = result.scalar_one_or_none() if hasattr(result, "scalar_one_or_none") else result.scalar()
+        return int(scalar or 0)
 
     async def _diagnostic_counts(self, caps_ref: str) -> dict[str, int]:
         if self.item_repo is None:

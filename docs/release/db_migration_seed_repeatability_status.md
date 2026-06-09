@@ -1,7 +1,7 @@
 # DB Migration + Seed Repeatability Status
 
-Generated at: `2026-05-26T18:36:32Z`
-Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+Generated at: `2026-06-04T11:17:34Z`
+Commit: `1faa5ed5f7e4961d9d8cc7f666684057494eb8fb`
 
 **Status:** `db-migration-seed-repeatability-not-proven`
 **Raw Alembic SQL:** `temp/db_repeatability/alembic_upgrade_head.raw.sql`
@@ -10,12 +10,12 @@ Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 
 ## Summary
 
-- Alembic head `20260516_0100` present: `True`
-- Raw SQL lines: `1186`
-- Supabase SQL lines: `1152`
-- Removed chatter lines: `16`
-- Removed broken null seed blocks: `2`
-- Removed Supabase role lines: `2`
+- Alembic head `20260516_0100` present: `False`
+- Raw SQL lines: `11`
+- Supabase SQL lines: `11`
+- Removed chatter lines: `0`
+- Removed broken null seed blocks: `0`
+- Removed Supabase role lines: `0`
 - Generated IRT seed rows: `1600`
 - Unique IRT seed rows: `1600`
 
@@ -23,26 +23,26 @@ Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
 
 | Table | DDL present |
 |---|---:|
-| `audit_events` | True |
-| `audit_logs` | True |
-| `calibration_audits` | True |
-| `diagnostic_items` | True |
-| `diagnostic_sessions` | True |
-| `guardians` | True |
-| `irt_items` | True |
-| `item_exposures` | True |
-| `knowledge_gaps` | True |
-| `learner_profiles` | True |
-| `lesson_feedback` | True |
-| `lessons` | True |
-| `mastery_snapshots` | True |
-| `parental_consents` | True |
-| `practice_queue` | True |
-| `rlhf_exports` | True |
-| `spaced_review_schedule` | True |
-| `stripe_webhook_events` | True |
-| `subject_mastery` | True |
-| `topic_mastery` | True |
+| `audit_events` | False |
+| `audit_logs` | False |
+| `calibration_audits` | False |
+| `diagnostic_items` | False |
+| `diagnostic_sessions` | False |
+| `guardians` | False |
+| `irt_items` | False |
+| `item_exposures` | False |
+| `knowledge_gaps` | False |
+| `learner_profiles` | False |
+| `lesson_feedback` | False |
+| `lessons` | False |
+| `mastery_snapshots` | False |
+| `parental_consents` | False |
+| `practice_queue` | False |
+| `rlhf_exports` | False |
+| `spaced_review_schedule` | False |
+| `stripe_webhook_events` | False |
+| `subject_mastery` | False |
+| `topic_mastery` | False |
 
 ## Apply commands
 
@@ -58,6 +58,8 @@ npx --yes supabase db query --linked --file temp/db_repeatability/seed_irt_items
 ## Blockers
 
 - alembic upgrade head --sql failed
+- expected Alembic head 20260516_0100 missing from generated SQL
+- required runtime table DDL missing: audit_events, audit_logs, calibration_audits, diagnostic_items, diagnostic_sessions, guardians, irt_items, item_exposures, knowledge_gaps, learner_profiles, lesson_feedback, lessons, mastery_snapshots, parental_consents, practice_queue, rlhf_exports, spaced_review_schedule, stripe_webhook_events, subject_mastery, topic_mastery
 
 ## No false-closure rules
 

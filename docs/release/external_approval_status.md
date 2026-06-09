@@ -1,7 +1,7 @@
 # External Approval Status
 
-Generated at: `2026-05-26T18:38:53Z`
-Commit: `3fd35da07070e6f6e8bc43ec0915d25ba53da6a7`
+Generated at: `2026-06-04T11:18:14Z`
+Commit: `1faa5ed5f7e4961d9d8cc7f666684057494eb8fb`
 
 **Status:** `external-blocked`
 

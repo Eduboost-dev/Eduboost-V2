@@ -29,7 +29,9 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.security import decrypt_pii, get_current_user, hash_email, hash_password
+from app.api_v2_deps.auth import AuthContext, require_auth_context
+from app.core.security import get_current_user  # noqa: F401
+from app.core.security import decrypt_pii, hash_email, hash_password
 from app.models.auth_extensions import (
     OnboardingState,
     PrivacySettings,
@@ -154,7 +156,9 @@ class PrivacySettingsUpdate(BaseModel):
 
 
 
-def _current_user_id(current_user: dict) -> str:
+def _current_user_id(current_user: dict | AuthContext) -> str:
+    if isinstance(current_user, AuthContext):
+        return current_user.user_id
     user_id = current_user.get("sub") or current_user.get("user_id")
     if not user_id:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid auth token")
@@ -313,11 +317,11 @@ async def reset_password(
 
 @router.post("/send-verification", status_code=status.HTTP_202_ACCEPTED)
 async def send_verification(
-    current_user = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
     session: AsyncSession = Depends(get_db),
 ):
     """Resend (or send initial) email verification link. Requires auth."""
-    if bool(current_user.get("email_verified")):
+    if bool(current_user.raw_claims.get("email_verified")):
         return {"detail": "Email is already verified."}  # envelope-exempt: simple detail message, no learner data
 
     guardian = await _get_guardian(session, _current_user_id(current_user))
@@ -384,7 +388,7 @@ VALID_ONBOARDING_STEPS = {
 
 @router.get("/onboarding", status_code=status.HTTP_200_OK)
 async def get_onboarding(
-    current_user = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
     session:      AsyncSession = Depends(get_db),
 ):
     """Return current onboarding state. Auto-creates row on first request."""
@@ -395,7 +399,7 @@ async def get_onboarding(
     if not state:
         state = OnboardingState(
             user_id        = _current_user_id(current_user),
-            email_verified = bool(current_user.get("email_verified")) or False,
+            email_verified = bool(current_user.raw_claims.get("email_verified")) or False,
         )
         session.add(state)
         await session.commit()
@@ -406,7 +410,7 @@ async def get_onboarding(
 @router.patch("/onboarding/step", status_code=status.HTTP_200_OK)
 async def update_onboarding_step(
     body:         OnboardingStepUpdate,
-    current_user  = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
     session:      AsyncSession = Depends(get_db),
 ):
     """Mark an individual onboarding step complete."""
@@ -446,7 +450,7 @@ async def update_onboarding_step(
 @router.patch("/onboarding/profile", status_code=status.HTTP_200_OK)
 async def update_learner_profile(
     body:         ProfileUpdateRequest,
-    current_user  = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
     session:      AsyncSession = Depends(get_db),
 ):
     """
@@ -495,7 +499,7 @@ async def update_learner_profile(
 
 @router.get("/privacy", status_code=status.HTTP_200_OK)
 async def get_privacy_settings(
-    current_user = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
     session:      AsyncSession = Depends(get_db),
 ):
     """Return current privacy settings. Auto-creates defaults on first request."""
@@ -514,7 +518,7 @@ async def get_privacy_settings(
 @router.patch("/privacy", status_code=status.HTTP_200_OK)
 async def update_privacy_settings(
     body:         PrivacySettingsUpdate,
-    current_user  = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
     session:      AsyncSession = Depends(get_db),
 ):
     """Partial-update privacy settings. Only supplied fields are changed."""
@@ -537,7 +541,7 @@ async def update_privacy_settings(
 
 @router.post("/privacy/request-export", status_code=status.HTTP_202_ACCEPTED)
 async def request_data_export(
-    current_user = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
     session:      AsyncSession = Depends(get_db),
 ):
     """POPIA section 23 right-of-access — queue a data export job."""
@@ -564,7 +568,7 @@ async def request_data_export(
 
 @router.post("/privacy/request-deletion", status_code=status.HTTP_202_ACCEPTED)
 async def request_account_deletion(
-    current_user = Depends(get_current_user),
+    current_user: AuthContext = Depends(require_auth_context),
     session:      AsyncSession = Depends(get_db),
 ):
     """POPIA right-to-erasure — soft-flag the account for scheduled deletion."""

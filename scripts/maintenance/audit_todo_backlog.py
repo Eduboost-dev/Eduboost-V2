@@ -344,7 +344,9 @@ for p in ['critical','high','medium','research']:
     md.append(f"| {p} | {sum(r['repo_status']=='Done' for r in sub)} | {sum(r['repo_status']=='Partial' for r in sub)} | {sum(r['repo_status']=='Missing' for r in sub)} | {sum(r['repo_status']=='Blocked' for r in sub)} | {sum(r['repo_status']=='Human-decision' for r in sub)} | {len(sub)} |")
 md += ['\n## Highest-risk open items\n','| Rank | ID | Priority | Status | Owner | Task | Evidence |\n|---:|---|---|---|---|---|---|']
 for i,r in enumerate([r for r in sorted(rows,key=lambda r:(-r['rank_score'],r['id'])) if r['repo_status']!='Done'][:40],1):
-    md.append(f"| {i} | {r['id']} | {r['priority']} | {r['repo_status']} | {r['owner']} | {r['task'].replace('|','\\|')} | {(r['evidence_paths'] or '—').replace('|','\\|')} |")
+    task = r['task'].replace('|', '\\|')
+    evidence = (r['evidence_paths'] or '—').replace('|', '\\|')
+    md.append(f"| {i} | {r['id']} | {r['priority']} | {r['repo_status']} | {r['owner']} | {task} | {evidence} |")
 md.append('\n## PR-sized backlog buckets\n')
 by_pr=defaultdict(list)
 for r in sorted(rows,key=lambda r:(-r['rank_score'],r['id'])): by_pr[r['pr_bucket']].append(r)
@@ -355,7 +357,10 @@ for bucket in ['PR-001 Repo governance and backlog hygiene','PR-002 Backend runt
     md.append(f'\n### {bucket}\n')
     md.append(f"Open items: {len(open_items)} — Partial {c['Partial']}, Missing {c['Missing']}, Blocked {c['Blocked']}, Human-decision {c['Human-decision']}.\n")
     md.append('| ID | Priority | Status | Task | Evidence |\n|---|---|---|---|---|')
-    for r in open_items[:18]: md.append(f"| {r['id']} | {r['priority']} | {r['repo_status']} | {r['task'].replace('|','\\|')} | {(r['evidence_paths'] or '—').replace('|','\\|')} |")
+    for r in open_items[:18]:
+        task = r['task'].replace('|', '\\|')
+        evidence = (r['evidence_paths'] or '—').replace('|', '\\|')
+        md.append(f"| {r['id']} | {r['priority']} | {r['repo_status']} | {task} | {evidence} |")
     if len(open_items)>18: md.append(f'\n_Additional items in CSV: {len(open_items)-18}._\n')
 (OUT/'backlog_audit.md').write_text('\n'.join(md),encoding='utf-8')
 
@@ -365,12 +370,16 @@ for i,b in enumerate(['PR-001 Repo governance and backlog hygiene','PR-002 Backe
     cp.append(f'{i}. **{b}** — {len(oi)} open, {crit} critical.')
 cp += ['\n## External blockers / human decisions\n','| ID | Priority | Status | Task |\n|---|---|---|---|']
 for r in sorted([r for r in rows if r['repo_status'] in {'Blocked','Human-decision'}],key=lambda r:(-priority_score.get(r['priority'],0),r['id']))[:90]:
-    cp.append(f"| {r['id']} | {r['priority']} | {r['repo_status']} | {r['task'].replace('|','\\|')} |")
+    task = r['task'].replace('|', '\\|')
+    cp.append(f"| {r['id']} | {r['priority']} | {r['repo_status']} | {task} |")
 (OUT/'critical_path.md').write_text('\n'.join(cp),encoding='utf-8')
 
 first=sorted([r for r in rows if r['pr_bucket']=='PR-001 Repo governance and backlog hygiene' and r['repo_status']!='Done'],key=lambda r:(-r['rank_score'],r['id']))
 fb=['# First PR-sized Batch: Repository Governance and Backlog Hygiene\n','## Objective\nMake the repository easier to operate before touching high-risk auth/POPIA/AI code. This PR is intentionally low-runtime-risk and creates guardrails for later PRs.\n','## Included TODO items\n','| ID | Priority | Status | Task | Current evidence |\n|---|---|---|---|---|']
-for r in first: fb.append(f"| {r['id']} | {r['priority']} | {r['repo_status']} | {r['task'].replace('|','\\|')} | {(r['evidence_paths'] or '—').replace('|','\\|')} |")
+for r in first:
+    task = r['task'].replace('|', '\\|')
+    evidence = (r['evidence_paths'] or '—').replace('|', '\\|')
+    fb.append(f"| {r['id']} | {r['priority']} | {r['repo_status']} | {task} | {evidence} |")
 fb += ['\n## Concrete patch plan\n','1. Expand `.github/CODEOWNERS` to cover backend, frontend, infrastructure, security, compliance, curriculum, docs, and tests.','2. Add missing issue templates: security redirect, compliance concern, accessibility issue, curriculum/content issue, incorrect content, and production incident.','3. Expand `.github/PULL_REQUEST_TEMPLATE.md` with migration, POPIA, security, accessibility, analytics, deployment, rollback, and evidence-bundle checkboxes.','4. Update `docs/repository_governance.md` to cover mirrors, branch policy, release authority, secret rotation authority, security patch process, and archive policy.','5. Normalize dependency-file intent: `requirements/base.txt`, `dev.txt`, `docs.txt`, `ml.txt` as canonical; root files as compatibility aliases unless deleted by owner decision.','6. Add missing `Makefile` targets: `e2e`, `security`, `release-check`, and `smoke`.','7. Add ADR stubs for PostgreSQL audit ledger, Redis revocation, LLM provider abstraction, POPIA-first design, and CAPS alignment.','8. Add docs-link checking to CI or document it as a follow-up if dependency install is too heavy.','\n## Acceptance criteria\n','- Governance docs and templates exist in deterministic paths.','- Makefile help lists all required commands.','- Dependency hierarchy is unambiguous.','- PR template forces future security/privacy/accessibility/migration/deployment/rollback disclosure.','- No application runtime behavior changes.']
 (OUT/'first_pr_batch.md').write_text('\n'.join(fb),encoding='utf-8')
 print('Wrote', OUT/'task_matrix.csv')

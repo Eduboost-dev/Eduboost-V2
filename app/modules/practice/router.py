@@ -9,7 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import get_db
 from app.core.security import get_current_user
 from app.repositories.item_bank_repository import ItemBankRepository
-from app.security.dependencies import require_active_consent_for_current_user, require_learner_write_for_current_user
+from app.security.dependencies import actor_id_from_current_user, require_active_consent_for_current_user, require_learner_write_for_current_user
 from app.modules.practice.practice_generator import PracticeGenerator
 from app.modules.practice.spaced_repetition_scheduler import SpacedRepetitionScheduler
 
@@ -39,15 +39,29 @@ async def create_practice_session(body: PracticeSessionRequest, current_user: di
         items.extend(await repo.list_by_caps_ref(caps_ref, limit=100))
     selected = PracticeGenerator().select_items(items, gap_topics=body.gap_topics, theta=body.theta, per_gap=5)
     session_id = str(uuid4())
-    _SESSIONS[session_id] = {"learner_id": str(body.learner_id), "items": [str(i.item_id) for i in selected], "cursor": 0, "responses": []}
+    _SESSIONS[session_id] = {"learner_id": str(body.learner_id), "owner_subject": actor_id_from_current_user(current_user), "items": [str(i.item_id) for i in selected], "cursor": 0, "responses": []}
     return {"session_id": session_id, "item_count": len(selected)}
 
 
+def _require_session_owner(session: dict, current_user: dict) -> None:
+    owner_subject = session.get("owner_subject")
+    current_subject = actor_id_from_current_user(current_user)
+    if not owner_subject or owner_subject != current_subject:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Practice session is not available to this user")
+
+
 @router.get("/sessions/{session_id}/next-item")
-async def next_practice_item(session_id: str):
+async def next_practice_item(
+    session_id: str,
+    current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
     session = _SESSIONS.get(session_id)
     if not session:
         raise HTTPException(status_code=404, detail="Practice session not found")
+    _require_session_owner(session, current_user)
+    require_learner_write_for_current_user(current_user, session["learner_id"])
+    await require_active_consent_for_current_user(db, current_user, session["learner_id"])
     if session["cursor"] >= len(session["items"]):
         return {"completed": True}
     item_id = session["items"][session["cursor"]]
@@ -55,10 +69,18 @@ async def next_practice_item(session_id: str):
 
 
 @router.post("/sessions/{session_id}/respond")
-async def respond_practice(session_id: str, body: PracticeResponseRequest):
+async def respond_practice(
+    session_id: str,
+    body: PracticeResponseRequest,
+    current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
     session = _SESSIONS.get(session_id)
     if not session:
         raise HTTPException(status_code=404, detail="Practice session not found")
+    _require_session_owner(session, current_user)
+    require_learner_write_for_current_user(current_user, session["learner_id"])
+    await require_active_consent_for_current_user(db, current_user, session["learner_id"])
     session["responses"].append(body.model_dump(mode="json"))
     session["cursor"] += 1
     schedule = SpacedRepetitionScheduler().update_schedule(correct=body.correct)

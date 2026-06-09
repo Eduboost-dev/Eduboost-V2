@@ -1,12 +1,12 @@
 # Backend Runtime Wiring Cases Report
 
-Generated at: `2026-05-26T18:33:23Z`
+Generated at: `2026-06-05T20:19:09Z`
 
 | Check | Return code | Command |
 |---|---:|---|
-| runtime wiring cases | 0 | `/usr/bin/python3 scripts/check_backend_runtime_wiring_cases.py` |
-| runtime wiring preflight | 0 | `/usr/bin/python3 scripts/check_backend_runtime_wiring_preflight.py` |
-| implementation 376-382 | 0 | `/usr/bin/python3 scripts/generate_backend_runtime_wiring_preflight_report.py` |
+| runtime wiring cases | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_runtime_wiring_cases.py` |
+| runtime wiring preflight | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_runtime_wiring_preflight.py` |
+| implementation 376-382 | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/generate_backend_runtime_wiring_preflight_report.py` |
 
 ## Boundary
 
@@ -14,7 +14,7 @@ This report proves fixture-backed runtime wiring readiness only.
 
 ## runtime wiring cases
 
-Command: `/usr/bin/python3 scripts/check_backend_runtime_wiring_cases.py`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_runtime_wiring_cases.py`
 
 Return code: `0`
 
@@ -38,7 +38,7 @@ Backend runtime wiring fixture case check
 
 ## runtime wiring preflight
 
-Command: `/usr/bin/python3 scripts/check_backend_runtime_wiring_preflight.py`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_runtime_wiring_preflight.py`
 
 Return code: `0`
 
@@ -60,10 +60,10 @@ Backend runtime wiring preflight check
 
 ## implementation 376-382
 
-Command: `/usr/bin/python3 scripts/generate_backend_runtime_wiring_preflight_report.py`
+Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/generate_backend_runtime_wiring_preflight_report.py`
 
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/Development/Eduboost-V2/docs/release/backend_runtime_wiring_preflight_report.md
+Wrote /home/azureuser/Dev/SandBox/ml/Eduboost-V2/docs/release/backend_runtime_wiring_preflight_report.md
 ```

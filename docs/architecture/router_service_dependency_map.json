@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T18:25:30Z",
+  "generated_at": "2026-06-05T20:15:03Z",
   "rows": [
     {
       "router": "app/api_v2_routers/0005_irt_seed.py",
@@ -34,7 +34,9 @@
       "service_imports": [
         "app.services.assessment_service_v2"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [],
       "database_imports": [
         "app.core.database",
@@ -46,7 +48,9 @@
       "service_imports": [
         "app.services.audit_service"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [],
       "database_imports": []
     },
@@ -57,6 +61,7 @@
         "app.services.auth_token_claims"
       ],
       "dependency_imports": [
+        "app.api_v2_deps.auth",
         "app.api_v2_deps.auth_runtime",
         "app.api_v2_deps.auth_service"
       ],
@@ -71,7 +76,9 @@
       "service_imports": [
         "app.services.email_service"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [],
       "database_imports": [
         "app.core.database",
@@ -94,9 +101,12 @@
     {
       "router": "app/api_v2_routers/consent.py",
       "service_imports": [
-        "app.modules.consent.service"
+        "app.modules.consent.service",
+        "app.services.popia_service"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [
         "app.repositories.repositories"
       ],
@@ -141,7 +151,9 @@
         "app.services.content_staging_readiness",
         "app.services.content_staging_seed_executor"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [
         "app.repositories.item_bank_repository",
         "app.repositories.lesson_repository"
@@ -164,7 +176,8 @@
         "app.services.diagnostic_route_integrity"
       ],
       "dependency_imports": [
-        "app.api_v2_deps"
+        "app.api_v2_deps",
+        "app.api_v2_deps.auth"
       ],
       "repository_imports": [],
       "database_imports": [
@@ -177,7 +190,9 @@
       "service_imports": [
         "app.services.ether_service"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [],
       "database_imports": [
         "app.core.database",
@@ -190,7 +205,9 @@
         "app.services.fourth_estate",
         "app.services.gamification_service_v2"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [
         "app.repositories.gamification_repository",
         "app.repositories.repositories"
@@ -203,7 +220,9 @@
     {
       "router": "app/api_v2_routers/jobs.py",
       "service_imports": [],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [],
       "database_imports": []
     },
@@ -212,7 +231,9 @@
       "service_imports": [
         "app.services.judiciary_service_v2"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [],
       "database_imports": []
     },
@@ -221,7 +242,9 @@
       "service_imports": [
         "app.services.content_learner_read_service"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [],
       "database_imports": [
         "app.core.database",
@@ -235,7 +258,9 @@
         "app.modules.progress.progress_timeline_service",
         "app.services.fourth_estate"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [
         "app.repositories.mastery_repository",
         "app.repositories.repositories"
@@ -252,7 +277,9 @@
         "app.modules.lessons.service",
         "app.services.lesson_authorization"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [],
       "database_imports": [
         "app.core.database",
@@ -264,7 +291,9 @@
       "service_imports": [
         "app.services.ether"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [
         "app.repositories.repositories"
       ],
@@ -296,6 +325,7 @@
         "app.services.popia_service"
       ],
       "dependency_imports": [
+        "app.api_v2_deps.auth",
         "app.api_v2_deps.consent_lifecycle"
       ],
       "repository_imports": [],
@@ -308,7 +338,9 @@
         "app.services.study_plan_service_v2",
         "app.services.telemetry"
       ],
-      "dependency_imports": [],
+      "dependency_imports": [
+        "app.api_v2_deps.auth"
+      ],
       "repository_imports": [
         "app.repositories.repositories",
         "app.repositories.study_plan_repository"

@@ -1,6 +1,6 @@
 # Service Boundary Inventory
 
-Generated at: `2026-05-26T18:33:42Z`
+Generated at: `2026-06-05T20:19:23Z`
 
 | Path | Classification |
 |---|---|
@@ -39,16 +39,28 @@ Generated at: `2026-05-26T18:33:42Z`
 | `app/services/content_coverage_service.py` | domain_or_cross_cutting_service |
 | `app/services/content_factory.py` | unclassified |
 | `app/services/content_factory_orchestrator.py` | unclassified |
+| `app/services/content_file_artifact_import.py` | unclassified |
+| `app/services/content_file_lesson_quality.py` | unclassified |
+| `app/services/content_file_promotion_readiness.py` | unclassified |
+| `app/services/content_file_review_workflow.py` | unclassified |
 | `app/services/content_generation/blueprint_generator.py` | unclassified |
 | `app/services/content_generation/diagnostic_generator.py` | unclassified |
+| `app/services/content_generation/generated_item_contract.py` | unclassified |
+| `app/services/content_generation/generated_lesson_contract.py` | unclassified |
 | `app/services/content_generation/lesson_generator.py` | unclassified |
 | `app/services/content_generation/prompt_payloads.py` | unclassified |
 | `app/services/content_generation/provider_factory.py` | unclassified |
 | `app/services/content_generation/providers/base.py` | unclassified |
 | `app/services/content_generation/providers/deterministic.py` | unclassified |
 | `app/services/content_generation/providers/llm.py` | unclassified |
+| `app/services/content_generation/scope_blueprint_generator.py` | unclassified |
+| `app/services/content_generation/scope_item_generator.py` | unclassified |
+| `app/services/content_generation/scope_lesson_generator.py` | unclassified |
+| `app/services/content_generation/scope_mcq_templates.py` | unclassified |
+| `app/services/content_generation/scope_study_plan_generator.py` | unclassified |
 | `app/services/content_generation/source_context.py` | deprecated_pending_callsite_removal |
 | `app/services/content_generation/study_plan_template_generator.py` | unclassified |
+| `app/services/content_generation/topic_map_source_context.py` | unclassified |
 | `app/services/content_generation_executor.py` | unclassified |
 | `app/services/content_generation_planner.py` | unclassified |
 | `app/services/content_generation_reporter.py` | unclassified |

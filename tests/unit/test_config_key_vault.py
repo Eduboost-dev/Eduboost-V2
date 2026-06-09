@@ -34,23 +34,21 @@ def test_production_settings_load_secrets_from_key_vault(monkeypatch: pytest.Mon
     assert settings.ANTHROPIC_API_KEY == "anthropic-from-kv"
 
 
-def test_production_settings_allow_env_secrets_without_key_vault(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_production_settings_require_key_vault_url(monkeypatch: pytest.MonkeyPatch) -> None:
     def fail_if_called(_: str) -> dict[str, str]:
         raise AssertionError("Key Vault should not be used without AZURE_KEY_VAULT_URL")
 
     monkeypatch.setattr(config_module, "_fetch_key_vault_secret_values", fail_if_called)
 
-    settings = config_module.Settings(
-        APP_ENV="production",
-        ENVIRONMENT="production",
-        AZURE_KEY_VAULT_URL="",
-        JWT_SECRET="x" * 32,
-        ENCRYPTION_KEY="A" * 44,
-        ENCRYPTION_SALT="salt",
-    )
-
-    assert settings.JWT_SECRET == "x" * 32
-    assert settings.refresh_from_key_vault() == set()
+    with pytest.raises(ValueError, match="AZURE_KEY_VAULT_URL is required when APP_ENV is production"):
+        config_module.Settings(
+            APP_ENV="production",
+            ENVIRONMENT="production",
+            AZURE_KEY_VAULT_URL="",
+            JWT_SECRET="x" * 32,
+            ENCRYPTION_KEY="A" * 44,
+            ENCRYPTION_SALT="salt",
+        )
 
 
 def test_non_production_settings_do_not_call_key_vault(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -78,7 +76,7 @@ def test_database_url_normalizes_render_postgres_scheme() -> None:
         ENCRYPTION_KEY="A" * 44,
     )
 
-    assert settings.DATABASE_URL == "postgresql+asyncpg://user:pass@render-postgres.example.com:5432/eduboost?prepared_statement_cache_size=0"
+    assert settings.DATABASE_URL == "postgresql+asyncpg://user:pass@render-postgres.example.com:5432/eduboost"
 
 
 def test_database_url_keeps_async_and_non_postgres_schemes() -> None:
@@ -93,7 +91,7 @@ def test_database_url_keeps_async_and_non_postgres_schemes() -> None:
         ENCRYPTION_KEY="A" * 44,
     )
 
-    assert async_settings.DATABASE_URL == "postgresql+asyncpg://user:pass@localhost:5432/eduboost?prepared_statement_cache_size=0"
+    assert async_settings.DATABASE_URL == "postgresql+asyncpg://user:pass@localhost:5432/eduboost"
     assert sqlite_settings.DATABASE_URL == "sqlite+aiosqlite:///./test.db"
 
 
@@ -104,4 +102,4 @@ def test_database_url_normalizes_sslmode_for_asyncpg() -> None:
         ENCRYPTION_KEY="A" * 44,
     )
 
-    assert settings.DATABASE_URL == "postgresql+asyncpg://user:pass@db.example.com:5432/eduboost?ssl=require&prepared_statement_cache_size=0"
+    assert settings.DATABASE_URL == "postgresql+asyncpg://user:pass@db.example.com:5432/eduboost?ssl=require"
