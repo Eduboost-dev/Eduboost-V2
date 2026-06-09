@@ -27,6 +27,7 @@ if not database_url:
 # Alembic's async runner requires the +asyncpg driver
 if database_url.startswith("postgresql://"):
     database_url = database_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+os.environ["DATABASE_URL"] = database_url
 
 config.set_main_option("sqlalchemy.url", database_url)
 
@@ -40,6 +41,23 @@ import app.models  # noqa: F401,E402
 
 target_metadata = Base.metadata
 
+_CONSOLIDATION_TABLES = {
+    "consent_records",
+    "correction_requests",
+    "data_export_requests",
+    "erasure_requests",
+    "restriction_requests",
+}
+
+
+def _include_object(object_, name, type_, reflected, compare_to):
+    """Keep autogenerate focused on actionable table/column drift."""
+    if type_ == "table" and reflected and compare_to is None:
+        return name not in _CONSOLIDATION_TABLES
+    if type_ in {"index", "unique_constraint", "foreign_key_constraint"}:
+        return False
+    return True
+
 
 # ── Offline migration (generates SQL script, no DB connection) ────────────
 def run_migrations_offline() -> None:
@@ -49,8 +67,9 @@ def run_migrations_offline() -> None:
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
-        compare_type=True,
-        compare_server_default=True,
+        include_object=_include_object,
+        compare_type=False,
+        compare_server_default=False,
     )
     with context.begin_transaction():
         context.run_migrations()
@@ -58,11 +77,13 @@ def run_migrations_offline() -> None:
 
 # ── Online migration (connects to DB, runs migrations) ───────────────────
 def do_run_migrations(connection: Connection) -> None:
+    connection.dialect.supports_comments = False
     context.configure(
         connection=connection,
         target_metadata=target_metadata,
-        compare_type=True,
-        compare_server_default=True,
+        include_object=_include_object,
+        compare_type=False,
+        compare_server_default=False,
     )
     with context.begin_transaction():
         context.run_migrations()

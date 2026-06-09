@@ -1,15 +1,15 @@
-"""
-EduBoost SA — Lessons Router (V2)
-LLM-generated adaptive lessons. Consent gate applied at router level.
-"""
-from __future__ import annotations
+"""EduBoost V2 — Lessons Router"""
 
+import json
+
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, status
+from app.core.envelope_route import EnvelopedRoute
+from fastapi.responses import StreamingResponse
+from sqlalchemy.ext.asyncio import AsyncSession
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, status
-from pydantic import BaseModel
-from sqlalchemy.ext.asyncio import AsyncSession
-
+from app.api_v2_deps.auth import AuthContext, require_auth_context
+from app.core.config import settings
 from app.core.database import get_db
 from app.core.dependencies import get_current_user_id, require_active_consent
 from app.modules.lessons.llm_gateway import LLMGateway
@@ -32,9 +32,27 @@ class GenerateLessonRequest(BaseModel):
     "/generate",
     status_code=status.HTTP_201_CREATED,
 )
+from app.security.dependencies import (
+    require_active_consent_for_current_user,
+    require_learner_write_for_current_user,
+)
+
+router = APIRouter(route_class=EnvelopedRoute, prefix="/lessons", tags=["lessons"])
+router.include_router(lesson_review_router.router)
+router.include_router(lesson_coverage_router.router)
+
+async def get_lesson_service(db: AsyncSession = Depends(get_db)) -> LessonService:
+    return LessonService(db)
+
+
+@router.post("/generate", response_model=JobAcceptedResponse, status_code=status.HTTP_202_ACCEPTED)
+@router.post("/", response_model=JobAcceptedResponse, status_code=status.HTTP_202_ACCEPTED)
+@limiter.limit(settings.RATE_LIMIT_LLM)
 async def generate_lesson(
-    body: GenerateLessonRequest,
-    _user_id: UUID = Depends(get_current_user_id),
+    request: Request,
+    body: LessonRequest,
+    background_tasks: BackgroundTasks,
+    auth: AuthContext = Depends(require_auth_context),
     db: AsyncSession = Depends(get_db),
 ) -> dict:
     from app.core.security import pseudonymise_for_llm
@@ -42,108 +60,98 @@ async def generate_lesson(
 
     await require_active_consent(body.learner_id, db)
 
-    # Get ability level from latest diagnostic (null-safe)
-    latest_diag = await _diagnostic_repo.get_latest_for_learner(
-        body.learner_id, body.subject, db
+    async def _run() -> dict:
+        lesson, _, _ = await service.generate_lesson_for_learner(body, user_id)
+        return lesson.model_dump(mode="json")
+
+    job = await enqueue_job(
+        background_tasks,
+        operation="lesson_generation",
+        payload={"learner_id": str(body.learner_id), "subject": body.subject, "topic": body.topic},
+        handler=_run,
     )
-    ability = float(latest_diag.ability_estimate or 0.0) if latest_diag else 0.0
-
-    # Pseudonymise learner — NEVER send real UUID to LLM provider
-    pseudonym = pseudonymise_for_llm(body.learner_id)
-
-    prompt = _build_lesson_prompt(
-        subject=body.subject,
-        topic=body.topic,
-        language=body.language,
-        ability=ability,
-        pseudonym=pseudonym,
-    )
-
-    response = await _llm.generate(
-        prompt,
-        system=_LESSON_SYSTEM_PROMPT,
-        language=body.language,
-        max_tokens=1200,
-    )
-
-    lesson = await _lesson_repo.create(
-        db,
-        learner_id=body.learner_id,
-        subject=body.subject,
-        grade="",  # Populated from learner profile in full implementation
-        language=body.language,
-        topic=body.topic,
-        content=response.content,
-        llm_provider=response.provider,
-        prompt_tokens=response.prompt_tokens,
-        completion_tokens=response.completion_tokens,
-        ability_level=ability,
-    )
-
-    lessons_generated_total.labels(
-        grade="", subject=body.subject, language=body.language
-    ).inc()
-
-    return {
-        "id": str(lesson.id),
-        "topic": lesson.topic,
-        "content": lesson.content,
-        "provider": lesson.llm_provider,
-        "created_at": lesson.created_at.isoformat(),
-    }
+    return JobAcceptedResponse(job_id=job["job_id"], operation=job["operation"], status=job["status"])
 
 
-@router.get(
-    "/{learner_id}",
-    dependencies=[Depends(require_active_consent)],
-)
-async def get_lessons(
-    learner_id: UUID,
-    subject: str | None = None,
-    limit: int = 10,
-    _user_id: UUID = Depends(get_current_user_id),
+@router.post("/generate/stream")
+async def generate_lesson_stream(
+    body: LessonRequest,
+    auth: AuthContext = Depends(require_auth_context),
     db: AsyncSession = Depends(get_db),
-) -> list[dict]:
-    lessons = await _lesson_repo.get_recent_for_learner(
-        learner_id, db, subject=subject, limit=limit
-    )
-    return [
-        {
-            "id": str(l.id),
-            "subject": l.subject,
-            "topic": l.topic,
-            "language": l.language,
-            "created_at": l.created_at.isoformat(),
-        }
-        for l in lessons
-    ]
+    service: LessonService = Depends(get_lesson_service),
+):
+    require_learner_write_for_current_user(auth, str(body.learner_id))
+    await require_active_consent_for_current_user(db, auth, str(body.learner_id))
+    user_id = UUID(str(auth.user_id))
+
+    async def _events():
+        yield f"event: status\ndata: {json.dumps({'status': 'accepted', 'operation': 'lesson_generation'})}\n\n"
+        try:
+            lesson, from_cache, provider = await service.generate_lesson_for_learner(body, user_id)
+            yield f"event: result\ndata: {lesson.model_dump_json()}\n\n"
+            yield f"event: done\ndata: {json.dumps({'status': 'completed', 'cache_hit': from_cache, 'provider': provider})}\n\n"
+        except HTTPException as exc:
+            yield f"event: error\ndata: {json.dumps({'status': 'failed', 'message': exc.detail})}\n\n"
+        except Exception as exc:  # noqa: BLE001
+            yield f"event: error\ndata: {json.dumps({'status': 'failed', 'message': str(exc)})}\n\n"
+
+    return StreamingResponse(_events(), media_type="text/event-stream")
+
+@router.get("/{lesson_id}", response_model=LessonResponse)
+async def get_lesson(
+    lesson_id: str,
+    auth: AuthContext = Depends(require_auth_context),
+    service: LessonService = Depends(get_lesson_service),
+    db: AsyncSession = Depends(get_db),
+):
+    # code_611_630_lesson_read_authz
+    await require_lesson_read_access_for_current_user(db, auth, lesson_id)
+    lesson = await service.get_lesson_by_id(lesson_id)
+    if not lesson:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
+
+    # Ownership check
+    # Note: In a real app, we'd check if current_user has access to this learner's lessons.
+    # For now, we trust the lesson_id is known only to the authorized user.
+
+    return LessonResponse.model_validate(lesson)
 
 
-_LESSON_SYSTEM_PROMPT = (
-    "You are a South African Grade R-7 educational assistant. "
-    "Generate clear, engaging, age-appropriate lessons aligned to the CAPS curriculum. "
-    "Use simple, encouraging language. Never include learner personal information. "
-    "Format your response in clean markdown."
-)
+@router.post("/{lesson_id}/complete")
+async def complete_lesson(
+    lesson_id: str,
+    auth: AuthContext = Depends(require_auth_context),
+    service: LessonService = Depends(get_lesson_service),
+    db: AsyncSession = Depends(get_db),
+):
+    # code_611_630_lesson_write_authz
+    await require_lesson_write_access_for_current_user(db, auth, lesson_id)
+    lesson = await service.get_lesson_by_id(lesson_id)
+    if not lesson:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
+
+    await service.complete_lesson(lesson_id)
+    return {"status": "success", "message": "Lesson marked as completed"}
 
 
-def _build_lesson_prompt(
-    *,
-    subject: str,
-    topic: str,
-    language: str,
-    ability: float,
-    pseudonym: str,
-) -> str:
-    from app.modules.diagnostics.irt_engine import IRTEngine
-    band = IRTEngine.interpret_ability(ability)
-    lang_name = {"en": "English", "zu": "isiZulu", "xh": "isiXhosa", "af": "Afrikaans"}.get(language, "English")
+@router.post("/sync")
+async def sync_lessons(
+    body: LessonSyncRequest,
+    auth: AuthContext = Depends(require_auth_context),
+    service: LessonService = Depends(get_lesson_service),
+    db: AsyncSession = Depends(get_db),
+):
+    # code_611_630_lesson_sync_authz
+    for _lesson_id in iter_sync_lesson_ids(body):
+        await require_lesson_write_access_for_current_user(db, auth, _lesson_id)
 
-    return (
-        f"Create a {band['label'].lower()}-level lesson on '{topic}' in {subject} "
-        f"for a South African learner. "
-        f"Write the lesson in {lang_name}. "
-        f"The learner is at the {band['label']} level ({band['emoji']}). "
-        f"Include: a clear explanation, 2-3 worked examples, and 3 practice questions. "
-        f"Keep it encouraging and age-appropriate for the CAPS curriculum."
-    )
+    processed = 0
+    for event in body.responses:
+        if event.event_type == "complete":
+            await service.complete_lesson(event.lesson_id)
+            processed += 1
+        elif event.event_type == "feedback" and event.score is not None:
+            await service.record_feedback(event.lesson_id, event.score)
+            processed += 1
+    
+    return {"status": "success", "processed": processed}

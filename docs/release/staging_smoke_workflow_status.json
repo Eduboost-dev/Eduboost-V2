@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-05-22T14:26:08Z",
+  "current_commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
+  "status": "staging-smoke-workflow-configured",
+  "workflow_exists": true,
+  "probe_exists": true,
+  "has_workflow_dispatch": true,
+  "has_staging_base_url_secret": true,
+  "has_probe_step": true,
+  "has_artifact_upload": true,
+  "blockers": []
+}

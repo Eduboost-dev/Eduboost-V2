@@ -5,7 +5,7 @@ Shipped to Grafana Cloud via remote_write in production.
 """
 from __future__ import annotations
 
-from prometheus_client import Counter, Histogram, Gauge, CollectorRegistry, make_asgi_app
+from prometheus_client import CollectorRegistry, Counter, Gauge, Histogram, make_asgi_app
 
 REGISTRY = CollectorRegistry(auto_describe=True)
 
@@ -41,12 +41,29 @@ llm_latency_seconds = Histogram(
     registry=REGISTRY,
 )
 
-llm_tokens_total = Counter(
+LLM_TOKENS_TOTAL = Counter(
     "eduboost_llm_tokens_total",
     "Total tokens consumed",
-    ["provider", "direction"],  # direction: input|output
+    ["provider", "model", "operation"],
     registry=REGISTRY,
 )
+
+LLM_COST_USD = Gauge(
+    "eduboost_llm_estimated_cost_usd_daily",
+    "Estimated daily LLM cost in USD",
+    ["provider"],
+    registry=REGISTRY,
+)
+
+llm_tokens_total = LLM_TOKENS_TOTAL
+llm_estimated_cost_usd_daily = LLM_COST_USD
+
+LLM_PRICING_USD_PER_TOKEN: dict[str, dict[str, float]] = {
+    "groq": {"input": 0.59 / 1_000_000, "output": 0.79 / 1_000_000},
+    "anthropic": {"input": 3.00 / 1_000_000, "output": 15.00 / 1_000_000},
+}
+
+_llm_daily_cost_accumulator: dict[str, float] = {"groq": 0.0, "anthropic": 0.0}
 
 # ── IRT Engine ────────────────────────────────────────────────────────────────
 irt_sessions_total = Counter(
@@ -62,6 +79,32 @@ irt_computation_seconds = Histogram(
     buckets=[0.01, 0.05, 0.1, 0.25, 0.5, 1.0],
     registry=REGISTRY,
 )
+
+item_bank_coverage_ratio = Gauge(
+    "eduboost_item_bank_coverage_ratio",
+    "Fraction of target approved item count per CAPS reference",
+    ["caps_ref"],
+    registry=REGISTRY,
+)
+
+diagnostic_sessions_total = Counter(
+    "eduboost_diagnostic_sessions_total",
+    "Diagnostic sessions by CAPS reference and outcome",
+    ["caps_ref", "outcome"],
+    registry=REGISTRY,
+)
+
+item_selection_latency_seconds = Histogram(
+    "eduboost_item_selection_latency_seconds",
+    "Item-bank selection latency",
+    ["caps_ref"],
+    buckets=[0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25],
+    registry=REGISTRY,
+)
+
+ITEM_BANK_COVERAGE_RATIO = item_bank_coverage_ratio
+DIAGNOSTIC_SESSIONS_TOTAL = diagnostic_sessions_total
+ITEM_SELECTION_LATENCY_SECONDS = item_selection_latency_seconds
 
 # ── Learner Activity ──────────────────────────────────────────────────────────
 active_learners_gauge = Gauge(
@@ -92,6 +135,61 @@ consent_gate_blocks_total = Counter(
     registry=REGISTRY,
 )
 
+# ── Infrastructure ───────────────────────────────────────────────────────────
+db_pool_size = Gauge(
+    "eduboost_db_pool_size_total",
+    "Total database connections in the pool",
+    registry=REGISTRY,
+)
+
+db_pool_checkedout = Gauge(
+    "eduboost_db_pool_checkedout_total",
+    "Database connections currently in use",
+    registry=REGISTRY,
+)
+
+db_pool_overflow = Gauge(
+    "eduboost_db_pool_overflow_total",
+    "Database connections beyond the pool_size",
+    registry=REGISTRY,
+)
+
+redis_connected_clients = Gauge(
+    "eduboost_redis_connected_clients",
+    "Number of clients connected to Redis",
+    registry=REGISTRY,
+)
+
+
+
+# ── Readiness / Release Operations ──────────────────────────────────────────
+readiness_component_status = Gauge(
+    "eduboost_readiness_component_status",
+    "Dependency readiness status by component; 1=ok, 0=unavailable/degraded",
+    ["component", "criticality"],
+    registry=REGISTRY,
+)
+
+audit_write_failures_total = Counter(
+    "eduboost_audit_write_failures_total",
+    "Audit write failures observed by the application",
+    ["operation"],
+    registry=REGISTRY,
+)
+
+backup_last_success_timestamp = Gauge(
+    "eduboost_backup_last_success_timestamp",
+    "Unix timestamp of the last successful PostgreSQL backup reported by backup automation",
+    registry=REGISTRY,
+)
+
+backup_failures_total = Counter(
+    "eduboost_backup_failures_total",
+    "PostgreSQL backup failures reported by backup automation",
+    ["stage"],
+    registry=REGISTRY,
+)
+
 # ── ARQ Background Jobs ───────────────────────────────────────────────────────
 arq_jobs_total = Counter(
     "eduboost_arq_jobs_total",
@@ -107,6 +205,26 @@ arq_job_duration_seconds = Histogram(
     buckets=[0.1, 0.5, 1.0, 5.0, 30.0, 120.0],
     registry=REGISTRY,
 )
+
+
+def record_llm_tokens(
+    provider: str,
+    model: str,
+    operation: str,
+    input_tokens: int,
+    output_tokens: int,
+) -> None:
+    """Record token usage and update estimated daily provider cost telemetry."""
+    LLM_TOKENS_TOTAL.labels(provider=provider, model=model, operation=operation).inc(
+        input_tokens + output_tokens
+    )
+
+    pricing = LLM_PRICING_USD_PER_TOKEN.get(provider, {"input": 0.0, "output": 0.0})
+    cost = input_tokens * pricing["input"] + output_tokens * pricing["output"]
+    _llm_daily_cost_accumulator[provider] = _llm_daily_cost_accumulator.get(provider, 0.0) + cost
+    LLM_COST_USD.labels(provider=provider).set(
+        _llm_daily_cost_accumulator[provider]
+    )
 
 
 def make_metrics_app() -> object:

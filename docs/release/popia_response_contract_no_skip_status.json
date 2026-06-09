@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-06-04T11:22:23Z",
+  "current_commit": "1faa5ed5f7e4961d9d8cc7f666684057494eb8fb",
+  "status": "popia-response-contract-no-skip-passing",
+  "route_contracts": [
+    {
+      "name": "grant",
+      "path": "/consent/grant",
+      "exists": true,
+      "response_model_is_consent_record": true,
+      "passed": true
+    },
+    {
+      "name": "deny",
+      "path": "/consent/deny",
+      "exists": true,
+      "response_model_is_consent_record": true,
+      "passed": true
+    },
+    {
+      "name": "withdraw",
+      "path": "/consent/withdraw",
+      "exists": true,
+      "response_model_is_consent_record": true,
+      "passed": true
+    },
+    {
+      "name": "renew",
+      "path": "/consent/renew",
+      "exists": true,
+      "response_model_is_consent_record": true,
+      "passed": true
+    }
+  ],
+  "adapter_contracts": {
+    "adapter_exists": true,
+    "contains_consent_record": true,
+    "contains_coerce_consent_record": true,
+    "contains_denied_fallback": true,
+    "contains_withdrawn_fallback": true
+  },
+  "pytest_return_code": null,
+  "pytest_output": "pytest not requested",
+  "skipped_detected": false,
+  "blockers": []
+}

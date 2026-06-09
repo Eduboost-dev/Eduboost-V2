@@ -1,25 +1,12 @@
-# CODEOWNERS — EduBoost SA
-# Reviewers listed here are automatically requested on PRs that touch these paths.
-# At least one reviewer per path must approve before merge.
-
-# Judiciary — compliance firewall (requires 2 reviewers)
-app/api/judiciary.py                        @eduboost/senior-engineers @eduboost/senior-engineers
-app/api/pillar_3_judiciary/                 @eduboost/senior-engineers
-
-# Constitutional schema — immutable rule store (requires Information Officer)
-app/api/constitutional_schema/              @eduboost/senior-engineers @eduboost/information-officer
-app/api/pillar_1_legislature/               @eduboost/senior-engineers @eduboost/information-officer
-
-# Audit infrastructure — append-only event bus
-audits/                                     @eduboost/senior-engineers
-app/api/pillar_4_fourth_estate/             @eduboost/senior-engineers
-
-# POPIA compliance paths
-popia/                                      @eduboost/information-officer
-app/api/popia/                              @eduboost/information-officer
-
-# Database migrations — any schema change
-alembic/versions/                           @eduboost/senior-engineers
-
-# CI/CD pipeline
-.github/workflows/                          @eduboost/senior-engineers
+* @nkgolomatjila-svg
+app/modules/auth/ @nkgolomatjila-svg
+app/core/security.py @nkgolomatjila-svg
+app/core/password_policy.py @nkgolomatjila-svg
+app/modules/consent/ @nkgolomatjila-svg
+app/services/*consent* @nkgolomatjila-svg
+app/services/*audit* @nkgolomatjila-svg
+scripts/popia_sweep.py @nkgolomatjila-svg
+docs/caps/ @nkgolomatjila-svg
+data/ @nkgolomatjila-svg
+.github/ @nkgolomatjila-svg
+docs/release/ @nkgolomatjila-svg

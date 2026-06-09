@@ -1,134 +1,203 @@
 """
-EduBoost SA — Security Helpers
-JWT tokens, PII encryption, password hashing, pseudonymisation.
+EduBoost V2 — Security Helpers
+JWT creation/verification, bcrypt password hashing, RBAC role enforcement.
 """
 from __future__ import annotations
+from app.services.jwt_keyring import current_jwt_algorithm, current_jwt_headers, current_jwt_signing_key, decode_jwt_with_keyring
 
+import base64
 import hashlib
 import hmac
-import secrets
-from datetime import UTC, datetime, timedelta
+import uuid
+from datetime import datetime, timedelta
+try:
+    # Python 3.11+ exposes datetime.UTC
+    from datetime import UTC  # type: ignore
+except Exception:
+    from datetime import timezone as _timezone
+
+    UTC = _timezone.utc
 from typing import Any
-from uuid import UUID, uuid4
 
+import bcrypt
 from cryptography.fernet import Fernet
+from fastapi import Depends, HTTPException, status
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
-from passlib.context import CryptContext
 
-from app.core.config import get_settings
+from app.core.config import settings
+from app.core.token_revocation import is_token_revoked, is_user_revoked
+from app.models import UserRole
 
-_pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+Role = UserRole
+TokenPayload = dict[str, Any]
+REFRESH_TOKEN_EXPIRE_DAYS = 7
 
-# ── Password Hashing ──────────────────────────────────────────────────────────
+# ── Password hashing ──────────────────────────────────────────────────────────
 
 def hash_password(plain: str) -> str:
-    return _pwd_context.hash(plain)
+    secret = plain.encode("utf-8")
+    return bcrypt.hashpw(secret, bcrypt.gensalt(rounds=settings.PASSWORD_BCRYPT_ROUNDS)).decode("utf-8")
 
 
 def verify_password(plain: str, hashed: str) -> bool:
-    return _pwd_context.verify(plain, hashed)
+    try:
+        return bcrypt.checkpw(plain.encode("utf-8"), hashed.encode("utf-8"))
+    except ValueError:
+        return False
 
 
-# ── JWT Tokens ────────────────────────────────────────────────────────────────
+def hash_email(email: str) -> str:
+    """Deterministic SHA-256 hash of an email for lookup (POPIA-safe)."""
+    return hashlib.sha256(email.lower().strip().encode()).hexdigest()
 
-def create_access_token(subject: str | UUID, extra: dict[str, Any] | None = None) -> str:
-    cfg = get_settings()
-    expires = datetime.now(UTC) + timedelta(minutes=cfg.jwt_access_token_expire_minutes)
+
+# ── Token schemas ─────────────────────────────────────────────────────────────
+def create_access_token(subject: str, role: UserRole, extra: dict[str, Any] | None = None) -> str:
+    expire = datetime.now(UTC) + timedelta(minutes=settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES)
     payload = {
-        "sub": str(subject),
-        "exp": expires,
+        "sub": subject,
+        "role": role,
+        "exp": expire,
         "iat": datetime.now(UTC),
+        "jti": str(uuid.uuid4()),
         "type": "access",
         **(extra or {}),
     }
-    return jwt.encode(payload, cfg.jwt_secret, algorithm=cfg.jwt_algorithm)
+    return jwt.encode(payload, current_jwt_signing_key(), algorithm=current_jwt_algorithm(settings.JWT_ALGORITHM), headers=current_jwt_headers())
 
 
-def create_refresh_token(subject: str | UUID) -> str:
-    cfg = get_settings()
-    expires = datetime.now(UTC) + timedelta(days=cfg.jwt_refresh_token_expire_days)
+def create_refresh_token(subject: str, role: UserRole, family_id: str | None = None) -> str:
+    expire = datetime.now(UTC) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
     payload = {
-        "sub": str(subject),
-        "exp": expires,
+        "sub": subject,
+        "role": role,
+        "exp": expire,
         "iat": datetime.now(UTC),
+        "jti": str(uuid.uuid4()),
         "type": "refresh",
-        "jti": str(uuid4()),
+        "family": family_id or str(uuid.uuid4()),
     }
-    return jwt.encode(payload, cfg.jwt_secret, algorithm=cfg.jwt_algorithm)
+    return jwt.encode(payload, current_jwt_signing_key(), algorithm=current_jwt_algorithm(settings.JWT_ALGORITHM), headers=current_jwt_headers())
 
 
 def decode_token(token: str) -> dict[str, Any]:
-    """Decode and validate a JWT. Raises JWTError on failure."""
-    cfg = get_settings()
-    return jwt.decode(token, cfg.jwt_secret, algorithms=[cfg.jwt_algorithm])
+    try:
+        return decode_jwt_with_keyring(token)
+    except JWTError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token",
+            headers={"WWW-Authenticate": "Bearer"},
+        ) from exc
 
 
-def verify_access_token(token: str) -> str:
-    """Return the subject (user ID) or raise JWTError."""
-    payload = decode_token(token)
+# ── FastAPI dependency helpers ────────────────────────────────────────────────
+_bearer = HTTPBearer(auto_error=False)
+
+
+async def get_current_user(credentials: HTTPAuthorizationCredentials | None = Depends(_bearer)) -> dict[str, Any]:
+    if credentials is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authorization header missing",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    payload = decode_token(credentials.credentials)
+    
+    # Check if token type is correct
     if payload.get("type") != "access":
-        raise JWTError("Not an access token")
-    return payload["sub"]
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Refresh token cannot be used here")
+    
+    # Check if token has been revoked (by JTI)
+    jti = payload.get("jti")
+    if jti and await is_token_revoked(jti):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token has been revoked",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    # Check if user's all tokens have been revoked
+    user_id = payload.get("sub")
+    if user_id and await is_user_revoked(user_id):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="User tokens have been revoked",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    return payload
 
 
-# ── PII Encryption (Fernet symmetric) ────────────────────────────────────────
+async def get_current_user_optional(credentials: HTTPAuthorizationCredentials | None = Depends(_bearer)) -> dict[str, Any] | None:
+    if credentials is None:
+        return None
+    return await get_current_user(credentials)
+
+
+def require_roles(*roles: UserRole):
+    """Dependency factory: enforce that the caller has one of the specified roles."""
+
+    def _inner(current_user: dict = Depends(get_current_user)) -> dict:
+        if current_user.get("role") not in roles:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Requires one of roles: {[r.value for r in roles]}",
+            )
+        return current_user
+
+    return _inner
+
+
+require_role = require_roles
+require_admin = require_roles(UserRole.ADMIN)
+require_parent_or_admin = require_roles(UserRole.PARENT, UserRole.ADMIN)
+require_teacher_or_admin = require_roles(UserRole.TEACHER, UserRole.ADMIN)
+
 
 def _get_fernet() -> Fernet:
-    cfg = get_settings()
-    # Derive a 32-byte key from config secret using HKDF-like approach
     key_material = hmac.new(
-        cfg.encryption_key.encode(),
-        cfg.encryption_salt.encode(),
+        settings.ENCRYPTION_KEY.encode(),
+        settings.ENCRYPTION_SALT.encode(),
         hashlib.sha256,
     ).digest()
-    import base64
     fernet_key = base64.urlsafe_b64encode(key_material)
     return Fernet(fernet_key)
 
 
 def encrypt_pii(plaintext: str) -> str:
     """Encrypt PII (e.g., guardian email). Returns hex-encoded ciphertext."""
+    if not plaintext:
+        return ""
     return _get_fernet().encrypt(plaintext.encode()).hex()
 
 
 def decrypt_pii(ciphertext_hex: str) -> str:
     """Decrypt PII ciphertext."""
+    if not ciphertext_hex:
+        return ""
     return _get_fernet().decrypt(bytes.fromhex(ciphertext_hex)).decode()
 
 
-def hash_email(email: str) -> str:
-    """SHA-256 hash of email for lookup without storing plaintext."""
-    cfg = get_settings()
-    return hashlib.sha256(
-        f"{email.lower().strip()}{cfg.encryption_salt}".encode()
-    ).hexdigest()
+__all__ = [
+    "Role",
+    "TokenPayload",
+    "create_access_token",
+    "create_refresh_token",
+    "decode_token",
+    "get_current_user",
+    "get_current_user_optional",
+    "hash_email",
+    "hash_password",
+    "require_admin",
+    "require_parent_or_admin",
+    "require_role",
+    "require_roles",
+    "require_teacher_or_admin",
+    "verify_password",
+    "encrypt_pii",
+    "decrypt_pii",
+]
 
-
-# ── Pseudonymisation ──────────────────────────────────────────────────────────
-
-def generate_pseudonym_id() -> str:
-    """Generate a stable pseudonym for LLM calls — never the real learner UUID."""
-    return f"learner_{secrets.token_hex(12)}"
-
-
-def pseudonymise_for_llm(learner_id: UUID, session_seed: str = "") -> str:
-    """
-    Deterministic pseudonym for a learner within an LLM context.
-    Changes per session so it cannot be correlated across calls.
-    Real learner UUIDs are NEVER sent to external LLM providers.
-    """
-    cfg = get_settings()
-    h = hmac.new(
-        cfg.encryption_key.encode(),
-        f"{learner_id}{session_seed}{cfg.encryption_salt}".encode(),
-        hashlib.sha256,
-    ).hexdigest()[:16]
-    return f"learner_{h}"
-
-
-# ── Token Generation ──────────────────────────────────────────────────────────
-
-def generate_secure_token(length: int = 32) -> str:
-    """URL-safe random token for email verification, consent links, etc."""
-    return secrets.token_urlsafe(length)

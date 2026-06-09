@@ -1,153 +1,82 @@
 groups:
-  # ---------------------------------------------------------------------------
-  # PILLAR 3 — JUDICIARY
-  # ---------------------------------------------------------------------------
-  - name: judiciary_alerts
+  - name: critical_alerts
     rules:
-      - alert: JudiciaryHighRejectionRate
-        expr: |
-          (
-            rate(judiciary_reviews_total{verdict="REJECTED"}[15m])
-            /
-            rate(judiciary_reviews_total[15m])
-          ) > 0.05
+      - alert: EduBoostApiDown
+        expr: up{job="eduboost-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "EduBoost API is down"
+
+      - alert: EduBoostReadinessFailure
+        expr: eduboost_readiness_component_status == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "A critical component is not ready"
+
+      - alert: EduBoostHigh5xxRate
+        expr: rate(eduboost_http_requests_total{status_code=~"5.."}[5m]) / rate(eduboost_http_requests_total[5m]) > 0.05
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High rate of 5xx errors on EduBoost API"
+
+      - alert: EduBoostHighLatency
+        expr: histogram_quantile(0.95, sum(rate(eduboost_http_request_duration_seconds_bucket[5m])) by (le)) > 5
         for: 5m
         labels:
           severity: warning
-          pillar: judiciary
         annotations:
-          summary: "Judiciary rejection rate exceeds 5% over 15 minutes"
-          description: >
-            Rejection rate is {{ $value | humanizePercentage }}.
-            Investigate constitutional_violations table for patterns.
+          summary: "P95 HTTP latency is over 5s"
 
-      - alert: JudiciaryHighLatency
-        expr: |
-          histogram_quantile(0.99, rate(judiciary_review_latency_seconds_bucket[5m])) > 0.5
-        for: 2m
-        labels:
-          severity: warning
-          pillar: judiciary
-        annotations:
-          summary: "Judiciary p99 latency exceeds 500ms SLO"
-          description: "p99 latency is {{ $value }}s"
-
-      - alert: JudiciaryServiceDown
-        expr: absent(judiciary_reviews_total) == 1
-        for: 2m
-        labels:
-          severity: critical
-          pillar: judiciary
-        annotations:
-          summary: "Judiciary service is not receiving requests — possible service failure"
-
-  # ---------------------------------------------------------------------------
-  # PILLAR 4 — FOURTH ESTATE (AUDIT)
-  # ---------------------------------------------------------------------------
-  - name: audit_alerts
-    rules:
-      - alert: AuditStreamHighLag
-        expr: audit_stream_consumer_lag > 1000
-        for: 2m
-        labels:
-          severity: warning
-          pillar: fourth_estate
-        annotations:
-          summary: "Audit stream consumer lag exceeds 1000 events"
-          description: "Stream {{ $labels.stream }} has {{ $value }} pending events."
-
-      - alert: AuditStreamCriticalLag
-        expr: audit_stream_consumer_lag > 10000
+      - alert: EduBoostDatabaseUnavailable
+        expr: eduboost_db_pool_size_total == 0
         for: 1m
         labels:
           severity: critical
-          pillar: fourth_estate
         annotations:
-          summary: "CRITICAL: Audit stream lag > 10000 — compliance events may be lost"
+          summary: "Database connection pool is empty"
 
-      - alert: AuditDLQNonEmpty
-        expr: audit_events_written_total{event_type="dlq"} > 0
+      - alert: EduBoostRedisUnavailable
+        expr: eduboost_redis_connected_clients == 0
         for: 1m
         labels:
           severity: critical
-          pillar: fourth_estate
         annotations:
-          summary: "Events in audit Dead Letter Queue — manual review required"
+          summary: "Redis has no connected clients"
 
-  # ---------------------------------------------------------------------------
-  # LLM PROVIDER ROUTING
-  # ---------------------------------------------------------------------------
-  - name: provider_alerts
-    rules:
-      - alert: LLMPrimaryProviderCircuitOpen
-        expr: llm_circuit_breaker_state{provider="groq"} == 1
-        for: 1m
-        labels:
-          severity: warning
-          pillar: executive
-        annotations:
-          summary: "Groq (primary LLM provider) circuit breaker is OPEN"
-
-      - alert: LLMAllProvidersDown
-        expr: |
-          sum(llm_circuit_breaker_state == 1) == 3
+      - alert: EduBoostAuditWriteFailure
+        expr: rate(eduboost_audit_write_failures_total[5m]) > 0
         for: 1m
         labels:
           severity: critical
-          pillar: executive
         annotations:
-          summary: "CRITICAL: All LLM providers have open circuit breakers"
+          summary: "Audit log write failures detected"
 
-      - alert: HighProviderFallbackRate
-        expr: rate(llm_provider_fallbacks_total[5m]) > 0.1
-        for: 3m
-        labels:
-          severity: warning
-          pillar: executive
-        annotations:
-          summary: "High LLM provider fallback rate — Groq may be degraded"
-
-  # ---------------------------------------------------------------------------
-  # IRT ENGINE
-  # ---------------------------------------------------------------------------
-  - name: irt_alerts
-    rules:
-      - alert: IRTThetaDrift
-        expr: irt_theta_drift_std > 0.5
+      - alert: EduBoostBackupFailure
+        expr: rate(eduboost_backup_failures_total[1h]) > 0
         for: 5m
         labels:
-          severity: warning
-          pillar: irt
+          severity: critical
         annotations:
-          summary: "IRT theta distribution drift detected (std={{ $value }})"
-          description: "Learner ability estimates may be systematically miscalibrated."
+          summary: "PostgreSQL backup failure detected"
 
-  # ---------------------------------------------------------------------------
-  # LESSON GENERATION SLOs
-  # ---------------------------------------------------------------------------
-  - name: slo_alerts
-    rules:
-      - alert: LessonGenerationHighLatency
-        expr: |
-          histogram_quantile(0.99, rate(irt_scoring_latency_seconds_bucket[5m])) > 3
-        for: 3m
-        labels:
-          severity: warning
-          pillar: executive
-        annotations:
-          summary: "Lesson generation p99 latency exceeds 3s SLO"
-
-  # ---------------------------------------------------------------------------
-  # POPIA / COMPLIANCE
-  # ---------------------------------------------------------------------------
-  - name: popia_alerts
-    rules:
-      - alert: PIIScrubberBypass
-        expr: increase(judiciary_reviews_total{verdict="REJECTED"}[5m]) > 10
-        for: 1m
+      - alert: LLMProviderDown
+        expr: rate(eduboost_llm_requests_total{status="error"}[5m]) > 0.5
+        for: 2m
         labels:
           severity: critical
-          pillar: popia
         annotations:
-          summary: "Spike in Judiciary rejections — possible PII scrubber bypass attempt"
-          description: "{{ $value }} rejections in the last 5 minutes. Audit immediately."
+          summary: "LLM provider is reporting high error rate"
+
+      - alert: ConsentGateFailureSpike
+        expr: rate(eduboost_consent_gate_blocks_total[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Spike in consent gate blocks"

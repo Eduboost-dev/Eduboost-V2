@@ -8,7 +8,40 @@ globalThis.fetch = vi.fn((input: any) => {
   if (url && url.match(/\/v2\/diagnostics\/session\/[\w-]+\/respond/)) {
     return Promise.resolve({ ok: true, status: 200, json: async () => ({ is_complete: false, session_state: { progress: 1 } }) })
   }
-  return Promise.resolve({ ok: true, status: 200, json: async () => ({}) })
+  return jsonResponse({})
+})
+
+const createStorage = () => {
+  let store: Record<string, string> = {}
+  return {
+    get length() {
+      return Object.keys(store).length
+    },
+    clear: () => {
+      store = {}
+    },
+    getItem: (key: string) => (key in store ? store[key] : null),
+    setItem: (key: string, value: string) => {
+      store[key] = value
+    },
+    removeItem: (key: string) => {
+      delete store[key]
+    },
+    key: (index: number) => Object.keys(store)[index] ?? null,
+  }
+}
+
+const localStorageMock = createStorage()
+const sessionStorageMock = createStorage()
+
+Object.defineProperty(window, 'localStorage', {
+  value: localStorageMock,
+  writable: true,
+})
+
+Object.defineProperty(window, 'sessionStorage', {
+  value: sessionStorageMock,
+  writable: true,
 })
 
 afterEach(() => {

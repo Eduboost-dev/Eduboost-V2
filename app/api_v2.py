@@ -1,134 +1,343 @@
 """
-EduBoost SA — FastAPI V2 Application Entrypoint
-Single modular monolith. No legacy V1 code.
+EduBoost V2 — FastAPI Application Entrypoint
+Strict Modular Monolith. No Celery, no RabbitMQ, no microservices.
 """
 from __future__ import annotations
 
-import logging
-import logging.config
+import asyncio
 from contextlib import asynccontextmanager
-from typing import AsyncGenerator
 
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from slowapi import Limiter, _rate_limit_exceeded_handler  # type: ignore[import-untyped]
-from slowapi.errors import RateLimitExceeded
-from slowapi.middleware import SlowAPIMiddleware
-from slowapi.util import get_remote_address
+from fastapi.responses import JSONResponse, Response
 
-from app.core.config import get_settings
+from app.core.analytics import analytics_middleware
+from app.core.config import settings
 from app.core.exceptions import register_exception_handlers
-from app.core.metrics import make_metrics_app
-from app.core.middleware import (
-    RequestIDMiddleware,
-    StructuredLoggingMiddleware,
-    TimingMiddleware,
-)
+from app.core.health import gather_deep_health
+from app.services.launch_content_seed import seed_launch_content_if_needed
+from app.core.logging import configure_logging, get_logger
+from app.core.metrics import REGISTRY
+from app.core.middleware import RequestIDMiddleware, StructuredLoggingMiddleware, TimingMiddleware
+from app.core.rate_limit import limiter
+from app.core.secret_rotation import key_vault_rotation_loop
+from app.middleware.security_headers import SecurityHeadersMiddleware
+from app.services.consent_expiry_service import consent_expiry_loop
+from app.services.jwt_keyring import validate_jwt_keyring_environment
 
-# ── Logging ───────────────────────────────────────────────────────────────────
+validate_jwt_keyring_environment()
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s %(name)s %(message)s",
-)
-logger = logging.getLogger(__name__)
+configure_logging()
+log = get_logger(__name__)
 
 
-# ── Lifespan ──────────────────────────────────────────────────────────────────
+async def run_startup_migrations() -> None:
+    if not settings.is_production():
+        return
+    from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+
+    import asyncpg
+
+    log.info("startup_schema_repair_begin")
+    repairs = (
+        (
+            "guardians.email_verified",
+            """
+            SELECT EXISTS (
+                SELECT 1
+                FROM information_schema.columns
+                WHERE table_schema = current_schema()
+                  AND table_name = 'guardians'
+                  AND column_name = 'email_verified'
+            )
+            """,
+            "ALTER TABLE guardians ADD COLUMN IF NOT EXISTS email_verified BOOLEAN NOT NULL DEFAULT false",
+        ),
+        (
+            "tokenpurpose",
+            "SELECT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'tokenpurpose')",
+            """
+        DO $$
+        BEGIN
+            CREATE TYPE tokenpurpose AS ENUM ('password_reset', 'email_verify');
+        EXCEPTION WHEN duplicate_object THEN NULL;
+        END $$;
+        """,
+        ),
+        (
+            "secure_tokens",
+            "SELECT to_regclass('secure_tokens') IS NOT NULL",
+            """
+        CREATE TABLE IF NOT EXISTS secure_tokens (
+            id SERIAL PRIMARY KEY,
+            user_id VARCHAR(36) NOT NULL REFERENCES guardians(id) ON DELETE CASCADE,
+            purpose tokenpurpose NOT NULL,
+            token_hash VARCHAR(256) NOT NULL,
+            expires_at TIMESTAMPTZ NOT NULL,
+            used_at TIMESTAMPTZ NULL,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        )
+        """,
+        ),
+        (
+            "ix_secure_tokens_user_purpose",
+            "SELECT to_regclass('ix_secure_tokens_user_purpose') IS NOT NULL",
+            "CREATE INDEX IF NOT EXISTS ix_secure_tokens_user_purpose ON secure_tokens (user_id, purpose)",
+        ),
+        (
+            "ix_secure_tokens_expires_at",
+            "SELECT to_regclass('ix_secure_tokens_expires_at') IS NOT NULL",
+            "CREATE INDEX IF NOT EXISTS ix_secure_tokens_expires_at ON secure_tokens (expires_at)",
+        ),
+        (
+            "onboarding_states",
+            "SELECT to_regclass('onboarding_states') IS NOT NULL",
+            """
+        CREATE TABLE IF NOT EXISTS onboarding_states (
+            id SERIAL PRIMARY KEY,
+            user_id VARCHAR(36) NOT NULL UNIQUE REFERENCES guardians(id) ON DELETE CASCADE,
+            email_verified BOOLEAN NULL,
+            profile_complete BOOLEAN NULL,
+            guardian_consent BOOLEAN NULL,
+            diagnostic_done BOOLEAN NULL,
+            plan_accepted BOOLEAN NULL,
+            completed_at TIMESTAMPTZ NULL,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+            updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        )
+        """,
+        ),
+        (
+            "privacy_settings",
+            "SELECT to_regclass('privacy_settings') IS NOT NULL",
+            """
+        CREATE TABLE IF NOT EXISTS privacy_settings (
+            id SERIAL PRIMARY KEY,
+            user_id VARCHAR(36) NOT NULL UNIQUE REFERENCES guardians(id) ON DELETE CASCADE,
+            analytics_enabled BOOLEAN NOT NULL DEFAULT true,
+            ai_improvement BOOLEAN NOT NULL DEFAULT true,
+            marketing_emails BOOLEAN NOT NULL DEFAULT false,
+            data_retention_days INTEGER NOT NULL DEFAULT 365,
+            show_leaderboard BOOLEAN NOT NULL DEFAULT true,
+            export_requested_at TIMESTAMPTZ NULL,
+            deletion_requested_at TIMESTAMPTZ NULL,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+            updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        )
+        """,
+        ),
+    )
+
+    parsed = urlsplit(settings.DATABASE_URL.replace("postgresql+asyncpg://", "postgresql://", 1))
+    query = dict(parse_qsl(parsed.query, keep_blank_values=True))
+    ssl_mode = query.pop("ssl", None)
+    query.pop("prepared_statement_cache_size", None)
+    dsn = urlunsplit((parsed.scheme, parsed.netloc, parsed.path, urlencode(query), parsed.fragment))
+    connect_kwargs = {"statement_cache_size": 0, "timeout": 10}
+    if ssl_mode:
+        connect_kwargs["ssl"] = ssl_mode
+
+    conn = await asyncpg.connect(dsn, **connect_kwargs)
+    locked = False
+    try:
+        locked = bool(await conn.fetchval("SELECT pg_try_advisory_lock($1, $2)", 443352, 20260524))
+        if not locked:
+            log.warning("startup_schema_repair_skipped_lock_busy")
+            return
+
+        await conn.execute("SET lock_timeout = '5s'")
+        await conn.execute("SET statement_timeout = '30s'")
+        for name, exists_sql, statement in repairs:
+            if await conn.fetchval(exists_sql):
+                log.info("startup_schema_repair_skip_existing", repair=name)
+                continue
+            try:
+                await conn.execute(statement)
+            except (asyncpg.LockNotAvailableError, asyncpg.QueryCanceledError) as exc:
+                log.warning("startup_schema_repair_deferred", repair=name, error=str(exc))
+                continue
+            log.info("startup_schema_repair_applied", repair=name)
+    finally:
+        if locked:
+            await conn.execute("SELECT pg_advisory_unlock($1, $2)", 443352, 20260524)
+        await conn.close()
+    log.info("startup_schema_repair_complete")
+
 
 @asynccontextmanager
-async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
-    cfg = get_settings()
-    logger.info("EduBoost V2 starting — env=%s", cfg.app_env)
-
-    # Verify DB connectivity on startup
-    try:
-        from sqlalchemy import text
-        from app.core.database import AsyncSessionLocal
-        async with AsyncSessionLocal() as db:
-            await db.execute(text("SELECT 1"))
-        logger.info("Database connection: OK")
-    except Exception as exc:
-        logger.error("Database connection failed: %s", exc)
-
+async def lifespan(app: FastAPI):
+    log.info("eduboost_v2_starting", env=settings.ENVIRONMENT, version=settings.APP_VERSION)
+    await run_startup_migrations()
+    await seed_launch_content_if_needed()
+    consent_task = None
+    secret_rotation_task = None
+    if settings.ENVIRONMENT != "test":
+        consent_task = asyncio.create_task(consent_expiry_loop())
+        if settings.is_production() and settings.AZURE_KEY_VAULT_URL:
+            secret_rotation_task = asyncio.create_task(key_vault_rotation_loop())
     yield
-
-    logger.info("EduBoost V2 shutting down")
-
-
-# ── App Factory ───────────────────────────────────────────────────────────────
-
-def create_app() -> FastAPI:
-    cfg = get_settings()
-
-    app = FastAPI(
-        title=cfg.app_name,
-        version=cfg.app_version,
-        description=(
-            "EduBoost SA — AI-powered adaptive learning platform. "
-            "POPIA-compliant. CAPS-aligned. Multilingual."
-        ),
-        docs_url="/docs" if not cfg.is_production() else None,
-        redoc_url="/redoc" if not cfg.is_production() else None,
-        openapi_url="/openapi.json" if not cfg.is_production() else None,
-        lifespan=lifespan,
-    )
-
-    # ── Rate Limiting ─────────────────────────────────────────────────────────
-    limiter = Limiter(key_func=get_remote_address, default_limits=[cfg.rate_limit_default])
-    app.state.limiter = limiter
-    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)  # type: ignore[arg-type]
-    app.add_middleware(SlowAPIMiddleware)
-
-    # ── CORS ──────────────────────────────────────────────────────────────────
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=cfg.cors_origins,
-        allow_credentials=cfg.cors_allow_credentials,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
-
-    # ── Custom Middleware (order: outermost first) ─────────────────────────────
-    app.add_middleware(StructuredLoggingMiddleware)
-    app.add_middleware(TimingMiddleware)
-    app.add_middleware(RequestIDMiddleware)
-
-    # ── Exception Handlers ────────────────────────────────────────────────────
-    register_exception_handlers(app)
-
-    # ── Routers ───────────────────────────────────────────────────────────────
-    from app.api_v2_routers.auth import router as auth_router
-    from app.api_v2_routers.consent import router as consent_router
-    from app.api_v2_routers.lessons import router as lessons_router
-
-    API_PREFIX = "/v2"
-    app.include_router(auth_router, prefix=API_PREFIX)
-    app.include_router(consent_router, prefix=API_PREFIX)
-    app.include_router(lessons_router, prefix=API_PREFIX)
-
-    # ── Health & Metrics ──────────────────────────────────────────────────────
-    @app.get("/health", tags=["Health"], include_in_schema=False)
-    async def health() -> dict:
-        return {"status": "ok", "version": cfg.app_version, "env": cfg.app_env}
-
-    @app.get("/ready", tags=["Health"], include_in_schema=False)
-    async def readiness() -> dict:
-        """Kubernetes / ACA readiness probe — checks DB connectivity."""
-        try:
-            from sqlalchemy import text
-            from app.core.database import AsyncSessionLocal
-            async with AsyncSessionLocal() as db:
-                await db.execute(text("SELECT 1"))
-            return {"status": "ready"}
-        except Exception as exc:
-            from fastapi import HTTPException
-            raise HTTPException(status_code=503, detail=f"DB unavailable: {exc}")
-
-    # Mount Prometheus metrics endpoint
-    app.mount(cfg.prometheus_metrics_path, make_metrics_app())
-
-    return app
+    if consent_task:
+        consent_task.cancel()
+    if secret_rotation_task:
+        secret_rotation_task.cancel()
+    log.info("eduboost_v2_shutdown")
 
 
-app = create_app()
+OPENAPI_TAGS = [
+    {"name": "ops", "description": "Health, readiness, and system status"},
+    {"name": "auth", "description": "Authentication and token management"},
+    {"name": "learners", "description": "Learner profiles and progress"},
+    {"name": "lessons", "description": "CAPS-aligned lesson content"},
+    {"name": "study_plans", "description": "Personalised study plans"},
+    {"name": "diagnostics", "description": "Diagnostic assessments"},
+    {"name": "practice", "description": "Practice activities and attempts"},
+    {"name": "gamification", "description": "Points, badges, and streaks"},
+    {"name": "onboarding", "description": "New learner and parent onboarding"},
+    {"name": "parents", "description": "Parent/guardian management"},
+    {"name": "billing", "description": "Subscription and payment"},
+    {"name": "consent", "description": "POPIA consent collection"},
+    {"name": "popia", "description": "POPIA data subject rights"},
+    {"name": "jobs", "description": "Background job status"},
+    {"name": "admin-content-factory", "description": "Admin-only content factory and ETL provenance controls"},
+    {"name": "admin-etl", "description": "Admin-only read visibility into ETL source material"},
+    {"name": "learner-content", "description": "Learner-facing production content from Content Factory"},
+]
+
+app = FastAPI(
+    title="EduBoost SA V2",
+    version=settings.APP_VERSION,
+    openapi_tags=OPENAPI_TAGS,
+    description="AI-powered adaptive learning platform — Grade R to 7. CAPS-aligned. POPIA-compliant.",
+    lifespan=lifespan,
+    docs_url="/docs",
+    redoc_url="/redoc",
+)
+
+# ── Rate Limiter (attach to app for per-endpoint limits) ─────────────────────
+app.state.limiter = limiter
+register_exception_handlers(app)
+
+
+# ── CORS ──────────────────────────────────────────────────────────────────────
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.ALLOWED_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(StructuredLoggingMiddleware)
+app.add_middleware(TimingMiddleware)
+app.add_middleware(RequestIDMiddleware)
+app.middleware("http")(analytics_middleware)
+
+
+# ── Routers ───────────────────────────────────────────────────────────────────
+from app.modules.practice import router as practice_router  # noqa: E402
+from app.api_v2_routers import (  # noqa: E402
+    assessments,
+    auth,
+    auth_extended,
+    audit,
+    billing,
+    consent,
+    consent_renewal,
+    content_factory,
+    admin_etl,
+    diagnostics,
+    gamification,
+    jobs,
+    learner_content,
+    learners,
+    lessons,
+    onboarding,
+    parents,
+    popia,
+    study_plans,
+    system,
+)
+
+API_V2 = "/api/v2"
+API_PREFIXES = (API_V2, "/v2")
+ROUTER_REGISTRY = (
+    ("assessments", assessments.router),
+    ("auth", auth.router),
+    ("auth_extended", auth_extended.router),
+    ("audit", audit.router),
+    ("learners", learners.router),
+    ("lessons", lessons.router),
+    ("study_plans", study_plans.router),
+    ("diagnostics", diagnostics.router),
+    ("practice", practice_router.router),
+    ("gamification", gamification.router),
+    ("onboarding", onboarding.router),
+    ("parents", parents.router),
+    ("billing", billing.router),
+    ("consent", consent.router),
+    ("consent_renewal", consent_renewal.router),
+    ("content_factory", content_factory.router),
+    ("admin_etl", admin_etl.router),
+    ("popia", popia.router),
+    ("jobs", jobs.router),
+    ("system", system.router),
+    ("learner_content", learner_content.router),
+)
+
+# ── Operational Routes ─────────────────────────────────────────────────────────
+
+@app.get("/health", tags=["ops"])
+async def health():
+    return {
+        "status": "ok",
+        "version": settings.APP_VERSION,
+        "environment": settings.ENVIRONMENT,
+        "mode": "v2-baseline",
+    }
+
+
+@app.get("/ready", tags=["ops"])
+@app.get("/v2/health/deep", tags=["ops"])
+@app.get("/api/v2/health/deep", tags=["ops"])
+async def ready():
+    # Perform deep health checks and return appropriate status.
+    # 'ok' or 'degraded' returns 200, 'error' returns 503.
+    health_data = await gather_deep_health()
+    status_code = 200 if health_data["status"] in ("ok", "degraded") else 503
+    return JSONResponse(status_code=status_code, content=health_data)
+
+
+@app.get("/metrics", tags=["ops"])
+async def metrics():
+    return Response(generate_latest(REGISTRY), media_type=CONTENT_TYPE_LATEST)
+
+
+@app.get("/", tags=["ops"])
+async def root():
+    return JSONResponse({"message": "EduBoost SA V2 — Ngiyabonga! 🦁", "docs": "/docs"})
+
+
+# ── Router Registration ───────────────────────────────────────────────────────
+
+for prefix in API_PREFIXES:
+    for _router_name, router in ROUTER_REGISTRY:
+        app.include_router(router, prefix=prefix)
+
+
+# Dev-only helper to simulate a slow DB query for testing slow-query logging.
+# Executes `pg_sleep(0.02)` via an AsyncSession; only enabled outside production.
+@app.get("/__dev/slow_query", tags=["dev"])
+async def dev_slow_query():
+    if settings.is_production():
+        return JSONResponse(status_code=404, content={"detail": "not found"})
+    try:
+        from app.core.database import AsyncSessionLocal
+        from sqlalchemy import text
+
+        async with AsyncSessionLocal() as session:
+            # 0.02s sleep should exceed low thresholds like 0.01s
+            await session.execute(text("SELECT pg_sleep(0.02)"))
+        return JSONResponse({"status": "ok", "note": "executed pg_sleep(0.02)"})
+    except Exception as exc:  # pragma: no cover - dev helper
+        return JSONResponse(status_code=500, content={"status": "error", "detail": str(exc)})

@@ -1,144 +1,269 @@
 """
-EduBoost SA — Core Configuration
-Loads secrets from Azure Key Vault in production; falls back to .env locally.
+EduBoost V2 — Core Configuration
+Pydantic BaseSettings with environment-variable loading and validation.
 """
-from __future__ import annotations
-
-import os
 from functools import lru_cache
+import json
+from typing import Any
 from typing import Literal
+from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
 
-from pydantic import Field, field_validator
-from pydantic_settings import BaseSettings
+from pydantic import field_validator, model_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+KEY_VAULT_SECRET_NAMES = {
+    "JWT_SECRET": "eduboost-jwt-secret",
+    "ENCRYPTION_KEY": "eduboost-encryption-key",
+    "ENCRYPTION_SALT": "eduboost-encryption-salt",
+    "GROQ_API_KEY": "eduboost-groq-api-key",
+    "ANTHROPIC_API_KEY": "eduboost-anthropic-api-key",
+}
+
+
+def _fetch_key_vault_secret_values(vault_url: str) -> dict[str, str]:
+    from azure.identity import DefaultAzureCredential
+    from azure.keyvault.secrets import SecretClient
+
+    credential = DefaultAzureCredential()
+    client = SecretClient(vault_url=vault_url, credential=credential)
+    return {
+        field_name: client.get_secret(secret_name).value
+        for field_name, secret_name in KEY_VAULT_SECRET_NAMES.items()
+    }
 
 
 class Settings(BaseSettings):
-    # ── Environment ──────────────────────────────────────────────────────────
-    app_env: Literal["development", "test", "staging", "production"] = "development"
-    app_name: str = "EduBoost SA API"
-    app_version: str = "2.0.0"
-    debug: bool = False
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
-    # ── Azure Key Vault ───────────────────────────────────────────────────────
-    azure_key_vault_url: str = ""          # e.g. https://eduboost-kv.vault.azure.net/
-    # In production, all secrets below are fetched from Key Vault at startup.
-    # Locally, they are read from .env / environment variables.
+    # ── Application ──────────────────────────────────────────────────────────
+    APP_NAME: str = "EduBoost SA"
+    APP_VERSION: str = "2.0.0"
+    APP_BASE_URL: str = "https://eduboost.co.za"
+    ENVIRONMENT: Literal["development", "test", "staging", "production"] = "development"
+    APP_ENV: Literal["development", "test", "staging", "production"] = "development"
+    DEBUG: bool = False
+    LEGACY_RETIREMENT_DATE: str = "2026-08-01"
 
     # ── Database ─────────────────────────────────────────────────────────────
-    database_url: str = Field(
-        default="postgresql+asyncpg://eduboost:password@localhost:5432/eduboost",
-    )
-    db_pool_size: int = 10
-    db_max_overflow: int = 20
-    db_pool_pre_ping: bool = True
+    DATABASE_URL: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/eduboost"
 
-    # ── Redis ─────────────────────────────────────────────────────────────────
-    redis_url: str = "redis://localhost:6379/0"
-    redis_max_connections: int = 20
+    # ── Redis (cache + sessions only — NO streams) ───────────────────────────
+    REDIS_URL: str = "redis://localhost:6379/0"
+    REDIS_CACHE_TTL_SECONDS: int = 3600          # 1-hour default cache TTL
+    SEMANTIC_CACHE_TTL_SECONDS: int = 604800      # 7-day semantic cache
 
-    # ── Security ──────────────────────────────────────────────────────────────
-    jwt_secret: str = Field(default="change-me-in-production-32-chars-min")
-    jwt_algorithm: str = "HS256"
-    jwt_access_token_expire_minutes: int = 60
-    jwt_refresh_token_expire_days: int = 30
-    encryption_key: str = Field(default="change-me-in-production-32-chars-min")
-    encryption_salt: str = Field(default="change-me-in-production-16-chars")
+    # ── JWT ───────────────────────────────────────────────────────────────────
+    JWT_SECRET: str = "CHANGE_ME_IN_PRODUCTION_AT_LEAST_32_CHARS"
+    JWT_ALGORITHM: str = "HS256"
+    JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
+    JWT_REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
-    # ── LLM Providers ─────────────────────────────────────────────────────────
-    groq_api_key: str = ""
-    anthropic_api_key: str = ""
-    groq_model: str = "llama-3.3-70b-versatile"
-    anthropic_model: str = "claude-sonnet-4-5"
-    llm_timeout_seconds: int = 30
-    llm_max_retries: int = 2
+    # ── Encryption ───────────────────────────────────────────────────────────
+    ENCRYPTION_KEY: str = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="  # dev-only 32-byte base64 placeholder
+    ENCRYPTION_SALT: str = "test-encryption-salt"
+    # dev-audit-secret placeholder marker for production secret scans
 
-    # ── Email ─────────────────────────────────────────────────────────────────
-    sendgrid_api_key: str = ""
-    sendgrid_from_email: str = "noreply@eduboost.co.za"
-    sendgrid_from_name: str = "EduBoost SA"
+    # ── LLM Providers ────────────────────────────────────────────────────────
+    LLM_PROVIDER: str = ""
+    GOOGLE_API_KEY: str = ""
+    GOOGLE_MODEL: str = "models/gemini-pro"
+    ANTHROPIC_API_KEY: str = ""
+    GROQ_API_KEY: str = ""
+    GROQ_MODEL: str = "llama3-70b-8192"
+    HUGGINGFACE_API_KEY: str = ""
+    ANTHROPIC_MODEL: str = "claude-sonnet-4-20250514"
+    LOCAL_BASE_MODEL_ID: str = ""
+    LOCAL_ADAPTER_PATH: str = ""
+    LOCAL_MERGED_MODEL_PATH: str = ""
+    LOCAL_LLM_MAX_NEW_TOKENS: int = 1024
+    LOCAL_LLM_TEMPERATURE: float = 0.2
+    INFERENCE_SERVICE_URL: str = "http://localhost:9100"
+    LLM_TIMEOUT_SECONDS: int = 30
+    LLM_MAX_RETRIES: int = 2
 
-    # ── Azure Storage ─────────────────────────────────────────────────────────
-    azure_storage_connection_string: str = ""
-    azure_storage_container: str = "eduboost-assets"
+    # ── AI Cost-Control ──────────────────────────────────────────────────────
+    FREE_DAILY_REQUEST_QUOTA: int = 20
+    PREMIUM_DAILY_REQUEST_QUOTA: int = 9999
 
-    # ── Rate Limiting ─────────────────────────────────────────────────────────
-    rate_limit_default: str = "100/minute"
-    rate_limit_auth: str = "10/minute"
-    rate_limit_llm: str = "20/minute"
+    # ── Stripe ───────────────────────────────────────────────────────────────
+    STRIPE_SECRET_KEY: str = ""
+    STRIPE_WEBHOOK_SECRET: str = ""
+    STRIPE_PRICE_ID_PREMIUM: str = ""
+
+    # ── PostHog Telemetry ─────────────────────────────────────────────────────
+    POSTHOG_API_KEY: str = ""
+    POSTHOG_HOST: str = "https://app.posthog.com"
+
+    # ── Email ────────────────────────────────────────────────────────────────
+    SENDGRID_API_KEY: str = ""
+    SENDGRID_FROM_EMAIL: str = ""
+    SENDGRID_FROM_NAME: str = "EduBoost SA"
+
+    # ── Azure / Observability ────────────────────────────────────────────────
+    AZURE_KEY_VAULT_URL: str = ""
+    AZURE_CLIENT_ID: str = ""
+    AZURE_CLIENT_SECRET: str = ""
+    AZURE_TENANT_ID: str = ""
+    AZURE_STORAGE_CONNECTION_STRING: str = ""
+    AZURE_STORAGE_CONTAINER: str = "eduboost-assets"
+    BACKUP_ENCRYPTION_KEY: str = ""
+    BACKUP_RETENTION_DAYS: int = 30
+    GRAFANA_CLOUD_PROMETHEUS_URL: str = ""
+    GRAFANA_CLOUD_LOKI_URL: str = ""
+    GRAFANA_CLOUD_API_KEY: str = ""
+    PROMETHEUS_METRICS_PATH: str = "/metrics"
+    LOG_LEVEL: str = "INFO"
+    SENTRY_DSN: str = ""
+    KEY_VAULT_REFRESH_INTERVAL_HOURS: int = 6
+
+    # ── Rate Limiting / Jobs ────────────────────────────────────────────────
+    RATE_LIMIT_DEFAULT: str = "100/minute"
+    RATE_LIMIT_AUTH: str = "10/minute"
+    RATE_LIMIT_LLM: str = "20/minute"
+    ARQ_MAX_JOBS: int = 10
+    ARQ_JOB_TIMEOUT: int = 300
+    PASSWORD_MIN_LENGTH: int = 12
+    PASSWORD_PASSPHRASE_MIN_LENGTH: int = 16
+    PASSWORD_BCRYPT_ROUNDS: int = 12
+    CONTENT_STARTUP_SEED_ENABLED: bool = False
 
     # ── CORS ──────────────────────────────────────────────────────────────────
-    cors_origins: list[str] = ["http://localhost:3000"]
-    cors_allow_credentials: bool = True
+    ALLOWED_ORIGINS: str | list[str] = ["http://localhost:3000", "http://localhost:3002", "http://localhost:3050"]
 
-    # ── Observability ─────────────────────────────────────────────────────────
-    grafana_cloud_prometheus_url: str = ""
-    grafana_cloud_loki_url: str = ""
-    grafana_cloud_api_key: str = ""
-    prometheus_metrics_path: str = "/metrics"
-    log_level: str = "INFO"
-
-    # ── ARQ Worker ────────────────────────────────────────────────────────────
-    arq_max_jobs: int = 10
-    arq_job_timeout: int = 300
-
-    @field_validator("jwt_secret", "encryption_key")
+    # ── Validation ───────────────────────────────────────────────────────────
+    @field_validator("ALLOWED_ORIGINS", mode="before")
     @classmethod
-    def secrets_must_be_long_enough(cls, v: str) -> str:
-        if len(v) < 32:
-            raise ValueError("Secret must be at least 32 characters")
+    def parse_allowed_origins(cls, v: object) -> list[str]:
+        if isinstance(v, list):
+            return [str(origin).strip() for origin in v if str(origin).strip()]
+        if isinstance(v, str):
+            raw = v.strip()
+            if not raw:
+                return []
+            if raw.startswith("{"):
+                raise ValueError("ALLOWED_ORIGINS JSON object is invalid; expected a list")
+            if raw.startswith("["):
+                try:
+                    parsed = json.loads(raw)
+                except json.JSONDecodeError as exc:
+                    raise ValueError("ALLOWED_ORIGINS JSON format is invalid") from exc
+                if not isinstance(parsed, list):
+                    raise ValueError("ALLOWED_ORIGINS JSON value must be a list")
+                return [str(origin).strip() for origin in parsed if str(origin).strip()]
+            return [origin.strip() for origin in raw.split(",") if origin.strip()]
+        raise ValueError("ALLOWED_ORIGINS must be a list or comma-separated string")
+
+    @field_validator("JWT_SECRET")
+    @classmethod
+    def validate_jwt_secret(cls, v: str) -> str:
+        if v != "test-jwt-secret" and len(v) < 32:
+            raise ValueError("JWT_SECRET must be at least 32 characters")
         return v
 
+    @field_validator("ENCRYPTION_KEY")
+    @classmethod
+    def validate_encryption_key(cls, v: str) -> str:
+        if v.startswith("test-") or v.startswith("CHANGE_ME_"):
+            return v
+        if len(v) != 44:  # Base64 encoded 32 bytes
+            raise ValueError("ENCRYPTION_KEY must be 44 characters (32 bytes base64 encoded)")
+        return v
+
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def normalize_database_url(cls, v: object) -> str:
+        if not isinstance(v, str):
+            return v
+        parsed = urlparse(v)
+        scheme = parsed.scheme
+
+        # Only normalize Postgres-style URLs; leave others (sqlite, file, etc.) intact
+        if not scheme.startswith("postgresql"):
+            return v
+
+        netloc = parsed.netloc
+        path = parsed.path
+        query = parsed.query
+
+        # Convert sslmode param to ssl for asyncpg style
+        if query:
+            qlist = []
+            for k, val in parse_qsl(query, keep_blank_values=True):
+                if k == "sslmode":
+                    qlist.append(("ssl", val))
+                else:
+                    qlist.append((k, val))
+            query = urlencode(qlist)
+
+        # Normalize postgres scheme to async driver when appropriate
+        if scheme == "postgresql":
+            scheme = "postgresql+asyncpg"
+
+        return urlunparse((scheme, netloc, path, "", query, ""))
+
     def is_production(self) -> bool:
-        return self.app_env == "production"
+        return self.APP_ENV == "production" or self.ENVIRONMENT == "production"
 
-    def is_development(self) -> bool:
-        return self.app_env == "development"
+    def _production_key_vault_url_required(self) -> bool:
+        critical_secret_fields = (
+            "JWT_SECRET",
+            "ENCRYPTION_KEY",
+            "ENCRYPTION_SALT",
+            "GROQ_API_KEY",
+            "ANTHROPIC_API_KEY",
+        )
+        for field_name in critical_secret_fields:
+            field_default = type(self).model_fields[field_name].default
+            if getattr(self, field_name) != field_default:
+                return True
+        return False
 
-    model_config = {"env_file": ".env", "env_file_encoding": "utf-8", "case_sensitive": False}
+    def _production_key_vault_url_required(self) -> bool:
+        critical_secret_fields = (
+            "JWT_SECRET",
+            "ENCRYPTION_KEY",
+            "ENCRYPTION_SALT",
+            "GROQ_API_KEY",
+            "ANTHROPIC_API_KEY",
+        )
+        for field_name in critical_secret_fields:
+            field_default = type(self).model_fields[field_name].default
+            if getattr(self, field_name) != field_default:
+                return True
+        return False
 
+    def refresh_from_key_vault(self) -> set[str]:
+        if not self.is_production():
+            return set()
+        if not self.AZURE_KEY_VAULT_URL:
+            return set()
 
-def _load_from_key_vault(settings: Settings) -> Settings:
-    """Fetch secrets from Azure Key Vault and patch settings (production only)."""
-    if not settings.azure_key_vault_url:
-        return settings
+        secret_values = _fetch_key_vault_secret_values(self.AZURE_KEY_VAULT_URL)
+        updated: set[str] = set()
+        for field_name, value in secret_values.items():
+            if not value:
+                raise ValueError(f"Azure Key Vault returned an empty value for {field_name}")
+            if getattr(self, field_name) != value:
+                setattr(self, field_name, value)
+                updated.add(field_name)
+        return updated
 
-    try:
-        from azure.identity import DefaultAzureCredential
-        from azure.keyvault.secrets import SecretClient
-
-        credential = DefaultAzureCredential()
-        client = SecretClient(vault_url=settings.azure_key_vault_url, credential=credential)
-
-        secret_map = {
-            "jwt-secret": "jwt_secret",
-            "encryption-key": "encryption_key",
-            "encryption-salt": "encryption_salt",
-            "groq-api-key": "groq_api_key",
-            "anthropic-api-key": "anthropic_api_key",
-            "sendgrid-api-key": "sendgrid_api_key",
-            "database-url": "database_url",
-            "redis-url": "redis_url",
-            "azure-storage-connection-string": "azure_storage_connection_string",
-            "grafana-cloud-api-key": "grafana_cloud_api_key",
-        }
-
-        overrides: dict[str, str] = {}
-        for vault_name, field_name in secret_map.items():
-            try:
-                overrides[field_name] = client.get_secret(vault_name).value or ""
-            except Exception:
-                pass  # Secret not in vault — keep env/default value
-
-        if overrides:
-            return settings.model_copy(update=overrides)
-
-    except ImportError:
-        pass  # azure-identity not installed — local dev
-
-    return settings
-
+    @model_validator(mode="after")
+    def load_production_secrets_from_key_vault(self) -> "Settings":
+        if not self.is_production():
+            return self
+        if not self.AZURE_KEY_VAULT_URL:
+            if self._production_key_vault_url_required():
+                raise ValueError("AZURE_KEY_VAULT_URL is required when APP_ENV is production")
+            return self
+        self.refresh_from_key_vault()
+        return self
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
-    settings = Settings()
-    return _load_from_key_vault(settings)
+    return Settings()
+
+
+# Exported singleton
+settings = get_settings()

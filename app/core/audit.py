@@ -1,97 +1,59 @@
 """
-EduBoost SA — POPIA Audit Trail
-Async audit log writer backed by PostgreSQL.
-Replaces the V1 RabbitMQ / fourth_estate.py approach.
-
-Design:
-- Writes in the SAME transaction as the audited operation → transactionally consistent.
-- For non-critical audit events, uses FastAPI BackgroundTasks for non-blocking writes.
-- All events are queryable and exportable for POPIA right-of-access requests.
+EduBoost V2 — Fourth Estate Service (Pillar 4)
+Durable, append-only audit trail written directly to PostgreSQL.
+Replaces the legacy RabbitMQ/Redis Streams dependency.
 """
 from __future__ import annotations
 
-import json
-import logging
-from datetime import UTC, datetime
-from enum import StrEnum
-from typing import Any
-from uuid import UUID
-
 from sqlalchemy.ext.asyncio import AsyncSession
 
-logger = logging.getLogger(__name__)
+from app.core.logging import get_logger
+from app.repositories.repositories import AuditRepository
+
+log = get_logger(__name__)
 
 
-class AuditAction(StrEnum):
-    # Auth
-    USER_REGISTERED = "user.registered"
-    USER_LOGIN = "user.login"
-    USER_LOGOUT = "user.logout"
-    USER_LOGIN_FAILED = "user.login_failed"
-    PASSWORD_CHANGED = "user.password_changed"
-
-    # Consent (POPIA critical)
-    CONSENT_GRANTED = "consent.granted"
-    CONSENT_REVOKED = "consent.revoked"
-    CONSENT_EXPIRED = "consent.expired"
-    CONSENT_RENEWED = "consent.renewed"
-
-    # Learner data
-    LEARNER_CREATED = "learner.created"
-    LEARNER_UPDATED = "learner.updated"
-    LEARNER_ERASED = "learner.erased"              # POPIA right to erasure
-    LEARNER_DATA_EXPORTED = "learner.data_exported"  # POPIA right of access
-
-    # Diagnostics
-    DIAGNOSTIC_SESSION_STARTED = "diagnostic.session_started"
-    DIAGNOSTIC_SESSION_COMPLETED = "diagnostic.session_completed"
-
-    # Lessons (LLM calls — pseudonymised)
-    LESSON_GENERATED = "lesson.generated"
-    LESSON_VIEWED = "lesson.viewed"
-
-    # Study plans
-    STUDY_PLAN_CREATED = "study_plan.created"
-    STUDY_PLAN_UPDATED = "study_plan.updated"
-
-    # RLHF
-    FEEDBACK_SUBMITTED = "feedback.submitted"
-
-    # Admin
-    ADMIN_ACTION = "admin.action"
-
-
-async def write_audit_event(
-    db: AsyncSession,
-    *,
-    action: AuditAction | str,
-    actor_id: UUID | str | None,
-    learner_id: UUID | None = None,
-    resource_type: str | None = None,
-    resource_id: str | None = None,
-    metadata: dict[str, Any] | None = None,
-    ip_address: str | None = None,
-    user_agent: str | None = None,
-) -> None:
+class FourthEstateService:
     """
-    Write a POPIA audit event within the current DB session.
-    Committed atomically with the parent operation.
+    Constitutional Pillar 4: The Fourth Estate.
+    Records every sensitive action as an immutable audit event.
+    """
 
-    Usage:
-        async with db.begin():
-            await consent_repo.revoke(learner_id, db)
-            await write_audit_event(
-                db,
-                action=AuditAction.CONSENT_REVOKED,
-                actor_id=guardian_id,
-                learner_id=learner_id,
+    def __init__(self, db: AsyncSession) -> None:
+        self._repo = AuditRepository(db)
+
+    async def record(
+        self,
+        event_type: str,
+        actor_id: str | None = None,
+        learner_pseudonym: str | None = None,
+        resource_id: str | None = None,
+        payload: dict | None = None,
+        constitutional_outcome: str | None = None,
+    ) -> None:
+        entry = await self._repo.log(
+            event_type=event_type,
+            actor_id=actor_id,
+            learner_pseudonym=learner_pseudonym,
+            payload={
+                **(payload or {}),
+            },
+            constitutional_outcome=constitutional_outcome,
+        )
+        try:
+            log.info(
+                "audit_event",
+                event_type=event_type,
+                actor=actor_id,
+                pseudonym=learner_pseudonym,
+                outcome=constitutional_outcome,
+                audit_id=str(entry.id),
             )
             # Both committed together — no partial state possible.
     """
     from app.models import AuditLog  # avoid circular import
 
-    # Sanitise metadata — never log raw PII
-    safe_metadata = _sanitise_metadata(metadata or {})
+    # ── Convenience helpers ───────────────────────────────────────────────────
 
     entry = AuditLog(
         action=str(action),
@@ -107,28 +69,62 @@ async def write_audit_event(
     db.add(entry)
     # Will be committed with the parent transaction.
 
+    async def consent_revoked(self, guardian_id: str, learner_id: str) -> None:
+        await self.record(
+            "CONSENT_REVOKED",
+            actor_id=guardian_id,
+            payload={"learner_id": learner_id},
+            constitutional_outcome="APPROVED",
+        )
 
-async def write_audit_event_background(
-    db: AsyncSession,
-    **kwargs: Any,
-) -> None:
-    """
-    Non-blocking audit write for low-criticality events.
-    Use FastAPI's BackgroundTasks to call this after response is sent.
-    For POPIA-critical events (consent changes, data erasure), use write_audit_event()
-    with transactional consistency instead.
-    """
-    try:
-        await write_audit_event(db, **kwargs)
-        await db.commit()
-    except Exception as exc:
-        logger.error("Background audit write failed: %s", exc, exc_info=True)
+    async def erasure_requested(self, guardian_id: str, learner_pseudonym: str) -> None:
+        await self.record(
+            "ERASURE_REQUESTED",
+            actor_id=guardian_id,
+            learner_pseudonym=learner_pseudonym,
+            payload={"event": "erasure_requested"},
+            constitutional_outcome="APPROVED",
+        )
 
+    async def erasure_executed(self, learner_pseudonym: str) -> None:
+        await self.record(
+            "ERASURE_EXECUTED",
+            learner_pseudonym=learner_pseudonym,
+            payload={"event": "erasure_executed"},
+            constitutional_outcome="APPROVED",
+        )
 
-def _sanitise_metadata(data: dict[str, Any]) -> dict[str, Any]:
-    """Strip known PII keys from audit metadata."""
-    PII_KEYS = {"email", "password", "phone", "id_number", "address", "name"}
-    return {
-        k: "[REDACTED]" if k.lower() in PII_KEYS else v
-        for k, v in data.items()
-    }
+    async def lesson_generated(self, learner_pseudonym: str, subject: str, topic: str, provider: str) -> None:
+        await self.record(
+            "LESSON_GENERATED",
+            learner_pseudonym=learner_pseudonym,
+            payload={"subject": subject, "topic": topic, "provider": provider},
+            constitutional_outcome="APPROVED",
+        )
+
+    async def constitutional_violation(self, learner_pseudonym: str, reason: str) -> None:
+        await self.record(
+            "CONSTITUTIONAL_VIOLATION",
+            learner_pseudonym=learner_pseudonym,
+            payload={"reason": reason},
+            constitutional_outcome="REJECTED",
+        )
+
+    async def auth_event(self, event: str, actor_id: str, detail: dict | None = None) -> None:
+        await self.record(event.lower(), actor_id=actor_id, payload=detail or {})
+
+    async def access_rejected(self, actor_id: str | None, learner_id: str, reason: str) -> None:
+        await self.record(
+            "consent.access_rejected",
+            actor_id=actor_id,
+            payload={"learner_id": learner_id, "reason": reason},
+            constitutional_outcome="REJECTED",
+        )
+
+    async def subscription_changed(self, guardian_id: str, new_tier: str, stripe_event_id: str) -> None:
+        await self.record(
+            "SUBSCRIPTION_CHANGED",
+            actor_id=guardian_id,
+            payload={"new_tier": new_tier, "stripe_event_id": stripe_event_id},
+            constitutional_outcome="APPROVED",
+        )

@@ -1,10 +1,30 @@
-"""
-EduBoost SA — Auth Module Service
-Guardian registration, login, token refresh, email verification.
+"""Guardian authentication and account lifecycle service.
+
+Handles guardian registration, login, email verification, and profile
+retrieval for the EduBoost parent portal.  All personally identifiable
+information (PII) is encrypted at rest via :func:`~app.core.security.encrypt_pii`
+and hashed for lookup via :func:`~app.core.security.hash_email`.
+
+Every authentication event is recorded in the audit trail via
+:func:`~app.core.audit.write_audit_event` for POPIA compliance.
+
+Example:
+    Register and authenticate a guardian::
+
+        from app.modules.auth.service import AuthService
+
+        auth = AuthService()
+        guardian = await auth.register_guardian(
+            db, email="parent [at] example.com", password="s3cure!",
+            full_name="Thabo Mokoena",
+        )
+        access, refresh = await auth.authenticate(
+            db, email="parent [at] example.com", password="s3cure!",
+        )
 """
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -23,6 +43,25 @@ _guardian_repo = GuardianRepository()
 
 
 class AuthService:
+    """Authentication and guardian lifecycle service.
+
+    Responsible for guardian registration, login, email verification, and
+    profile retrieval while preserving encrypted personal data and audit
+    trail behaviour.
+
+    All public methods are async and require a
+    :class:`~sqlalchemy.ext.asyncio.AsyncSession` for transactional
+    database access.
+
+    Example:
+        ::
+
+            auth = AuthService()
+            guardian = await auth.register_guardian(
+                db, email="parent [at] example.com", password="s3cure!",
+                full_name="Thabo Mokoena",
+            )
+    """
 
     async def register_guardian(
         self,
@@ -33,6 +72,41 @@ class AuthService:
         full_name: str,
         phone: str | None = None,
     ) -> Guardian:
+        """Register a new guardian account.
+
+        Creates a :class:`~app.models.Guardian` with encrypted PII,
+        a hashed password, and a verification token.  An audit event
+        of type :attr:`~app.core.audit.AuditAction.USER_REGISTERED`
+        is recorded.
+
+        Args:
+            db: Async database session for repository operations.
+            email: Guardian email address (stored encrypted).
+            password: Plaintext password to hash via
+                :func:`~app.core.security.hash_password`.
+            full_name: Guardian full name to encrypt for storage.
+            phone: Optional guardian phone number.
+
+        Returns:
+            Guardian: The newly created :class:`~app.models.Guardian`
+            model instance with ``is_verified=False``.
+
+        Raises:
+            DuplicateError: When an account already exists for the
+                given email address.
+
+        Example:
+            ::
+
+                guardian = await auth.register_guardian(
+                    db,
+                    email="sipho [at] example.com",
+                    password="secure-password",
+                    full_name="Sipho Ndlovu",
+                    phone="+27821234567",
+                )
+                assert guardian.is_verified is False
+        """
         email_hash = hash_email(email)
         existing = await _guardian_repo.get_by_email_hash(email_hash, db)
         if existing:
@@ -67,7 +141,31 @@ class AuthService:
         password: str,
         ip_address: str | None = None,
     ) -> tuple[str, str]:
-        """Authenticate and return (access_token, refresh_token)."""
+        """Authenticate a guardian and return JWT token pair.
+
+        Verifies the email/password combination, records an audit event,
+        and issues an access token and a refresh token.
+
+        Args:
+            db: Async database session.
+            email: Guardian email address.
+            password: Plaintext password to verify against the stored hash.
+            ip_address: Optional client IP for audit logging.
+
+        Returns:
+            Tuple[str, str]: ``(access_token, refresh_token)`` JWT pair.
+
+        Raises:
+            AuthenticationError: When the email/password combination is
+                invalid or the account is deactivated.
+
+        Example:
+            ::
+
+                access, refresh = await auth.authenticate(
+                    db, email="parent [at] example.com", password="s3cure!",
+                )
+        """
         email_hash = hash_email(email)
         guardian = await _guardian_repo.get_by_email_hash(email_hash, db)
 
@@ -84,7 +182,7 @@ class AuthService:
         if not guardian.is_active:
             raise AuthenticationError("Account is deactivated")
 
-        await _guardian_repo.update(guardian, db, last_login_at=datetime.now(UTC))
+        await _guardian_repo.update(guardian, db, last_login_at=datetime.now(timezone.utc))
         await write_audit_event(
             db,
             action=AuditAction.USER_LOGIN,
@@ -100,6 +198,28 @@ class AuthService:
         return access_token, refresh_token
 
     async def verify_email(self, token: str, db: AsyncSession) -> Guardian:
+        """Verify a guardian's email address using a one-time token.
+
+        Marks the :class:`~app.models.Guardian` as verified and clears
+        the verification token to prevent reuse.
+
+        Args:
+            token: Email verification token issued during registration.
+            db: Async database session.
+
+        Returns:
+            Guardian: The updated :class:`~app.models.Guardian` with
+            ``is_verified=True``.
+
+        Raises:
+            NotFoundError: When the token is invalid or has expired.
+
+        Example:
+            ::
+
+                guardian = await auth.verify_email("abc123token", db)
+                assert guardian.is_verified is True
+        """
         guardian = await _guardian_repo.get_by_verification_token(token, db)
         if guardian is None:
             raise NotFoundError("Invalid or expired verification token")
@@ -110,6 +230,26 @@ class AuthService:
         )
 
     async def get_guardian_profile(self, guardian_id: UUID, db: AsyncSession) -> dict:
+        """Retrieve a decrypted guardian profile for the parent portal.
+
+        Decrypts PII fields (email, full name) using
+        :func:`~app.core.security.decrypt_pii` for display in the
+        parent-facing dashboard.
+
+        Args:
+            guardian_id: UUID of the guardian to retrieve.
+            db: Async database session.
+
+        Returns:
+            dict: Dictionary with keys ``id``, ``email``, ``full_name``,
+            ``is_verified``, and ``created_at``.
+
+        Example:
+            ::
+
+                profile = await auth.get_guardian_profile(guardian.id, db)
+                assert "email" in profile
+        """
         guardian = await _guardian_repo.get_or_404(guardian_id, db)
         return {
             "id": str(guardian.id),
