@@ -541,6 +541,36 @@ class SpacedReviewSchedule(Base):
     )
 
 
+class PracticeSession(Base):
+    """Durable practice session storage (replaces in-memory _SESSIONS dict).
+    
+    Stores practice item sequence, learner responses, and session metadata
+    for durability across process restarts and multi-worker consistency.
+    
+    Expires after 24 hours to avoid stale session accumulation.
+    """
+    __tablename__ = "practice_sessions"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    learner_id: Mapped[str] = mapped_column(ForeignKey("learner_profiles.id", ondelete="CASCADE"), nullable=False)
+    owner_subject: Mapped[str] = mapped_column(String(256), nullable=False, comment="User ID/subject who created this session (for authorization)")
+    items: Mapped[list] = mapped_column(JSONB, nullable=False, default=list, comment="List of item IDs (UUIDs as strings)")
+    cursor: Mapped[int] = mapped_column(Integer, nullable=False, default=0, comment="Current position in items list")
+    responses: Mapped[list] = mapped_column(JSONB, nullable=False, default=list, comment="List of response objects {item_id, correct, response}")
+    gap_topics: Mapped[list] = mapped_column(JSONB, nullable=False, default=list, comment="List of CAPS references for gap remediation")
+    theta: Mapped[float] = mapped_column(Float, nullable=False, default=0.0, comment="IRT ability estimate at session start")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, nullable=False)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, comment="Session auto-expires; cleanup needed after this time")
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True, comment="When session was completed")
+
+    __table_args__ = (
+        Index("ix_practice_sessions_learner", "learner_id"),
+        Index("ix_practice_sessions_expires_at", "expires_at"),
+        CheckConstraint("cursor >= 0", name="ck_practice_sessions_cursor_non_negative"),
+        CheckConstraint("expires_at > created_at", name="ck_practice_sessions_expiry_after_creation"),
+    )
+
+
 class CalibrationAudit(Base):
     __tablename__ = "calibration_audits"
 
