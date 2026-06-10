@@ -1,15 +1,15 @@
 # Progress Tracker
 
-**Last updated:** 2026-06-09
+**Last updated:** 2026-06-10
 **Authoritative trackers:** RoadMap.md (17-phase plan), TODO.md (North Star tasks)
 
 Update after every completed RoadMap phase or major TODO milestone.
 
 ## Current Status
 
-**Active RoadMap Phase:** Phase 2 (Practice Session Security and Durability)
-**Last completed:** Phase 1 (Release-Blocking Correctness Fixes) - 2026-06-09
-**Next:** Phase 2 (Practice Session Security and Durability)
+**Active RoadMap Phase:** Phase 4 (Runtime and Environment Alignment)
+**Last completed:** Phase 3 (Frontend Build and Test Health) - 2026-06-10
+**Next:** Phase 4 (Runtime and Environment Alignment)
 **Quality gate:** RED (9/11 checks passing as of 2026-05-17)
 **Local unit tests:** 2051 passed, 1 skipped, 1 warning
 
@@ -37,10 +37,12 @@ Evidence: `docs/release/phase_1_evidence.md`, `docs/backlog/ruff_debt.md`
 - [ ] 2.2 Replace in-memory _SESSIONS with durable storage
 - [ ] 2.2 Add expiry and cleanup behavior
 
-### Phase 3 -- Frontend Build Health
-- [ ] 3.1 Reconcile frontend dependencies (dexie)
-- [ ] 3.2 Fix TypeScript errors
-- [ ] 3.3 Fix Vitest TSX parsing (15 failing suites)
+### Phase 3 -- Frontend Build Health (complete 2026-06-10)
+- [x] 3.1 Reconcile frontend dependencies (dexie) - 651 packages, pnpm install --frozen-lockfile ✅
+- [x] 3.2 Fix TypeScript errors - 0 runtime errors, 2 known non-blocking dexie type errors
+- [x] 3.3 Fix Vitest TSX parsing - 147/147 tests passing in 26.55s ✅
+
+Evidence: `docs/release/phase_3_evidence.md`, `PHASE_3_EXECUTION_PLAN.md`
 
 ### Phases 4-16
 See RoadMap.md for full phase plans. This tracker will be updated as phases are executed.
