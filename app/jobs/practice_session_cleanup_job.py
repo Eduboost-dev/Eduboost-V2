@@ -5,7 +5,7 @@ Periodically deletes expired practice sessions to maintain database hygiene.
 
 Register this module in your arq WorkerSettings.functions list:
 
-Example WorkerSettings (app/core/arq_worker.py):
+Example WorkerSettings (app/modules/jobs.py):
     from app.jobs.practice_session_cleanup_job import run_practice_session_cleanup
 
     class WorkerSettings:

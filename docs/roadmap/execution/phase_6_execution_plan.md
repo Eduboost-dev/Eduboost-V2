@@ -1,7 +1,7 @@
 # Phase 6 Execution Plan — Durable Background Jobs
 
 **Date**: 2026-06-10
-**Status**: PLANNED
+**Status**: IN PROGRESS
 **Branch**: `phase-6/durable-background-jobs`
 **Scope**: Replace request-adjacent placeholder job handling with durable ARQ worker wiring, compose/production deployment support, and verification evidence.
 **Priority**: P1 (per [roadmap.md](../roadmap.md#L258-L281))
@@ -177,4 +177,3 @@ Phase 6 is not complete until the worker is proven in a live local or staging-st
 ## Next Phase
 
 **Phase 7: Deployment and Security Hardening** — fix hardcoded URLs, security headers, and route protection gaps after durable jobs are in place.
-

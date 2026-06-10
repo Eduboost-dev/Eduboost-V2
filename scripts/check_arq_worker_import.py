@@ -9,6 +9,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 CRITICAL = [
     "app/services/arq_import_compat.py",
     "app/services/job_dependency_factory.py",

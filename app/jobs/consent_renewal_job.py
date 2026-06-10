@@ -3,7 +3,7 @@ arq Worker Job — Daily Consent Renewal Reminder  (Task #24)
 ============================================================
 Register this module in your arq WorkerSettings.functions list.
 
-Example WorkerSettings (app/core/arq_worker.py):
+Example WorkerSettings (app/modules/jobs.py):
     from app.jobs.consent_renewal_job import run_consent_renewal_reminders
 
     class WorkerSettings:

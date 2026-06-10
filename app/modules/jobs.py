@@ -28,6 +28,7 @@ from app.services.arq_import_compat import RedisSettings, cron
 import logging
 from datetime import datetime
 from typing import Any
+from urllib.parse import urlparse
 
 from app.core.config import get_settings
 from app.core.metrics import arq_job_duration_seconds, arq_jobs_total
@@ -296,20 +297,10 @@ class WorkerSettings:
     max_jobs = 10
     job_timeout = 300  # 5 minutes max per job
     keep_result = 3600  # Keep job results for 1 hour
-
-    @classmethod
-    def redis_settings(cls) -> RedisSettings:
-        """Build Redis connection settings from application configuration.
-
-        Returns:
-            RedisSettings instance configured from the project's redis URL.
-        """
-        cfg = get_settings()
-        # Parse redis://host:port/db
-        import urllib.parse
-        parsed = urllib.parse.urlparse(cfg.redis_url)
-        return RedisSettings(
-            host=parsed.hostname or "localhost",
-            port=parsed.port or 6379,
-            database=int(parsed.path.lstrip("/") or "0"),
-        )
+    cfg = get_settings()
+    parsed_redis_url = urlparse(cfg.REDIS_URL)
+    redis_settings = RedisSettings(
+        host=parsed_redis_url.hostname or "localhost",
+        port=parsed_redis_url.port or 6379,
+        database=int(parsed_redis_url.path.lstrip("/") or "0"),
+    )
