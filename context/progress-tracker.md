@@ -1,7 +1,7 @@
 # Progress Tracker
 
 **Last updated:** 2026-06-10
-**Authoritative trackers:** RoadMap.md (17-phase plan), TODO.md (North Star tasks)
+**Authoritative trackers:** ../docs/roadmap/roadmap.md (17-phase plan), ../docs/todos/todo.md (North Star tasks)
 
 Update after every completed RoadMap phase or major TODO milestone.
 
@@ -16,10 +16,10 @@ Update after every completed RoadMap phase or major TODO milestone.
 ## RoadMap Phase Progress
 
 ### Phase 0 -- Branch, Evidence, and Audit Artifacts (complete)
-- [x] Audit report added (eduboost-v2-technical-audit-2026-06-02.md)
-- [x] RoadMap.md created (17 phases)
+- [x] Audit report added (../docs/release/eduboost-v2-technical-audit-2026-06-02.md)
+- [x] ../docs/roadmap/roadmap.md created (17 phases)
 - [x] Gap analysis added (Eduboost-V2_Gap_Analysis.md)
-- [x] TODO.md updated with 5 gap categories + beta period
+- [x] ../docs/todos/todo.md updated with 5 gap categories + beta period
 - [x] Context files updated (this directory)
 - [x] Clean implementation branch from master (phase-1/release-blocking-correctness)
 
@@ -45,7 +45,7 @@ Evidence: `docs/release/phase_2_evidence.md`, `docs/release/phase_2_1_evidence.m
 - [x] 3.2 Fix TypeScript errors - 0 runtime errors, 2 known non-blocking dexie type errors
 - [x] 3.3 Fix Vitest TSX parsing - 147/147 tests passing in 26.55s ✅
 
-Evidence: `docs/release/phase_3_evidence.md`, `PHASE_3_EXECUTION_PLAN.md`
+Evidence: `docs/release/phase_3_evidence.md`, `../docs/roadmap/execution/phase_3_execution_plan.md`
 
 ### Phase 4 -- Runtime and Environment Alignment (complete 2026-06-10)
 - [x] 4.1 Choose supported production Python version (3.12.3)
@@ -55,7 +55,7 @@ Evidence: `docs/release/phase_3_evidence.md`, `PHASE_3_EXECUTION_PLAN.md`
 Evidence: `docs/adr/ADR-026-python-version-alignment.md`
 
 ### Phases 5-16
-See RoadMap.md for full phase plans. This tracker will be updated as phases are executed.
+See ../docs/roadmap/roadmap.md for full phase plans. This tracker will be updated as phases are executed.
 
 ## Verified Baseline (Already Implemented)
 
@@ -84,16 +84,16 @@ These are repository-side complete but need CI/staging/production proof:
 
 | Date | Decision | Rationale | Reference |
 |------|----------|-----------|-----------|
-| 2026-05 | V1 deleted, V2 modular monolith | Architecture audit recommendation | CHANGELOG.md |
+| 2026-05 | V1 deleted, V2 modular monolith | Architecture audit recommendation | ../CHANGELOG.md |
 | 2026-05 | Celery replaced by ARQ | Single-node simplicity, Redis-backed | Phase 6 |
 | 2026-05 | Groq primary LLM, Anthropic fallback | Speed + quality balance | .env.example |
 | 2026-05 | PostgreSQL audit trail (not RabbitMQ) | Async writes, simpler ops | core/audit.py |
-| 2026-06 | 17-phase RoadMap adopted | Gap analysis revealed 5 uncovered categories | RoadMap.md |
+| 2026-06 | 17-phase RoadMap adopted | Gap analysis revealed 5 uncovered categories | ../docs/roadmap/roadmap.md |
 | 2026-06 | Python 3.12.3 selected as target | Align with CI and requirements generation | Phase 4 |
 
 ## Notes
 
-- All tracking is now dual: RoadMap.md for phases, TODO.md for tasks
+- All tracking is now dual: ../docs/roadmap/roadmap.md for phases, ../docs/todos/todo.md for tasks
 - Context files reference both; update them together
 - The 5 gap categories (GAP-1 through GAP-5) were identified 2026-06-09
 - Beta period (Phase 16) is the final gate before any production claim

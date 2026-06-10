@@ -231,7 +231,7 @@ Current warnings to track:
 | G5-02 | Stale evidence (current_state.md is 3+ weeks old) | Run `make refresh-current-state` weekly; add CI check for staleness > 7 days. | [ ] |
 | G5-03 | No decision log for outstanding choices | Create ADR for: deployment target (Compose vs ACA), Python version (3.11 vs 3.12), Supabase role. | [ ] |
 | G5-04 | External tasks have no owners | Assign named owners to all [external] tasks; track in project board. | [ ] |
-| G5-05 | No code review policy | Document code review requirements in CONTRIBUTING.md; enforce via branch protection. | [ ] |
+| G5-05 | No code review policy | Document code review requirements in ../../CONTRIBUTING.md; enforce via branch protection. | [ ] |
 | G5-06 | No release manager identified | Assign release manager role for v1.0.0-rc cycle. | [external] |
 
 ---

@@ -104,7 +104,7 @@ Tasks:
 - Update promotion readiness so review scopes are not `staging_eligible` when the lesson layer fails the quality audit.
 - Update file import planning so lesson records with failed quality status are excluded or the scope import plan reports a blocking error.
 - Regenerate promotion/import/rollback manifests after quarantine logic lands.
-- Update `StudyMaterialExpansionPlan.md` to state that lesson-layer staging has been revoked pending regeneration.
+- Update `../curriculum/StudyMaterialExpansionPlan.md` to state that lesson-layer staging has been revoked pending regeneration.
 
 Acceptance checks:
 

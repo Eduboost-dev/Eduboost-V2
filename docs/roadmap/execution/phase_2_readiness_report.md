@@ -51,8 +51,8 @@ EduBoost V2 Phase 1 has been successfully completed. The system is fully operati
 - **Schema Validation**: All 51 topic maps pass
 
 ### Documentation ✅
-- **SYSTEM_STARTUP_GUIDE.md**: Comprehensive operational manual
-- **SYSTEM_STARTUP_REPORT.md**: Full system status report
+- **../../operations/SYSTEM_STARTUP_GUIDE.md**: Comprehensive operational manual
+- **../../operations/SYSTEM_STARTUP_REPORT.md**: Full system status report
 - **Architecture docs**: Updated and verified
 
 ---
@@ -61,21 +61,21 @@ EduBoost V2 Phase 1 has been successfully completed. The system is fully operati
 
 ### Planning Documentation ✅
 
-1. **PHASE_2_EXECUTION_PLAN.md** (140+ lines)
+1. **phase_2_execution_plan.md** (140+ lines)
    - Complete 8-day roadmap with 7 sequential steps
    - Timeline and milestones
    - Risk mitigation strategies
    - Success criteria and KPIs
    - Communication plan
 
-2. **TOPIC_MAP_REVIEW_CHECKLIST.md** (400+ lines)
+2. **../../curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md** (400+ lines)
    - Structured review framework
    - 7-point validation checklist
    - Per-map tracking template
    - Common issues and solutions
    - Approval workflow documentation
 
-3. **CONTENT_GENERATION_CONFIG.md** (300+ lines)
+3. **../../content_factory/CONTENT_GENERATION_CONFIG.md** (300+ lines)
    - LLM provider configuration (Anthropic, Groq)
    - Quality validator framework
    - Generation workflow specification
@@ -107,7 +107,7 @@ All prerequisites for Phase 2 execution:
 
 ### Step 1: Topic Map Review Framework (0.5 days)
 **Status**: 📋 Documented, ready for kickoff  
-**Deliverable**: TOPIC_MAP_REVIEW_CHECKLIST.md ✅
+**Deliverable**: ../../curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md ✅
 
 **Actions**:
 - [ ] Distribute checklist to curriculum experts
@@ -135,7 +135,7 @@ All prerequisites for Phase 2 execution:
 
 ### Step 3: Content Generation Configuration (0.5 days)
 **Status**: 📋 Documented, ready for implementation  
-**Deliverable**: CONTENT_GENERATION_CONFIG.md ✅
+**Deliverable**: ../../content_factory/CONTENT_GENERATION_CONFIG.md ✅
 
 **Configuration Items**:
 - [ ] Set up LLM API credentials (Anthropic/Groq)
@@ -311,7 +311,7 @@ MAX_CONCURRENT_REQUESTS=5
 ### TOMORROW (June 6) - Phase 2 Kickoff
 - [ ] Schedule curriculum review kickoff meeting
 - [ ] Assign topic map reviewers by subject
-- [ ] Distribute TOPIC_MAP_REVIEW_CHECKLIST.md
+- [ ] Distribute ../../curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md
 - [ ] Initialize review tracking spreadsheet
 - [ ] Begin parallel: LLM provider setup
 
@@ -338,11 +338,11 @@ MAX_CONCURRENT_REQUESTS=5
 ## Documentation Artifacts
 
 **Publicly Available** (in repository):
-- ✅ PHASE_2_EXECUTION_PLAN.md (stakeholder communication)
-- ✅ TOPIC_MAP_REVIEW_CHECKLIST.md (curriculum experts)
-- ✅ CONTENT_GENERATION_CONFIG.md (technical teams)
-- ✅ SYSTEM_STARTUP_GUIDE.md (operations)
-- ✅ SYSTEM_STARTUP_REPORT.md (status reporting)
+- ✅ phase_2_execution_plan.md (stakeholder communication)
+- ✅ ../../curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md (curriculum experts)
+- ✅ ../../content_factory/CONTENT_GENERATION_CONFIG.md (technical teams)
+- ✅ ../../operations/SYSTEM_STARTUP_GUIDE.md (operations)
+- ✅ ../../operations/SYSTEM_STARTUP_REPORT.md (status reporting)
 
 **To Be Generated During Phase 2**:
 - Topic Map Review Results (50 map approvals)
@@ -405,7 +405,7 @@ Phase 2 is **COMPLETE** when:
 
 **For Curriculum Leadership**:
 - Confirm expert availability for 2-3 day review sprint
-- Review TOPIC_MAP_REVIEW_CHECKLIST.md acceptance criteria
+- Review ../../curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md acceptance criteria
 - Assign reviewers by subject area
 
 **For Engineering**:
@@ -439,6 +439,6 @@ Phase 2 is **COMPLETE** when:
 **Status**: Phase 2 READY TO START ✅
 
 For detailed information, see:
-- [PHASE_2_EXECUTION_PLAN.md](PHASE_2_EXECUTION_PLAN.md) - Complete roadmap
-- [TOPIC_MAP_REVIEW_CHECKLIST.md](TOPIC_MAP_REVIEW_CHECKLIST.md) - Review framework
-- [CONTENT_GENERATION_CONFIG.md](CONTENT_GENERATION_CONFIG.md) - Technical configuration
+- [phase_2_execution_plan.md](phase_2_execution_plan.md) - Complete roadmap
+- [../../curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md](../../curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md) - Review framework
+- [../../content_factory/CONTENT_GENERATION_CONFIG.md](../../content_factory/CONTENT_GENERATION_CONFIG.md) - Technical configuration

@@ -1,8 +1,8 @@
 # Project Overview
 
 **Last updated:** 2026-06-09
-**Current state:** RoadMap.md Phase 0 (in progress), quality gate RED (9/11)
-**Live trackers:** RoadMap.md (17 phases), TODO.md (North Star tasks)
+**Current state:** ../docs/roadmap/roadmap.md Phase 0 (in progress), quality gate RED (9/11)
+**Live trackers:** ../docs/roadmap/roadmap.md (17 phases), ../docs/todos/todo.md (North Star tasks)
 
 EduBoost V2 is an AI-powered adaptive learning platform for primary school learners in South Africa (Grades R-7), designed to accelerate mastery of CAPS learning outcomes through personalized, evidence-based learning paths.
 
@@ -45,7 +45,7 @@ South African primary learners face persistent achievement gaps. EduBoost solves
 - POPIA: Consent, audit, erasure, export workflows (partial)
 - Monitoring: Grafana dashboards, Prometheus metrics
 
-**Known critical gaps (see RoadMap.md):**
+**Known critical gaps (see ../docs/roadmap/roadmap.md):**
 - P0: Practice sessions unauthenticated; in-memory state (Phase 2)
 - P0: Frontend build broken: dexie, TypeScript, Vitest (Phase 3)
 - P0: Python version inconsistency (Phase 4)
@@ -77,8 +77,8 @@ South African primary learners face persistent achievement gaps. EduBoost solves
 
 ## Project Governance
 
-- **Execution plan:** RoadMap.md (17 phases, Phase 0-16)
-- **Task tracker:** TODO.md (North Star, 5 gap categories + beta)
+- **Execution plan:** ../docs/roadmap/roadmap.md (17 phases, Phase 0-16)
+- **Task tracker:** ../docs/todos/todo.md (North Star, 5 gap categories + beta)
 - **Quality gate:** docs/current_state.md (currently RED, 9/11)
 - **Operating model:** docs/operations/recommended_operating_model.md
 - **Architecture:** docs/architecture/V2_ARCHITECTURE.md

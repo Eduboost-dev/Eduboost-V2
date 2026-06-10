@@ -1,10 +1,10 @@
 # Build Plan
 
 **Last updated:** 2026-06-10
-**Authoritative execution plan:** RoadMap.md (17 phases)
-**Live task tracker:** TODO.md (North Star)
+**Authoritative execution plan:** ../docs/roadmap/roadmap.md (17 phases)
+**Live task tracker:** ../docs/todos/todo.md (North Star)
 
-This file is now a summary index. The authoritative build execution plan is RoadMap.md (17 phases, Phase 0-16). Day-to-day task tracking lives in TODO.md.
+This file is now a summary index. The authoritative build execution plan is ../docs/roadmap/roadmap.md (17 phases, Phase 0-16). Day-to-day task tracking lives in ../docs/todos/todo.md.
 
 ## Current Phase Status
 
@@ -48,4 +48,4 @@ The following are already implemented and tested locally (not CI-verified):
 - Staging verified
 - Production verified
 
-Update RoadMap.md and TODO.md for detailed status. This file is the high-level index.
+Update ../docs/roadmap/roadmap.md and ../docs/todos/todo.md for detailed status. This file is the high-level index.

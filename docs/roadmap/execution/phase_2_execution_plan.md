@@ -36,7 +36,7 @@ Phase 2 transforms validated CAPS curriculum maps into learner-ready educational
 **Objective**: Establish structured review process for 50 draft topic maps
 
 **Tasks**:
-- [ ] Create TOPIC_MAP_REVIEW_CHECKLIST.md with evaluation criteria
+- [ ] Create ../../curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md with evaluation criteria
 - [ ] Define approval workflow (draft → review → approved → generation_ready)
 - [ ] Establish review roles (curriculum expert, content developer, QA)
 - [ ] Set up review tracking in Git
@@ -280,7 +280,7 @@ Phase 2 is complete when:
 
 ## Next Actions (Immediate)
 
-1. **TODAY**: Create TOPIC_MAP_REVIEW_CHECKLIST.md
+1. **TODAY**: Create ../../curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md
 2. **TODAY**: Schedule curriculum review kickoff meeting
 3. **TOMORROW**: Start manual topic map reviews (parallel by subject)
 4. **THIS WEEK**: Configure LLM providers and implement validators
@@ -310,9 +310,9 @@ Phase 2 is complete when:
 
 - **Topic Map Inventory**: [data/caps/topic_maps/](data/caps/topic_maps/)
 - **Manifest**: [data/caps/source_documents/manifest.json](data/caps/source_documents/manifest.json)
-- **Data Generation TODO**: [data_generator_todo.md](data_generator_todo.md)
-- **Startup Guide**: [SYSTEM_STARTUP_GUIDE.md](SYSTEM_STARTUP_GUIDE.md)
-- **Startup Report**: [SYSTEM_STARTUP_REPORT.md](SYSTEM_STARTUP_REPORT.md)
+- **Data Generation TODO**: [../../todos/data_generator_todo.md](../../todos/data_generator_todo.md)
+- **Startup Guide**: [../../operations/SYSTEM_STARTUP_GUIDE.md](../../operations/SYSTEM_STARTUP_GUIDE.md)
+- **Startup Report**: [../../operations/SYSTEM_STARTUP_REPORT.md](../../operations/SYSTEM_STARTUP_REPORT.md)
 
 ---
 

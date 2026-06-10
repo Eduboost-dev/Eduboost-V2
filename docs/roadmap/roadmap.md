@@ -2,7 +2,7 @@
 
 Date: 2026-06-09 (updated from 2026-06-02)
 
-Source audit: `eduboost-v2-technical-audit-2026-06-02.md`
+Source audit: `../release/eduboost-v2-technical-audit-2026-06-02.md`
 Gap analysis: `Eduboost-V2_Gap_Analysis.md` (2026-06-09)
 
 ## Objective
@@ -35,7 +35,7 @@ Deliverables:
 Acceptance checks:
 
 - `git status` is clean before implementation begins.
-- `RoadMap.md`, the audit report, and gap analysis are present in the repo root.
+- `roadmap.md`, the audit report, and gap analysis are present in the repo root.
 
 ---
 

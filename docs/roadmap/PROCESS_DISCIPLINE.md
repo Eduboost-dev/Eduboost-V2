@@ -48,7 +48,7 @@ Every phase follows a strict five-stage lifecycle:
 
 The execution plan must contain:
 
-1. **Phase identification** — number, name, priority, source reference (RoadMap.md line)
+1. **Phase identification** — number, name, priority, source reference (roadmap.md line)
 2. **Pre-execution baseline** — captured metrics/outputs showing the "before" state
 3. **Problem statements** — each sub-phase listed with the specific gap being addressed
 4. **Acceptance criteria** — concrete, verifiable, with pass/fail conditions
@@ -261,13 +261,13 @@ All claims verified by: [live command / CI output / manual review]
 - [ ] Audit report exists at `docs/release/phase_N_implementation_audit.md` (for P0 phases)
 - [ ] All audit discrepancies resolved
 - [ ] Evidence files committed and accurate
-- [ ] `RoadMap.md` phase status updated to "Complete (YYYY-MM-DD)"
+- [ ] `roadmap.md` phase status updated to "Complete (YYYY-MM-DD)"
 - [ ] `context/build-plan.md` phase status updated
 - [ ] `context/progress-tracker.md` updated
 - [ ] CI gates pass on the phase branch (where applicable)
 - [ ] Branch merged to `master` via PR
 - [ ] Remote branch deleted after merge
-- [ ] `TODO.md` North Star tasks updated
+- [ ] `../todos/todo.md` North Star tasks updated
 
 ---
 
@@ -278,7 +278,7 @@ Every phase produces files in these locations:
 ```
 docs/
 ├── roadmap/
-│   ├── RoadMap.md                              # Canonical roadmap (moved from root)
+│   ├── roadmap.md                              # Canonical roadmap (moved from root)
 │   ├── PROCESS_DISCIPLINE.md                   # This file
 │   └── execution/
 │       ├── phase_N_execution_plan.md           # PLAN stage output

@@ -362,10 +362,10 @@ psql -h 127.0.0.1 -p 54322 -U postgres
 ## References
 
 - **Architecture**: [docs/architecture.md](docs/architecture.md)
-- **CAPS Plan**: [caps_source_acquisition_plan_v2.md](caps_source_acquisition_plan_v2.md)
-- **Data Generator**: [data_generator_todo.md](data_generator_todo.md)
-- **Roadmap**: [RoadMap.md](RoadMap.md)
-- **TODO**: [TODO.md](TODO.md)
+- **CAPS Plan**: [../caps/caps_source_acquisition_plan_v2.md](../caps/caps_source_acquisition_plan_v2.md)
+- **Data Generator**: [../todos/data_generator_todo.md](../todos/data_generator_todo.md)
+- **Roadmap**: [../roadmap/roadmap.md](../roadmap/roadmap.md)
+- **TODO**: [../todos/todo.md](../todos/todo.md)
 - **Startup Guide**: [SYSTEM_STARTUP_GUIDE.md](SYSTEM_STARTUP_GUIDE.md)
 
 ---
