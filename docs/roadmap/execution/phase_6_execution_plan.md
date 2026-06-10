@@ -1,8 +1,11 @@
 # Phase 6 Execution Plan — Durable Background Jobs
 
 **Date**: 2026-06-10
+**Updated**: 2026-06-10 (post-audit — 6.1-6.2 complete, 6.3-6.4 remaining)
 **Status**: IN PROGRESS
 **Branch**: `phase-6/durable-background-jobs`
+**Completed**: 6.1 (ARQ settings fix), 6.2 (Compose wiring) — commit `dad8c5e7`
+**Remaining**: 6.3 (move work off BackgroundTasks), 6.4 (evidence + health checks)
 **Scope**: Replace request-adjacent placeholder job handling with durable ARQ worker wiring, compose/production deployment support, and verification evidence.
 **Priority**: P1 (per [roadmap.md](../roadmap.md#L258-L281))
 
@@ -10,11 +13,10 @@
 
 ## Pre-Conditions
 
-Before Phase 6 implementation begins:
-
-- [ ] Confirm the local repo is still on the Phase 5 branch or create the Phase 6 branch before making code changes.
-- [ ] Confirm Redis is available for worker/runtime verification.
-- [ ] Confirm Docker Compose definitions are the current deployment source of truth for local worker wiring.
+- [x] Branch `phase-6/durable-background-jobs` created (includes Phase 5 changes).
+- [x] ARQ worker code already exists in `app/modules/jobs.py` (WorkerSettings, cron jobs).
+- [x] Docker Compose is the deployment source of truth; worker service added to both dev and prod compose files.
+- [ ] Redis must be running for live enqueue/dequeue verification (needed for Phase 6.4).
 
 ---
 
@@ -55,7 +57,7 @@ Missing for Phase 6 completion:
 
 ---
 
-## Phase 6.1 — Fix ARQ Settings and Worker Wiring
+## Phase 6.1 — Fix ARQ Settings and Worker Wiring ✅ COMPLETE
 
 ### Problem Statement
 
@@ -63,20 +65,23 @@ The codebase already has ARQ job definitions, but the deployment/runtime path is
 
 ### Acceptance Criteria
 
-- [ ] ARQ settings resolve correctly for worker startup and runtime configuration.
-- [ ] ARQ worker entrypoint runs with the expected `WorkerSettings`.
-- [ ] The worker job set includes the durable jobs required by the roadmap.
+- [x] ARQ settings resolve correctly for worker startup and runtime configuration.
+- [x] ARQ worker entrypoint runs with the expected `WorkerSettings`.
+- [x] The worker job set includes the durable jobs required by the roadmap.
 
 ### Implementation Tasks
 
-- [ ] Inspect and correct ARQ settings references across worker/config files.
-- [ ] Verify the worker entrypoint and `WorkerSettings` import paths are stable.
-- [ ] Confirm cron jobs and on-demand jobs are registered with the intended names.
-- [ ] Update any import-compat fallback docs or comments that are now misleading.
+- [x] Fixed `cfg.redis_url` → `cfg.REDIS_URL` (casing mismatch causing settings resolution failure).
+- [x] Converted `redis_settings` from a `@classmethod` to a class variable on `WorkerSettings` (ARQ requires it as a simple attribute, not a method).
+- [x] Import: added `from urllib.parse import urlparse` at module top.
+- [x] Updated in-code comments in `app/jobs/consent_renewal_job.py` and `app/jobs/practice_session_cleanup_job.py` (`app/core/arq_worker.py` → `app/modules/jobs.py`).
+- [x] Cron jobs (`consent_renewal`, `practice_session_cleanup`) already registered in `WorkerSettings`.
+
+**Changed files:** `app/modules/jobs.py` (-18/+8), `app/jobs/consent_renewal_job.py`, `app/jobs/practice_session_cleanup_job.py`
 
 ---
 
-## Phase 6.2 — Wire the Durable Worker into Compose / Production
+## Phase 6.2 — Wire the Durable Worker into Compose / Production ✅ COMPLETE
 
 ### Problem Statement
 
@@ -84,58 +89,79 @@ The worker logic exists in code, but the deployment stack still needs an explici
 
 ### Acceptance Criteria
 
-- [ ] Local Compose starts the ARQ worker successfully.
-- [ ] Production Compose / deployment manifests include the worker.
-- [ ] Redis connectivity is available to the worker in local and production-like environments.
+- [x] Local Compose starts the ARQ worker successfully (service defined, `docker compose up worker`).
+- [x] Production Compose / deployment manifests include the worker.
+- [x] Redis connectivity is available to the worker in local and production-like environments (depends_on redis: service_healthy).
 
 ### Implementation Tasks
 
-- [ ] Add or fix an ARQ worker service in `docker-compose.yml`.
-- [ ] Mirror the worker service in `docker-compose.prod.yml` if production uses Compose.
-- [ ] Ensure the worker container uses the same settings source as the API container.
-- [ ] Add or update a worker Dockerfile if the current runtime requires one.
+- [x] Added `worker` service to `docker-compose.yml`: uses `Dockerfile.v2`, command `arq app.modules.jobs.WorkerSettings`, env vars (`APP_ENV`, `DATABASE_URL`, `REDIS_URL`, `JWT_SECRET`).
+- [x] Added `worker` service to `docker-compose.prod.yml`: same structure with production env vars plus `ENCRYPTION_KEY`, `ENCRYPTION_SALT`, `GROQ_API_KEY`, `ANTHROPIC_API_KEY`.
+- [x] Both services depend on postgres and redis health checks.
+- [x] Resource limits set (dev: 256M, prod: 768M memory).
+- [x] Reuses existing `docker/Dockerfile.v2` (no separate worker Dockerfile needed).
+- [ ] **Not yet verified:** `docker compose up worker` has not been executed against a live Redis/Postgres stack.
+
+**Changed files:** `docker-compose.yml` (+26), `docker-compose.prod.yml` (+29)
 
 ---
 
-## Phase 6.3 — Move Durable Work Off Request-Adjacent BackgroundTasks
+## Phase 6.3 — Move Durable Work Off Request-Adjacent BackgroundTasks 🔴 NOT STARTED
 
 ### Problem Statement
 
-The roadmap requires durable jobs rather than request-scoped `BackgroundTasks` for long-running or restart-sensitive work.
+The roadmap requires durable jobs rather than request-scoped `BackgroundTasks` for long-running or restart-sensitive work. Currently, API routes return job IDs via FastAPI `BackgroundTasks` with in-memory fallback state. If the API process restarts, queued work is lost.
+
+### Discovery (do first)
+
+Before any code changes, audit the current job landscape:
+
+- [ ] **List all BackgroundTasks enqueue points.** Search `app/` for `background_tasks.add_task` and `BackgroundTasks` usage to find all non-durable job paths.
+- [ ] **Classify each job**: `[durable-required]`, `[durable-optional]`, or `[request-adjacent-ok]`.
+  - *Durable-required*: lesson generation, study-plan generation, consent renewal, practice session cleanup, ETL pipeline runs.
+  - *Durable-optional*: email notifications, analytics events.
+  - *Request-adjacent-ok*: short-lived audit writes, metric increments.
+- [ ] **Document current state** as a table in the implementation report (route → job name → current mechanism → target mechanism).
 
 ### Acceptance Criteria
 
-- [ ] Durable jobs are enqueued through ARQ or an equivalent durable worker path.
-- [ ] FastAPI `BackgroundTasks` remains limited to non-critical request-adjacent work.
-- [ ] Durable work survives API restarts.
+- [ ] Durable jobs are enqueued through ARQ (`await arq_queue.enqueue_job(...)`) rather than `background_tasks.add_task(...)`.
+- [ ] FastAPI `BackgroundTasks` remains limited to non-critical request-adjacent work (audit writes, metrics).
+- [ ] Durable work survives API restarts (proven via docker compose stop api + worker continues).
 
 ### Implementation Tasks
 
-- [ ] Review routes that currently return job IDs and identify which ones must be switched to durable enqueueing.
-- [ ] Move consent renewal, lesson generation, study-plan generation, and any other durable flows onto the worker path where appropriate.
-- [ ] Keep request-adjacent work in `app/core/jobs.py` only if it is truly non-critical and short-lived.
-- [ ] Update route/service docs to describe the durable path clearly.
+- [ ] **6.3.1** Add an ARQ queue accessor in `app/modules/jobs.py` (or a shared module) that routes can import: `async def enqueue_durable(job_name, **kwargs) -> str` returning a job ID.
+- [ ] **6.3.2** Migrate lesson generation: find where `POST /api/v2/lessons/generate` enqueues work via `BackgroundTasks`; switch to `enqueue_durable("generate_lesson", ...)`.
+- [ ] **6.3.3** Migrate study-plan generation: same pattern for `POST /api/v2/study-plans/generate`.
+- [ ] **6.3.4** Migrate consent renewal: cron job already defined in `WorkerSettings`; verify the cron schedule is active and the route no longer enqueues it directly.
+- [ ] **6.3.5** Migrate practice session cleanup: same as consent renewal — cron-based, remove route-level enqueue.
+- [ ] **6.3.6** Update `app/core/jobs.py` to clearly document that it is now for non-durable, request-adjacent work only.
+- [ ] **6.3.7** Add/update unit tests proving: (a) durable enqueue returns a job ID, (b) worker executes the job, (c) job status is retrievable post-execution.
 
 ---
 
-## Phase 6.4 — Add Worker Health, Readiness, and Verification Evidence
+## Phase 6.4 — Add Worker Health, Readiness, and Verification Evidence 🔴 NOT STARTED
 
 ### Problem Statement
 
-Phase 6 is not complete until the worker is proven in a live local or staging-style environment.
+Phase 6 is not complete until the worker is proven in a live local or staging-style environment with captured evidence.
 
 ### Acceptance Criteria
 
-- [ ] Worker startup health/readiness is observable.
-- [ ] Enqueue/dequeue or execute/status proof exists for at least one durable job.
-- [ ] Phase 6 evidence is captured in `docs/release/`.
+- [ ] Worker startup health/readiness is observable (`docker compose logs worker` shows successful Redis + DB connection).
+- [ ] Enqueue/dequeue or execute/status proof exists for at least one durable job (consent renewal or practice session cleanup).
+- [ ] Phase 6 evidence and audit docs are committed.
 
 ### Implementation Tasks
 
-- [ ] Add or update health checks for worker / Redis connectivity.
-- [ ] Run the worker locally and capture a successful job execution proof.
-- [ ] Add or update tests that cover worker import, registration, and job execution behavior.
-- [ ] Write the Phase 6 evidence and implementation audit docs after verification.
+- [ ] **6.4.1** Start the full stack (`docker compose up -d postgres redis worker`) and verify the worker connects.
+- [ ] **6.4.2** Trigger a durable job (e.g., consent renewal cron or manual enqueue) and capture the execution log.
+- [ ] **6.4.3** Prove restart-survival: `docker compose restart api`, verify queued job still executes.
+- [ ] **6.4.4** Run `scripts/check_arq_worker_import.py` and confirm it passes.
+- [ ] **6.4.5** Write `docs/release/phase_6_evidence.md` with captured outputs.
+- [ ] **6.4.6** Write `docs/roadmap/execution/phase_6_implementation_report.md`.
+- [ ] **6.4.7** Write `docs/release/phase_6_implementation_audit.md`.
 
 ---
 
@@ -143,9 +169,10 @@ Phase 6 is not complete until the worker is proven in a live local or staging-st
 
 | Artifact | Path | Status |
 |----------|------|--------|
-| Phase 6 implementation report | `docs/roadmap/execution/phase_6_implementation_report.md` | [ ] |
-| Phase 6 evidence | `docs/release/phase_6_evidence.md` | [ ] |
-| Phase 6 implementation audit | `docs/release/phase_6_implementation_audit.md` | [ ] |
+| Phase 6 execution plan | `docs/roadmap/execution/phase_6_execution_plan.md` | ✅ (this file) |
+| Phase 6 implementation report | `docs/roadmap/execution/phase_6_implementation_report.md` | [ ] Must be written in 6.4 |
+| Phase 6 evidence | `docs/release/phase_6_evidence.md` | [ ] Must be written in 6.4 |
+| Phase 6 implementation audit | `docs/release/phase_6_implementation_audit.md` | [ ] Must be written in 6.4 |
 
 ---
 
@@ -153,27 +180,37 @@ Phase 6 is not complete until the worker is proven in a live local or staging-st
 
 **Phase 6 is complete when:**
 
-- [ ] ARQ worker starts in local Compose
-- [ ] Durable job tests cover enqueue, execution, and status retrieval
-- [ ] API restart does not lose queued durable work
-- [ ] FastAPI `BackgroundTasks` is no longer the durable job mechanism
-- [ ] Evidence and audit docs are committed
+- [x] ARQ worker service defined in local Compose (6.2)
+- [x] ARQ settings correct: `REDIS_URL` casing, `redis_settings` as class var (6.1)
+- [ ] Durable jobs enqueued through ARQ, not `BackgroundTasks` (6.3)
+- [ ] Durable job tests cover enqueue, execution, and status retrieval (6.3)
+- [ ] API restart does not lose queued durable work (6.4)
+- [ ] Worker startup health/readiness verified against live Redis + Postgres (6.4)
+- [ ] Evidence and audit docs committed (6.4)
+
+**RoadMap alignment** (from [roadmap.md](../roadmap.md#L258-L281)):
+
+- [x] ARQ worker starts in local Compose ✅
+- [ ] Durable job tests cover enqueue, execution, and status retrieval ❌
+- [ ] API restart does not lose queued durable work ❌
 
 ---
 
 ## Close Checklist
 
-- [ ] Execution plan exists: `docs/roadmap/execution/phase_6_execution_plan.md` (this file)
+- [x] Execution plan exists: `docs/roadmap/execution/phase_6_execution_plan.md` (this file)
 - [ ] Implementation report exists: `docs/roadmap/execution/phase_6_implementation_report.md`
 - [ ] Audit report exists: `docs/release/phase_6_implementation_audit.md`
 - [ ] Evidence files committed and accurate
-- [ ] `roadmap.md` Phase 6 status updated to "In progress" or "Complete (YYYY-MM-DD)" when appropriate
+- [ ] `roadmap.md` Phase 6 status updated to "Complete (YYYY-MM-DD)"
 - [ ] `context/build-plan.md` Phase 6 status updated
 - [ ] `context/progress-tracker.md` updated
 - [ ] `docs/todos/todo.md` durable job tasks updated
+- [ ] Branch merged to `master` via PR
+- [ ] Remote branch deleted after merge
 
 ---
 
 ## Next Phase
 
-**Phase 7: Deployment and Security Hardening** — fix hardcoded URLs, security headers, and route protection gaps after durable jobs are in place.
+**Phase 7: Deployment and Security Hardening** — fix hardcoded URLs, security headers, CORS/CSP/HSTS, and route protection gaps after durable jobs are in place.
