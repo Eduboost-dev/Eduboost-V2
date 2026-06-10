@@ -7,9 +7,9 @@ Update after every completed RoadMap phase or major TODO milestone.
 
 ## Current Status
 
-**Active RoadMap Phase:** Phase 4 (Runtime and Environment Alignment)
-**Last completed:** Phase 3 (Frontend Build and Test Health) - 2026-06-10 (Phase 2 also complete 2026-06-09)
-**Next:** Phase 4 (Runtime and Environment Alignment)
+**Active RoadMap Phase:** Phase 5 (Migrations and Schema Management)
+**Last completed:** Phase 4 (Runtime and Environment Alignment) - 2026-06-10
+**Next:** Phase 5 (Migrations and Schema Management)
 **Quality gate:** RED (9/11 checks passing as of 2026-05-17)
 **Local unit tests:** 2051 passed, 1 skipped, 1 warning
 
@@ -47,7 +47,14 @@ Evidence: `docs/release/phase_2_evidence.md`, `docs/release/phase_2_1_evidence.m
 
 Evidence: `docs/release/phase_3_evidence.md`, `PHASE_3_EXECUTION_PLAN.md`
 
-### Phases 4-16
+### Phase 4 -- Runtime and Environment Alignment (complete 2026-06-10)
+- [x] 4.1 Choose supported production Python version (3.12.3)
+- [x] 4.2 Document decision (ADR-001 updated, ADR-026 created)
+- [x] 4.3 Align Dockerfiles, docs, `.python-version`
+
+Evidence: `docs/adr/ADR-026-python-version-alignment.md`
+
+### Phases 5-16
 See RoadMap.md for full phase plans. This tracker will be updated as phases are executed.
 
 ## Verified Baseline (Already Implemented)
