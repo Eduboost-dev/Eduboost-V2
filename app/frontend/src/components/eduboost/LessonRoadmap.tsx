@@ -407,7 +407,7 @@ function PhaseCard({ phase, taskState, onToggleTask }: PhaseCardProps) {
   const doneTasks = phase.tasks.filter((t) => taskState[t.id]).length;
   const totalTasks = phase.tasks.length;
   const pct = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
-  const accent = PHASE_ACCENT[phase.id] ?? PHASE_ACCENT.ph0;
+  const accent = (PHASE_ACCENT[phase.id] ?? PHASE_ACCENT.ph0) as { dot: string; bar: string; ring: string };
 
   return (
     <div className="rounded-lg border border-gray-700 shadow-sm" style={{ backgroundColor: '#252525' }}>
@@ -423,7 +423,7 @@ function PhaseCard({ phase, taskState, onToggleTask }: PhaseCardProps) {
       >
         {/* Phase index dot */}
         <span
-          className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold ${accent.dot}`}
+          className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold ${(accent as any).dot}`}
           aria-hidden="true"
         >
           {phase.index}
@@ -455,7 +455,7 @@ function PhaseCard({ phase, taskState, onToggleTask }: PhaseCardProps) {
       {/* Progress bar — always visible */}
       <div className="mx-4 mb-0 h-2 overflow-hidden rounded-full bg-gray-700">
         <div
-          className={`h-full rounded-full transition-[width] duration-500 ${accent.bar}`}
+          className={`h-full rounded-full transition-[width] duration-500 ${(accent as any).bar}`}
           style={{ width: `${pct}%` }}
           role="progressbar"
           aria-valuenow={pct}

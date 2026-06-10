@@ -1,9 +1,9 @@
 # Documentation Inventory
 
-Generated at: `2026-06-05T20:15:20Z`
-Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
+Generated at: `2026-06-09T23:42:02Z`
+Commit: `549b25c96fac85546a45fa4337722425d928a0fe`
 
-- Documents: `1243`
+- Documents: `1251`
 - Generated docs: `4`
 
 ## Categories
@@ -13,8 +13,8 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `adr` | 47 |
 | `api` | 6 |
 | `architecture` | 40 |
-| `general` | 598 |
-| `release` | 453 |
+| `general` | 599 |
+| `release` | 460 |
 | `security` | 99 |
 
 ## Documents
@@ -119,7 +119,7 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/ai/ai_output_schema_contract.md` | `general` | AI Output Schema Contract | 871 | False |
 | `docs/ai/ai_prompt_input_contract.md` | `general` | AI Prompt Input Contract | 976 | False |
 | `docs/ai/ai_prompt_secret_leakage_guard.md` | `general` | AI Prompt Secret Leakage Guard | 731 | False |
-| `docs/ai/ai_prompt_surface_inventory.md` | `general` | AI Prompt Surface Inventory | 20499 | False |
+| `docs/ai/ai_prompt_surface_inventory.md` | `general` | AI Prompt Surface Inventory | 20733 | False |
 | `docs/ai/ai_refusal_regression_fixtures.md` | `general` | AI Refusal Regression Fixtures | 504 | False |
 | `docs/ai/ai_safety_boundary_contract.md` | `general` | AI Safety Boundary Contract | 908 | False |
 | `docs/ai/ai_safety_evidence_index.md` | `general` | AI Safety Evidence Index | 1350 | False |
@@ -143,13 +143,13 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/architecture/V2_ARCHITECTURE.md` | `architecture` | EduBoost SA — Recommended Architecture | 14300 | False |
 | `docs/architecture/architecture_decisions.md` | `architecture` | Architecture Decisions Index | 810 | False |
 | `docs/architecture/architecture_diagram.md` | `architecture` | EduBoost SA V2 — Architecture Diagram | 4018 | False |
-| `docs/architecture/auth_boundary_debt_report.json` | `architecture` | Auth Boundary Debt Report | 453 | False |
+| `docs/architecture/auth_boundary_debt_report.json` | `architecture` | Auth Boundary Debt Report | 464 | False |
 | `docs/architecture/auth_boundary_debt_report.md` | `architecture` | Auth Boundary Debt Report | 433 | False |
 | `docs/architecture/auth_lifecycle_extraction_report.json` | `architecture` | Auth Lifecycle Extraction Report | 438 | False |
 | `docs/architecture/auth_lifecycle_extraction_report.md` | `architecture` | Auth Lifecycle Extraction Report | 609 | False |
 | `docs/architecture/auth_service_extraction_followup.json` | `architecture` | Auth Service Extraction Followup | 371 | False |
 | `docs/architecture/auth_service_extraction_followup.md` | `architecture` | Auth Service Extraction Follow-up | 369 | False |
-| `docs/architecture/auth_service_extraction_report.json` | `architecture` | Auth Service Extraction Report | 1417 | False |
+| `docs/architecture/auth_service_extraction_report.json` | `architecture` | Auth Service Extraction Report | 1464 | False |
 | `docs/architecture/auth_service_extraction_report.md` | `architecture` | Auth Service Extraction Report | 538 | False |
 | `docs/architecture/auth_service_ownership_report.json` | `architecture` | Auth Service Ownership Report | 522 | False |
 | `docs/architecture/auth_service_ownership_report.md` | `architecture` | Auth Service Ownership Report | 542 | False |
@@ -158,20 +158,20 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/architecture/db_live_only_table_ownership.yml` | `architecture` | Db Live Only Table Ownership | 1566 | False |
 | `docs/architecture/diagnostic_item_bank_canonicality.yml` | `architecture` | Diagnostic Item Bank Canonicality | 1289 | False |
 | `docs/architecture/import_boundaries.md` | `architecture` | Import Boundaries | 2362 | False |
-| `docs/architecture/import_linter_availability.md` | `architecture` | Import-Linter Availability | 228 | False |
-| `docs/architecture/import_linter_contract_run.md` | `architecture` | Import-Linter Contract Run | 499 | False |
+| `docs/architecture/import_linter_availability.md` | `architecture` | Import-Linter Availability | 227 | False |
+| `docs/architecture/import_linter_contract_run.md` | `architecture` | Import-Linter Contract Run | 205 | False |
 | `docs/architecture/legacy_learner_access_guard_report.json` | `architecture` | Legacy Learner Access Guard Report | 312 | False |
 | `docs/architecture/legacy_learner_access_guard_report.md` | `architecture` | Legacy Learner Access Guard Report | 326 | False |
 | `docs/architecture/metaphor_glossary.md` | `architecture` | Metaphor → Domain Name Glossary | 1212 | False |
 | `docs/architecture/metaphor_layer_inventory_baseline.json` | `architecture` | Metaphor Layer Inventory Baseline | 36898 | False |
 | `docs/architecture/router_repository_boundary_inventory.md` | `architecture` | Router Repository Boundary Inventory | 374 | False |
-| `docs/architecture/router_repository_boundary_matrix.json` | `architecture` | Router Repository Boundary Matrix | 5901 | False |
+| `docs/architecture/router_repository_boundary_matrix.json` | `architecture` | Router Repository Boundary Matrix | 6130 | False |
 | `docs/architecture/router_repository_boundary_matrix.md` | `architecture` | Router Repository Boundary Matrix | 2495 | False |
 | `docs/architecture/router_service_dependency_map.json` | `architecture` | Router Service Dependency Map | 10442 | False |
 | `docs/architecture/router_service_dependency_map.md` | `architecture` | Router Service Dependency Map | 5433 | False |
 | `docs/architecture/router_thinness_baseline.json` | `architecture` | Router Thinness Baseline | 7752 | False |
 | `docs/architecture/service_boundary_classification_policy.md` | `architecture` | Service Boundary Classification Policy | 1129 | False |
-| `docs/architecture/service_boundary_inventory.json` | `architecture` | Service Boundary Inventory | 22162 | False |
+| `docs/architecture/service_boundary_inventory.json` | `architecture` | Service Boundary Inventory | 22918 | False |
 | `docs/architecture/service_boundary_inventory.md` | `architecture` | Service Boundary Inventory | 13182 | False |
 | `docs/architecture/service_family_map.json` | `architecture` | Service Family Map | 102143 | False |
 | `docs/architecture/service_family_map.md` | `architecture` | Service Family Map | 27720 | False |
@@ -228,8 +228,9 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/backlog/production_readiness/18_beta_launch_staging_acceptance_and_product_scope.md` | `general` | 18. Beta launch, staging acceptance, and product scope | 4796 | False |
 | `docs/backlog/production_readiness/19_roadmap_after_production-readiness_baseline.md` | `general` | 19. Roadmap after production-readiness baseline | 3816 | False |
 | `docs/backlog/production_readiness/20_final_release-blocker_checklist.md` | `general` | 20. Final release-blocker checklist | 5109 | False |
-| `docs/beta/beta_content_hard_gate.json` | `general` | Beta Content Hard Gate | 227 | False |
-| `docs/beta/beta_content_hard_gate.md` | `general` | Beta Content Hard Gate | 247 | False |
+| `docs/backlog/ruff_debt.md` | `general` | Ruff Debt Inventory | 4269 | False |
+| `docs/beta/beta_content_hard_gate.json` | `general` | Beta Content Hard Gate | 196 | False |
+| `docs/beta/beta_content_hard_gate.md` | `general` | Beta Content Hard Gate | 221 | False |
 | `docs/beta/beta_content_threshold_status.json` | `general` | Beta Content Threshold Status | 90 | False |
 | `docs/beta/item_review_log.md` | `general` | EduBoost Beta Item Review Log | 211 | False |
 | `docs/beta/item_review_process.md` | `general` | EduBoost Beta Item Review Process | 915 | False |
@@ -487,7 +488,7 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/operations/beta_release_final_checklist.md` | `general` | Beta Release Final Checklist | 1981 | False |
 | `docs/operations/beta_release_final_index.md` | `general` | Beta Release Final Index | 3193 | False |
 | `docs/operations/beta_release_freeze_window_contract.md` | `general` | Beta Release Freeze Window Contract | 1753 | False |
-| `docs/operations/beta_release_pr_body.md` | `general` | Beta Release PR Body | 1410 | False |
+| `docs/operations/beta_release_pr_body.md` | `general` | Beta Release PR Body | 1386 | False |
 | `docs/operations/beta_release_readiness_contract.md` | `general` | Beta Release Readiness Contract | 2539 | False |
 | `docs/operations/beta_retrospective_action_register.md` | `general` | Beta Retrospective Action Register | 1855 | False |
 | `docs/operations/beta_rollback_runbook.md` | `general` | Beta Rollback Runbook | 1541 | False |
@@ -658,6 +659,7 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/release/EduBoost_V2_Remaining_External_Evidence_Checklist.md` | `release` | EduBoost V2 Remaining External Evidence Checklist | 1700 | False |
 | `docs/release/EduBoost_V2_Technical_Report.md` | `release` | EduBoost SA V2 — Comprehensive Technical Report | 23015 | False |
 | `docs/release/EduBoost_V2_Technical_Report_v2.md` | `release` | EduBoost SA V2 — Comprehensive Technical Assessment Report | 40174 | False |
+| `docs/release/PHASE_2_REVIEW_RESOLUTION.md` | `release` | Phase 2 Review Implementation — Summary | 6863 | False |
 | `docs/release/PR-002R_EVIDENCE.md` | `release` | PR-002R Release Evidence Index | 2426 | False |
 | `docs/release/PR-003A_data_integrity_baseline_handover.md` | `release` | PR-003A — Data Integrity Baseline: Handover | 4323 | False |
 | `docs/release/PR-003B_uuid_rollout_reviewer_id_discovery.md` | `release` | PR-003B: UUID Rollout — reviewer_id Discovery | 1187 | False |
@@ -667,16 +669,17 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/release/PR-004_duplicate_service_inventory.md` | `release` | PR-004 Duplicate Service Inventory | 9526 | False |
 | `docs/release/PR-004_lesson_inventory.md` | `release` | PR-004 Lesson Route Inventory | 7371 | False |
 | `docs/release/RC_BACKEND_RISK_REGISTER.md` | `release` | Backend Risk Register | 7976 | False |
-| `docs/release/alertmanager_drill_evidence.json` | `release` | Alertmanager Drill Evidence | 534 | False |
+| `docs/release/README_LFS.md` | `release` | Git LFS Large Files | 574 | False |
+| `docs/release/alertmanager_drill_evidence.json` | `release` | Alertmanager Drill Evidence | 553 | False |
 | `docs/release/alertmanager_drill_evidence.md` | `release` | Alertmanager Drill Evidence | 242 | False |
 | `docs/release/answer_key_validation_plan.md` | `release` | Answer-Key Validation Plan | 940 | False |
 | `docs/release/approval_evidence_status.json` | `release` | Approval Evidence Status | 2800 | False |
 | `docs/release/approval_evidence_status.md` | `release` | Approval Evidence Status | 1296 | False |
 | `docs/release/arq_consent_job_repair_report.md` | `release` | ARQ Consent Job Repair Report | 340 | False |
 | `docs/release/arq_dependency_worker_import_repair_report.md` | `release` | ARQ Dependency and Worker Import Repair Report | 520 | False |
-| `docs/release/audit_baseline_refresh_status.json` | `release` | Audit Baseline Refresh Status | 6553 | False |
-| `docs/release/audit_baseline_refresh_status.md` | `release` | Audit Baseline Refresh Status | 3634 | False |
-| `docs/release/audit_callsite_inventory.md` | `release` | Audit Call-Site Inventory | 417952 | False |
+| `docs/release/audit_baseline_refresh_status.json` | `release` | Audit Baseline Refresh Status | 6614 | False |
+| `docs/release/audit_baseline_refresh_status.md` | `release` | Audit Baseline Refresh Status | 3611 | False |
+| `docs/release/audit_callsite_inventory.md` | `release` | Audit Call-Site Inventory | 417501 | False |
 | `docs/release/audit_callsite_migration_slice_002.md` | `release` | Audit Call-Site Migration Slice 002 | 482 | False |
 | `docs/release/audit_candidate_execution_ledger.md` | `release` | Audit Candidate Execution Ledger | 451 | False |
 | `docs/release/audit_canonicalization_implementation_checklist.md` | `release` | Audit Canonicalization Implementation Checklist | 957 | False |
@@ -687,35 +690,35 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/release/audit_trail_index.md` | `release` | Release Audit Trail Index | 1219 | False |
 | `docs/release/audit_write_runtime_evidence_status.json` | `release` | Audit Write Runtime Evidence Status | 864 | False |
 | `docs/release/audit_write_runtime_evidence_status.md` | `release` | Audit Write Runtime Evidence Status | 1153 | False |
-| `docs/release/auth_db_lifecycle_proof_report.json` | `release` | Auth Db Lifecycle Proof Report | 706 | False |
+| `docs/release/auth_db_lifecycle_proof_report.json` | `release` | Auth Db Lifecycle Proof Report | 729 | False |
 | `docs/release/auth_db_lifecycle_proof_report.md` | `release` | Auth DB Lifecycle Proof Report | 842 | False |
 | `docs/release/auth_forward_ref_repair_report.md` | `release` | Auth Forward-Reference Repair Report | 301 | False |
-| `docs/release/auth_http_success_scope_report.json` | `release` | Auth Http Success Scope Report | 2161 | False |
+| `docs/release/auth_http_success_scope_report.json` | `release` | Auth Http Success Scope Report | 2255 | False |
 | `docs/release/auth_http_success_scope_report.md` | `release` | Auth HTTP Success Scope Report | 1318 | False |
-| `docs/release/auth_lifecycle_http_proof_status.json` | `release` | Auth Lifecycle Http Proof Status | 2190 | False |
+| `docs/release/auth_lifecycle_http_proof_status.json` | `release` | Auth Lifecycle Http Proof Status | 2279 | False |
 | `docs/release/auth_lifecycle_http_proof_status.md` | `release` | Auth Lifecycle HTTP Route Proof Status | 1192 | False |
 | `docs/release/auth_lifecycle_method_extraction_repair_report.md` | `release` | Auth Lifecycle Method Extraction Repair Report | 580 | False |
-| `docs/release/auth_lifecycle_semantic_proof_status.json` | `release` | Auth Lifecycle Semantic Proof Status | 2289 | False |
+| `docs/release/auth_lifecycle_semantic_proof_status.json` | `release` | Auth Lifecycle Semantic Proof Status | 2387 | False |
 | `docs/release/auth_lifecycle_semantic_proof_status.md` | `release` | Auth Lifecycle Controlled Semantic Proof Status | 1485 | False |
 | `docs/release/auth_lifecycle_service_ownership_report.md` | `release` | Auth Lifecycle Service Ownership Report | 110 | False |
-| `docs/release/auth_refresh_db_evidence_status.json` | `release` | Auth Refresh Db Evidence Status | 1694 | False |
+| `docs/release/auth_refresh_db_evidence_status.json` | `release` | Auth Refresh Db Evidence Status | 1768 | False |
 | `docs/release/auth_refresh_db_evidence_status.md` | `release` | Auth Refresh DB Evidence Status | 1290 | False |
 | `docs/release/auth_refresh_db_proof_evidence.md` | `release` | Auth Refresh DB Proof Evidence | 1037 | False |
 | `docs/release/auth_refresh_db_proof_status.json` | `release` | Auth Refresh Db Proof Status | 2101 | False |
 | `docs/release/auth_refresh_db_proof_status.md` | `release` | Auth Refresh DB Proof Status | 1380 | False |
 | `docs/release/auth_repository_fixture_proof_report.json` | `release` | Auth Repository Fixture Proof Report | 524 | False |
 | `docs/release/auth_repository_fixture_proof_report.md` | `release` | Auth Repository Fixture Proof Report | 631 | False |
-| `docs/release/auth_route_logout_delegate_status.json` | `release` | Auth Route Logout Delegate Status | 602 | False |
+| `docs/release/auth_route_logout_delegate_status.json` | `release` | Auth Route Logout Delegate Status | 625 | False |
 | `docs/release/auth_route_logout_delegate_status.md` | `release` | Auth Route Logout/Revoke Delegation Status | 606 | False |
-| `docs/release/auth_route_service_dependency_repair_status.json` | `release` | Auth Route Service Dependency Repair Status | 1496 | False |
+| `docs/release/auth_route_service_dependency_repair_status.json` | `release` | Auth Route Service Dependency Repair Status | 1559 | False |
 | `docs/release/auth_route_service_dependency_repair_status.md` | `release` | Auth Route Service Dependency Repair Status | 845 | False |
 | `docs/release/auth_route_transaction_live_db_evidence.md` | `release` | Auth Route Transaction Live DB Evidence | 623 | False |
 | `docs/release/auth_route_transaction_slice_report.json` | `release` | Auth Route Transaction Slice Report | 1944 | False |
 | `docs/release/auth_route_transaction_slice_report.md` | `release` | Auth Route Transaction Slice Report | 1572 | False |
-| `docs/release/auth_router_boundary_introspection.json` | `release` | Auth Router Boundary Introspection | 2713 | False |
+| `docs/release/auth_router_boundary_introspection.json` | `release` | Auth Router Boundary Introspection | 2856 | False |
 | `docs/release/auth_router_boundary_introspection.md` | `release` | Auth Router Boundary Introspection | 1176 | False |
 | `docs/release/auth_router_boundary_repair_report.md` | `release` | Auth Router Boundary Repair Report | 577 | False |
-| `docs/release/auth_service_cleanup_status.json` | `release` | Auth Service Cleanup Status | 449 | False |
+| `docs/release/auth_service_cleanup_status.json` | `release` | Auth Service Cleanup Status | 468 | False |
 | `docs/release/auth_service_cleanup_status.md` | `release` | Auth Service Cleanup Status | 699 | False |
 | `docs/release/auth_service_extraction_repair_report.md` | `release` | Auth Service Extraction Repair Report | 724 | False |
 | `docs/release/auth_token_claims_introspection.json` | `release` | Auth Token Claims Introspection | 970 | False |
@@ -723,25 +726,25 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/release/auth_token_claims_repair_report.md` | `release` | Auth Token Claims Repair Report | 502 | False |
 | `docs/release/backend_adapter_wiring_service_contract.md` | `release` | Backend Adapter Wiring Service Contract | 417 | False |
 | `docs/release/backend_consolidation_decision_record.md` | `release` | Backend Consolidation Decision Record | 1859 | False |
-| `docs/release/backend_consolidation_diagnostic_report.md` | `release` | Backend Consolidation Diagnostic Report | 8966 | False |
+| `docs/release/backend_consolidation_diagnostic_report.md` | `release` | Backend Consolidation Diagnostic Report | 8948 | False |
 | `docs/release/backend_consolidation_dragons.md` | `release` | Backend Consolidation Dragons | 2693 | False |
 | `docs/release/backend_consolidation_evidence_manifest.md` | `release` | Backend Consolidation Evidence Manifest | 3639 | False |
 | `docs/release/backend_consolidation_execution_packet.md` | `release` | Backend Consolidation Execution Packet | 1359 | False |
-| `docs/release/backend_consolidation_execution_report.md` | `release` | Backend Consolidation Execution Report | 6954 | False |
+| `docs/release/backend_consolidation_execution_report.md` | `release` | Backend Consolidation Execution Report | 6925 | False |
 | `docs/release/backend_consolidation_implementation_foundation.md` | `release` | Backend Consolidation Implementation Foundation | 1124 | False |
-| `docs/release/backend_consolidation_implementation_foundation_report.md` | `release` | Backend Consolidation Implementation Foundation Report | 12840 | False |
+| `docs/release/backend_consolidation_implementation_foundation_report.md` | `release` | Backend Consolidation Implementation Foundation Report | 12808 | False |
 | `docs/release/backend_consolidation_implementation_progress.md` | `release` | Backend Consolidation Implementation Progress | 960 | False |
-| `docs/release/backend_consolidation_progress_report.md` | `release` | Backend Consolidation Progress Report | 3845 | False |
+| `docs/release/backend_consolidation_progress_report.md` | `release` | Backend Consolidation Progress Report | 3813 | False |
 | `docs/release/backend_consolidation_readiness_matrix.md` | `release` | Backend Consolidation Readiness Matrix | 1795 | False |
-| `docs/release/backend_consolidation_readiness_report.md` | `release` | Backend Consolidation Readiness Report | 2772 | False |
+| `docs/release/backend_consolidation_readiness_report.md` | `release` | Backend Consolidation Readiness Report | 2773 | False |
 | `docs/release/backend_consolidation_terminal_packet.md` | `release` | Backend Consolidation Terminal Packet | 1481 | False |
-| `docs/release/backend_consolidation_terminal_report.md` | `release` | Backend Consolidation Terminal Report | 9056 | False |
+| `docs/release/backend_consolidation_terminal_report.md` | `release` | Backend Consolidation Terminal Report | 9060 | False |
 | `docs/release/backend_data_retention_approval_update.md` | `release` | Backend Data Retention Approval Update | 402 | False |
 | `docs/release/backend_data_retention_decision_checklist.md` | `release` | Backend Data Retention Decision Checklist | 1404 | False |
-| `docs/release/backend_deletion_candidate_inventory.md` | `release` | Backend Deletion Candidate Inventory | 97204021 | False |
+| `docs/release/backend_deletion_candidate_inventory.md` | `release` | Backend Deletion Candidate Inventory | 100340431 | False |
 | `docs/release/backend_first_wiring_candidate_registry.md` | `release` | Backend First Wiring Candidate Registry | 372 | False |
-| `docs/release/backend_first_wiring_candidates_report.md` | `release` | Backend First Wiring Candidates Report | 5911 | False |
-| `docs/release/backend_implementation_371_375_report.md` | `release` | Backend Implementation 371-375 Report | 3360 | False |
+| `docs/release/backend_first_wiring_candidates_report.md` | `release` | Backend First Wiring Candidates Report | 5887 | False |
+| `docs/release/backend_implementation_371_375_report.md` | `release` | Backend Implementation 371-375 Report | 3328 | False |
 | `docs/release/backend_implementation_decision_ledger.md` | `release` | Backend Implementation Decision Ledger | 1147 | False |
 | `docs/release/backend_implementation_manifest_401_420.md` | `release` | Backend Implementation Manifest 401-420 | 524 | False |
 | `docs/release/backend_implementation_slice_371_375.md` | `release` | Backend Implementation Slice 371-375 | 570 | False |
@@ -749,45 +752,45 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/release/backend_implementation_slice_431_450.md` | `release` | Backend Implementation Slice 431-450 | 626 | False |
 | `docs/release/backend_implementation_terminal_progress_packet.md` | `release` | Backend Implementation Terminal Progress Packet | 1049 | False |
 | `docs/release/backend_runtime_compatibility_contract.md` | `release` | Backend Runtime Compatibility Contract | 1489 | False |
-| `docs/release/backend_runtime_compatibility_report.md` | `release` | Backend Runtime Compatibility Report | 3931 | False |
+| `docs/release/backend_runtime_compatibility_report.md` | `release` | Backend Runtime Compatibility Report | 3921 | False |
 | `docs/release/backend_runtime_enablement_checksum_manifest.md` | `release` | Backend Runtime Enablement Checksum Manifest | 1488 | False |
 | `docs/release/backend_runtime_enablement_closure_packet.md` | `release` | Backend Runtime Enablement Closure Packet | 347 | False |
 | `docs/release/backend_runtime_enablement_packet.md` | `release` | Backend Runtime Enablement Packet | 1285 | False |
-| `docs/release/backend_runtime_enablement_report.md` | `release` | Backend Runtime Enablement Report | 6833 | False |
+| `docs/release/backend_runtime_enablement_report.md` | `release` | Backend Runtime Enablement Report | 6801 | False |
 | `docs/release/backend_runtime_integration_checksum_manifest.md` | `release` | Backend Runtime Integration Checksum Manifest | 1109 | False |
 | `docs/release/backend_runtime_integration_next_pr_queue.md` | `release` | Backend Runtime Integration Next PR Queue | 405 | False |
 | `docs/release/backend_runtime_integration_readiness.md` | `release` | Backend Runtime Integration Readiness | 583 | False |
-| `docs/release/backend_runtime_integration_readiness_report.md` | `release` | Backend Runtime Integration Readiness Report | 5712 | False |
+| `docs/release/backend_runtime_integration_readiness_report.md` | `release` | Backend Runtime Integration Readiness Report | 5680 | False |
 | `docs/release/backend_runtime_integration_status_rollup.md` | `release` | Backend Runtime Integration Status Rollup | 412 | False |
 | `docs/release/backend_runtime_probe_contract.md` | `release` | Backend Runtime Probe Contract | 1140 | False |
-| `docs/release/backend_runtime_probe_report.md` | `release` | Backend Runtime Probe Report | 6476 | False |
-| `docs/release/backend_runtime_wiring_cases_report.md` | `release` | Backend Runtime Wiring Cases Report | 5328 | False |
+| `docs/release/backend_runtime_probe_report.md` | `release` | Backend Runtime Probe Report | 6444 | False |
+| `docs/release/backend_runtime_wiring_cases_report.md` | `release` | Backend Runtime Wiring Cases Report | 5315 | False |
 | `docs/release/backend_runtime_wiring_fixture_contract.md` | `release` | Backend Runtime Wiring Fixture Contract | 740 | False |
 | `docs/release/backend_runtime_wiring_preflight.md` | `release` | Backend Runtime Wiring Preflight | 699 | False |
-| `docs/release/backend_runtime_wiring_preflight_report.md` | `release` | Backend Runtime Wiring Preflight Report | 5068 | False |
+| `docs/release/backend_runtime_wiring_preflight_report.md` | `release` | Backend Runtime Wiring Preflight Report | 5035 | False |
 | `docs/release/backend_runtime_wiring_status_rollup.md` | `release` | Backend Runtime Wiring Status Rollup | 493 | False |
 | `docs/release/backend_runtime_wiring_test_pack.md` | `release` | Backend Runtime Wiring Test Pack | 713 | False |
-| `docs/release/backup_drill_evidence.json` | `release` | Backup Drill Evidence | 194 | False |
-| `docs/release/backup_drill_evidence.md` | `release` | Backup Drill Evidence | 467 | False |
-| `docs/release/beta_blocker_burndown_plan.json` | `release` | Beta Blocker Burndown Plan | 4534 | False |
-| `docs/release/beta_blocker_burndown_plan.md` | `release` | Beta Blocker Burn-Down Plan | 2407 | False |
-| `docs/release/beta_evidence_integrity_repair_report.json` | `release` | Beta Evidence Integrity Repair Report | 2863 | False |
+| `docs/release/backup_drill_evidence.json` | `release` | Backup Drill Evidence | 203 | False |
+| `docs/release/backup_drill_evidence.md` | `release` | Backup Drill Evidence | 225 | False |
+| `docs/release/beta_blocker_burndown_plan.json` | `release` | Beta Blocker Burndown Plan | 4162 | False |
+| `docs/release/beta_blocker_burndown_plan.md` | `release` | Beta Blocker Burn-Down Plan | 2225 | False |
+| `docs/release/beta_evidence_integrity_repair_report.json` | `release` | Beta Evidence Integrity Repair Report | 2947 | False |
 | `docs/release/beta_evidence_integrity_repair_report.md` | `release` | Beta Evidence Integrity Repair Report | 1232 | False |
 | `docs/release/beta_evidence_source_policy.md` | `release` | Beta Evidence Source Policy | 1417 | False |
-| `docs/release/beta_no_go_handoff_packet.json` | `release` | Beta No Go Handoff Packet | 4123 | False |
+| `docs/release/beta_no_go_handoff_packet.json` | `release` | Beta No Go Handoff Packet | 4232 | False |
 | `docs/release/beta_no_go_handoff_packet.md` | `release` | Beta NO-GO Handoff Packet | 3180 | False |
 | `docs/release/beta_product_scope.md` | `release` | Beta Product Scope | 906 | False |
-| `docs/release/beta_readiness_status.json` | `release` | Beta Readiness Status | 2931 | False |
+| `docs/release/beta_readiness_status.json` | `release` | Beta Readiness Status | 2966 | False |
 | `docs/release/beta_readiness_status.md` | `release` | Beta Readiness Status | 439 | False |
 | `docs/release/beta_release_owner_memo.md` | `release` | Beta Release Owner Memo | 151 | False |
-| `docs/release/branch_protection_evidence.json` | `release` | Branch Protection Evidence | 301 | False |
+| `docs/release/branch_protection_evidence.json` | `release` | Branch Protection Evidence | 311 | False |
 | `docs/release/branch_protection_evidence.md` | `release` | Branch Protection Evidence | 584 | False |
 | `docs/release/ci_auth_refresh_db_proof_workflow_status.json` | `release` | Ci Auth Refresh Db Proof Workflow Status | 1699 | False |
 | `docs/release/ci_auth_refresh_db_proof_workflow_status.md` | `release` | CI Auth Refresh DB Proof Workflow Status | 1284 | False |
 | `docs/release/ci_authority_status.json` | `release` | Ci Authority Status | 2464 | False |
 | `docs/release/ci_authority_status.md` | `release` | CI Authority Status | 2459 | False |
-| `docs/release/ci_evidence.json` | `release` | Ci Evidence | 196 | False |
-| `docs/release/ci_evidence.md` | `release` | CI Authority Evidence | 731 | False |
+| `docs/release/ci_evidence.json` | `release` | Ci Evidence | 205 | False |
+| `docs/release/ci_evidence.md` | `release` | CI Evidence | 568 | False |
 | `docs/release/ci_evidence_status.json` | `release` | Ci Evidence Status | 554 | False |
 | `docs/release/ci_evidence_status.md` | `release` | CI Evidence Status | 996 | False |
 | `docs/release/ci_run_evidence_status.json` | `release` | Ci Run Evidence Status | 766 | False |
@@ -1015,6 +1018,11 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/release/operational_evidence_status.md` | `release` | Operational Evidence Status | 67 | False |
 | `docs/release/operator_runbook.md` | `release` | Beta Operator Runbook | 2555 | False |
 | `docs/release/phase2_data_integrity_blockers.md` | `release` | Phase 2 Data Integrity Blockers | 768 | False |
+| `docs/release/phase_1_evidence.md` | `release` | Phase 1 - Release-Blocking Correctness Fixes | 3608 | False |
+| `docs/release/phase_2_1_evidence.md` | `release` | Phase 2.1 — Route Authentication and Authorization Hardening | 8169 | False |
+| `docs/release/phase_2_evidence.md` | `release` | Phase 2.2 — Durable Practice Session Storage | 9434 | False |
+| `docs/release/phase_2_review.md` | `release` | Phase 2 Evidence Review | 6235 | False |
+| `docs/release/phase_3_evidence.md` | `release` | Phase 3 Evidence — Frontend Build and Test Health | 3151 | False |
 | `docs/release/popia_consent_lifecycle_introspection.json` | `release` | Popia Consent Lifecycle Introspection | 2105 | False |
 | `docs/release/popia_consent_lifecycle_introspection.md` | `release` | POPIA Consent Lifecycle Introspection | 799 | False |
 | `docs/release/popia_consent_lifecycle_repair_report.md` | `release` | POPIA Consent Lifecycle Repair Report | 660 | False |
@@ -1045,13 +1053,13 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/release/release_go_no_go_status.json` | `release` | Release Go No Go Status | 683 | False |
 | `docs/release/release_go_no_go_status.md` | `release` | Release Go/No-Go Status | 564 | False |
 | `docs/release/release_hygiene_checklist.md` | `release` | Release Hygiene Checklist | 772 | False |
-| `docs/release/release_owner_beta_go_no_go_memo.md` | `release` | Release-Owner Beta Go/No-Go Memo | 556 | False |
+| `docs/release/release_owner_beta_go_no_go_memo.md` | `release` | Release-Owner Beta Go/No-Go Memo | 541 | False |
 | `docs/release/release_owner_runtime_wiring_signoff_template.md` | `release` | Release Owner Runtime Wiring Signoff Template | 468 | False |
 | `docs/release/release_state_snapshot.md` | `release` | Release State Snapshot | 1027 | False |
 | `docs/release/remote_ci_blocker_status.md` | `release` | Remote CI Blocker Status | 231 | False |
-| `docs/release/restore_drill_evidence.json` | `release` | Restore Drill Evidence | 519 | False |
+| `docs/release/restore_drill_evidence.json` | `release` | Restore Drill Evidence | 538 | False |
 | `docs/release/restore_drill_evidence.md` | `release` | Restore Drill Evidence | 604 | False |
-| `docs/release/rollback_drill_evidence.json` | `release` | Rollback Drill Evidence | 522 | False |
+| `docs/release/rollback_drill_evidence.json` | `release` | Rollback Drill Evidence | 541 | False |
 | `docs/release/rollback_drill_evidence.md` | `release` | Rollback Drill Evidence | 1292 | False |
 | `docs/release/rollback_runbook.md` | `release` | Release Rollback Runbook | 1333 | False |
 | `docs/release/route_alias_matrix.md` | `release` | EduBoost V2 Route Alias Matrix | 8744 | False |
@@ -1070,7 +1078,7 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/release/runtime_wiring_approval_checklist.md` | `release` | Runtime Wiring Approval Checklist | 529 | False |
 | `docs/release/schema_drift_db_execution_checklist.md` | `release` | Schema Drift DB Execution Checklist | 852 | False |
 | `docs/release/schema_drift_disposable_db_proof.md` | `release` | Schema Drift Disposable DB Proof | 963 | False |
-| `docs/release/schema_drift_disposable_latest.json` | `release` | Schema Drift Disposable Latest | 1091 | False |
+| `docs/release/schema_drift_disposable_latest.json` | `release` | Schema Drift Disposable Latest | 1121 | False |
 | `docs/release/schema_drift_disposable_latest.md` | `release` | Schema Drift Disposable DB Latest Proof | 341 | False |
 | `docs/release/schema_drift_evidence_contract.md` | `release` | Schema Drift Evidence Contract | 898 | False |
 | `docs/release/schema_drift_execution_gate_hardening.md` | `release` | Schema Drift Execution Gate Hardening | 593 | False |
@@ -1084,7 +1092,7 @@ Commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
 | `docs/release/staging_smoke_evidence.md` | `release` | Staging Smoke Evidence Status | 1969 | False |
 | `docs/release/staging_smoke_evidence_status.json` | `release` | Staging Smoke Evidence Status | 1265 | False |
 | `docs/release/staging_smoke_evidence_status.md` | `release` | Staging Smoke Evidence Status | 1969 | False |
-| `docs/release/staging_smoke_final_evidence.json` | `release` | Staging Smoke Final Evidence | 221 | False |
+| `docs/release/staging_smoke_final_evidence.json` | `release` | Staging Smoke Final Evidence | 229 | False |
 | `docs/release/staging_smoke_final_evidence.md` | `release` | Staging Smoke Final Evidence | 348 | False |
 | `docs/release/staging_smoke_latest.json` | `release` | Staging Smoke Latest | 1799 | False |
 | `docs/release/staging_smoke_latest.md` | `release` | Staging Smoke Evidence | 887 | False |

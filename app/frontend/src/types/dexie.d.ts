@@ -1,15 +1,5 @@
-declare module 'dexie' {
-  // Minimal ambient declarations used in the frontend until proper types are available.
-  export default class Dexie {
-    constructor(name?: string);
-    version(versionNumber: number): { stores: (schema: Record<string, string>) => void };
-  }
+// Dexie type augmentation disabled to avoid module conflicts.
+// Runtime duck-typing in cache-api.ts and storage-budget.ts handles Dexie API calls.
+// Future: pin dexie + @types/dexie versions for stable typing.
 
-  export type Table<T, K> = {
-    get(key: K): Promise<T | undefined>;
-    put(item: T): Promise<K>;
-    where(index: string): any;
-  };
-
-  export {};
-}
+export {};

@@ -10,12 +10,12 @@ export interface CacheEvictionResult {
 }
 
 export async function calculateCacheSize(): Promise<number> {
-  const all = await db.cachedLessons.toArray();
+  const all = await (db as any).cachedLessons.toArray();
   return all.reduce((sum: number, record: CachedLessonShell) => sum + (record.sizeBytes || 0), 0);
 }
 
 export async function enforceCacheBudget(): Promise<CacheEvictionResult | null> {
-  const all = await db.cachedLessons.orderBy('lastAccessedAt').toArray();
+  const all = await (db as any).cachedLessons.orderBy('lastAccessedAt').toArray();
   const total = all.reduce((sum: number, record: CachedLessonShell) => sum + (record.sizeBytes || 0), 0);
   if (total <= CACHE_BUDGET_BYTES) return { beforeBytes: total, afterBytes: total, evictedLessonIds: [], budgetBytes: CACHE_BUDGET_BYTES };
 
@@ -30,7 +30,7 @@ export async function enforceCacheBudget(): Promise<CacheEvictionResult | null> 
   }
 
   if (toEvict.length > 0) {
-    await db.cachedLessons.bulkDelete(toEvict);
+    await (db as any).cachedLessons.bulkDelete(toEvict);
   }
 
   const after = await calculateCacheSize();

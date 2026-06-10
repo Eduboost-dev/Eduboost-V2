@@ -103,6 +103,7 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `app/repositories/diagnostic_session_repository.py` | `diagnostic` |
 | `app/repositories/item_bank_repository.py` | `llm, diagnostic` |
 | `app/repositories/lesson_repository.py` | `prompt, llm` |
+| `app/repositories/practice_session_repository.py` | `remediation` |
 | `app/repositories/repositories.py` | `diagnostic` |
 | `app/services/backend_consolidation_runtime.py` | `diagnostic` |
 | `app/services/content_blueprint_validation.py` | `diagnostic` |
@@ -269,8 +270,11 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `scripts/generate_runtime_integration_proof_reports.py` | `diagnostic` |
 | `scripts/generate_service_family_map.py` | `diagnostic` |
 | `scripts/ingestion/capture_siyavula_playwright_network.py` | `diagnostic` |
+| `scripts/ingestion/main.py` | `anthropic` |
 | `scripts/ingestion/models.py` | `llm, anthropic` |
+| `scripts/ingestion/pipeline/__init__.py` | `anthropic` |
 | `scripts/ingestion/pipeline/training_formatter.py` | `prompt, llm, anthropic` |
+| `scripts/ingestion/sources/khan_academy.py` | `prompt` |
 | `scripts/inspect_diagnostics_and_jobs_integrity.py` | `diagnostic` |
 | `scripts/inventory_services.py` | `diagnostic` |
 | `scripts/jwt_secret_rotation_evidence.py` | `llm` |

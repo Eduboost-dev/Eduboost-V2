@@ -88,7 +88,9 @@ Acceptance checks:
 
 ## Phase 2 - Practice Session Security and Durability
 
+**Status: Complete (2026-06-09)**
 Priority: P0
+Evidence: `docs/release/phase_2_evidence.md`, `docs/release/phase_2_1_evidence.md`
 
 ### 2.1 Authenticate Practice Session Continuation Routes
 

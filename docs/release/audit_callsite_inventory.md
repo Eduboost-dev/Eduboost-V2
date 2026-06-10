@@ -164,9 +164,28 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/core/stripe_client.py` | 67 | audit_record_call | `await self._event_repo.record(event["id"], event["type"], dict(event))` |
 | `app/domain/consent.py` | 69 | audit_log_identifier | `# audit_log` |
 | `app/domain/entities.py` | 18 | audit_log_identifier | `class AuditLog:` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 46 | audit_append_call | `input.append(value)` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 48 | audit_append_call | `known.key.append(value)` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 49 | audit_append_call | `known.value.append(index)` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 70 | audit_append_call | `parsed.append(tmp)` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 71 | audit_append_call | `lazy.append([output, key])` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 81 | audit_append_call | `output.append(_relate(known, input, val))` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 112 | audit_append_call | `wrapped.append(_wrap(value))` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 117 | audit_append_call | `input.append(value.value)` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 119 | audit_append_call | `input.append(value)` |
+| `app/frontend/node_modules/.pnpm/flatted@3.4.2/node_modules/flatted/python/flatted.py` | 142 | audit_append_call | `output.append(_transform(known, input, input[i]))` |
+| `app/frontend/node_modules/.pnpm/jsdom@29.1.1/node_modules/jsdom/README.md` | 69 | audit_append_call | `<script>document.getElementById("content").append(document.createElement("hr"));</script>` |
+| `app/frontend/node_modules/.pnpm/jsdom@29.1.1/node_modules/jsdom/README.md` | 81 | audit_append_call | `<script>document.getElementById("content").append(document.createElement("hr"));</script>` |
+| `app/frontend/node_modules/.pnpm/jsdom@29.1.1/node_modules/jsdom/README.md` | 99 | audit_append_call | `<script>document.getElementById("content").append(document.createElement("hr"));</script>` |
+| `app/frontend/node_modules/.pnpm/jsdom@29.1.1/node_modules/jsdom/README.md` | 103 | audit_append_call | `dom.window.eval('document.getElementById("content").append(document.createElement("p"));');` |
+| `app/frontend/node_modules/.pnpm/magic-string@0.30.21/node_modules/magic-string/README.md` | 52 | audit_append_call | `s.prepend('var ').append(';'); // most methods are chainable` |
+| `app/frontend/node_modules/.pnpm/magic-string@0.30.21/node_modules/magic-string/README.md` | 101 | audit_append_call | `### s.append( content )` |
+| `app/frontend/node_modules/.pnpm/magic-string@0.30.21/node_modules/magic-string/README.md` | 296 | audit_append_call | `.append('}());');` |
+| `app/frontend/node_modules/.pnpm/postcss-selector-parser@6.1.2/node_modules/postcss-selector-parser/API.md` | 520 | audit_append_call | `### `container.prepend(node)` & `container.append(node)`` |
+| `app/frontend/node_modules/.pnpm/postcss-selector-parser@6.1.2/node_modules/postcss-selector-parser/API.md` | 527 | audit_append_call | `selector.append(id);` |
 | `app/models/__init__.py` | 323 | audit_events_table | `__tablename__ = "audit_events"` |
-| `app/models/__init__.py` | 669 | audit_log_identifier | `class AuditLog(Base):` |
-| `app/models/__init__.py` | 670 | audit_logs_table | `__tablename__ = "audit_logs"` |
+| `app/models/__init__.py` | 699 | audit_log_identifier | `class AuditLog(Base):` |
+| `app/models/__init__.py` | 700 | audit_logs_table | `__tablename__ = "audit_logs"` |
 | `app/modules/beta_launch/production_readiness_contracts.py` | 74 | audit_append_call | `issues.append("beta launch decision must be documented in docs/adr/")` |
 | `app/modules/beta_launch/production_readiness_contracts.py` | 76 | audit_append_call | `issues.append("beta launch architecture must be documented in docs/beta_launch/")` |
 | `app/modules/beta_launch/production_readiness_contracts.py` | 87 | audit_append_call | `issues.append(f"{name} is required")` |
@@ -689,7 +708,6 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/modules/operations_support/production_readiness_contracts.py` | 312 | audit_append_call | `issues.append("release owner is required")` |
 | `app/modules/operations_support/production_readiness_contracts.py` | 314 | audit_append_call | `issues.append("support owner is required")` |
 | `app/modules/operations_support/production_readiness_contracts.py` | 324 | audit_append_call | `issues.append(f"{name} must be true")` |
-| `app/modules/practice/router.py` | 84 | audit_append_call | `session["responses"].append(body.model_dump(mode="json"))` |
 | `app/modules/progress/learning_velocity_service.py` | 41 | audit_append_call | `ranked.append({"caps_ref": caps_ref, "activity": activity, "mastery_score": score, "priority": priority})` |
 | `app/modules/progress/progress_timeline_service.py` | 28 | audit_append_call | `groups[row.caps_ref.split('.')[1] if '.' in row.caps_ref else 'unknown'].append(row)` |
 | `app/modules/progress/progress_timeline_service.py` | 32 | audit_append_call | `summaries.append({"subject_code": key, "topic_count": len(values), "average_mastery": round(avg, 4)})` |
@@ -2538,14 +2556,14 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_truthful_release_owner_beta_go_no_go.py` | 38 | audit_append_call | `lines.append("- None")` |
 | `scripts/generate_truthful_release_owner_beta_go_no_go.py` | 43 | audit_logs_table | `"This memo does not approve production launch, destructive database changes, consent-table merge, audit_logs drop, public mutating health probes, or synthetic evidence substitution.",` |
 | `scripts/ingestion/api.py` | 134 | audit_append_call | `result.append(SourceInfo(` |
-| `scripts/ingestion/main.py` | 350 | audit_append_call | `resolved.append(sid)` |
-| `scripts/ingestion/pipeline/__init__.py` | 179 | audit_append_call | `self._raw_buf.append(raw)` |
-| `scripts/ingestion/pipeline/__init__.py` | 180 | audit_append_call | `self._norm_buf.append(aligned)` |
-| `scripts/ingestion/pipeline/__init__.py` | 181 | audit_append_call | `self._train_buf.append(record)` |
-| `scripts/ingestion/pipeline/__init__.py` | 232 | audit_append_call | `by_source.setdefault(rec.source_id, []).append(rec)` |
+| `scripts/ingestion/main.py` | 358 | audit_append_call | `resolved.append(sid)` |
+| `scripts/ingestion/pipeline/__init__.py` | 181 | audit_append_call | `self._raw_buf.append(raw)` |
+| `scripts/ingestion/pipeline/__init__.py` | 182 | audit_append_call | `self._norm_buf.append(aligned)` |
+| `scripts/ingestion/pipeline/__init__.py` | 183 | audit_append_call | `self._train_buf.append(record)` |
+| `scripts/ingestion/pipeline/__init__.py` | 234 | audit_append_call | `by_source.setdefault(rec.source_id, []).append(rec)` |
 | `scripts/ingestion/pipeline/caps_aligner.py` | 151 | audit_append_call | `results.append(align(item))` |
 | `scripts/ingestion/pipeline/caps_aligner.py` | 154 | audit_append_call | `results.append(item)` |
-| `scripts/ingestion/pipeline/normaliser.py` | 134 | audit_append_call | `results.append(norm)` |
+| `scripts/ingestion/pipeline/normaliser.py` | 144 | audit_append_call | `results.append(norm)` |
 | `scripts/ingestion/pipeline/storage.py` | 292 | audit_append_call | `where_parts.append("subject = :subject")` |
 | `scripts/ingestion/pipeline/storage.py` | 295 | audit_append_call | `where_parts.append("grade = :grade")` |
 | `scripts/ingestion/pipeline/storage.py` | 298 | audit_append_call | `where_parts.append("caps_phase = :caps_phase")` |
@@ -2560,6 +2578,17 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/ingestion/pipeline/training_formatter.py` | 339 | audit_append_call | `tags.append(f"source-{c.source_id}")` |
 | `scripts/ingestion/pipeline/training_formatter.py` | 340 | audit_append_call | `tags.append(f"type-{c.content_type.value}")` |
 | `scripts/ingestion/queue_manager.py` | 284 | audit_append_call | `jobs.append(json.loads(payload))` |
+| `scripts/ingestion/run_pipeline.py` | 57 | audit_append_call | `errors.append(f"{doc_id}: page_count={pages}")` |
+| `scripts/ingestion/run_pipeline.py` | 59 | audit_append_call | `errors.append(f"{doc_id}: char_count={chars}")` |
+| `scripts/ingestion/run_pipeline.py` | 62 | audit_append_call | `errors.append(f"{doc_id}: missing text file {text_path}")` |
+| `scripts/ingestion/run_pipeline.py` | 71 | audit_append_call | `args.append("--strict")` |
+| `scripts/ingestion/run_pipeline.py` | 91 | audit_append_call | `args.append("--commit")` |
+| `scripts/ingestion/run_pipeline.py` | 93 | audit_append_call | `args.append("--refresh")` |
+| `scripts/ingestion/run_pipeline.py` | 110 | audit_append_call | `args.append("--commit")` |
+| `scripts/ingestion/run_pipeline.py` | 150 | audit_append_call | `report["results"].append(stage_1_inventory(strict=args.strict))` |
+| `scripts/ingestion/run_pipeline.py` | 152 | audit_append_call | `report["results"].append(stage_2_download(commit=args.commit, refresh=args.refresh))` |
+| `scripts/ingestion/run_pipeline.py` | 154 | audit_append_call | `report["results"].append(` |
+| `scripts/ingestion/run_pipeline.py` | 163 | audit_append_call | `report["results"].append(stage_4_extract(commit=args.commit))` |
 | `scripts/ingestion/sources/base.py` | 242 | audit_append_call | `responses.append({` |
 | `scripts/ingestion/sources/base.py` | 255 | audit_append_call | `pending_reads.append(asyncio.create_task(_read()))` |
 | `scripts/ingestion/sources/bbc_bitesize.py` | 130 | audit_append_call | `links.append(full)` |
@@ -2568,9 +2597,10 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/ingestion/sources/ck12.py` | 241 | audit_append_call | `questions.append({` |
 | `scripts/ingestion/sources/commonlit.py` | 126 | audit_append_call | `links.append(full)` |
 | `scripts/ingestion/sources/commonlit.py` | 230 | audit_append_call | `questions.append({` |
-| `scripts/ingestion/sources/dbe_south_africa.py` | 186 | audit_append_call | `pages.append({"page": page_num, "text": text.strip()})` |
-| `scripts/ingestion/sources/dbe_south_africa.py` | 282 | audit_append_call | `docs.append({` |
-| `scripts/ingestion/sources/khan_academy.py` | 129 | audit_append_call | `questions.append(q)` |
+| `scripts/ingestion/sources/dbe_south_africa.py` | 113 | audit_append_call | `pages.append({"page": page_num, "text": text.strip()})` |
+| `scripts/ingestion/sources/dbe_south_africa.py` | 211 | audit_append_call | `docs.append({` |
+| `scripts/ingestion/sources/khan_academy.py` | 105 | audit_append_call | `links.append((match, kind))` |
+| `scripts/ingestion/sources/khan_academy.py` | 224 | audit_append_call | `questions.append(parsed)` |
 | `scripts/ingestion/sources/libretexts.py` | 152 | audit_append_call | `links.append(full)` |
 | `scripts/ingestion/sources/libretexts.py` | 198 | audit_append_call | `examples.append(text)` |
 | `scripts/ingestion/sources/siyavula.py` | 136 | audit_append_call | `links.append((full_url, text))` |
@@ -3105,8 +3135,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/unit/test_popia_export_completeness.py` | 342 | audit_events_table | `"audit_events",` |
 | `tests/unit/test_popia_service_authority.py` | 34 | audit_append_call | `violations.append((str(router_file.relative_to(repo_root)), pattern))` |
 | `tests/unit/test_popia_service_authority.py` | 62 | audit_append_call | `violations.append((str(service_file.relative_to(repo_root)), pattern))` |
-| `tests/unit/test_practice_session_authorization.py` | 55 | audit_append_call | `calls.append((db, current_user, checked_learner_id))` |
-| `tests/unit/test_practice_session_authorization.py` | 109 | audit_append_call | `calls.append((db, current_user, checked_learner_id))` |
+| `tests/unit/test_practice_session_authorization.py` | 81 | audit_append_call | `consent_calls.append((db, current_user, checked_learner_id))` |
+| `tests/unit/test_practice_session_authorization.py` | 168 | audit_append_call | `consent_calls.append((db, current_user, checked_learner_id))` |
 | `tests/unit/test_readonly_deep_readiness_runtime.py` | 7 | audit_append_call | `async def execute(self, statement): self.statements.append(str(statement)); return R()` |
 | `tests/unit/test_real_audit_runtime_facade.py` | 6 | audit_append_call | `async def record(self, **kw): self.events.append(kw); return {"ok": True}` |
 | `tests/unit/test_real_consent_runtime_facade.py` | 5 | audit_append_call | `async def record(self, **kw): self.events.append(kw); return {"ok": True}` |

@@ -1,14 +1,14 @@
 # Backend Consolidation Diagnostic Report
 
-Generated at: `2026-06-05T20:17:46Z`
+Generated at: `2026-06-09T23:45:56Z`
 
 | Check | Return code | Command |
 |---|---:|---|
-| backend dragons | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_dragons.py` |
-| audit inventory | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty` |
-| consent inventory | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty` |
-| health readiness contract | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py` |
-| schema drift contract | 0 | `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_schema_drift_contract.py` |
+| backend dragons | 0 | `/usr/bin/python3 scripts/check_backend_consolidation_dragons.py` |
+| audit inventory | 0 | `/usr/bin/python3 scripts/generate_audit_callsite_inventory.py --fail-empty` |
+| consent inventory | 0 | `/usr/bin/python3 scripts/generate_consent_callsite_inventory.py --fail-empty` |
+| health readiness contract | 0 | `/usr/bin/python3 scripts/check_health_readiness_contract.py` |
+| schema drift contract | 0 | `/usr/bin/python3 scripts/check_schema_drift_contract.py` |
 
 ## Interpretation
 
@@ -19,7 +19,7 @@ Generated at: `2026-06-05T20:17:46Z`
 
 ## backend dragons
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_dragons.py`
+Command: `/usr/bin/python3 scripts/check_backend_consolidation_dragons.py`
 
 Return code: `0`
 
@@ -127,27 +127,27 @@ Backend consolidation dragon diagnostic
 
 ## audit inventory
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty`
+Command: `/usr/bin/python3 scripts/generate_audit_callsite_inventory.py --fail-empty`
 
 Return code: `0`
 
 ```text
-Wrote /home/azureuser/Dev/SandBox/ml/Eduboost-V2/docs/release/audit_callsite_inventory.md (3122 row(s))
+Wrote /home/nkgolol/Dev/Development/Eduboost-V2/docs/release/audit_callsite_inventory.md (3152 row(s))
 ```
 
 ## consent inventory
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty`
+Command: `/usr/bin/python3 scripts/generate_consent_callsite_inventory.py --fail-empty`
 
 Return code: `0`
 
 ```text
-Wrote /home/azureuser/Dev/SandBox/ml/Eduboost-V2/docs/release/consent_callsite_inventory.md (575 row(s))
+Wrote /home/nkgolol/Dev/Development/Eduboost-V2/docs/release/consent_callsite_inventory.md (575 row(s))
 ```
 
 ## health readiness contract
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py`
+Command: `/usr/bin/python3 scripts/check_health_readiness_contract.py`
 
 Return code: `0`
 
@@ -171,7 +171,7 @@ Health/readiness diagnostic contract check
 
 ## schema drift contract
 
-Command: `/home/azureuser/Dev/Eduboost-V2/.venv/bin/python scripts/check_schema_drift_contract.py`
+Command: `/usr/bin/python3 scripts/check_schema_drift_contract.py`
 
 Return code: `0`
 
@@ -216,6 +216,7 @@ ORM tables
 - onboarding_states
 - parental_consents
 - practice_queue
+- practice_sessions
 - privacy_settings
 - rlhf_exports
 - secure_tokens
