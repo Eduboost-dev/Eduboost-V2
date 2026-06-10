@@ -230,7 +230,9 @@ Acceptance checks:
 
 ## Phase 5 - Migrations and Schema Management
 
+**Status: Complete (2026-06-10)**  
 Priority: P1
+Evidence: `docs/roadmap/execution/phase_5_implementation_report.md`
 
 Problems addressed:
 

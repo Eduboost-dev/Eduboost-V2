@@ -16,7 +16,6 @@ from app.core.analytics import analytics_middleware
 from app.core.config import settings
 from app.core.exceptions import register_exception_handlers
 from app.core.health import gather_deep_health
-from app.services.launch_content_seed import seed_launch_content_if_needed
 from app.core.logging import configure_logging, get_logger
 from app.core.metrics import REGISTRY
 from app.core.middleware import RequestIDMiddleware, StructuredLoggingMiddleware, TimingMiddleware
@@ -24,6 +23,7 @@ from app.core.rate_limit import limiter
 from app.core.secret_rotation import key_vault_rotation_loop
 from app.middleware.security_headers import SecurityHeadersMiddleware
 from app.services.consent_expiry_service import consent_expiry_loop
+from app.services.launch_content_seed import seed_launch_content_if_needed
 from app.services.jwt_keyring import validate_jwt_keyring_environment
 
 validate_jwt_keyring_environment()
@@ -32,143 +32,9 @@ configure_logging()
 log = get_logger(__name__)
 
 
-async def run_startup_migrations() -> None:
-    if not settings.is_production():
-        return
-    from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
-
-    import asyncpg
-
-    log.info("startup_schema_repair_begin")
-    repairs = (
-        (
-            "guardians.email_verified",
-            """
-            SELECT EXISTS (
-                SELECT 1
-                FROM information_schema.columns
-                WHERE table_schema = current_schema()
-                  AND table_name = 'guardians'
-                  AND column_name = 'email_verified'
-            )
-            """,
-            "ALTER TABLE guardians ADD COLUMN IF NOT EXISTS email_verified BOOLEAN NOT NULL DEFAULT false",
-        ),
-        (
-            "tokenpurpose",
-            "SELECT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'tokenpurpose')",
-            """
-        DO $$
-        BEGIN
-            CREATE TYPE tokenpurpose AS ENUM ('password_reset', 'email_verify');
-        EXCEPTION WHEN duplicate_object THEN NULL;
-        END $$;
-        """,
-        ),
-        (
-            "secure_tokens",
-            "SELECT to_regclass('secure_tokens') IS NOT NULL",
-            """
-        CREATE TABLE IF NOT EXISTS secure_tokens (
-            id SERIAL PRIMARY KEY,
-            user_id VARCHAR(36) NOT NULL REFERENCES guardians(id) ON DELETE CASCADE,
-            purpose tokenpurpose NOT NULL,
-            token_hash VARCHAR(256) NOT NULL,
-            expires_at TIMESTAMPTZ NOT NULL,
-            used_at TIMESTAMPTZ NULL,
-            created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-        )
-        """,
-        ),
-        (
-            "ix_secure_tokens_user_purpose",
-            "SELECT to_regclass('ix_secure_tokens_user_purpose') IS NOT NULL",
-            "CREATE INDEX IF NOT EXISTS ix_secure_tokens_user_purpose ON secure_tokens (user_id, purpose)",
-        ),
-        (
-            "ix_secure_tokens_expires_at",
-            "SELECT to_regclass('ix_secure_tokens_expires_at') IS NOT NULL",
-            "CREATE INDEX IF NOT EXISTS ix_secure_tokens_expires_at ON secure_tokens (expires_at)",
-        ),
-        (
-            "onboarding_states",
-            "SELECT to_regclass('onboarding_states') IS NOT NULL",
-            """
-        CREATE TABLE IF NOT EXISTS onboarding_states (
-            id SERIAL PRIMARY KEY,
-            user_id VARCHAR(36) NOT NULL UNIQUE REFERENCES guardians(id) ON DELETE CASCADE,
-            email_verified BOOLEAN NULL,
-            profile_complete BOOLEAN NULL,
-            guardian_consent BOOLEAN NULL,
-            diagnostic_done BOOLEAN NULL,
-            plan_accepted BOOLEAN NULL,
-            completed_at TIMESTAMPTZ NULL,
-            created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-            updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
-        )
-        """,
-        ),
-        (
-            "privacy_settings",
-            "SELECT to_regclass('privacy_settings') IS NOT NULL",
-            """
-        CREATE TABLE IF NOT EXISTS privacy_settings (
-            id SERIAL PRIMARY KEY,
-            user_id VARCHAR(36) NOT NULL UNIQUE REFERENCES guardians(id) ON DELETE CASCADE,
-            analytics_enabled BOOLEAN NOT NULL DEFAULT true,
-            ai_improvement BOOLEAN NOT NULL DEFAULT true,
-            marketing_emails BOOLEAN NOT NULL DEFAULT false,
-            data_retention_days INTEGER NOT NULL DEFAULT 365,
-            show_leaderboard BOOLEAN NOT NULL DEFAULT true,
-            export_requested_at TIMESTAMPTZ NULL,
-            deletion_requested_at TIMESTAMPTZ NULL,
-            created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-            updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
-        )
-        """,
-        ),
-    )
-
-    parsed = urlsplit(settings.DATABASE_URL.replace("postgresql+asyncpg://", "postgresql://", 1))
-    query = dict(parse_qsl(parsed.query, keep_blank_values=True))
-    ssl_mode = query.pop("ssl", None)
-    query.pop("prepared_statement_cache_size", None)
-    dsn = urlunsplit((parsed.scheme, parsed.netloc, parsed.path, urlencode(query), parsed.fragment))
-    connect_kwargs = {"statement_cache_size": 0, "timeout": 10}
-    if ssl_mode:
-        connect_kwargs["ssl"] = ssl_mode
-
-    conn = await asyncpg.connect(dsn, **connect_kwargs)
-    locked = False
-    try:
-        locked = bool(await conn.fetchval("SELECT pg_try_advisory_lock($1, $2)", 443352, 20260524))
-        if not locked:
-            log.warning("startup_schema_repair_skipped_lock_busy")
-            return
-
-        await conn.execute("SET lock_timeout = '5s'")
-        await conn.execute("SET statement_timeout = '30s'")
-        for name, exists_sql, statement in repairs:
-            if await conn.fetchval(exists_sql):
-                log.info("startup_schema_repair_skip_existing", repair=name)
-                continue
-            try:
-                await conn.execute(statement)
-            except (asyncpg.LockNotAvailableError, asyncpg.QueryCanceledError) as exc:
-                log.warning("startup_schema_repair_deferred", repair=name, error=str(exc))
-                continue
-            log.info("startup_schema_repair_applied", repair=name)
-    finally:
-        if locked:
-            await conn.execute("SELECT pg_advisory_unlock($1, $2)", 443352, 20260524)
-        await conn.close()
-    log.info("startup_schema_repair_complete")
-
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     log.info("eduboost_v2_starting", env=settings.ENVIRONMENT, version=settings.APP_VERSION)
-    await run_startup_migrations()
     await seed_launch_content_if_needed()
     consent_task = None
     secret_rotation_task = None

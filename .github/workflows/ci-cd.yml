@@ -66,6 +66,29 @@ jobs:
           pymarkdown scan docs/ audits/ README.md SECURITY.md CONTRIBUTING.md
 
   # -------------------------------------------------------------------------
+  # SCHEMA DRIFT / MIGRATION CHECKS
+  # -------------------------------------------------------------------------
+  schema-drift:
+    name: Schema Drift Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
+
+      - name: Install dev dependencies
+        run: pip install -r requirements/dev.txt
+
+      - name: Migration Graph Check
+        run: python scripts/verify_migration_graph.py
+
+      - name: Schema Integrity Check
+        run: python scripts/validate_schema_integrity.py
+
+  # -------------------------------------------------------------------------
   # DOCUMENTATION QUALITY
   # -------------------------------------------------------------------------
   docs-quality:

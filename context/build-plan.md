@@ -15,7 +15,7 @@ This file is now a summary index. The authoritative build execution plan is ../d
 | 2 | Practice Session Security & Durability | P0 | Complete (2026-06-09, merged PR #220) |
 | 3 | Frontend Build and Test Health | P0 | Complete (2026-06-10, merged PR #219) |
 | 4 | Runtime and Environment Alignment | P0 | Complete (2026-06-10) |
-| 5 | Migrations and Schema Management | P1 | **In progress** (active phase) |
+| 5 | Migrations and Schema Management | P1 | Complete (2026-06-10) |
 | 6 | Durable Background Jobs | P1 | Not started |
 | 7 | Deployment and Security Hardening | P1 | Not started |
 | 8 | Privacy and Authorization Completion | P1 | Not started |

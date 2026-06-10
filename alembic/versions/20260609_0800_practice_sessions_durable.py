@@ -1,6 +1,6 @@
 """Phase 2.2 — Add durable practice_sessions table to replace in-memory _SESSIONS dict
 
-Revision ID: 20260609_0800_practice_sessions_durable
+Revision ID: 20260609_0800_practice_sessions
 Revises: 20260605_0500_fix_migration_graph
 Create Date: 2026-06-09 08:00:00
 
@@ -18,8 +18,8 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 
-revision = "20260609_0800_practice_sessions_durable"
-down_revision = "20260605_0500_fix_migration_graph"
+revision = "20260609_0800_practice_sessions"
+down_revision = "f2faf5aa12fd"
 branch_labels = None
 depends_on = None
 
@@ -112,7 +112,6 @@ def upgrade() -> None:
         "practice_sessions",
         ["expires_at"],
         unique=False,
-        comment="Used for cleanup job to find expired sessions",
     )
 
 

@@ -89,7 +89,7 @@ wait-db:
 
 migration-smoke:
 	@if [ -n "$$DATABASE_URL" ]; then $(PYTHON) scripts/wait_for_db.py; fi
-	./scripts/smoke_test_migrations.sh
+	bash ./scripts/smoke_test_migrations.sh
 
 docs:
 	mkdocs serve
@@ -2792,4 +2792,3 @@ jwt-secret-rotation-release-check: jwt-secret-rotation-registry-patch
 backend-implementation-3351-3390-full-check: jwt-secret-rotation-status jwt-secret-rotation-registry-patch jwt-secret-rotation-check jwt-secret-rotation-test
 	python3 -m compileall -q scripts tests
 	python3 -m ruff check scripts/jwt_secret_rotation_evidence.py scripts/patch_jwt_secret_rotation_registry.py scripts/check_jwt_secret_rotation_evidence.py tests/unit/test_jwt_secret_rotation_evidence.py --select F821,F401,F811,E402
-

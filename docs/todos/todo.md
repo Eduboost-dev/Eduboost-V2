@@ -2,7 +2,7 @@
 
 **Purpose:** Execution-focused North Star for the next phase. This reflects the current green local backend unit baseline and separates repository-side completion from CI, runtime, external, legal, security, product, and beta-launch evidence.
 
-**Last updated:** 2026-06-10 (Phase 3 complete)
+**Last updated:** 2026-06-10 (Phase 5 complete)
 **Latest local backend unit result:** 2051 passed, 1 skipped, 1 warning
 **Gap analysis:** Eduboost-V2_Gap_Analysis.md (2026-06-09)
 
@@ -30,6 +30,7 @@
 - [x] Recommended Operating Model documented and enforced by `make recommended-operating-model-check`.
 - [x] Five-lane project assistance status documented and enforced by `make project-assistance-status-check`.
 - [x] Outstanding TODO implementation plan compiled.
+- [x] Phase 5 migration graph, startup DDL removal, and migration smoke verification completed locally.
 - [ ] EduBoost is **not public-beta-ready** with real learner data.
 - [ ] EduBoost is **not production-launch-ready**.
 - [ ] Next milestone: **CI green -> staging execution evidence -> controlled beta go/no-go -> production**.
@@ -85,9 +86,9 @@ Current warnings to track:
 
 | ID | Task | Evidence required | Status |
 |---|---|---|---|
-| NS-24 | Run `alembic upgrade head` against disposable PostgreSQL. | Migration evidence doc with full output. | [ ] |
-| NS-25 | Run schema integrity check against disposable DB. | Captured output in migration evidence doc. | [ ] |
-| NS-26 | Run downgrade/rollback path where supported. | Rollback evidence or documented non-downgrade rationale. | [ ] |
+| NS-24 | Run `alembic upgrade head` against disposable PostgreSQL. | Migration evidence doc with full output. | [x] |
+| NS-25 | Run schema integrity check against disposable DB. | Captured output in migration evidence doc. | [x] |
+| NS-26 | Run downgrade/rollback path where supported. | Rollback evidence or documented non-downgrade rationale. | [x] |
 
 ---
 

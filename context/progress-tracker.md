@@ -7,9 +7,9 @@ Update after every completed RoadMap phase or major TODO milestone.
 
 ## Current Status
 
-**Active RoadMap Phase:** Phase 5 (Migrations and Schema Management)
-**Last completed:** Phase 4 (Runtime and Environment Alignment) - 2026-06-10
-**Next:** Phase 5 (Migrations and Schema Management)
+**Active RoadMap Phase:** Phase 6 (Durable Background Jobs)
+**Last completed:** Phase 5 (Migrations and Schema Management) - 2026-06-10
+**Next:** Phase 6 (Durable Background Jobs)
 **Quality gate:** RED (9/11 checks passing as of 2026-05-17)
 **Local unit tests:** 2051 passed, 1 skipped, 1 warning
 
@@ -54,7 +54,15 @@ Evidence: `docs/release/phase_3_evidence.md`, `../docs/roadmap/execution/phase_3
 
 Evidence: `docs/adr/ADR-026-python-version-alignment.md`
 
-### Phases 5-16
+### Phase 5 -- Migrations and Schema Management (complete 2026-06-10)
+- [x] 5.1 Repair migration graph and legacy exemptions
+- [x] 5.2 Remove production startup schema repair from `app/api_v2.py`
+- [x] 5.3 Prove migration correctness against a live PostgreSQL database
+- [x] 5.4 Add migration checks to CI
+
+Evidence: `docs/roadmap/execution/phase_5_implementation_report.md`, `docs/release/phase_5_evidence.md`, `docs/release/phase_5_implementation_audit.md`
+
+### Phases 6-16
 See ../docs/roadmap/roadmap.md for full phase plans. This tracker will be updated as phases are executed.
 
 ## Verified Baseline (Already Implemented)
