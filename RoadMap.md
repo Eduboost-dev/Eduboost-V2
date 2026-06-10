@@ -200,7 +200,9 @@ Acceptance checks:
 
 ## Phase 4 - Runtime and Environment Alignment
 
-Priority: P0
+**Status: Complete (2026-06-10)**  
+Priority: P0  
+Evidence: `docs/adr/ADR-026-python-version-alignment.md`
 
 Problems addressed:
 
@@ -220,9 +222,9 @@ Actions:
 
 Acceptance checks:
 
-- `python --version` in local/CI/Docker contexts matches the chosen version.
-- Backend smoke tests pass on the chosen version.
-- Requirements metadata matches the chosen version.
+- ✅ `python --version` in local/CI/Docker contexts matches the chosen version (3.12.3).
+- ✅ Backend smoke tests pass on the chosen version.
+- ✅ Requirements metadata matches the chosen version.
 
 ---
 
