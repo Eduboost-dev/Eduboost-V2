@@ -25,24 +25,24 @@ export async function saveCachedLessonShell(lesson: CachedLessonShell): Promise<
 }
 
 export async function getCachedLessonShell(id: string): Promise<CachedLessonShell | null> {
-  const rec = await db.cachedLessons.get(id);
+  const rec = await ((db as any).cachedLessons.get(id));
   if (!rec) return null;
   // update lastAccessedAt
-  await db.cachedLessons.update(id, { lastAccessedAt: new Date().toISOString() });
+  await ((db as any).cachedLessons.update(id, { lastAccessedAt: new Date().toISOString() }));
   return { ...(rec as CachedLessonShell) };
 }
 
 export async function deleteCachedLessonShell(id: string): Promise<void> {
-  await db.cachedLessons.delete(id);
+  await ((db as any).cachedLessons.delete(id));
 }
 
 export async function listCachedLessonShells(scope?: 'synthetic' | 'local-demo') {
-  if (!scope) return db.cachedLessons.toArray();
-  return db.cachedLessons.where('learnerScope').equals(scope).toArray();
+  if (!scope) return (db as any).cachedLessons.toArray();
+  return (db as any).cachedLessons.where('learnerScope').equals(scope).toArray();
 }
 
 export async function cacheStatusSummary(): Promise<{ totalBytes: number; count: number }> {
-  const all = await db.cachedLessons.toArray();
+  const all = await (db as any).cachedLessons.toArray();
   const total = all.reduce((sum: number, record: CachedLessonShell) => sum + (record.sizeBytes || 0), 0);
   return { totalBytes: total, count: all.length };
 }

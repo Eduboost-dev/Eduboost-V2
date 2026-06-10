@@ -1,15 +1,15 @@
 # Progress Tracker
 
-**Last updated:** 2026-06-09
+**Last updated:** 2026-06-10
 **Authoritative trackers:** RoadMap.md (17-phase plan), TODO.md (North Star tasks)
 
 Update after every completed RoadMap phase or major TODO milestone.
 
 ## Current Status
 
-**Active RoadMap Phase:** Phase 2 (Practice Session Security and Durability)
-**Last completed:** Phase 1 (Release-Blocking Correctness Fixes) - 2026-06-09
-**Next:** Phase 2 (Practice Session Security and Durability)
+**Active RoadMap Phase:** Phase 4 (Runtime and Environment Alignment)
+**Last completed:** Phase 3 (Frontend Build and Test Health) - 2026-06-10 (Phase 2 also complete 2026-06-09)
+**Next:** Phase 4 (Runtime and Environment Alignment)
 **Quality gate:** RED (9/11 checks passing as of 2026-05-17)
 **Local unit tests:** 2051 passed, 1 skipped, 1 warning
 
@@ -31,16 +31,21 @@ Update after every completed RoadMap phase or major TODO milestone.
 
 Evidence: `docs/release/phase_1_evidence.md`, `docs/backlog/ruff_debt.md`
 
-### Phase 2 -- Practice Session Security
-- [ ] 2.1 Authenticate practice session continuation routes
-- [ ] 2.1 Add tests for unauthorized/wrong-user/consent-denied
-- [ ] 2.2 Replace in-memory _SESSIONS with durable storage
-- [ ] 2.2 Add expiry and cleanup behavior
+### Phase 2 -- Practice Session Security (complete 2026-06-09)
+- [x] 2.1 Authenticate practice session continuation routes (get_current_user + require_learner_write + require_active_consent on all 3 routes)
+- [x] 2.1 Add tests for unauthorized/wrong-user/consent-denied
+- [x] 2.2 Replace in-memory _SESSIONS with durable database storage (PracticeSessionRepository + Alembic migration)
+- [x] 2.2 Add expiry (24h TTL) and cleanup behavior (practice_session_cleanup_job.py)
+- [x] Dead _SESSIONS declaration removed from router.py (2026-06-10)
 
-### Phase 3 -- Frontend Build Health
-- [ ] 3.1 Reconcile frontend dependencies (dexie)
-- [ ] 3.2 Fix TypeScript errors
-- [ ] 3.3 Fix Vitest TSX parsing (15 failing suites)
+Evidence: `docs/release/phase_2_evidence.md`, `docs/release/phase_2_1_evidence.md`, PR #220
+
+### Phase 3 -- Frontend Build Health (complete 2026-06-10)
+- [x] 3.1 Reconcile frontend dependencies (dexie) - 651 packages, pnpm install --frozen-lockfile ✅
+- [x] 3.2 Fix TypeScript errors - 0 runtime errors, 2 known non-blocking dexie type errors
+- [x] 3.3 Fix Vitest TSX parsing - 147/147 tests passing in 26.55s ✅
+
+Evidence: `docs/release/phase_3_evidence.md`, `PHASE_3_EXECUTION_PLAN.md`
 
 ### Phases 4-16
 See RoadMap.md for full phase plans. This tracker will be updated as phases are executed.

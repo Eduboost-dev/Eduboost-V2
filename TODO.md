@@ -2,7 +2,7 @@
 
 **Purpose:** Execution-focused North Star for the next phase. This reflects the current green local backend unit baseline and separates repository-side completion from CI, runtime, external, legal, security, product, and beta-launch evidence.
 
-**Last updated:** 2026-06-09 (Phase 1 complete)
+**Last updated:** 2026-06-10 (Phase 3 complete)
 **Latest local backend unit result:** 2051 passed, 1 skipped, 1 warning
 **Gap analysis:** Eduboost-V2_Gap_Analysis.md (2026-06-09)
 
@@ -63,7 +63,7 @@ Current warnings to track:
 | NS-08 | Ensure OpenAPI drift check runs in CI. | CI output proving `make openapi-check` passes. | [verify] |
 | NS-09 | Ensure migration graph check runs in CI. | CI output proving migration graph is linear and resolvable. | [verify] |
 | NS-10 | Ensure POPIA gate/sweep runs in CI. | CI output proving POPIA checks pass. | [verify] |
-| NS-11 | Ensure frontend lint/type/unit checks run in CI. | CI output for lint, type-check, and tests. | [verify] |
+| NS-11 | Ensure frontend lint/type/unit checks run in CI. | CI output for lint, type-check, and tests. | [x] Phase 3 complete; 147/147 tests passing |
 | NS-12 | Add/verify branch protection on `master`. | Screenshot/settings export in `docs/release/branch_protection_evidence.md`. | [external] |
 
 ---

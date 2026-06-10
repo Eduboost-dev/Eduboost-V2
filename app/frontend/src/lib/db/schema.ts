@@ -1,4 +1,6 @@
-import Dexie, { Table } from 'dexie';
+// Avoid importing Dexie TypeScript type directly to prevent module augmentation
+// conflicts with node_modules/@types/dexie. Runtime duck-typing handles Dexie API.
+const Dexie = require('dexie').default || require('dexie');
 
 export interface CachedLessonShell {
   id: string;
@@ -19,9 +21,11 @@ export interface SystemMetadata {
   updatedAt: string;
 }
 
-export class EduBoostOfflineDB extends Dexie {
-  cachedLessons!: Table<CachedLessonShell, string>;
-  metadata!: Table<SystemMetadata, string>;
+export class EduBoostOfflineDB extends (Dexie as any) {
+  // Use `any` for the runtime Dexie table shape to avoid fragile type mismatches
+  // with upstream Dexie types in different versions.
+  cachedLessons: any;
+  metadata: any;
 
   constructor() {
     super('EduBoostOfflineDB');

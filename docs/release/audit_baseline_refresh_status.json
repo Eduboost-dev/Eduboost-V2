@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-05T20:15:21Z",
-  "current_commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
-  "current_branch": "feature/ingestion-pipeline",
+  "generated_at": "2026-06-09T23:42:02Z",
+  "current_commit": "549b25c96fac85546a45fa4337722425d928a0fe",
+  "current_branch": "phase-3/frontend-build-and-test-health",
   "status": "audit-baseline-refresh-current",
   "beta_decision": "NO-GO",
   "beta_blocker_count": 10,
@@ -19,7 +19,7 @@
     {
       "command": "python3 scripts/docs_inventory.py --write",
       "return_code": 0,
-      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1243\n"
+      "output_excerpt": "Wrote docs/docs_inventory.json\nWrote docs/docs_inventory.md\nWrote docs/docs_gap_report.md\nWrote docs/docs_generation_plan.md\nDocuments: 1251\n"
     }
   ],
   "surfaces": [
@@ -29,7 +29,7 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
+      "commit": "549b25c96fac85546a45fa4337722425d928a0fe",
       "stale": false
     },
     {
@@ -38,7 +38,7 @@
       "exists": true,
       "status": "NO-GO",
       "decision": "NO-GO",
-      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
+      "commit": "549b25c96fac85546a45fa4337722425d928a0fe",
       "stale": false
     },
     {
@@ -74,7 +74,7 @@
       "exists": true,
       "status": "external-blocked",
       "decision": "",
-      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
+      "commit": "549b25c96fac85546a45fa4337722425d928a0fe",
       "stale": false
     },
     {
@@ -101,7 +101,7 @@
       "exists": true,
       "status": "auth-refresh-db-evidence-accepted",
       "decision": "",
-      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
+      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
       "stale": true
     },
     {
@@ -137,7 +137,7 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec",
+      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
       "stale": true
     },
     {
@@ -146,7 +146,7 @@
       "exists": true,
       "status": "",
       "decision": "",
-      "commit": "0de0d192ba93b2e7a75a6bde112d30c0dae4db51",
+      "commit": "549b25c96fac85546a45fa4337722425d928a0fe",
       "stale": false
     }
   ],

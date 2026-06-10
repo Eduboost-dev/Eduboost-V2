@@ -15,9 +15,6 @@ from app.modules.practice.practice_generator import PracticeGenerator
 from app.modules.practice.spaced_repetition_scheduler import SpacedRepetitionScheduler
 
 router = APIRouter(prefix="/practice", tags=["practice"])
-# Legacy in-memory dict kept temporarily for backward compatibility during migration
-# TODO: Remove after all callers migrated to repository
-_SESSIONS: dict[str, dict] = {}
 
 
 class PracticeSessionRequest(BaseModel):
