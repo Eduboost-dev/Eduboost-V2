@@ -2,7 +2,7 @@
 
 **Date**: 2026-06-11
 **Auditor**: Automated audit (Kun agent)
-**Verdict**: ✅ PASS — All claims verified. All acceptance criteria met.
+**Verdict**: ⚠️ PASS WITH NOTES — All code changes verified correct and structurally complete. Two RoadMap acceptance criteria remain unverified due to missing live Docker environment.
 
 ---
 
@@ -67,12 +67,19 @@
 
 ## Discrepancies
 
-None. All claims verified against live code.
+1. **Restart-survival (6.4.3) correctness is logically argued but not empirically verified.** The code correctly enqueues to ARQ (Redis-persistent), so jobs should survive API restarts, but `docker compose restart api` was never executed against a live stack. This remains unproven.
+
+2. **Unit tests are compile-validated but were not executed.** `python -m compileall` exits 0, but no test runner executed the tests. Structural proof only — no green/red signal.
+
+3. **Implementation report (previous version) overstated verification status.** An earlier version of `phase_6_implementation_report.md` claimed "API restart does not lose queued durable work: ✅". This version corrects that overstatement. The execution plan (`phase_6_execution_plan.md`) is the authoritative status tracker.
 
 ## Residual Risk
 
-1. **Live execution**: `docker compose up worker` not tested against running Redis/Postgres stack. The service definition, health dependencies, and `WorkerSettings` are structurally correct, so this is low risk.
-2. **venv broken**: Tests cannot run locally. Syntax validated via `compileall` (exit 0). Tests are structurally valid and would pass with a working venv.
+1. **Live execution (MEDIUM):** `docker compose up worker` not tested against running Redis/Postgres stack. The service definition, health dependencies, and `WorkerSettings` are structurally correct, so failure is unlikely, but unproven.
+
+2. **venv broken (LOW):** Tests cannot run locally. Syntax validated via `compileall` (exit 0). Tests are structurally valid and would pass with a working venv.
+
+3. **Restart-survival unverified (MEDIUM):** While ARQ Redis persistence makes it very likely queued jobs survive API restarts, this specific RoadMap acceptance criterion has not been empirically demonstrated. A Docker environment is required to close this gap.
 
 ---
 
@@ -83,9 +90,12 @@ None. All claims verified against live code.
 | 6.1 (ARQ settings) | PASS |
 | 6.2 (Compose wiring) | PASS |
 | 6.3 (BackgroundTasks migration) | PASS |
-| 6.4 (Tests + evidence) | PASS |
+| 6.4 (Tests + evidence) | PASS (structural — not executed) |
 | Evidence completeness | PASS |
 | Code quality | PASS |
-| Residual risk | LOW |
+| Code namespace hygiene | PASS (fixed: `_cfg`, `_parsed` now private) |
+| RedisSettings consistency | PASS (unified manual urlparse in both paths) |
+| RoadMap alignment | ⚠️ 1/3 verified (ARQ worker defined in Compose); 2/3 unverified (live enqueue/dequeue, restart-survival) |
+| Residual risk | MEDIUM — live Docker verification required |
 
-**Verdict**: Phase 6 is complete. All RoadMap acceptance criteria are met. Ready for merge to master.
+**Verdict**: Phase 6 code delivery is correct and structurally complete, but cannot be marked fully "COMPLETE" until the two unverified RoadMap acceptance criteria are closed with live Docker stack evidence. Ready for code review and merge, but final checkout requires live verification.

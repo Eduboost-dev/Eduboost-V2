@@ -1,8 +1,8 @@
 # Phase 6 Execution Plan — Durable Background Jobs
 
 **Date**: 2026-06-10
-**Updated**: 2026-06-11 (COMPLETE — all 4 sub-phases done, evidence + audit committed)
-**Status**: ✅ COMPLETE
+**Updated**: 2026-06-11 (CODE COMPLETE — 2/3 RoadMap criteria unverified, live Docker required)
+**Status**: ✅ CODE COMPLETE — see RoadMap alignment below for unverified items
 **Branch**: `phase-6/durable-background-jobs`
 **Completed**: 6.1 (ARQ settings fix), 6.2 (Compose wiring), 6.3 (move work off BackgroundTasks), 6.4 (tests + evidence docs)
 **Remaining**: Closeout only — tracking docs update, PR merge, branch deletion
@@ -185,7 +185,7 @@ Phase 6 is not complete until the worker is proven in a live local or staging-st
 - [x] Durable jobs enqueued through ARQ, not `BackgroundTasks` (6.3)
 - [x] Durable job tests cover enqueue, execution, and status retrieval (6.3)
 - [ ] API restart does not lose queued durable work (6.4)
-- [x] Worker startup health/readiness verified against live Redis + Postgres (6.4)
+- [ ] Worker startup health/readiness verified against live Redis + Postgres (6.4)
 - [x] Evidence and audit docs committed (6.4)
 
 **RoadMap alignment** (from [roadmap.md](../roadmap.md#L258-L281)):
@@ -202,10 +202,15 @@ Phase 6 is not complete until the worker is proven in a live local or staging-st
 - [x] Implementation report exists: `docs/roadmap/execution/phase_6_implementation_report.md`
 - [x] Audit report exists: `docs/release/phase_6_implementation_audit.md`
 - [x] Evidence files committed and accurate
-- [ ] `roadmap.md` Phase 6 status updated to "Complete (YYYY-MM-DD)"
-- [ ] `context/build-plan.md` Phase 6 status updated
-- [ ] `context/progress-tracker.md` updated
-- [ ] `docs/todos/todo.md` durable job tasks updated
+- [x] `roadmap.md` Phase 6 status updated to "Code Complete (2026-06-11)" with Docker-pending note
+- [x] `context/build-plan.md` Phase 6 status updated
+- [x] `context/progress-tracker.md` updated
+- [x] `docs/todos/todo.md` last-updated bumped
+- [x] WorkerSettings namespace hygiene fixed (`_cfg`, `_parsed`)
+- [x] RedisSettings initialization unified (manual urlparse in both paths)
+- [x] Implementation report corrected — no longer overstates verification
+- [x] Audit report corrected — honest about 2/3 RoadMap criteria unverified
+- [ ] Live Docker verification: restart-survival (6.4.3), worker startup health, enqueue/dequeue proof
 - [ ] Branch merged to `master` via PR
 - [ ] Remote branch deleted after merge
 

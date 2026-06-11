@@ -78,15 +78,12 @@ async def _get_arq_pool() -> Any:
         raise RuntimeError(f"arq is required for durable jobs: {exc}") from exc
 
     cfg = get_settings()
-    if hasattr(ArqRedisSettings, "from_dsn"):
-        redis_settings = ArqRedisSettings.from_dsn(cfg.REDIS_URL)
-    else:  # pragma: no cover - compatibility fallback for older arq builds
-        parsed = urlparse(cfg.REDIS_URL)
-        redis_settings = ArqRedisSettings(
-            host=parsed.hostname or "localhost",
-            port=parsed.port or 6379,
-            database=int(parsed.path.lstrip("/") or "0"),
-        )
+    _parsed = urlparse(cfg.REDIS_URL)
+    redis_settings = ArqRedisSettings(
+        host=_parsed.hostname or "localhost",
+        port=_parsed.port or 6379,
+        database=int((_parsed.path or "").lstrip("/") or "0"),
+    )
     _ARQ_POOL = await create_pool(redis_settings)
     return _ARQ_POOL
 
@@ -499,10 +496,10 @@ class WorkerSettings:
     max_jobs = 10
     job_timeout = 300  # 5 minutes max per job
     keep_result = 3600  # Keep job results for 1 hour
-    cfg = get_settings()
-    parsed_redis_url = urlparse(cfg.REDIS_URL)
+    _cfg = get_settings()
+    _parsed = urlparse(_cfg.REDIS_URL)
     redis_settings = RedisSettings(
-        host=parsed_redis_url.hostname or "localhost",
-        port=parsed_redis_url.port or 6379,
-        database=int(parsed_redis_url.path.lstrip("/") or "0"),
+        host=_parsed.hostname or "localhost",
+        port=_parsed.port or 6379,
+        database=int((_parsed.path or "").lstrip("/") or "0"),
     )

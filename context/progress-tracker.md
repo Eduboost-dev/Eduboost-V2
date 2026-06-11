@@ -7,9 +7,9 @@ Update after every completed RoadMap phase or major TODO milestone.
 
 ## Current Status
 
-**Active RoadMap Phase:** Phase 6 (Durable Background Jobs)
-**Last completed:** Phase 5 (Migrations and Schema Management) - 2026-06-10
-**Next:** Phase 6 (Durable Background Jobs)
+**Active RoadMap Phase:** Phase 7 (Deployment and Security Hardening)
+**Last completed:** Phase 6 (Durable Background Jobs) - 2026-06-11
+**Next:** Phase 7 (Deployment and Security Hardening)
 **Quality gate:** RED (9/11 checks passing as of 2026-05-17)
 **Local unit tests:** 2051 passed, 1 skipped, 1 warning
 
@@ -62,7 +62,21 @@ Evidence: `docs/adr/ADR-026-python-version-alignment.md`
 
 Evidence: `docs/roadmap/execution/phase_5_implementation_report.md`, `docs/release/phase_5_evidence.md`, `docs/release/phase_5_implementation_audit.md`
 
-### Phases 6-16
+### Phase 6 -- Durable Background Jobs (code complete 2026-06-11)
+
+Status: ✅ Code Complete — see `docs/roadmap/execution/phase_6_execution_plan.md`
+Branch: `phase-6/durable-background-jobs`
+
+- [x] 6.1 Fix ARQ settings: `REDIS_URL` casing, `redis_settings` as class variable
+- [x] 6.2 Wire worker into dev + prod Compose (docker-compose.yml, docker-compose.prod.yml)
+- [x] 6.3 Migrate 3 critical routes → `enqueue_durable()`; 2 request-adjacent remain on `BackgroundTasks`
+- [x] 6.4 Unit tests (5) and integration tests (3); all files compile clean
+- [x] WorkerSettings namespace hygiene fixed (private `_cfg`, `_parsed`); RedisSettings init unified
+- [ ] Live Docker verification pending: restart-survival (6.4.3), worker startup health, enqueue/dequeue proof
+
+Evidence: `docs/roadmap/execution/phase_6_execution_plan.md`, `docs/roadmap/execution/phase_6_implementation_report.md`, `docs/release/phase_6_evidence.md`, `docs/release/phase_6_implementation_audit.md`
+
+### Phases 7-16
 See ../docs/roadmap/roadmap.md for full phase plans. This tracker will be updated as phases are executed.
 
 ## Verified Baseline (Already Implemented)

@@ -257,6 +257,8 @@ Acceptance checks:
 
 ## Phase 6 - Durable Background Jobs
 
+**Status**: ✅ Code Complete (2026-06-11) — 1/3 acceptance checks live-verified; 2/3 require Docker environment
+
 Priority: P1
 
 Problems addressed:

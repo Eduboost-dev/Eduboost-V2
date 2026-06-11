@@ -1,7 +1,7 @@
 # Phase 6 Evidence — Durable Background Jobs
 
 **Date**: 2026-06-11
-**Status**: COMPLETE
+**Status**: CODE COMPLETE — Live Docker verification pending (see `scripts/verify_phase6_live.sh`)
 **Branch**: `phase-6/durable-background-jobs`
 
 ---
@@ -103,3 +103,4 @@ The `WorkerSettings` class in `app/modules/jobs.py` registers:
 
 - Live Docker Compose verification not performed (venv broken, no Docker in session).
 - Unit tests not executed (venv has zero-byte Python). Syntax validated via `compileall`.
+- **Verification script available**: `scripts/verify_phase6_live.sh` documents the procedure to close the remaining gaps once Docker is available.
