@@ -53,6 +53,35 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
+  worker:
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 768M
+        reservations:
+          cpus: "0.10"
+          memory: 128M
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.v2
+    command: arq app.modules.jobs.WorkerSettings
+    environment:
+      APP_ENV: production
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET: ${JWT_SECRET}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      ENCRYPTION_SALT: ${ENCRYPTION_SALT}
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
   frontend:
     deploy:
       resources:
@@ -100,7 +129,7 @@ services:
         reservations:
           cpus: "0.10"
           memory: 128M
-    image: postgres:16-alpine
+    image: postgres:16-bookworm
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}

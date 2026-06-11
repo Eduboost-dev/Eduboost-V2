@@ -16,7 +16,7 @@ This file is now a summary index. The authoritative build execution plan is ../d
 | 3 | Frontend Build and Test Health | P0 | Complete (2026-06-10, merged PR #219) |
 | 4 | Runtime and Environment Alignment | P0 | Complete (2026-06-10) |
 | 5 | Migrations and Schema Management | P1 | Complete (2026-06-10) |
-| 6 | Durable Background Jobs | P1 | Not started |
+| 6 | Durable Background Jobs | P1 | Code Complete (2026-06-11) — see docs/roadmap/execution/phase_6_execution_plan.md |
 | 7 | Deployment and Security Hardening | P1 | Not started |
 | 8 | Privacy and Authorization Completion | P1 | Not started |
 | 9 | Coverage, CI, and Evidence Renewal | P1 | Not started |

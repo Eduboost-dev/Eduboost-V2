@@ -2,7 +2,7 @@
 
 import json
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from app.core.envelope_route import EnvelopedRoute
 from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -11,12 +11,12 @@ from uuid import UUID
 from app.api_v2_deps.auth import AuthContext, require_auth_context
 from app.core.config import settings
 from app.core.database import get_db
-from app.core.jobs import enqueue_job
 from app.core.rate_limit import limiter
 from app.domain.api_v2_models import JobAcceptedResponse
 from app.domain.schemas import LessonRequest, LessonResponse, LessonSyncRequest
 from app.modules.lessons.service import LessonService
 from app.modules.lessons import lesson_coverage_router, lesson_review_router
+from app.modules.jobs import enqueue_durable
 from app.services.lesson_authorization import (
     iter_sync_lesson_ids,
     require_lesson_read_access_for_current_user,
@@ -41,26 +41,32 @@ async def get_lesson_service(db: AsyncSession = Depends(get_db)) -> LessonServic
 async def generate_lesson(
     request: Request,
     body: LessonRequest,
-    background_tasks: BackgroundTasks,
     auth: AuthContext = Depends(require_auth_context),
     db: AsyncSession = Depends(get_db),
-    service: LessonService = Depends(get_lesson_service),
 ):
     require_learner_write_for_current_user(auth, str(body.learner_id))
     await require_active_consent_for_current_user(db, auth, str(body.learner_id))
     user_id = UUID(str(auth.user_id))
 
-    async def _run() -> dict:
-        lesson, _, _ = await service.generate_lesson_for_learner(body, user_id)
-        return lesson.model_dump(mode="json")
-
-    job = await enqueue_job(
-        background_tasks,
+    job_id = await enqueue_durable(
+        "generate_lesson_job",
         operation="lesson_generation",
-        payload={"learner_id": str(body.learner_id), "subject": body.subject, "topic": body.topic},
-        handler=_run,
+        payload={
+            "learner_id": str(body.learner_id),
+            "subject": body.subject,
+            "topic": body.topic,
+            "language": body.language,
+            "current_user_id": str(auth.user_id),
+        },
+        kwargs={
+            "learner_id": str(body.learner_id),
+            "subject": body.subject,
+            "topic": body.topic,
+            "language": body.language,
+            "current_user_id": str(auth.user_id),
+        },
     )
-    return JobAcceptedResponse(job_id=job["job_id"], operation=job["operation"], status=job["status"])
+    return JobAcceptedResponse(job_id=job_id, operation="lesson_generation", status="queued")
 
 
 @router.post("/generate/stream")

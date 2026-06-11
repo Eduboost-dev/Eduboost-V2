@@ -9,6 +9,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 CRITICAL = [
     "app/services/arq_import_compat.py",
     "app/services/job_dependency_factory.py",
@@ -74,7 +76,13 @@ def main() -> int:
 
     if jobs is not None:
         names = _worker_function_names(jobs)
-        for expected in ("send_consent_reminders", "send_consent_renewal_reminders"):
+        for expected in (
+            "send_consent_reminders",
+            "send_consent_renewal_reminders",
+            "generate_lesson_job",
+            "generate_study_plan_job",
+            "run_practice_session_cleanup",
+        ):
             if expected in names or hasattr(jobs, expected):
                 print(f"- PASS worker exposes {expected}")
             else:
