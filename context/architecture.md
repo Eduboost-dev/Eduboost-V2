@@ -1,7 +1,7 @@
 # Architecture
 
 **Last updated:** 2026-06-09
-**Current state tracked in:** RoadMap.md (17 phases) and TODO.md (North Star)
+**Current state tracked in:** ../docs/roadmap/roadmap.md (17 phases) and ../docs/todos/todo.md (North Star)
 
 ## Technology Stack (Verified)
 
@@ -77,7 +77,7 @@ tests/                        # 716 test files
 | 9 | Responses wrapped in EnvelopedRoute | Enforced | Global exception handlers |
 | 10 | Practice items filtered by difficulty | Enforced | In-memory state (Phase 2.2) |
 
-## Known Architecture Gaps (see RoadMap.md)
+## Known Architecture Gaps (see ../docs/roadmap/roadmap.md)
 
 - P0: Practice session routes unauthenticated; in-memory state (Phase 2)
 - P0: Python version inconsistency across Docker/CI/local (Phase 4)

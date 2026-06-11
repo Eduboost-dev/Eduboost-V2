@@ -58,7 +58,7 @@ cd app/frontend && npx vitest run --reporter=verbose 2>&1 | tee /tmp/phase3_vite
 
 - ✅ `pnpm install --frozen-lockfile` completes successfully in `app/frontend`
 - ✅ `node -e "require.resolve('dexie')"` succeeds from `app/frontend`
-- ✅ Frontend install command documented in `SYSTEM_STARTUP_GUIDE.md`
+- ✅ Frontend install command documented in `../../operations/SYSTEM_STARTUP_GUIDE.md`
 
 ### Implementation Tasks
 
@@ -67,7 +67,7 @@ cd app/frontend && npx vitest run --reporter=verbose 2>&1 | tee /tmp/phase3_vite
 - [x] Clean install with `pnpm install --frozen-lockfile` → ✅ Succeeded
 - [x] Verify dexie resolution: `node -e "require.resolve('dexie')"` → ✅ Resolved to node_modules/dexie
 - [x] Compare lockfile diff if fallback was used; ✅ No changes needed
-- [x] Update local setup documentation in `SYSTEM_STARTUP_GUIDE.md` if changed
+- [x] Update local setup documentation in `../../operations/SYSTEM_STARTUP_GUIDE.md` if changed
 - [x] Add `pnpm install --frozen-lockfile` to CI frontend job (documented in phase_3_evidence.md)
 
 ---
@@ -182,7 +182,7 @@ After Phase 3 completes:
 
 ## References
 
-- Roadmap: `RoadMap.md` (Phase 3)
+- Roadmap: `../roadmap.md` (Phase 3)
 - Frontend source: `app/frontend/`
 - TypeScript config: `app/frontend/tsconfig.json`
 - Vitest config: `app/frontend/vitest.config.ts`

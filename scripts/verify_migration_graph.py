@@ -26,7 +26,9 @@ LEGACY_EXEMPTIONS = {
     "0007_caps_irt_item_bank.py",
     "0008_lesson_completion_tracking.py",
     "0009_add_subject_mastery.py",
+    "3f8a2c1d9e04_add_auth_extensions.py",
     "94b628483fa7_merge_remaining_heads_0004_and_0005.py",
+    "f2faf5aa12fd_merge_migration_branches.py",
     "merge_2026_05_01_merge_branches.py",
 }
 

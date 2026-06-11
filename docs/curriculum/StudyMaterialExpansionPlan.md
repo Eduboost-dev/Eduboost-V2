@@ -63,7 +63,7 @@ Operational caveat: generated lesson files failed the new lesson-quality audit b
 
 ## Lesson Quality Remediation Status - 2026-06-03
 
-The data-generator remediation batch from `data_generator_todo.md` is now implemented:
+The data-generator remediation batch from `../todos/data_generator_todo.md` is now implemented:
 
 - Lesson quality contract and validator: `app/services/content_generation/generated_lesson_contract.py`
 - Topic-map source context builder: `app/services/content_generation/topic_map_source_context.py`

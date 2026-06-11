@@ -113,7 +113,7 @@ python3 scripts/curriculum/validate_topic_maps.py
 
 ## Outstanding Ingestion Pipeline Phases
 
-Per `caps_source_acquisition_plan_v2.md`:
+Per `../caps/caps_source_acquisition_plan_v2.md`:
 
 | Phase | Component | Status | Blocker | Action |
 |-------|-----------|--------|---------|--------|
@@ -263,10 +263,10 @@ supabase logs --follow
 ## References
 
 - Architecture: [docs/architecture.md](docs/architecture.md)
-- CAPS Plan: [caps_source_acquisition_plan_v2.md](caps_source_acquisition_plan_v2.md)
-- Data Generator TODO: [data_generator_todo.md](data_generator_todo.md)
-- Roadmap: [RoadMap.md](RoadMap.md)
-- TODO: [TODO.md](TODO.md)
+- CAPS Plan: [../caps/caps_source_acquisition_plan_v2.md](../caps/caps_source_acquisition_plan_v2.md)
+- Data Generator TODO: [../todos/data_generator_todo.md](../todos/data_generator_todo.md)
+- Roadmap: [../roadmap/roadmap.md](../roadmap/roadmap.md)
+- TODO: [../todos/todo.md](../todos/todo.md)
 
 ---
 
