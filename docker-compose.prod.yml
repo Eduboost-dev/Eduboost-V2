@@ -129,7 +129,7 @@ services:
         reservations:
           cpus: "0.10"
           memory: 128M
-    image: postgres:16-alpine
+    image: postgres:16-bookworm
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}

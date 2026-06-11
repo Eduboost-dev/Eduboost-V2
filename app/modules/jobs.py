@@ -123,8 +123,6 @@ async def enqueue_durable(
 
 
 async def send_consent_reminders(ctx: dict | None = None, job_id: str | None = None) -> dict[str, Any]:
-    validate_arq_job_payload(ctx or {})
-
     async def _run() -> dict[str, Any]:
         await run_consent_reminder_cycle(ctx or {})
         return {"status": "sent"}
@@ -133,8 +131,6 @@ async def send_consent_reminders(ctx: dict | None = None, job_id: str | None = N
 
 
 async def send_consent_renewal_reminders(ctx: dict | None = None, job_id: str | None = None) -> dict[str, Any]:
-    validate_arq_job_payload(ctx or {})
-
     async def _run() -> dict[str, Any]:
         await run_consent_reminder_cycle(ctx or {})
         return {"status": "sent"}
@@ -298,10 +294,11 @@ async def expire_stale_diagnostic_sessions(ctx: dict[str, Any]) -> dict[str, Any
             result = await db.execute(
                 update(DiagnosticSession)
                 .where(
-                    DiagnosticSession.is_complete == False,  # noqa: E712
+                    DiagnosticSession.completed_at.is_(None),
+                    DiagnosticSession.session_state.not_in(["completed", "abandoned"]),
                     DiagnosticSession.started_at < cutoff,
                 )
-                .values(is_complete=True)
+                .values(session_state="abandoned")
             )
             await db.commit()
             count = result.rowcount

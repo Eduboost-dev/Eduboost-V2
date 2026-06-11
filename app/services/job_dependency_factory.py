@@ -5,8 +5,6 @@ import inspect
 from contextlib import asynccontextmanager
 from typing import Any
 
-from app.services.job_runtime_integrity import validate_arq_job_payload
-
 
 def _import_symbol(path: str) -> Any | None:
     module_name, _, attr = path.rpartition(".")
@@ -84,7 +82,6 @@ def build_consent_service_for_job(session: Any) -> Any:
 
 
 async def run_consent_reminder_cycle(ctx: dict[str, Any] | None = None) -> None:
-    validate_arq_job_payload(ctx or {})
     async with durable_job_session() as session:
         service = build_consent_service_for_job(session)
         method = (

@@ -148,3 +148,23 @@ async def test_consent_renewal_job_updates_status_and_result():
     assert status is not None
     assert status["status"] == "completed"
     assert status["result"]["status"] == "sent"
+
+
+@pytest.mark.asyncio
+async def test_consent_renewal_job_ignores_runtime_objects_in_ctx():
+    class SessionEventsDispatch:
+        pass
+
+    job = await create_job("consent_renewal_reminders", payload={})
+
+    with patch("app.modules.jobs.run_consent_reminder_cycle", new=AsyncMock()) as reminder_cycle:
+        result = await worker_jobs.send_consent_renewal_reminders(
+            {"dispatch": SessionEventsDispatch()},
+            job_id=job["job_id"],
+        )
+
+    assert result["status"] == "sent"
+    reminder_cycle.assert_awaited_once()
+    status = await get_job(job["job_id"])
+    assert status is not None
+    assert status["status"] == "completed"
