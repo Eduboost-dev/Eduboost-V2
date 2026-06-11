@@ -3,8 +3,9 @@ FastAPI BackgroundTasks wrapper.
 
 Policy: Use FastAPI BackgroundTasks for non-critical, request-adjacent work only.
 Do NOT use this module for durable workflows such as consent reminders, report
-generation, erasure execution, or long-running jobs. Durable workflows belong in
-`app/modules/jobs.py` and should run through ARQ or an equivalent worker.
+generation, erasure execution, lesson/study-plan generation, or long-running
+jobs. Durable workflows belong in `app/modules/jobs.py` and should run through
+ARQ or an equivalent worker via `enqueue_durable(...)`.
 """
 
 from __future__ import annotations

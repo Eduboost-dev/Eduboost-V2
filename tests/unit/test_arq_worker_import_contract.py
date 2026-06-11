@@ -34,6 +34,9 @@ def test_worker_settings_exposes_consent_reminder_jobs():
     names = {getattr(function, "__name__", str(function)) for function in functions}
     assert "send_consent_reminders" in names or hasattr(module, "send_consent_reminders")
     assert "send_consent_renewal_reminders" in names or hasattr(module, "send_consent_renewal_reminders")
+    assert "generate_lesson_job" in names or hasattr(module, "generate_lesson_job")
+    assert "generate_study_plan_job" in names or hasattr(module, "generate_study_plan_job")
+    assert "run_practice_session_cleanup" in names or hasattr(module, "run_practice_session_cleanup")
 
 
 def test_jobs_use_dependency_factory_for_consent_reminders():

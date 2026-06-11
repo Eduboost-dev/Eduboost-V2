@@ -76,7 +76,13 @@ def main() -> int:
 
     if jobs is not None:
         names = _worker_function_names(jobs)
-        for expected in ("send_consent_reminders", "send_consent_renewal_reminders"):
+        for expected in (
+            "send_consent_reminders",
+            "send_consent_renewal_reminders",
+            "generate_lesson_job",
+            "generate_study_plan_job",
+            "run_practice_session_cleanup",
+        ):
             if expected in names or hasattr(jobs, expected):
                 print(f"- PASS worker exposes {expected}")
             else:
