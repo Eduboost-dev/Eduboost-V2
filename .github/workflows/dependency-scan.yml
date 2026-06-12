@@ -1,0 +1,127 @@
+# Dependency Vulnerability Scanning
+
+name: Dependency Scan
+
+on:
+  push:
+    branches: [master, main, 'phase-*/**']
+    paths:
+      - 'requirements/**'
+      - 'package.json'
+      - 'package-lock.json'
+  pull_request:
+    paths:
+      - 'requirements/**'
+      - 'package.json'
+      - 'package-lock.json'
+  schedule:
+    - cron: '0 3 * * *'  # Daily at 3 AM
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  pip-audit:
+    name: pip-audit (Python)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        requirements:
+          - requirements/base.txt
+          - requirements/dev.txt
+          - requirements/docs.txt
+          - requirements-ml.txt
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pip-audit
+        run: pip install pip-audit
+
+      - name: Run pip-audit
+        run: |
+          pip-audit -r ${{ matrix.requirements }} --format=json > pip-audit.json || true
+          
+          # Check for vulnerabilities
+          VULNS=$(python3 -c "import json; d=json.load(open('pip-audit.json')); print(len(d.get('vulnerabilities', {})))")
+          echo "Found $VULNS vulnerabilities in ${{ matrix.requirements }}"
+          
+          if [ "$VULNS" -gt 0 ]; then
+            echo "::warning::Found $VULNS vulnerabilities in ${{ matrix.requireants }}"
+            cat pip-audit.json | jq '.vulnerabilities | to_entries | .[0:5]'
+          fi
+
+      - name: Upload SARIF
+        if: always()
+        uses: github/codeql-action/upload-security-results@v3
+        with:
+          type: 'pip'
+          category: 'pip-audit'
+          upload_url: ${{ steps.publish.outputs.result_url }}
+          security_results: pip-audit.json
+
+  npm-audit:
+    name: npm audit (Frontend)
+    runs-on: ubuntu-latest
+    if: hashFiles('app/frontend/package.json')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: app/frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: app/frontend
+        run: npm ci --ignore-scripts
+
+      - name: Run npm audit
+        working-directory: app/frontend
+        run: npm audit --json > npm-audit.json || true
+
+      - name: Check npm audit results
+        run: |
+          VULNS=$(node -e "const d=require('./app/frontend/npm-audit.json'); console.log(d.metadata?.vulnerabilities?.total || 0)" 2>/dev/null || echo "0")
+          echo "Found $VULNS npm vulnerabilities"
+          
+          if [ "$VULNS" -gt 0 ]; then
+            echo "::warning::Found $VULNS npm vulnerabilities"
+          fi
+
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: critical
+          allow-dependencies-licenses: []
+
+  # Summary job
+  summary:
+    name: Dependency Scan Summary
+    needs: [pip-audit, npm-audit, dependency-review]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Summary
+        run: |
+          echo "## Dependency Scan Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ pip-audit: ${{ needs.pip-audit.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "✅ npm audit: ${{ needs.npm-audit.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "✅ dependency-review: ${{ needs.dependency-review.result }}" >> $GITHUB_STEP_SUMMARY

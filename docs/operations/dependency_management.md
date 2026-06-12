@@ -157,6 +157,61 @@ pip-autopurge requirements/base.txt
 
 ---
 
+## Dependabot Workflow
+
+### Overview
+
+EduBoost uses GitHub Dependabot to automate dependency updates. Configuration is in `.github/dependabot.yml`.
+
+### Supported Ecosystems
+
+| Ecosystem | Directory | Schedule | PR Limit |
+|-----------|-----------|----------|----------|
+| Python pip | `/` (root) | Weekly | 10 |
+| npm | `/app/frontend` | Weekly | 5 |
+| GitHub Actions | `/` | Monthly | 3 |
+| Docker | `/` | Monthly | 3 |
+
+### Review Process
+
+1. **PR Creation**: Dependabot creates PRs with dependency updates
+2. **Labeling**: PRs are auto-labeled with `dependencies` + ecosystem label
+3. **Review Required**: All Dependabot PRs require at least one reviewer
+4. **CI Checks**: Tests must pass before merge
+5. **Merge Strategy**:
+   - Patch updates (x.Y.z): Auto-merge enabled for passing tests
+   - Minor/Major: Manual review required
+
+### Critical CVE Response
+
+| Severity | Response Time | Action |
+|----------|---------------|--------|
+| Critical (9.0+) | 24 hours | Emergency patch release |
+| High (7.0-8.9) | 7 days | Priority patch release |
+| Medium (4.0-6.9) | 30 days | Regular maintenance |
+| Low (<4.0) | Next cycle | Schedule with regular updates |
+
+### Disabling Dependabot for a Dependency
+
+To temporarily hold a dependency:
+
+```yaml
+# In dependabot.yml
+ignore:
+  - dependency-name: "package-name"
+    versions: [">=1.0.0"]
+```
+
+Or add to `.github/dependabot.yml` as `allow` to specify versions to update.
+
+### Monitoring
+
+- **Security Alerts**: GitHub sends email for critical vulnerabilities
+- **Dependabot Dashboard**: `https://github.com/NkgoloL/eduboost-v2/network/updates`
+- **CI Workflow**: `.github/workflows/dependency-scan.yml` runs daily vulnerability scans
+
+---
+
 ## References
 
 - [pip-tools documentation](https://pip-tools.readthedocs.io/)
