@@ -162,12 +162,31 @@ Complete frontend and product-related tasks: E2E suite fix, content roadmap, loa
 
 ---
 
-## 7. Notes
+## 7. Audit Findings & Remediation
 
-- **E2E suite**: Existing spec files verified present (15 files). CI workflow created but not executed (requires backend to be running).
+| Issue | Fix Applied |
+|-------|-------------|
+| E2E CI used `npm` instead of `pnpm` | Fixed workflow to use `pnpm` with frozen lockfile |
+| E2E CI ran from wrong directory | Fixed to run from project root (where `playwright.config.ts` lives) |
+| E2E CI hid failures with `\|\| true` | Removed; workflow now fails on test failures |
+| `.env.example` referenced old ADR | Updated to point to `docs/adr/ADR-029-supabase-auth-strategy.md` |
+
+### Deferred to Future Phases
+
+| Item | Reason |
+|------|--------|
+| a11y axe-core assertions in Playwright | Requires frontend coordination |
+| Full language verification (Afrikaans/isiXhosa) | Needs native speaker review |
+| E2E suite execution | Requires running backend; not blocking for docs work |
+
+---
+
+## 8. Notes
+
+- **E2E suite**: Existing 15 spec files verified present. CI workflow created but not executed (requires backend to be running).
 - **A11y assertions**: Added to documentation; actual axe-core assertions not yet added to tests.
 - **PWA**: Current state is "unverified" — plan documents recommended improvements.
 
 ---
 
-**All Phase 13 deliverables complete. PR ready for merge.**
+**All Phase 13 deliverables complete with audit fixes. PR ready for merge.**
