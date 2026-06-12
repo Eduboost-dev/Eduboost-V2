@@ -2,71 +2,73 @@
 
 **Branch:** `phase-8/privacy-and-authorization-completion`  
 **Base:** `origin/master`  
-**Status:** Planning
+**Status:** Audit — see findings below
+
+## Audit Finding (2026-06-12)
+
+> **The backlog documents are significantly stale.** Most items listed as `[ ]` in
+> `docs/backlog/production_readiness/03_authentication_sessions_rbac_and_object-level_authorization.md`
+> and `04_popia_consent_privacy_data-subject_rights_and_audit.md` have **already been
+> implemented** on `master`. The original execution plan (below) over-estimated the
+> remaining work. The corrected scope is documented in the **Truly Remaining** section.
 
 ## Objective
 
 Close all remaining P0 and P1 gaps in the authentication/authorization (PR-003) and
-POPIA/privacy/audit (PR-004) production-readiness domains.  The work splits into two
-tracks that can proceed partly in parallel.
+POPIA/privacy/audit (PR-004) production-readiness domains and update the stale backlog
+documents to match the actual code state.  The work splits into two tracks.
 
 ---
 
-## Track A — Authorization Completion (PR-003 gaps)
+## Audit: Completed Items (already on `master`)
 
-### A.1  Auth abuse-path tests  [P1]
+### Track A — Auth items already done
+| Item | Evidence | Lines |
+|------|----------|-------|
+| A.1 Auth abuse-path tests | `tests/unit/test_auth_abuse_paths.py` | 180 |
+| A.2 JWT `kid` rotation tests | `tests/unit/test_token_rotation.py` | 135 |
+| A.3 Emergency revoke-all tests | `tests/unit/test_emergency_revocation.py` | 120 |
+| A.4 Cookie security tests | `tests/unit/test_cookie_policy.py` | 159 |
+| A.5 Frontend token-storage audit | `docs/security/frontend_token_storage_audit.md` | — |
+| A.6 Route policy matrix | `docs/security/route_policy_matrix.md` | — |
 
-- [ ] Add test: account lockout after `_MAX_FAILED_ATTEMPTS` consecutive failures
-- [ ] Add test: lockout resets after cooldown or admin unlock
-- [ ] Add test: security alert event emitted on suspicious auth patterns
-- **Evidence:** `tests/unit/test_auth_abuse_paths.py`  
-- **Files:** `app/services/auth_service.py`
+### Track B — Privacy items already done
+| Item | Evidence |
+|------|----------|
+| Consent states (6 states) | `app/core/consent_policy.py`: PENDING, GRANTED, DENIED, EXPIRED, WITHDRAWN, RENEWAL_REQUIRED |
+| Consent lifecycle endpoints | `app/api_v2_routers/popia.py`: `POST /consent/grant`, `/consent/deny`, `/consent/withdraw`, `/consent/renew` |
+| Data subject rights endpoints | `app/api_v2_routers/popia.py`: `POST /exports`, `/erasure`, `/erasure/{id}/cancel`, `/correction`, `/restriction` |
+| Data inventory | `docs/data_inventory.md` |
+| Data retention policy | `docs/data_retention_policy.md` |
+| Subprocessor register | `docs/subprocessor_register.md` |
+| Audit chain verification script | `scripts/verify_audit_chain.py` |
+| Consent lifecycle tests | `tests/unit/test_consent_lifecycle.py` (216 lines) |
+| Audit integrity tests | `tests/unit/test_audit_integrity.py` (89 lines) |
+| Consent service | `app/modules/consent/service.py` — grant/revoke/renew/erasure |
+| POPIA data rights service | `app/services/popia_service.py` — POPIADataRightsService |
 
-### A.2  JWT `kid` rotation tests  [P1]
+### Backlog docs that need updating
+The following documents still show `[ ]` for items that are actually implemented:
 
-- [ ] Add test: token signed with `CURRENT_KID` verifies under current key
-- [ ] Add test: token signed with `PREVIOUS_KID` verifies during overlap window
-- [ ] Add test: unknown `kid` in token header raises appropriate error
-- [ ] Add test: after rotation, new tokens use the new `kid`
-- **Evidence:** `tests/unit/test_token_rotation.py`  
-- **Files:** `app/core/token_config.py`
+1. `docs/backlog/production_readiness/03_authentication_sessions_rbac_and_object-level_authorization.md`  
+   — 12 unchecked items; 6 of these have code/tests/docs already on `master`
+2. `docs/backlog/production_readiness/04_popia_consent_privacy_data-subject_rights_and_audit.md`  
+   — 98 unchecked items; majority have code already on `master`
 
-### A.3  Emergency revoke-all tests  [P1]
+---
 
-- [ ] Add test: `emergency_revoke_all` invalidates all existing tokens
-- [ ] Add test: tokens created after revoke-all are not pre-emptively invalidated
-- [ ] Add test: revoke-all is idempotent
-- **Evidence:** `tests/unit/test_emergency_revocation.py`  
-- **Files:** `app/core/token_config.py`
+## ✅ Completed — Track A items (already on `master`)
 
-### A.4  Cookie security tests  [P1]
+The following Track A items have **already been implemented** on `master` before this branch was created. See the Audit section above for evidence paths.
 
-- [ ] Add test: refresh cookie is `HttpOnly`
-- [ ] Add test: refresh cookie is `Secure` in production context
-- [ ] Add test: refresh cookie has correct `SameSite` value
-- [ ] Add test: cookie `Path` is scoped to `/api/auth`
-- [ ] Add test: no access token stored in JavaScript-accessible storage
-- **Evidence:** `tests/unit/test_cookie_policy.py`  
-- **Files:** `app/core/cookies.py`, frontend token-storage audit (see A.5)
+- ~~A.1 Auth abuse-path tests~~ → `tests/unit/test_auth_abuse_paths.py` (180 lines)
+- ~~A.2 JWT `kid` rotation tests~~ → `tests/unit/test_token_rotation.py` (135 lines)
+- ~~A.3 Emergency revoke-all tests~~ → `tests/unit/test_emergency_revocation.py` (120 lines)
+- ~~A.4 Cookie security tests~~ → `tests/unit/test_cookie_policy.py` (159 lines)
+- ~~A.5 Frontend token-storage audit~~ → `docs/security/frontend_token_storage_audit.md`
+- ~~A.6 Route policy matrix~~ → `docs/security/route_policy_matrix.md`
 
-### A.5  Frontend token-storage audit  [P0]
-
-- [ ] Audit frontend code for insecure token access-token storage
-- [ ] Ensure access tokens are never stored in `localStorage` or `sessionStorage`
-  directly readable by JS
-- [ ] Fix any violations (move to `httpOnly` cookie or in-memory only)
-- **Evidence:** `docs/security/frontend_token_storage_audit.md`
-
-### A.6  Route policy matrix  [P1]
-
-- [ ] Generate a complete route-policy matrix that documents:
-  - Every public route
-  - Every authenticated route
-  - Required role for each route
-  - Required consent gate for each route
-  - Object-level authorization helper for each learner-data route
-- [ ] Add CI check that matrix stays in sync with router registration
-- **Evidence:** `docs/security/route_policy_matrix.md`, CI job
+## Track A — Truly Remaining
 
 ### A.7  Missing authorization tests  [P0 / P1]
 
