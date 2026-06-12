@@ -1,15 +1,15 @@
 # Progress Tracker
 
-**Last updated:** 2026-06-10
+**Last updated:** 2026-06-12
 **Authoritative trackers:** ../docs/roadmap/roadmap.md (17-phase plan), ../docs/todos/todo.md (North Star tasks)
 
 Update after every completed RoadMap phase or major TODO milestone.
 
 ## Current Status
 
-**Active RoadMap Phase:** Phase 7 (Deployment and Security Hardening)
-**Last completed:** Phase 6 (Durable Background Jobs) - 2026-06-11
-**Next:** Phase 7 (Deployment and Security Hardening)
+**Active RoadMap Phase:** Phase 8 (Privacy and Authorization Completion)
+**Last completed:** Phase 7 (Deployment and Security Hardening) - 2026-06-12
+**Next:** Phase 8 (Privacy and Authorization Completion)
 **Quality gate:** RED (9/11 checks passing as of 2026-05-17)
 **Local unit tests:** 2051 passed, 1 skipped, 1 warning
 
@@ -77,7 +77,24 @@ Branch: `phase-6/durable-background-jobs`
 
 Evidence: `docs/roadmap/execution/phase_6_execution_plan.md`, `docs/roadmap/execution/phase_6_implementation_report.md`, `docs/release/phase_6_evidence.md`, `docs/release/phase_6_implementation_audit.md`
 
-### Phases 7-16
+### Phase 7 -- Deployment and Security Hardening (complete 2026-06-12)
+- [x] 7.1 Stripe redirect URLs → `settings.PUBLIC_FRONTEND_URL` (config.py, stripe_client.py)
+- [x] 7.1 `auth_extended.py` `FRONTEND_BASE` consolidated to `settings.PUBLIC_FRONTEND_URL`
+- [x] 7.2 ACA Bicep CORS `allowedOrigins: ['*']` → parameterized `corsAllowedOrigins`
+- [x] 7.3 CSP hardened: production uses nonce-based policy, no `unsafe-inline`
+- [x] 7.4 HSTS conditional on `settings.is_production()` — absent in dev/test
+- [x] 7.5 Nginx rate-limit zone corrected from `/api/v1/auth/` → `/api/v2/auth/`
+- [x] 7.6 V1 route shim cleaned: guard removed, 410 tombstone registered unconditionally
+- [x] 7.7 `/metrics` IP-restricted in production (RFC-1918 + loopback only)
+- [x] 7.8 `docker-compose.prod.yml` annotated as local-only; ACA uses `@secure()` params
+- [x] 7.9 ADR-028: ACA declared authoritative production deployment target
+- [x] 7.10 Tests: `test_security_headers.py` rewritten (8 tests covering HSTS, CSP, nonce, uniqueness)
+- [x] 7.10 Bug fixes: duplicate `_production_key_vault_url_required` removed from config.py
+- [x] ADR-027 (observability access control) and ADR-028 (deployment target) committed
+
+Evidence: `docs/roadmap/execution/phase_7_implementation_report.md`, `docs/release/phase_7_evidence.md`
+
+### Phases 8-16
 See ../docs/roadmap/roadmap.md for full phase plans. This tracker will be updated as phases are executed.
 
 ## Verified Baseline (Already Implemented)

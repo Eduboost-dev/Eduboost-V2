@@ -2,7 +2,7 @@
 
 **Purpose:** Execution-focused North Star for the next phase. This reflects the current green local backend unit baseline and separates repository-side completion from CI, runtime, external, legal, security, product, and beta-launch evidence.
 
-**Last updated:** 2026-06-12 (Phase 6 complete — all 3 RoadMap criteria live-verified)
+**Last updated:** 2026-06-12 (Phase 7 complete — deployment and security hardening done)
 **Latest local backend unit result:** 2051 passed, 1 skipped, 1 warning
 **Gap analysis:** Eduboost-V2_Gap_Analysis.md (2026-06-09)
 
@@ -193,11 +193,11 @@ Current warnings to track:
 
 | ID | Gap | Task | Status |
 |---|---|---|---|
-| G2-01 | Permissive CSP (unsafe-inline for script-src and style-src) | Replace unsafe-inline with nonce-based or hash-based CSP. | [ ] |
-| G2-02 | HSTS set unconditionally (breaks dev HTTP) | Condition HSTS on APP_ENV=production. | [ ] |
-| G2-03 | /metrics unauthenticated | Add app-level auth or document private-network-only policy with enforcement in deployment config. | [ ] |
-| G2-04 | /__dev/slow_query should be removed in production-like environments | Restrict to explicit dev-only context or remove entirely. | [ ] |
-| G2-05 | V1 remnants in Nginx config | Audit all Nginx, Compose, and Bicep for /api/v1 references; replace or remove. | [ ] |
+| G2-01 | Permissive CSP (unsafe-inline for script-src and style-src) | Replace unsafe-inline with nonce-based or hash-based CSP. | [x] Phase 7.3 |
+| G2-02 | HSTS set unconditionally (breaks dev HTTP) | Condition HSTS on APP_ENV=production. | [x] Phase 7.4 |
+| G2-03 | /metrics unauthenticated | Add app-level auth or document private-network-only policy with enforcement in deployment config. | [x] Phase 7.7 (IP allowlist + ADR-027) |
+| G2-04 | /__dev/slow_query should be removed in production-like environments | Restrict to explicit dev-only context or remove entirely. | [x] Phase 7.7 (gated by is_production()) |
+| G2-05 | V1 remnants in Nginx config | Audit all Nginx, Compose, and Bicep for /api/v1 references; replace or remove. | [x] Phase 7.5/7.6 |
 | G2-06 | No threat model or updated pen-test plan | Create threat model document. Refresh pen-test checklist from stale audit version. | [ ] |
 | G2-07 | Secret rotation not operationalized | Implement JWT secret rotation with keyring and add rotation drill to runbook. | [ ] |
 

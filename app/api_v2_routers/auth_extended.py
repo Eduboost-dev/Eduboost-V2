@@ -17,7 +17,6 @@ Install dependencies:
 from __future__ import annotations
 
 import logging
-import os
 import secrets
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
@@ -30,6 +29,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.api_v2_deps.auth import AuthContext, require_auth_context
+from app.core.config import settings
 from app.core.security import get_current_user  # noqa: F401
 from app.core.security import decrypt_pii, hash_email, hash_password
 from app.models.auth_extensions import (
@@ -48,7 +48,9 @@ logger  = logging.getLogger(__name__)
 router  = APIRouter(prefix="/auth", tags=["auth-extended"])
 pwd_ctx = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-FRONTEND_BASE  = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000")
+# Use settings.PUBLIC_FRONTEND_URL (Phase 7.1 consolidation — was os.getenv("FRONTEND_BASE_URL")).
+# Set PUBLIC_FRONTEND_URL in your environment; defaults to http://localhost:3000 for dev.
+FRONTEND_BASE  = settings.PUBLIC_FRONTEND_URL
 RESET_TTL_MIN  = 30
 VERIFY_TTL_HR  = 24
 
