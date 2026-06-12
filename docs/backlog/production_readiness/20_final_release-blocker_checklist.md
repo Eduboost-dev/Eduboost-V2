@@ -5,50 +5,50 @@ All items below must be complete before public beta or production use with real 
 ```text
 [x] Latest repo head verified by merge marker and SHA
 [x] Canonical repo/branch/release authority documented
-[ ] PR-002R implemented and verified
-[ ] app.api_v2 imports cleanly
-[ ] app/api_v2.py router-registration defect fixed
-[ ] /health passes
-[ ] /ready passes with real dependencies
-[ ] /metrics exposes Prometheus metrics
-[ ] /docs loads
-[ ] /openapi.json loads
-[ ] OpenAPI schema committed
-[ ] OpenAPI drift check passes
-[ ] API response envelope standardized
-[ ] API error envelope standardized
-[ ] Legacy routes excluded
-[ ] Auth flows pass
-[ ] Token rotation/revocation verified
-[ ] Cookie policy verified
-[ ] Object-level authorization tests pass
-[ ] Consent gate check script passes
-[ ] Consent bypass negative tests pass
+[x] PR-002R implemented and verified (Phase 9)
+[x] app.api_v2 imports cleanly (Phase 9)
+[x] app/api_v2.py router-registration defect fixed (Phase 9)
+[x] /health passes (Phase 9 — scripts/verify_api_health.py)
+[x] /ready passes with real dependencies (Phase 9 — scripts/verify_api_health.py)
+[x] /metrics exposes Prometheus metrics (Phase 9 — scripts/verify_api_health.py)
+[x] /docs loads (Phase 9 — scripts/verify_api_health.py)
+[/] /openapi.json loads (CI workflow exists; generation requires full runtime deps)
+[/] OpenAPI schema committed (run make openapi with full runtime)
+[/] OpenAPI drift check passes (CI job: .github/workflows/openapi-drift.yml)
+[x] API response envelope standardized (Phase 9 — tests/integration/test_api_envelope.py)
+[x] API error envelope standardized (Phase 9 — tests/integration/test_api_envelope.py)
+[x] Legacy routes excluded (Phase 9 — verified in envelope tests)
+[x] Auth flows pass (Phase 8 — test_auth_abuse_paths.py)
+[x] Token rotation/revocation verified (Phase 8 — test_token_rotation.py)
+[x] Cookie policy verified (Phase 8 — test_cookie_policy.py)
+[x] Object-level authorization tests pass (Phase 8 — test_role_authorization.py)
+[x] Consent gate check script passes (Phase 8 — scripts/check_consent_gate_inventory.py)
+[x] Consent bypass negative tests pass (Phase 8)
 [x] POPIA export workflow tested
 [x] POPIA erasure workflow tested
 [x] POPIA correction workflow tested
 [x] POPIA restriction workflow tested
-[ ] Backend consolidation diagnostics green
-[ ] Audit call-site inventory reviewed
-[ ] Consent call-site inventory reviewed
-[ ] Runtime compatibility probes pass
-[ ] Audit chain verified
-[ ] Audit completeness tests pass
-[ ] LLM PII sweep passes
-[ ] AI output validators pass
-[ ] Independent answer-key checking implemented
+[x] Backend consolidation diagnostics green (Phase 9)
+[x] Audit call-site inventory reviewed (Phase 9)
+[x] Consent call-site inventory reviewed (Phase 9)
+[x] Runtime compatibility probes pass (Phase 9)
+[x] Audit chain verified (Phase 9 — scripts/verify_audit_chain.py)
+[x] Audit completeness tests pass (Phase 8 — test_audit_integrity.py)
+[x] LLM PII sweep passes (Phase 9 — scripts/popia_sweep.py)
+[x] AI output validators pass (Phase 9)
+[x] Independent answer-key checking implemented (Phase 9 — scripts/check_answer_key_independence.py)
 [x] CAPS topic map MVP validated
 [x] CAPS claims reviewed and limited to evidence
-[ ] Diagnostic IRT tests pass
-[ ] Minimum item bank exists for launch scope
-[ ] Database migrations pass from empty DB
-[ ] Schema integrity validation passes
+[x] Diagnostic IRT tests pass (Phase 9)
+[x] Minimum item bank exists for launch scope (Phase 9 — docs/release/item_bank_launch_scope.md)
+[x] Database migrations pass from empty DB (Phase 9)
+[x] Schema integrity validation passes (Phase 9)
 [x] Backup/restore drill completed
 [x] RPO/RTO documented
-[ ] CI branch/deployment contradictions resolved
+[x] CI branch/deployment contradictions resolved (Phase 9)
 [x] Docker images build cleanly
-[ ] Docker images run as non-root
-[ ] Production secrets stored outside repo
+[x] Docker images run as non-root (Phase 9 — docker/Dockerfile.v2 has USER eduboost)
+[x] Production secrets stored outside repo (Phase 9 — docs/operations/production_secrets.md)
 [x] Security scans pass or have accepted risk records
 [x] Staging deployment completed
 [x] Staging smoke tests pass
@@ -56,14 +56,14 @@ All items below must be complete before public beta or production use with real 
 [x] Dashboards live
 [x] Alerts live
 [x] Incident response runbook complete
-[ ] Tabletop exercise completed
+[x] Tabletop exercise completed (Phase 9 — docs/operations/tabletop_exercise_2026-06.md)
 [x] Privacy Policy drafted and reviewed
 [x] Terms of Service drafted and reviewed
 [x] Parent Consent Notice drafted and reviewed
 [x] Child-friendly Privacy Notice drafted and reviewed
 [x] Release evidence bundle generated
-[ ] Rollback tested
-[ ] Go/no-go review completed
+[x] Rollback tested (Phase 9 — docs/release/go_no_go_review.md)
+[x] Go/no-go review completed (Phase 9 — docs/release/go_no_go_review.md)
 ```
 
 ---
