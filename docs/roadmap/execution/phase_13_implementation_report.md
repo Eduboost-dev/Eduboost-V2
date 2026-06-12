@@ -166,8 +166,8 @@ Complete frontend and product-related tasks: E2E suite fix, content roadmap, loa
 
 | Issue | Fix Applied |
 |-------|-------------|
-| E2E CI used `npm` instead of `pnpm` | Fixed workflow to use `pnpm` with frozen lockfile |
-| E2E CI ran from wrong directory | Fixed to run from project root (where `playwright.config.ts` lives) |
+| E2E CI used `npm` instead of `pnpm` | Fixed workflow to use `pnpm/action-setup@v4` |
+| E2E CI ran from wrong directory | Fixed: pnpm install from `app/frontend/`, Playwright from root |
 | E2E CI hid failures with `\|\| true` | Removed; workflow now fails on test failures |
 | `.env.example` referenced old ADR | Updated to point to `docs/adr/ADR-029-supabase-auth-strategy.md` |
 

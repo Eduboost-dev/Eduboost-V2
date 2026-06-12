@@ -38,8 +38,6 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: '20'
-          cache: 'pnpm'
-          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install Python dependencies
         run: |
@@ -49,6 +47,7 @@ jobs:
           pip install -r requirements-dev.txt
 
       - name: Install Node dependencies (pnpm)
+        working-directory: app/frontend
         run: pnpm install --frozen-lockfile
 
       - name: Install Playwright browsers
