@@ -8,9 +8,8 @@ Integration Tests — POPIA Annual Consent Renewal Reminder  (Task #24)
 Run: pytest tests/integration/test_consent_renewal.py -v
 """
 
-import asyncio
 from datetime import datetime, timedelta, timezone
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 

@@ -5,7 +5,6 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Response
 from app.core.envelope_route import EnvelopedRoute
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.authorization import assert_can_access_learner
 from app.core.database import get_db
 from app.core.logging import get_logger
 from app.core.security import require_parent_or_admin

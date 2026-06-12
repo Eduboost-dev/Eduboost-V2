@@ -45,7 +45,7 @@ class LessonServiceV2:
 
         if self.quota_service:
             await self.quota_service.check_and_reserve(learner_id, estimated_tokens=1000, tier=tier)
-            
+
         content = await _call_llm(learner_id=learner_id, subject_code=subject_code, topic=topic, grade_level=grade_level)
         lesson_id = str(uuid.uuid4())
         row = await self.lesson_repository.create(
@@ -68,7 +68,7 @@ class LessonServiceV2:
         }
         if self.cache_service and key:
             await self.cache_service.set(key, json.dumps(result))
-            
+
         await AuditService().log_event("LESSON_GENERATED", {"subject_code": subject_code, "topic": topic}, learner_id)
         return result
 

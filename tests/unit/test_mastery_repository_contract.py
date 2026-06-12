@@ -15,7 +15,6 @@ Validates:
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
 
 import pytest
 from unittest.mock import AsyncMock, MagicMock
@@ -32,20 +31,20 @@ class TestMasteryRepositoryUpsertTopicMastery:
         db = AsyncMock()
         learner_id = uuid.uuid4()
         caps_ref = "MATH:4:FRACTIONS"
-        
+
         repo = MasteryRepository(db)
         repo.get_topic_mastery = AsyncMock(return_value=None)
         db.add = MagicMock()
         db.flush = AsyncMock()
         db.refresh = AsyncMock()
-        
+
         result = await repo.upsert_topic_mastery(
             learner_id=learner_id,
             caps_ref=caps_ref,
             mastery_score=0.8,
             mastery_label="proficient",
         )
-        
+
         assert result is not None
         db.add.assert_called_once()
         db.flush.assert_awaited_once()
@@ -56,26 +55,26 @@ class TestMasteryRepositoryUpsertTopicMastery:
         db = AsyncMock()
         learner_id = uuid.uuid4()
         caps_ref = "MATH:4:FRACTIONS"
-        
+
         existing = TopicMastery(
             learner_id=str(learner_id),
             caps_ref=caps_ref,
             mastery_score=0.5,
             mastery_label="developing",
         )
-        
+
         repo = MasteryRepository(db)
         repo.get_topic_mastery = AsyncMock(return_value=existing)
         db.flush = AsyncMock()
         db.refresh = AsyncMock()
-        
+
         result = await repo.upsert_topic_mastery(
             learner_id=learner_id,
             caps_ref=caps_ref,
             mastery_score=0.8,
             mastery_label="proficient",
         )
-        
+
         assert result.mastery_score == 0.8
         assert result.mastery_label == "proficient"
         db.add.assert_not_called()
@@ -90,21 +89,21 @@ class TestMasteryRepositoryGetTopicMastery:
         db = AsyncMock()
         learner_id = uuid.uuid4()
         caps_ref = "MATH:4:FRACTIONS"
-        
+
         mastery = TopicMastery(
             learner_id=str(learner_id),
             caps_ref=caps_ref,
             mastery_score=0.8,
             mastery_label="proficient",
         )
-        
+
         result_mock = MagicMock()
         result_mock.scalar_one_or_none = MagicMock(return_value=mastery)
         db.execute = AsyncMock(return_value=result_mock)
-        
+
         repo = MasteryRepository(db)
         result = await repo.get_topic_mastery(learner_id, caps_ref)
-        
+
         assert result is not None
         assert result.caps_ref == caps_ref
         db.execute.assert_awaited_once()
@@ -113,14 +112,14 @@ class TestMasteryRepositoryGetTopicMastery:
     async def test_get_topic_mastery_returns_none_when_missing(self):
         """get_topic_mastery() must return None when mastery does not exist."""
         db = AsyncMock()
-        
+
         result_mock = MagicMock()
         result_mock.scalar_one_or_none = MagicMock(return_value=None)
         db.execute = AsyncMock(return_value=result_mock)
-        
+
         repo = MasteryRepository(db)
         result = await repo.get_topic_mastery(uuid.uuid4(), "MATH:4:FRACTIONS")
-        
+
         assert result is None
 
 
@@ -131,21 +130,21 @@ class TestMasteryRepositoryListTopicMasteryByLearner:
         """list_topic_mastery_by_learner() must return all topic mastery for learner."""
         db = AsyncMock()
         learner_id = uuid.uuid4()
-        
+
         mastery1 = TopicMastery(
             learner_id=str(learner_id),
             caps_ref="MATH:4:FRACTIONS",
             mastery_score=0.8,
             mastery_label="proficient",
         )
-        
+
         result_mock = MagicMock()
         result_mock.scalars.return_value.all.return_value = [mastery1]
         db.execute = AsyncMock(return_value=result_mock)
-        
+
         repo = MasteryRepository(db)
         result = await repo.list_topic_mastery_by_learner(learner_id)
-        
+
         assert len(result) == 1
         assert result[0].learner_id == str(learner_id)
         db.execute.assert_awaited_once()
@@ -159,12 +158,12 @@ class TestMasteryRepositoryCreateSnapshot:
         db = AsyncMock()
         learner_id = uuid.uuid4()
         caps_ref = "MATH:4:FRACTIONS"
-        
+
         repo = MasteryRepository(db)
         db.add = MagicMock()
         db.flush = AsyncMock()
         db.refresh = AsyncMock()
-        
+
         result = await repo.create_snapshot(
             learner_id=learner_id,
             caps_ref=caps_ref,
@@ -174,7 +173,7 @@ class TestMasteryRepositoryCreateSnapshot:
             theta_se=0.1,
             trigger="diagnostic",
         )
-        
+
         assert result is not None
         db.add.assert_called_once()
         db.flush.assert_awaited_once()
@@ -188,7 +187,7 @@ class TestMasteryRepositoryGetSnapshotsForLearnerTopic:
         db = AsyncMock()
         learner_id = uuid.uuid4()
         caps_ref = "MATH:4:FRACTIONS"
-        
+
         snapshot = MasterySnapshot(
             learner_id=str(learner_id),
             caps_ref=caps_ref,
@@ -198,14 +197,14 @@ class TestMasteryRepositoryGetSnapshotsForLearnerTopic:
             theta_se=0.1,
             trigger="diagnostic",
         )
-        
+
         result_mock = MagicMock()
         result_mock.scalars.return_value.all.return_value = [snapshot]
         db.execute = AsyncMock(return_value=result_mock)
-        
+
         repo = MasteryRepository(db)
         result = await repo.get_snapshots_for_learner_topic(learner_id, caps_ref)
-        
+
         assert len(result) == 1
         assert result[0].learner_id == str(learner_id)
         db.execute.assert_awaited_once()

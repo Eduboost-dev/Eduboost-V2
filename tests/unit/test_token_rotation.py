@@ -8,7 +8,7 @@ unknown kids.
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
-from unittest.mock import AsyncMock, patch
+from unittest.mock import patch
 
 import pytest
 from jose import jwt
@@ -17,8 +17,6 @@ from app.core.token_config import (
     ALGORITHM,
     CURRENT_KEY,
     CURRENT_KID,
-    PREVIOUS_KID,
-    _KEY_STORE,
     create_access_token,
 )
 

@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import os
 import re
-import sys
 
 ALLOWLIST = {"NEXT_PUBLIC_API_URL", "NEXT_PUBLIC_APP_ENV", "NEXT_PUBLIC_ENABLE_DEV_SESSION"}
 SECRET_PATTERN = re.compile(r"(SECRET|TOKEN|KEY|PASSWORD|PRIVATE|DATABASE_URL|REDIS_URL)", re.I)

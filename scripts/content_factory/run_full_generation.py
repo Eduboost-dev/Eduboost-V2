@@ -7,7 +7,6 @@ import asyncio
 import os
 import sys
 import uuid
-from datetime import datetime
 from pathlib import Path
 
 # Add parent directory to path for imports
@@ -16,7 +15,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from app.core.database import AsyncSessionLocal
 from app.models.content_factory import (
     ContentGenerationRun,
-    ContentGenerationTask,
     ContentScope,
     ContentScopeStatus,
 )
@@ -52,7 +50,7 @@ async def run_full_generation(
         Exit code (0 for success, non-zero for failure)
     """
     # Check if generation is enabled
-    if not os.environ.get("CONTENT_FACTORY_GENERATION_ENABLED", "false").lower() in {"1", "true", "yes"}:
+    if os.environ.get("CONTENT_FACTORY_GENERATION_ENABLED", "false").lower() not in {"1", "true", "yes"}:
         print("ERROR: CONTENT_FACTORY_GENERATION_ENABLED is not set to true")
         return 1
 
@@ -92,7 +90,7 @@ async def run_full_generation(
 
         print(f"Lock acquired by {holder}")
 
-        
+
         try:
             # Create generation run
             run_id = uuid.uuid4()

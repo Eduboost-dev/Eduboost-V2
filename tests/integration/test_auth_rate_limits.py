@@ -10,7 +10,7 @@ end-to-end Redis-backed rate-limit tests belong in staging smoke tests.
 """
 from __future__ import annotations
 
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock, patch
 
 import pytest
 from fastapi.testclient import TestClient
@@ -70,7 +70,6 @@ def test_refresh_endpoint_rejects_get():
 def test_login_rate_limit_returns_429_when_exceeded():
     """When the login rate limit is exceeded, the server must return 429."""
     from slowapi.errors import RateLimitExceeded
-    from starlette.requests import Request as StarletteRequest
 
     client = _get_client()
 

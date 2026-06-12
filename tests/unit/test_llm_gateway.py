@@ -3,7 +3,6 @@ Unit tests for app.services.llm.gateway without any network calls.
 """
 from __future__ import annotations
 
-import os
 
 import pytest
 
@@ -11,7 +10,6 @@ from app.services.llm.gateway import (
     CanonicalLLMGateway,
     DeterministicMockProvider,
     DISABLE_LESSON_GENERATION_ENV,
-    LLMGatewayMetadata,
     LLMGatewayRequest,
     LLMGatewayResponse,
     ProviderHealth,

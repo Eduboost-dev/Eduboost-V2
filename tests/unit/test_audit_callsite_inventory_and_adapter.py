@@ -60,7 +60,7 @@ def test_audit_adapter_prefers_record_method():
 def test_audit_inventory_generator_writes_markdown(tmp_path):
     module = _load_module("scripts/generate_audit_callsite_inventory.py", "audit_inventory_for_test")
     output = tmp_path / "audit_inventory.md"
-    code = module.main.__wrapped__() if hasattr(module.main, "__wrapped__") else None
+    module.main.__wrapped__() if hasattr(module.main, "__wrapped__") else None
     # Exercise pure functions instead of CLI argv mutation.
     rows = module.collect_rows()
     rendered = module.render_markdown(rows)

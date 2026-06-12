@@ -17,7 +17,6 @@ ignore_imports =
     app.api_v2_routers.learners -> app.repositories.*
     app.api_v2_routers.onboarding -> app.repositories.*
     app.api_v2_routers.parents -> app.repositories.*
-    app.api_v2_routers.study_plans -> app.repositories.*
 
 [importlinter:contract:popia_router_uses_dependency_layer]
 name = POPIA router uses dependency layer rather than repository construction

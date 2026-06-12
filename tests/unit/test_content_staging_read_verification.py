@@ -26,7 +26,7 @@ class Session:
         self.seeded_items = seeded_items or []
         self.staging_artifacts = staging_artifacts or []
         self.sources = sources or {}
-        
+
     async def execute(self, stmt):
         stmt_str = str(stmt)
         if "content_staging_seed_items" in stmt_str:
@@ -34,7 +34,7 @@ class Session:
         if "content_staging_artifacts" in stmt_str:
             return Result(self.staging_artifacts)
         return Result([])
-        
+
     async def get(self, model, key):
         return self.sources.get(key)
 
@@ -45,10 +45,10 @@ async def test_verification_fails_if_staging_record_is_missing():
     run_id = uuid.uuid4()
     item = SimpleNamespace(artifact_id=art_id, seed_run_id=run_id, status="seeded")
     session = Session(seeded_items=[item], staging_artifacts=[])
-    
+
     svc = ContentStagingReadVerificationService()
     report = await svc.verify_seed_run(session, run_id)
-    
+
     assert not report.passed
     assert report.verified_count == 0
     assert any("Missing staging record" in err for err in report.errors)
@@ -62,10 +62,10 @@ async def test_verification_fails_if_staged_artifact_is_not_approved():
     stag = SimpleNamespace(artifact_id=art_id, staging_status="active")
     source = SimpleNamespace(status=ContentArtifactStatus.PENDING_REVIEW)
     session = Session(seeded_items=[item], staging_artifacts=[stag], sources={art_id: source})
-    
+
     svc = ContentStagingReadVerificationService()
     report = await svc.verify_seed_run(session, run_id)
-    
+
     assert not report.passed
     assert any("invalid for staging" in err for err in report.errors)
 
@@ -78,10 +78,10 @@ async def test_verification_passes_when_staged_records_match_seed_run():
     stag = SimpleNamespace(artifact_id=art_id, staging_status="active")
     source = SimpleNamespace(status=ContentArtifactStatus.APPROVED)
     session = Session(seeded_items=[item], staging_artifacts=[stag], sources={art_id: source})
-    
+
     svc = ContentStagingReadVerificationService()
     report = await svc.verify_seed_run(session, run_id)
-    
+
     assert report.passed
     assert report.verified_count == 1
     assert not report.errors

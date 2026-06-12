@@ -41,11 +41,11 @@ def test_production_settings_refresh_required_key_vault_secrets(monkeypatch: pyt
         AZURE_KEY_VAULT_URL="https://example-vault.vault.azure.net/",
     )
 
-    assert settings.JWT_SECRET == fetched["JWT_SECRET"]
-    assert settings.ENCRYPTION_KEY == fetched["ENCRYPTION_KEY"]
-    assert settings.ENCRYPTION_SALT == fetched["ENCRYPTION_SALT"]
-    assert settings.GROQ_API_KEY == fetched["GROQ_API_KEY"]
-    assert settings.ANTHROPIC_API_KEY == fetched["ANTHROPIC_API_KEY"]
+    assert fetched["JWT_SECRET"] == settings.JWT_SECRET
+    assert fetched["ENCRYPTION_KEY"] == settings.ENCRYPTION_KEY
+    assert fetched["ENCRYPTION_SALT"] == settings.ENCRYPTION_SALT
+    assert fetched["GROQ_API_KEY"] == settings.GROQ_API_KEY
+    assert fetched["ANTHROPIC_API_KEY"] == settings.ANTHROPIC_API_KEY
 
 
 @pytest.mark.unit

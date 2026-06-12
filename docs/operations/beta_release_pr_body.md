@@ -5,9 +5,9 @@
 This PR closes the EduBoost V2 staging/beta release evidence layer.
 
 - release_candidate: `unset`
-- branch: `feature/ingestion-pipeline`
-- commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
-- generated_at_utc: `2026-06-05T20:19:21.577883+00:00`
+- branch: `phase-11/technical-debt-burn-down`
+- commit: `b33e49720860a084e7a7c42ead1b620cb859e64f`
+- generated_at_utc: `2026-06-12T17:35:55.118109+00:00`
 
 ## Verification
 

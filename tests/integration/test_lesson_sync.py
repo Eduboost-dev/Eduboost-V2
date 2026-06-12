@@ -18,7 +18,7 @@ from app.models import UserRole
 
 def test_lesson_sync_processes_completion_and_feedback(monkeypatch):
     lesson = SimpleNamespace(id="lesson-1", learner_id="learner-1", subject="Mathematics")
-    learner = SimpleNamespace(id="learner-1", pseudonym_id="pseudo-1")
+    SimpleNamespace(id="learner-1", pseudonym_id="pseudo-1")
 
     calls: list[tuple[str, str, object]] = []
 

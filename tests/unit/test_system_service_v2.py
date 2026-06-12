@@ -13,7 +13,7 @@ async def test_health_returns_status_and_version():
     """Verify health endpoint returns status, version, and mode."""
     service = SystemServiceV2()
     result = await service.health()
-    
+
     assert result["status"] == "ok"
     assert "version" in result
     assert result["mode"] == "v2-baseline"
@@ -24,7 +24,7 @@ async def test_pillars_returns_architecture_and_pillars_list():
     """Verify pillars endpoint returns architecture and pillar list."""
     service = SystemServiceV2()
     result = await service.pillars()
-    
+
     assert result["architecture"] == "modular-monolith"
     assert result["audit_target"] == "postgresql-append-only"
     assert isinstance(result["pillars"], list)
@@ -40,6 +40,6 @@ async def test_schema_status_returns_ok():
     """Verify schema_status endpoint returns ok status."""
     service = SystemServiceV2()
     result = await service.schema_status()
-    
+
     assert result["status"] == "ok"
     assert result["schema"] == "v2"

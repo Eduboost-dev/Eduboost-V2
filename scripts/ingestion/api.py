@@ -26,7 +26,6 @@ the job ID.
 """
 from __future__ import annotations
 
-import asyncio
 import logging
 import os
 import uuid
@@ -37,7 +36,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, s
 from pydantic import BaseModel, Field
 
 from scripts.ingestion.config import HF_DATASETS, SOURCES
-from scripts.ingestion.models import IngestionJob, IngestionProgress, JobStatus
+from scripts.ingestion.models import IngestionJob, JobStatus
 from scripts.ingestion.queue_manager import QueueManager
 from scripts.ingestion.sources import SCRAPER_REGISTRY, ZA_SOURCES, OPEN_SOURCES
 

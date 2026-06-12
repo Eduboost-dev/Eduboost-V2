@@ -111,15 +111,15 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/api_v2_routers/0005_irt_seed.py` | 148 | audit_append_call | `_ITEMS.append(_make(7, "Mathematics", "Algebra & Trigonometry", q, opts, c, a, b))` |
 | `app/api_v2_routers/0005_irt_seed.py` | 170 | audit_append_call | `_ITEMS.append(_make(grade, "English", "Language", q, opts, c, a, b))` |
 | `app/api_v2_routers/0005_irt_seed.py` | 188 | audit_append_call | `_ITEMS.append(_make(grade, "Natural Sciences", "Science", q, opts, c, a, b))` |
-| `app/api_v2_routers/auth_extended.py` | 75 | audit_append_call | `_reset_attempts[ip].append(now)` |
-| `app/api_v2_routers/auth_extended.py` | 95 | audit_append_call | `errors.append("at least 8 characters")` |
-| `app/api_v2_routers/auth_extended.py` | 97 | audit_append_call | `errors.append("one uppercase letter")` |
-| `app/api_v2_routers/auth_extended.py` | 99 | audit_append_call | `errors.append("one digit")` |
+| `app/api_v2_routers/auth_extended.py` | 76 | audit_append_call | `_reset_attempts[ip].append(now)` |
+| `app/api_v2_routers/auth_extended.py` | 96 | audit_append_call | `errors.append("at least 8 characters")` |
+| `app/api_v2_routers/auth_extended.py` | 98 | audit_append_call | `errors.append("one uppercase letter")` |
+| `app/api_v2_routers/auth_extended.py` | 100 | audit_append_call | `errors.append("one digit")` |
 | `app/api_v2_routers/billing.py` | 44 | audit_record_call | `await audit.record("STRIPE_WEBHOOK", payload=result)` |
-| `app/api_v2_routers/consent.py` | 51 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.grant().` |
-| `app/api_v2_routers/consent.py` | 84 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.revoke().` |
+| `app/api_v2_routers/consent.py` | 50 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.grant().` |
+| `app/api_v2_routers/consent.py` | 83 | audit_log_identifier | `# AuditLog emission is handled inside ConsentService.revoke().` |
 | `app/api_v2_routers/gamification.py` | 63 | audit_record_call | `await FourthEstateService(db).record(` |
-| `app/api_v2_routers/learners.py` | 154 | audit_record_call | `await audit.record(` |
+| `app/api_v2_routers/learners.py` | 153 | audit_record_call | `await audit.record(` |
 | `app/api_v2_routers/parents.py` | 77 | audit_append_call | `dashboard_learners.append(` |
 | `app/api_v2_routers/parents.py` | 157 | audit_append_call | `response_learners.append(` |
 | `app/api_v2_routers/parents.py` | 204 | audit_append_call | `exports.append(` |
@@ -135,8 +135,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/core/audit.py` | 111 | audit_record_call | `await self.record(event.lower(), actor_id=actor_id, payload=detail or {})` |
 | `app/core/audit.py` | 114 | audit_record_call | `await self.record(` |
 | `app/core/audit.py` | 122 | audit_record_call | `await self.record(` |
-| `app/core/config.py` | 194 | audit_append_call | `qlist.append(("ssl", val))` |
-| `app/core/config.py` | 196 | audit_append_call | `qlist.append((k, val))` |
+| `app/core/config.py` | 198 | audit_append_call | `qlist.append(("ssl", val))` |
+| `app/core/config.py` | 200 | audit_append_call | `qlist.append((k, val))` |
 | `app/core/database.py` | 84 | audit_events_table | `await conn.execute(text("DROP RULE IF EXISTS audit_events_no_update ON audit_events"))` |
 | `app/core/database.py` | 85 | audit_events_table | `await conn.execute(text("DROP RULE IF EXISTS audit_events_no_delete ON audit_events"))` |
 | `app/core/database.py` | 90 | audit_events_table | `ON UPDATE TO audit_events` |
@@ -186,58 +186,58 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/models/__init__.py` | 323 | audit_events_table | `__tablename__ = "audit_events"` |
 | `app/models/__init__.py` | 699 | audit_log_identifier | `class AuditLog(Base):` |
 | `app/models/__init__.py` | 700 | audit_logs_table | `__tablename__ = "audit_logs"` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 74 | audit_append_call | `issues.append("beta launch decision must be documented in docs/adr/")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 76 | audit_append_call | `issues.append("beta launch architecture must be documented in docs/beta_launch/")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 87 | audit_append_call | `issues.append(f"{name} is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 104 | audit_append_call | `issues.append("scope_id is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 106 | audit_append_call | `issues.append("product scope description is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 108 | audit_append_call | `issues.append("product scope owner is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 110 | audit_append_call | `issues.append("product scope evidence path must live under docs/beta_launch/")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 112 | audit_append_call | `issues.append("billing must be explicitly excluded or disabled for beta unless approved")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 114 | audit_append_call | `issues.append("excluded beta scope must be explicitly marked as exclusion")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 131 | audit_append_call | `issues.append("criterion_id is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 133 | audit_append_call | `issues.append("acceptance criterion name is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 135 | audit_append_call | `issues.append("staging acceptance evidence path must be controlled")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 137 | audit_append_call | `issues.append("staging acceptance owner is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 139 | audit_append_call | `issues.append(f"{self.criterion_id} blocks beta launch")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 141 | audit_append_call | `issues.append("waived staging acceptance criterion requires waiver path")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 157 | audit_append_call | `issues.append("entry criterion_id is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 159 | audit_append_call | `issues.append("entry criterion description is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 161 | audit_append_call | `issues.append("entry criterion evidence path must be controlled")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 163 | audit_append_call | `issues.append("entry criterion owner is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 165 | audit_append_call | `issues.append(f"{self.criterion_id} required entry criterion is not met")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 182 | audit_append_call | `issues.append("exit criterion_id is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 184 | audit_append_call | `issues.append("exit criterion description is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 186 | audit_append_call | `issues.append("exit criterion metric name is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 188 | audit_append_call | `issues.append("exit criterion threshold is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 190 | audit_append_call | `issues.append("exit criterion owner is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 192 | audit_append_call | `issues.append("exit criterion evidence path must be controlled")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 211 | audit_append_call | `issues.append("cohort_id is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 213 | audit_append_call | `issues.append("max_learners must be positive")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 215 | audit_append_call | `issues.append("max_guardians must be positive")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 217 | audit_append_call | `issues.append("allowed grades are required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 219 | audit_append_call | `issues.append("allowed grades must be South African school grades 1-12")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 221 | audit_append_call | `issues.append("allowed subjects are required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 223 | audit_append_call | `issues.append("beta cohort requires consent")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 225 | audit_append_call | `issues.append("beta cohort requires support channel readiness")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 227 | audit_append_call | `issues.append("beta cohort requires rollback support")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 243 | audit_append_call | `issues.append("feedback channel is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 245 | audit_append_call | `issues.append("feedback triage SLA must be positive")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 247 | audit_append_call | `issues.append(f"{self.severity.value} feedback requires escalation")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 249 | audit_append_call | `issues.append("feedback owner is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 251 | audit_append_call | `issues.append("feedback evidence path must live under docs/beta_launch/")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 269 | audit_append_call | `issues.append("known issue_id is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 271 | audit_append_call | `issues.append("known issue summary is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 273 | audit_append_call | `issues.append("known issue owner is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 275 | audit_append_call | `issues.append("high/critical known issues must block beta or be explicitly accepted")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 277 | audit_append_call | `issues.append("accepted beta known issue requires workaround")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 279 | audit_append_call | `issues.append("known issue evidence path must live under docs/beta_launch/")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 299 | audit_append_call | `issues.append("launch readiness review_id is required")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 301 | audit_append_call | `issues.append("launch readiness review requires approvers")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 310 | audit_append_call | `issues.append(f"{name} must be reviewed")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 312 | audit_append_call | `issues.append("general availability requires separate production launch approval")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 314 | audit_append_call | `issues.append("launch readiness evidence path must live under docs/beta_launch/")` |
-| `app/modules/beta_launch/production_readiness_contracts.py` | 350 | audit_append_call | `issues.append(f"{issue.issue_id} blocks beta launch")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 71 | audit_append_call | `issues.append("beta launch decision must be documented in docs/adr/")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 73 | audit_append_call | `issues.append("beta launch architecture must be documented in docs/beta_launch/")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 84 | audit_append_call | `issues.append(f"{name} is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 101 | audit_append_call | `issues.append("scope_id is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 103 | audit_append_call | `issues.append("product scope description is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 105 | audit_append_call | `issues.append("product scope owner is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 107 | audit_append_call | `issues.append("product scope evidence path must live under docs/beta_launch/")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 109 | audit_append_call | `issues.append("billing must be explicitly excluded or disabled for beta unless approved")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 111 | audit_append_call | `issues.append("excluded beta scope must be explicitly marked as exclusion")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 128 | audit_append_call | `issues.append("criterion_id is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 130 | audit_append_call | `issues.append("acceptance criterion name is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 132 | audit_append_call | `issues.append("staging acceptance evidence path must be controlled")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 134 | audit_append_call | `issues.append("staging acceptance owner is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 136 | audit_append_call | `issues.append(f"{self.criterion_id} blocks beta launch")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 138 | audit_append_call | `issues.append("waived staging acceptance criterion requires waiver path")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 154 | audit_append_call | `issues.append("entry criterion_id is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 156 | audit_append_call | `issues.append("entry criterion description is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 158 | audit_append_call | `issues.append("entry criterion evidence path must be controlled")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 160 | audit_append_call | `issues.append("entry criterion owner is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 162 | audit_append_call | `issues.append(f"{self.criterion_id} required entry criterion is not met")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 179 | audit_append_call | `issues.append("exit criterion_id is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 181 | audit_append_call | `issues.append("exit criterion description is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 183 | audit_append_call | `issues.append("exit criterion metric name is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 185 | audit_append_call | `issues.append("exit criterion threshold is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 187 | audit_append_call | `issues.append("exit criterion owner is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 189 | audit_append_call | `issues.append("exit criterion evidence path must be controlled")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 208 | audit_append_call | `issues.append("cohort_id is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 210 | audit_append_call | `issues.append("max_learners must be positive")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 212 | audit_append_call | `issues.append("max_guardians must be positive")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 214 | audit_append_call | `issues.append("allowed grades are required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 216 | audit_append_call | `issues.append("allowed grades must be South African school grades 1-12")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 218 | audit_append_call | `issues.append("allowed subjects are required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 220 | audit_append_call | `issues.append("beta cohort requires consent")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 222 | audit_append_call | `issues.append("beta cohort requires support channel readiness")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 224 | audit_append_call | `issues.append("beta cohort requires rollback support")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 240 | audit_append_call | `issues.append("feedback channel is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 242 | audit_append_call | `issues.append("feedback triage SLA must be positive")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 244 | audit_append_call | `issues.append(f"{self.severity.value} feedback requires escalation")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 246 | audit_append_call | `issues.append("feedback owner is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 248 | audit_append_call | `issues.append("feedback evidence path must live under docs/beta_launch/")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 266 | audit_append_call | `issues.append("known issue_id is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 268 | audit_append_call | `issues.append("known issue summary is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 270 | audit_append_call | `issues.append("known issue owner is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 272 | audit_append_call | `issues.append("high/critical known issues must block beta or be explicitly accepted")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 274 | audit_append_call | `issues.append("accepted beta known issue requires workaround")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 276 | audit_append_call | `issues.append("known issue evidence path must live under docs/beta_launch/")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 296 | audit_append_call | `issues.append("launch readiness review_id is required")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 298 | audit_append_call | `issues.append("launch readiness review requires approvers")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 307 | audit_append_call | `issues.append(f"{name} must be reviewed")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 309 | audit_append_call | `issues.append("general availability requires separate production launch approval")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 311 | audit_append_call | `issues.append("launch readiness evidence path must live under docs/beta_launch/")` |
+| `app/modules/beta_launch/production_readiness_contracts.py` | 347 | audit_append_call | `issues.append(f"{issue.issue_id} blocks beta launch")` |
 | `app/modules/billing/production_readiness_contracts.py` | 64 | audit_append_call | `issues.append("billing provider decision must be documented in docs/adr/")` |
 | `app/modules/billing/production_readiness_contracts.py` | 66 | audit_append_call | `issues.append("billing architecture must be documented in docs/billing/")` |
 | `app/modules/billing/production_readiness_contracts.py` | 68 | audit_append_call | `issues.append("application must not store raw card data")` |
@@ -272,64 +272,64 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/modules/billing/production_readiness_contracts.py` | 293 | audit_append_call | `issues.append("raw provider payloads must not be retained without redaction")` |
 | `app/modules/consent/service.py` | 6 | audit_repository | `:class:`~app.repositories.audit_repository.AuditRepository` or the` |
 | `app/modules/consent/service.py` | 29 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
-| `app/modules/consent/service.py` | 45 | audit_repository | `audit trail via :class:`~app.repositories.audit_repository.AuditRepository`` |
-| `app/modules/consent/service.py` | 67 | audit_repository | `audit_repo: AuditRepository \| None = None,` |
-| `app/modules/consent/service.py` | 77 | audit_repository | `audit_repo: Optional :class:`~app.repositories.audit_repository.AuditRepository`` |
-| `app/modules/consent/service.py` | 97 | audit_repository | `audit_repo = AuditRepository(db)` |
-| `app/modules/consent/service.py` | 198 | audit_log_identifier | `# AuditLog / fourth_estate coverage is written via _append_audit below.` |
-| `app/modules/consent/service.py` | 238 | audit_log_identifier | `# AuditLog / fourth_estate coverage is written via _append_audit below.` |
-| `app/modules/consent/service.py` | 317 | audit_log_identifier | `# AuditLog / fourth_estate coverage is written via _append_audit below.` |
-| `app/modules/consent/service.py` | 371 | audit_repository | `Tries :class:`~app.repositories.audit_repository.AuditRepository`` |
-| `app/modules/consent/service.py` | 383 | audit_append_call | `await self._audit_repo.append(` |
-| `app/modules/consent/service.py` | 391 | audit_record_call | `await FourthEstateService(self._db).record(` |
-| `app/modules/deployment/production_readiness_contracts.py` | 101 | audit_append_call | `issues.append("infrastructure provider is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 103 | audit_append_call | `issues.append("container registry is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 105 | audit_append_call | `issues.append("deployment platform is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 107 | audit_append_call | `issues.append("infrastructure decision must be documented in docs/adr/")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 109 | audit_append_call | `issues.append("deployment architecture must be documented in docs/deployment/")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 111 | audit_append_call | `issues.append("infrastructure-as-code is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 113 | audit_append_call | `issues.append("manual production approval is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 115 | audit_append_call | `issues.append("environment separation is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 132 | audit_append_call | `issues.append(f"{self.stage.value} command is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 134 | audit_append_call | `issues.append(f"{self.stage.value} production check must block deploy")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 136 | audit_append_call | `issues.append("security scan must run for PRs")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 138 | audit_append_call | `issues.append("migration check must run before staging")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 157 | audit_append_call | `issues.append("dockerfile path is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 159 | audit_append_call | `issues.append("container must run as non-root user")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 161 | audit_append_call | `issues.append("base image pinning is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 163 | audit_append_call | `issues.append("container healthcheck is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 165 | audit_append_call | `issues.append("multi-stage build is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 167 | audit_append_call | `issues.append("dependency lockfile is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 169 | audit_append_call | `issues.append("container vulnerability scan is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 171 | audit_append_call | `issues.append("SBOM generation is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 191 | audit_append_call | `issues.append(f"{self.environment.value} missing required variable {variable}")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 193 | audit_append_call | `issues.append(f"{self.environment.value} secrets must be externalized")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 195 | audit_append_call | `issues.append("production debug must be disabled")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 197 | audit_append_call | `issues.append("production TLS is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 199 | audit_append_call | `issues.append("database migrations must be controlled")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 201 | audit_append_call | `issues.append(f"{self.environment.value} observability is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 204 | audit_append_call | `issues.append(f"forbidden variable {variable} cannot be required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 223 | audit_append_call | `issues.append("deployment gate name is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 225 | audit_append_call | `issues.append("deployment gate requires checks")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 227 | audit_append_call | `issues.append("production deployment gate requires manual approval")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 229 | audit_append_call | `issues.append("production strategy must preserve manual approval")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 231 | audit_append_call | `issues.append("rollback plan is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 233 | audit_append_call | `issues.append("smoke test is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 235 | audit_append_call | `issues.append("release notes are required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 237 | audit_append_call | `issues.append("deployment gate owner is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 254 | audit_append_call | `issues.append("rollback command must be documented")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 256 | audit_append_call | `issues.append("database rollback policy must be documented")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 258 | audit_append_call | `issues.append("feature flag rollback support is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 260 | audit_append_call | `issues.append("previous image must be retained")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 262 | audit_append_call | `issues.append("post-rollback smoke test is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 264 | audit_append_call | `issues.append("rollback incident record is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 281 | audit_append_call | `issues.append("git_sha must be lowercase hex")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 283 | audit_append_call | `issues.append("image_digest must be sha256")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 291 | audit_append_call | `issues.append(f"{name} is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 293 | audit_append_call | `issues.append("generated_at_utc is required")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 309 | audit_append_call | `issues.append(f"missing required environment variable {variable}")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 312 | audit_append_call | `issues.append(f"secret-like variable {key} has placeholder value")` |
-| `app/modules/deployment/production_readiness_contracts.py` | 314 | audit_append_call | `issues.append("production manifest must set ENVIRONMENT=production")` |
+| `app/modules/consent/service.py` | 43 | audit_repository | `audit trail via :class:`~app.repositories.audit_repository.AuditRepository`` |
+| `app/modules/consent/service.py` | 65 | audit_repository | `audit_repo: AuditRepository \| None = None,` |
+| `app/modules/consent/service.py` | 75 | audit_repository | `audit_repo: Optional :class:`~app.repositories.audit_repository.AuditRepository`` |
+| `app/modules/consent/service.py` | 95 | audit_repository | `audit_repo = AuditRepository(db)` |
+| `app/modules/consent/service.py` | 196 | audit_log_identifier | `# AuditLog / fourth_estate coverage is written via _append_audit below.` |
+| `app/modules/consent/service.py` | 236 | audit_log_identifier | `# AuditLog / fourth_estate coverage is written via _append_audit below.` |
+| `app/modules/consent/service.py` | 315 | audit_log_identifier | `# AuditLog / fourth_estate coverage is written via _append_audit below.` |
+| `app/modules/consent/service.py` | 369 | audit_repository | `Tries :class:`~app.repositories.audit_repository.AuditRepository`` |
+| `app/modules/consent/service.py` | 381 | audit_append_call | `await self._audit_repo.append(` |
+| `app/modules/consent/service.py` | 389 | audit_record_call | `await FourthEstateService(self._db).record(` |
+| `app/modules/deployment/production_readiness_contracts.py` | 100 | audit_append_call | `issues.append("infrastructure provider is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 102 | audit_append_call | `issues.append("container registry is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 104 | audit_append_call | `issues.append("deployment platform is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 106 | audit_append_call | `issues.append("infrastructure decision must be documented in docs/adr/")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 108 | audit_append_call | `issues.append("deployment architecture must be documented in docs/deployment/")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 110 | audit_append_call | `issues.append("infrastructure-as-code is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 112 | audit_append_call | `issues.append("manual production approval is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 114 | audit_append_call | `issues.append("environment separation is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 131 | audit_append_call | `issues.append(f"{self.stage.value} command is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 133 | audit_append_call | `issues.append(f"{self.stage.value} production check must block deploy")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 135 | audit_append_call | `issues.append("security scan must run for PRs")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 137 | audit_append_call | `issues.append("migration check must run before staging")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 156 | audit_append_call | `issues.append("dockerfile path is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 158 | audit_append_call | `issues.append("container must run as non-root user")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 160 | audit_append_call | `issues.append("base image pinning is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 162 | audit_append_call | `issues.append("container healthcheck is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 164 | audit_append_call | `issues.append("multi-stage build is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 166 | audit_append_call | `issues.append("dependency lockfile is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 168 | audit_append_call | `issues.append("container vulnerability scan is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 170 | audit_append_call | `issues.append("SBOM generation is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 190 | audit_append_call | `issues.append(f"{self.environment.value} missing required variable {variable}")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 192 | audit_append_call | `issues.append(f"{self.environment.value} secrets must be externalized")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 194 | audit_append_call | `issues.append("production debug must be disabled")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 196 | audit_append_call | `issues.append("production TLS is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 198 | audit_append_call | `issues.append("database migrations must be controlled")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 200 | audit_append_call | `issues.append(f"{self.environment.value} observability is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 203 | audit_append_call | `issues.append(f"forbidden variable {variable} cannot be required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 222 | audit_append_call | `issues.append("deployment gate name is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 224 | audit_append_call | `issues.append("deployment gate requires checks")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 226 | audit_append_call | `issues.append("production deployment gate requires manual approval")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 228 | audit_append_call | `issues.append("production strategy must preserve manual approval")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 230 | audit_append_call | `issues.append("rollback plan is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 232 | audit_append_call | `issues.append("smoke test is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 234 | audit_append_call | `issues.append("release notes are required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 236 | audit_append_call | `issues.append("deployment gate owner is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 253 | audit_append_call | `issues.append("rollback command must be documented")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 255 | audit_append_call | `issues.append("database rollback policy must be documented")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 257 | audit_append_call | `issues.append("feature flag rollback support is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 259 | audit_append_call | `issues.append("previous image must be retained")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 261 | audit_append_call | `issues.append("post-rollback smoke test is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 263 | audit_append_call | `issues.append("rollback incident record is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 280 | audit_append_call | `issues.append("git_sha must be lowercase hex")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 282 | audit_append_call | `issues.append("image_digest must be sha256")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 290 | audit_append_call | `issues.append(f"{name} is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 292 | audit_append_call | `issues.append("generated_at_utc is required")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 308 | audit_append_call | `issues.append(f"missing required environment variable {variable}")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 311 | audit_append_call | `issues.append(f"secret-like variable {key} has placeholder value")` |
+| `app/modules/deployment/production_readiness_contracts.py` | 313 | audit_append_call | `issues.append("production manifest must set ENVIRONMENT=production")` |
 | `app/modules/diagnostics/diagnostic_session_service.py` | 69 | audit_append_call | `snap.served_item_ids.append(item_id)` |
 | `app/modules/diagnostics/diagnostic_session_service.py` | 78 | audit_append_call | `snap.responses.append({**diagnostic_response_snapshot(item, item_id=item_id), "correct": correct, "response": response})` |
 | `app/modules/diagnostics/diagnostic_session_service.py` | 85 | audit_append_call | `snap.gap_topics.append(caps_ref)` |
@@ -354,59 +354,59 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/modules/diagnostics/production_readiness_contracts.py` | 91 | audit_append_call | `failures.append("exposure_count must be non-negative")` |
 | `app/modules/diagnostics/production_readiness_contracts.py` | 188 | audit_append_call | `failures.append(` |
 | `app/modules/diagnostics/quality_scorer.py` | 226 | audit_append_call | `texts.append(opt.get("text", ""))` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 23 | audit_logs_table | `AUDIT_LOGS = "audit_logs"` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 70 | audit_append_call | `issues.append("database backup provider is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 72 | audit_append_call | `issues.append("object backup provider is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 74 | audit_append_call | `issues.append("backup storage provider is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 76 | audit_append_call | `issues.append("backup provider decision must be documented in docs/adr/")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 78 | audit_append_call | `issues.append("backup architecture must be documented in docs/disaster_recovery/")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 80 | audit_append_call | `issues.append("backup encryption at rest is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 82 | audit_append_call | `issues.append("backup encryption in transit is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 84 | audit_append_call | `issues.append("cross-region backup copy is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 86 | audit_append_call | `issues.append("immutable retention is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 104 | audit_append_call | `issues.append(f"{self.scope.value} retention must be positive")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 106 | audit_append_call | `issues.append(f"{self.scope.value} critical backups must be hourly or daily")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 108 | audit_append_call | `issues.append("database backups require point-in-time recovery")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 110 | audit_append_call | `issues.append(f"{self.scope.value} backups must be encrypted")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 112 | audit_append_call | `issues.append(f"{self.scope.value} backups require integrity checks")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 114 | audit_append_call | `issues.append(f"{self.scope.value} backup owner is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 130 | audit_append_call | `issues.append("service is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 132 | audit_append_call | `issues.append("RPO cannot be negative")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 134 | audit_append_call | `issues.append("RTO cannot be negative")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 136 | audit_append_call | `issues.append("critical services require RPO <= 60 minutes")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 138 | audit_append_call | `issues.append("critical services require RTO <= 240 minutes")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 140 | audit_append_call | `issues.append("recovery owner is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 142 | audit_append_call | `issues.append("escalation route is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 162 | audit_append_call | `issues.append("manifest_id is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 164 | audit_append_call | `issues.append("backup_id is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 166 | audit_append_call | `issues.append("created_at_utc must be timezone-aware")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 168 | audit_append_call | `issues.append("source_environment is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 170 | audit_append_call | `issues.append("storage_location is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 172 | audit_append_call | `issues.append("checksum_sha256 must be 64 lowercase hex characters")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 174 | audit_append_call | `issues.append("backup manifest entry must be encrypted")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 176 | audit_append_call | `issues.append("retention_expires_at_utc must be timezone-aware")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 178 | audit_append_call | `issues.append("retention expiry must be after creation time")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 196 | audit_append_call | `issues.append("restore runbook must live under docs/disaster_recovery/runbooks/")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 198 | audit_append_call | `issues.append("pre-restore checks are required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 200 | audit_append_call | `issues.append("restore steps are required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 202 | audit_append_call | `issues.append("post-restore validation is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 204 | audit_append_call | `issues.append("rollback steps are required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 206 | audit_append_call | `issues.append("restore runbook owner is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 228 | audit_append_call | `issues.append("drill_id is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 230 | audit_append_call | `issues.append("drill timestamps must be timezone-aware")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 232 | audit_append_call | `issues.append("drill completion must be after start")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 234 | audit_append_call | `issues.append("observed RPO cannot be negative")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 236 | audit_append_call | `issues.append("observed RTO cannot be negative")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 238 | audit_append_call | `issues.append("passing restore drill requires checksum verification")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 240 | audit_append_call | `issues.append("passing restore drill requires application smoke test")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 242 | audit_append_call | `issues.append("passing restore drill requires data integrity test")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 244 | audit_append_call | `issues.append("restore drill evidence must live under docs/disaster_recovery/evidence/")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 263 | audit_append_call | `issues.append("plan_id is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 271 | audit_append_call | `issues.append(f"{name} is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 273 | audit_append_call | `issues.append("escalation matrix must be documented in docs/disaster_recovery/")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 275 | audit_append_call | `issues.append("business continuity plan must be documented in docs/disaster_recovery/")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 277 | audit_append_call | `issues.append("annual DR test is required")` |
-| `app/modules/disaster_recovery/production_readiness_contracts.py` | 279 | audit_append_call | `issues.append("post-incident review is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 22 | audit_logs_table | `AUDIT_LOGS = "audit_logs"` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 69 | audit_append_call | `issues.append("database backup provider is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 71 | audit_append_call | `issues.append("object backup provider is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 73 | audit_append_call | `issues.append("backup storage provider is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 75 | audit_append_call | `issues.append("backup provider decision must be documented in docs/adr/")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 77 | audit_append_call | `issues.append("backup architecture must be documented in docs/disaster_recovery/")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 79 | audit_append_call | `issues.append("backup encryption at rest is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 81 | audit_append_call | `issues.append("backup encryption in transit is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 83 | audit_append_call | `issues.append("cross-region backup copy is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 85 | audit_append_call | `issues.append("immutable retention is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 103 | audit_append_call | `issues.append(f"{self.scope.value} retention must be positive")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 105 | audit_append_call | `issues.append(f"{self.scope.value} critical backups must be hourly or daily")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 107 | audit_append_call | `issues.append("database backups require point-in-time recovery")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 109 | audit_append_call | `issues.append(f"{self.scope.value} backups must be encrypted")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 111 | audit_append_call | `issues.append(f"{self.scope.value} backups require integrity checks")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 113 | audit_append_call | `issues.append(f"{self.scope.value} backup owner is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 129 | audit_append_call | `issues.append("service is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 131 | audit_append_call | `issues.append("RPO cannot be negative")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 133 | audit_append_call | `issues.append("RTO cannot be negative")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 135 | audit_append_call | `issues.append("critical services require RPO <= 60 minutes")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 137 | audit_append_call | `issues.append("critical services require RTO <= 240 minutes")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 139 | audit_append_call | `issues.append("recovery owner is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 141 | audit_append_call | `issues.append("escalation route is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 161 | audit_append_call | `issues.append("manifest_id is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 163 | audit_append_call | `issues.append("backup_id is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 165 | audit_append_call | `issues.append("created_at_utc must be timezone-aware")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 167 | audit_append_call | `issues.append("source_environment is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 169 | audit_append_call | `issues.append("storage_location is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 171 | audit_append_call | `issues.append("checksum_sha256 must be 64 lowercase hex characters")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 173 | audit_append_call | `issues.append("backup manifest entry must be encrypted")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 175 | audit_append_call | `issues.append("retention_expires_at_utc must be timezone-aware")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 177 | audit_append_call | `issues.append("retention expiry must be after creation time")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 195 | audit_append_call | `issues.append("restore runbook must live under docs/disaster_recovery/runbooks/")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 197 | audit_append_call | `issues.append("pre-restore checks are required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 199 | audit_append_call | `issues.append("restore steps are required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 201 | audit_append_call | `issues.append("post-restore validation is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 203 | audit_append_call | `issues.append("rollback steps are required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 205 | audit_append_call | `issues.append("restore runbook owner is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 227 | audit_append_call | `issues.append("drill_id is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 229 | audit_append_call | `issues.append("drill timestamps must be timezone-aware")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 231 | audit_append_call | `issues.append("drill completion must be after start")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 233 | audit_append_call | `issues.append("observed RPO cannot be negative")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 235 | audit_append_call | `issues.append("observed RTO cannot be negative")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 237 | audit_append_call | `issues.append("passing restore drill requires checksum verification")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 239 | audit_append_call | `issues.append("passing restore drill requires application smoke test")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 241 | audit_append_call | `issues.append("passing restore drill requires data integrity test")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 243 | audit_append_call | `issues.append("restore drill evidence must live under docs/disaster_recovery/evidence/")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 262 | audit_append_call | `issues.append("plan_id is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 270 | audit_append_call | `issues.append(f"{name} is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 272 | audit_append_call | `issues.append("escalation matrix must be documented in docs/disaster_recovery/")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 274 | audit_append_call | `issues.append("business continuity plan must be documented in docs/disaster_recovery/")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 276 | audit_append_call | `issues.append("annual DR test is required")` |
+| `app/modules/disaster_recovery/production_readiness_contracts.py` | 278 | audit_append_call | `issues.append("post-incident review is required")` |
 | `app/modules/documentation_governance/production_readiness_contracts.py` | 75 | audit_append_call | `issues.append("documentation governance decision must be documented in docs/adr/")` |
 | `app/modules/documentation_governance/production_readiness_contracts.py` | 77 | audit_append_call | `issues.append("documentation architecture must be documented in docs/documentation/")` |
 | `app/modules/documentation_governance/production_readiness_contracts.py` | 87 | audit_append_call | `issues.append(f"{name} is required")` |
@@ -463,54 +463,54 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/modules/documentation_governance/production_readiness_contracts.py` | 305 | audit_append_call | `issues.append("documentation review gate owner is required")` |
 | `app/modules/documentation_governance/production_readiness_contracts.py` | 307 | audit_append_call | `issues.append("documentation review gate must block release")` |
 | `app/modules/documentation_governance/production_readiness_contracts.py` | 331 | audit_append_call | `issues.append(f"{claim.claim_id} contains unbounded production claim")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 89 | audit_append_call | `issues.append("final release-blocker decision must be documented in docs/adr/")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 91 | audit_append_call | `issues.append("release-blocker architecture must be documented in docs/release_blockers/")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 102 | audit_append_call | `issues.append(f"{name} is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 123 | audit_append_call | `issues.append("blocker_id must follow RB-### format")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 125 | audit_append_call | `issues.append("release blocker title is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 127 | audit_append_call | `issues.append("release blocker owner is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 129 | audit_append_call | `issues.append("release blocker evidence path must be controlled")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 131 | audit_append_call | `issues.append("closed blockers require closure evidence")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 133 | audit_append_call | `issues.append("closure evidence path must be controlled")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 135 | audit_append_call | `issues.append("waived blockers require waiver evidence")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 137 | audit_append_call | `issues.append("waiver evidence must live under docs/release_blockers/")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 139 | audit_append_call | `issues.append("external pending blockers require external dependency note")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 141 | audit_append_call | `issues.append("critical/release-blocker items cannot remain open")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 143 | audit_append_call | `issues.append("release-blocker severity cannot be waived by default")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 145 | audit_append_call | `issues.append(f"{self.blocker_id} still blocks launch")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 162 | audit_append_call | `issues.append("domain checklist path must live under docs/")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 164 | audit_append_call | `issues.append("domain check command is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 166 | audit_append_call | `issues.append("domain summary owner is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 168 | audit_append_call | `issues.append(f"{self.domain.value} release evidence is incomplete")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 170 | audit_append_call | `issues.append("external/manual domain requires manual dependency")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 187 | audit_append_call | `issues.append("waiver rule_id is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 189 | audit_append_call | `issues.append("release-blocker severity cannot be waived")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 191 | audit_append_call | `issues.append("waiver requires approvers")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 193 | audit_append_call | `issues.append("waiver expiry must be between 1 and 30 days")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 195 | audit_append_call | `issues.append("waiver requires compensating controls")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 197 | audit_append_call | `issues.append("waiver rule evidence path must live under docs/release_blockers/")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 215 | audit_append_call | `issues.append("dependency_id must follow EXT-### format")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 217 | audit_append_call | `issues.append("external dependency description is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 219 | audit_append_call | `issues.append("external dependency owner is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 221 | audit_append_call | `issues.append("external system is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 223 | audit_append_call | `issues.append("verification method is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 225 | audit_append_call | `issues.append("external dependency evidence path must live under docs/release_blockers/")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 227 | audit_append_call | `issues.append(f"{self.dependency_id} required external dependency is not closed")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 248 | audit_append_call | `issues.append("final go/no-go checklist_id is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 250 | audit_append_call | `issues.append("final go/no-go approvers are required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 252 | audit_append_call | `issues.append("release owner approval is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 254 | audit_append_call | `issues.append("required domains are required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 256 | audit_append_call | `issues.append("blocker register path must live under docs/release_blockers/")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 258 | audit_append_call | `issues.append("evidence bundle path must be controlled")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 267 | audit_append_call | `issues.append(f"{name} must be reviewed")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 269 | audit_append_call | `issues.append("GO decision must include external/manual dependency review")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 287 | audit_append_call | `issues.append("closure_id must follow CLOSE-### format")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 289 | audit_append_call | `issues.append("blocker_id must follow RB-### format")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 291 | audit_append_call | `issues.append("closed_by is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 293 | audit_append_call | `issues.append("evidence_checksum must be 64 lowercase hex")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 295 | audit_append_call | `issues.append("closure evidence path must be controlled")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 297 | audit_append_call | `issues.append("residual risk summary is required")` |
-| `app/modules/final_release_blockers/production_readiness_contracts.py` | 347 | audit_append_call | `issues.append(f"checklist GO conflicts with computed {decision.value}")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 88 | audit_append_call | `issues.append("final release-blocker decision must be documented in docs/adr/")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 90 | audit_append_call | `issues.append("release-blocker architecture must be documented in docs/release_blockers/")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 101 | audit_append_call | `issues.append(f"{name} is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 122 | audit_append_call | `issues.append("blocker_id must follow RB-### format")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 124 | audit_append_call | `issues.append("release blocker title is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 126 | audit_append_call | `issues.append("release blocker owner is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 128 | audit_append_call | `issues.append("release blocker evidence path must be controlled")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 130 | audit_append_call | `issues.append("closed blockers require closure evidence")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 132 | audit_append_call | `issues.append("closure evidence path must be controlled")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 134 | audit_append_call | `issues.append("waived blockers require waiver evidence")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 136 | audit_append_call | `issues.append("waiver evidence must live under docs/release_blockers/")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 138 | audit_append_call | `issues.append("external pending blockers require external dependency note")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 140 | audit_append_call | `issues.append("critical/release-blocker items cannot remain open")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 142 | audit_append_call | `issues.append("release-blocker severity cannot be waived by default")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 144 | audit_append_call | `issues.append(f"{self.blocker_id} still blocks launch")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 161 | audit_append_call | `issues.append("domain checklist path must live under docs/")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 163 | audit_append_call | `issues.append("domain check command is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 165 | audit_append_call | `issues.append("domain summary owner is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 167 | audit_append_call | `issues.append(f"{self.domain.value} release evidence is incomplete")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 169 | audit_append_call | `issues.append("external/manual domain requires manual dependency")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 186 | audit_append_call | `issues.append("waiver rule_id is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 188 | audit_append_call | `issues.append("release-blocker severity cannot be waived")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 190 | audit_append_call | `issues.append("waiver requires approvers")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 192 | audit_append_call | `issues.append("waiver expiry must be between 1 and 30 days")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 194 | audit_append_call | `issues.append("waiver requires compensating controls")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 196 | audit_append_call | `issues.append("waiver rule evidence path must live under docs/release_blockers/")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 214 | audit_append_call | `issues.append("dependency_id must follow EXT-### format")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 216 | audit_append_call | `issues.append("external dependency description is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 218 | audit_append_call | `issues.append("external dependency owner is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 220 | audit_append_call | `issues.append("external system is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 222 | audit_append_call | `issues.append("verification method is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 224 | audit_append_call | `issues.append("external dependency evidence path must live under docs/release_blockers/")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 226 | audit_append_call | `issues.append(f"{self.dependency_id} required external dependency is not closed")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 247 | audit_append_call | `issues.append("final go/no-go checklist_id is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 249 | audit_append_call | `issues.append("final go/no-go approvers are required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 251 | audit_append_call | `issues.append("release owner approval is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 253 | audit_append_call | `issues.append("required domains are required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 255 | audit_append_call | `issues.append("blocker register path must live under docs/release_blockers/")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 257 | audit_append_call | `issues.append("evidence bundle path must be controlled")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 266 | audit_append_call | `issues.append(f"{name} must be reviewed")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 268 | audit_append_call | `issues.append("GO decision must include external/manual dependency review")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 286 | audit_append_call | `issues.append("closure_id must follow CLOSE-### format")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 288 | audit_append_call | `issues.append("blocker_id must follow RB-### format")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 290 | audit_append_call | `issues.append("closed_by is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 292 | audit_append_call | `issues.append("evidence_checksum must be 64 lowercase hex")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 294 | audit_append_call | `issues.append("closure evidence path must be controlled")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 296 | audit_append_call | `issues.append("residual risk summary is required")` |
+| `app/modules/final_release_blockers/production_readiness_contracts.py` | 346 | audit_append_call | `issues.append(f"checklist GO conflicts with computed {decision.value}")` |
 | `app/modules/lessons/adaptive_remediation.py` | 159 | audit_append_call | `resolved_strategies.append(strategy)` |
 | `app/modules/lessons/adaptive_remediation.py` | 162 | audit_append_call | `unrecognised_tags.append(tag)` |
 | `app/modules/lessons/adaptive_remediation.py` | 163 | audit_append_call | `resolved_strategies.append(RemediationStrategy.RE_EXPLAIN)` |
@@ -528,7 +528,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/modules/lessons/lesson_coverage_router.py` | 103 | audit_append_call | `rows.append({` |
 | `app/modules/lessons/lesson_coverage_router.py` | 112 | audit_append_call | `rows.append({` |
 | `app/modules/lessons/lesson_coverage_router.py` | 163 | audit_append_call | `per_ref.append(CapsRefCoverage(` |
-| `app/modules/lessons/lesson_generator.py` | 466 | audit_append_call | `disagreements.append(` |
+| `app/modules/lessons/lesson_generator.py` | 465 | audit_append_call | `disagreements.append(` |
 | `app/modules/lessons/lesson_review_router.py` | 88 | audit_append_call | `reasons.append(f"Quality score {score} is below the {QUALITY_SCORE_REVIEW_THRESHOLD} threshold.")` |
 | `app/modules/lessons/lesson_review_router.py` | 90 | audit_append_call | `reasons.append("Answer key has not been independently verified.")` |
 | `app/modules/lessons/lesson_review_router.py` | 92 | audit_append_call | `reasons.append("Safety classifier flagged content as requiring human review.")` |
@@ -658,56 +658,56 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/modules/observability/production_readiness_contracts.py` | 291 | audit_append_call | `issues.append("PII redaction is required")` |
 | `app/modules/observability/production_readiness_contracts.py` | 293 | audit_append_call | `issues.append("telemetry deletion workflow is required")` |
 | `app/modules/observability/production_readiness_contracts.py` | 295 | audit_append_call | `issues.append("telemetry export workflow is required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 80 | audit_append_call | `issues.append("operations support decision must be documented in docs/adr/")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 82 | audit_append_call | `issues.append("operations support architecture must be documented in docs/operations_support/")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 93 | audit_append_call | `issues.append(f"{name} is required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 111 | audit_append_call | `issues.append("incident response time must be positive")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 113 | audit_append_call | `issues.append("incident update interval must be positive")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 115 | audit_append_call | `issues.append(f"{self.severity.value} requires incident commander")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 117 | audit_append_call | `issues.append("sev1 requires status update")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 119 | audit_append_call | `issues.append("major or critical customer impact must block release")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 137 | audit_append_call | `issues.append("policy_id is required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 139 | audit_append_call | `issues.append("primary and secondary roles must differ")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 141 | audit_append_call | `issues.append("escalation minutes must be positive")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 143 | audit_append_call | `issues.append("coverage hours are required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 145 | audit_append_call | `issues.append("backup on-call is required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 147 | audit_append_call | `issues.append("on-call handoff is required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 149 | audit_append_call | `issues.append("on-call evidence path must live under docs/operations_support/")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 168 | audit_append_call | `issues.append("operational runbook must live under docs/operations_support/runbooks/")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 170 | audit_append_call | `issues.append("runbook scenario is required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 172 | audit_append_call | `issues.append("detection steps are required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 174 | audit_append_call | `issues.append("triage steps are required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 176 | audit_append_call | `issues.append("mitigation steps are required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 178 | audit_append_call | `issues.append("recovery steps are required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 180 | audit_append_call | `issues.append("verification steps are required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 182 | audit_append_call | `issues.append("rollback criteria are required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 198 | audit_append_call | `issues.append("first response minutes must be positive")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 200 | audit_append_call | `issues.append("target resolution hours must be positive")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 202 | audit_append_call | `issues.append(f"{self.priority.value} support requires escalation")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 204 | audit_append_call | `issues.append("p0 first response must be <= 30 minutes")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 206 | audit_append_call | `issues.append("p1 first response must be <= 120 minutes")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 223 | audit_append_call | `issues.append("template_id is required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 225 | audit_append_call | `issues.append("status communication channels are required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 227 | audit_append_call | `issues.append("status communication audience is required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 229 | audit_append_call | `issues.append("status update interval must be positive")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 231 | audit_append_call | `issues.append(f"{self.severity.value} status communication requires status page")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 234 | audit_append_call | `issues.append(f"status communication missing required field {field}")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 253 | audit_append_call | `issues.append("incident_id is required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 255 | audit_append_call | `issues.append("detected_at_utc must be timezone-aware")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 257 | audit_append_call | `issues.append("resolved/reviewed incidents require root cause summary")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 259 | audit_append_call | `issues.append("incident evidence must live under docs/operations_support/incidents/")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 261 | audit_append_call | `issues.append("sev1/sev2 incidents require post-incident review")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 279 | audit_append_call | `issues.append("review_id is required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 281 | audit_append_call | `issues.append("incident_id is required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 283 | audit_append_call | `issues.append("post-incident review must be completed")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 285 | audit_append_call | `issues.append("root cause must be documented")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 287 | audit_append_call | `issues.append("incident timeline must be documented")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 289 | audit_append_call | `issues.append("corrective actions are required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 291 | audit_append_call | `issues.append("post-incident review evidence must live under docs/operations_support/post_incident_reviews/")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 310 | audit_append_call | `issues.append("operational handover checklist must live under docs/operations_support/")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 312 | audit_append_call | `issues.append("release owner is required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 314 | audit_append_call | `issues.append("support owner is required")` |
-| `app/modules/operations_support/production_readiness_contracts.py` | 324 | audit_append_call | `issues.append(f"{name} must be true")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 79 | audit_append_call | `issues.append("operations support decision must be documented in docs/adr/")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 81 | audit_append_call | `issues.append("operations support architecture must be documented in docs/operations_support/")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 92 | audit_append_call | `issues.append(f"{name} is required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 110 | audit_append_call | `issues.append("incident response time must be positive")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 112 | audit_append_call | `issues.append("incident update interval must be positive")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 114 | audit_append_call | `issues.append(f"{self.severity.value} requires incident commander")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 116 | audit_append_call | `issues.append("sev1 requires status update")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 118 | audit_append_call | `issues.append("major or critical customer impact must block release")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 136 | audit_append_call | `issues.append("policy_id is required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 138 | audit_append_call | `issues.append("primary and secondary roles must differ")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 140 | audit_append_call | `issues.append("escalation minutes must be positive")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 142 | audit_append_call | `issues.append("coverage hours are required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 144 | audit_append_call | `issues.append("backup on-call is required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 146 | audit_append_call | `issues.append("on-call handoff is required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 148 | audit_append_call | `issues.append("on-call evidence path must live under docs/operations_support/")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 167 | audit_append_call | `issues.append("operational runbook must live under docs/operations_support/runbooks/")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 169 | audit_append_call | `issues.append("runbook scenario is required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 171 | audit_append_call | `issues.append("detection steps are required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 173 | audit_append_call | `issues.append("triage steps are required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 175 | audit_append_call | `issues.append("mitigation steps are required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 177 | audit_append_call | `issues.append("recovery steps are required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 179 | audit_append_call | `issues.append("verification steps are required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 181 | audit_append_call | `issues.append("rollback criteria are required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 197 | audit_append_call | `issues.append("first response minutes must be positive")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 199 | audit_append_call | `issues.append("target resolution hours must be positive")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 201 | audit_append_call | `issues.append(f"{self.priority.value} support requires escalation")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 203 | audit_append_call | `issues.append("p0 first response must be <= 30 minutes")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 205 | audit_append_call | `issues.append("p1 first response must be <= 120 minutes")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 222 | audit_append_call | `issues.append("template_id is required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 224 | audit_append_call | `issues.append("status communication channels are required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 226 | audit_append_call | `issues.append("status communication audience is required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 228 | audit_append_call | `issues.append("status update interval must be positive")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 230 | audit_append_call | `issues.append(f"{self.severity.value} status communication requires status page")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 233 | audit_append_call | `issues.append(f"status communication missing required field {field}")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 252 | audit_append_call | `issues.append("incident_id is required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 254 | audit_append_call | `issues.append("detected_at_utc must be timezone-aware")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 256 | audit_append_call | `issues.append("resolved/reviewed incidents require root cause summary")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 258 | audit_append_call | `issues.append("incident evidence must live under docs/operations_support/incidents/")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 260 | audit_append_call | `issues.append("sev1/sev2 incidents require post-incident review")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 278 | audit_append_call | `issues.append("review_id is required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 280 | audit_append_call | `issues.append("incident_id is required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 282 | audit_append_call | `issues.append("post-incident review must be completed")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 284 | audit_append_call | `issues.append("root cause must be documented")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 286 | audit_append_call | `issues.append("incident timeline must be documented")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 288 | audit_append_call | `issues.append("corrective actions are required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 290 | audit_append_call | `issues.append("post-incident review evidence must live under docs/operations_support/post_incident_reviews/")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 309 | audit_append_call | `issues.append("operational handover checklist must live under docs/operations_support/")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 311 | audit_append_call | `issues.append("release owner is required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 313 | audit_append_call | `issues.append("support owner is required")` |
+| `app/modules/operations_support/production_readiness_contracts.py` | 323 | audit_append_call | `issues.append(f"{name} must be true")` |
 | `app/modules/progress/learning_velocity_service.py` | 41 | audit_append_call | `ranked.append({"caps_ref": caps_ref, "activity": activity, "mastery_score": score, "priority": priority})` |
 | `app/modules/progress/progress_timeline_service.py` | 28 | audit_append_call | `groups[row.caps_ref.split('.')[1] if '.' in row.caps_ref else 'unknown'].append(row)` |
 | `app/modules/progress/progress_timeline_service.py` | 32 | audit_append_call | `summaries.append({"subject_code": key, "topic_count": len(values), "average_mastery": round(avg, 4)})` |
@@ -752,62 +752,62 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/modules/quality_gates/production_readiness_contracts.py` | 257 | audit_append_call | `issues.append("smoke test is required")` |
 | `app/modules/quality_gates/production_readiness_contracts.py` | 259 | audit_append_call | `issues.append("beta and production signoff is required")` |
 | `app/modules/quality_gates/production_readiness_contracts.py` | 285 | audit_append_call | `issues.append(f"missing {evidence_type.value} for {stage.value}")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 85 | audit_append_call | `issues.append("roadmap governance decision must be documented in docs/adr/")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 87 | audit_append_call | `issues.append("roadmap architecture must be documented in docs/roadmap/")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 98 | audit_append_call | `issues.append(f"{name} is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 116 | audit_append_call | `issues.append("boundary_id is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 118 | audit_append_call | `issues.append("baseline boundary title is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 120 | audit_append_call | `issues.append("baseline boundary rationale is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 122 | audit_append_call | `issues.append("baseline boundary evidence path must be controlled")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 124 | audit_append_call | `issues.append("baseline boundary owner is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 126 | audit_append_call | `issues.append("external/manual boundary requires manual dependency")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 147 | audit_append_call | `issues.append("roadmap_id must follow RM-### format")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 149 | audit_append_call | `issues.append("roadmap item title is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 151 | audit_append_call | `issues.append("roadmap owner is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 153 | audit_append_call | `issues.append("roadmap rationale is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 155 | audit_append_call | `issues.append("roadmap expected outcome is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 157 | audit_append_call | `issues.append("P0/P1 items cannot be parked")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 159 | audit_append_call | `issues.append("in-progress items must be now or next")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 161 | audit_append_call | `issues.append("roadmap evidence path must live under docs/roadmap/")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 163 | audit_append_call | `issues.append("now/next roadmap items require target quarter")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 182 | audit_append_call | `issues.append("deferred_id must follow DEF-### format")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 184 | audit_append_call | `issues.append("deferred title is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 186 | audit_append_call | `issues.append("deferred reason is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 188 | audit_append_call | `issues.append("unblock condition is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 190 | audit_append_call | `issues.append("deferred scope owner is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 192 | audit_append_call | `issues.append("risk if deferred is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 194 | audit_append_call | `issues.append("deferred scope evidence path must live under docs/roadmap/")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 196 | audit_append_call | `issues.append("deferred scope review date is stale")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 214 | audit_append_call | `issues.append("dependency_id must follow DEP-### format")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 216 | audit_append_call | `issues.append("source_roadmap_id must follow RM-### format")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 218 | audit_append_call | `issues.append("dependency description is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 220 | audit_append_call | `issues.append("dependency owner is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 222 | audit_append_call | `issues.append("external dependencies require mitigation")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 224 | audit_append_call | `issues.append("roadmap dependency evidence path must live under docs/roadmap/")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 241 | audit_append_call | `issues.append("criterion_id must follow GRAD-### format")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 243 | audit_append_call | `issues.append("roadmap_id must follow RM-### format")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 245 | audit_append_call | `issues.append("graduation metric name is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 247 | audit_append_call | `issues.append("graduation threshold is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 249 | audit_append_call | `issues.append("graduation evidence path must be controlled")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 251 | audit_append_call | `issues.append("graduation criterion owner is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 253 | audit_append_call | `issues.append("GA-required graduation criterion must define metric")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 270 | audit_append_call | `issues.append("cadence_id is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 272 | audit_append_call | `issues.append("roadmap review frequency must be positive")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 274 | audit_append_call | `issues.append("roadmap review cadence must be at least quarterly")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 276 | audit_append_call | `issues.append("roadmap review owner is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 278 | audit_append_call | `issues.append("roadmap review requires inputs")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 280 | audit_append_call | `issues.append("roadmap review requires outputs")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 282 | audit_append_call | `issues.append("roadmap review evidence path must live under docs/roadmap/")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 284 | audit_append_call | `issues.append("roadmap review must block uncontrolled scope expansion")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 303 | audit_append_call | `issues.append("risk_id must follow RISK-### format")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 305 | audit_append_call | `issues.append("risk title is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 307 | audit_append_call | `issues.append("risk impact is invalid")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 309 | audit_append_call | `issues.append("risk likelihood is invalid")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 311 | audit_append_call | `issues.append("risk owner is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 313 | audit_append_call | `issues.append("risk mitigation is required")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 315 | audit_append_call | `issues.append("risk evidence path must live under docs/roadmap/")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 317 | audit_append_call | `issues.append("critical post-baseline risk must block GA")` |
-| `app/modules/roadmap/production_readiness_contracts.py` | 353 | audit_append_call | `issues.append(f"{dependency.dependency_id} references unknown roadmap item")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 84 | audit_append_call | `issues.append("roadmap governance decision must be documented in docs/adr/")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 86 | audit_append_call | `issues.append("roadmap architecture must be documented in docs/roadmap/")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 97 | audit_append_call | `issues.append(f"{name} is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 115 | audit_append_call | `issues.append("boundary_id is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 117 | audit_append_call | `issues.append("baseline boundary title is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 119 | audit_append_call | `issues.append("baseline boundary rationale is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 121 | audit_append_call | `issues.append("baseline boundary evidence path must be controlled")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 123 | audit_append_call | `issues.append("baseline boundary owner is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 125 | audit_append_call | `issues.append("external/manual boundary requires manual dependency")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 146 | audit_append_call | `issues.append("roadmap_id must follow RM-### format")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 148 | audit_append_call | `issues.append("roadmap item title is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 150 | audit_append_call | `issues.append("roadmap owner is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 152 | audit_append_call | `issues.append("roadmap rationale is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 154 | audit_append_call | `issues.append("roadmap expected outcome is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 156 | audit_append_call | `issues.append("P0/P1 items cannot be parked")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 158 | audit_append_call | `issues.append("in-progress items must be now or next")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 160 | audit_append_call | `issues.append("roadmap evidence path must live under docs/roadmap/")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 162 | audit_append_call | `issues.append("now/next roadmap items require target quarter")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 181 | audit_append_call | `issues.append("deferred_id must follow DEF-### format")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 183 | audit_append_call | `issues.append("deferred title is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 185 | audit_append_call | `issues.append("deferred reason is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 187 | audit_append_call | `issues.append("unblock condition is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 189 | audit_append_call | `issues.append("deferred scope owner is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 191 | audit_append_call | `issues.append("risk if deferred is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 193 | audit_append_call | `issues.append("deferred scope evidence path must live under docs/roadmap/")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 195 | audit_append_call | `issues.append("deferred scope review date is stale")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 213 | audit_append_call | `issues.append("dependency_id must follow DEP-### format")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 215 | audit_append_call | `issues.append("source_roadmap_id must follow RM-### format")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 217 | audit_append_call | `issues.append("dependency description is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 219 | audit_append_call | `issues.append("dependency owner is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 221 | audit_append_call | `issues.append("external dependencies require mitigation")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 223 | audit_append_call | `issues.append("roadmap dependency evidence path must live under docs/roadmap/")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 240 | audit_append_call | `issues.append("criterion_id must follow GRAD-### format")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 242 | audit_append_call | `issues.append("roadmap_id must follow RM-### format")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 244 | audit_append_call | `issues.append("graduation metric name is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 246 | audit_append_call | `issues.append("graduation threshold is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 248 | audit_append_call | `issues.append("graduation evidence path must be controlled")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 250 | audit_append_call | `issues.append("graduation criterion owner is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 252 | audit_append_call | `issues.append("GA-required graduation criterion must define metric")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 269 | audit_append_call | `issues.append("cadence_id is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 271 | audit_append_call | `issues.append("roadmap review frequency must be positive")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 273 | audit_append_call | `issues.append("roadmap review cadence must be at least quarterly")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 275 | audit_append_call | `issues.append("roadmap review owner is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 277 | audit_append_call | `issues.append("roadmap review requires inputs")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 279 | audit_append_call | `issues.append("roadmap review requires outputs")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 281 | audit_append_call | `issues.append("roadmap review evidence path must live under docs/roadmap/")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 283 | audit_append_call | `issues.append("roadmap review must block uncontrolled scope expansion")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 302 | audit_append_call | `issues.append("risk_id must follow RISK-### format")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 304 | audit_append_call | `issues.append("risk title is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 306 | audit_append_call | `issues.append("risk impact is invalid")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 308 | audit_append_call | `issues.append("risk likelihood is invalid")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 310 | audit_append_call | `issues.append("risk owner is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 312 | audit_append_call | `issues.append("risk mitigation is required")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 314 | audit_append_call | `issues.append("risk evidence path must live under docs/roadmap/")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 316 | audit_append_call | `issues.append("critical post-baseline risk must block GA")` |
+| `app/modules/roadmap/production_readiness_contracts.py` | 352 | audit_append_call | `issues.append(f"{dependency.dependency_id} references unknown roadmap item")` |
 | `app/modules/security_posture/production_readiness_contracts.py` | 98 | audit_append_call | `issues.append("security posture decision must be documented in docs/adr/")` |
 | `app/modules/security_posture/production_readiness_contracts.py` | 100 | audit_append_call | `issues.append("security architecture must be documented in docs/security/")` |
 | `app/modules/security_posture/production_readiness_contracts.py` | 111 | audit_append_call | `issues.append(f"{name} is required")` |
@@ -914,16 +914,16 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/backend_runtime_wiring_cases.py` | 97 | audit_append_call | `results.append(` |
 | `app/services/backend_runtime_wiring_cases.py` | 112 | audit_append_call | `results.append(` |
 | `app/services/consent_runtime_compatibility.py` | 94 | audit_append_call | `required.append(name)` |
-| `app/services/consent_service.py` | 25 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
-| `app/services/consent_service.py` | 33 | audit_repository | `audit_repo: AuditRepository,` |
-| `app/services/consent_service.py` | 49 | audit_log_identifier | `# audit_log` |
-| `app/services/consent_service.py` | 67 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 103 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 123 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 144 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 163 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 203 | audit_record_call | `await self._audit.record(` |
-| `app/services/consent_service.py` | 212 | audit_append_call | `flagged.append(saved)` |
+| `app/services/consent_service.py` | 24 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
+| `app/services/consent_service.py` | 32 | audit_repository | `audit_repo: AuditRepository,` |
+| `app/services/consent_service.py` | 48 | audit_log_identifier | `# audit_log` |
+| `app/services/consent_service.py` | 66 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 102 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 122 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 143 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 162 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 202 | audit_record_call | `await self._audit.record(` |
+| `app/services/consent_service.py` | 211 | audit_append_call | `flagged.append(saved)` |
 | `app/services/content_blueprint_validation.py` | 18 | audit_append_call | `errors.append("Blueprint requires content_json or blueprint_json.")` |
 | `app/services/content_blueprint_validation.py` | 21 | audit_append_call | `errors.append("Blueprint may reference only approved diagnostic items: " + ", ".join(sorted(missing)))` |
 | `app/services/content_bulk_review.py` | 60 | audit_append_call | `approved.append(transition.artifact_id)` |
@@ -1017,8 +1017,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/content_generation_runs.py` | 129 | audit_append_call | `retry_tasks.append(retry)` |
 | `app/services/content_learner_read_service.py` | 189 | audit_append_call | `items.append(` |
 | `app/services/content_learner_read_service.py` | 267 | audit_append_call | `items.append(` |
-| `app/services/content_production_promotion_executor.py` | 192 | audit_append_call | `errors.append(f"Failed to promote artifact {staging_artifact.artifact_id}: {str(e)}")` |
-| `app/services/content_production_promotion_executor.py` | 286 | audit_append_call | `items.append(` |
+| `app/services/content_production_promotion_executor.py` | 190 | audit_append_call | `errors.append(f"Failed to promote artifact {staging_artifact.artifact_id}: {str(e)}")` |
+| `app/services/content_production_promotion_executor.py` | 284 | audit_append_call | `items.append(` |
 | `app/services/content_production_promotion_gate.py` | 145 | audit_append_call | `blockers.append(` |
 | `app/services/content_production_promotion_gate.py` | 183 | audit_append_call | `blockers.append(` |
 | `app/services/content_production_promotion_gate.py` | 201 | audit_append_call | `blockers.append(` |
@@ -1033,7 +1033,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/content_production_read_verification.py` | 93 | audit_append_call | `errors.append(` |
 | `app/services/content_production_read_verification.py` | 138 | audit_append_call | `errors.append(f"Source artifact {prod_artifact.artifact_id} not found")` |
 | `app/services/content_production_read_verification.py` | 142 | audit_append_call | `errors.append(` |
-| `app/services/content_review_queue.py` | 103 | audit_append_call | `items.append(self._queue_item(artifact, risk, validation.get(artifact.artifact_id), provenance, assignment))` |
+| `app/services/content_review_queue.py` | 101 | audit_append_call | `items.append(self._queue_item(artifact, risk, validation.get(artifact.artifact_id), provenance, assignment))` |
 | `app/services/content_review_risk.py` | 32 | audit_append_call | `reasons.append("invalid_provenance")` |
 | `app/services/content_review_risk.py` | 35 | audit_append_call | `reasons.append("missing_provenance")` |
 | `app/services/content_review_risk.py` | 40 | audit_append_call | `reasons.append("missing_sources")` |
@@ -1046,7 +1046,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/content_review_risk.py` | 74 | audit_append_call | `reasons.append("duplicate_similarity")` |
 | `app/services/content_review_risk.py` | 78 | audit_append_call | `reasons.append("new_caps_ref")` |
 | `app/services/content_review_risk.py` | 84 | audit_append_call | `reasons.append("stale_source_document")` |
-| `app/services/content_reviewer_assignment.py` | 72 | audit_append_call | `assignments.append(await self.assign_artifact(session, artifact_id, reviewer_id, assigned_by, priority=priority))` |
+| `app/services/content_reviewer_assignment.py` | 71 | audit_append_call | `assignments.append(await self.assign_artifact(session, artifact_id, reviewer_id, assigned_by, priority=priority))` |
 | `app/services/content_safety/lesson_contracts.py` | 99 | audit_append_call | `reasons.append("topic missing")` |
 | `app/services/content_safety/lesson_contracts.py` | 101 | audit_append_call | `reasons.append("CAPS alignment invalid")` |
 | `app/services/content_safety/lesson_contracts.py` | 103 | audit_append_call | `reasons.append("unsafe content")` |
@@ -1056,8 +1056,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/content_safety/lesson_contracts.py` | 119 | audit_append_call | `reasons.append("low alignment confidence")` |
 | `app/services/content_safety/lesson_contracts.py` | 121 | audit_append_call | `reasons.append("low quality score")` |
 | `app/services/content_seed_promotion.py` | 131 | audit_append_call | `errors.append(f"{caps_ref.caps_ref}:{item.value} coverage is {counts.status.value}.")` |
-| `app/services/content_staging_preview_service.py` | 131 | audit_append_call | `artifacts.append(` |
-| `app/services/content_staging_preview_service.py` | 220 | audit_append_call | `artifacts.append(` |
+| `app/services/content_staging_preview_service.py` | 130 | audit_append_call | `artifacts.append(` |
+| `app/services/content_staging_preview_service.py` | 219 | audit_append_call | `artifacts.append(` |
 | `app/services/content_staging_read_verification.py` | 54 | audit_append_call | `errors.append(f"Missing staging record for seeded artifact {item.artifact_id}")` |
 | `app/services/content_staging_read_verification.py` | 57 | audit_append_call | `errors.append(f"Multiple staging records for seeded artifact {item.artifact_id}")` |
 | `app/services/content_staging_read_verification.py` | 61 | audit_append_call | `errors.append(f"Staging record for {item.artifact_id} is not active ({artifact.staging_status})")` |
@@ -1069,27 +1069,27 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/content_staging_read_verification.py` | 89 | audit_append_call | `errors.append(f"Seeded item count {len(seeded_items)} does not match active staging count {active_count}")` |
 | `app/services/content_staging_read_verification.py` | 107 | audit_append_call | `errors.append(f"Staged artifact {artifact.artifact_id} source missing")` |
 | `app/services/content_staging_read_verification.py` | 113 | audit_append_call | `errors.append(f"Artifact {artifact.artifact_id} is in staging but status is {source_status}")` |
-| `app/services/content_staging_readiness.py` | 161 | audit_append_call | `layers.append(LayerReadinessSummary(layer=layer_name, caps_ref=target.caps_ref, target=int(required), status=StagingReadinessStatus.NOT_CONFIGURED))` |
-| `app/services/content_staging_readiness.py` | 169 | audit_append_call | `layers.append(summary)` |
-| `app/services/content_staging_readiness.py` | 173 | audit_append_call | `blockers.append(ScopeBlocker(code="missing_targets", severity=BlockerSeverity.BLOCKING, message="Scope has no configured coverage targets."))` |
-| `app/services/content_staging_readiness.py` | 253 | audit_append_call | `scopes.append(` |
-| `app/services/content_staging_readiness.py` | 285 | audit_append_call | `index[source.artifact_id].append(source)` |
-| `app/services/content_staging_readiness.py` | 353 | audit_append_call | `blockers.append(ScopeBlocker(code="target_not_configured", severity=BlockerSeverity.WARNING, **common))` |
-| `app/services/content_staging_readiness.py` | 360 | audit_append_call | `blockers.append(ScopeBlocker(code=code, severity=BlockerSeverity.BLOCKING, **common))` |
-| `app/services/content_staging_readiness.py` | 362 | audit_append_call | `blockers.append(ScopeBlocker(code="invalid_provenance", severity=BlockerSeverity.BLOCKING, **common))` |
-| `app/services/content_staging_readiness.py` | 364 | audit_append_call | `blockers.append(ScopeBlocker(code="invalid_license", severity=BlockerSeverity.BLOCKING, **common))` |
-| `app/services/content_staging_readiness.py` | 366 | audit_append_call | `blockers.append(ScopeBlocker(code="low_source_quality", severity=BlockerSeverity.BLOCKING, **common))` |
-| `app/services/content_staging_seed_executor.py` | 294 | audit_append_call | `errors.append(f"Constraint violation for artifact {artifact.artifact_id}: {item_integrity_err}")` |
-| `app/services/content_staging_seed_executor.py` | 363 | audit_append_call | `items.append(StagingSeedRunResult(` |
-| `app/services/content_staging_seed_executor.py` | 452 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is pending review"))` |
-| `app/services/content_staging_seed_executor.py` | 456 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is rejected"))` |
-| `app/services/content_staging_seed_executor.py` | 460 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is quarantined"))` |
-| `app/services/content_staging_seed_executor.py` | 464 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact validation failed"))` |
-| `app/services/content_staging_seed_executor.py` | 468 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, f"Artifact status {status_val} is not seedable"))` |
-| `app/services/content_staging_seed_executor.py` | 474 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Invalid provenance"))` |
-| `app/services/content_staging_seed_executor.py` | 481 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Latest validation report missing"))` |
-| `app/services/content_staging_seed_executor.py` | 484 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Latest validation failed"))` |
-| `app/services/content_staging_seed_executor.py` | 487 | audit_append_call | `seedable.append(SeedableArtifact(` |
+| `app/services/content_staging_readiness.py` | 160 | audit_append_call | `layers.append(LayerReadinessSummary(layer=layer_name, caps_ref=target.caps_ref, target=int(required), status=StagingReadinessStatus.NOT_CONFIGURED))` |
+| `app/services/content_staging_readiness.py` | 168 | audit_append_call | `layers.append(summary)` |
+| `app/services/content_staging_readiness.py` | 172 | audit_append_call | `blockers.append(ScopeBlocker(code="missing_targets", severity=BlockerSeverity.BLOCKING, message="Scope has no configured coverage targets."))` |
+| `app/services/content_staging_readiness.py` | 252 | audit_append_call | `scopes.append(` |
+| `app/services/content_staging_readiness.py` | 284 | audit_append_call | `index[source.artifact_id].append(source)` |
+| `app/services/content_staging_readiness.py` | 352 | audit_append_call | `blockers.append(ScopeBlocker(code="target_not_configured", severity=BlockerSeverity.WARNING, **common))` |
+| `app/services/content_staging_readiness.py` | 359 | audit_append_call | `blockers.append(ScopeBlocker(code=code, severity=BlockerSeverity.BLOCKING, **common))` |
+| `app/services/content_staging_readiness.py` | 361 | audit_append_call | `blockers.append(ScopeBlocker(code="invalid_provenance", severity=BlockerSeverity.BLOCKING, **common))` |
+| `app/services/content_staging_readiness.py` | 363 | audit_append_call | `blockers.append(ScopeBlocker(code="invalid_license", severity=BlockerSeverity.BLOCKING, **common))` |
+| `app/services/content_staging_readiness.py` | 365 | audit_append_call | `blockers.append(ScopeBlocker(code="low_source_quality", severity=BlockerSeverity.BLOCKING, **common))` |
+| `app/services/content_staging_seed_executor.py` | 293 | audit_append_call | `errors.append(f"Constraint violation for artifact {artifact.artifact_id}: {item_integrity_err}")` |
+| `app/services/content_staging_seed_executor.py` | 362 | audit_append_call | `items.append(StagingSeedRunResult(` |
+| `app/services/content_staging_seed_executor.py` | 451 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is pending review"))` |
+| `app/services/content_staging_seed_executor.py` | 455 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is rejected"))` |
+| `app/services/content_staging_seed_executor.py` | 459 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is quarantined"))` |
+| `app/services/content_staging_seed_executor.py` | 463 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact validation failed"))` |
+| `app/services/content_staging_seed_executor.py` | 467 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, f"Artifact status {status_val} is not seedable"))` |
+| `app/services/content_staging_seed_executor.py` | 473 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Invalid provenance"))` |
+| `app/services/content_staging_seed_executor.py` | 480 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Latest validation report missing"))` |
+| `app/services/content_staging_seed_executor.py` | 483 | audit_append_call | `skipped.append(SkippedArtifact(artifact.artifact_id, "Latest validation failed"))` |
+| `app/services/content_staging_seed_executor.py` | 486 | audit_append_call | `seedable.append(SeedableArtifact(` |
 | `app/services/content_template_validation.py` | 18 | audit_append_call | `errors.append("Study plan template requires content_json or template_json.")` |
 | `app/services/content_template_validation.py` | 21 | audit_append_call | `errors.append("Study templates may reference only approved lessons or blueprints: " + ", ".join(sorted(missing)))` |
 | `app/services/curriculum/coverage.py` | 34 | audit_append_call | `gaps.append(` |
@@ -1146,38 +1146,38 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/etl/etl_pipeline.py` | 1263 | audit_append_call | `if grade:         clauses.append("grade=?");             params.append(grade)` |
 | `app/services/etl/etl_pipeline.py` | 1264 | audit_append_call | `if subject:       clauses.append("subject=?");           params.append(subject)` |
 | `app/services/etl/etl_pipeline.py` | 1265 | audit_append_call | `if document_type: clauses.append("document_type=?");     params.append(document_type)` |
-| `app/services/etl/etl_pipeline_v2.py` | 502 | audit_append_call | `params.append(grade)` |
-| `app/services/etl/etl_pipeline_v2.py` | 505 | audit_append_call | `params.append(subject)` |
-| `app/services/etl/etl_pipeline_v2.py` | 508 | audit_append_call | `params.append(document_type)` |
-| `app/services/etl/etl_pipeline_v2.py` | 528 | audit_append_call | `params.append(grade)` |
-| `app/services/etl/etl_pipeline_v2.py` | 531 | audit_append_call | `params.append(subject)` |
-| `app/services/etl/etl_pipeline_v2.py` | 534 | audit_append_call | `params.append(document_type)` |
-| `app/services/etl/etl_pipeline_v2.py` | 550 | audit_append_call | `results.append(row)` |
-| `app/services/etl/etl_pipeline_v2.py` | 628 | audit_append_call | `scored.append({"score": score, **dict(r)})` |
-| `app/services/etl/etl_pipeline_v2.py` | 732 | audit_append_call | `examples.append(ex)` |
-| `app/services/etl/etl_pipeline_v2.py` | 1057 | audit_append_call | `alerts.append(f"HIGH job failure rate: {jobs['failure_rate']*100:.0f}% in last 24h.")` |
-| `app/services/etl/etl_pipeline_v2.py` | 1059 | audit_append_call | `alerts.append(f"{stats['pending_reviews']} documents pending human review.")` |
-| `app/services/etl/etl_pipeline_v2.py` | 1061 | audit_append_call | `alerts.append(f"{len(stale)} documents have been stale for >90 days.")` |
-| `app/services/etl/etl_pipeline_v2.py` | 1063 | audit_append_call | `alerts.append(f"Low approval rate: {approval_rate*100:.0f}% in last 30 days.")` |
-| `app/services/etl/etl_pipeline_v2.py` | 1065 | audit_append_call | `alerts.append(f"{feedback['incorrect_answer']} 'incorrect_answer' reports in last 30 days.")` |
-| `app/services/etl/etl_pipeline_v2.py` | 1098 | audit_append_call | `missing.append({"grade": g, "subject": s, "document_type": t})` |
-| `app/services/etl/etl_pipeline_v3_additions.py` | 293 | audit_append_call | `set_clauses.append(f"{col}=?")` |
-| `app/services/etl/etl_pipeline_v3_additions.py` | 294 | audit_append_call | `params.append(new_val)` |
-| `app/services/etl/etl_pipeline_v3_additions.py` | 295 | audit_append_call | `changes.append((col, str(old_doc[col]), str(new_val)))` |
-| `app/services/etl/etl_pipeline_v3_additions.py` | 300 | audit_append_call | `set_clauses.append("updated_at=?")` |
-| `app/services/etl/etl_pipeline_v3_additions.py` | 344 | audit_append_call | `results.append({"document_id": doc_id, "success": True})` |
-| `app/services/etl/etl_pipeline_v3_additions.py` | 347 | audit_append_call | `results.append({"document_id": doc_id, "success": False, "error": str(e)})` |
-| `app/services/etl/etl_pipeline_v3_additions.py` | 509 | audit_append_call | `overlapping.append(r["example_id"])` |
+| `app/services/etl/etl_pipeline_v2.py` | 499 | audit_append_call | `params.append(grade)` |
+| `app/services/etl/etl_pipeline_v2.py` | 502 | audit_append_call | `params.append(subject)` |
+| `app/services/etl/etl_pipeline_v2.py` | 505 | audit_append_call | `params.append(document_type)` |
+| `app/services/etl/etl_pipeline_v2.py` | 525 | audit_append_call | `params.append(grade)` |
+| `app/services/etl/etl_pipeline_v2.py` | 528 | audit_append_call | `params.append(subject)` |
+| `app/services/etl/etl_pipeline_v2.py` | 531 | audit_append_call | `params.append(document_type)` |
+| `app/services/etl/etl_pipeline_v2.py` | 547 | audit_append_call | `results.append(row)` |
+| `app/services/etl/etl_pipeline_v2.py` | 625 | audit_append_call | `scored.append({"score": score, **dict(r)})` |
+| `app/services/etl/etl_pipeline_v2.py` | 729 | audit_append_call | `examples.append(ex)` |
+| `app/services/etl/etl_pipeline_v2.py` | 1054 | audit_append_call | `alerts.append(f"HIGH job failure rate: {jobs['failure_rate']*100:.0f}% in last 24h.")` |
+| `app/services/etl/etl_pipeline_v2.py` | 1056 | audit_append_call | `alerts.append(f"{stats['pending_reviews']} documents pending human review.")` |
+| `app/services/etl/etl_pipeline_v2.py` | 1058 | audit_append_call | `alerts.append(f"{len(stale)} documents have been stale for >90 days.")` |
+| `app/services/etl/etl_pipeline_v2.py` | 1060 | audit_append_call | `alerts.append(f"Low approval rate: {approval_rate*100:.0f}% in last 30 days.")` |
+| `app/services/etl/etl_pipeline_v2.py` | 1062 | audit_append_call | `alerts.append(f"{feedback['incorrect_answer']} 'incorrect_answer' reports in last 30 days.")` |
+| `app/services/etl/etl_pipeline_v2.py` | 1095 | audit_append_call | `missing.append({"grade": g, "subject": s, "document_type": t})` |
+| `app/services/etl/etl_pipeline_v3_additions.py` | 291 | audit_append_call | `set_clauses.append(f"{col}=?")` |
+| `app/services/etl/etl_pipeline_v3_additions.py` | 292 | audit_append_call | `params.append(new_val)` |
+| `app/services/etl/etl_pipeline_v3_additions.py` | 293 | audit_append_call | `changes.append((col, str(old_doc[col]), str(new_val)))` |
+| `app/services/etl/etl_pipeline_v3_additions.py` | 298 | audit_append_call | `set_clauses.append("updated_at=?")` |
+| `app/services/etl/etl_pipeline_v3_additions.py` | 342 | audit_append_call | `results.append({"document_id": doc_id, "success": True})` |
+| `app/services/etl/etl_pipeline_v3_additions.py` | 345 | audit_append_call | `results.append({"document_id": doc_id, "success": False, "error": str(e)})` |
+| `app/services/etl/etl_pipeline_v3_additions.py` | 507 | audit_append_call | `overlapping.append(r["example_id"])` |
 | `app/services/first_audit_runtime_wiring.py` | 60 | audit_append_call | `self.events.append(kwargs)` |
 | `app/services/first_audit_runtime_wiring.py` | 132 | audit_record_call | `response = await adapter.record(` |
 | `app/services/first_deep_readiness_runtime_wiring.py` | 85 | audit_append_call | `selected_checks.append(name)` |
-| `app/services/job_dependency_factory.py` | 58 | audit_repository | `audit_repo_cls = _import_symbol("app.repositories.audit_repository.AuditRepository") or _import_symbol("app.repositories.repositories.AuditRepository")` |
+| `app/services/job_dependency_factory.py` | 56 | audit_repository | `audit_repo_cls = _import_symbol("app.repositories.audit_repository.AuditRepository") or _import_symbol("app.repositories.repositories.AuditRepository")` |
 | `app/services/jwt_keyring.py` | 167 | audit_append_call | `keys.append(JWTKey(kid=kid, secret=secret, algorithm=algorithm, status=status))` |
 | `app/services/lesson_authorization.py` | 185 | audit_append_call | `found.append(item)` |
 | `app/services/lesson_authorization.py` | 198 | audit_append_call | `found.append(item)` |
-| `app/services/lesson_context_builder.py` | 217 | audit_append_call | `parts.append(f"({subtopic})")` |
-| `app/services/lesson_context_builder.py` | 221 | audit_append_call | `parts.append(f"with emphasis on correcting: {tags_str}")` |
-| `app/services/lesson_context_builder.py` | 231 | audit_append_call | `parts.append(severity_hints.get(severity, ""))` |
+| `app/services/lesson_context_builder.py` | 216 | audit_append_call | `parts.append(f"({subtopic})")` |
+| `app/services/lesson_context_builder.py` | 220 | audit_append_call | `parts.append(f"with emphasis on correcting: {tags_str}")` |
+| `app/services/lesson_context_builder.py` | 230 | audit_append_call | `parts.append(severity_hints.get(severity, ""))` |
 | `app/services/llm/gateway.py` | 147 | audit_append_call | `providers.append((self.development_fallback, "development_fallback"))` |
 | `app/services/llm/gateway.py` | 154 | audit_append_call | `failures.append(f"{provider.provider_name}:{health.reason}")` |
 | `app/services/llm/gateway.py` | 186 | audit_append_call | `failures.append(f"{provider.provider_name}:{exc}")` |
@@ -1369,6 +1369,9 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_ai_refusal_fixtures.py` | 85 | audit_append_call | `results.append(RefusalFixtureResult(str(DOC.relative_to(REPO_ROOT)), DOC.exists(), "doc present" if DOC.exists() else "doc missing"))` |
 | `scripts/check_ai_refusal_fixtures.py` | 87 | audit_append_call | `results.append(RefusalFixtureResult(str(DOC.relative_to(REPO_ROOT)), snippet in doc_text, f"contains {snippet!r}" if snippet in doc_text else f"missing {snippet!r}"))` |
 | `scripts/check_ai_safety_boundary_contract.py` | 35 | audit_append_call | `results.append(` |
+| `scripts/check_answer_key_independence.py` | 106 | audit_append_call | `errors.append(f"{json_file.name}: {msg}")` |
+| `scripts/check_answer_key_independence.py` | 110 | audit_append_call | `errors.append(f"{json_file.name}: Invalid JSON - {e}")` |
+| `scripts/check_answer_key_independence.py` | 113 | audit_append_call | `errors.append(f"{json_file.name}: {e}")` |
 | `scripts/check_api_envelope_error_contract.py` | 91 | audit_append_call | `results.append(EvidenceResult(rel_path, path.exists(), "present" if path.exists() else "missing"))` |
 | `scripts/check_api_envelope_error_contract.py` | 97 | audit_append_call | `results.append(` |
 | `scripts/check_api_envelope_error_contract.py` | 107 | audit_append_call | `results.append(` |
@@ -1377,23 +1380,23 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_approval_evidence.py` | 49 | audit_append_call | `failures.append("release mode requires all legal/security/content approvals complete")` |
 | `scripts/check_approval_evidence.py` | 80 | audit_append_call | `failures.append("approval evidence tests failed")` |
 | `scripts/check_approval_evidence.py` | 101 | audit_append_call | `failures.append("focused Ruff failed")` |
-| `scripts/check_architecture_boundary_contracts.py` | 32 | audit_append_call | `modules.append(node.module or "")` |
-| `scripts/check_architecture_boundary_contracts.py` | 50 | audit_append_call | `failures.append(f"{' '.join(command)} failed: {result.stdout}")` |
-| `scripts/check_architecture_boundary_contracts.py` | 55 | audit_append_call | `failures.append(f"{router} missing")` |
-| `scripts/check_architecture_boundary_contracts.py` | 64 | audit_append_call | `failures.append(f"{router}: missing required import {required}")` |
-| `scripts/check_architecture_boundary_contracts.py` | 69 | audit_append_call | `failures.append(f"{router}: forbidden import {forbidden}")` |
-| `scripts/check_architecture_boundary_contracts.py` | 77 | audit_append_call | `failures.append(f"{router}: forbidden {prefix} imports {offenders}")` |
-| `scripts/check_architecture_boundary_contracts.py` | 86 | audit_append_call | `failures.append(".importlinter missing")` |
-| `scripts/check_architecture_boundary_contracts.py` | 93 | audit_append_call | `failures.append("service boundary classification policy missing")` |
+| `scripts/check_architecture_boundary_contracts.py` | 31 | audit_append_call | `modules.append(node.module or "")` |
+| `scripts/check_architecture_boundary_contracts.py` | 49 | audit_append_call | `failures.append(f"{' '.join(command)} failed: {result.stdout}")` |
+| `scripts/check_architecture_boundary_contracts.py` | 54 | audit_append_call | `failures.append(f"{router} missing")` |
+| `scripts/check_architecture_boundary_contracts.py` | 63 | audit_append_call | `failures.append(f"{router}: missing required import {required}")` |
+| `scripts/check_architecture_boundary_contracts.py` | 68 | audit_append_call | `failures.append(f"{router}: forbidden import {forbidden}")` |
+| `scripts/check_architecture_boundary_contracts.py` | 76 | audit_append_call | `failures.append(f"{router}: forbidden {prefix} imports {offenders}")` |
+| `scripts/check_architecture_boundary_contracts.py` | 85 | audit_append_call | `failures.append(".importlinter missing")` |
+| `scripts/check_architecture_boundary_contracts.py` | 92 | audit_append_call | `failures.append("service boundary classification policy missing")` |
 | `scripts/check_archival_lock_assertion.py` | 51 | audit_append_call | `results.append(` |
-| `scripts/check_arq_worker_import.py` | 39 | audit_append_call | `found.append(item)` |
-| `scripts/check_arq_worker_import.py` | 59 | audit_append_call | `failures.append("arq not pinned in dependency files")` |
-| `scripts/check_arq_worker_import.py` | 65 | audit_append_call | `failures.append(f"app.modules.jobs import failed: {exc!r}")` |
-| `scripts/check_arq_worker_import.py` | 73 | audit_append_call | `failures.append(f"arq compat import failed: {exc!r}")` |
-| `scripts/check_arq_worker_import.py` | 81 | audit_append_call | `failures.append(f"WorkerSettings/functions missing {expected}")` |
-| `scripts/check_arq_worker_import.py` | 87 | audit_append_call | `failures.append("jobs.py missing run_consent_reminder_cycle")` |
-| `scripts/check_arq_worker_import.py` | 115 | audit_append_call | `failures.append("ARQ worker import contract tests failed")` |
-| `scripts/check_arq_worker_import.py` | 136 | audit_append_call | `failures.append("focused ruff failed")` |
+| `scripts/check_arq_worker_import.py` | 41 | audit_append_call | `found.append(item)` |
+| `scripts/check_arq_worker_import.py` | 61 | audit_append_call | `failures.append("arq not pinned in dependency files")` |
+| `scripts/check_arq_worker_import.py` | 67 | audit_append_call | `failures.append(f"app.modules.jobs import failed: {exc!r}")` |
+| `scripts/check_arq_worker_import.py` | 75 | audit_append_call | `failures.append(f"arq compat import failed: {exc!r}")` |
+| `scripts/check_arq_worker_import.py` | 89 | audit_append_call | `failures.append(f"WorkerSettings/functions missing {expected}")` |
+| `scripts/check_arq_worker_import.py` | 95 | audit_append_call | `failures.append("jobs.py missing run_consent_reminder_cycle")` |
+| `scripts/check_arq_worker_import.py` | 123 | audit_append_call | `failures.append("ARQ worker import contract tests failed")` |
+| `scripts/check_arq_worker_import.py` | 144 | audit_append_call | `failures.append("focused ruff failed")` |
 | `scripts/check_audit_baseline_refresh.py` | 42 | audit_append_call | `failures.append(f"unexpected branch {status.current_branch}")` |
 | `scripts/check_audit_baseline_refresh.py` | 45 | audit_append_call | `failures.append("beta decision is GO while beta blockers remain")` |
 | `scripts/check_audit_baseline_refresh.py` | 49 | audit_append_call | `failures.append("audit status JSON commit does not match current commit")` |
@@ -1463,11 +1466,11 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_auth_route_logout_delegate.py` | 69 | audit_append_call | `failures.append("focused Ruff failed")` |
 | `scripts/check_auth_route_service_dependencies.py` | 54 | audit_append_call | `failures.append("auth route service dependency tests failed")` |
 | `scripts/check_auth_route_service_dependencies.py` | 67 | audit_append_call | `failures.append("focused Ruff failed")` |
-| `scripts/check_auth_router_boundary.py` | 26 | audit_append_call | `failures.append("missing auth runtime dependency import")` |
-| `scripts/check_auth_router_boundary.py` | 32 | audit_append_call | `failures.append("LearnerRepository remains in auth router")` |
-| `scripts/check_auth_router_boundary.py` | 38 | audit_append_call | `failures.append("direct get_by_guardian remains")` |
-| `scripts/check_auth_router_boundary.py` | 45 | audit_append_call | `failures.append("guardian learner ids not referenced in service impl")` |
-| `scripts/check_auth_router_boundary.py` | 52 | audit_append_call | `failures.append("missing repair report")` |
+| `scripts/check_auth_router_boundary.py` | 25 | audit_append_call | `failures.append("missing auth runtime dependency import")` |
+| `scripts/check_auth_router_boundary.py` | 31 | audit_append_call | `failures.append("LearnerRepository remains in auth router")` |
+| `scripts/check_auth_router_boundary.py` | 37 | audit_append_call | `failures.append("direct get_by_guardian remains")` |
+| `scripts/check_auth_router_boundary.py` | 44 | audit_append_call | `failures.append("guardian learner ids not referenced in service impl")` |
+| `scripts/check_auth_router_boundary.py` | 51 | audit_append_call | `failures.append("missing repair report")` |
 | `scripts/check_auth_service_cleanup.py` | 41 | audit_append_call | `failures.append("release mode requires logout/revoke route delegation")` |
 | `scripts/check_auth_service_cleanup.py` | 60 | audit_append_call | `failures.append("auth service cleanup tests failed")` |
 | `scripts/check_auth_service_cleanup.py` | 73 | audit_append_call | `failures.append("focused Ruff failed")` |
@@ -1865,9 +1868,9 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_jwt_rotation.py` | 21 | audit_append_call | `failures.append("missing keyring helper")` |
 | `scripts/check_jwt_rotation.py` | 27 | audit_append_call | `failures.append("security.py missing keyring import")` |
 | `scripts/check_jwt_rotation.py` | 33 | audit_append_call | `failures.append("no kid header path or blocker")` |
-| `scripts/check_jwt_secret_rotation_evidence.py` | 30 | audit_append_call | `if req not in e: failures.append(f"{item} missing {req}")` |
-| `scripts/check_jwt_secret_rotation_evidence.py` | 37 | audit_append_call | `if r.returncode != 0: failures.append("JWT secret rotation unit tests failed")` |
-| `scripts/check_jwt_secret_rotation_evidence.py` | 40 | audit_append_call | `else: failures.append("focused Ruff failed"); print(ruff.stdout)` |
+| `scripts/check_jwt_secret_rotation_evidence.py` | 34 | audit_append_call | `if req not in e: failures.append(f"{item} missing {req}")` |
+| `scripts/check_jwt_secret_rotation_evidence.py` | 41 | audit_append_call | `if r.returncode != 0: failures.append("JWT secret rotation unit tests failed")` |
+| `scripts/check_jwt_secret_rotation_evidence.py` | 44 | audit_append_call | `else: failures.append("focused Ruff failed"); print(ruff.stdout)` |
 | `scripts/check_learner_vertical_journey_contract.py` | 49 | audit_append_call | `results.append(` |
 | `scripts/check_learner_vertical_journey_contract.py` | 54 | audit_append_call | `results.append(` |
 | `scripts/check_learner_vertical_journey_contract.py` | 62 | audit_append_call | `results.append(` |
@@ -1948,10 +1951,10 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_post_merge_evidence_continuity_note.py` | 51 | audit_append_call | `results.append(` |
 | `scripts/check_post_merge_release_handoff.py` | 52 | audit_append_call | `results.append(` |
 | `scripts/check_post_terminal_audit_readiness.py` | 50 | audit_append_call | `results.append(PostTerminalAuditReadinessResult(snippet in text, f"contains {snippet!r}" if snippet in text else f"missing {snippet!r}"))` |
-| `scripts/check_pr002r_evidence.py` | 104 | audit_append_call | `results.append(` |
-| `scripts/check_pr002r_evidence.py` | 122 | audit_append_call | `results.append(` |
-| `scripts/check_pr002r_evidence.py` | 134 | audit_append_call | `results.append(` |
-| `scripts/check_pr002r_evidence.py` | 155 | audit_append_call | `lines.append(f"- {status} [{result.kind}] {result.path}: {result.message}")` |
+| `scripts/check_pr002r_evidence.py` | 103 | audit_append_call | `results.append(` |
+| `scripts/check_pr002r_evidence.py` | 121 | audit_append_call | `results.append(` |
+| `scripts/check_pr002r_evidence.py` | 133 | audit_append_call | `results.append(` |
+| `scripts/check_pr002r_evidence.py` | 154 | audit_append_call | `lines.append(f"- {status} [{result.kind}] {result.path}: {result.message}")` |
 | `scripts/check_pr_closeout_evidence_checklist.py` | 47 | audit_append_call | `results.append(` |
 | `scripts/check_pr_merge_evidence_summary.py` | 55 | audit_append_call | `results.append(` |
 | `scripts/check_pr_ready_final_closure_certificate.py` | 53 | audit_append_call | `results.append(` |
@@ -2034,14 +2037,14 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/check_runtime_blockers_after_followup_audit.py` | 35 | audit_append_call | `failures.append("diagnostics still uses require_items=False")` |
 | `scripts/check_runtime_blockers_after_followup_audit.py` | 39 | audit_append_call | `failures.append(f"jobs missing {name}")` |
 | `scripts/check_runtime_blockers_after_followup_audit.py` | 42 | audit_append_call | `failures.append(f"jobs.py still directly references {token}")` |
-| `scripts/check_runtime_entrypoints.py` | 124 | audit_append_call | `results.append(check_entrypoint(spec, canonical=index == 0))` |
-| `scripts/check_runtime_entrypoints.py` | 154 | audit_append_call | `lines.append(f"- {status} {result.spec}")` |
-| `scripts/check_runtime_entrypoints.py` | 157 | audit_append_call | `lines.append(f"  title: {result.title}")` |
-| `scripts/check_runtime_entrypoints.py` | 159 | audit_append_call | `lines.append(f"  version: {result.version}")` |
-| `scripts/check_runtime_entrypoints.py` | 161 | audit_append_call | `lines.append(f"  route_count: {result.route_count}")` |
-| `scripts/check_runtime_entrypoints.py` | 163 | audit_append_call | `lines.append(f"  missing_routes: {', '.join(result.missing_routes)}")` |
-| `scripts/check_runtime_entrypoints.py` | 165 | audit_append_call | `lines.append(f"  missing_prefixes: {', '.join(result.missing_prefixes)}")` |
-| `scripts/check_runtime_entrypoints.py` | 167 | audit_append_call | `lines.append(f"  error: {result.error}")` |
+| `scripts/check_runtime_entrypoints.py` | 123 | audit_append_call | `results.append(check_entrypoint(spec, canonical=index == 0))` |
+| `scripts/check_runtime_entrypoints.py` | 153 | audit_append_call | `lines.append(f"- {status} {result.spec}")` |
+| `scripts/check_runtime_entrypoints.py` | 156 | audit_append_call | `lines.append(f"  title: {result.title}")` |
+| `scripts/check_runtime_entrypoints.py` | 158 | audit_append_call | `lines.append(f"  version: {result.version}")` |
+| `scripts/check_runtime_entrypoints.py` | 160 | audit_append_call | `lines.append(f"  route_count: {result.route_count}")` |
+| `scripts/check_runtime_entrypoints.py` | 162 | audit_append_call | `lines.append(f"  missing_routes: {', '.join(result.missing_routes)}")` |
+| `scripts/check_runtime_entrypoints.py` | 164 | audit_append_call | `lines.append(f"  missing_prefixes: {', '.join(result.missing_prefixes)}")` |
+| `scripts/check_runtime_entrypoints.py` | 166 | audit_append_call | `lines.append(f"  error: {result.error}")` |
 | `scripts/check_runtime_integration_proof.py` | 35 | audit_append_call | `failures.append("POPIA dependency missing lifecycle adapter")` |
 | `scripts/check_runtime_integration_proof.py` | 40 | audit_append_call | `failures.append(f"POPIA adapter missing {method}")` |
 | `scripts/check_runtime_integration_proof.py` | 44 | audit_append_call | `failures.append("diagnostics contains require_items=False")` |
@@ -2399,7 +2402,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/evidence_registry.py` | 105 | audit_append_call | `errors.append(f"{finding.id}: production-ready cannot have closure_blocker")` |
 | `scripts/evidence_registry.py` | 109 | audit_append_call | `errors.append(f"{finding.id}: beta-blocking incomplete item must name closure_blocker")` |
 | `scripts/evidence_registry.py` | 118 | audit_append_call | `errors.append(f"{finding.id}: evidence_file missing: {finding.evidence_file}")` |
-| `scripts/execute_disposable_db_schema_proof.py` | 26 | audit_append_call | `code,out=run(cmd); overall=max(overall,code); lines.append(f"\| `{' '.join(cmd).replace(url,'<DATABASE_URL>')}` \| {code} \|"); lines+=["","```text",out.rstrip(),"```"]` |
+| `scripts/execute_disposable_db_schema_proof.py` | 27 | audit_append_call | `code,out=run(cmd); overall=max(overall,code); lines.append(f"\| `{' '.join(cmd).replace(url,'<DATABASE_URL>')}` \| {code} \|"); lines+=["","```text",out.rstrip(),"```"]` |
 | `scripts/external_approval_gate.py` | 167 | audit_append_call | `blockers.append(f"decision must be {meta['required_decision']}")` |
 | `scripts/external_approval_gate.py` | 169 | audit_append_call | `blockers.append("approver is pending")` |
 | `scripts/external_approval_gate.py` | 171 | audit_append_call | `blockers.append("evidence URL is pending or invalid")` |
@@ -2502,7 +2505,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_grade4_item_batch.py` | 168 | audit_append_call | `batch.append(` |
 | `scripts/generate_grade4_item_batch.py` | 252 | audit_append_call | `batch.append(` |
 | `scripts/generate_grade4_item_batch.py` | 335 | audit_append_call | `batch.append(` |
-| `scripts/generate_items.py` | 271 | audit_append_call | `seed["items"].append(item)` |
+| `scripts/generate_items.py` | 269 | audit_append_call | `seed["items"].append(item)` |
 | `scripts/generate_learner_authz_matrix.py` | 127 | audit_append_call | `rows.append(` |
 | `scripts/generate_learner_authz_matrix.py` | 161 | audit_append_call | `lines.append(` |
 | `scripts/generate_learner_authz_matrix.py` | 169 | audit_append_call | `lines.append(f"- `{row.router}` `{row.method} {row.path}` via `{row.function}`")` |
@@ -2555,28 +2558,28 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/generate_truthful_beta_readiness_status.py` | 76 | audit_append_call | `lines.append("- None")` |
 | `scripts/generate_truthful_release_owner_beta_go_no_go.py` | 38 | audit_append_call | `lines.append("- None")` |
 | `scripts/generate_truthful_release_owner_beta_go_no_go.py` | 43 | audit_logs_table | `"This memo does not approve production launch, destructive database changes, consent-table merge, audit_logs drop, public mutating health probes, or synthetic evidence substitution.",` |
-| `scripts/ingestion/api.py` | 134 | audit_append_call | `result.append(SourceInfo(` |
-| `scripts/ingestion/main.py` | 358 | audit_append_call | `resolved.append(sid)` |
+| `scripts/ingestion/api.py` | 133 | audit_append_call | `result.append(SourceInfo(` |
+| `scripts/ingestion/main.py` | 356 | audit_append_call | `resolved.append(sid)` |
 | `scripts/ingestion/pipeline/__init__.py` | 181 | audit_append_call | `self._raw_buf.append(raw)` |
 | `scripts/ingestion/pipeline/__init__.py` | 182 | audit_append_call | `self._norm_buf.append(aligned)` |
 | `scripts/ingestion/pipeline/__init__.py` | 183 | audit_append_call | `self._train_buf.append(record)` |
 | `scripts/ingestion/pipeline/__init__.py` | 234 | audit_append_call | `by_source.setdefault(rec.source_id, []).append(rec)` |
-| `scripts/ingestion/pipeline/caps_aligner.py` | 151 | audit_append_call | `results.append(align(item))` |
-| `scripts/ingestion/pipeline/caps_aligner.py` | 154 | audit_append_call | `results.append(item)` |
+| `scripts/ingestion/pipeline/caps_aligner.py` | 148 | audit_append_call | `results.append(align(item))` |
+| `scripts/ingestion/pipeline/caps_aligner.py` | 151 | audit_append_call | `results.append(item)` |
 | `scripts/ingestion/pipeline/normaliser.py` | 144 | audit_append_call | `results.append(norm)` |
-| `scripts/ingestion/pipeline/storage.py` | 292 | audit_append_call | `where_parts.append("subject = :subject")` |
-| `scripts/ingestion/pipeline/storage.py` | 295 | audit_append_call | `where_parts.append("grade = :grade")` |
-| `scripts/ingestion/pipeline/storage.py` | 298 | audit_append_call | `where_parts.append("caps_phase = :caps_phase")` |
-| `scripts/ingestion/pipeline/training_formatter.py` | 109 | audit_append_call | `records.append(rec)` |
-| `scripts/ingestion/pipeline/training_formatter.py` | 326 | audit_append_call | `tags.append(f"grade-{c.grade}")` |
-| `scripts/ingestion/pipeline/training_formatter.py` | 328 | audit_append_call | `tags.append(f"phase-{c.caps_phase}")` |
-| `scripts/ingestion/pipeline/training_formatter.py` | 330 | audit_append_call | `tags.append(f"subject-{c.subject}")` |
-| `scripts/ingestion/pipeline/training_formatter.py` | 332 | audit_append_call | `tags.append(f"topic-{c.caps_topic_code}")` |
-| `scripts/ingestion/pipeline/training_formatter.py` | 334 | audit_append_call | `tags.append(f"jurisdiction-{c.jurisdiction}")` |
-| `scripts/ingestion/pipeline/training_formatter.py` | 336 | audit_append_call | `tags.append(f"difficulty-{c.difficulty.value}")` |
-| `scripts/ingestion/pipeline/training_formatter.py` | 338 | audit_append_call | `tags.append(f"lang-{c.language}")` |
-| `scripts/ingestion/pipeline/training_formatter.py` | 339 | audit_append_call | `tags.append(f"source-{c.source_id}")` |
-| `scripts/ingestion/pipeline/training_formatter.py` | 340 | audit_append_call | `tags.append(f"type-{c.content_type.value}")` |
+| `scripts/ingestion/pipeline/storage.py` | 290 | audit_append_call | `where_parts.append("subject = :subject")` |
+| `scripts/ingestion/pipeline/storage.py` | 293 | audit_append_call | `where_parts.append("grade = :grade")` |
+| `scripts/ingestion/pipeline/storage.py` | 296 | audit_append_call | `where_parts.append("caps_phase = :caps_phase")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 108 | audit_append_call | `records.append(rec)` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 325 | audit_append_call | `tags.append(f"grade-{c.grade}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 327 | audit_append_call | `tags.append(f"phase-{c.caps_phase}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 329 | audit_append_call | `tags.append(f"subject-{c.subject}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 331 | audit_append_call | `tags.append(f"topic-{c.caps_topic_code}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 333 | audit_append_call | `tags.append(f"jurisdiction-{c.jurisdiction}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 335 | audit_append_call | `tags.append(f"difficulty-{c.difficulty.value}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 337 | audit_append_call | `tags.append(f"lang-{c.language}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 338 | audit_append_call | `tags.append(f"source-{c.source_id}")` |
+| `scripts/ingestion/pipeline/training_formatter.py` | 339 | audit_append_call | `tags.append(f"type-{c.content_type.value}")` |
 | `scripts/ingestion/queue_manager.py` | 284 | audit_append_call | `jobs.append(json.loads(payload))` |
 | `scripts/ingestion/run_pipeline.py` | 57 | audit_append_call | `errors.append(f"{doc_id}: page_count={pages}")` |
 | `scripts/ingestion/run_pipeline.py` | 59 | audit_append_call | `errors.append(f"{doc_id}: char_count={chars}")` |
@@ -2595,8 +2598,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/ingestion/sources/bbc_bitesize.py` | 156 | audit_append_call | `key_points.append(text)` |
 | `scripts/ingestion/sources/bbc_bitesize.py` | 214 | audit_append_call | `items.append({"question": q, "options": opts, "answer": correct})` |
 | `scripts/ingestion/sources/ck12.py` | 241 | audit_append_call | `questions.append({` |
-| `scripts/ingestion/sources/commonlit.py` | 126 | audit_append_call | `links.append(full)` |
-| `scripts/ingestion/sources/commonlit.py` | 230 | audit_append_call | `questions.append({` |
+| `scripts/ingestion/sources/commonlit.py` | 125 | audit_append_call | `links.append(full)` |
+| `scripts/ingestion/sources/commonlit.py` | 229 | audit_append_call | `questions.append({` |
 | `scripts/ingestion/sources/dbe_south_africa.py` | 113 | audit_append_call | `pages.append({"page": page_num, "text": text.strip()})` |
 | `scripts/ingestion/sources/dbe_south_africa.py` | 211 | audit_append_call | `docs.append({` |
 | `scripts/ingestion/sources/khan_academy.py` | 105 | audit_append_call | `links.append((match, kind))` |
@@ -2624,37 +2627,37 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/integrate_patch.py` | 59 | audit_append_call | `staged_conflicts.append(target)` |
 | `scripts/integrate_patch.py` | 64 | audit_append_call | `moved.append(dest_file)` |
 | `scripts/inventory_services.py` | 92 | audit_append_call | `found_duplicates.append((dup_path, canonical_rel))` |
-| `scripts/jwt_secret_rotation_evidence.py` | 152 | audit_append_call | `blockers.append(f"JWT self-test raised {type(exc).__name__}: {exc}")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 153 | audit_append_call | `if not access_ok: blockers.append("access token issue/verify self-test failed")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 154 | audit_append_call | `if not refresh_ok: blockers.append("refresh token issue/verify self-test failed")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 155 | audit_append_call | `if not access_tamper: blockers.append("access token tamper rejection failed")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 156 | audit_append_call | `if not refresh_tamper: blockers.append("refresh token tamper rejection failed")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 157 | audit_append_call | `if not separated: blockers.append("access and refresh secrets must be different")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 173 | audit_append_call | `if not re.fullmatch(r"[0-9]+", run_id): blockers.append("JWT_EVIDENCE_RUN_ID is not numeric")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 174 | audit_append_call | `if not _gh_available(): blockers.append("GitHub CLI is unavailable or not authenticated")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 177 | audit_append_call | `blockers.append(f"unable to read GitHub Actions run {run_id}")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 184 | audit_append_call | `if f"/actions/runs/{run_id}" not in url: blockers.append("run URL does not contain numeric run ID")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 185 | audit_append_call | `if status != "completed": blockers.append(f"GitHub Actions run status is {status or 'missing'}, expected completed")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 186 | audit_append_call | `if conclusion != "success": blockers.append(f"GitHub Actions run conclusion is {conclusion or 'missing'}, expected success")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 187 | audit_append_call | `if head_sha != expected_sha: blockers.append(f"GitHub Actions run SHA {head_sha or 'missing'} does not match current commit {expected_sha}")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 188 | audit_append_call | `if not workflow: blockers.append("workflow name is missing")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 201 | audit_append_call | `if not ev.present: blockers.append(f"current {label} JWT secret is missing")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 202 | audit_append_call | `if ev.present and ev.length < MIN_SECRET_LENGTH: blockers.append(f"current {label} JWT secret length is {ev.length}, expected at least {MIN_SECRET_LENGTH}")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 203 | audit_append_call | `if ev.placeholder_like: blockers.append(f"current {label} JWT secret looks placeholder-like")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 207 | audit_append_call | `if evidence_env not in {"staging", "production"}: blockers.append("JWT_EVIDENCE_ENV must be staging or production")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 208 | audit_append_call | `if not store or has_placeholder(store): blockers.append("JWT_SECRET_STORE is missing or placeholder-like")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 209 | audit_append_call | `if not ref or has_placeholder(ref): blockers.append("JWT_ROTATION_REFERENCE is missing or placeholder-like")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 210 | audit_append_call | `if not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", date): blockers.append("JWT_ROTATION_DATE must be YYYY-MM-DD")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 211 | audit_append_call | `if rotation_result != "passed": blockers.append("JWT_ROTATION_RESULT must be passed")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 212 | audit_append_call | `if not prev_access: blockers.append("previous access JWT fingerprint/secret is required for rotation evidence")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 213 | audit_append_call | `if not prev_refresh: blockers.append("previous refresh JWT fingerprint/secret is required for rotation evidence")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 214 | audit_append_call | `if prev_access and not access_rotated: blockers.append("current access JWT fingerprint matches previous fingerprint; rotation not proven")` |
-| `scripts/jwt_secret_rotation_evidence.py` | 215 | audit_append_call | `if prev_refresh and not refresh_rotated: blockers.append("current refresh JWT fingerprint matches previous fingerprint; rotation not proven")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 159 | audit_append_call | `blockers.append(f"JWT self-test raised {type(exc).__name__}: {exc}")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 160 | audit_append_call | `if not access_ok: blockers.append("access token issue/verify self-test failed")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 161 | audit_append_call | `if not refresh_ok: blockers.append("refresh token issue/verify self-test failed")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 162 | audit_append_call | `if not access_tamper: blockers.append("access token tamper rejection failed")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 163 | audit_append_call | `if not refresh_tamper: blockers.append("refresh token tamper rejection failed")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 164 | audit_append_call | `if not separated: blockers.append("access and refresh secrets must be different")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 180 | audit_append_call | `if not re.fullmatch(r"[0-9]+", run_id): blockers.append("JWT_EVIDENCE_RUN_ID is not numeric")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 181 | audit_append_call | `if not _gh_available(): blockers.append("GitHub CLI is unavailable or not authenticated")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 184 | audit_append_call | `blockers.append(f"unable to read GitHub Actions run {run_id}")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 191 | audit_append_call | `if f"/actions/runs/{run_id}" not in url: blockers.append("run URL does not contain numeric run ID")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 192 | audit_append_call | `if status != "completed": blockers.append(f"GitHub Actions run status is {status or 'missing'}, expected completed")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 193 | audit_append_call | `if conclusion != "success": blockers.append(f"GitHub Actions run conclusion is {conclusion or 'missing'}, expected success")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 194 | audit_append_call | `if head_sha != expected_sha: blockers.append(f"GitHub Actions run SHA {head_sha or 'missing'} does not match current commit {expected_sha}")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 195 | audit_append_call | `if not workflow: blockers.append("workflow name is missing")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 208 | audit_append_call | `if not ev.present: blockers.append(f"current {label} JWT secret is missing")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 209 | audit_append_call | `if ev.present and ev.length < MIN_SECRET_LENGTH: blockers.append(f"current {label} JWT secret length is {ev.length}, expected at least {MIN_SECRET_LENGTH}")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 210 | audit_append_call | `if ev.placeholder_like: blockers.append(f"current {label} JWT secret looks placeholder-like")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 214 | audit_append_call | `if evidence_env not in {"staging", "production"}: blockers.append("JWT_EVIDENCE_ENV must be staging or production")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 215 | audit_append_call | `if not store or has_placeholder(store): blockers.append("JWT_SECRET_STORE is missing or placeholder-like")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 216 | audit_append_call | `if not ref or has_placeholder(ref): blockers.append("JWT_ROTATION_REFERENCE is missing or placeholder-like")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 217 | audit_append_call | `if not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", date): blockers.append("JWT_ROTATION_DATE must be YYYY-MM-DD")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 218 | audit_append_call | `if rotation_result != "passed": blockers.append("JWT_ROTATION_RESULT must be passed")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 219 | audit_append_call | `if not prev_access: blockers.append("previous access JWT fingerprint/secret is required for rotation evidence")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 220 | audit_append_call | `if not prev_refresh: blockers.append("previous refresh JWT fingerprint/secret is required for rotation evidence")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 221 | audit_append_call | `if prev_access and not access_rotated: blockers.append("current access JWT fingerprint matches previous fingerprint; rotation not proven")` |
+| `scripts/jwt_secret_rotation_evidence.py` | 222 | audit_append_call | `if prev_refresh and not refresh_rotated: blockers.append("current refresh JWT fingerprint matches previous fingerprint; rotation not proven")` |
 | `scripts/lessons/generate_lessons.py` | 150 | audit_append_call | `result.errors.append(msg)` |
 | `scripts/lessons/generate_lessons.py` | 157 | audit_append_call | `result.errors.append(msg)` |
 | `scripts/lessons/generate_lessons.py` | 164 | audit_append_call | `result.errors.append(msg)` |
 | `scripts/lessons/generate_lessons.py` | 227 | audit_append_call | `results.append(result)` |
-| `scripts/lessons/validate_lessons.py` | 186 | audit_append_call | `failed_lessons.append((lesson_id, caps_ref, result))` |
+| `scripts/lessons/validate_lessons.py` | 185 | audit_append_call | `failed_lessons.append((lesson_id, caps_ref, result))` |
 | `scripts/live_db_tx_evidence.py` | 181 | audit_append_call | `blockers.append("route slice is pending")` |
 | `scripts/live_db_tx_evidence.py` | 183 | audit_append_call | `blockers.append("live DB evidence URL is pending or invalid")` |
 | `scripts/live_db_tx_evidence.py` | 185 | audit_append_call | `blockers.append("test result must be pass/passed/success/successful/green/ok")` |
@@ -2664,24 +2667,24 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/live_db_tx_evidence.py` | 193 | audit_append_call | `blockers.append("date verified is pending")` |
 | `scripts/live_db_tx_evidence.py` | 328 | audit_append_call | `lines.append(` |
 | `scripts/live_db_tx_evidence.py` | 337 | audit_append_call | `lines.append("- None")` |
-| `scripts/maintenance/audit_todo_backlog.py` | 17 | audit_append_call | `paths.append(str(rel))` |
-| `scripts/maintenance/audit_todo_backlog.py` | 34 | audit_append_call | `hits.append(rel)` |
-| `scripts/maintenance/audit_todo_backlog.py` | 52 | audit_append_call | `tasks.append({'id':f'TODO-{idx:03d}','line':lineno,'section':section,'subsection':subsection,'todo_checked':'x' if m.group(1)=='x' else '', 'priority':m.group(2),'task':m.group(3).strip()})` |
-| `scripts/maintenance/audit_todo_backlog.py` | 70 | audit_append_call | `RULES.append((marker.lower(),paths,status,note))` |
-| `scripts/maintenance/audit_todo_backlog.py` | 333 | audit_append_call | `rows.append({**t,'repo_status':st,'owner':owner,'evidence_paths':'; '.join(ev),'audit_note':note,'pr_bucket':pr_bucket(t,st),'rank_score':rank(t,st)})` |
-| `scripts/maintenance/audit_todo_backlog.py` | 340 | audit_append_call | `for st in ['Done','Partial','Missing','Blocked','Human-decision']: md.append(f'\| {st} \| {counts[st]} \|')` |
-| `scripts/maintenance/audit_todo_backlog.py` | 344 | audit_append_call | `md.append(f"\| {p} \| {sum(r['repo_status']=='Done' for r in sub)} \| {sum(r['repo_status']=='Partial' for r in sub)} \| {sum(r['repo_status']=='Missing' for r in sub)} \| {sum(r['repo_status']=='Blocked' for r in sub)} \| {su` |
-| `scripts/maintenance/audit_todo_backlog.py` | 349 | audit_append_call | `md.append(f"\| {i} \| {r['id']} \| {r['priority']} \| {r['repo_status']} \| {r['owner']} \| {task} \| {evidence} \|")` |
-| `scripts/maintenance/audit_todo_backlog.py` | 350 | audit_append_call | `md.append('\n## PR-sized backlog buckets\n')` |
-| `scripts/maintenance/audit_todo_backlog.py` | 352 | audit_append_call | `for r in sorted(rows,key=lambda r:(-r['rank_score'],r['id'])): by_pr[r['pr_bucket']].append(r)` |
-| `scripts/maintenance/audit_todo_backlog.py` | 357 | audit_append_call | `md.append(f'\n### {bucket}\n')` |
-| `scripts/maintenance/audit_todo_backlog.py` | 358 | audit_append_call | `md.append(f"Open items: {len(open_items)} — Partial {c['Partial']}, Missing {c['Missing']}, Blocked {c['Blocked']}, Human-decision {c['Human-decision']}.\n")` |
-| `scripts/maintenance/audit_todo_backlog.py` | 359 | audit_append_call | `md.append('\| ID \| Priority \| Status \| Task \| Evidence \|\n\|---\|---\|---\|---\|---\|')` |
-| `scripts/maintenance/audit_todo_backlog.py` | 363 | audit_append_call | `md.append(f"\| {r['id']} \| {r['priority']} \| {r['repo_status']} \| {task} \| {evidence} \|")` |
-| `scripts/maintenance/audit_todo_backlog.py` | 364 | audit_append_call | `if len(open_items)>18: md.append(f'\n_Additional items in CSV: {len(open_items)-18}._\n')` |
-| `scripts/maintenance/audit_todo_backlog.py` | 370 | audit_append_call | `cp.append(f'{i}. **{b}** — {len(oi)} open, {crit} critical.')` |
-| `scripts/maintenance/audit_todo_backlog.py` | 374 | audit_append_call | `cp.append(f"\| {r['id']} \| {r['priority']} \| {r['repo_status']} \| {task} \|")` |
-| `scripts/maintenance/audit_todo_backlog.py` | 382 | audit_append_call | `fb.append(f"\| {r['id']} \| {r['priority']} \| {r['repo_status']} \| {task} \| {evidence} \|")` |
+| `scripts/maintenance/audit_todo_backlog.py` | 18 | audit_append_call | `paths.append(str(rel))` |
+| `scripts/maintenance/audit_todo_backlog.py` | 35 | audit_append_call | `hits.append(rel)` |
+| `scripts/maintenance/audit_todo_backlog.py` | 53 | audit_append_call | `tasks.append({'id':f'TODO-{idx:03d}','line':lineno,'section':section,'subsection':subsection,'todo_checked':'x' if m.group(1)=='x' else '', 'priority':m.group(2),'task':m.group(3).strip()})` |
+| `scripts/maintenance/audit_todo_backlog.py` | 71 | audit_append_call | `RULES.append((marker.lower(),paths,status,note))` |
+| `scripts/maintenance/audit_todo_backlog.py` | 334 | audit_append_call | `rows.append({**t,'repo_status':st,'owner':owner,'evidence_paths':'; '.join(ev),'audit_note':note,'pr_bucket':pr_bucket(t,st),'rank_score':rank(t,st)})` |
+| `scripts/maintenance/audit_todo_backlog.py` | 341 | audit_append_call | `for st in ['Done','Partial','Missing','Blocked','Human-decision']: md.append(f'\| {st} \| {counts[st]} \|')` |
+| `scripts/maintenance/audit_todo_backlog.py` | 345 | audit_append_call | `md.append(f"\| {p} \| {sum(r['repo_status']=='Done' for r in sub)} \| {sum(r['repo_status']=='Partial' for r in sub)} \| {sum(r['repo_status']=='Missing' for r in sub)} \| {sum(r['repo_status']=='Blocked' for r in sub)} \| {su` |
+| `scripts/maintenance/audit_todo_backlog.py` | 350 | audit_append_call | `md.append(f"\| {i} \| {r['id']} \| {r['priority']} \| {r['repo_status']} \| {r['owner']} \| {task} \| {evidence} \|")` |
+| `scripts/maintenance/audit_todo_backlog.py` | 351 | audit_append_call | `md.append('\n## PR-sized backlog buckets\n')` |
+| `scripts/maintenance/audit_todo_backlog.py` | 353 | audit_append_call | `for r in sorted(rows,key=lambda r:(-r['rank_score'],r['id'])): by_pr[r['pr_bucket']].append(r)` |
+| `scripts/maintenance/audit_todo_backlog.py` | 358 | audit_append_call | `md.append(f'\n### {bucket}\n')` |
+| `scripts/maintenance/audit_todo_backlog.py` | 359 | audit_append_call | `md.append(f"Open items: {len(open_items)} — Partial {c['Partial']}, Missing {c['Missing']}, Blocked {c['Blocked']}, Human-decision {c['Human-decision']}.\n")` |
+| `scripts/maintenance/audit_todo_backlog.py` | 360 | audit_append_call | `md.append('\| ID \| Priority \| Status \| Task \| Evidence \|\n\|---\|---\|---\|---\|---\|')` |
+| `scripts/maintenance/audit_todo_backlog.py` | 364 | audit_append_call | `md.append(f"\| {r['id']} \| {r['priority']} \| {r['repo_status']} \| {task} \| {evidence} \|")` |
+| `scripts/maintenance/audit_todo_backlog.py` | 365 | audit_append_call | `if len(open_items)>18: md.append(f'\n_Additional items in CSV: {len(open_items)-18}._\n')` |
+| `scripts/maintenance/audit_todo_backlog.py` | 371 | audit_append_call | `cp.append(f'{i}. **{b}** — {len(oi)} open, {crit} critical.')` |
+| `scripts/maintenance/audit_todo_backlog.py` | 375 | audit_append_call | `cp.append(f"\| {r['id']} \| {r['priority']} \| {r['repo_status']} \| {task} \|")` |
+| `scripts/maintenance/audit_todo_backlog.py` | 383 | audit_append_call | `fb.append(f"\| {r['id']} \| {r['priority']} \| {r['repo_status']} \| {task} \| {evidence} \|")` |
 | `scripts/maintenance/check_repo_hygiene.py` | 107 | audit_append_call | `failures.append(` |
 | `scripts/maintenance/check_repo_hygiene.py` | 115 | audit_append_call | `failures.append(` |
 | `scripts/maintenance/check_repo_hygiene.py` | 124 | audit_append_call | `failures.append(` |
@@ -2711,13 +2714,13 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/popia_route_tx_gap_plan.py` | 154 | audit_append_call | `lines.append(` |
 | `scripts/popia_route_tx_gap_plan.py` | 159 | audit_append_call | `lines.append("\| `-` \| 0 \| `none` \| No local source gaps detected \| False \|")` |
 | `scripts/popia_route_tx_gap_plan.py` | 174 | audit_append_call | `lines.append("- No POPIA route-source implementation gaps detected by the current report.")` |
-| `scripts/popia_sweep.py` | 113 | audit_append_call | `self.issues.append(issue)` |
-| `scripts/popia_sweep.py` | 133 | audit_append_call | `files.append(path)` |
-| `scripts/popia_sweep.py` | 230 | audit_append_call | `decorator_names.append(decorator.attr)` |
-| `scripts/popia_sweep.py` | 232 | audit_append_call | `decorator_names.append(decorator.id)` |
-| `scripts/popia_sweep.py` | 300 | audit_log_identifier | `kw in func_source for kw in ["audit_log", "fourth_estate", "AuditLog", "log_action"]` |
-| `scripts/popia_sweep.py` | 377 | audit_append_call | `by_severity.setdefault(issue.severity, []).append(issue)` |
-| `scripts/populate_md_with_pdfs.py` | 42 | audit_append_call | `matched_pdfs.append(pdf)` |
+| `scripts/popia_sweep.py` | 111 | audit_append_call | `self.issues.append(issue)` |
+| `scripts/popia_sweep.py` | 131 | audit_append_call | `files.append(path)` |
+| `scripts/popia_sweep.py` | 228 | audit_append_call | `decorator_names.append(decorator.attr)` |
+| `scripts/popia_sweep.py` | 230 | audit_append_call | `decorator_names.append(decorator.id)` |
+| `scripts/popia_sweep.py` | 298 | audit_log_identifier | `kw in func_source for kw in ["audit_log", "fourth_estate", "AuditLog", "log_action"]` |
+| `scripts/popia_sweep.py` | 375 | audit_append_call | `by_severity.setdefault(issue.severity, []).append(issue)` |
+| `scripts/populate_md_with_pdfs.py` | 41 | audit_append_call | `matched_pdfs.append(pdf)` |
 | `scripts/prepare_training_data.py` | 59 | audit_append_call | `pairs.append({` |
 | `scripts/prepare_training_data.py` | 65 | audit_append_call | `pairs.append({` |
 | `scripts/prepare_training_data.py` | 71 | audit_append_call | `pairs.append({` |
@@ -2890,6 +2893,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/run_disposable_schema_drift_proof.py` | 94 | audit_append_call | `drift_cmd.append("--ignore-consolidation-tables")` |
 | `scripts/run_disposable_schema_drift_proof.py` | 95 | audit_append_call | `commands.append(("schema_drift_db", drift_cmd))` |
 | `scripts/run_disposable_schema_drift_proof.py` | 113 | audit_append_call | `lines.append(f"\| {result['name']} \| {result['return_code']} \| {result['passed']} \|")` |
+| `scripts/run_live_ingestion.py` | 77 | audit_append_call | `self.metrics["confidence_scores"].append(data["confidence"])` |
 | `scripts/run_staging_smoke.py` | 187 | audit_append_call | `rows.append(` |
 | `scripts/scrape_caps.py` | 168 | audit_append_call | `docs.append(doc)` |
 | `scripts/scrape_caps.py` | 205 | audit_append_call | `self._anchor_text.append(data)` |
@@ -2901,12 +2905,12 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/scrape_caps.py` | 354 | audit_append_call | `documents.append(doc)` |
 | `scripts/scrape_caps.py` | 395 | audit_append_call | `parts.append(page.get_text("text"))` |
 | `scripts/scrape_caps.py` | 481 | audit_append_call | `records.append(record)` |
-| `scripts/scrape_teaching_materials.py` | 41 | audit_append_call | `links.append({"url": full_url, "text": text})` |
-| `scripts/seed_item_bank.py` | 110 | audit_append_call | `failing.append({"item": item, "errors": errors})` |
-| `scripts/seed_item_bank.py` | 120 | audit_append_call | `passing.append(item)` |
+| `scripts/scrape_teaching_materials.py` | 40 | audit_append_call | `links.append({"url": full_url, "text": text})` |
+| `scripts/seed_item_bank.py` | 109 | audit_append_call | `failing.append({"item": item, "errors": errors})` |
+| `scripts/seed_item_bank.py` | 119 | audit_append_call | `passing.append(item)` |
 | `scripts/staging_acceptance_evidence.py` | 192 | audit_append_call | `lines.append(f"\| `{field.name}` \| `{field.value}` \| {field.valid} \| {field.reason} \|")` |
 | `scripts/staging_acceptance_evidence.py` | 198 | audit_append_call | `lines.append("- None")` |
-| `scripts/staging_smoke.py` | 61 | audit_append_call | `results.append({"path": check.path, "status": status, "passed": passed})` |
+| `scripts/staging_smoke.py` | 60 | audit_append_call | `results.append({"path": check.path, "status": status, "passed": passed})` |
 | `scripts/staging_smoke_evidence_acceptance.py` | 189 | audit_append_call | `blockers.append("GitHub CLI is unavailable or not authenticated")` |
 | `scripts/staging_smoke_evidence_acceptance.py` | 194 | audit_append_call | `blockers.append("STAGING_SMOKE_RUN_ID is not numeric")` |
 | `scripts/staging_smoke_evidence_acceptance.py` | 198 | audit_append_call | `blockers.append(f"unable to read GitHub Actions run {requested_run_id}")` |
@@ -2940,7 +2944,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/sync_caps_r2.py` | 58 | audit_append_call | `items.append(SyncItem(path, f"{prefix.rstrip('/')}/{rel}"))` |
 | `scripts/sync_caps_r2.py` | 95 | audit_append_call | `synced.append({"local_path": str(item.local_path), "key": item.key})` |
 | `scripts/sync_caps_r2.py` | 112 | audit_append_call | `synced.append({"local_path": str(local_path), "key": key})` |
-| `scripts/sync_git_to_redmine.py` | 15 | audit_events_table | `"fourth estate": 5, "estate": 5, "audit_events": 5,` |
+| `scripts/sync_git_to_redmine.py` | 13 | audit_events_table | `"fourth estate": 5, "estate": 5, "audit_events": 5,` |
 | `scripts/train_qlora.py` | 41 | audit_append_call | `records.append(json.loads(line))` |
 | `scripts/transaction_boundary_inventory.py` | 102 | audit_append_call | `found.append(marker)` |
 | `scripts/transaction_boundary_inventory.py` | 111 | audit_append_call | `areas.append(area)` |
@@ -2975,20 +2979,25 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/validate_schema_integrity.py` | 102 | audit_append_call | `errors.append(f"{table_name}: expected at least one foreign key")` |
 | `scripts/validate_schema_integrity.py` | 110 | audit_append_call | `errors.append(f"{table_name}: missing indexes {sorted(missing)}")` |
 | `scripts/validate_schema_integrity.py` | 118 | audit_append_call | `errors.append(f"{table_name}: missing constraints {sorted(missing)}")` |
+| `scripts/verify_api_health.py` | 151 | audit_append_call | `results.append(("health", verify_health(args.base_url)))` |
+| `scripts/verify_api_health.py` | 152 | audit_append_call | `results.append(("ready", verify_ready(args.base_url)))` |
+| `scripts/verify_api_health.py` | 153 | audit_append_call | `results.append(("metrics", verify_metrics(args.base_url)))` |
+| `scripts/verify_api_health.py` | 154 | audit_append_call | `results.append(("docs", verify_docs(args.base_url)))` |
+| `scripts/verify_api_health.py` | 155 | audit_append_call | `results.append(("openapi", verify_openapi(args.base_url)))` |
 | `scripts/verify_audit_chain.py` | 5 | audit_events_table | `Walks the audit_events table and checks hash/HMAC integrity.` |
 | `scripts/verify_audit_chain.py` | 28 | audit_repository | `from app.repositories.audit_repository import AuditRepository, configure_hmac_secret` |
 | `scripts/verify_audit_chain.py` | 40 | audit_repository | `repo = AuditRepository(pool)` |
-| `scripts/verify_migration_graph.py` | 69 | audit_append_call | `migrations.append(Migration(file=file, revision=str(revision), down_revisions=down_revisions))` |
-| `scripts/verify_migration_graph.py` | 82 | audit_append_call | `errors.append(f"duplicate revision id: {migration.revision}")` |
-| `scripts/verify_migration_graph.py` | 88 | audit_append_call | `errors.append(` |
-| `scripts/verify_migration_graph.py` | 92 | audit_append_call | `errors.append(` |
-| `scripts/verify_migration_graph.py` | 100 | audit_append_call | `bases.append(migration.revision)` |
-| `scripts/verify_migration_graph.py` | 102 | audit_append_call | `children.setdefault(down_revision, []).append(migration.revision)` |
-| `scripts/verify_migration_graph.py` | 106 | audit_append_call | `errors.append(f"expected exactly one base revision, found {bases}")` |
-| `scripts/verify_migration_graph.py` | 108 | audit_append_call | `errors.append(f"expected exactly one head revision, found {heads}")` |
-| `tests/ci/test_item_bank_ci_jobs.py` | 181 | audit_append_call | `failures.append(f"{item.get('item_id', '?')}: missing {missing}")` |
-| `tests/ci/test_item_bank_ci_jobs.py` | 185 | audit_append_call | `failures.append(` |
-| `tests/ci/test_item_bank_ci_jobs.py` | 254 | audit_append_call | `latencies.append(lat)` |
+| `scripts/verify_migration_graph.py` | 71 | audit_append_call | `migrations.append(Migration(file=file, revision=str(revision), down_revisions=down_revisions))` |
+| `scripts/verify_migration_graph.py` | 84 | audit_append_call | `errors.append(f"duplicate revision id: {migration.revision}")` |
+| `scripts/verify_migration_graph.py` | 90 | audit_append_call | `errors.append(` |
+| `scripts/verify_migration_graph.py` | 94 | audit_append_call | `errors.append(` |
+| `scripts/verify_migration_graph.py` | 102 | audit_append_call | `bases.append(migration.revision)` |
+| `scripts/verify_migration_graph.py` | 104 | audit_append_call | `children.setdefault(down_revision, []).append(migration.revision)` |
+| `scripts/verify_migration_graph.py` | 108 | audit_append_call | `errors.append(f"expected exactly one base revision, found {bases}")` |
+| `scripts/verify_migration_graph.py` | 110 | audit_append_call | `errors.append(f"expected exactly one head revision, found {heads}")` |
+| `tests/ci/test_item_bank_ci_jobs.py` | 180 | audit_append_call | `failures.append(f"{item.get('item_id', '?')}: missing {missing}")` |
+| `tests/ci/test_item_bank_ci_jobs.py` | 184 | audit_append_call | `failures.append(` |
+| `tests/ci/test_item_bank_ci_jobs.py` | 253 | audit_append_call | `latencies.append(lat)` |
 | `tests/integration/conftest.py` | 60 | audit_append_call | `results.append(await self._incr_immediate(*args))` |
 | `tests/integration/conftest.py` | 62 | audit_append_call | `results.append(await self._expire_immediate(*args))` |
 | `tests/integration/conftest.py` | 68 | audit_append_call | `self._queue.append(("incr", (key,)))` |
@@ -3006,9 +3015,9 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/integration/test_auth_lifecycle_http_success_scope.py` | 230 | audit_append_call | `self.calls.append(("create_dev_session", kwargs))` |
 | `tests/integration/test_auth_repository_fixture_proof.py` | 47 | audit_append_call | `stored_tokens.append(token)` |
 | `tests/integration/test_auth_transactional_db_lifecycle_proof.py` | 107 | audit_append_call | `rows.append((f"{lowered} {endpoint} {route_name}", route))` |
-| `tests/integration/test_diagnostic_session.py` | 91 | audit_append_call | `items.append(_make_item(difficulty_b=b, caps_ref=caps_ref))` |
-| `tests/integration/test_diagnostic_session.py` | 194 | audit_append_call | `served_item_ids.append(item.item_id)` |
-| `tests/integration/test_diagnostic_session.py` | 250 | audit_append_call | `served_ids.append(item.item_id)` |
+| `tests/integration/test_diagnostic_session.py` | 88 | audit_append_call | `items.append(_make_item(difficulty_b=b, caps_ref=caps_ref))` |
+| `tests/integration/test_diagnostic_session.py` | 191 | audit_append_call | `served_item_ids.append(item.item_id)` |
+| `tests/integration/test_diagnostic_session.py` | 247 | audit_append_call | `served_ids.append(item.item_id)` |
 | `tests/integration/test_diagnostics_transaction_rollback_proof.py` | 44 | audit_events_table | `audit_events = __import__("sqlalchemy").Table(` |
 | `tests/integration/test_diagnostics_transaction_rollback_proof.py` | 78 | audit_events_table | `audit_events_table=audit_events,` |
 | `tests/integration/test_diagnostics_transaction_rollback_proof.py` | 103 | audit_events_table | `assert await _count(session, audit_events) == 1` |
@@ -3031,74 +3040,73 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/legacy/integration/test_api_contracts.py` | 114 | audit_events_table | `assert "audit_events" in payload` |
 | `tests/legacy/integration/test_five_pillar_pipeline.py` | 121 | audit_append_call | `captured_calls.append({"args": args, "kwargs": kwargs})` |
 | `tests/legacy/integration/test_lesson_api.py` | 59 | audit_append_call | `captured_prompts.append({"system": system, "user": user})` |
-| `tests/legacy/popia/test_popia_compliance.py` | 240 | audit_log_identifier | `from app.models import AuditLog` |
-| `tests/legacy/popia/test_popia_compliance.py` | 242 | audit_log_identifier | `log = AuditLog()` |
+| `tests/legacy/popia/test_popia_compliance.py` | 237 | audit_log_identifier | `from app.models import AuditLog` |
+| `tests/legacy/popia/test_popia_compliance.py` | 239 | audit_log_identifier | `log = AuditLog()` |
 | `tests/legacy/unit/test_irt_benchmarks.py` | 27 | audit_append_call | `session.responses.append(Response(item.item_id, is_correct, 5000))` |
 | `tests/legacy/unit/test_irt_benchmarks.py` | 43 | audit_append_call | `bank.append(Item(` |
 | `tests/legacy/unit/test_irt_benchmarks.py` | 57 | audit_append_call | `estimates.append(est)` |
 | `tests/legacy/unit/test_irt_benchmarks.py` | 61 | audit_append_call | `results.append((true_theta, avg_est, error))` |
 | `tests/legacy/unit/test_profiler.py` | 21 | audit_append_call | `events.append({` |
 | `tests/test_entrypoints.py` | 94 | audit_append_call | `missing.append(f"{prefix}{fragment}")` |
-| `tests/unit/modules/lessons/test_lesson_generation_perf.py` | 184 | audit_append_call | `latencies.append(elapsed)` |
-| `tests/unit/modules/lessons/test_lesson_generation_perf.py` | 229 | audit_append_call | `latencies.append(elapsed * 1000)  # convert to ms` |
-| `tests/unit/modules/lessons/test_lesson_generation_perf.py` | 270 | audit_append_call | `latencies.append((time.perf_counter() - start) * 1000)` |
+| `tests/unit/modules/lessons/test_lesson_generation_perf.py` | 182 | audit_append_call | `latencies.append(elapsed)` |
+| `tests/unit/modules/lessons/test_lesson_generation_perf.py` | 227 | audit_append_call | `latencies.append(elapsed * 1000)  # convert to ms` |
+| `tests/unit/modules/lessons/test_lesson_generation_perf.py` | 268 | audit_append_call | `latencies.append((time.perf_counter() - start) * 1000)` |
 | `tests/unit/test_api_v2_router_contract.py` | 51 | audit_append_call | `missing.append(f"{router_name}:{expected_prefix}")` |
 | `tests/unit/test_arq_worker_import_contract.py` | 22 | audit_append_call | `matching.append(path)` |
 | `tests/unit/test_assessments_router_contract.py` | 27 | audit_append_call | `self.list_calls.append({"limit": limit, "offset": offset})` |
 | `tests/unit/test_assessments_router_contract.py` | 37 | audit_append_call | `self.submit_calls.append(` |
 | `tests/unit/test_audit_callsite_inventory_and_adapter.py` | 44 | audit_append_call | `self.calls.append(kwargs)` |
 | `tests/unit/test_audit_callsite_inventory_and_adapter.py` | 50 | audit_append_call | `result = await adapter.append(action="x", resource_id="r1")` |
-| `tests/unit/test_audit_integrity.py` | 15 | audit_repository | `AuditRepository,` |
 | `tests/unit/test_audit_repository.py` | 4 | audit_repository | `Task 23: AuditRepository unit tests` |
 | `tests/unit/test_audit_repository.py` | 8 | audit_events_table | `- UPDATE on audit_events is a no-op (PostgreSQL RULE)` |
 | `tests/unit/test_audit_repository.py` | 9 | audit_events_table | `- DELETE on audit_events is a no-op (PostgreSQL RULE)` |
-| `tests/unit/test_audit_repository.py` | 25 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
-| `tests/unit/test_audit_repository.py` | 33 | audit_repository | `repo = AuditRepository(db_session)` |
-| `tests/unit/test_audit_repository.py` | 37 | audit_append_call | `event = await repo.append(` |
-| `tests/unit/test_audit_repository.py` | 53 | audit_repository | `repo = AuditRepository(db_session)` |
-| `tests/unit/test_audit_repository.py` | 54 | audit_append_call | `event = await repo.append(` |
-| `tests/unit/test_audit_repository.py` | 64 | audit_repository | `repo = AuditRepository(db_session)` |
-| `tests/unit/test_audit_repository.py` | 65 | audit_append_call | `event = await repo.append(` |
-| `tests/unit/test_audit_repository.py` | 74 | audit_repository | `repo = AuditRepository(db_session)` |
-| `tests/unit/test_audit_repository.py` | 76 | audit_append_call | `await repo.append(event_type="", payload={})` |
-| `tests/unit/test_audit_repository.py` | 81 | audit_repository | `repo = AuditRepository(db_session)` |
-| `tests/unit/test_audit_repository.py` | 84 | audit_append_call | `await repo.append(` |
-| `tests/unit/test_audit_repository.py` | 90 | audit_append_call | `await repo.append(` |
-| `tests/unit/test_audit_repository.py` | 96 | audit_append_call | `await repo.append(` |
-| `tests/unit/test_audit_repository.py` | 110 | audit_repository | `repo = AuditRepository(db_session)` |
-| `tests/unit/test_audit_repository.py` | 111 | audit_append_call | `event = await repo.append(` |
-| `tests/unit/test_audit_repository.py` | 118 | audit_events_table | `text("UPDATE audit_events SET event_type = 'tampered' WHERE id = :id"),` |
-| `tests/unit/test_audit_repository.py` | 129 | audit_events_table | `"UPDATE on audit_events must be a no-op due to PostgreSQL RULE"` |
-| `tests/unit/test_audit_repository.py` | 138 | audit_repository | `repo = AuditRepository(db_session)` |
-| `tests/unit/test_audit_repository.py` | 139 | audit_append_call | `event = await repo.append(` |
-| `tests/unit/test_audit_repository.py` | 146 | audit_events_table | `text("DELETE FROM audit_events WHERE id = :id"),` |
-| `tests/unit/test_audit_repository.py` | 157 | audit_events_table | `"DELETE on audit_events must be a no-op due to PostgreSQL RULE"` |
-| `tests/unit/test_audit_repository.py` | 165 | audit_repository | `repo = AuditRepository(db_session)` |
-| `tests/unit/test_audit_repository.py` | 169 | audit_append_call | `await repo.append("consent.granted", payload={}, resource_id=resource_id)` |
-| `tests/unit/test_audit_repository.py` | 170 | audit_append_call | `await repo.append("consent.revoked", payload={}, resource_id=resource_id)` |
-| `tests/unit/test_audit_repository.py` | 171 | audit_append_call | `await repo.append("consent.granted", payload={}, resource_id=other_resource_id)` |
-| `tests/unit/test_audit_repository.py` | 179 | audit_repository | `repo = AuditRepository(db_session)` |
-| `tests/unit/test_audit_repository.py` | 182 | audit_append_call | `await repo.append("consent.granted", payload={}, resource_id=resource_id)` |
-| `tests/unit/test_audit_repository.py` | 183 | audit_append_call | `await repo.append("consent.revoked", payload={}, resource_id=resource_id)` |
-| `tests/unit/test_audit_repository.py` | 191 | audit_repository | `repo = AuditRepository(db_session)` |
-| `tests/unit/test_audit_repository.py` | 194 | audit_append_call | `await repo.append("consent.granted", payload={}, actor_id=actor_id)` |
-| `tests/unit/test_audit_repository.py` | 195 | audit_append_call | `await repo.append("consent.revoked", payload={}, actor_id=actor_id)` |
+| `tests/unit/test_audit_repository.py` | 24 | audit_repository | `from app.repositories.audit_repository import AuditRepository` |
+| `tests/unit/test_audit_repository.py` | 32 | audit_repository | `repo = AuditRepository(db_session)` |
+| `tests/unit/test_audit_repository.py` | 36 | audit_append_call | `event = await repo.append(` |
+| `tests/unit/test_audit_repository.py` | 52 | audit_repository | `repo = AuditRepository(db_session)` |
+| `tests/unit/test_audit_repository.py` | 53 | audit_append_call | `event = await repo.append(` |
+| `tests/unit/test_audit_repository.py` | 63 | audit_repository | `repo = AuditRepository(db_session)` |
+| `tests/unit/test_audit_repository.py` | 64 | audit_append_call | `event = await repo.append(` |
+| `tests/unit/test_audit_repository.py` | 73 | audit_repository | `repo = AuditRepository(db_session)` |
+| `tests/unit/test_audit_repository.py` | 75 | audit_append_call | `await repo.append(event_type="", payload={})` |
+| `tests/unit/test_audit_repository.py` | 80 | audit_repository | `repo = AuditRepository(db_session)` |
+| `tests/unit/test_audit_repository.py` | 83 | audit_append_call | `await repo.append(` |
+| `tests/unit/test_audit_repository.py` | 89 | audit_append_call | `await repo.append(` |
+| `tests/unit/test_audit_repository.py` | 95 | audit_append_call | `await repo.append(` |
+| `tests/unit/test_audit_repository.py` | 109 | audit_repository | `repo = AuditRepository(db_session)` |
+| `tests/unit/test_audit_repository.py` | 110 | audit_append_call | `event = await repo.append(` |
+| `tests/unit/test_audit_repository.py` | 117 | audit_events_table | `text("UPDATE audit_events SET event_type = 'tampered' WHERE id = :id"),` |
+| `tests/unit/test_audit_repository.py` | 128 | audit_events_table | `"UPDATE on audit_events must be a no-op due to PostgreSQL RULE"` |
+| `tests/unit/test_audit_repository.py` | 137 | audit_repository | `repo = AuditRepository(db_session)` |
+| `tests/unit/test_audit_repository.py` | 138 | audit_append_call | `event = await repo.append(` |
+| `tests/unit/test_audit_repository.py` | 145 | audit_events_table | `text("DELETE FROM audit_events WHERE id = :id"),` |
+| `tests/unit/test_audit_repository.py` | 156 | audit_events_table | `"DELETE on audit_events must be a no-op due to PostgreSQL RULE"` |
+| `tests/unit/test_audit_repository.py` | 164 | audit_repository | `repo = AuditRepository(db_session)` |
+| `tests/unit/test_audit_repository.py` | 168 | audit_append_call | `await repo.append("consent.granted", payload={}, resource_id=resource_id)` |
+| `tests/unit/test_audit_repository.py` | 169 | audit_append_call | `await repo.append("consent.revoked", payload={}, resource_id=resource_id)` |
+| `tests/unit/test_audit_repository.py` | 170 | audit_append_call | `await repo.append("consent.granted", payload={}, resource_id=other_resource_id)` |
+| `tests/unit/test_audit_repository.py` | 178 | audit_repository | `repo = AuditRepository(db_session)` |
+| `tests/unit/test_audit_repository.py` | 181 | audit_append_call | `await repo.append("consent.granted", payload={}, resource_id=resource_id)` |
+| `tests/unit/test_audit_repository.py` | 182 | audit_append_call | `await repo.append("consent.revoked", payload={}, resource_id=resource_id)` |
+| `tests/unit/test_audit_repository.py` | 190 | audit_repository | `repo = AuditRepository(db_session)` |
+| `tests/unit/test_audit_repository.py` | 193 | audit_append_call | `await repo.append("consent.granted", payload={}, actor_id=actor_id)` |
+| `tests/unit/test_audit_repository.py` | 194 | audit_append_call | `await repo.append("consent.revoked", payload={}, actor_id=actor_id)` |
 | `tests/unit/test_backend_consolidation_implementation_foundation.py` | 32 | audit_append_call | `self.calls.append(kwargs)` |
 | `tests/unit/test_backend_consolidation_implementation_foundation.py` | 54 | audit_append_call | `self.calls.append(kwargs)` |
 | `tests/unit/test_backend_runtime_enablement_pack.py` | 23 | audit_logs_table | `assert "`audit_logs` deletion: blocked" in text` |
 | `tests/unit/test_backend_runtime_wiring_preflight.py` | 24 | audit_logs_table | `assert "`audit_logs` deletion allowed" in text` |
 | `tests/unit/test_billing_monetization_production_readiness.py` | 69 | audit_log_identifier | `assert "processed:evt_1:invoice.created:1" in store.audit_log` |
 | `tests/unit/test_billing_monetization_production_readiness.py` | 70 | audit_log_identifier | `assert "duplicate:evt_1:invoice.created" in store.audit_log` |
-| `tests/unit/test_billing_router_contract.py` | 26 | audit_append_call | `self.checkout_calls.append({"guardian_id": guardian_id, "email_plaintext": email_plaintext})` |
-| `tests/unit/test_billing_router_contract.py` | 30 | audit_append_call | `self.webhook_calls.append({"payload_len": len(payload), "signature": signature})` |
-| `tests/unit/test_billing_router_contract.py` | 39 | audit_append_call | `self.records.append((event_type, payload))` |
+| `tests/unit/test_billing_router_contract.py` | 25 | audit_append_call | `self.checkout_calls.append({"guardian_id": guardian_id, "email_plaintext": email_plaintext})` |
+| `tests/unit/test_billing_router_contract.py` | 29 | audit_append_call | `self.webhook_calls.append({"payload_len": len(payload), "signature": signature})` |
+| `tests/unit/test_billing_router_contract.py` | 38 | audit_append_call | `self.records.append((event_type, payload))` |
 | `tests/unit/test_consent_policy.py` | 75 | audit_append_call | `self.events.append(kwargs)` |
 | `tests/unit/test_content_bulk_review.py` | 35 | audit_append_call | `self.approved.append(artifact_id)` |
 | `tests/unit/test_content_bulk_review.py` | 38 | audit_append_call | `self.rejected.append(artifact_id)` |
 | `tests/unit/test_content_bulk_review.py` | 42 | audit_append_call | `self.quarantined.append(artifact_id)` |
 | `tests/unit/test_content_bulk_review.py` | 50 | audit_append_call | `self.added.append(obj)` |
-| `tests/unit/test_content_factory_route_security.py` | 31 | audit_append_call | `deps.append(dep.call)` |
-| `tests/unit/test_content_factory_route_security.py` | 101 | audit_append_call | `missing.append(f"{list(route.methods)} {route.path}")` |
+| `tests/unit/test_content_factory_route_security.py` | 27 | audit_append_call | `deps.append(dep.call)` |
+| `tests/unit/test_content_factory_route_security.py` | 97 | audit_append_call | `missing.append(f"{list(route.methods)} {route.path}")` |
 | `tests/unit/test_content_factory_table_reconciliation.py` | 68 | audit_append_call | `missing.append(model_name)` |
 | `tests/unit/test_content_factory_table_reconciliation.py` | 84 | audit_append_call | `mismatches.append(` |
 | `tests/unit/test_content_factory_table_reconciliation.py` | 98 | audit_append_call | `undeclared.append(` |
@@ -3106,7 +3114,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/unit/test_content_file_review_workflow.py` | 175 | audit_append_call | `self.added.append(obj)` |
 | `tests/unit/test_content_generation_executor.py` | 32 | audit_append_call | `self.added.append(obj)` |
 | `tests/unit/test_content_generation_planner.py` | 32 | audit_append_call | `self.added.append(obj)` |
-| `tests/unit/test_content_generation_runs.py` | 23 | audit_append_call | `self.objects.append(obj)` |
+| `tests/unit/test_content_generation_runs.py` | 22 | audit_append_call | `self.objects.append(obj)` |
 | `tests/unit/test_content_reviewer_assignment.py` | 33 | audit_append_call | `self.added.append(obj)` |
 | `tests/unit/test_content_staging_readiness.py` | 36 | audit_append_call | `self.added.append(obj)` |
 | `tests/unit/test_content_staging_seed_executor.py` | 43 | audit_append_call | `self.added.append(obj)` |
@@ -3122,17 +3130,18 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/unit/test_lesson_object_authorization_contracts.py` | 48 | audit_append_call | `candidates.append(node)` |
 | `tests/unit/test_lesson_object_authorization_contracts.py` | 62 | audit_append_call | `candidates.append(node)` |
 | `tests/unit/test_no_raw_dict_responses.py` | 74 | audit_append_call | `violations.append(` |
-| `tests/unit/test_popia_erasure_safety.py` | 49 | audit_events_table | `"audit_events",` |
-| `tests/unit/test_popia_erasure_safety.py` | 50 | audit_logs_table | `"audit_logs",` |
-| `tests/unit/test_popia_erasure_safety.py` | 160 | audit_append_call | `execute_calls.append(stmt)` |
-| `tests/unit/test_popia_erasure_safety.py` | 217 | audit_append_call | `execute_calls.append(stmt)` |
-| `tests/unit/test_popia_erasure_safety.py` | 274 | audit_append_call | `execute_calls.append(str(stmt))` |
-| `tests/unit/test_popia_erasure_safety.py` | 285 | audit_events_table | `assert "audit_events" not in call.lower()` |
-| `tests/unit/test_popia_erasure_safety.py` | 286 | audit_logs_table | `assert "audit_logs" not in call.lower()` |
-| `tests/unit/test_popia_erasure_safety.py` | 302 | audit_append_call | `execute_calls.append(str(stmt))` |
-| `tests/unit/test_popia_erasure_safety.py` | 330 | audit_append_call | `execute_calls.append(str(stmt))` |
-| `tests/unit/test_popia_erasure_safety.py` | 388 | audit_append_call | `execute_calls.append(str(stmt))` |
-| `tests/unit/test_popia_export_completeness.py` | 342 | audit_events_table | `"audit_events",` |
+| `tests/unit/test_phase6_durable_jobs.py` | 31 | audit_append_call | `self.calls.append(` |
+| `tests/unit/test_popia_erasure_safety.py` | 46 | audit_events_table | `"audit_events",` |
+| `tests/unit/test_popia_erasure_safety.py` | 47 | audit_logs_table | `"audit_logs",` |
+| `tests/unit/test_popia_erasure_safety.py` | 157 | audit_append_call | `execute_calls.append(stmt)` |
+| `tests/unit/test_popia_erasure_safety.py` | 214 | audit_append_call | `execute_calls.append(stmt)` |
+| `tests/unit/test_popia_erasure_safety.py` | 271 | audit_append_call | `execute_calls.append(str(stmt))` |
+| `tests/unit/test_popia_erasure_safety.py` | 282 | audit_events_table | `assert "audit_events" not in call.lower()` |
+| `tests/unit/test_popia_erasure_safety.py` | 283 | audit_logs_table | `assert "audit_logs" not in call.lower()` |
+| `tests/unit/test_popia_erasure_safety.py` | 299 | audit_append_call | `execute_calls.append(str(stmt))` |
+| `tests/unit/test_popia_erasure_safety.py` | 327 | audit_append_call | `execute_calls.append(str(stmt))` |
+| `tests/unit/test_popia_erasure_safety.py` | 385 | audit_append_call | `execute_calls.append(str(stmt))` |
+| `tests/unit/test_popia_export_completeness.py` | 330 | audit_events_table | `"audit_events",` |
 | `tests/unit/test_popia_service_authority.py` | 34 | audit_append_call | `violations.append((str(router_file.relative_to(repo_root)), pattern))` |
 | `tests/unit/test_popia_service_authority.py` | 62 | audit_append_call | `violations.append((str(service_file.relative_to(repo_root)), pattern))` |
 | `tests/unit/test_practice_session_authorization.py` | 81 | audit_append_call | `consent_calls.append((db, current_user, checked_learner_id))` |
@@ -3144,7 +3153,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/unit/test_runtime_blockers_after_followup_audit.py` | 20 | audit_append_call | `self.calls.append(("revoke", guardian_id, learner_id, actor_id, reason))` |
 | `tests/unit/test_schema_drift_deep_readiness_audit_slice.py` | 48 | audit_events_table | `for bad in ["session.commit()", "INSERT INTO audit_events", "alembic stamp head"]:` |
 | `tests/unit/test_schema_drift_deep_readiness_audit_slice.py` | 65 | audit_append_call | `self.calls.append(kwargs)` |
-| `tests/unit/test_seed_staging_review_scopes.py` | 38 | audit_append_call | `self.added.append(obj)` |
+| `tests/unit/test_seed_staging_review_scopes.py` | 35 | audit_append_call | `self.added.append(obj)` |
 | `tests/unit/test_sprint3_popia_router_data_rights.py` | 24 | audit_append_call | `self.calls.append(("export", {"learner_id": learner_id, "current_user": current_user}))` |
 | `tests/unit/test_sprint3_popia_router_data_rights.py` | 28 | audit_append_call | `self.calls.append(("erasure", {"learner_id": learner_id, "current_user": current_user, "reason": reason}))` |
 | `tests/unit/test_sprint3_popia_router_data_rights.py` | 32 | audit_append_call | `self.calls.append(("cancel_erasure", {"learner_id": learner_id, "current_user": current_user}))` |

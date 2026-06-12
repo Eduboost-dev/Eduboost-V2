@@ -1,7 +1,6 @@
 """Unit tests for full generation planner."""
 from __future__ import annotations
 
-import uuid
 
 import pytest
 

@@ -64,7 +64,7 @@ async def db_session(test_db_setup) -> AsyncGenerator[AsyncSession, None]:
     """Provide a fresh async database session for each test."""
     async with AsyncSessionFactory() as session:
         yield session
-        async with engine.begin() as conn:
+        async with engine.begin():
             # await conn.run_sync(Base.metadata.create_all)
             pass
         await session.rollback()

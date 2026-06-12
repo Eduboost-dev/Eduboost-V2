@@ -29,10 +29,8 @@ from app.models import ParentalConsent
 from app.repositories.audit_repository import AuditRepository
 from app.repositories.repositories import ConsentRepository
 from app.utils.versioning import (
-    SemanticVersion,
     VersionChangeType,
     detect_version_change,
-    is_same_major_minor,
     requires_manual_renewal,
 )
 

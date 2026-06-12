@@ -1,6 +1,6 @@
 # Beta Evidence Integrity Repair Report
 
-Generated at: `2026-06-05T20:19:19Z`
+Generated at: `2026-06-12T17:35:53Z`
 
 ## Summary
 
@@ -10,7 +10,7 @@ This repair quarantines placeholder/manual-bypass/local-mock/synthetic evidence 
 |---|---|---|---|---|
 | remote_ci | pending_remote_ci_evidence | pending_remote_ci_evidence | unknown | pending_real_evidence |
 | branch_protection | pending_branch_protection_evidence | pending_branch_protection_evidence | unknown | synthetic_invalid |
-| content_gate | blocked | blocked | unknown | pending_real_evidence |
+| content_gate | pass | pass | educator_review_log | valid |
 | staging_smoke | synthetic_invalid | synthetic_invalid | unknown | synthetic_invalid |
 | backup_drill | pending_backup_evidence | pending_backup_evidence | unknown | pending_real_evidence |
 | restore_drill | synthetic_invalid | synthetic_invalid | unknown | synthetic_invalid |

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import os
-import json
 from pathlib import Path
 from scripts.ensure_irt_seed import _generate_items
 

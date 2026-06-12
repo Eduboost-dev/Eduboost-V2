@@ -42,6 +42,7 @@ from typing import Any
 
 from scripts.ingestion.config import REDIS_PROGRESS_KEY, REDIS_QUEUE_KEY
 from scripts.ingestion.models import IngestionJob, IngestionProgress, JobStatus
+import contextlib
 
 logger = logging.getLogger(__name__)
 
@@ -280,10 +281,8 @@ class QueueManager:
         payloads = await self._redis.lrange(self._queue_key, 0, n - 1)
         jobs = []
         for payload in payloads:
-            try:
+            with contextlib.suppress(json.JSONDecodeError):
                 jobs.append(json.loads(payload))
-            except json.JSONDecodeError:
-                pass
         return jobs
 
     async def purge_queue(self) -> int:

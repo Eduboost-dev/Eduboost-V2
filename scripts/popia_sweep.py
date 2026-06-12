@@ -28,17 +28,15 @@ from __future__ import annotations
 import argparse
 import ast
 import json
-import os
 import re
 import sys
 import textwrap
 from dataclasses import dataclass, asdict, field
 from pathlib import Path
-from typing import Optional
 import datetime
 
 try:
-    import httpx
+    import httpx  # noqa: F401 — probed for availability via HAS_HTTPX
     HAS_HTTPX = True
 except ImportError:
     HAS_HTTPX = False

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-05T20:19:22Z",
+  "generated_at": "2026-06-12T17:35:56Z",
   "rows": [
     {
       "router": "app/api_v2_routers/0005_irt_seed.py",
@@ -103,13 +103,6 @@
       "violations": []
     },
     {
-      "router": "app/api_v2_routers/ether.py",
-      "p0_router": false,
-      "repository_imports": [],
-      "transition_allowed": [],
-      "violations": []
-    },
-    {
       "router": "app/api_v2_routers/gamification.py",
       "p0_router": false,
       "repository_imports": [
@@ -124,13 +117,6 @@
     },
     {
       "router": "app/api_v2_routers/jobs.py",
-      "p0_router": false,
-      "repository_imports": [],
-      "transition_allowed": [],
-      "violations": []
-    },
-    {
-      "router": "app/api_v2_routers/judiciary.py",
       "p0_router": false,
       "repository_imports": [],
       "transition_allowed": [],
@@ -195,15 +181,9 @@
     {
       "router": "app/api_v2_routers/study_plans.py",
       "p0_router": false,
-      "repository_imports": [
-        "app.repositories.repositories",
-        "app.repositories.study_plan_repository"
-      ],
+      "repository_imports": [],
       "transition_allowed": [],
-      "violations": [
-        "app.repositories.repositories",
-        "app.repositories.study_plan_repository"
-      ]
+      "violations": []
     },
     {
       "router": "app/api_v2_routers/system.py",

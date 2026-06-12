@@ -1378,7 +1378,8 @@ class EduboostETL:
 # ===========================================================================
 
 if __name__ == "__main__":
-    import tempfile, textwrap
+    import tempfile
+    import textwrap
 
     print("=== Eduboost ETL — Quick-start Demo ===\n")
 

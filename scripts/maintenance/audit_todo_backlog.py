@@ -1,7 +1,9 @@
 from __future__ import annotations
-import csv, re
+import csv
+import re
 from collections import Counter, defaultdict
 from pathlib import Path
+import contextlib
 
 ROOT = Path(__file__).resolve().parents[2]
 TODO = ROOT/'TODO.md'
@@ -16,8 +18,7 @@ for p in ROOT.rglob('*'):
     if set(rel.parts)&EXCLUDE_DIRS or p.name in EXCLUDE_FILES: continue
     paths.append(str(rel))
     if p.suffix.lower() in {'.py','.md','.yml','.yaml','.json','.js','.ts','.tsx','.css','.ini','.txt','.sh','.bicep','.env','.example'} or p.name in {'Makefile','Dockerfile'}:
-        try: texts[str(rel)]=p.read_text(errors='ignore')[:40000].lower()
-        except Exception: pass
+        with contextlib.suppress(Exception): texts[str(rel)]=p.read_text(errors='ignore')[:40000].lower()
 pathset=set(paths)
 combined_by_path={rel:(rel.lower()+'\n'+txt) for rel,txt in texts.items()}
 

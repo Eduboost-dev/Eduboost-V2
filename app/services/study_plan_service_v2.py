@@ -122,7 +122,6 @@ def _build_schedule(weak: list[dict], learner_grade: int | None = None) -> dict[
     if template_schedule:
         return template_schedule
 
-    days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     gap_subjects = [item.get("subject_code", "General Review") for item in weak if item.get("subject_code")]
     if not gap_subjects:
         gap_subjects = ["English", "Mathematics"]

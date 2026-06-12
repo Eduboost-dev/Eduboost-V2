@@ -3,7 +3,6 @@ Additional branch-focused tests for email_service without network I/O.
 """
 from __future__ import annotations
 
-import importlib
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import httpx

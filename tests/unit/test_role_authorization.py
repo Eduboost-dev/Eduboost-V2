@@ -9,7 +9,6 @@ Tests that:
 """
 from __future__ import annotations
 
-import pytest
 from app.core.authorization import (
     CurrentUser,
     can_export_learner_data,
@@ -229,11 +228,8 @@ def test_admin_can_request_erasure():
 def test_unknown_role_fails_closed_for_view():
     """Any unrecognised role must default to deny on all policy checks."""
     # Create a user with a synthetic unknown role value
-    from dataclasses import replace
-    known_user = _user(Role.LEARNER)
+    _user(Role.LEARNER)
     # Simulate an unknown role by monkeypatching
-    import app.core.authorization as auth_mod
-    original = auth_mod.can_view_learner
 
     # We can verify the _default case by passing an object whose role is unmapped
     class UnknownRole:

@@ -30,7 +30,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any
 
-from scripts.ingestion.models import (
+from scripts.ingestion.models import (  # noqa: F401  (re-export for pipeline consumers)
     IngestionJob,
     JobStatus,
     NormalisedContent,
@@ -257,10 +257,6 @@ class Pipeline:
 
 # ── Re-exports ────────────────────────────────────────────────────────────────
 
-from scripts.ingestion.pipeline.caps_aligner import align          # noqa: F401, E402
-from scripts.ingestion.pipeline.normaliser import normalise        # noqa: F401, E402
-from scripts.ingestion.pipeline.storage import StorageLayer        # noqa: F401, E402
-from scripts.ingestion.pipeline.training_formatter import format_record  # noqa: F401, E402
 
 __all__ = [
     "Pipeline",

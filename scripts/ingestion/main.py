@@ -37,15 +37,13 @@ from __future__ import annotations
 import asyncio
 import logging
 import os
-import sys
 import time
-from datetime import datetime, timezone
 from typing import Any
 
 import typer
 
 from scripts.ingestion.config import SOURCES, HF_DATASETS
-from scripts.ingestion.models import IngestionJob, IngestionProgress, JobStatus
+from scripts.ingestion.models import IngestionProgress, JobStatus
 from scripts.ingestion.pipeline import Pipeline
 from scripts.ingestion.queue_manager import QueueManager
 from scripts.ingestion.sources import (

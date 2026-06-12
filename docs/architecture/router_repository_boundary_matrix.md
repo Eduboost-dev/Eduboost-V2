@@ -1,6 +1,6 @@
 # Router Repository Boundary Matrix
 
-Generated at: `2026-06-05T20:19:22Z`
+Generated at: `2026-06-12T17:35:56Z`
 
 | Router | P0 | Repository imports | Transition allowed | Violations |
 |---|---:|---|---|---|
@@ -17,17 +17,15 @@ Generated at: `2026-06-05T20:19:22Z`
 | `app/api_v2_routers/consent_renewal.py` | False | - | - | - |
 | `app/api_v2_routers/content_factory.py` | False | `app.repositories.item_bank_repository`, `app.repositories.lesson_repository` | - | `app.repositories.item_bank_repository`, `app.repositories.lesson_repository` |
 | `app/api_v2_routers/diagnostics.py` | False | - | - | - |
-| `app/api_v2_routers/ether.py` | False | - | - | - |
 | `app/api_v2_routers/gamification.py` | False | `app.repositories.gamification_repository`, `app.repositories.repositories` | - | `app.repositories.gamification_repository`, `app.repositories.repositories` |
 | `app/api_v2_routers/jobs.py` | False | - | - | - |
-| `app/api_v2_routers/judiciary.py` | False | - | - | - |
 | `app/api_v2_routers/learner_content.py` | False | - | - | - |
 | `app/api_v2_routers/learners.py` | False | `app.repositories.mastery_repository`, `app.repositories.repositories` | - | `app.repositories.mastery_repository`, `app.repositories.repositories` |
 | `app/api_v2_routers/lessons.py` | True | - | - | - |
 | `app/api_v2_routers/onboarding.py` | False | `app.repositories.repositories` | - | `app.repositories.repositories` |
 | `app/api_v2_routers/parents.py` | False | `app.repositories.repositories` | - | `app.repositories.repositories` |
 | `app/api_v2_routers/popia.py` | True | - | - | - |
-| `app/api_v2_routers/study_plans.py` | False | `app.repositories.repositories`, `app.repositories.study_plan_repository` | - | `app.repositories.repositories`, `app.repositories.study_plan_repository` |
+| `app/api_v2_routers/study_plans.py` | False | - | - | - |
 | `app/api_v2_routers/system.py` | False | - | - | - |
 | `app/api_v2_routers/test_api.py` | False | - | - | - |
 | `app/api_v2_routers/test_services.py` | False | - | - | - |

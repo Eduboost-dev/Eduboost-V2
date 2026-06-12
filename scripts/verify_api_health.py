@@ -114,9 +114,9 @@ def verify_openapi(url: str) -> bool:
         try:
             data = json.loads(body)
             if data.get("openapi", "").startswith("3."):
-                print(f"  ✅ /openapi.json returns valid OpenAPI 3.x schema")
+                print("  ✅ /openapi.json returns valid OpenAPI 3.x schema")
                 return True
-            print(f"  ⚠️ /openapi.json returned but openapi version may be wrong")
+            print("  ⚠️ /openapi.json returned but openapi version may be wrong")
             return False
         except json.JSONDecodeError:
             print("  ❌ /openapi.json returned invalid JSON")
@@ -144,15 +144,15 @@ def main():
         print(f"⏳ Waiting {args.wait}s for server to be ready...")
         time.sleep(args.wait)
 
-    print(f"🏥 EduBoost API Health Check")
-    print(f"   Base URL: {args.base-url}")
+    print("🏥 EduBoost API Health Check")
+    print(f"   Base URL: {args.base_url}")
 
     results = []
-    results.append(("health", verify_health(args.base-url)))
-    results.append(("ready", verify_ready(args.base-url)))
-    results.append(("metrics", verify_metrics(args.base-url)))
-    results.append(("docs", verify_docs(args.base-url)))
-    results.append(("openapi", verify_openapi(args.base-url)))
+    results.append(("health", verify_health(args.base_url)))
+    results.append(("ready", verify_ready(args.base_url)))
+    results.append(("metrics", verify_metrics(args.base_url)))
+    results.append(("docs", verify_docs(args.base_url)))
+    results.append(("openapi", verify_openapi(args.base_url)))
 
     print("\n" + "=" * 50)
     print("📊 Summary:")

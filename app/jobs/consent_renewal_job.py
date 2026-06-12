@@ -22,7 +22,7 @@ from app.core.database import AsyncSessionLocal
 from app.core.jobs import update_job
 
 if TYPE_CHECKING:
-    from arq.connections import ArqRedis  # type: ignore[import]
+    pass  # type: ignore[import]
 
 logger = logging.getLogger(__name__)
 

@@ -105,11 +105,11 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials | None = De
             headers={"WWW-Authenticate": "Bearer"},
         )
     payload = decode_token(credentials.credentials)
-    
+
     # Check if token type is correct
     if payload.get("type") != "access":
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Refresh token cannot be used here")
-    
+
     # Check if token has been revoked (by JTI)
     jti = payload.get("jti")
     if jti and await is_token_revoked(jti):
@@ -118,7 +118,7 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials | None = De
             detail="Token has been revoked",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     # Check if user's all tokens have been revoked
     user_id = payload.get("sub")
     if user_id and await is_user_revoked(user_id):
@@ -127,7 +127,7 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials | None = De
             detail="User tokens have been revoked",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     return payload
 
 

@@ -29,7 +29,6 @@ import logging
 import sys
 from pathlib import Path
 from typing import Optional
-from uuid import UUID
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
@@ -41,7 +40,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger("seed_item_bank")
 
-from app.modules.diagnostics.item_validator import ItemValidator, ValidationError
+from app.modules.diagnostics.item_validator import ItemValidator
 from app.services.content_scope_registry import ContentScopeRegistry
 
 TOPIC_MAP_PATHS = [

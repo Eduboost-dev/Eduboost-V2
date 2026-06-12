@@ -28,7 +28,6 @@ Test strategy:
 
 import uuid
 from datetime import datetime, timezone
-from typing import AsyncGenerator
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
@@ -38,8 +37,6 @@ from app.modules.diagnostics.irt_engine import (
     GRADE_LEVEL_THRESHOLD,
     MAX_ITEMS,
     MIN_ITEMS,
-    SE_THRESHOLD,
-    DiagnosticSessionState,
     IRTEngine,
 )
 from app.modules.diagnostics.item_bank_service import ItemBankService

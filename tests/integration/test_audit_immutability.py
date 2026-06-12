@@ -14,7 +14,7 @@ async def test_audit_events_are_immutable():
     """
     event_id = uuid.uuid4()
     actor_id = uuid.uuid4()
-    
+
     async with AsyncSessionLocal() as db:
         # 1. Insert an audit event using ORM (to handle defaults)
         event = AuditEvent(
@@ -27,7 +27,7 @@ async def test_audit_events_are_immutable():
         )
         db.add(event)
         await db.commit()
-        
+
         # 2. Attempt to UPDATE the event using raw SQL (to bypass ORM checks)
         await db.execute(
             text(
@@ -37,19 +37,16 @@ async def test_audit_events_are_immutable():
             {"id": event_id}
         )
         await db.commit()
-        
+
         # Verify it remains unchanged
         result = await db.execute(
             text("SELECT payload FROM audit_events WHERE id = :id"),
             {"id": event_id}
         )
         payload = result.scalar()
-        
-        if isinstance(payload, str):
-            payload_data = json.loads(payload)
-        else:
-            payload_data = payload
-        
+
+        payload_data = json.loads(payload) if isinstance(payload, str) else payload
+
         # The rule 'audit_events_no_update' should make this a no-op
         assert payload_data["key"] == "original", f"Audit event was tampered with! Found: {payload_data}"
 
@@ -59,7 +56,7 @@ async def test_audit_events_are_immutable():
             {"id": event_id}
         )
         await db.commit()
-        
+
         # Verify it still exists
         result = await db.execute(
             text("SELECT COUNT(*) FROM audit_events WHERE id = :id"),

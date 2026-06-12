@@ -34,51 +34,51 @@ class AuthContext(BaseModel):
     This class provides a typed interface to JWT claims with convenience
     methods for common authorization checks.
     """
-    
+
     user_id: str
     guardian_id: str | None = None
     learner_id: str | None = None
     roles: list[UserRole] = Field(default_factory=list)
     token_type: TokenType
     raw_claims: dict[str, Any]
-    
+
     # Timestamps from token
     issued_at: datetime | None = None
     expires_at: datetime | None = None
     jti: str  # JWT ID for revocation
-    
+
     # Issuer and audience (for environment validation)
     issuer: str | None = None
     audience: str | None = None
-    
+
     class Config:
         use_enum_values = False
-    
+
     @property
     def is_admin(self) -> bool:
         """Check if user has admin role."""
         return UserRole.ADMIN in self.roles
-    
+
     @property
     def is_parent(self) -> bool:
         """Check if user has parent role."""
         return UserRole.PARENT in self.roles
-    
+
     @property
     def is_teacher(self) -> bool:
         """Check if user has teacher role."""
         return UserRole.TEACHER in self.roles
-    
+
     @property
     def is_student(self) -> bool:
         """Check if user has student role."""
         return UserRole.STUDENT in self.roles
-    
+
     @property
     def is_expired(self) -> bool:
         """Check if token is expired."""
         return self.expires_at is not None and datetime.now(timezone.utc) > self.expires_at
-    
+
     @property
     def subject(self) -> str:
         """Get the subject (user_id) of the token."""
@@ -97,16 +97,16 @@ def _parse_roles(role: Any) -> list[UserRole]:
     """
     if role is None:
         return []
-    
+
     if isinstance(role, list):
         return [UserRole(r) if isinstance(r, str) else r for r in role]
-    
+
     if isinstance(role, str):
         return [UserRole(role)]
-    
+
     if isinstance(role, UserRole):
         return [role]
-    
+
     return []
 
 
@@ -118,7 +118,7 @@ def _validate_issuer_and_audience(claims: dict[str, Any]) -> None:
     """
     issuer = claims.get("iss")
     audience = claims.get("aud")
-    
+
     # If claims include iss/aud, validate them
     if issuer is not None:
         expected_issuer = settings.APP_BASE_URL.rstrip("/")
@@ -128,7 +128,7 @@ def _validate_issuer_and_audience(claims: dict[str, Any]) -> None:
                 detail=f"Invalid token issuer: expected {expected_issuer}, got {issuer}",
                 headers={"WWW-Authenticate": "Bearer"},
             )
-    
+
     if audience is not None:
         expected_audience = "eduboost-api"
         if audience != expected_audience:
@@ -154,7 +154,7 @@ def _claims_to_auth_context(claims: dict[str, Any]) -> AuthContext:
             detail="Token missing required 'sub' claim",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     # Parse token type
     token_type_str = claims.get("type", "access")
     try:
@@ -165,10 +165,10 @@ def _claims_to_auth_context(claims: dict[str, Any]) -> AuthContext:
             detail=f"Invalid token type: {token_type_str}",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     # Parse roles
     roles = _parse_roles(claims.get("role"))
-    
+
     # Parse timestamps
     issued_at = claims.get("iat")
     if isinstance(issued_at, (int, float)):
@@ -177,7 +177,7 @@ def _claims_to_auth_context(claims: dict[str, Any]) -> AuthContext:
         issued_at = issued_at
     else:
         issued_at = datetime.now(timezone.utc)
-    
+
     expires_at = claims.get("exp")
     if isinstance(expires_at, (int, float)):
         expires_at = datetime.fromtimestamp(expires_at, tz=timezone.utc)
@@ -185,18 +185,18 @@ def _claims_to_auth_context(claims: dict[str, Any]) -> AuthContext:
         expires_at = expires_at
     else:
         expires_at = datetime.now(timezone.utc)
-    
+
     # Extract JTI
     jti = claims.get("jti", "")
-    
+
     # Extract optional guardian/learner IDs
     guardian_id = claims.get("guardian_id")
     learner_id = claims.get("learner_id")
-    
+
     # Extract issuer and audience
     issuer = claims.get("iss")
     audience = claims.get("aud")
-    
+
     return AuthContext(
         user_id=str(user_id),
         guardian_id=str(guardian_id) if guardian_id else None,
@@ -235,7 +235,7 @@ async def get_auth_context(
             detail="Authorization header missing",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     # Decode token
     try:
         claims = decode_token(credentials.credentials)
@@ -245,10 +245,10 @@ async def get_auth_context(
             detail="Invalid or expired token",
             headers={"WWW-Authenticate": "Bearer"},
         ) from exc
-    
+
     # Validate issuer and audience if present
     _validate_issuer_and_audience(claims)
-    
+
     # Check token type
     token_type = claims.get("type")
     if token_type != "access":
@@ -256,7 +256,7 @@ async def get_auth_context(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Refresh token cannot be used here",
         )
-    
+
     # Check revocation by JTI
     jti = claims.get("jti")
     if jti and await is_token_revoked(jti):
@@ -265,7 +265,7 @@ async def get_auth_context(
             detail="Token has been revoked",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     # Check user-level revocation
     user_id = claims.get("sub")
     if user_id and await is_user_revoked(user_id):
@@ -274,7 +274,7 @@ async def get_auth_context(
             detail="User tokens have been revoked",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     # Convert to AuthContext
     return _claims_to_auth_context(claims)
 
@@ -331,7 +331,7 @@ def require_roles(*roles: UserRole):
         async def admin_endpoint(auth: AuthContext = Depends(require_roles(UserRole.ADMIN))):
             ...
     """
-    
+
     def _inner(auth: AuthContext = Depends(get_auth_context)) -> AuthContext:
         if not any(role in auth.roles for role in roles):
             raise HTTPException(
@@ -339,7 +339,7 @@ def require_roles(*roles: UserRole):
                 detail=f"Requires one of roles: {[r.value for r in roles]}",
             )
         return auth
-    
+
     return _inner
 
 

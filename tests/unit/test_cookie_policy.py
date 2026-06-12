@@ -13,15 +13,10 @@ from __future__ import annotations
 
 from unittest.mock import patch
 
-import pytest
 from starlette.responses import Response
 
 from app.core.cookies import (
-    COOKIE_PATH,
-    COOKIE_SAMESITE,
-    COOKIE_SECURE,
     REFRESH_TOKEN_COOKIE_NAME,
-    REFRESH_TOKEN_MAX_AGE_SECONDS,
     clear_refresh_cookie,
     get_cookie_policy_summary,
     set_refresh_cookie,

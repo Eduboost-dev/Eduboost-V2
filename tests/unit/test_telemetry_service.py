@@ -3,7 +3,7 @@ Unit tests for TelemetryService POPIA-safe analytics dispatch.
 """
 from __future__ import annotations
 
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import patch
 
 import pytest
 
@@ -43,10 +43,10 @@ def test_analytics_payload_returns_anonymous_for_empty_pseudonym():
 async def test_telemetry_noop_when_capability_unavailable():
     """Verify telemetry logs no-op when analytics capability is unavailable."""
     service = TelemetryService()
-    
+
     from types import SimpleNamespace
     capability = SimpleNamespace(status="unavailable", reason="disabled")
-    
+
     with patch("app.services.telemetry.get_runtime_capabilities") as mock_caps:
         mock_caps.return_value = {"analytics": capability}
         with patch("app.services.telemetry.log") as mock_log:

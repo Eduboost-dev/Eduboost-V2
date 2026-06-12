@@ -6,7 +6,6 @@ These policies enforce that users can only access resources they are authorized 
 """
 from __future__ import annotations
 
-from typing import Any
 
 from fastapi import HTTPException, status
 
@@ -38,23 +37,23 @@ def can_access_lesson(
     # Admin bypass
     if auth.is_admin:
         return True
-    
+
     # Direct learner access
     if auth.learner_id and auth.learner_id == lesson.learner_id:
         return True
-    
+
     # Guardian access (requires relationship check)
     if auth.is_parent and auth.guardian_id:
         # Check if guardian is linked to the lesson's learner
         # This requires repository call - handled by caller
         return _guardian_has_learner_relationship(auth.guardian_id, lesson.learner_id)
-    
+
     # Teacher access (requires assignment check)
     if auth.is_teacher:
         # Check if teacher is assigned to the lesson's learner
         # This requires repository call - handled by caller
         return _teacher_has_learner_assignment(auth.user_id, lesson.learner_id)
-    
+
     return False
 
 
@@ -81,11 +80,11 @@ def can_write_lesson(
     # Admin bypass
     if auth.is_admin:
         return True
-    
+
     # Only the learner who owns the lesson can write to it
     if auth.learner_id and auth.learner_id == lesson.learner_id:
         return True
-    
+
     # Guardians and teachers have read-only access
     return False
 
@@ -113,20 +112,20 @@ def can_access_learner(
     # Admin bypass
     if auth.is_admin:
         return True
-    
+
     # Direct learner access
     if auth.learner_id and auth.learner_id == str(learner.id):
         return True
-    
+
     # Guardian access
     if auth.is_parent and auth.guardian_id:
         return str(learner.guardian_id) == auth.guardian_id
-    
+
     # Teacher access (requires assignment check)
     if auth.is_teacher:
         # This requires repository call - handled by caller
         return _teacher_has_learner_assignment(auth.user_id, str(learner.id))
-    
+
     return False
 
 
@@ -153,11 +152,11 @@ def can_write_learner(
     # Admin bypass
     if auth.is_admin:
         return True
-    
+
     # Only guardian can write to learner record
     if auth.is_parent and auth.guardian_id:
         return str(learner.guardian_id) == auth.guardian_id
-    
+
     return False
 
 

@@ -22,7 +22,6 @@ from __future__ import annotations
 import logging
 from enum import Enum
 from typing import Optional
-from uuid import UUID
 
 from pydantic import BaseModel, Field
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-09T23:41:45Z",
+  "generated_at": "2026-06-12T17:31:09Z",
   "rows": [
     {
       "router": "app/api_v2_routers/0005_irt_seed.py",
@@ -118,13 +118,11 @@
     {
       "router": "app/api_v2_routers/consent_renewal.py",
       "service_imports": [
-        "app.services.consent_renewal_service"
+        "app.modules.jobs"
       ],
       "dependency_imports": [],
       "repository_imports": [],
-      "database_imports": [
-        "app.core.database"
-      ]
+      "database_imports": []
     },
     {
       "router": "app/api_v2_routers/content_factory.py",
@@ -186,20 +184,6 @@
       ]
     },
     {
-      "router": "app/api_v2_routers/ether.py",
-      "service_imports": [
-        "app.services.ether_service"
-      ],
-      "dependency_imports": [
-        "app.api_v2_deps.auth"
-      ],
-      "repository_imports": [],
-      "database_imports": [
-        "app.core.database",
-        "sqlalchemy.ext.asyncio"
-      ]
-    },
-    {
       "router": "app/api_v2_routers/gamification.py",
       "service_imports": [
         "app.services.fourth_estate",
@@ -220,17 +204,6 @@
     {
       "router": "app/api_v2_routers/jobs.py",
       "service_imports": [],
-      "dependency_imports": [
-        "app.api_v2_deps.auth"
-      ],
-      "repository_imports": [],
-      "database_imports": []
-    },
-    {
-      "router": "app/api_v2_routers/judiciary.py",
-      "service_imports": [
-        "app.services.judiciary_service_v2"
-      ],
       "dependency_imports": [
         "app.api_v2_deps.auth"
       ],
@@ -273,6 +246,7 @@
     {
       "router": "app/api_v2_routers/lessons.py",
       "service_imports": [
+        "app.modules.jobs",
         "app.modules.lessons",
         "app.modules.lessons.service",
         "app.services.lesson_authorization"
@@ -334,17 +308,12 @@
     {
       "router": "app/api_v2_routers/study_plans.py",
       "service_imports": [
-        "app.services.audit_service",
-        "app.services.study_plan_service_v2",
-        "app.services.telemetry"
+        "app.modules.jobs"
       ],
       "dependency_imports": [
         "app.api_v2_deps.auth"
       ],
-      "repository_imports": [
-        "app.repositories.repositories",
-        "app.repositories.study_plan_repository"
-      ],
+      "repository_imports": [],
       "database_imports": [
         "app.core.database",
         "sqlalchemy.ext.asyncio"

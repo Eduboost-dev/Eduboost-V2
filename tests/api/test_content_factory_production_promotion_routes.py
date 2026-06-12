@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import uuid
-from types import SimpleNamespace
 
 import pytest
 from fastapi.testclient import TestClient
@@ -169,7 +168,7 @@ def test_admin_can_fetch_promotion_event(client: TestClient) -> None:
 
 def test_admin_can_fetch_promotion_event_items(client: TestClient) -> None:
     """Admin can fetch promotion event items."""
-    promotion_event_id = uuid.uuid4()
+    uuid.uuid4()
     # This route directly queries the database, so we skip it in unit tests
     # It should be tested in integration tests with a real database
     pass

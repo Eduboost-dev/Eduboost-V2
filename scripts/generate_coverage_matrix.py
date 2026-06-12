@@ -203,7 +203,7 @@ async def main(output_path: Path, db_url: str) -> None:
     template = template_path.read_text(encoding="utf-8")
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
-    print(f"Connecting to database...")
+    print("Connecting to database...")
     pool = await asyncpg.create_pool(db_url, min_size=1, max_size=3)
     try:
         print("Fetching item bank statistics...")

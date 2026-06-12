@@ -1046,7 +1046,6 @@ async def get_staging_preview(
     service = Depends(get_staging_preview_service),
 ):
     """Get staging preview for a scope (admin-only)."""
-    from app.services.content_staging_preview_service import StagingPreviewReport
     report = await service.preview_scope(session, scope_id, layers=layers)
     return report
 
@@ -1061,7 +1060,6 @@ async def get_staging_preview_by_caps_ref(
     service = Depends(get_staging_preview_service),
 ):
     """Get staging preview for a scope and CAPS reference (admin-only)."""
-    from app.services.content_staging_preview_service import StagingCapsRefPreview
     report = await service.preview_caps_ref(session, scope_id, caps_ref, layers=layers)
     return report
 
@@ -1074,7 +1072,6 @@ async def get_production_preview(
     service = Depends(get_learner_read_service),
 ):
     """Get production preview for a scope (admin-only)."""
-    from app.services.content_learner_read_service import LearnerScopeContentSummary
     summary = await service.get_scope_content_summary(session, scope_id)
     return summary
 

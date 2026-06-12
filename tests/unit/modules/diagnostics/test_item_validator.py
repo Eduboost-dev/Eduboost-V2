@@ -13,15 +13,12 @@ Tests every validation rule independently:
 from __future__ import annotations
 
 import pytest
-from copy import deepcopy
 
 from app.modules.diagnostics.item_validator import (
     ItemValidator,
     ValidationError,
     flesch_kincaid_grade,
     MAX_FK_GRADE,
-    MIN_OPTIONS,
-    VALID_IRT_BOUNDS,
 )
 
 # ---------------------------------------------------------------------------

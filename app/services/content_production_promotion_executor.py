@@ -10,7 +10,6 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.content_factory import (
-    ContentGenerationArtifact,
     ContentProductionArtifact,
     ContentPromotionEvent,
     ContentStagingArtifact,
@@ -18,7 +17,6 @@ from app.models.content_factory import (
 )
 from app.services.content_production_promotion_gate import (
     ContentProductionPromotionGate,
-    ProductionGateReport,
 )
 
 
@@ -74,13 +72,13 @@ class ContentProductionPromotionExecutor:
         """Dry-run promotion produces a plan without mutation."""
         # Evaluate the gate first
         gate_report = await self.gate.evaluate_scope(session, scope_id, layers=layers)
-        
+
         if gate_report.status.value != "promotable":
             raise ValueError(
                 f"Cannot dry-run promotion: gate status is {gate_report.status.value}. "
                 f"Blockers: {[b.message for b in gate_report.blockers]}"
             )
-        
+
         # Find staged artifacts for the scope
         result = await session.execute(
             select(ContentStagingArtifact)
@@ -91,9 +89,9 @@ class ContentProductionPromotionExecutor:
                 ContentStagingSeedItem.status == "seeded",
             )
         )
-        
+
         staging_artifacts = result.scalars().all()
-        
+
         return ProductionPromotionPlan(
             scope_id=scope_id,
             layers=layers or [],
@@ -117,16 +115,16 @@ class ContentProductionPromotionExecutor:
             raise ValueError(
                 f"Confirmation mismatch. Expected: '{expected_confirmation}', Got: '{confirmation}'"
             )
-        
+
         # Evaluate the gate
         gate_report = await self.gate.evaluate_scope(session, scope_id, layers=layers)
-        
+
         if gate_report.status.value != "promotable":
             raise ValueError(
                 f"Cannot promote: gate status is {gate_report.status.value}. "
                 f"Blockers: {[b.message for b in gate_report.blockers]}"
             )
-        
+
         # Create promotion event
         promotion_event_id = uuid.uuid4()
         promotion_event = ContentPromotionEvent(
@@ -138,7 +136,7 @@ class ContentProductionPromotionExecutor:
         )
         session.add(promotion_event)
         await session.flush()
-        
+
         # Find staged artifacts
         result = await session.execute(
             select(ContentStagingArtifact)
@@ -149,11 +147,11 @@ class ContentProductionPromotionExecutor:
                 ContentStagingSeedItem.status == "seeded",
             )
         )
-        
+
         staging_artifacts = result.scalars().all()
         promoted_count = 0
         errors = []
-        
+
         # Promote each artifact
         for staging_artifact in staging_artifacts:
             try:
@@ -165,12 +163,12 @@ class ContentProductionPromotionExecutor:
                     )
                 )
                 existing = existing_result.scalar_one_or_none()
-                
+
                 if existing:
                     # Mark existing as superseded
                     existing.production_status = "superseded"
                     existing.updated_at = datetime.now(timezone.utc)
-                
+
                 # Create new production artifact
                 production_artifact = ContentProductionArtifact(
                     id=uuid.uuid4(),
@@ -187,10 +185,10 @@ class ContentProductionPromotionExecutor:
                 )
                 session.add(production_artifact)
                 promoted_count += 1
-                
+
             except Exception as e:
                 errors.append(f"Failed to promote artifact {staging_artifact.artifact_id}: {str(e)}")
-        
+
         # Update promotion event status
         if errors:
             promotion_event.status = "failed"
@@ -198,10 +196,10 @@ class ContentProductionPromotionExecutor:
         else:
             promotion_event.status = "succeeded"
             promotion_event.summary = promotion_event.summary | {"promoted_count": promoted_count}
-        
+
         promotion_event.updated_at = datetime.now(timezone.utc)
         await session.flush()
-        
+
         return ProductionPromotionResult(
             promotion_event_id=promotion_event_id,
             scope_id=scope_id,
@@ -218,17 +216,17 @@ class ContentProductionPromotionExecutor:
     ) -> ProductionPromotionResult:
         """Get a promotion event by ID."""
         event_uuid = uuid.UUID(str(promotion_event_id))
-        
+
         result = await session.execute(
             select(ContentPromotionEvent).where(
                 ContentPromotionEvent.event_id == event_uuid,
             )
         )
         event = result.scalar_one_or_none()
-        
+
         if not event:
             raise ValueError(f"Promotion event {promotion_event_id} not found")
-        
+
         # Count promoted artifacts
         count_result = await session.execute(
             select(func.count(ContentProductionArtifact.id)).where(
@@ -236,7 +234,7 @@ class ContentProductionPromotionExecutor:
             )
         )
         promoted_count = count_result.scalar() or 0
-        
+
         return ProductionPromotionResult(
             promotion_event_id=event.event_id,
             scope_id=event.scope_id,
@@ -256,24 +254,24 @@ class ContentProductionPromotionExecutor:
     ) -> ProductionPromotionPage:
         """List promotion events."""
         query = select(ContentPromotionEvent)
-        
+
         if scope_id:
             query = query.where(ContentPromotionEvent.scope_id == scope_id)
-        
+
         query = query.order_by(ContentPromotionEvent.created_at.desc())
         query = query.limit(limit).offset(offset)
-        
+
         result = await session.execute(query)
         events = result.scalars().all()
-        
+
         # Get total count
         count_query = select(func.count(ContentPromotionEvent.event_id))
         if scope_id:
             count_query = count_query.where(ContentPromotionEvent.scope_id == scope_id)
-        
+
         count_result = await session.execute(count_query)
         total = count_result.scalar() or 0
-        
+
         items = []
         for event in events:
             count_result = await session.execute(
@@ -282,7 +280,7 @@ class ContentProductionPromotionExecutor:
                 )
             )
             promoted_count = count_result.scalar() or 0
-            
+
             items.append(
                 ProductionPromotionResult(
                     promotion_event_id=event.event_id,
@@ -293,7 +291,7 @@ class ContentProductionPromotionExecutor:
                     errors=event.summary.get("errors", []),
                 )
             )
-        
+
         return ProductionPromotionPage(
             items=items,
             total=total,
@@ -311,7 +309,7 @@ class ContentProductionPromotionExecutor:
     ) -> ProductionRollbackResult:
         """Rollback a promotion event."""
         event_uuid = uuid.UUID(str(promotion_event_id))
-        
+
         # Find the promotion event
         result = await session.execute(
             select(ContentPromotionEvent).where(
@@ -319,10 +317,10 @@ class ContentProductionPromotionExecutor:
             )
         )
         event = result.scalar_one_or_none()
-        
+
         if not event:
             raise ValueError(f"Promotion event {promotion_event_id} not found")
-        
+
         # Find production artifacts created by this event
         artifacts_result = await session.execute(
             select(ContentProductionArtifact).where(
@@ -331,14 +329,14 @@ class ContentProductionPromotionExecutor:
             )
         )
         artifacts = artifacts_result.scalars().all()
-        
+
         rolled_back_count = 0
-        
+
         for artifact in artifacts:
             artifact.production_status = "rolled_back"
             artifact.updated_at = datetime.now(timezone.utc)
             rolled_back_count += 1
-        
+
         # Update promotion event
         event.status = "rolled_back"
         event.summary = event.summary | {
@@ -348,9 +346,9 @@ class ContentProductionPromotionExecutor:
             "rolled_back_at": datetime.now(timezone.utc).isoformat(),
         }
         event.updated_at = datetime.now(timezone.utc)
-        
+
         await session.flush()
-        
+
         return ProductionRollbackResult(
             promotion_event_id=event.event_id,
             status=event.status,

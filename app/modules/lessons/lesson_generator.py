@@ -41,7 +41,6 @@ from typing import TYPE_CHECKING
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from app.core.config import get_settings
 from app.core.exceptions import EduBoostError
 from app.modules.lessons.llm_gateway import LLMGateway, LLMResponse
 from app.modules.lessons.lesson_schema_v1 import LessonCreate, LessonResponse

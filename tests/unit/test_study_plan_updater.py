@@ -4,7 +4,7 @@ Unit tests for StudyPlanUpdater diagnostic result application.
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock, patch
 from uuid import UUID
 
 import pytest
@@ -43,7 +43,7 @@ async def test_apply_diagnostic_result_updates_topic_entry():
     learner_id = UUID("12345678-1234-5678-1234-567812345678")
 
     with patch("app.services.study_plan_updater.logger") as mock_logger:
-        entry = await updater.apply_diagnostic_result(learner_id, session_result)
+        await updater.apply_diagnostic_result(learner_id, session_result)
 
         mock_repo.upsert_topic_entry.assert_called_once()
         call_args = mock_repo.upsert_topic_entry.call_args

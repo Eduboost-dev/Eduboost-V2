@@ -16,7 +16,6 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 
 from app.domain.consent import (
-    ALLOWED_TRANSITIONS,
     ConsentRecord,
     ConsentState,
 )
@@ -236,12 +235,9 @@ async def test_require_active_consent_raises_when_withdrawn():
     mock_repo.get_latest_for_learner = AsyncMock(return_value=mock_consent)
 
     # derive_consent_state will evaluate the raw object
-    from app.core.consent_policy import derive_consent_state
     from unittest.mock import patch
 
     with patch("app.modules.consent.service.derive_consent_state") as mock_derive:
-        from app.core.consent_policy import ConsentPolicyDecision
-        from app.models import ConsentState as DBConsentState
 
         # Simulate a withdrawn decision
         mock_decision = MagicMock()

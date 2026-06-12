@@ -30,7 +30,7 @@ async def test_send_logs_success_on_200_response():
     mock_response = MagicMock()
     mock_response.status_code = 202
     mock_response.text = "Accepted"
-    
+
     with patch.dict("os.environ", {"SENDGRID_API_KEY": "test-key"}):
         with patch("httpx.AsyncClient") as mock_client:
             mock_client.return_value.__aenter__.return_value.post = AsyncMock(return_value=mock_response)
@@ -50,7 +50,7 @@ async def test_send_logs_error_on_non_200_response():
     mock_response = MagicMock()
     mock_response.status_code = 400
     mock_response.text = "Bad Request"
-    
+
     with patch.dict("os.environ", {"SENDGRID_API_KEY": "test-key"}):
         with patch("httpx.AsyncClient") as mock_client:
             mock_client.return_value.__aenter__.return_value.post = AsyncMock(return_value=mock_response)
@@ -71,9 +71,9 @@ def test_render_renders_template():
         mock_template = MagicMock()
         mock_template.render.return_value = "<p>Rendered</p>"
         mock_env.get_template.return_value = mock_template
-        
+
         result = email_service._render("test.html", name="Test")
-        
+
         assert result == "<p>Rendered</p>"
         mock_env.get_template.assert_called_once_with("test.html")
         mock_template.render.assert_called_once_with(name="Test")

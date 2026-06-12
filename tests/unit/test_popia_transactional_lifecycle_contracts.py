@@ -265,7 +265,7 @@ async def test_grant_calls_transition_with_correct_parameters():
 
     with patch.object(service, "_transition", new_callable=AsyncMock) as mock_transition:
         mock_transition.return_value = "consent_record"
-        result = await service.grant(learner_id="learner-123", guardian_id="guardian-456")
+        await service.grant(learner_id="learner-123", guardian_id="guardian-456")
 
         mock_transition.assert_called_once()
         call_kwargs = mock_transition.call_args[1]
@@ -288,7 +288,7 @@ async def test_deny_calls_transition_with_correct_parameters():
 
     with patch.object(service, "_transition", new_callable=AsyncMock) as mock_transition:
         mock_transition.return_value = "consent_record"
-        result = await service.deny(learner_id="learner-123")
+        await service.deny(learner_id="learner-123")
 
         mock_transition.assert_called_once()
         call_kwargs = mock_transition.call_args[1]
@@ -309,7 +309,7 @@ async def test_withdraw_calls_transition_with_correct_parameters():
 
     with patch.object(service, "_transition", new_callable=AsyncMock) as mock_transition:
         mock_transition.return_value = "consent_record"
-        result = await service.withdraw(consent_id="consent-789")
+        await service.withdraw(consent_id="consent-789")
 
         mock_transition.assert_called_once()
         call_kwargs = mock_transition.call_args[1]
@@ -330,7 +330,7 @@ async def test_renew_calls_transition_with_correct_parameters():
 
     with patch.object(service, "_transition", new_callable=AsyncMock) as mock_transition:
         mock_transition.return_value = "consent_record"
-        result = await service.renew(consent_id="consent-789")
+        await service.renew(consent_id="consent-789")
 
         mock_transition.assert_called_once()
         call_kwargs = mock_transition.call_args[1]

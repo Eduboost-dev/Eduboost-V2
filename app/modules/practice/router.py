@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from uuid import UUID, uuid4
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
@@ -38,7 +38,7 @@ async def create_practice_session(body: PracticeSessionRequest, current_user: di
     for caps_ref in body.gap_topics:
         items.extend(await repo.list_by_caps_ref(caps_ref, limit=100))
     selected = PracticeGenerator().select_items(items, gap_topics=body.gap_topics, theta=body.theta, per_gap=5)
-    
+
     # Create durable session in database
     session_repo = PracticeSessionRepository(db)
     session = await session_repo.create(
@@ -49,7 +49,7 @@ async def create_practice_session(body: PracticeSessionRequest, current_user: di
         theta=body.theta,
     )
     await db.commit()
-    
+
     return {"session_id": session.id, "item_count": len(selected)}
 
 
@@ -64,17 +64,17 @@ async def next_practice_item(
     session = await session_repo.get_by_id(session_id)
     if not session:
         raise HTTPException(status_code=404, detail="Practice session not found")
-    
+
     # Authorization: Verify session owner
     owner_subject = session.owner_subject
     current_subject = actor_id_from_current_user(current_user)
     if not owner_subject or owner_subject != current_subject:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Practice session is not available to this user")
-    
+
     # Authorization: Verify learner write access and consent
     require_learner_write_for_current_user(current_user, session.learner_id)
     await require_active_consent_for_current_user(db, current_user, session.learner_id)
-    
+
     # Return next item or completion status
     if session.cursor >= len(session.items):
         return {"completed": True}
@@ -94,23 +94,23 @@ async def respond_practice(
     session = await session_repo.get_by_id(session_id)
     if not session:
         raise HTTPException(status_code=404, detail="Practice session not found")
-    
+
     # Authorization: Verify session owner
     owner_subject = session.owner_subject
     current_subject = actor_id_from_current_user(current_user)
     if not owner_subject or owner_subject != current_subject:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Practice session is not available to this user")
-    
+
     # Authorization: Verify learner write access and consent before advancing
     require_learner_write_for_current_user(current_user, session.learner_id)
     await require_active_consent_for_current_user(db, current_user, session.learner_id)
-    
+
     # Record response and advance cursor
     new_responses = session.responses + [body.model_dump(mode="json")]
     new_cursor = session.cursor + 1
     await session_repo.update_cursor_and_responses(session_id, new_cursor, new_responses)
     await db.commit()
-    
+
     # Calculate next review timing and return status
     schedule = SpacedRepetitionScheduler().update_schedule(correct=body.correct)
     if new_cursor >= len(session.items):

@@ -11,21 +11,9 @@ from datetime import UTC, datetime
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
-from sqlalchemy import select
 
 from app.models import (
-    AuditEvent,
-    DiagnosticSession,
-    Guardian,
-    KnowledgeGap,
     LearnerProfile,
-    Lesson,
-    MasterySnapshot,
-    ParentalConsent,
-    PracticeQueue,
-    SpacedReviewSchedule,
-    SubjectMastery,
-    TopicMastery,
 )
 from app.services.popia_service import POPIADataRightsService
 
@@ -212,7 +200,7 @@ class TestExportPayloadCompleteness:
 
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
-        
+
         learner_data = payload["learner"]
         # Both id and pseudonym_id should be present
         assert "id" in learner_data
@@ -227,7 +215,7 @@ class TestExportPayloadCompleteness:
 
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
-        
+
         assert "diagnostic_sessions" in payload
         assert isinstance(payload["diagnostic_sessions"], list)
 
@@ -239,7 +227,7 @@ class TestExportPayloadCompleteness:
 
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
-        
+
         assert "lessons" in payload
         assert isinstance(payload["lessons"], list)
 
@@ -251,7 +239,7 @@ class TestExportPayloadCompleteness:
 
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
-        
+
         assert "knowledge_gaps" in payload
         assert isinstance(payload["knowledge_gaps"], list)
 
@@ -263,7 +251,7 @@ class TestExportPayloadCompleteness:
 
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
-        
+
         assert "parental_consents" in payload
         assert isinstance(payload["parental_consents"], list)
 
@@ -275,7 +263,7 @@ class TestExportPayloadCompleteness:
 
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
-        
+
         assert "export_date" in payload
         assert isinstance(payload["export_date"], str)
 
@@ -287,7 +275,7 @@ class TestExportPayloadCompleteness:
 
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
-        
+
         learner_data = payload["learner"]
         prohibited_found = PROHIBITED_FIELDS & set(learner_data.keys())
         assert not prohibited_found, f"Prohibited fields found in export: {prohibited_found}"
@@ -300,7 +288,7 @@ class TestExportPayloadCompleteness:
 
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
-        
+
         # Check export_date is ISO format
         from datetime import datetime
         try:
@@ -317,7 +305,7 @@ class TestExportPayloadCompleteness:
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
         csv_data = service._to_csv(payload)
-        
+
         # CSV should have header row
         lines = csv_data.split("\n")
         assert len(lines) > 0
@@ -350,6 +338,6 @@ class TestExportDataCategories:
 
         service = POPIADataRightsService(db)
         payload = await service._export_payload(learner)
-        
+
         missing_categories = self.REQUIRED_CATEGORIES - set(payload.keys())
         assert not missing_categories, f"Missing data categories: {missing_categories}"

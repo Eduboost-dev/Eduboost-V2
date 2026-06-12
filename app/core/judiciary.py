@@ -80,7 +80,7 @@ class JudiciaryService:
         answer = payload.answer.strip().lower()
         if not answer or len(answer) < 2:
             raise ConstitutionalViolation("Lesson missing a valid answer key")
-        
+
         placeholders = {"tbd", "n/a", "none", "no answer", "answer here"}
         if answer in placeholders:
             raise ConstitutionalViolation("Lesson contains a placeholder answer key")

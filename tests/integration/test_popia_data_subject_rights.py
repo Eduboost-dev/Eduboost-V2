@@ -8,16 +8,13 @@ from __future__ import annotations
 import uuid
 from collections import defaultdict
 from datetime import datetime, timezone
-from typing import Any, Optional
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
 from app.domain.data_subject_rights import (
     DataExportRequest,
     ErasureRequest,
-    CorrectionRequest,
-    RestrictionRequest,
     RequestStatus,
 )
 from app.services.data_subject_rights_service import DataSubjectRightsService

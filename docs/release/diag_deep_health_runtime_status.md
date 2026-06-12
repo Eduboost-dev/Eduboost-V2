@@ -1,8 +1,8 @@
 # Diagnostic Deep Health Runtime Evidence Status
 
-Generated at: `2026-05-22T14:23:12Z`
-Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
-Branch: `codex/production_readiness`
+Generated at: `2026-06-12T17:38:05Z`
+Commit: `a70b57616bb29572fcb57961b91a3f68f0c66329`
+Branch: `phase-11/technical-debt-burn-down`
 
 **Status:** `diag-deep-health-runtime-not-accepted`
 **Deep health URL:** ``
@@ -15,7 +15,7 @@ Branch: `codex/production_readiness`
 **Head SHA:** ``
 **Test command:** ``
 **Verified by:** `unverified`
-**Date verified:** `2026-05-22`
+**Date verified:** `2026-06-12`
 
 ## Required component results
 

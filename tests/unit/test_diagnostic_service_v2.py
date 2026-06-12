@@ -16,9 +16,9 @@ def test_diagnostic_service_v2_init():
     mock_learner_repo = MagicMock()
     mock_quota_service = MagicMock()
     mock_diagnostic_repo = MagicMock()
-    
+
     service = DiagnosticServiceV2(mock_learner_repo, mock_quota_service, mock_diagnostic_repo)
-    
+
     assert service.learner_repository == mock_learner_repo
     assert service.quota_service == mock_quota_service
     assert service.diagnostic_repository == mock_diagnostic_repo
@@ -30,17 +30,17 @@ async def test_run_diagnostic_returns_cached_result():
     mock_learner_repo = AsyncMock()
     mock_quota_service = AsyncMock()
     mock_diagnostic_repo = AsyncMock()
-    
+
     mock_learner = MagicMock()
     mock_learner_repo.get_by_id.return_value = mock_learner
-    
+
     cached_result = {"session_id": "cached-123", "learner_id": "learner-456"}
     mock_quota_service.get_cached.return_value = cached_result
-    
+
     service = DiagnosticServiceV2(mock_learner_repo, mock_quota_service, mock_diagnostic_repo)
-    
+
     result = await service.run_diagnostic("learner-456", "MAT")
-    
+
     assert result == cached_result
     mock_quota_service.get_cached.assert_called_once_with("diagnostic:learner-456:MAT")
     mock_diagnostic_repo.create_session.assert_not_called()
@@ -52,20 +52,20 @@ async def test_run_diagnostic_creates_session_when_not_cached():
     mock_learner_repo = AsyncMock()
     mock_quota_service = AsyncMock()
     mock_diagnostic_repo = AsyncMock()
-    
+
     mock_learner = MagicMock()
     mock_learner_repo.get_by_id.return_value = mock_learner
-    
+
     mock_quota_service.get_cached.return_value = None
-    
+
     mock_session = MagicMock()
     mock_session.session_id = "session-123"
     mock_diagnostic_repo.create_session.return_value = mock_session
-    
+
     service = DiagnosticServiceV2(mock_learner_repo, mock_quota_service, mock_diagnostic_repo)
-    
+
     result = await service.run_diagnostic("learner-456", "MAT")
-    
+
     assert result["session_id"] == "session-123"
     assert result["learner_id"] == "learner-456"
     assert result["subject_code"] == "MAT"
@@ -78,11 +78,11 @@ async def test_run_diagnostic_raises_when_learner_not_found():
     mock_learner_repo = AsyncMock()
     mock_quota_service = AsyncMock()
     mock_diagnostic_repo = AsyncMock()
-    
+
     mock_learner_repo.get_by_id.return_value = None
-    
+
     service = DiagnosticServiceV2(mock_learner_repo, mock_quota_service, mock_diagnostic_repo)
-    
+
     with pytest.raises(ValueError, match="Learner not found"):
         await service.run_diagnostic("learner-456", "MAT")
 
@@ -93,18 +93,18 @@ async def test_run_diagnostic_handles_session_without_session_id():
     mock_learner_repo = AsyncMock()
     mock_quota_service = AsyncMock()
     mock_diagnostic_repo = AsyncMock()
-    
+
     mock_learner = MagicMock()
     mock_learner_repo.get_by_id.return_value = mock_learner
-    
+
     mock_quota_service.get_cached.return_value = None
-    
+
     mock_session = MagicMock(spec=[])  # Empty spec means no attributes
     mock_diagnostic_repo.create_session.return_value = mock_session
-    
+
     service = DiagnosticServiceV2(mock_learner_repo, mock_quota_service, mock_diagnostic_repo)
-    
+
     result = await service.run_diagnostic("learner-456", "MAT")
-    
+
     assert result["session_id"] is None
     assert result["learner_id"] == "learner-456"

@@ -13,9 +13,8 @@ Run with: pytest tests/unit/modules/diagnostics/test_item_bank_service.py -v
 
 from __future__ import annotations
 
-import math
 import uuid
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
@@ -24,7 +23,6 @@ from app.domain.item_schema import ReviewStatus
 from app.domain.content_coverage import ContentLayer
 from app.modules.diagnostics.item_bank_service import (
     ItemBankService,
-    ItemSelectionError,
     fisher_information_3pl,
     select_maximum_information_item,
 )

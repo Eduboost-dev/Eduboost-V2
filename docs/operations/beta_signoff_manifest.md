@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-06-05T20:19:22.311328+00:00`
-- branch: `feature/ingestion-pipeline`
-- commit: `0de0d192ba93b2e7a75a6bde112d30c0dae4db51`
+- generated_at_utc: `2026-06-12T17:37:43.479715+00:00`
+- branch: `phase-11/technical-debt-burn-down`
+- commit: `a70b57616bb29572fcb57961b91a3f68f0c66329`
 - release_candidate: `unset`
 
 ## Required Sign-Off Areas

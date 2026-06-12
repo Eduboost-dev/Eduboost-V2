@@ -12,7 +12,6 @@ from datetime import datetime, timezone
 from enum import Enum
 import hashlib
 import re
-from typing import Mapping
 
 
 class IncidentSeverity(str, Enum):

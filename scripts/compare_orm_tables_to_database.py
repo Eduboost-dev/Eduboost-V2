@@ -59,10 +59,10 @@ async def collect_database_tables(database_url: str) -> set[str]:
 async def compare(database_url: str, ignore_tables: set[str] | None = None) -> SchemaComparison:
     orm_tables = collect_orm_tables()
     database_tables = await collect_database_tables(database_url)
-    
+
     ignored = ignore_tables or set()
     filtered_db_tables = database_tables - ignored
-    
+
     return SchemaComparison(
         orm_tables=orm_tables,
         database_tables=database_tables,
@@ -102,7 +102,7 @@ async def _async_main(args: argparse.Namespace) -> int:
     _print_table_list("Database tables", comparison.database_tables)
     if ignore & comparison.database_tables:
         _print_table_list("Ignored database tables", ignore & comparison.database_tables)
-    
+
     _print_table_list("Missing in database", comparison.missing_in_database)
     _print_table_list("Extra in database", comparison.extra_in_database)
 

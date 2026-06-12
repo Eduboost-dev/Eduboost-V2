@@ -729,9 +729,9 @@ class StripeWebhookEvent(Base):
 LessonRecord = Lesson
 
 # ── CAPS Diagnostic Items ────────────────────────────────────────────────────
-from app.models.diagnostic_item import DiagnosticItem
-from app.models.item_exposure import ItemExposure
-from app.models.content_factory import (
+from app.models.diagnostic_item import DiagnosticItem  # noqa: F401  (re-export)
+from app.models.item_exposure import ItemExposure  # noqa: F401  (re-export)
+from app.models.content_factory import (  # noqa: F401  (re-export)
     AssessmentBlueprint,
     ContentArtifactReview,
     ContentArtifactSource,
@@ -759,7 +759,7 @@ from app.models.content_factory import (
 )
 
 # Auth extension models
-from app.models.auth_extensions import (
+from app.models.auth_extensions import (  # noqa: F401  (re-export)
     OnboardingState,
     PrivacySettings,
     SecureToken,

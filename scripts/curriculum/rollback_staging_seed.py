@@ -36,7 +36,7 @@ async def run_rollback(args: argparse.Namespace) -> int:
         if not log_path.exists():
             logger.error(f"Seeding log file not found at {log_path}")
             return 1
-            
+
         try:
             log_data = json.loads(log_path.read_text(encoding="utf-8"))
             scopes = log_data.get("scopes", {})
@@ -82,7 +82,7 @@ async def run_rollback(args: argparse.Namespace) -> int:
                 await session.commit()
                 logger.info(f"Successfully rolled back run {run_id}: status={res.status}, rolled_back={res.rolled_back_count}")
                 total_rolled_back += res.rolled_back_count
-            except Exception as e:
+            except Exception:
                 logger.exception(f"Failed to roll back run {run_id} for scope {scope_id}")
                 failed_rollbacks.append(run_id)
 

@@ -22,7 +22,6 @@ Example:
         )
 """
 
-from datetime import datetime, timezone
 from typing import TYPE_CHECKING
 from uuid import UUID
 
@@ -30,7 +29,6 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 
 from app.core.llm_gateway import active_provider_label
-from app.core.database import AsyncSessionLocal
 from app.models import KnowledgeGap, Lesson
 from app.repositories.repositories import (
     GuardianRepository,
@@ -132,7 +130,7 @@ class LessonService:
 
         guardian = await self._guardian_repo.get_by_id(learner.guardian_id)
         tier = guardian.subscription_tier if guardian else "free"
-        
+
         learner_context = await self._build_learner_context(body.learner_id, body.subject)
 
         # 3. Call AI Service (Executive/Ether)
@@ -171,11 +169,11 @@ class LessonService:
             llm_provider=provider,
             served_from_cache=from_cache,
         )
-        
+
         await self._audit_service.lesson_generated(
             learner.pseudonym_id, body.subject, body.topic, provider
         )
-        
+
         # Note: Caller is responsible for commit if needed, or we can commit here
         await self.db.commit()
 

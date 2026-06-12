@@ -27,8 +27,6 @@ from app.security.authorization import (
     can_write_learner,
     require_lesson_access,
     require_lesson_write,
-    require_learner_access,
-    require_learner_write,
 )
 
 
@@ -57,7 +55,7 @@ def learner():
 
 class TestCanAccessLesson:
     """Test lesson read access authorization."""
-    
+
     def test_admin_can_access_any_lesson(self, lesson):
         """Admin can access any lesson."""
         auth = AuthContext(
@@ -69,9 +67,9 @@ class TestCanAccessLesson:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_access_lesson(auth, lesson) is True
-    
+
     def test_learner_can_access_own_lesson(self, lesson):
         """Learner can access their own lesson."""
         auth = AuthContext(
@@ -84,9 +82,9 @@ class TestCanAccessLesson:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_access_lesson(auth, lesson) is True
-    
+
     def test_learner_cannot_access_other_lesson(self, lesson):
         """Learner cannot access another learner's lesson."""
         auth = AuthContext(
@@ -99,9 +97,9 @@ class TestCanAccessLesson:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_access_lesson(auth, lesson) is False
-    
+
     def test_guardian_can_access_linked_lesson(self, lesson):
         """Guardian can access their linked learner's lesson."""
         # Note: This test assumes guardian relationship check passes
@@ -116,11 +114,11 @@ class TestCanAccessLesson:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         # Currently returns False because repository check not implemented
         # This test will pass once repository check is implemented
         assert can_access_lesson(auth, lesson) is False  # TODO: Update after implementation
-    
+
     def test_guardian_cannot_access_unlinked_lesson(self, lesson):
         """Guardian cannot access unrelated learner's lesson."""
         auth = AuthContext(
@@ -133,9 +131,9 @@ class TestCanAccessLesson:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_access_lesson(auth, lesson) is False
-    
+
     def test_teacher_can_access_assigned_lesson(self, lesson):
         """Teacher can access assigned learner's lesson."""
         # Note: This test assumes teacher assignment check passes
@@ -149,7 +147,7 @@ class TestCanAccessLesson:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         # Currently returns False because repository check not implemented
         # This test will pass once repository check is implemented
         assert can_access_lesson(auth, lesson) is False  # TODO: Update after implementation
@@ -157,7 +155,7 @@ class TestCanAccessLesson:
 
 class TestCanWriteLesson:
     """Test lesson write access authorization."""
-    
+
     def test_admin_can_write_any_lesson(self, lesson):
         """Admin can write to any lesson."""
         auth = AuthContext(
@@ -169,9 +167,9 @@ class TestCanWriteLesson:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_write_lesson(auth, lesson) is True
-    
+
     def test_learner_can_write_own_lesson(self, lesson):
         """Learner can write to their own lesson."""
         auth = AuthContext(
@@ -184,9 +182,9 @@ class TestCanWriteLesson:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_write_lesson(auth, lesson) is True
-    
+
     def test_learner_cannot_write_other_lesson(self, lesson):
         """Learner cannot write to another learner's lesson."""
         auth = AuthContext(
@@ -199,9 +197,9 @@ class TestCanWriteLesson:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_write_lesson(auth, lesson) is False
-    
+
     def test_guardian_cannot_write_lesson(self, lesson):
         """Guardian cannot write to lessons (read-only)."""
         auth = AuthContext(
@@ -214,9 +212,9 @@ class TestCanWriteLesson:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_write_lesson(auth, lesson) is False
-    
+
     def test_teacher_cannot_write_lesson(self, lesson):
         """Teacher cannot write to lessons (read-only)."""
         auth = AuthContext(
@@ -228,13 +226,13 @@ class TestCanWriteLesson:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_write_lesson(auth, lesson) is False
 
 
 class TestCanAccessLearner:
     """Test learner read access authorization."""
-    
+
     def test_admin_can_access_any_learner(self, learner):
         """Admin can access any learner."""
         auth = AuthContext(
@@ -246,9 +244,9 @@ class TestCanAccessLearner:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_access_learner(auth, learner) is True
-    
+
     def test_learner_can_access_own_data(self, learner):
         """Learner can access their own data."""
         auth = AuthContext(
@@ -261,9 +259,9 @@ class TestCanAccessLearner:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_access_learner(auth, learner) is True
-    
+
     def test_learner_cannot_access_other_learner(self, learner):
         """Learner cannot access another learner's data."""
         auth = AuthContext(
@@ -276,9 +274,9 @@ class TestCanAccessLearner:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_access_learner(auth, learner) is False
-    
+
     def test_guardian_can_access_linked_learner(self, learner):
         """Guardian can access their linked learner's data."""
         auth = AuthContext(
@@ -291,9 +289,9 @@ class TestCanAccessLearner:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_access_learner(auth, learner) is True
-    
+
     def test_guardian_cannot_access_unlinked_learner(self, learner):
         """Guardian cannot access unrelated learner's data."""
         auth = AuthContext(
@@ -306,13 +304,13 @@ class TestCanAccessLearner:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_access_learner(auth, learner) is False
 
 
 class TestCanWriteLearner:
     """Test learner write access authorization."""
-    
+
     def test_admin_can_write_any_learner(self, learner):
         """Admin can write to any learner."""
         auth = AuthContext(
@@ -324,9 +322,9 @@ class TestCanWriteLearner:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_write_learner(auth, learner) is True
-    
+
     def test_guardian_can_write_linked_learner(self, learner):
         """Guardian can write to their linked learner's data."""
         auth = AuthContext(
@@ -339,9 +337,9 @@ class TestCanWriteLearner:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_write_learner(auth, learner) is True
-    
+
     def test_guardian_cannot_write_unlinked_learner(self, learner):
         """Guardian cannot write to unrelated learner's data."""
         auth = AuthContext(
@@ -354,9 +352,9 @@ class TestCanWriteLearner:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_write_learner(auth, learner) is False
-    
+
     def test_learner_cannot_write_own_record(self, learner):
         """Learner cannot write to their own learner record (read-only)."""
         auth = AuthContext(
@@ -369,9 +367,9 @@ class TestCanWriteLearner:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_write_learner(auth, learner) is False
-    
+
     def test_teacher_cannot_write_learner(self, learner):
         """Teacher cannot write to learner records (read-only)."""
         auth = AuthContext(
@@ -383,13 +381,13 @@ class TestCanWriteLearner:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         assert can_write_learner(auth, learner) is False
 
 
 class TestRequireLessonAccess:
     """Test require_lesson_access raises HTTP 403 on denial."""
-    
+
     def test_allowed_access_does_not_raise(self, lesson):
         """Allowed access does not raise exception."""
         auth = AuthContext(
@@ -401,10 +399,10 @@ class TestRequireLessonAccess:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         # Should not raise
         require_lesson_access(auth, lesson)
-    
+
     def test_denied_access_raises_403(self, lesson):
         """Denied access raises HTTP 403."""
         auth = AuthContext(
@@ -417,17 +415,17 @@ class TestRequireLessonAccess:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         with pytest.raises(HTTPException) as exc:
             require_lesson_access(auth, lesson)
-        
+
         assert exc.value.status_code == 403
         assert "permission" in exc.value.detail.lower()
 
 
 class TestRequireLessonWrite:
     """Test require_lesson_write raises HTTP 403 on denial."""
-    
+
     def test_allowed_write_does_not_raise(self, lesson):
         """Allowed write does not raise exception."""
         auth = AuthContext(
@@ -439,10 +437,10 @@ class TestRequireLessonWrite:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         # Should not raise
         require_lesson_write(auth, lesson)
-    
+
     def test_denied_write_raises_403(self, lesson):
         """Denied write raises HTTP 403."""
         auth = AuthContext(
@@ -455,9 +453,9 @@ class TestRequireLessonWrite:
             expires_at=None,
             jti="jti-123",
         )
-        
+
         with pytest.raises(HTTPException) as exc:
             require_lesson_write(auth, lesson)
-        
+
         assert exc.value.status_code == 403
         assert "permission" in exc.value.detail.lower()

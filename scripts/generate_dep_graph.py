@@ -97,7 +97,7 @@ def to_mermaid(graph: dict[str, set[str]]) -> str:
             src_id = source.replace(".", "_")
             tgt_id = target.replace(".", "_")
             lines.append(f'    {src_id}["{src_label}"] --> {tgt_id}["{tgt_label}"]')
-    lines += ["```", "", f"_Generated from `app/` source tree by `scripts/generate_dep_graph.py`_"]
+    lines += ["```", "", "_Generated from `app/` source tree by `scripts/generate_dep_graph.py`_"]
     return "\n".join(lines)
 
 

@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.generate_release_evidence_manifest import EVIDENCE_COMMANDS, collect_commands, render_manifest
+from scripts.generate_release_evidence_manifest import EVIDENCE_COMMANDS, render_manifest
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]

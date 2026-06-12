@@ -22,7 +22,7 @@ import json
 import logging
 from typing import Any, AsyncIterator
 
-from scripts.ingestion.config import SOURCES, HF_DATASETS
+from scripts.ingestion.config import HF_DATASETS
 from scripts.ingestion.models import RawContent
 from scripts.ingestion.sources.base import BaseScraper
 
@@ -129,7 +129,7 @@ class HuggingFaceDatasetsScraper(BaseScraper):
         """Convert a HF row to a RawContent record using per-dataset field heuristics."""
         ds_id  = ds_cfg["id"]
         grades = ds_cfg.get("grade_range", (1, 12))
-        subs   = ds_cfg.get("subjects", [])
+        ds_cfg.get("subjects", [])
 
         # ── ARC ─────────────────────────────────────────────────────────────
         if ds_id == "arc":

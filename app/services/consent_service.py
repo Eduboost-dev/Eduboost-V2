@@ -13,7 +13,6 @@ from app.services.runtime_audit_facade import record_runtime_audit_event
 from app.services.runtime_consent_facade import emit_consent_runtime_event
 
 import uuid
-from datetime import datetime, timezone
 from typing import Optional
 
 from app.domain.consent import (

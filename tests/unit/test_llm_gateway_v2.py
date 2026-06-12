@@ -1,8 +1,7 @@
 """Unit tests for app.modules.lessons.llm_gateway_v2 (no network)."""
 from __future__ import annotations
 
-import asyncio
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import MagicMock
 
 import pytest
 

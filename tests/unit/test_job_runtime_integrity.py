@@ -188,7 +188,7 @@ def test_assert_no_runtime_objects_handles_object_with_dict_attr():
     class SimpleObject:
         def __init__(self):
             self.data = {"key": "value"}
-    
+
     payload = SimpleObject()
     assert_no_runtime_objects(payload)  # Should not raise
 
@@ -199,7 +199,7 @@ def test_assert_no_runtime_objects_handles_object_with_unsafe_attr():
     class Container:
         def __init__(self):
             self.service = MockService()
-    
+
     payload = Container()
     with pytest.raises(JobRuntimeIntegrityError, match="Service"):
         assert_no_runtime_objects(payload)
@@ -262,7 +262,7 @@ def test_assert_json_serializable_payload_raises_on_unserializable():
     class Unserializable:
         def __str__(self):
             raise RuntimeError("Cannot convert to string")
-    
+
     payload = {"item": Unserializable()}
     with pytest.raises(JobRuntimeIntegrityError, match="not JSON serializable"):
         assert_json_serializable_payload(payload)

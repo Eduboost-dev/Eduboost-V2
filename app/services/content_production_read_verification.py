@@ -41,7 +41,7 @@ class ContentProductionReadVerificationService:
     ) -> ProductionReadVerificationReport:
         """Verify production records exist for promoted items."""
         event_uuid = uuid.UUID(str(promotion_event_id))
-        
+
         # Find the promotion event
         result = await session.execute(
             select(ContentPromotionEvent).where(
@@ -49,7 +49,7 @@ class ContentProductionReadVerificationService:
             )
         )
         event = result.scalar_one_or_none()
-        
+
         if not event:
             return ProductionReadVerificationReport(
                 promotion_event_id=event_uuid,
@@ -57,7 +57,7 @@ class ContentProductionReadVerificationService:
                 verified_count=0,
                 errors=[f"Promotion event {promotion_event_id} not found"],
             )
-        
+
         # Find production artifacts created by this event
         artifacts_result = await session.execute(
             select(ContentProductionArtifact).where(
@@ -65,10 +65,10 @@ class ContentProductionReadVerificationService:
             )
         )
         production_artifacts = artifacts_result.scalars().all()
-        
+
         errors = []
         verified_count = 0
-        
+
         for prod_artifact in production_artifacts:
             # Check that production artifact is active
             if prod_artifact.production_status != "active":
@@ -76,7 +76,7 @@ class ContentProductionReadVerificationService:
                     f"Production artifact {prod_artifact.artifact_id} status is {prod_artifact.production_status}, not active"
                 )
                 continue
-            
+
             # Check that the source artifact is approved
             artifact_result = await session.execute(
                 select(ContentGenerationArtifact).where(
@@ -84,21 +84,21 @@ class ContentProductionReadVerificationService:
                 )
             )
             artifact = artifact_result.scalar_one_or_none()
-            
+
             if not artifact:
                 errors.append(f"Source artifact {prod_artifact.artifact_id} not found")
                 continue
-            
+
             if artifact.status != ContentArtifactStatus.APPROVED:
                 errors.append(
                     f"Production artifact {prod_artifact.artifact_id} points to non-approved artifact (status: {artifact.status.value})"
                 )
                 continue
-            
+
             verified_count += 1
-        
+
         passed = len(errors) == 0
-        
+
         return ProductionReadVerificationReport(
             promotion_event_id=event_uuid,
             passed=passed,
@@ -122,9 +122,9 @@ class ContentProductionReadVerificationService:
             )
         )
         production_artifacts = result.scalars().all()
-        
+
         errors = []
-        
+
         for prod_artifact in production_artifacts:
             # Check that the source artifact is approved
             artifact_result = await session.execute(
@@ -133,19 +133,19 @@ class ContentProductionReadVerificationService:
                 )
             )
             artifact = artifact_result.scalar_one_or_none()
-            
+
             if not artifact:
                 errors.append(f"Source artifact {prod_artifact.artifact_id} not found")
                 continue
-            
+
             if artifact.status != ContentArtifactStatus.APPROVED:
                 errors.append(
                     f"Production artifact {prod_artifact.artifact_id} points to non-approved artifact (status: {artifact.status.value})"
                 )
                 continue
-        
+
         passed = len(errors) == 0
-        
+
         return ScopeProductionReadReport(
             scope_id=scope_id,
             passed=passed,

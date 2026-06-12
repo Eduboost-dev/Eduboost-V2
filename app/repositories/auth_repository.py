@@ -10,7 +10,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.base import BaseRepository
 from app.models import Guardian
-from app.core.database import AsyncSessionFactory
 
 
 class GuardianRepository(BaseRepository[Guardian]):

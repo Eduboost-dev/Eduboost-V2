@@ -30,10 +30,8 @@ from __future__ import annotations
 
 from unittest.mock import AsyncMock, MagicMock, patch
 from typing import Any
-from datetime import datetime, timezone
 
 import pytest
-from sqlalchemy import text
 
 
 # ---------------------------------------------------------------------------

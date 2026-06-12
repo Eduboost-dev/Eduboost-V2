@@ -122,7 +122,6 @@ if __name__ == "__main__":
     raise SystemExit(main())
 
 from pathlib import Path
-import sys
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = Path(__file__).resolve().parents[1]
