@@ -86,6 +86,11 @@ class Settings(BaseSettings):
     FREE_DAILY_REQUEST_QUOTA: int = 20
     PREMIUM_DAILY_REQUEST_QUOTA: int = 9999
 
+    # ── Frontend ──────────────────────────────────────────────────────────────
+    # Public URL of the frontend — used by server-side redirects (e.g. Stripe).
+    # Override in production to the real URL, e.g. https://app.eduboost.co.za
+    PUBLIC_FRONTEND_URL: str = "http://localhost:3000"
+
     # ── Stripe ───────────────────────────────────────────────────────────────
     STRIPE_SECRET_KEY: str = ""
     STRIPE_WEBHOOK_SECRET: str = ""
@@ -204,20 +209,6 @@ class Settings(BaseSettings):
 
     def is_production(self) -> bool:
         return self.APP_ENV == "production" or self.ENVIRONMENT == "production"
-
-    def _production_key_vault_url_required(self) -> bool:
-        critical_secret_fields = (
-            "JWT_SECRET",
-            "ENCRYPTION_KEY",
-            "ENCRYPTION_SALT",
-            "GROQ_API_KEY",
-            "ANTHROPIC_API_KEY",
-        )
-        for field_name in critical_secret_fields:
-            field_default = type(self).model_fields[field_name].default
-            if getattr(self, field_name) != field_default:
-                return True
-        return False
 
     def _production_key_vault_url_required(self) -> bool:
         critical_secret_fields = (

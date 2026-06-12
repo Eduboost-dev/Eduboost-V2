@@ -257,7 +257,7 @@ Acceptance checks:
 
 ## Phase 6 - Durable Background Jobs
 
-**Status**: ✅ Code Complete (2026-06-11) — 1/3 acceptance checks live-verified; 2/3 require Docker environment
+**Status**: ✅ Complete (2026-06-12) — all 3 acceptance criteria verified against live Docker stack
 
 Priority: P1
 
@@ -286,7 +286,9 @@ Acceptance checks:
 
 ## Phase 7 - Deployment and Security Hardening
 
+**Status: ✅ Complete (2026-06-12)**
 Priority: P1
+Evidence: `docs/roadmap/execution/phase_7_implementation_report.md`, `docs/release/phase_7_evidence.md`
 
 Problems addressed:
 

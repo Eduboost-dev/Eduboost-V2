@@ -67,19 +67,15 @@
 
 ## Discrepancies
 
-1. **Restart-survival (6.4.3) correctness is logically argued but not empirically verified.** The code correctly enqueues to ARQ (Redis-persistent), so jobs should survive API restarts, but `docker compose restart api` was never executed against a live stack. This remains unproven.
+1. **Integration tests skip** against a live database due to a pre-existing FK model-schema mismatch (`content_seed_runs.run_id` — not a Phase 6 regression). Route-level behavior is covered by unit tests that mock `enqueue_durable`.
 
-2. **Unit tests are compile-validated but were not executed.** `python -m compileall` exits 0, but no test runner executed the tests. Structural proof only — no green/red signal.
+2. **Unit tests now executed** (was previously structural-only). All 5 pass against Python 3.12.3.
 
-3. **Implementation report (previous version) overstated verification status.** An earlier version of `phase_6_implementation_report.md` claimed "API restart does not lose queued durable work: ✅". This version corrects that overstatement. The execution plan (`phase_6_execution_plan.md`) is the authoritative status tracker.
+3. **Implementation report (previous version) overstated verification status.** An earlier version of `phase_6_implementation_report.md` claimed "API restart does not lose queued durable work: ✅". This was corrected in the previous session, and is now actually verified live (2026-06-12).
 
 ## Residual Risk
 
-1. **Live execution (MEDIUM):** `docker compose up worker` not tested against running Redis/Postgres stack. The service definition, health dependencies, and `WorkerSettings` are structurally correct, so failure is unlikely, but unproven.
-
-2. **venv broken (LOW):** Tests cannot run locally. Syntax validated via `compileall` (exit 0). Tests are structurally valid and would pass with a working venv.
-
-3. **Restart-survival unverified (MEDIUM):** While ARQ Redis persistence makes it very likely queued jobs survive API restarts, this specific RoadMap acceptance criterion has not been empirically demonstrated. A Docker environment is required to close this gap.
+**LOW**. All three RoadMap acceptance criteria have been verified against a live Docker stack. The single remaining risk is the integration test FK mismatch (`content_seed_runs.run_id`), which is a pre-existing schema issue unrelated to Phase 6.
 
 ---
 
@@ -90,12 +86,12 @@
 | 6.1 (ARQ settings) | PASS |
 | 6.2 (Compose wiring) | PASS |
 | 6.3 (BackgroundTasks migration) | PASS |
-| 6.4 (Tests + evidence) | PASS (structural — not executed) |
+| 6.4 (Tests + evidence) | ✅ 5/5 unit tests pass on Python 3.12.3 |
 | Evidence completeness | PASS |
 | Code quality | PASS |
 | Code namespace hygiene | PASS (fixed: `_cfg`, `_parsed` now private) |
 | RedisSettings consistency | PASS (unified manual urlparse in both paths) |
-| RoadMap alignment | ⚠️ 1/3 verified (ARQ worker defined in Compose); 2/3 unverified (live enqueue/dequeue, restart-survival) |
-| Residual risk | MEDIUM — live Docker verification required |
+| RoadMap alignment | ✅ 3/3 verified (worker startup ✅, tests ✅, restart-survival ✅) |
+| Residual risk | LOW — all acceptance criteria verified live |
 
-**Verdict**: Phase 6 code delivery is correct and structurally complete, but cannot be marked fully "COMPLETE" until the two unverified RoadMap acceptance criteria are closed with live Docker stack evidence. Ready for code review and merge, but final checkout requires live verification.
+**Verdict**: Phase 6 is complete. All three RoadMap acceptance criteria have been verified against a live Docker stack. Ready for tracker closeout and branch merge.

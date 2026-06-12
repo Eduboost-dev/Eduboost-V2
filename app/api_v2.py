@@ -8,7 +8,7 @@ import asyncio
 from contextlib import asynccontextmanager
 
 from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 
@@ -174,8 +174,26 @@ async def ready():
     return JSONResponse(status_code=status_code, content=health_data)
 
 
-@app.get("/metrics", tags=["ops"])
-async def metrics():
+@app.get("/metrics", tags=["ops"], include_in_schema=False)
+async def metrics(request: Request):
+    """Prometheus scrape endpoint.
+
+    Access control (7.7):
+    - In production: only allow requests from the private network (RFC-1918
+      ranges) or localhost. External traffic must be blocked at the infra
+      layer (Nginx/ACA ingress) — this app-level check is a defence-in-depth
+      fallback.
+    - In non-production: open for local Prometheus/Grafana scraping.
+
+    See ADR-027 for the full decision rationale.
+    """
+    if settings.is_production():
+        client_ip = request.client.host if request.client else ""
+        # Allow: loopback, RFC-1918 private ranges, and ACA internal probes.
+        _private_prefixes = ("127.", "10.", "172.16.", "172.17.", "172.18.",
+                             "172.19.", "172.2", "172.3", "192.168.", "::1")
+        if not any(client_ip.startswith(p) for p in _private_prefixes):
+            return Response(status_code=403, content=b"Forbidden")
     return Response(generate_latest(REGISTRY), media_type=CONTENT_TYPE_LATEST)
 
 

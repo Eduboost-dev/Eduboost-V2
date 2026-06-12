@@ -41,11 +41,17 @@ services:
       APP_ENV: production
       DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       REDIS_URL: redis://redis:6379/0
+      PUBLIC_FRONTEND_URL: ${PUBLIC_FRONTEND_URL:-https://app.eduboost.co.za}
       JWT_SECRET: ${JWT_SECRET}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY}
       ENCRYPTION_SALT: ${ENCRYPTION_SALT}
       GROQ_API_KEY: ${GROQ_API_KEY}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+    # NOTE (7.8): Secrets are sourced from environment variables which should
+    # be injected by a secrets manager (e.g. Azure Key Vault via a CI/CD
+    # pipeline, Docker Swarm secrets, or a .env file that is NEVER committed).
+    # This Compose file is a local-smoke-test/staging convenience only.
+    # The authoritative production target is Azure Container Apps (see ADR-003).
     depends_on:
       postgres:
         condition: service_healthy
@@ -70,6 +76,7 @@ services:
       APP_ENV: production
       DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       REDIS_URL: redis://redis:6379/0
+      PUBLIC_FRONTEND_URL: ${PUBLIC_FRONTEND_URL:-https://app.eduboost.co.za}
       JWT_SECRET: ${JWT_SECRET}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY}
       ENCRYPTION_SALT: ${ENCRYPTION_SALT}
