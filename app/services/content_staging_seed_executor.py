@@ -8,7 +8,6 @@ from typing import Any
 
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
 
 from app.models.content_factory import (
     ContentArtifactStatus,
@@ -110,7 +109,7 @@ class ContentStagingSeedExecutor:
 
     async def seed_staging(self, session: AsyncSession, scope_id: str, *, layers: list[str] | None = None, actor_id: str, allow_partial: bool = True, batch_size: int | None = None) -> StagingSeedRunResult:
         plan = await self._plan_seed(session, scope_id, layers=layers)
-        
+
         if not allow_partial and plan.skipped:
             return StagingSeedRunResult(
                 seed_run_id=uuid.uuid4(),
@@ -120,7 +119,7 @@ class ContentStagingSeedExecutor:
                 skipped_count=len(plan.skipped),
                 errors=["Partial seed disabled and artifacts were skipped. " + "; ".join({s.reason for s in plan.skipped})]
             )
-        
+
         run_id = uuid.uuid4()
         summary = {
             "actor_id": actor_id,
@@ -130,7 +129,7 @@ class ContentStagingSeedExecutor:
             "skipped_count": len(plan.skipped),
             "skipped_reasons": [{ "artifact_id": str(s.artifact_id), "reason": s.reason } for s in plan.skipped],
         }
-        
+
         seeded_count = 0
         skipped_count_total = len(plan.skipped)
         errors = []
@@ -158,10 +157,10 @@ class ContentStagingSeedExecutor:
                 skip_reason=skipped.reason,
             )
             session.add(item)
-            
+
         try:
             await session.flush()
-        except Exception as e:
+        except Exception:
             logger.exception(f"Unhandled exception during run init for scope {scope_id}")
             await session.rollback()
             raise
@@ -171,17 +170,17 @@ class ContentStagingSeedExecutor:
 
         seedable_list = plan.seedable
         total_seedable = len(seedable_list)
-        
+
         for i in range(0, total_seedable, batch_size):
             batch = seedable_list[i : i + batch_size]
             batch_index = i // batch_size
             start_time = time.time()
-            
+
             batch_artifact_ids = [artifact.artifact_id for artifact in batch]
             existing_stmt = select(ContentStagingArtifact).where(ContentStagingArtifact.artifact_id.in_(batch_artifact_ids))
             existing_res = await session.execute(existing_stmt)
             existing_map = {a.artifact_id: a for a in existing_res.scalars().all()}
-            
+
             retries = 0
             while True:
                 try:
@@ -209,7 +208,7 @@ class ContentStagingSeedExecutor:
                                 created_by_seed_run_id=run_id,
                             )
                             session.add(staging_artifact)
-                            
+
                         item = ContentStagingSeedItem(
                             seed_run_id=run_id,
                             artifact_id=artifact.artifact_id,
@@ -224,24 +223,24 @@ class ContentStagingSeedExecutor:
                             seed_payload_hash=artifact.artifact_hash,
                         )
                         session.add(item)
-                    
+
                     await session.commit()
                     elapsed = time.time() - start_time
                     seeded_count += len(batch)
                     logger.info(f"Seeded batch {batch_index} for scope {scope_id}: attempted={len(batch)}, upserted={len(batch)}, skipped=0, elapsed={elapsed:.3f}s")
                     break
-                    
+
                 except IntegrityError as integrity_err:
                     await session.rollback()
                     logger.warning(f"IntegrityError in batch commit for scope {scope_id}, retrying record-by-record: {integrity_err}")
-                    
+
                     for artifact in batch:
                         try:
                             existing_staging = existing_map.get(artifact.artifact_id)
                             if not existing_staging:
                                 q = await session.execute(select(ContentStagingArtifact).where(ContentStagingArtifact.artifact_id == artifact.artifact_id))
                                 existing_staging = q.scalar_one_or_none()
-                                
+
                             if existing_staging:
                                 existing_staging.payload_json = artifact.payload_json
                                 existing_staging.source_artifact_hash = artifact.artifact_hash
@@ -264,7 +263,7 @@ class ContentStagingSeedExecutor:
                                     created_by_seed_run_id=run_id,
                                 )
                                 session.add(staging_artifact)
-                                
+
                             item = ContentStagingSeedItem(
                                 seed_run_id=run_id,
                                 artifact_id=artifact.artifact_id,
@@ -279,10 +278,10 @@ class ContentStagingSeedExecutor:
                                 seed_payload_hash=artifact.artifact_hash,
                             )
                             session.add(item)
-                            
+
                             await session.commit()
                             seeded_count += 1
-                            
+
                         except IntegrityError as item_integrity_err:
                             await session.rollback()
                             orig_msg = str(item_integrity_err.orig).lower() if item_integrity_err.orig else ""
@@ -315,7 +314,7 @@ class ContentStagingSeedExecutor:
                             logger.exception(f"Unhandled exception on artifact {artifact.artifact_id}: {item_err}")
                             raise
                     break
-                    
+
                 except (OperationalError, asyncio.TimeoutError) as timeout_err:
                     await session.rollback()
                     retries += 1
@@ -325,7 +324,7 @@ class ContentStagingSeedExecutor:
                     backoff = float(os.environ.get("SEED_RETRY_BACKOFF_BASE", 2.0)) ** retries
                     logger.warning(f"Connection timeout/pool exhaustion, retrying batch {batch_index} in {backoff}s (attempt {retries}/3)...")
                     await asyncio.sleep(backoff)
-                    
+
                 except Exception as unhandled_err:
                     await session.rollback()
                     logger.exception(f"Unhandled exception in batch commit for scope {scope_id}: {unhandled_err}")
@@ -335,10 +334,10 @@ class ContentStagingSeedExecutor:
         run = await session.get(ContentSeedRun, uuid.UUID(str(seed_run_id)))
         if not run:
             raise LookupError(f"Seed run {seed_run_id} not found")
-            
+
         seeded = run.summary.get("planned_count", 0)
         skipped = run.summary.get("skipped_count", 0)
-        
+
         return StagingSeedRunResult(
             seed_run_id=run.seed_run_id,
             scope_id=run.scope_id,
@@ -351,13 +350,13 @@ class ContentStagingSeedExecutor:
         stmt = select(ContentSeedRun).where(ContentSeedRun.dry_run == False)
         if scope_id:
             stmt = stmt.where(ContentSeedRun.scope_id == scope_id)
-            
+
         count_stmt = select(func.count()).select_from(stmt.subquery())
         total = (await session.execute(count_stmt)).scalar_one()
-        
+
         stmt = stmt.order_by(ContentSeedRun.created_at.desc()).limit(limit).offset(offset)
         result = await session.execute(stmt)
-        
+
         items = []
         for run in result.scalars().all():
             items.append(StagingSeedRunResult(
@@ -367,7 +366,7 @@ class ContentStagingSeedExecutor:
                 seeded_count=run.summary.get("planned_count", 0),
                 skipped_count=run.summary.get("skipped_count", 0),
             ))
-            
+
         return StagingSeedRunPage(items, int(total), limit, offset)
 
     async def list_seed_run_items(self, session: AsyncSession, seed_run_id: str | uuid.UUID) -> list[StagingSeedItemResult]:
@@ -399,23 +398,23 @@ class ContentStagingSeedExecutor:
         run = await session.get(ContentSeedRun, uuid.UUID(str(seed_run_id)))
         if not run:
             raise LookupError(f"Seed run {seed_run_id} not found")
-            
+
         items = await session.execute(select(ContentStagingSeedItem).where(ContentStagingSeedItem.seed_run_id == run.seed_run_id, ContentStagingSeedItem.status == "seeded"))
-        
+
         rolled_back = 0
         for item in items.scalars().all():
             item.status = "rolled_back"
             item.skip_reason = reason
             item.updated_at = datetime.now(timezone.utc)
-            
+
             # Find associated staging artifact
             artifacts = await session.execute(select(ContentStagingArtifact).where(ContentStagingArtifact.created_by_seed_run_id == run.seed_run_id, ContentStagingArtifact.artifact_id == item.artifact_id))
             for a in artifacts.scalars().all():
                 a.staging_status = "rolled_back"
                 a.updated_at = datetime.now(timezone.utc)
-                
+
             rolled_back += 1
-            
+
         run.status = "rolled_back"
         run.summary = {
             **(run.summary or {}),
@@ -423,9 +422,9 @@ class ContentStagingSeedExecutor:
             "rollback_actor": actor_id,
             "rolled_back_count": rolled_back,
         }
-        
+
         await session.flush()
-        
+
         return StagingRollbackResult(
             seed_run_id=run.seed_run_id,
             status="rolled_back",
@@ -436,44 +435,44 @@ class ContentStagingSeedExecutor:
         stmt = select(ContentGenerationArtifact).where(ContentGenerationArtifact.scope_id == scope_id)
         result = await session.execute(stmt)
         artifacts = result.scalars().all()
-        
+
         seedable = []
         skipped = []
-        
+
         for artifact in artifacts:
             layer_val = artifact.content_layer.value if hasattr(artifact.content_layer, "value") else str(artifact.content_layer)
-            
+
             if layers and layer_val not in layers:
                 continue
-                
+
             status_val = artifact.status.value if hasattr(artifact.status, "value") else str(artifact.status)
-            
+
             if status_val == ContentArtifactStatus.PENDING_REVIEW.value:
                 skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is pending review"))
                 continue
-                
+
             if status_val == ContentArtifactStatus.REJECTED.value:
                 skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is rejected"))
                 continue
-                
+
             if status_val == ContentArtifactStatus.QUARANTINED.value:
                 skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact is quarantined"))
                 continue
-                
+
             if status_val == ContentArtifactStatus.VALIDATION_FAILED.value:
                 skipped.append(SkippedArtifact(artifact.artifact_id, "Artifact validation failed"))
                 continue
-                
+
             if status_val != ContentArtifactStatus.APPROVED.value:
                 skipped.append(SkippedArtifact(artifact.artifact_id, f"Artifact status {status_val} is not seedable"))
                 continue
-                
+
             # Verify valid provenance
             provenance = await self.factory_service.get_artifact_provenance(session, artifact.artifact_id)
             if not provenance.passed:
                 skipped.append(SkippedArtifact(artifact.artifact_id, "Invalid provenance"))
                 continue
-                
+
             # Has latest validation passed?
             val_reports = await session.execute(select(ContentValidationReport).where(ContentValidationReport.artifact_id == artifact.artifact_id).order_by(ContentValidationReport.created_at.desc()).limit(1))
             val_report = val_reports.scalar_one_or_none()
@@ -483,7 +482,7 @@ class ContentStagingSeedExecutor:
             if not val_report.passed:
                 skipped.append(SkippedArtifact(artifact.artifact_id, "Latest validation failed"))
                 continue
-                
+
             seedable.append(SeedableArtifact(
                 artifact_id=artifact.artifact_id,
                 scope_id=artifact.scope_id,
@@ -493,5 +492,5 @@ class ContentStagingSeedExecutor:
                 payload_json=artifact.artifact_json,
                 artifact_hash=artifact.artifact_hash or "",
             ))
-            
+
         return StagingSeedPlan(scope_id, layers or [], seedable, skipped)

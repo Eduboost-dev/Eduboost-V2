@@ -2,7 +2,6 @@ import textwrap
 
 from pathlib import Path
 
-import pytest
 
 from app.services.etl.etl_pipeline import (
     Extractor,
@@ -129,26 +128,8 @@ def test_etl_end_to_end(tmp_path: Path):
     assert len(chunks) > 0
 
     etl.close()
-import textwrap
 
-import pytest
 
-from app.services.etl.etl_pipeline import (
-    Extractor,
-    Normalizer,
-    Chunker,
-    QualityValidator,
-    EduboostETL,
-    IngestRequest,
-    ExtractionResult,
-    Document,
-    DocumentChunk,
-    DocumentType,
-    SourceType,
-    LicenseStatus,
-    ProcessingStatus,
-    _now,
-)
 
 
 def make_sample_text():

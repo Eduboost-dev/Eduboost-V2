@@ -71,7 +71,7 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `app/modules/disaster_recovery/production_readiness_contracts.py` | `llm` |
 | `app/modules/documentation_governance/production_readiness_contracts.py` | `llm` |
 | `app/modules/final_release_blockers/production_readiness_contracts.py` | `llm` |
-| `app/modules/jobs.py` | `diagnostic` |
+| `app/modules/jobs.py` | `generate_lesson, diagnostic` |
 | `app/modules/learners/__init__.py` | `prompt, llm, diagnostic` |
 | `app/modules/learners/ether_service.py` | `prompt, llm, diagnostic` |
 | `app/modules/lessons/__init__.py` | `llm, anthropic, groq` |
@@ -182,6 +182,8 @@ This inventory records likely prompt construction or AI generation surfaces.
 | `scripts/check_ai_refusal_fixtures.py` | `prompt` |
 | `scripts/check_ai_safety_boundary_contract.py` | `prompt` |
 | `scripts/check_ai_safety_release_evidence.py` | `prompt, llm, remediation` |
+| `scripts/check_answer_key_independence.py` | `prompt` |
+| `scripts/check_arq_worker_import.py` | `generate_lesson` |
 | `scripts/check_backend_consolidation_dragons.py` | `diagnostic` |
 | `scripts/check_backend_consolidation_release_guard.py` | `diagnostic` |
 | `scripts/check_backend_runtime_compatibility.py` | `diagnostic` |

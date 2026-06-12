@@ -18,25 +18,23 @@ Design decisions:
 """
 from __future__ import annotations
 
-import json
 import logging
 from datetime import datetime
-from typing import Any, Sequence
+from typing import Any
 
 from sqlalchemy import (
     Boolean, Column, DateTime, Float, Integer,
-    String, Text, event, text,
+    String, Text, text,
 )
 from sqlalchemy.dialects.postgresql import JSONB, insert as pg_insert
 from sqlalchemy.ext.asyncio import (
     AsyncEngine, AsyncSession,
     async_sessionmaker, create_async_engine,
 )
-from sqlalchemy.orm import DeclarativeBase, mapped_column
+from sqlalchemy.orm import DeclarativeBase
 
 from scripts.ingestion.config import (
     CONTENT_TABLE, JOBS_TABLE, RAW_TABLE,
-    STANDARDS_TABLE,
 )
 from scripts.ingestion.models import (
     IngestionJob, NormalisedContent, RawContent, TrainingRecord,

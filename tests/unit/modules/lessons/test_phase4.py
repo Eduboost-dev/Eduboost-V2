@@ -46,7 +46,6 @@ from __future__ import annotations
 import uuid
 from datetime import datetime, timezone
 from typing import Optional
-from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
@@ -54,9 +53,7 @@ from app.modules.lessons.lesson_review_router import (
     compute_auto_queue_reasons,
     should_auto_queue,
     QUALITY_SCORE_REVIEW_THRESHOLD,
-    ReviewDecision,
     UserRole,
-    CurrentUser,
 )
 from app.modules.lessons.lesson_variants import (
     LessonVariantType,
@@ -86,7 +83,7 @@ from app.modules.lessons.lesson_coverage_router import (
     compute_quality_distribution,
     compute_coverage_status,
 )
-from app.domain.lesson import ReviewStatus, SafetyClassification
+from app.domain.lesson import SafetyClassification
 
 
 # ===========================================================================

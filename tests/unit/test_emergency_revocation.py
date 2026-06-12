@@ -9,7 +9,7 @@ Tests that emergency_revoke_all:
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
-from unittest.mock import AsyncMock, patch, MagicMock
+from unittest.mock import AsyncMock, patch
 
 import pytest
 from jose import JWTError
@@ -36,7 +36,6 @@ async def test_emergency_revoke_all_sets_epoch():
 async def test_verify_access_token_rejects_token_before_epoch():
     """Tokens with iat before the revoke-all epoch are rejected."""
     from app.core.token_config import create_access_token, verify_access_token
-    import uuid, time
 
     # Simulate epoch set to 5 minutes from now
     epoch = datetime.now(tz=timezone.utc) + timedelta(minutes=5)

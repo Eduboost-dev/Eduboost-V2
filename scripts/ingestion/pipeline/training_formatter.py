@@ -26,7 +26,6 @@ from typing import Any
 
 from scripts.ingestion.models import (
     ContentType,
-    DifficultyLevel,
     NormalisedContent,
     TrainingRecord,
 )

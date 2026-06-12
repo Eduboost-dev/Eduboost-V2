@@ -2,7 +2,7 @@ import pytest
 from uuid import UUID
 
 from app.domain.content_coverage import ContentLayer, CoverageLayerCounts, CoverageLayerStatus, ScopeCoverageLayerSummary, ScopeCoverageReport, ScopeCoverageSummary, CapsRefCoverageReport
-from app.services.content_production_promotion_gate import ContentProductionPromotionGate, ProductionGateStatus
+from app.services.content_production_promotion_gate import ProductionGateStatus
 from app.services.content_seed_promotion import ContentSeedPromotionService
 
 

@@ -11,7 +11,6 @@ from datetime import datetime, timezone
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
-from fastapi import HTTPException, status
 
 from app.models import LearnerProfile
 from app.modules.consent.service import ConsentService

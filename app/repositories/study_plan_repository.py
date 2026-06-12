@@ -10,8 +10,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import Any
 
-from sqlalchemy import select, update, Column, String, DateTime, Float, JSON, Integer, Text
-from sqlalchemy.exc import NoResultFound
+from sqlalchemy import select, Column, String, DateTime, Float, JSON, Text
 
 from app.core.database import AsyncSessionFactory, Base
 

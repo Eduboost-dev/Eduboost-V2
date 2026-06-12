@@ -1,9 +1,7 @@
 """Unit tests for production read verification service."""
 from __future__ import annotations
 
-import uuid
 
-import pytest
 
 from app.services.content_production_read_verification import (
     ContentProductionReadVerificationService,

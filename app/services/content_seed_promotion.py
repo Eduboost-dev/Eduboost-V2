@@ -98,19 +98,19 @@ class ContentSeedPromotionService:
     async def promote_production(self, session: AsyncSession, scope_id: str, actor_id: str) -> GateResult:
         # Use the production promotion gate to evaluate scope eligibility
         gate_report = await self.production_gate.evaluate_scope(session, scope_id)
-        
+
         if gate_report.status.value != "promotable":
             errors = [b.message for b in gate_report.blockers]
             raise ValueError(
                 f"Production promotion gate failed: {gate_report.status.value}. "
                 + "; ".join(errors)
             )
-        
+
         # Verify staging seed
         verification = await self.verify_staging_seed(session, scope_id)
         if not verification.passed:
             raise ValueError("Production promotion gate failed: Staging verification failed. " + "; ".join(verification.errors))
-        
+
         return GateResult(True, [], gate_report.coverage_summary | gate_report.staging_summary)
 
     async def _seed_gate(self, session: AsyncSession, scope_id: str, layers: list[ContentLayer] | None) -> GateResult:

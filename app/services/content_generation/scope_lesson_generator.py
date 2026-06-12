@@ -277,7 +277,7 @@ class ScopeLessonGenerator:
                     "answer": "move forward 3, turn right, move forward 2",
                 },
                 {
-                    "question": f"The robot stops after one step even though the program repeats three times. What debugging step comes first?",
+                    "question": "The robot stops after one step even though the program repeats three times. What debugging step comes first?",
                     "step_by_step_solution": [
                         "Read the loop instruction carefully.",
                         "Check whether the repeat count matches the intended steps.",

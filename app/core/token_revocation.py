@@ -64,7 +64,7 @@ async def revoke_token(jti: str, exp_timestamp: int) -> None:
     # Calculate remaining TTL: token should stay in blacklist until it naturally expires
     now = datetime.now(UTC).timestamp()
     ttl_seconds = max(int(exp_timestamp - now), 1)
-    
+
     key = f"{_REVOKED_JTI_PREFIX}{jti}"
     try:
         await _redis_set_with_ttl(key, ttl_seconds, "1")
@@ -83,10 +83,10 @@ async def is_token_revoked(jti: str) -> bool:
         logger.warning("Redis unavailable; assuming token is not revoked", exc_info=True)
         return False
     is_revoked = result is not None
-    
+
     if is_revoked:
         logger.info("token_blacklist_hit", extra={"jti": jti})
-    
+
     return is_revoked
 
 

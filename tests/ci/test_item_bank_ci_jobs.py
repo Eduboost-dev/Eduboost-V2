@@ -21,7 +21,6 @@ import subprocess
 import sys
 import time
 from pathlib import Path
-from typing import Any
 
 import asyncpg  # type: ignore
 import httpx

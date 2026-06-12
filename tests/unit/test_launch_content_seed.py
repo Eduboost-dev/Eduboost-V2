@@ -44,9 +44,9 @@ def test_lesson_row_maps_all_fields():
         "token_usage": {"input": 100, "output": 200},
         "variant_type": "standard",
     }
-    
+
     result = _lesson_row(lesson, "learner-456")
-    
+
     assert result["id"] == "lesson-123"
     assert result["learner_id"] == "learner-456"
     assert result["grade"] == 4
@@ -91,9 +91,9 @@ def test_lesson_row_uses_defaults_for_missing_fields():
         "topic": "Numbers",
         "caps_ref": "4.M.1.1",
     }
-    
+
     result = _lesson_row(lesson, "learner-456")
-    
+
     assert result["id"] == "lesson-123"
     assert result["learner_id"] == "learner-456"
     assert result["term"] is None
@@ -134,9 +134,9 @@ def test_lesson_row_handles_null_reviewer_id():
         "caps_ref": "4.M.1.1",
         "reviewer_id": None,
     }
-    
+
     result = _lesson_row(lesson, "learner-456")
-    
+
     assert result["reviewer_id"] is None
 
 
@@ -151,9 +151,9 @@ def test_lesson_row_handles_empty_string_reviewer_id():
         "caps_ref": "4.M.1.1",
         "reviewer_id": "",
     }
-    
+
     result = _lesson_row(lesson, "learner-456")
-    
+
     assert result["reviewer_id"] is None
 
 
@@ -168,9 +168,9 @@ def test_lesson_row_uses_provider_for_llm_provider():
         "caps_ref": "4.M.1.1",
         "provider": "openai",
     }
-    
+
     result = _lesson_row(lesson, "learner-456")
-    
+
     assert result["llm_provider"] == "openai"
 
 
@@ -184,9 +184,9 @@ def test_lesson_row_defaults_llm_provider_to_google():
         "topic": "Numbers",
         "caps_ref": "4.M.1.1",
     }
-    
+
     result = _lesson_row(lesson, "learner-456")
-    
+
     assert result["llm_provider"] == "google"
 
 
@@ -202,9 +202,9 @@ def test_lesson_row_converts_floats_safely():
         "alignment_confidence": "0.9",  # string that should convert
         "quality_score": None,  # None that should default to 0.0
     }
-    
+
     result = _lesson_row(lesson, "learner-456")
-    
+
     assert result["alignment_confidence"] == 0.9
     assert result["quality_score"] == 0.0
 
@@ -220,9 +220,9 @@ def test_lesson_row_converts_latency_ms_safely():
         "caps_ref": "4.M.1.1",
         "generation_latency_ms": "1500",  # string that should convert
     }
-    
+
     result = _lesson_row(lesson, "learner-456")
-    
+
     assert result["generation_latency_ms"] == 1500
 
 
@@ -237,8 +237,8 @@ def test_lesson_row_serializes_content_as_json():
         "caps_ref": "4.M.1.1",
         "custom_field": "custom_value",
     }
-    
+
     result = _lesson_row(lesson, "learner-456")
-    
+
     assert "content" in result
     assert '"custom_field": "custom_value"' in result["content"]

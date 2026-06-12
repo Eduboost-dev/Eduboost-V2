@@ -25,7 +25,7 @@ from typing import Any, AsyncIterator
 
 from bs4 import BeautifulSoup
 
-from scripts.ingestion.config import SOURCES, SUBJECT_NORMALISATION
+from scripts.ingestion.config import SOURCES
 from scripts.ingestion.models import RawContent
 from scripts.ingestion.sources.base import BaseScraper
 

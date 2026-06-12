@@ -38,22 +38,19 @@ from __future__ import annotations
 
 import csv
 import json
-import os
 import re
 import sqlite3
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, asdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Optional
-from uuid import uuid4
 
 # ── Base pipeline import ──────────────────────────────────────────────────
 import sys
 sys.path.insert(0, str(Path(__file__).parent))
 from app.services.etl.etl_pipeline import (
-    EduboostETL, Document, DocumentChunk,
-    ProcessingStatus, DocumentType, LicenseStatus,
-    _now, _uid, SCHEMA_SQL,
+    EduboostETL, DocumentChunk,
+    ProcessingStatus, _now, _uid,
 )
 
 # ── Optional heavy deps ───────────────────────────────────────────────────

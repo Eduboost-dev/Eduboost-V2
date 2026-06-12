@@ -14,7 +14,6 @@ Validates:
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
 
 import pytest
 from unittest.mock import AsyncMock, MagicMock
@@ -30,18 +29,18 @@ class TestLearnerRepositoryGetById:
         """get_by_id() must return learner when it exists."""
         db = AsyncMock()
         learner_id = uuid.uuid4()
-        
+
         learner = Learner(
             id=learner_id,
             display_name="Test Learner",
             grade=4,
             is_deleted=False,
         )
-        
+
         # Mock the base repository get method
         repo = LearnerRepository(db)
         repo.get = AsyncMock(return_value=learner)
-        
+
         result = await repo.get_by_id(learner_id)
         assert result is not None
         assert result.id == learner_id
@@ -53,7 +52,7 @@ class TestLearnerRepositoryGetById:
         db = AsyncMock()
         repo = LearnerRepository(db)
         repo.get = AsyncMock(return_value=None)
-        
+
         result = await repo.get_by_id(uuid.uuid4())
         assert result is None
 
@@ -62,17 +61,17 @@ class TestLearnerRepositoryGetById:
         """get_by_id() must accept string UUID."""
         db = AsyncMock()
         learner_id = uuid.uuid4()
-        
+
         learner = Learner(
             id=learner_id,
             display_name="Test Learner",
             grade=4,
             is_deleted=False,
         )
-        
+
         repo = LearnerRepository(db)
         repo.get = AsyncMock(return_value=learner)
-        
+
         result = await repo.get_by_id(str(learner_id))
         assert result is not None
         assert result.id == learner_id
@@ -85,15 +84,15 @@ class TestLearnerRepositoryDeleteById:
         """delete_by_id() must physically delete learner record (Right to Erasure)."""
         db = AsyncMock()
         learner_id = uuid.uuid4()
-        
+
         # Mock successful delete
         result_mock = MagicMock()
         result_mock.rowcount = 1
         db.execute = AsyncMock(return_value=result_mock)
-        
+
         repo = LearnerRepository(db)
         deleted = await repo.delete_by_id(learner_id)
-        
+
         assert deleted is True
         db.execute.assert_awaited_once()
 
@@ -101,15 +100,15 @@ class TestLearnerRepositoryDeleteById:
     async def test_delete_by_id_returns_false_for_missing(self):
         """delete_by_id() must return False when learner does not exist."""
         db = AsyncMock()
-        
+
         # Mock no rows affected
         result_mock = MagicMock()
         result_mock.rowcount = 0
         db.execute = AsyncMock(return_value=result_mock)
-        
+
         repo = LearnerRepository(db)
         deleted = await repo.delete_by_id(uuid.uuid4())
-        
+
         assert deleted is False
 
 
@@ -120,21 +119,21 @@ class TestLearnerRepositorySoftDelete:
         """soft_delete() must mark learner as deleted with metadata."""
         db = AsyncMock()
         learner_id = uuid.uuid4()
-        
+
         learner = Learner(
             id=learner_id,
             display_name="Test Learner",
             grade=4,
             is_deleted=False,
         )
-        
+
         repo = LearnerRepository(db)
         repo.get_by_id = AsyncMock(return_value=learner)
         db.add = MagicMock()
         db.flush = AsyncMock()
-        
+
         await repo.soft_delete(learner_id)
-        
+
         assert learner.is_deleted is True
         assert learner.display_name == "[erased]"
         assert learner.deletion_requested_at is not None
@@ -145,10 +144,10 @@ class TestLearnerRepositorySoftDelete:
     async def test_soft_delete_noops_for_missing_learner(self):
         """soft_delete() must not raise when learner does not exist."""
         db = AsyncMock()
-        
+
         repo = LearnerRepository(db)
         repo.get_by_id = AsyncMock(return_value=None)
-        
+
         await repo.soft_delete(uuid.uuid4())  # Should not raise
 
 
@@ -159,10 +158,10 @@ class TestLearnerRepositoryPurgePersonalData:
         """purge_personal_data() must physically delete learner record."""
         db = AsyncMock()
         learner_id = uuid.uuid4()
-        
+
         repo = LearnerRepository(db)
         db.execute = AsyncMock()
-        
+
         await repo.purge_personal_data(learner_id)
-        
+
         db.execute.assert_awaited_once()

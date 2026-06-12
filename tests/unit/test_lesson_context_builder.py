@@ -36,9 +36,9 @@ def test_lesson_context_to_prompt_dict():
         prior_correct_count=8,
         prior_attempted=10,
     )
-    
+
     result = context.to_prompt_dict()
-    
+
     assert result["learner_id"] == "learner-123"
     assert result["caps_ref"] == "4.M.1.1"
     assert result["theta"] == 0.5
@@ -62,7 +62,7 @@ def test_lesson_context_to_prompt_dict_zero_attempts():
         prior_correct_count=0,
         prior_attempted=0,
     )
-    
+
     result = context.to_prompt_dict()
     assert result["accuracy_pct"] == 0.0
 
@@ -79,7 +79,7 @@ def test_lesson_context_defaults():
         topic="Whole Numbers",
         subtopic="Counting",
     )
-    
+
     assert context.language == "en"
     assert context.theta == 0.0
     assert context.below_grade_level is False
@@ -114,7 +114,7 @@ def test_lesson_context_builder_build_full_session():
         }
     }
     builder = LessonContextBuilder(map_data)
-    
+
     session_result = {
         "learner_id": "learner-123",
         "caps_ref": "4.M.1.1",
@@ -125,9 +125,9 @@ def test_lesson_context_builder_build_full_session():
         "items_correct": 8,
         "items_attempted": 10,
     }
-    
+
     context = builder.build(session_result, learner_language="en")
-    
+
     assert context.learner_id == "learner-123"
     assert context.caps_ref == "4.M.1.1"
     assert context.theta == 0.5
@@ -143,17 +143,17 @@ def test_lesson_context_builder_build_full_session():
 def test_lesson_context_builder_build_missing_caps_ref():
     """Verify build handles missing caps_ref with defaults."""
     builder = LessonContextBuilder({})
-    
+
     session_result = {
         "learner_id": "learner-123",
         "caps_ref": "unknown-ref",
         "theta": 0.5,
     }
-    
+
     with patch("app.services.lesson_context_builder.logger") as mock_logger:
         context = builder.build(session_result)
         mock_logger.warning.assert_called_once()
-    
+
     assert context.caps_ref == "unknown-ref"
     assert context.grade == 4  # default
     assert context.subject == "Mathematics"  # default
@@ -193,7 +193,7 @@ def test_build_remediation_focus_basic():
         misconception_tags=[],
         severity="mild",
     )
-    
+
     assert "Whole Numbers" in result
     assert "(Counting)" in result
     assert "Light reinforcement" in result
@@ -208,7 +208,7 @@ def test_build_remediation_focus_with_misconceptions():
         misconception_tags=["place_value_confusion", "borrowing_error"],
         severity="moderate",
     )
-    
+
     assert "place_value_confusion" in result
     assert "borrowing_error" in result
     assert "Targeted practice" in result
@@ -224,7 +224,7 @@ def test_build_remediation_focus_limits_misconceptions():
         misconception_tags=tags,
         severity="severe",
     )
-    
+
     assert "tag1" in result
     assert "tag2" in result
     assert "tag3" in result
@@ -240,7 +240,7 @@ def test_build_remediation_focus_severe():
         misconception_tags=[],
         severity="severe",
     )
-    
+
     assert "foundational re-teaching" in result
     assert "first principles" in result
 
@@ -254,7 +254,7 @@ def test_build_remediation_focus_no_subtopic():
         misconception_tags=[],
         severity="mild",
     )
-    
+
     assert "Whole Numbers" in result
     assert "(Counting)" not in result  # No subtopic
 
@@ -268,7 +268,7 @@ def test_build_remediation_focus_unknown_severity():
         misconception_tags=[],
         severity="unknown",
     )
-    
+
     assert "Whole Numbers" in result
     # Should not include any severity-specific guidance
 
@@ -286,13 +286,13 @@ def test_lesson_context_builder_build_with_language():
         }
     }
     builder = LessonContextBuilder(map_data)
-    
+
     session_result = {
         "learner_id": "learner-123",
         "caps_ref": "4.M.1.1",
         "theta": 0.5,
     }
-    
+
     context = builder.build(session_result, learner_language="zu")
     assert context.language == "zu"
 
@@ -310,11 +310,11 @@ def test_lesson_context_builder_build_uses_defaults():
         }
     }
     builder = LessonContextBuilder(map_data)
-    
+
     session_result = {"caps_ref": "4.M.1.1"}  # Minimal session result
-    
+
     context = builder.build(session_result)
-    
+
     assert context.learner_id == ""
     assert context.theta == 0.0
     assert context.below_grade_level is False
@@ -343,14 +343,14 @@ def test_lesson_context_builder_logs_info():
         }
     }
     builder = LessonContextBuilder(map_data)
-    
+
     session_result = {
         "learner_id": "learner-123",
         "caps_ref": "4.M.1.1",
         "theta": 0.5,
         "misconception_tags": ["place_value_confusion"],
     }
-    
+
     with patch("app.services.lesson_context_builder.logger") as mock_logger:
         builder.build(session_result)
         mock_logger.info.assert_called_once()

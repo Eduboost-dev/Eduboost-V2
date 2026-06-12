@@ -16,12 +16,10 @@ from __future__ import annotations
 
 import asyncio
 import os
-import statistics
 import time
 import uuid
 from datetime import datetime, timezone
 from typing import Any
-from unittest.mock import AsyncMock, patch
 
 import httpx
 import pytest

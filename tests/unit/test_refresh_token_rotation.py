@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import fnmatch
-from typing import Any, AsyncIterator
+from typing import AsyncIterator
 
 import pytest
 from fastapi import HTTPException

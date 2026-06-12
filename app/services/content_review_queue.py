@@ -10,8 +10,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.models.content_factory import (
-    ContentArtifactReview,
-    ContentArtifactSource,
     ContentArtifactStatus,
     ContentGenerationArtifact,
     ContentReviewAssignment,

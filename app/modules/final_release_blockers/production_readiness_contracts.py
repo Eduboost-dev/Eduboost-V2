@@ -12,7 +12,6 @@ from datetime import date
 from enum import Enum
 import hashlib
 import re
-from typing import Mapping
 
 
 class ReleaseBlockerDomain(str, Enum):

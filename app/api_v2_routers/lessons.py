@@ -149,5 +149,5 @@ async def sync_lessons(
         elif event.event_type == "feedback" and event.score is not None:
             await service.record_feedback(event.lesson_id, event.score)
             processed += 1
-    
+
     return {"status": "success", "processed": processed}

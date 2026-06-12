@@ -99,17 +99,17 @@ async def create_dev_session_impl(
 
     refresh = create_refresh_token(guardian.id, guardian.role)
     refresh_payload = decode_token(refresh)
-    
+
     # Include the learner IDs in the access token so authorization logic works
     learner_ids = [str(item.id) for item in existing_profiles]
     if str(learner.id) not in learner_ids:
         learner_ids.append(str(learner.id))
-        
+
     guardian.guardian_learner_ids = learner_ids
     claims = _canonical_access_claims(
         guardian,
         extra={
-            "refresh_jti": refresh_payload.get("jti"), 
+            "refresh_jti": refresh_payload.get("jti"),
             "refresh_family": refresh_payload.get("family"),
             "guardian_learner_ids": learner_ids
         }
@@ -188,11 +188,11 @@ async def refresh_impl(
 
     new_refresh = create_refresh_token(guardian.id, guardian.role, family_id=payload.get("family"))
     new_refresh_payload = decode_token(new_refresh)
-    
+
     # Query guardian_learner_ids to ensure they are preserved/updated correctly!
     guardian_learner_ids = await auth_runtime.guardian_learner_ids(guardian.id)
     guardian.guardian_learner_ids = [str(item) for item in guardian_learner_ids]
-    
+
     claims = _canonical_access_claims(
         guardian,
         extra={"refresh_jti": new_refresh_payload.get("jti"), "refresh_family": new_refresh_payload.get("family")}

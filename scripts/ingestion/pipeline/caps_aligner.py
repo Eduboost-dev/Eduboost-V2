@@ -20,12 +20,9 @@ Alignment strategy (cascade, first match wins):
 from __future__ import annotations
 
 import logging
-import re
 from typing import Any
 
 from scripts.ingestion.config import (
-    CAPS_MATHS_TOPICS,
-    CAPS_SCIENCE_TOPICS,
     CC_TO_CAPS,
     CAPSPhase,
     CAPSSubject,

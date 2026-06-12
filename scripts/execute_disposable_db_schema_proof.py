@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import os, subprocess
+import os
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]

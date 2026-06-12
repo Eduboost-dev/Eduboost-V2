@@ -11,7 +11,6 @@ from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.domain.content_coverage import ContentLayer
 from app.models.content_factory import (
     ContentArtifactSource,
     ContentArtifactStatus,

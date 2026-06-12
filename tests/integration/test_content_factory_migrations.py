@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import enum
 import pytest
-import pytest_asyncio
 from sqlalchemy import inspect, text
 
 pytestmark = pytest.mark.integration

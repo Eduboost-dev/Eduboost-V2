@@ -114,9 +114,9 @@ def verify_openapi(url: str) -> bool:
         try:
             data = json.loads(body)
             if data.get("openapi", "").startswith("3."):
-                print(f"  ✅ /openapi.json returns valid OpenAPI 3.x schema")
+                print("  ✅ /openapi.json returns valid OpenAPI 3.x schema")
                 return True
-            print(f"  ⚠️ /openapi.json returned but openapi version may be wrong")
+            print("  ⚠️ /openapi.json returned but openapi version may be wrong")
             return False
         except json.JSONDecodeError:
             print("  ❌ /openapi.json returned invalid JSON")

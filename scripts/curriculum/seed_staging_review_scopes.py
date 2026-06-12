@@ -26,7 +26,7 @@ logger = logging.getLogger("seed_staging_review_scopes")
 
 async def run_seeding(args: argparse.Namespace) -> int:
     registry = ContentScopeRegistry()
-    
+
     # Resolve scope IDs
     if args.scope_id:
         scope_ids = args.scope_id
@@ -36,7 +36,7 @@ async def run_seeding(args: argparse.Namespace) -> int:
             for scope in registry.list_scopes()
             if scope.status == ContentScopeStatus.REVIEW
         ]
-        
+
     if not scope_ids:
         logger.warning("No review scopes resolved to seed.")
         return 0
@@ -63,7 +63,7 @@ async def run_seeding(args: argparse.Namespace) -> int:
                     "record_count": record_count,
                     "skipped_count": len(plan.skipped),
                 })
-        
+
         summary = {
             "schema_version": "1.0",
             "timestamp": timestamp,
@@ -74,7 +74,7 @@ async def run_seeding(args: argparse.Namespace) -> int:
             },
             "scopes": scopes_summary,
         }
-        
+
         summary_path.parent.mkdir(parents=True, exist_ok=True)
         summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         print(json.dumps(summary, indent=2, ensure_ascii=False))
@@ -142,7 +142,7 @@ async def run_seeding(args: argparse.Namespace) -> int:
 
     summary_path.parent.mkdir(parents=True, exist_ok=True)
     summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    
+
     print(str(summary_path.relative_to(ROOT)))
 
     return 1 if failed_scopes else 0

@@ -36,15 +36,13 @@ from __future__ import annotations
 
 import hashlib
 import json
-import sqlite3
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from typing import Optional
-from uuid import uuid4
 
 from app.services.etl.etl_pipeline_v2 import (
     EduboostETLv2, _now, _uid,
-    ProcessingStatus, TrainingDataset,
+    ProcessingStatus,
 )
 
 
@@ -635,7 +633,7 @@ class EduboostETLv3(EduboostETLv2):
             dt = datetime.fromisoformat(r["recorded_at"].replace("Z", "+00:00"))
             # Floor to bucket
             minutes = (dt.hour * 60 + dt.minute) // bucket_minutes * bucket_minutes
-            bucket_key = dt.strftime(f"%Y-%m-%dT") + f"{minutes // 60:02d}:00"
+            bucket_key = dt.strftime("%Y-%m-%dT") + f"{minutes // 60:02d}:00"
             buckets[bucket_key] = buckets.get(bucket_key, 0.0) + r["metric_value"]
 
         return [{"bucket": k, "value": v} for k, v in sorted(buckets.items())]

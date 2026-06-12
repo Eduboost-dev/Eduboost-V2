@@ -7,7 +7,7 @@ pytestmark = pytest.mark.integration
 from typing import Any
 
 import pytest
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock
 from fastapi.testclient import TestClient
 
 from app.api_v2 import app

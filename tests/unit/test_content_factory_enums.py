@@ -11,7 +11,6 @@ These tests are purely static (no DB required) and compare .value strings.
 """
 from __future__ import annotations
 
-import pytest
 
 from scripts.ci.content_factory_schema_contract import ENUM_CONTRACTS
 
@@ -67,7 +66,6 @@ class TestContentArtifactStatusEnum:
 
     def test_enum_is_str_backed(self):
         from app.models.content_factory import ContentArtifactStatus
-        import enum
 
         assert issubclass(ContentArtifactStatus, str), (
             "ContentArtifactStatus must be a str-backed enum (class … str, enum.Enum) "

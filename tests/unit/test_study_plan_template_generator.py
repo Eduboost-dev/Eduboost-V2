@@ -1,7 +1,6 @@
 """Unit tests for study-plan template generator."""
 from __future__ import annotations
 
-import uuid
 
 import pytest
 

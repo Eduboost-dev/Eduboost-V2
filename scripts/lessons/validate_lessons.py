@@ -52,7 +52,6 @@ from sqlalchemy import select
 from app.core.database import AsyncSessionLocal
 from app.modules.lessons.lesson_schema_v1 import LessonCreate
 from app.modules.lessons.lesson_validator import LessonValidator, ValidationResult
-from app.repositories.lesson_repository import LessonRepository
 
 logging.basicConfig(
     level=logging.INFO,
@@ -112,7 +111,7 @@ def orm_to_lesson_create(orm_lesson) -> LessonCreate | None:
         data.setdefault("provider", getattr(orm_lesson, "llm_provider", "groq"))
 
         return LessonCreate.model_validate(data)
-    except Exception as exc:
+    except Exception:
         return None
 
 

@@ -217,7 +217,7 @@ def select_maximum_information_item(
     """Full maximum Fisher information item selection."""
     if not candidates:
         raise ValueError("Candidate pool is empty.")
-        
+
     best_item = candidates[0]
     best_info = -1.0
 

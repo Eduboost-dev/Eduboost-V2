@@ -9,7 +9,6 @@ Rules:
 Run from repo root.
 """
 import filecmp
-import os
 import shutil
 import subprocess
 from pathlib import Path

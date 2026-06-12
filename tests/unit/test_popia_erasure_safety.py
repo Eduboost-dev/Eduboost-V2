@@ -11,7 +11,6 @@ from datetime import UTC, datetime, timedelta
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
-from sqlalchemy import delete
 
 from app.models import ErasureRequest, LearnerProfile
 from app.repositories.learner_repository import LearnerRepository
@@ -21,9 +20,7 @@ from app.services.popia_service import (
     ERASURE_METHOD_SOFT,
     ERASURE_STATE_CANCELLED,
     ERASURE_STATE_EXECUTED,
-    ERASURE_STATE_FAILED,
     ERASURE_STATE_REQUESTED,
-    ERASURE_STATE_SCHEDULED,
     ERASURE_STATE_VERIFIED,
     POPIADataRightsService,
 )
@@ -97,12 +94,12 @@ class TestSoftDeleteSafety:
         """Soft delete must set is_deleted=True."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
+
         repo = LearnerRepository(db)
         # Mock get_by_id to return learner directly
         repo.get_by_id = AsyncMock(return_value=learner)
         await repo.soft_delete(learner.id)
-        
+
         assert learner.is_deleted is True
 
     @pytest.mark.asyncio
@@ -111,11 +108,11 @@ class TestSoftDeleteSafety:
         db = _mock_db_session()
         learner = _mock_learner()
         original_name = learner.display_name
-        
+
         repo = LearnerRepository(db)
         repo.get_by_id = AsyncMock(return_value=learner)
         await repo.soft_delete(learner.id)
-        
+
         assert learner.display_name == "[erased]"
         assert learner.display_name != original_name
 
@@ -124,11 +121,11 @@ class TestSoftDeleteSafety:
         """Soft delete must set deletion_requested_at timestamp."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
+
         repo = LearnerRepository(db)
         repo.get_by_id = AsyncMock(return_value=learner)
         await repo.soft_delete(learner.id)
-        
+
         assert learner.deletion_requested_at is not None
         assert isinstance(learner.deletion_requested_at, datetime)
 
@@ -136,7 +133,7 @@ class TestSoftDeleteSafety:
     async def test_soft_delete_returns_early_for_nonexistent_learner(self):
         """Soft delete should return early if learner not found."""
         db = _mock_db_session()
-        
+
         repo = LearnerRepository(db)
         repo.get_by_id = AsyncMock(return_value=None)
         # Should not raise
@@ -153,7 +150,7 @@ class TestPhysicalDeleteSafety:
         """Physical delete must use DELETE SQL statement."""
         db = _mock_db_session()
         learner_id = str(uuid.uuid4())
-        
+
         # Mock execute to capture the statement
         execute_calls = []
         async def mock_execute(stmt):
@@ -162,10 +159,10 @@ class TestPhysicalDeleteSafety:
             result.rowcount = 1
             return result
         db.execute = mock_execute
-        
+
         repo = LearnerRepository(db)
         await repo.delete_by_id(learner_id)
-        
+
         assert len(execute_calls) == 1
         # Verify it's a delete statement
         assert str(execute_calls[0]).startswith("DELETE")
@@ -175,14 +172,14 @@ class TestPhysicalDeleteSafety:
         """Physical delete must return True when row is deleted."""
         db = _mock_db_session()
         learner_id = str(uuid.uuid4())
-        
+
         result = MagicMock()
         result.rowcount = 1
         db.execute = AsyncMock(return_value=result)
-        
+
         repo = LearnerRepository(db)
         success = await repo.delete_by_id(learner_id)
-        
+
         assert success is True
 
     @pytest.mark.asyncio
@@ -190,14 +187,14 @@ class TestPhysicalDeleteSafety:
         """Physical delete must return False when no rows affected."""
         db = _mock_db_session()
         learner_id = str(uuid.uuid4())
-        
+
         result = MagicMock()
         result.rowcount = 0
         db.execute = AsyncMock(return_value=result)
-        
+
         repo = LearnerRepository(db)
         success = await repo.delete_by_id(learner_id)
-        
+
         assert success is False
 
 
@@ -211,16 +208,16 @@ class TestPurgeSafety:
         """Purge must use DELETE SQL statement."""
         db = _mock_db_session()
         learner_id = str(uuid.uuid4())
-        
+
         execute_calls = []
         async def mock_execute(stmt):
             execute_calls.append(stmt)
             return MagicMock()
         db.execute = mock_execute
-        
+
         repo = LearnerRepository(db)
         await repo.purge_personal_data(learner_id)
-        
+
         assert len(execute_calls) == 1
         assert str(execute_calls[0]).startswith("DELETE")
 
@@ -235,13 +232,13 @@ class TestGracePeriod:
         """Soft delete timestamp should be within acceptable range."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
+
         repo = LearnerRepository(db)
         repo.get_by_id = AsyncMock(return_value=learner)
         before = datetime.now(UTC)
         await repo.soft_delete(learner.id)
         after = datetime.now(UTC)
-        
+
         assert before <= learner.deletion_requested_at <= after
 
     @pytest.mark.asyncio
@@ -249,11 +246,11 @@ class TestGracePeriod:
         """Deletion requested timestamp should be recent (within 1 second)."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
+
         repo = LearnerRepository(db)
         repo.get_by_id = AsyncMock(return_value=learner)
         await repo.soft_delete(learner.id)
-        
+
         time_diff = datetime.now(UTC) - learner.deletion_requested_at
         assert time_diff.total_seconds() < 1.0
 
@@ -268,7 +265,7 @@ class TestAuditRetention:
         """Physical delete should not attempt to delete audit records."""
         db = _mock_db_session()
         learner_id = str(uuid.uuid4())
-        
+
         execute_calls = []
         async def mock_execute(stmt):
             execute_calls.append(str(stmt))
@@ -276,10 +273,10 @@ class TestAuditRetention:
             result.rowcount = 1
             return result
         db.execute = mock_execute
-        
+
         repo = LearnerRepository(db)
         await repo.delete_by_id(learner_id)
-        
+
         # Verify no audit table deletions
         for call in execute_calls:
             assert "audit_events" not in call.lower()
@@ -296,7 +293,7 @@ class TestGuardianDataRetention:
         """Physical delete should only target learner_profiles table."""
         db = _mock_db_session()
         learner_id = str(uuid.uuid4())
-        
+
         execute_calls = []
         async def mock_execute(stmt):
             execute_calls.append(str(stmt))
@@ -304,10 +301,10 @@ class TestGuardianDataRetention:
             result.rowcount = 1
             return result
         db.execute = mock_execute
-        
+
         repo = LearnerRepository(db)
         await repo.delete_by_id(learner_id)
-        
+
         # Verify only learner_profiles is targeted
         for call in execute_calls:
             assert "learner_profiles" in call.lower()
@@ -324,7 +321,7 @@ class TestCascadeBehavior:
         """Physical delete should rely on DB CASCADE for dependent records."""
         db = _mock_db_session()
         learner_id = str(uuid.uuid4())
-        
+
         execute_calls = []
         async def mock_execute(stmt):
             execute_calls.append(str(stmt))
@@ -332,10 +329,10 @@ class TestCascadeBehavior:
             result.rowcount = 1
             return result
         db.execute = mock_execute
-        
+
         repo = LearnerRepository(db)
         await repo.delete_by_id(learner_id)
-        
+
         # Should only delete learner, rely on CASCADE for dependents
         assert len(execute_calls) == 1
         assert "learner_profiles" in execute_calls[0].lower()
@@ -351,19 +348,19 @@ class TestDeletionMethodComparison:
         """Soft delete and physical delete should have different behaviors."""
         db = _mock_db_session()
         learner = _mock_learner()
-        
+
         repo = LearnerRepository(db)
         repo.get_by_id = AsyncMock(return_value=learner)
-        
+
         # Soft delete
         await repo.soft_delete(learner.id)
         assert learner.is_deleted is True
         assert learner.display_name == "[erased]"
-        
+
         # Reset for physical delete test
         learner.is_deleted = False
         learner.display_name = "Test Learner"
-        
+
         # Physical delete uses execute, not get
         execute_called = False
         async def mock_execute(stmt):
@@ -373,7 +370,7 @@ class TestDeletionMethodComparison:
             result.rowcount = 1
             return result
         db.execute = mock_execute
-        
+
         await repo.delete_by_id(learner.id)
         assert execute_called is True
 
@@ -382,7 +379,7 @@ class TestDeletionMethodComparison:
         """Purge should behave identically to physical delete."""
         db = _mock_db_session()
         learner_id = str(uuid.uuid4())
-        
+
         execute_calls = []
         async def mock_execute(stmt):
             execute_calls.append(str(stmt))
@@ -390,17 +387,17 @@ class TestDeletionMethodComparison:
             result.rowcount = 1
             return result
         db.execute = mock_execute
-        
+
         repo = LearnerRepository(db)
-        
+
         # Both should use DELETE
         await repo.delete_by_id(learner_id)
         delete_call = execute_calls[0]
-        
+
         execute_calls.clear()
         await repo.purge_personal_data(learner_id)
         purge_call = execute_calls[0]
-        
+
         # Both should be DELETE statements on learner_profiles
         assert "delete" in delete_call.lower()
         assert "delete" in purge_call.lower()

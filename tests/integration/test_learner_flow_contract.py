@@ -10,7 +10,7 @@ from httpx import ASGITransport, AsyncClient
 
 from app.api_v2 import app
 from app.core.config import settings
-from app.core.jobs import enqueue_job, run_job, create_job
+from app.core.jobs import run_job, create_job
 from unittest.mock import patch
 
 

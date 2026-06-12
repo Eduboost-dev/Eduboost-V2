@@ -57,18 +57,18 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `app/api_v2_deps/consent_lifecycle.py` | 88 | consent_service | `return POPIAConsentLifecycleAdapter(ConsentService(db))` |
 | `app/api_v2_deps/consent_lifecycle.py` | 91 | consent_service | `"Cannot construct canonical ConsentService from AsyncSession. "` |
 | `app/api_v2_deps/consent_lifecycle.py` | 92 | consent_service | `"Align app.modules.consent.service.ConsentService constructor before using POPIA lifecycle routes."` |
-| `app/api_v2_routers/consent.py` | 19 | consent_service | `from app.modules.consent.service import ConsentService` |
-| `app/api_v2_routers/consent.py` | 51 | consent_service | `# AuditLog emission is handled inside ConsentService.grant().` |
-| `app/api_v2_routers/consent.py` | 51 | consent_grant | `# AuditLog emission is handled inside ConsentService.grant().` |
-| `app/api_v2_routers/consent.py` | 52 | consent_service | `consent = await ConsentService(db).grant(` |
-| `app/api_v2_routers/consent.py` | 52 | consent_grant | `consent = await ConsentService(db).grant(` |
-| `app/api_v2_routers/consent.py` | 84 | consent_service | `# AuditLog emission is handled inside ConsentService.revoke().` |
-| `app/api_v2_routers/consent.py` | 84 | consent_revoke | `# AuditLog emission is handled inside ConsentService.revoke().` |
-| `app/api_v2_routers/consent.py` | 85 | consent_service | `await ConsentService(db).revoke(` |
-| `app/api_v2_routers/consent.py` | 85 | consent_revoke | `await ConsentService(db).revoke(` |
-| `app/api_v2_routers/consent.py` | 131 | consent_service | `consent = await ConsentService(db).get_status(str(learner_id))` |
-| `app/api_v2_routers/learners.py` | 15 | consent_service | `from app.modules.consent.service import ConsentService` |
-| `app/api_v2_routers/learners.py` | 146 | consent_service | `consent_svc = ConsentService(db)` |
+| `app/api_v2_routers/consent.py` | 18 | consent_service | `from app.modules.consent.service import ConsentService` |
+| `app/api_v2_routers/consent.py` | 50 | consent_service | `# AuditLog emission is handled inside ConsentService.grant().` |
+| `app/api_v2_routers/consent.py` | 50 | consent_grant | `# AuditLog emission is handled inside ConsentService.grant().` |
+| `app/api_v2_routers/consent.py` | 51 | consent_service | `consent = await ConsentService(db).grant(` |
+| `app/api_v2_routers/consent.py` | 51 | consent_grant | `consent = await ConsentService(db).grant(` |
+| `app/api_v2_routers/consent.py` | 83 | consent_service | `# AuditLog emission is handled inside ConsentService.revoke().` |
+| `app/api_v2_routers/consent.py` | 83 | consent_revoke | `# AuditLog emission is handled inside ConsentService.revoke().` |
+| `app/api_v2_routers/consent.py` | 84 | consent_service | `await ConsentService(db).revoke(` |
+| `app/api_v2_routers/consent.py` | 84 | consent_revoke | `await ConsentService(db).revoke(` |
+| `app/api_v2_routers/consent.py` | 130 | consent_service | `consent = await ConsentService(db).get_status(str(learner_id))` |
+| `app/api_v2_routers/learners.py` | 14 | consent_service | `from app.modules.consent.service import ConsentService` |
+| `app/api_v2_routers/learners.py` | 145 | consent_service | `consent_svc = ConsentService(db)` |
 | `app/api_v2_routers/parents.py` | 23 | consent_service | `from app.services.consent import ConsentService` |
 | `app/api_v2_routers/parents.py` | 282 | consent_service | `consent_service = ConsentService(db)` |
 | `app/api_v2_routers/popia.py` | 4 | require_active_consent | `All learner-data routes use the require_active_consent dependency (§4.2).` |
@@ -104,33 +104,33 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `app/modules/consent/service.py` | 18 | require_active_consent | `await svc.require_active_consent("learner-uuid", actor_id="user-uuid")` |
 | `app/modules/consent/service.py` | 28 | parental_consent_model | `from app.models import ParentalConsent` |
 | `app/modules/consent/service.py` | 30 | consent_repository | `from app.repositories.repositories import ConsentRepository` |
-| `app/modules/consent/service.py` | 40 | consent_service | `class ConsentService:` |
-| `app/modules/consent/service.py` | 51 | consent_service | `svc = ConsentService(db)` |
-| `app/modules/consent/service.py` | 52 | consent_grant | `consent = await svc.grant(` |
-| `app/modules/consent/service.py` | 66 | consent_repository | `consent_repo: ConsentRepository \| None = None,` |
-| `app/modules/consent/service.py` | 75 | consent_repository | `consent_repo: Optional :class:`~app.repositories.consent_repository.ConsentRepository`` |
-| `app/modules/consent/service.py` | 89 | consent_service | `svc = ConsentService(db)  # auto-creates repos` |
-| `app/modules/consent/service.py` | 90 | consent_service | `svc = ConsentService(consent_repo=repo)  # explicit repo` |
-| `app/modules/consent/service.py` | 90 | consent_repository | `svc = ConsentService(consent_repo=repo)  # explicit repo` |
-| `app/modules/consent/service.py` | 92 | consent_repository | `if consent_repo is None:` |
-| `app/modules/consent/service.py` | 94 | consent_service | `raise ValueError("ConsentService requires a db session or consent_repo")` |
-| `app/modules/consent/service.py` | 94 | consent_repository | `raise ValueError("ConsentService requires a db session or consent_repo")` |
-| `app/modules/consent/service.py` | 95 | consent_repository | `consent_repo = ConsentRepository(db)` |
-| `app/modules/consent/service.py` | 100 | consent_repository | `self._repo = consent_repo` |
-| `app/modules/consent/service.py` | 146 | require_active_consent | `async def require_active_consent(self, learner_id: str, actor_id: str \| None = None) -> ConsentPolicyDecision:` |
-| `app/modules/consent/service.py` | 165 | consent_grant | `async def grant(` |
-| `app/modules/consent/service.py` | 173 | parental_consent_model | `) -> ParentalConsent:` |
-| `app/modules/consent/service.py` | 177 | consent_repository | `:meth:`~app.repositories.consent_repository.ConsentRepository.grant`` |
-| `app/modules/consent/service.py` | 194 | consent_grant | `consent = await svc.grant(` |
-| `app/modules/consent/service.py` | 199 | consent_grant | `consent = await self._repo.grant(` |
-| `app/modules/consent/service.py` | 217 | consent_revoke | `async def revoke(self, learner_id: str, guardian_id: str \| None = None, reason: str = "revoked") -> int:` |
-| `app/modules/consent/service.py` | 235 | consent_revoke | `count = await svc.revoke("l-001", guardian_id="g-001")` |
-| `app/modules/consent/service.py` | 240 | consent_revoke | `count = await self._repo.revoke(str(learner_id), reason=reason)` |
-| `app/modules/consent/service.py` | 252 | parental_consent_model | `async def renew(self, guardian_id: str, learner_id: str, consent_version: str) -> ParentalConsent:` |
-| `app/modules/consent/service.py` | 318 | consent_revoke | `await self.revoke(str(learner_id), guardian_id=guardian_id, reason="erasure_requested")` |
-| `app/modules/consent/service.py` | 326 | parental_consent_model | `async def get_status(self, learner_id: str) -> ParentalConsent \| None:` |
-| `app/modules/consent/service.py` | 345 | parental_consent_model | `async def get_expiring_consents(self, db: AsyncSession \| None = None, days: int = 30) -> list[ParentalConsent]:` |
-| `app/modules/consent/service.py` | 397 | parental_consent_model | `async def _record_version_history(self, consent: ParentalConsent, status: str, transition_reason: str) -> None:` |
+| `app/modules/consent/service.py` | 38 | consent_service | `class ConsentService:` |
+| `app/modules/consent/service.py` | 49 | consent_service | `svc = ConsentService(db)` |
+| `app/modules/consent/service.py` | 50 | consent_grant | `consent = await svc.grant(` |
+| `app/modules/consent/service.py` | 64 | consent_repository | `consent_repo: ConsentRepository \| None = None,` |
+| `app/modules/consent/service.py` | 73 | consent_repository | `consent_repo: Optional :class:`~app.repositories.consent_repository.ConsentRepository`` |
+| `app/modules/consent/service.py` | 87 | consent_service | `svc = ConsentService(db)  # auto-creates repos` |
+| `app/modules/consent/service.py` | 88 | consent_service | `svc = ConsentService(consent_repo=repo)  # explicit repo` |
+| `app/modules/consent/service.py` | 88 | consent_repository | `svc = ConsentService(consent_repo=repo)  # explicit repo` |
+| `app/modules/consent/service.py` | 90 | consent_repository | `if consent_repo is None:` |
+| `app/modules/consent/service.py` | 92 | consent_service | `raise ValueError("ConsentService requires a db session or consent_repo")` |
+| `app/modules/consent/service.py` | 92 | consent_repository | `raise ValueError("ConsentService requires a db session or consent_repo")` |
+| `app/modules/consent/service.py` | 93 | consent_repository | `consent_repo = ConsentRepository(db)` |
+| `app/modules/consent/service.py` | 98 | consent_repository | `self._repo = consent_repo` |
+| `app/modules/consent/service.py` | 144 | require_active_consent | `async def require_active_consent(self, learner_id: str, actor_id: str \| None = None) -> ConsentPolicyDecision:` |
+| `app/modules/consent/service.py` | 163 | consent_grant | `async def grant(` |
+| `app/modules/consent/service.py` | 171 | parental_consent_model | `) -> ParentalConsent:` |
+| `app/modules/consent/service.py` | 175 | consent_repository | `:meth:`~app.repositories.consent_repository.ConsentRepository.grant`` |
+| `app/modules/consent/service.py` | 192 | consent_grant | `consent = await svc.grant(` |
+| `app/modules/consent/service.py` | 197 | consent_grant | `consent = await self._repo.grant(` |
+| `app/modules/consent/service.py` | 215 | consent_revoke | `async def revoke(self, learner_id: str, guardian_id: str \| None = None, reason: str = "revoked") -> int:` |
+| `app/modules/consent/service.py` | 233 | consent_revoke | `count = await svc.revoke("l-001", guardian_id="g-001")` |
+| `app/modules/consent/service.py` | 238 | consent_revoke | `count = await self._repo.revoke(str(learner_id), reason=reason)` |
+| `app/modules/consent/service.py` | 250 | parental_consent_model | `async def renew(self, guardian_id: str, learner_id: str, consent_version: str) -> ParentalConsent:` |
+| `app/modules/consent/service.py` | 316 | consent_revoke | `await self.revoke(str(learner_id), guardian_id=guardian_id, reason="erasure_requested")` |
+| `app/modules/consent/service.py` | 324 | parental_consent_model | `async def get_status(self, learner_id: str) -> ParentalConsent \| None:` |
+| `app/modules/consent/service.py` | 343 | parental_consent_model | `async def get_expiring_consents(self, db: AsyncSession \| None = None, days: int = 30) -> list[ParentalConsent]:` |
+| `app/modules/consent/service.py` | 395 | parental_consent_model | `async def _record_version_history(self, consent: ParentalConsent, status: str, transition_reason: str) -> None:` |
 | `app/modules/diagnostics/service.py` | 3 | consent_service | `Provides a :class:`ConsentService` used by diagnostic flows to enforce` |
 | `app/modules/diagnostics/service.py` | 22 | parental_consent_model | `from app.models import ParentalConsent` |
 | `app/modules/diagnostics/service.py` | 23 | consent_repository | `from app.repositories import ConsentRepository, LearnerRepository` |
@@ -149,22 +149,22 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `app/modules/diagnostics/service.py` | 184 | require_active_consent | `consent = await svc.require_active_consent(learner_id, db)` |
 | `app/modules/diagnostics/service.py` | 195 | parental_consent_model | `) -> list[ParentalConsent]:` |
 | `app/modules/diagnostics/service.py` | 206 | parental_consent_model | `list[ParentalConsent]: Consent records expiring within the` |
-| `app/modules/jobs.py` | 206 | parental_consent_model | `consent: A :class:`~app.models.ParentalConsent` record with` |
+| `app/modules/jobs.py` | 385 | parental_consent_model | `consent: A :class:`~app.models.ParentalConsent` record with` |
 | `app/modules/lessons/service.py` | 11 | consent_service | `:meth:`~app.modules.consent.service.ConsentService.require_active_consent`` |
 | `app/modules/lessons/service.py` | 11 | require_active_consent | `:meth:`~app.modules.consent.service.ConsentService.require_active_consent`` |
-| `app/modules/lessons/service.py` | 40 | consent_service | `from app.services.consent import ConsentService` |
-| `app/modules/lessons/service.py` | 83 | consent_service | `self._consent_service = ConsentService(db)` |
-| `app/modules/lessons/service.py` | 94 | consent_service | `:meth:`~app.modules.consent.service.ConsentService.require_active_consent`.` |
-| `app/modules/lessons/service.py` | 94 | require_active_consent | `:meth:`~app.modules.consent.service.ConsentService.require_active_consent`.` |
-| `app/modules/lessons/service.py` | 122 | require_active_consent | `await self._consent_service.require_active_consent(` |
+| `app/modules/lessons/service.py` | 38 | consent_service | `from app.services.consent import ConsentService` |
+| `app/modules/lessons/service.py` | 81 | consent_service | `self._consent_service = ConsentService(db)` |
+| `app/modules/lessons/service.py` | 92 | consent_service | `:meth:`~app.modules.consent.service.ConsentService.require_active_consent`.` |
+| `app/modules/lessons/service.py` | 92 | require_active_consent | `:meth:`~app.modules.consent.service.ConsentService.require_active_consent`.` |
+| `app/modules/lessons/service.py` | 120 | require_active_consent | `await self._consent_service.require_active_consent(` |
 | `app/repositories/__init__.py` | 6 | consent_repository | `from app.repositories.consent_repository import ConsentRepository` |
 | `app/repositories/__init__.py` | 16 | consent_repository | `"ConsentRepository",` |
-| `app/repositories/consent_repository.py` | 17 | consent_repository | `class ConsentRepository:` |
-| `app/repositories/consent_repository.py` | 26 | consent_records_table | `SELECT * FROM consent_records` |
-| `app/repositories/consent_repository.py` | 37 | consent_records_table | `"SELECT * FROM consent_records WHERE id = $1", record_id` |
-| `app/repositories/consent_repository.py` | 44 | consent_records_table | `INSERT INTO consent_records (` |
-| `app/repositories/consent_repository.py` | 60 | consent_records_table | `UPDATE consent_records SET` |
-| `app/repositories/consent_repository.py` | 76 | consent_records_table | `SELECT * FROM consent_records` |
+| `app/repositories/consent_repository.py` | 16 | consent_repository | `class ConsentRepository:` |
+| `app/repositories/consent_repository.py` | 25 | consent_records_table | `SELECT * FROM consent_records` |
+| `app/repositories/consent_repository.py` | 36 | consent_records_table | `"SELECT * FROM consent_records WHERE id = $1", record_id` |
+| `app/repositories/consent_repository.py` | 43 | consent_records_table | `INSERT INTO consent_records (` |
+| `app/repositories/consent_repository.py` | 59 | consent_records_table | `UPDATE consent_records SET` |
+| `app/repositories/consent_repository.py` | 75 | consent_records_table | `SELECT * FROM consent_records` |
 | `app/repositories/parent_report_repository.py` | 15 | parental_consent_model | `from app.models import ParentalConsent, SubjectMastery` |
 | `app/repositories/parent_report_repository.py` | 24 | parental_consent_model | `select(ParentalConsent).where(` |
 | `app/repositories/parent_report_repository.py` | 25 | parental_consent_model | `ParentalConsent.learner_id == learner_id,` |
@@ -221,31 +221,31 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `app/services/consent_renewal_service.py` | 5 | parental_consent_model | `This service queries for ParentalConsent records expiring within 30 days` |
 | `app/services/consent_renewal_service.py` | 29 | parental_consent_model | `"""Structural typing — matches the SQLAlchemy ParentalConsent ORM model."""` |
 | `app/services/consent_renewal_service.py` | 194 | parental_consent_model | `Queries for ParentalConsent records expiring within ``days_threshold``` |
-| `app/services/consent_renewal_service.py` | 280 | parental_consent_model | `from app.models import ParentalConsent  # type: ignore[import]` |
-| `app/services/consent_renewal_service.py` | 289 | parental_consent_model | `sa_select(ParentalConsent).where(` |
-| `app/services/consent_renewal_service.py` | 291 | parental_consent_model | `ParentalConsent.revoked_at.is_(None),` |
-| `app/services/consent_renewal_service.py` | 292 | parental_consent_model | `ParentalConsent.expires_at > datetime.now(tz=timezone.utc),` |
-| `app/services/consent_renewal_service.py` | 294 | parental_consent_model | `ParentalConsent.expires_at <= cutoff,` |
+| `app/services/consent_renewal_service.py` | 275 | parental_consent_model | `from app.models import ParentalConsent  # type: ignore[import]` |
+| `app/services/consent_renewal_service.py` | 284 | parental_consent_model | `sa_select(ParentalConsent).where(` |
+| `app/services/consent_renewal_service.py` | 286 | parental_consent_model | `ParentalConsent.revoked_at.is_(None),` |
+| `app/services/consent_renewal_service.py` | 287 | parental_consent_model | `ParentalConsent.expires_at > datetime.now(tz=timezone.utc),` |
+| `app/services/consent_renewal_service.py` | 289 | parental_consent_model | `ParentalConsent.expires_at <= cutoff,` |
 | `app/services/consent_runtime_compatibility.py` | 10 | consent_service | `"app.services.consent_service.ConsentService",` |
 | `app/services/consent_runtime_compatibility.py` | 11 | consent_service | `"app.modules.consent.service.ConsentService",` |
 | `app/services/consent_service.py` | 2 | consent_service | `# Canonical consent service: app.modules.consent.service.ConsentService` |
-| `app/services/consent_service.py` | 26 | consent_repository | `from app.repositories.consent_repository import ConsentRepository` |
-| `app/services/consent_service.py` | 29 | consent_service | `class ConsentService:` |
-| `app/services/consent_service.py` | 32 | consent_repository | `consent_repo: ConsentRepository,` |
-| `app/services/consent_service.py` | 35 | consent_repository | `self._consent = consent_repo` |
-| `app/services/consent_service.py` | 42 | consent_grant | `async def grant(` |
-| `app/services/consent_service.py` | 56 | consent_grant | `updated = existing.grant(privacy_notice_version)` |
-| `app/services/consent_service.py` | 64 | consent_grant | `).grant(privacy_notice_version)` |
+| `app/services/consent_service.py` | 25 | consent_repository | `from app.repositories.consent_repository import ConsentRepository` |
+| `app/services/consent_service.py` | 28 | consent_service | `class ConsentService:` |
+| `app/services/consent_service.py` | 31 | consent_repository | `consent_repo: ConsentRepository,` |
+| `app/services/consent_service.py` | 34 | consent_repository | `self._consent = consent_repo` |
+| `app/services/consent_service.py` | 41 | consent_grant | `async def grant(` |
+| `app/services/consent_service.py` | 55 | consent_grant | `updated = existing.grant(privacy_notice_version)` |
+| `app/services/consent_service.py` | 63 | consent_grant | `).grant(privacy_notice_version)` |
 | `app/services/data_subject_rights_service.py` | 234 | consent_records_table | `"DELETE FROM consent_records WHERE learner_id = $1", learner_id` |
 | `app/services/data_subject_rights_service.py` | 393 | consent_records_table | `"FROM consent_records WHERE learner_id=$1",` |
-| `app/services/job_dependency_factory.py` | 56 | consent_service | `service_cls = _import_symbol("app.modules.consent.service.ConsentService")` |
-| `app/services/job_dependency_factory.py` | 57 | consent_repository | `consent_repo_cls = _import_symbol("app.repositories.consent_repository.ConsentRepository")` |
-| `app/services/job_dependency_factory.py` | 60 | consent_service | `raise RuntimeError("Canonical ConsentService not found")` |
-| `app/services/job_dependency_factory.py` | 62 | consent_repository | `consent_repo = _construct(consent_repo_cls, session) if consent_repo_cls is not None else None` |
-| `app/services/job_dependency_factory.py` | 70 | consent_repository | `if consent_repo is not None:` |
-| `app/services/job_dependency_factory.py` | 72 | consent_repository | `kwargs["consent_repository"] = consent_repo` |
-| `app/services/job_dependency_factory.py` | 73 | consent_repository | `if "consent_repo" in params:` |
-| `app/services/job_dependency_factory.py` | 74 | consent_repository | `kwargs["consent_repo"] = consent_repo` |
+| `app/services/job_dependency_factory.py` | 54 | consent_service | `service_cls = _import_symbol("app.modules.consent.service.ConsentService")` |
+| `app/services/job_dependency_factory.py` | 55 | consent_repository | `consent_repo_cls = _import_symbol("app.repositories.consent_repository.ConsentRepository")` |
+| `app/services/job_dependency_factory.py` | 58 | consent_service | `raise RuntimeError("Canonical ConsentService not found")` |
+| `app/services/job_dependency_factory.py` | 60 | consent_repository | `consent_repo = _construct(consent_repo_cls, session) if consent_repo_cls is not None else None` |
+| `app/services/job_dependency_factory.py` | 68 | consent_repository | `if consent_repo is not None:` |
+| `app/services/job_dependency_factory.py` | 70 | consent_repository | `kwargs["consent_repository"] = consent_repo` |
+| `app/services/job_dependency_factory.py` | 71 | consent_repository | `if "consent_repo" in params:` |
+| `app/services/job_dependency_factory.py` | 72 | consent_repository | `kwargs["consent_repo"] = consent_repo` |
 | `app/services/popia_consent_lifecycle_adapter.py` | 215 | consent_grant | `async def grant(self, *args: Any, **kwargs: Any) -> ConsentRecord:` |
 | `app/services/popia_consent_lifecycle_adapter.py` | 234 | consent_revoke | `async def revoke(self, *args: Any, **kwargs: Any) -> ConsentRecord:` |
 | `app/services/popia_service.py` | 30 | parental_consent_model | `ParentalConsent,` |
@@ -311,14 +311,14 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `scripts/patch_popia_router_boundary.py` | 23 | consent_repository | `"from app.repositories.consent_repository import ConsentRepository",` |
 | `scripts/popia_sweep.py` | 12 | consent_service | `ConsentService.require_active_consent() before any DB access.` |
 | `scripts/popia_sweep.py` | 12 | require_active_consent | `ConsentService.require_active_consent() before any DB access.` |
-| `scripts/popia_sweep.py` | 211 | require_active_consent | `learner data without calling require_active_consent().` |
-| `scripts/popia_sweep.py` | 256 | require_active_consent | `"require_active_consent" in direct_body_source` |
-| `scripts/popia_sweep.py` | 257 | consent_service | `or "ConsentService.require_active_consent" in direct_body_source` |
-| `scripts/popia_sweep.py` | 257 | require_active_consent | `or "ConsentService.require_active_consent" in direct_body_source` |
-| `scripts/popia_sweep.py` | 273 | consent_service | `"calling ConsentService.require_active_consent(). "` |
-| `scripts/popia_sweep.py` | 273 | require_active_consent | `"calling ConsentService.require_active_consent(). "` |
-| `scripts/popia_sweep.py` | 297 | consent_grant | `kw in func_source for kw in ["mark_granted", "mark_revoked", "execute_erasure", "grant(", "revoke("]` |
-| `scripts/popia_sweep.py` | 297 | consent_revoke | `kw in func_source for kw in ["mark_granted", "mark_revoked", "execute_erasure", "grant(", "revoke("]` |
+| `scripts/popia_sweep.py` | 209 | require_active_consent | `learner data without calling require_active_consent().` |
+| `scripts/popia_sweep.py` | 254 | require_active_consent | `"require_active_consent" in direct_body_source` |
+| `scripts/popia_sweep.py` | 255 | consent_service | `or "ConsentService.require_active_consent" in direct_body_source` |
+| `scripts/popia_sweep.py` | 255 | require_active_consent | `or "ConsentService.require_active_consent" in direct_body_source` |
+| `scripts/popia_sweep.py` | 271 | consent_service | `"calling ConsentService.require_active_consent(). "` |
+| `scripts/popia_sweep.py` | 271 | require_active_consent | `"calling ConsentService.require_active_consent(). "` |
+| `scripts/popia_sweep.py` | 295 | consent_grant | `kw in func_source for kw in ["mark_granted", "mark_revoked", "execute_erasure", "grant(", "revoke("]` |
+| `scripts/popia_sweep.py` | 295 | consent_revoke | `kw in func_source for kw in ["mark_granted", "mark_revoked", "execute_erasure", "grant(", "revoke("]` |
 | `scripts/repair_arq_consent_reminder_job.py` | 42 | consent_repository | `repo = ConsentRepository(session)` |
 | `scripts/repair_arq_consent_reminder_job.py` | 43 | consent_service | `params = inspect.signature(ConsentService).parameters` |
 | `scripts/repair_arq_consent_reminder_job.py` | 45 | consent_repository | `if "consent_repo" in params:` |
@@ -380,11 +380,11 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `scripts/validate_schema_integrity.py` | 63 | parental_consents_table | `"parental_consents": {` |
 | `scripts/validate_schema_integrity.py` | 101 | parental_consents_table | `if table_name in {"learner_profiles", "parental_consents", "diagnostic_sessions", "knowledge_gaps", "lessons"} and fk_count == 0:` |
 | `tests/integration/test_auth_repository_fixture_proof.py` | 60 | consent_repository | `assert service.consent_repo.__class__.__module__ == "app.repositories.repositories"` |
-| `tests/integration/test_consent_grant_authorization.py` | 38 | consent_grant | `async def grant(self, guardian_id: str, learner_id: str, consent_version: str, ip_hash: str \| None = None):` |
-| `tests/integration/test_consent_grant_authorization.py` | 61 | consent_service | `monkeypatch.setattr(consent_router, "ConsentService", FakeConsentService)` |
-| `tests/integration/test_consent_revoke_authorization.py` | 36 | consent_revoke | `async def revoke(self, learner_id: str, guardian_id: str, reason: str) -> None:` |
-| `tests/integration/test_consent_revoke_authorization.py` | 54 | consent_service | `monkeypatch.setattr(consent_router, "ConsentService", FakeConsentService)` |
-| `tests/integration/test_consent_status_authorization.py` | 58 | consent_service | `monkeypatch.setattr(consent_router, "ConsentService", FakeConsentService)` |
+| `tests/integration/test_consent_grant_authorization.py` | 37 | consent_grant | `async def grant(self, guardian_id: str, learner_id: str, consent_version: str, ip_hash: str \| None = None):` |
+| `tests/integration/test_consent_grant_authorization.py` | 60 | consent_service | `monkeypatch.setattr(consent_router, "ConsentService", FakeConsentService)` |
+| `tests/integration/test_consent_revoke_authorization.py` | 35 | consent_revoke | `async def revoke(self, learner_id: str, guardian_id: str, reason: str) -> None:` |
+| `tests/integration/test_consent_revoke_authorization.py` | 53 | consent_service | `monkeypatch.setattr(consent_router, "ConsentService", FakeConsentService)` |
+| `tests/integration/test_consent_status_authorization.py` | 57 | consent_service | `monkeypatch.setattr(consent_router, "ConsentService", FakeConsentService)` |
 | `tests/integration/test_diagnostic_items_authorization.py` | 21 | require_active_consent | `async def require_active_consent(self, learner_id: str, actor_id: str \| None = None) -> None:` |
 | `tests/integration/test_diagnostic_submit_authorization.py` | 21 | require_active_consent | `async def require_active_consent(self, learner_id: str, actor_id: str \| None = None) -> None:` |
 | `tests/integration/test_gamification_award_xp_authorization.py` | 51 | require_active_consent | `async def require_active_consent(self, learner_id: str, actor_id: str \| None = None) -> None:` |
@@ -411,32 +411,31 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `tests/integration/test_popia_transaction_rollback_proof.py` | 140 | consent_grant | `await service.grant(guardian_id=uuid.uuid4(), learner_id=uuid.uuid4(), privacy_notice_version="v1")` |
 | `tests/integration/test_rate_limits.py` | 30 | require_active_consent | `async def require_active_consent(self, _learner_id):` |
 | `tests/legacy/integration/test_api_contracts.py` | 113 | consent_records_table | `assert "consent_records" in payload` |
-| `tests/legacy/integration/test_consent_enforcement.py` | 21 | consent_service | `from app.api.services.consent_service import ConsentService, ConsentNotGrantedError` |
-| `tests/legacy/integration/test_consent_enforcement.py` | 236 | consent_service | `# ── Unit tests for ConsentService ─────────────────────────────────────────────` |
-| `tests/legacy/integration/test_consent_enforcement.py` | 239 | consent_service | `"""Fast unit tests for ConsentService logic — no DB required."""` |
+| `tests/legacy/integration/test_consent_enforcement.py` | 235 | consent_service | `# ── Unit tests for ConsentService ─────────────────────────────────────────────` |
+| `tests/legacy/integration/test_consent_enforcement.py` | 238 | consent_service | `"""Fast unit tests for ConsentService logic — no DB required."""` |
 | `tests/legacy/integration/test_parent_portal_integration.py` | 407 | consent_records_table | `consent_records = [mock_consent_granted]` |
 | `tests/legacy/integration/test_parent_portal_integration.py` | 426 | consent_records_table | `consent_records_result.scalars.return_value.all.return_value = consent_records` |
-| `tests/legacy/popia/test_popia_compliance.py` | 160 | parental_consent_model | `from app.models import ParentalConsent` |
-| `tests/legacy/popia/test_popia_compliance.py` | 162 | parental_consent_model | `consent = ParentalConsent()` |
-| `tests/legacy/popia/test_popia_compliance.py` | 176 | parental_consent_model | `from app.models import ParentalConsent` |
-| `tests/legacy/popia/test_popia_compliance.py` | 177 | parental_consent_model | `consent = ParentalConsent()` |
-| `tests/legacy/popia/test_popia_compliance.py` | 187 | parental_consent_model | `from app.models import ParentalConsent` |
-| `tests/legacy/popia/test_popia_compliance.py` | 188 | parental_consent_model | `consent = ParentalConsent()` |
-| `tests/legacy/popia/test_popia_compliance.py` | 196 | parental_consent_model | `from app.models import ParentalConsent` |
-| `tests/legacy/popia/test_popia_compliance.py` | 197 | parental_consent_model | `consent = ParentalConsent()` |
-| `tests/popia/test_consent_audit_trail.py` | 12 | consent_service | `from app.modules.consent.service import ConsentService` |
-| `tests/popia/test_consent_audit_trail.py` | 53 | consent_service | `service = ConsentService(db_session)` |
-| `tests/popia/test_consent_audit_trail.py` | 54 | consent_grant | `await service.grant(guardian.id, learner.id, "2.0", ip_hash="hashed-ip")` |
-| `tests/popia/test_consent_audit_trail.py` | 65 | consent_service | `service = ConsentService(db_session)` |
-| `tests/popia/test_consent_audit_trail.py` | 66 | consent_grant | `await service.grant(guardian.id, learner.id, "2.0")` |
-| `tests/popia/test_consent_audit_trail.py` | 67 | consent_revoke | `await service.revoke(learner.id, guardian_id=guardian.id, reason="guardian_request")` |
-| `tests/popia/test_consent_audit_trail.py` | 80 | consent_service | `service = ConsentService(db_session)` |
-| `tests/popia/test_consent_audit_trail.py` | 81 | consent_grant | `await service.grant(guardian.id, learner.id, "2.0")` |
-| `tests/popia/test_consent_audit_trail.py` | 95 | consent_service | `service = ConsentService(db_session)` |
-| `tests/popia/test_consent_audit_trail.py` | 96 | consent_grant | `await service.grant(guardian.id, learner.id, "2.0")` |
-| `tests/popia/test_consent_audit_trail.py` | 109 | consent_service | `service = ConsentService(db_session)` |
-| `tests/popia/test_consent_audit_trail.py` | 112 | require_active_consent | `await service.require_active_consent(learner.id, actor_id=guardian.id)` |
-| `tests/unit/test_arq_worker_import_contract.py` | 43 | consent_service | `assert "ConsentService(" not in source` |
+| `tests/legacy/popia/test_popia_compliance.py` | 157 | parental_consent_model | `from app.models import ParentalConsent` |
+| `tests/legacy/popia/test_popia_compliance.py` | 159 | parental_consent_model | `consent = ParentalConsent()` |
+| `tests/legacy/popia/test_popia_compliance.py` | 173 | parental_consent_model | `from app.models import ParentalConsent` |
+| `tests/legacy/popia/test_popia_compliance.py` | 174 | parental_consent_model | `consent = ParentalConsent()` |
+| `tests/legacy/popia/test_popia_compliance.py` | 184 | parental_consent_model | `from app.models import ParentalConsent` |
+| `tests/legacy/popia/test_popia_compliance.py` | 185 | parental_consent_model | `consent = ParentalConsent()` |
+| `tests/legacy/popia/test_popia_compliance.py` | 193 | parental_consent_model | `from app.models import ParentalConsent` |
+| `tests/legacy/popia/test_popia_compliance.py` | 194 | parental_consent_model | `consent = ParentalConsent()` |
+| `tests/popia/test_consent_audit_trail.py` | 11 | consent_service | `from app.modules.consent.service import ConsentService` |
+| `tests/popia/test_consent_audit_trail.py` | 52 | consent_service | `service = ConsentService(db_session)` |
+| `tests/popia/test_consent_audit_trail.py` | 53 | consent_grant | `await service.grant(guardian.id, learner.id, "2.0", ip_hash="hashed-ip")` |
+| `tests/popia/test_consent_audit_trail.py` | 64 | consent_service | `service = ConsentService(db_session)` |
+| `tests/popia/test_consent_audit_trail.py` | 65 | consent_grant | `await service.grant(guardian.id, learner.id, "2.0")` |
+| `tests/popia/test_consent_audit_trail.py` | 66 | consent_revoke | `await service.revoke(learner.id, guardian_id=guardian.id, reason="guardian_request")` |
+| `tests/popia/test_consent_audit_trail.py` | 79 | consent_service | `service = ConsentService(db_session)` |
+| `tests/popia/test_consent_audit_trail.py` | 80 | consent_grant | `await service.grant(guardian.id, learner.id, "2.0")` |
+| `tests/popia/test_consent_audit_trail.py` | 94 | consent_service | `service = ConsentService(db_session)` |
+| `tests/popia/test_consent_audit_trail.py` | 95 | consent_grant | `await service.grant(guardian.id, learner.id, "2.0")` |
+| `tests/popia/test_consent_audit_trail.py` | 108 | consent_service | `service = ConsentService(db_session)` |
+| `tests/popia/test_consent_audit_trail.py` | 111 | require_active_consent | `await service.require_active_consent(learner.id, actor_id=guardian.id)` |
+| `tests/unit/test_arq_worker_import_contract.py` | 46 | consent_service | `assert "ConsentService(" not in source` |
 | `tests/unit/test_auth_lifecycle_impl.py` | 47 | consent_repository | `def build_auth_runtime(guardian_repo: object, learner_repo: object, consent_repo: object) -> AuthRuntimeContext:` |
 | `tests/unit/test_auth_lifecycle_impl.py` | 48 | consent_repository | `return AuthRuntimeContext(db=object(), guardian_repo=guardian_repo, learner_repo=learner_repo, consent_repo=consent_repo)` |
 | `tests/unit/test_auth_lifecycle_impl.py` | 75 | consent_repository | `consent_repo = SimpleNamespace(` |
@@ -470,15 +469,40 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `tests/unit/test_consent_policy.py` | 94 | consent_repository | `consent_repo=FakeRepo(consent(expires_at=datetime(2020, 1, 1, tzinfo=UTC))),` |
 | `tests/unit/test_consent_policy.py` | 99 | require_active_consent | `await service.require_active_consent("learner-1", actor_id="guardian-1")` |
 | `tests/unit/test_consent_repository_contract.py` | 4 | consent_repository | `Task 135A: ConsentRepository contract tests` |
-| `tests/unit/test_consent_repository_contract.py` | 26 | consent_repository | `from app.repositories.consent_repository import ConsentRepository` |
-| `tests/unit/test_consent_repository_contract.py` | 54 | consent_repository | `repo = ConsentRepository(pool)` |
-| `tests/unit/test_consent_repository_contract.py` | 68 | consent_repository | `repo = ConsentRepository(pool)` |
-| `tests/unit/test_consent_repository_contract.py` | 98 | consent_repository | `repo = ConsentRepository(pool)` |
-| `tests/unit/test_consent_repository_contract.py` | 110 | consent_repository | `repo = ConsentRepository(pool)` |
-| `tests/unit/test_consent_repository_contract.py` | 138 | consent_repository | `repo = ConsentRepository(pool)` |
-| `tests/unit/test_consent_repository_contract.py` | 167 | consent_repository | `repo = ConsentRepository(pool)` |
-| `tests/unit/test_consent_repository_contract.py` | 198 | consent_repository | `repo = ConsentRepository(pool)` |
-| `tests/unit/test_consent_repository_contract.py` | 211 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 24 | consent_repository | `from app.repositories.consent_repository import ConsentRepository` |
+| `tests/unit/test_consent_repository_contract.py` | 52 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 66 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 96 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 108 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 136 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 165 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 196 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_repository_contract.py` | 209 | consent_repository | `repo = ConsentRepository(pool)` |
+| `tests/unit/test_consent_state_machine.py` | 41 | consent_grant | `granted = c.grant("1.0.0")` |
+| `tests/unit/test_consent_state_machine.py` | 99 | consent_grant | `granted = c.grant("1.1.0")` |
+| `tests/unit/test_consent_state_machine.py` | 113 | consent_grant | `granted = c.grant("1.2.0")` |
+| `tests/unit/test_consent_state_machine.py` | 127 | consent_grant | `granted = c.grant("1.0.0")` |
+| `tests/unit/test_consent_state_machine.py` | 135 | consent_grant | `granted = c.grant("2.0.0")` |
+| `tests/unit/test_consent_state_machine.py` | 207 | require_active_consent | `"""require_active_consent must raise ConsentRequiredError when no record exists."""` |
+| `tests/unit/test_consent_state_machine.py` | 209 | consent_service | `from app.modules.consent.service import ConsentService` |
+| `tests/unit/test_consent_state_machine.py` | 214 | consent_service | `svc = ConsentService(consent_repo=mock_repo)` |
+| `tests/unit/test_consent_state_machine.py` | 214 | consent_repository | `svc = ConsentService(consent_repo=mock_repo)` |
+| `tests/unit/test_consent_state_machine.py` | 217 | require_active_consent | `await svc.require_active_consent("learner-no-consent")` |
+| `tests/unit/test_consent_state_machine.py` | 222 | require_active_consent | `"""require_active_consent must raise when consent is in WITHDRAWN state."""` |
+| `tests/unit/test_consent_state_machine.py` | 224 | consent_service | `from app.modules.consent.service import ConsentService` |
+| `tests/unit/test_consent_state_machine.py` | 249 | consent_service | `svc = ConsentService(consent_repo=mock_repo)` |
+| `tests/unit/test_consent_state_machine.py` | 249 | consent_repository | `svc = ConsentService(consent_repo=mock_repo)` |
+| `tests/unit/test_consent_state_machine.py` | 252 | require_active_consent | `await svc.require_active_consent("learner-1")` |
+| `tests/unit/test_consent_state_machine.py` | 257 | require_active_consent | `"""require_active_consent must raise ConsentExpiredError when consent is expired."""` |
+| `tests/unit/test_consent_state_machine.py` | 259 | consent_service | `from app.modules.consent.service import ConsentService` |
+| `tests/unit/test_consent_state_machine.py` | 279 | consent_service | `svc = ConsentService(consent_repo=mock_repo)` |
+| `tests/unit/test_consent_state_machine.py` | 279 | consent_repository | `svc = ConsentService(consent_repo=mock_repo)` |
+| `tests/unit/test_consent_state_machine.py` | 282 | require_active_consent | `await svc.require_active_consent("learner-expired")` |
+| `tests/unit/test_consent_state_machine.py` | 287 | require_active_consent | `"""require_active_consent must not raise when consent is active and valid."""` |
+| `tests/unit/test_consent_state_machine.py` | 288 | consent_service | `from app.modules.consent.service import ConsentService` |
+| `tests/unit/test_consent_state_machine.py` | 308 | consent_service | `svc = ConsentService(consent_repo=mock_repo)` |
+| `tests/unit/test_consent_state_machine.py` | 308 | consent_repository | `svc = ConsentService(consent_repo=mock_repo)` |
+| `tests/unit/test_consent_state_machine.py` | 309 | require_active_consent | `result = await svc.require_active_consent("learner-active")` |
 | `tests/unit/test_diagnostics_central_consent_source.py` | 17 | consent_service | `assert "ConsentService(db).require_active_consent" not in source` |
 | `tests/unit/test_diagnostics_central_consent_source.py` | 17 | require_active_consent | `assert "ConsentService(db).require_active_consent" not in source` |
 | `tests/unit/test_diagnostics_central_consent_source.py` | 18 | consent_service | `assert "from app.services.consent import ConsentService" not in source` |
@@ -488,24 +512,24 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `tests/unit/test_diagnostics_jobs_integrity_contracts.py` | 79 | consent_repository | `assert "ConsentRepository" in factory_source` |
 | `tests/unit/test_gamification_consent_gate_wiring.py` | 17 | consent_service | `assert "from app.services.consent import ConsentService" not in source` |
 | `tests/unit/test_generate_consent_gate_inventory.py` | 14 | consent_service | `assert any("ConsentService" in row.marker for row in rows)` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 17 | consent_service | `from app.modules.consent.service import ConsentService` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 68 | consent_service | `consent_service = ConsentService(db)` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 74 | consent_revoke | `count = await consent_service.revoke(` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 92 | consent_service | `consent_service = ConsentService(db)` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 100 | consent_revoke | `count = await consent_service.revoke(` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 115 | consent_service | `consent_service = ConsentService(db)` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 121 | consent_revoke | `await consent_service.revoke(` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 140 | consent_service | `consent_service = ConsentService(db)` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 146 | consent_revoke | `await consent_service.revoke(` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 167 | consent_service | `consent_service = ConsentService(db)` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 173 | consent_revoke | `count = await consent_service.revoke(` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 191 | consent_service | `consent_service = ConsentService(db)` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 197 | consent_revoke | `await consent_service.revoke(` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 347 | consent_service | `consent_service = ConsentService(db)` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 361 | require_active_consent | `# require_active_consent should raise when consent is withdrawn` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 365 | require_active_consent | `await consent_service.require_active_consent(str(learner.id))` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 374 | consent_service | `consent_service = ConsentService(db)` |
-| `tests/unit/test_guardian_consent_withdrawal.py` | 392 | require_active_consent | `await consent_service.require_active_consent(str(learner.id))` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 16 | consent_service | `from app.modules.consent.service import ConsentService` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 67 | consent_service | `consent_service = ConsentService(db)` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 73 | consent_revoke | `count = await consent_service.revoke(` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 91 | consent_service | `consent_service = ConsentService(db)` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 99 | consent_revoke | `count = await consent_service.revoke(` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 114 | consent_service | `consent_service = ConsentService(db)` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 120 | consent_revoke | `await consent_service.revoke(` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 139 | consent_service | `consent_service = ConsentService(db)` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 145 | consent_revoke | `await consent_service.revoke(` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 166 | consent_service | `consent_service = ConsentService(db)` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 172 | consent_revoke | `count = await consent_service.revoke(` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 190 | consent_service | `consent_service = ConsentService(db)` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 196 | consent_revoke | `await consent_service.revoke(` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 346 | consent_service | `consent_service = ConsentService(db)` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 360 | require_active_consent | `# require_active_consent should raise when consent is withdrawn` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 364 | require_active_consent | `await consent_service.require_active_consent(str(learner.id))` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 373 | consent_service | `consent_service = ConsentService(db)` |
+| `tests/unit/test_guardian_consent_withdrawal.py` | 391 | require_active_consent | `await consent_service.require_active_consent(str(learner.id))` |
 | `tests/unit/test_learner_read_consent_gate_wiring.py` | 17 | consent_service | `assert "from app.services.consent import ConsentService" not in source` |
 | `tests/unit/test_parent_routes_consent_gate_wiring.py` | 25 | require_active_consent | `assert "await consent_service.require_active_consent" not in source` |
 | `tests/unit/test_parent_routes_consent_gate_wiring.py` | 45 | consent_service | `assert "consent_service = ConsentService(db)" in block` |
@@ -529,11 +553,10 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `tests/unit/test_popia_data_rights_consent_boundary.py` | 25 | require_active_consent | `assert "await self.consent.require_active_consent(learner_id, actor_id=requester_id)" in block` |
 | `tests/unit/test_popia_data_rights_consent_boundary.py` | 27 | require_active_consent | `"await self.consent.require_active_consent(learner_id, actor_id=requester_id)"` |
 | `tests/unit/test_popia_data_rights_consent_boundary.py` | 46 | require_active_consent | `assert "self.consent.require_active_consent" not in dsr_section` |
-| `tests/unit/test_popia_erasure_safety.py` | 38 | parental_consents_table | `"parental_consents",` |
-| `tests/unit/test_popia_export_completeness.py` | 24 | parental_consent_model | `ParentalConsent,` |
-| `tests/unit/test_popia_export_completeness.py` | 267 | parental_consents_table | `assert "parental_consents" in payload` |
-| `tests/unit/test_popia_export_completeness.py` | 268 | parental_consents_table | `assert isinstance(payload["parental_consents"], list)` |
-| `tests/unit/test_popia_export_completeness.py` | 335 | parental_consents_table | `"parental_consents",` |
+| `tests/unit/test_popia_erasure_safety.py` | 35 | parental_consents_table | `"parental_consents",` |
+| `tests/unit/test_popia_export_completeness.py` | 255 | parental_consents_table | `assert "parental_consents" in payload` |
+| `tests/unit/test_popia_export_completeness.py` | 256 | parental_consents_table | `assert isinstance(payload["parental_consents"], list)` |
+| `tests/unit/test_popia_export_completeness.py` | 323 | parental_consents_table | `"parental_consents",` |
 | `tests/unit/test_popia_transactional_lifecycle_contracts.py` | 268 | consent_grant | `result = await service.grant(learner_id="learner-123", guardian_id="guardian-456")` |
 | `tests/unit/test_runtime_blockers_after_followup_audit.py` | 15 | consent_grant | `async def grant(self, guardian_id, learner_id, consent_version, actor_id=None):` |
 | `tests/unit/test_runtime_blockers_after_followup_audit.py` | 19 | consent_revoke | `async def revoke(self, guardian_id=None, learner_id=None, actor_id=None, reason=None):` |

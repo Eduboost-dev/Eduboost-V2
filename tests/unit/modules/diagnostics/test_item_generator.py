@@ -16,8 +16,7 @@ from __future__ import annotations
 
 import json
 import uuid
-from copy import deepcopy
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import MagicMock
 from pathlib import Path
 
 import pytest
@@ -439,7 +438,6 @@ def _patch_prompts(monkeypatch, tmp_path: Path) -> None:
         "Verify the answer for: {{ stem }}"
     )
 
-    import jinja2
     monkeypatch.setattr(
         "app.modules.diagnostics.item_generator.PROMPTS_DIR",
         prompts_dir,

@@ -25,7 +25,6 @@ from __future__ import annotations
 import logging
 import re
 from typing import Any, AsyncIterator
-from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 

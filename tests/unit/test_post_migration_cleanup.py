@@ -1,4 +1,5 @@
-import subprocess, sys
+import subprocess
+import sys
 from pathlib import Path
 def test_cleanup_runs():
     result=subprocess.run([sys.executable,"scripts/remove_proven_dead_backend_consolidation_artifacts.py"],text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)

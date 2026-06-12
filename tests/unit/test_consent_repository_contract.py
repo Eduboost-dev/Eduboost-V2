@@ -18,9 +18,7 @@ import uuid
 from datetime import datetime, timezone, timedelta
 
 import pytest
-import pytest_asyncio
-import asyncpg
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock
 
 from app.domain.consent import ConsentRecord, ConsentState
 from app.repositories.consent_repository import ConsentRepository
@@ -35,7 +33,7 @@ class TestConsentRepositoryGetActiveForLearner:
         learner_id = uuid.uuid4()
         record_id = uuid.uuid4()
         guardian_id = uuid.uuid4()
-        
+
         row = {
             "id": record_id,
             "learner_id": learner_id,
@@ -50,10 +48,10 @@ class TestConsentRepositoryGetActiveForLearner:
             "updated_at": datetime.now(timezone.utc),
         }
         pool.fetchrow = AsyncMock(return_value=row)
-        
+
         repo = ConsentRepository(pool)
         result = await repo.get_active_for_learner(learner_id)
-        
+
         assert result is not None
         assert result.id == record_id
         assert result.learner_id == learner_id
@@ -64,10 +62,10 @@ class TestConsentRepositoryGetActiveForLearner:
         """get_active_for_learner() must return None when no consent exists."""
         pool = AsyncMock()
         pool.fetchrow = AsyncMock(return_value=None)
-        
+
         repo = ConsentRepository(pool)
         result = await repo.get_active_for_learner(uuid.uuid4())
-        
+
         assert result is None
 
 
@@ -79,7 +77,7 @@ class TestConsentRepositoryGetById:
         pool = AsyncMock()
         record_id = uuid.uuid4()
         learner_id = uuid.uuid4()
-        
+
         row = {
             "id": record_id,
             "learner_id": learner_id,
@@ -94,10 +92,10 @@ class TestConsentRepositoryGetById:
             "updated_at": datetime.now(timezone.utc),
         }
         pool.fetchrow = AsyncMock(return_value=row)
-        
+
         repo = ConsentRepository(pool)
         result = await repo.get_by_id(record_id)
-        
+
         assert result is not None
         assert result.id == record_id
 
@@ -106,10 +104,10 @@ class TestConsentRepositoryGetById:
         """get_by_id() must return None when record does not exist."""
         pool = AsyncMock()
         pool.fetchrow = AsyncMock(return_value=None)
-        
+
         repo = ConsentRepository(pool)
         result = await repo.get_by_id(uuid.uuid4())
-        
+
         assert result is None
 
 
@@ -120,7 +118,7 @@ class TestConsentRepositoryCreate:
         """create() must persist consent record to database."""
         pool = AsyncMock()
         pool.execute = AsyncMock()
-        
+
         record = ConsentRecord(
             id=uuid.uuid4(),
             learner_id=uuid.uuid4(),
@@ -134,10 +132,10 @@ class TestConsentRepositoryCreate:
             created_at=datetime.now(timezone.utc),
             updated_at=datetime.now(timezone.utc),
         )
-        
+
         repo = ConsentRepository(pool)
         result = await repo.create(record)
-        
+
         assert result.id == record.id
         pool.execute.assert_awaited_once()
 
@@ -149,7 +147,7 @@ class TestConsentRepositoryUpdate:
         """update() must modify consent state and metadata."""
         pool = AsyncMock()
         pool.execute = AsyncMock()
-        
+
         record = ConsentRecord(
             id=uuid.uuid4(),
             learner_id=uuid.uuid4(),
@@ -163,10 +161,10 @@ class TestConsentRepositoryUpdate:
             created_at=datetime.now(timezone.utc),
             updated_at=datetime.now(timezone.utc),
         )
-        
+
         repo = ConsentRepository(pool)
         result = await repo.update(record)
-        
+
         assert result.id == record.id
         assert result.state == ConsentState.WITHDRAWN
         pool.execute.assert_awaited_once()
@@ -179,7 +177,7 @@ class TestConsentRepositoryListExpiringSoon:
         """list_expiring_soon() must return consents expiring within window."""
         pool = AsyncMock()
         record_id = uuid.uuid4()
-        
+
         row = {
             "id": record_id,
             "learner_id": uuid.uuid4(),
@@ -194,10 +192,10 @@ class TestConsentRepositoryListExpiringSoon:
             "updated_at": datetime.now(timezone.utc),
         }
         pool.fetch = AsyncMock(return_value=[row])
-        
+
         repo = ConsentRepository(pool)
         result = await repo.list_expiring_soon(within_days=30)
-        
+
         assert len(result) == 1
         assert result[0].id == record_id
         assert result[0].state == ConsentState.GRANTED
@@ -207,8 +205,8 @@ class TestConsentRepositoryListExpiringSoon:
         """list_expiring_soon() must return empty list when no consents expiring."""
         pool = AsyncMock()
         pool.fetch = AsyncMock(return_value=[])
-        
+
         repo = ConsentRepository(pool)
         result = await repo.list_expiring_soon(within_days=30)
-        
+
         assert len(result) == 0

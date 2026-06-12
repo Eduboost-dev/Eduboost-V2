@@ -8,8 +8,6 @@ from app.modules.lessons.lesson_schema_v1 import (
     LLMProvider,
     LessonCreate,
     LessonResponse,
-    ReviewStatus as _ReviewStatus,
-    SafetyClassification as _SafetyClassification,
     VariantType,
 )
 

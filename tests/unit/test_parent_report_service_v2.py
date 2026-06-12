@@ -17,7 +17,7 @@ async def test_build_report_raises_when_learner_not_found():
     mock_learner_repo.get_by_id = AsyncMock(return_value=None)
     mock_report_repo = AsyncMock()
     service = ParentReportServiceV2(mock_learner_repo, mock_report_repo)
-    
+
     with pytest.raises(ValueError, match="Learner not found"):
         await service.build_report("learner-123", "guardian-456")
 
@@ -31,7 +31,7 @@ async def test_build_report_raises_when_guardian_not_linked():
     mock_report_repo = AsyncMock()
     mock_report_repo.verify_guardian_link = AsyncMock(return_value=False)
     service = ParentReportServiceV2(mock_learner_repo, mock_report_repo)
-    
+
     with pytest.raises(PermissionError, match="Guardian is not linked"):
         await service.build_report("learner-123", "guardian-456")
 
@@ -50,11 +50,11 @@ async def test_build_report_generates_summary_with_weak_subjects():
     ])
     mock_report_repo.persist_report = AsyncMock(return_value="report-123")
     service = ParentReportServiceV2(mock_learner_repo, mock_report_repo)
-    
+
     with patch("app.services.parent_report_service_v2.AuditService") as mock_audit:
         mock_audit.return_value.log_event = AsyncMock()
         result = await service.build_report("learner-123", "guardian-456")
-        
+
         assert result["report_id"] == "report-123"
         assert "Priority support needed" in result["summary"]
         assert "MAT" in result["summary"]
@@ -74,11 +74,11 @@ async def test_build_report_generates_steady_summary():
     ])
     mock_report_repo.persist_report = AsyncMock(return_value="report-123")
     service = ParentReportServiceV2(mock_learner_repo, mock_report_repo)
-    
+
     with patch("app.services.parent_report_service_v2.AuditService") as mock_audit:
         mock_audit.return_value.log_event = AsyncMock()
         result = await service.build_report("learner-123", "guardian-456")
-        
+
         assert result["summary"] == "Learner is progressing steadily."
 
 
@@ -89,7 +89,7 @@ async def test_list_reports_raises_when_guardian_not_linked():
     mock_report_repo = AsyncMock()
     mock_report_repo.verify_guardian_link = AsyncMock(return_value=False)
     service = ParentReportServiceV2(mock_learner_repo, mock_report_repo)
-    
+
     with pytest.raises(PermissionError, match="Guardian is not linked"):
         await service.list_reports("learner-123", "guardian-456")
 
@@ -105,8 +105,8 @@ async def test_list_reports_returns_reports():
         {"report_id": "report-2", "summary": "Test 2"},
     ])
     service = ParentReportServiceV2(mock_learner_repo, mock_report_repo)
-    
+
     result = await service.list_reports("learner-123", "guardian-456")
-    
+
     assert len(result) == 2
     assert result[0]["report_id"] == "report-1"

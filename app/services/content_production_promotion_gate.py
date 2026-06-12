@@ -69,16 +69,16 @@ class ContentProductionPromotionGate:
         """Evaluate a scope for production eligibility."""
         layers = [ContentLayer(layer) for layer in (layers or list(ContentLayer))]
         blockers: list[ProductionGateBlocker] = []
-        
+
         # Check coverage
         coverage_summary = await self._check_coverage(session, scope_id, layers, blockers)
-        
+
         # Check staging verification
         staging_summary = await self._check_staging_verification(session, scope_id, layers, blockers)
-        
+
         # Check artifact status and validation
         await self._check_artifact_status(session, scope_id, layers, blockers)
-        
+
         # Determine overall status
         if blockers:
             # Determine primary blocker type
@@ -101,7 +101,7 @@ class ContentProductionPromotionGate:
                 status = ProductionGateStatus.BLOCKED_BY_CONFIGURATION
         else:
             status = ProductionGateStatus.PROMOTABLE
-        
+
         return ProductionGateReport(
             scope_id=scope_id,
             status=status,
@@ -136,11 +136,11 @@ class ContentProductionPromotionGate:
     ) -> dict[str, Any]:
         """Check that coverage targets are green."""
         summary = {}
-        
+
         for layer in layers:
             coverage = await self.coverage_service.get_coverage(session, scope_id, layer)
             layer_name = layer.value if isinstance(layer, ContentLayer) else layer
-            
+
             if coverage.status != CoverageLayerStatus.GREEN:
                 blockers.append(
                     ProductionGateBlocker(
@@ -148,13 +148,13 @@ class ContentProductionPromotionGate:
                         message=f"Coverage for layer {layer_name} is {coverage.status.value}, not GREEN",
                     )
                 )
-            
+
             summary[layer_name] = {
                 "status": coverage.status.value,
                 "coverage_percentage": coverage.coverage_percentage,
                 "target_percentage": coverage.target_percentage,
             }
-        
+
         return summary
 
     async def _check_staging_verification(
@@ -166,7 +166,7 @@ class ContentProductionPromotionGate:
     ) -> dict[str, Any]:
         """Check that staging seed exists and passed read verification."""
         summary = {}
-        
+
         # Find the latest successful staging seed run for this scope
         result = await session.execute(
             select(ContentStagingSeedItem)
@@ -176,9 +176,9 @@ class ContentProductionPromotionGate:
                 ContentStagingSeedItem.status == "seeded",
             )
         )
-        
+
         seeded_items = result.scalars().all()
-        
+
         if not seeded_items:
             blockers.append(
                 ProductionGateBlocker(
@@ -187,7 +187,7 @@ class ContentProductionPromotionGate:
                 )
             )
             return summary
-        
+
         # Check that staging artifacts are in active state
         for item in seeded_items:
             staging_artifact = await session.execute(
@@ -196,7 +196,7 @@ class ContentProductionPromotionGate:
                 )
             )
             artifact = staging_artifact.scalar_one_or_none()
-            
+
             if not artifact:
                 blockers.append(
                     ProductionGateBlocker(
@@ -207,7 +207,7 @@ class ContentProductionPromotionGate:
                     )
                 )
                 continue
-            
+
             if artifact.staging_status != "active":
                 blockers.append(
                     ProductionGateBlocker(
@@ -217,12 +217,12 @@ class ContentProductionPromotionGate:
                         caps_ref=item.caps_ref,
                     )
                 )
-        
+
         summary = {
             "seeded_count": len(seeded_items),
             "scope_id": scope_id,
         }
-        
+
         return summary
 
     async def _check_artifact_status(
@@ -241,9 +241,9 @@ class ContentProductionPromotionGate:
                 ContentGenerationArtifact.content_layer.in_(layer_values),
             )
         )
-        
+
         artifacts = result.scalars().all()
-        
+
         for artifact in artifacts:
             # Check artifact status
             if artifact.status != ContentArtifactStatus.APPROVED:
@@ -256,7 +256,7 @@ class ContentProductionPromotionGate:
                     )
                 )
                 continue
-            
+
             # Check provenance evidence
             source_count_result = await session.execute(
                 select(ContentArtifactSource).where(
@@ -290,7 +290,7 @@ class ContentProductionPromotionGate:
                     )
                 )
                 continue
-            
+
             # Check validation report
             validation_result = await session.execute(
                 select(ContentValidationReport).where(
@@ -298,7 +298,7 @@ class ContentProductionPromotionGate:
                 )
             )
             validation_report = validation_result.scalar_one_or_none()
-            
+
             if not validation_report:
                 blockers.append(
                     ProductionGateBlocker(
@@ -309,7 +309,7 @@ class ContentProductionPromotionGate:
                     )
                 )
                 continue
-            
+
             if not validation_report.passed:
                 blockers.append(
                     ProductionGateBlocker(

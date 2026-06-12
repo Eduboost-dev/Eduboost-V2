@@ -9,10 +9,8 @@ Verifies that all stages work correctly in sequence:
   4. TrainingRecord → to_openai_format() & to_anthropic_format()
 """
 
-import json
-from datetime import datetime
 
-from scripts.ingestion.models import RawContent, ContentType
+from scripts.ingestion.models import RawContent
 from scripts.ingestion.pipeline.normaliser import normalise, reset_dedup_cache
 from scripts.ingestion.pipeline.caps_aligner import align
 from scripts.ingestion.pipeline.training_formatter import format_record
@@ -20,14 +18,14 @@ from scripts.ingestion.pipeline.training_formatter import format_record
 
 def test_full_pipeline():
     """Test all 4 stages with a sample content item."""
-    
+
     print("\n" + "="*80)
     print("PIPELINE STAGE TEST: RawContent → Training Record")
     print("="*80)
-    
+
     # Reset dedup cache
     reset_dedup_cache()
-    
+
     # ── Stage 0: Create sample RawContent ────────────────────────────────────
     print("\n[0] Creating sample RawContent...")
     raw = RawContent(
@@ -59,21 +57,21 @@ def test_full_pipeline():
         license="CC BY 4.0",
         language="en",
     )
-    
+
     print(f"   Source: {raw.source_id}")
     print(f"   Title: {raw.metadata.get('title')}")
     print(f"   Grade: {raw.metadata.get('grade')}")
     print(f"   Content length: {len(raw.raw_text)} chars")
-    
+
     # ── Stage 1: Normalise ───────────────────────────────────────────────────
     print("\n[1] Running Normaliser (Stage 1)...")
     norm = normalise(raw)
-    
+
     if norm is None:
         print("   ❌ FAILED: normalise() returned None")
         return False
-    
-    print(f"   ✅ Normalised content:")
+
+    print("   ✅ Normalised content:")
     print(f"      • Title: {norm.title[:60]}...")
     print(f"      • Subject: {norm.subject}")
     print(f"      • Grade: {norm.grade}")
@@ -81,48 +79,48 @@ def test_full_pipeline():
     print(f"      • Difficulty: {norm.difficulty.value}")
     print(f"      • Language: {norm.language}")
     print(f"      • Confidence: {norm.confidence_score:.2f}")
-    
+
     # ── Stage 2: CAPS Align ──────────────────────────────────────────────────
     print("\n[2] Running CAPS Aligner (Stage 2)...")
     aligned = align(norm)
-    
-    print(f"   ✅ CAPS-aligned content:")
+
+    print("   ✅ CAPS-aligned content:")
     print(f"      • CAPS Phase: {aligned.caps_phase}")
     print(f"      • CAPS Subject: {aligned.caps_subject}")
     print(f"      • CAPS Topic Code: {aligned.caps_topic_code}")
     print(f"      • Learning Outcome: {aligned.caps_learning_outcome[:60] if aligned.caps_learning_outcome else 'None'}...")
-    
+
     # ── Stage 3: Training Formatter ──────────────────────────────────────────
     print("\n[3] Running Training Formatter (Stage 3)...")
     training = format_record(aligned)
-    
+
     if training is None:
         print("   ❌ FAILED: format_record() returned None")
         return False
-    
-    print(f"   ✅ Training record created:")
+
+    print("   ✅ Training record created:")
     print(f"      • System prompt: {training.system[:60]}...")
     print(f"      • User message: {training.user[:60]}...")
     print(f"      • Assistant response: {training.assistant[:60]}...")
-    
+
     # ── Stage 4: Export Formats ──────────────────────────────────────────────
     print("\n[4] Exporting training formats...")
-    
+
     openai_fmt = training.to_openai_format()
-    print(f"   ✅ OpenAI format (messages array):")
+    print("   ✅ OpenAI format (messages array):")
     print(f"      • Roles: {[m['role'] for m in openai_fmt['messages']]}")
     print(f"      • Total chars: {sum(len(m['content']) for m in openai_fmt['messages'])}")
-    
+
     anthropic_fmt = training.to_anthropic_format()
-    print(f"\n   ✅ Anthropic format (system + messages):")
+    print("\n   ✅ Anthropic format (system + messages):")
     print(f"      • Has system: {bool(anthropic_fmt.get('system'))}")
     print(f"      • Message roles: {[m['role'] for m in anthropic_fmt['messages']]}")
-    
+
     # ── Summary ──────────────────────────────────────────────────────────────
     print("\n" + "="*80)
     print("RESULT: ✅ ALL STAGES PASSED")
     print("="*80)
-    print(f"""
+    print("""
     Pipeline completed successfully:
     
     Stage 1 (Normaliser):
@@ -151,7 +149,7 @@ def test_full_pipeline():
       3. Store results in PostgreSQL
       4. Export training JSONL for LLM fine-tuning
     """)
-    
+
     return True
 
 

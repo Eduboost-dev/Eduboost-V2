@@ -24,7 +24,7 @@ from __future__ import annotations
 
 import re
 import logging
-from typing import Any, Optional
+from typing import Optional
 
 logger = logging.getLogger(__name__)
 

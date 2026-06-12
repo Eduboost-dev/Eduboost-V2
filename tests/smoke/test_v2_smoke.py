@@ -5,7 +5,6 @@ Replaces the shallow importlib-only check in the legacy CI job.
 """
 from __future__ import annotations
 
-import pytest
 from fastapi.testclient import TestClient
 
 from app.api_v2 import app

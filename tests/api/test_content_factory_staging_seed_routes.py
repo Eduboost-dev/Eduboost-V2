@@ -14,13 +14,13 @@ from app.core.security import get_current_user
 class FakeSession:
     async def commit(self):
         return None
-        
+
 class FakeVerificationService:
     async def verify_seed_run(self, session, seed_run_id, actor_id=None):
         return SimpleNamespace(seed_run_id=seed_run_id, passed=True, verified_count=1, errors=[])
     async def verify_scope_staging(self, session, scope_id):
         return SimpleNamespace(scope_id=scope_id, passed=True, staged_artifacts_count=1, errors=[])
-        
+
 class FakeSeedExecutor:
     async def dry_run_seed(self, session, scope_id, actor_id=None):
         return SimpleNamespace(scope_id=scope_id, layers=["test"], seedable=[], skipped=[])

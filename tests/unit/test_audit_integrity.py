@@ -4,15 +4,10 @@ tests/unit/test_audit_integrity.py
 """
 from __future__ import annotations
 
-import json
-import uuid
-from unittest.mock import AsyncMock, MagicMock, patch
 
-import pytest
 
 from app.domain.consent import AuditEventType
 from app.repositories.audit_repository import (
-    AuditRepository,
     _compute_hash,
     _compute_hmac,
     configure_hmac_secret,

@@ -22,7 +22,6 @@ from app.models.content_factory import (
     ContentGenerationArtifact,
     ContentReviewAction,
     ContentValidationReport,
-    ContentGenerationRun,
     ContentGenerationTask,
 )
 from app.services.content_factory import ContentFactoryService

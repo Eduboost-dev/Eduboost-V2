@@ -1,5 +1,6 @@
 from __future__ import annotations
-import csv, re
+import csv
+import re
 from collections import Counter, defaultdict
 from pathlib import Path
 

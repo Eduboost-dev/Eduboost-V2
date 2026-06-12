@@ -22,7 +22,7 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from app.modules.lessons.lesson_generator import LessonGenerator, LessonGenerationError
+from app.modules.lessons.lesson_generator import LessonGenerator
 from app.modules.lessons.lesson_validator import LessonValidator, ValidationResult
 from app.modules.lessons.caps_topic_map_service import CapsTopicMapService
 

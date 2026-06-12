@@ -1,11 +1,10 @@
 from __future__ import annotations
-from unittest.mock import AsyncMock
 import pytest
 pytestmark = pytest.mark.integration
 
 """HTTP contract tests for consent-grant authorization."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from types import SimpleNamespace
 from typing import Any
 from uuid import UUID

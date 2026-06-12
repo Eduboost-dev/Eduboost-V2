@@ -28,13 +28,11 @@ from __future__ import annotations
 import argparse
 import ast
 import json
-import os
 import re
 import sys
 import textwrap
 from dataclasses import dataclass, asdict, field
 from pathlib import Path
-from typing import Optional
 import datetime
 
 try:

@@ -1,14 +1,14 @@
 # Backend Consolidation Diagnostic Report
 
-Generated at: `2026-06-09T23:45:56Z`
+Generated at: `2026-06-12T17:34:40Z`
 
 | Check | Return code | Command |
 |---|---:|---|
-| backend dragons | 0 | `/usr/bin/python3 scripts/check_backend_consolidation_dragons.py` |
-| audit inventory | 0 | `/usr/bin/python3 scripts/generate_audit_callsite_inventory.py --fail-empty` |
-| consent inventory | 0 | `/usr/bin/python3 scripts/generate_consent_callsite_inventory.py --fail-empty` |
-| health readiness contract | 0 | `/usr/bin/python3 scripts/check_health_readiness_contract.py` |
-| schema drift contract | 0 | `/usr/bin/python3 scripts/check_schema_drift_contract.py` |
+| backend dragons | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_dragons.py` |
+| audit inventory | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty` |
+| consent inventory | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty` |
+| health readiness contract | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py` |
+| schema drift contract | 0 | `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_schema_drift_contract.py` |
 
 ## Interpretation
 
@@ -19,13 +19,13 @@ Generated at: `2026-06-09T23:45:56Z`
 
 ## backend dragons
 
-Command: `/usr/bin/python3 scripts/check_backend_consolidation_dragons.py`
+Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_backend_consolidation_dragons.py`
 
 Return code: `0`
 
 ```text
 Backend consolidation dragon diagnostic
-- audit_repository: 50 match(es)
+- audit_repository: 49 match(es)
   - app/core/audit.py
   - app/modules/consent/service.py
   - app/repositories/__init__.py
@@ -38,7 +38,7 @@ Backend consolidation dragon diagnostic
   - app/services/popia_service.py
   - scripts/audit_write_flow_command.py
   - scripts/check_auth_service_extraction.py
-  - ... 9 more file(s)
+  - ... 8 more file(s)
 - audit_events: 151 match(es)
   - alembic/versions/0006_v2_audit_events.py
   - alembic/versions/20260507_1200_popia_consent_audit_hardening.py
@@ -94,7 +94,7 @@ Backend consolidation dragon diagnostic
   - scripts/check_first_audit_runtime_wiring_no_destructive_actions.py
   - scripts/check_runtime_wiring_no_destructive_actions.py
   - ... 7 more file(s)
-- consent_service: 167 match(es)
+- consent_service: 174 match(es)
   - app/api_v2_deps/consent_lifecycle.py
   - app/api_v2_routers/consent.py
   - app/api_v2_routers/learners.py
@@ -107,7 +107,7 @@ Backend consolidation dragon diagnostic
   - app/modules/lessons/service.py
   - app/security/dependencies.py
   - app/services/consent.py
-  - ... 39 more file(s)
+  - ... 40 more file(s)
 - deep_health: 42 match(es)
   - app/api_v2.py
   - app/core/health.py
@@ -127,27 +127,27 @@ Backend consolidation dragon diagnostic
 
 ## audit inventory
 
-Command: `/usr/bin/python3 scripts/generate_audit_callsite_inventory.py --fail-empty`
+Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/generate_audit_callsite_inventory.py --fail-empty`
 
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/Development/Eduboost-V2/docs/release/audit_callsite_inventory.md (3152 row(s))
+Wrote /home/nkgolol/Dev/Development/Eduboost-V2/docs/release/audit_callsite_inventory.md (3161 row(s))
 ```
 
 ## consent inventory
 
-Command: `/usr/bin/python3 scripts/generate_consent_callsite_inventory.py --fail-empty`
+Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/generate_consent_callsite_inventory.py --fail-empty`
 
 Return code: `0`
 
 ```text
-Wrote /home/nkgolol/Dev/Development/Eduboost-V2/docs/release/consent_callsite_inventory.md (575 row(s))
+Wrote /home/nkgolol/Dev/Development/Eduboost-V2/docs/release/consent_callsite_inventory.md (598 row(s))
 ```
 
 ## health readiness contract
 
-Command: `/usr/bin/python3 scripts/check_health_readiness_contract.py`
+Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_health_readiness_contract.py`
 
 Return code: `0`
 
@@ -171,7 +171,7 @@ Health/readiness diagnostic contract check
 
 ## schema drift contract
 
-Command: `/usr/bin/python3 scripts/check_schema_drift_contract.py`
+Command: `/home/nkgolol/Dev/Development/Eduboost-V2/.venv/bin/python scripts/check_schema_drift_contract.py`
 
 Return code: `0`
 

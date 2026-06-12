@@ -192,7 +192,7 @@ class ItemBankRepository:
                     "human_reviewed": 0,
                     "retired": 0,
                 }
-            
+
             # Map status enum value to dict key
             status_key = status.value if hasattr(status, "value") else str(status)
             summary[caps_ref]["total"] += cnt

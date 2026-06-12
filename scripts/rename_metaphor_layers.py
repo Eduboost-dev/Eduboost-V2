@@ -208,7 +208,7 @@ def main() -> int:
     print(f"  Metaphor Layer Inventory — {len(new_hits)} new reference(s) found")
     if baseline_count:
         print(f"  Baseline accounted for {baseline_count} known reference(s)")
-    print(f"  Run with --apply to rename in-place.")
+    print("  Run with --apply to rename in-place.")
     print(f"{'='*60}\n")
     print(f"  {'Metaphor term':<20} {'Canonical name':<20}")
     print(f"  {'-'*18}   {'-'*18}")

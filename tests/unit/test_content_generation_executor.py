@@ -5,7 +5,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from app.models.content_factory import ContentGenerationRun, ContentGenerationTask, ContentLayer
+from app.models.content_factory import ContentGenerationTask, ContentLayer
 from app.services.content_generation.provider_factory import GenerationSettings
 from app.services.content_generation.prompt_payloads import SourceContextChunk
 from app.services.content_generation.source_context import SourceContextResult
@@ -114,11 +114,11 @@ async def test_invalid_generated_artifact_enters_validation_failed() -> None:
             )]
         async def generate_lessons(self, request):
             return []
-    
+
     import app.services.content_generation_executor as module
     original = module.get_content_generation_provider
     module.get_content_generation_provider = lambda settings: BadProvider()
-    
+
     try:
         task = _task()
         session = Session(task)

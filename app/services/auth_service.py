@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hmac
 
 def get_v2_settings():
     """Compatibility settings hook used by legacy unit tests."""
@@ -39,13 +38,11 @@ from app.core.password import (
 )
 from app.core.token_config import (
     TokenPair,
-    add_persistent_revocation_fallback,
     create_access_token,
     create_refresh_token,
     is_family_revoked,
     revoke_jti,
     revoke_token_family,
-    verify_access_token,
 )
 
 logger = logging.getLogger("eduboost.auth")

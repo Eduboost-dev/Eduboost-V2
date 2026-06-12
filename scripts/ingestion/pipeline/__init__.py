@@ -257,10 +257,6 @@ class Pipeline:
 
 # ── Re-exports ────────────────────────────────────────────────────────────────
 
-from scripts.ingestion.pipeline.caps_aligner import align          # noqa: F401, E402
-from scripts.ingestion.pipeline.normaliser import normalise        # noqa: F401, E402
-from scripts.ingestion.pipeline.storage import StorageLayer        # noqa: F401, E402
-from scripts.ingestion.pipeline.training_formatter import format_record  # noqa: F401, E402
 
 __all__ = [
     "Pipeline",

@@ -1,1 +1,0 @@
-from tests.api.test_content_factory_artifact_routes import test_admin_can_approve_artifact_route as test_admin_can_list_review_action

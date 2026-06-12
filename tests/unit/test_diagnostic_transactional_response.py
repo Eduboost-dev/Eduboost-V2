@@ -5,7 +5,6 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from unittest.mock import AsyncMock, MagicMock
-from uuid import uuid4
 
 import pytest
 
@@ -181,24 +180,24 @@ async def test_submit_response_raises_after_response_insert():
     """Verify submit_response raises when fail_after_response is True."""
     mock_session = AsyncMock()
     mock_session.begin = MagicMock()
-    
+
     # Simulate transaction context that raises error after first execute
     execute_count = [0]
-    
+
     async def mock_execute(statement):
         execute_count[0] += 1
         if execute_count[0] == 1:
             return  # First execute (response insert) succeeds
         raise DiagnosticTransactionError("simulated failure after diagnostic response insert")
-    
+
     mock_session.execute = mock_execute
-    
+
     async def mock_aenter(*args, **kwargs):
         return mock_session
 
     async def mock_aexit(*args, **kwargs):
         return None
-    
+
     mock_session.begin().__aenter__ = mock_aenter
     mock_session.begin().__aexit__ = mock_aexit
 
@@ -239,24 +238,24 @@ async def test_submit_response_raises_after_mastery_insert():
     """Verify submit_response raises when fail_after_mastery is True."""
     mock_session = AsyncMock()
     mock_session.begin = MagicMock()
-    
+
     # Simulate transaction context that raises error after second execute
     execute_count = [0]
-    
+
     async def mock_execute(statement):
         execute_count[0] += 1
         if execute_count[0] == 2:
             raise DiagnosticTransactionError("simulated failure after mastery update")
         return  # First execute (response insert) succeeds
-    
+
     mock_session.execute = mock_execute
-    
+
     async def mock_aenter(*args, **kwargs):
         return mock_session
 
     async def mock_aexit(*args, **kwargs):
         return None
-    
+
     mock_session.begin().__aenter__ = mock_aenter
     mock_session.begin().__aexit__ = mock_aexit
 
@@ -297,24 +296,24 @@ async def test_submit_response_raises_after_audit_insert():
     """Verify submit_response raises when fail_after_audit is True."""
     mock_session = AsyncMock()
     mock_session.begin = MagicMock()
-    
+
     # Simulate transaction context that raises error after third execute
     execute_count = [0]
-    
+
     async def mock_execute(statement):
         execute_count[0] += 1
         if execute_count[0] == 3:
             raise DiagnosticTransactionError("simulated failure after diagnostic audit event insert")
         return  # First two executes succeed
-    
+
     mock_session.execute = mock_execute
-    
+
     async def mock_aenter(*args, **kwargs):
         return mock_session
 
     async def mock_aexit(*args, **kwargs):
         return None
-    
+
     mock_session.begin().__aenter__ = mock_aenter
     mock_session.begin().__aexit__ = mock_aexit
 

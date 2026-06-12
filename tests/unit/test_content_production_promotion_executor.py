@@ -1,9 +1,7 @@
 """Unit tests for production promotion executor service."""
 from __future__ import annotations
 
-import uuid
 
-import pytest
 
 from app.services.content_production_promotion_executor import (
     ContentProductionPromotionExecutor,

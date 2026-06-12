@@ -3,7 +3,7 @@ Unit tests for QuotaService and SemanticCacheService.
 """
 from __future__ import annotations
 
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock, patch
 
 import pytest
 
@@ -21,7 +21,7 @@ def test_quota_key_formats_with_date():
     """Verify _quota_key formats Redis key with current date."""
     mock_redis = AsyncMock()
     service = QuotaService(mock_redis)
-    
+
     with patch("app.services.quota_service.datetime") as mock_datetime:
         mock_datetime.now.return_value.strftime.return_value = "2026-05-28"
         key = service._quota_key("guardian-123")
@@ -34,9 +34,9 @@ async def test_check_and_reserve_raises_429_when_quota_exceeded():
     mock_redis = AsyncMock()
     mock_redis.incrby = AsyncMock(return_value=15000)
     mock_redis.decrby = AsyncMock()
-    
+
     service = QuotaService(mock_redis)
-    
+
     with patch("app.services.quota_service.settings") as mock_settings:
         mock_settings.daily_token_quota_free = 10000
         with pytest.raises(Exception):  # HTTPException
@@ -49,9 +49,9 @@ async def test_check_and_reserve_sets_expiry_on_first_increment():
     mock_redis = AsyncMock()
     mock_redis.incrby = AsyncMock(return_value=5000)
     mock_redis.expire = AsyncMock()
-    
+
     service = QuotaService(mock_redis)
-    
+
     with patch("app.services.quota_service.settings") as mock_settings:
         mock_settings.daily_token_quota_free = 10000
         await service.check_and_reserve("guardian-123", 5000, "free")
@@ -63,10 +63,10 @@ async def test_get_usage_returns_zero_when_no_data():
     """Verify get_usage returns (0, 0) when no quota data exists."""
     mock_redis = AsyncMock()
     mock_redis.get = AsyncMock(return_value=None)
-    
+
     service = QuotaService(mock_redis)
     tokens, reqs = await service.get_usage("guardian-123")
-    
+
     assert tokens == 0
     assert reqs == 0
 
@@ -76,10 +76,10 @@ async def test_get_usage_returns_values_from_redis():
     """Verify get_usage returns parsed values from Redis."""
     mock_redis = AsyncMock()
     mock_redis.get = AsyncMock(side_effect=["5000", "10"])
-    
+
     service = QuotaService(mock_redis)
     tokens, reqs = await service.get_usage("guardian-123")
-    
+
     assert tokens == 5000
     assert reqs == 10
 
@@ -90,10 +90,10 @@ async def test_increment_requests_increments_counter():
     mock_redis = AsyncMock()
     mock_redis.incr = AsyncMock()
     mock_redis.expire = AsyncMock()
-    
+
     service = QuotaService(mock_redis)
     await service.increment_requests("guardian-123")
-    
+
     mock_redis.incr.assert_called_once()
     mock_redis.expire.assert_called_once()
 
@@ -157,7 +157,7 @@ async def test_semantic_cache_get_returns_none_when_disabled():
     """Verify get returns None when semantic cache disabled."""
     mock_redis = AsyncMock()
     service = SemanticCacheService(mock_redis)
-    
+
     with patch("app.services.quota_service.settings") as mock_settings:
         mock_settings.semantic_cache_enabled = False
         result = await service.get("cache-key-123")
@@ -185,7 +185,7 @@ async def test_semantic_cache_set_skips_when_disabled():
     mock_redis = AsyncMock()
     mock_redis.setex = AsyncMock()
     service = SemanticCacheService(mock_redis)
-    
+
     with patch("app.services.quota_service.settings") as mock_settings:
         mock_settings.semantic_cache_enabled = False
         await service.set("cache-key-123", '{"lesson": "data"}')
@@ -214,9 +214,9 @@ async def test_check_and_reserve_uses_premium_limit():
     mock_redis = AsyncMock()
     mock_redis.incrby = AsyncMock(return_value=5000)
     mock_redis.expire = AsyncMock()
-    
+
     service = QuotaService(mock_redis)
-    
+
     with patch("app.services.quota_service.settings") as mock_settings:
         mock_settings.daily_token_quota_premium = 50000
         mock_settings.daily_token_quota_free = 10000
@@ -249,9 +249,9 @@ async def test_check_and_reserve_allows_exact_limit():
     mock_redis = AsyncMock()
     mock_redis.incrby = AsyncMock(return_value=10000)
     mock_redis.expire = AsyncMock()
-    
+
     service = QuotaService(mock_redis)
-    
+
     with patch("app.services.quota_service.settings") as mock_settings:
         mock_settings.daily_token_quota_free = 10000
         await service.check_and_reserve("guardian-123", 10000, "free")
@@ -264,7 +264,7 @@ async def test_semantic_cache_get_returns_none_on_miss():
     mock_redis = AsyncMock()
     mock_redis.get = AsyncMock(return_value=None)
     service = SemanticCacheService(mock_redis)
-    
+
     with patch("app.services.quota_service.settings") as mock_settings:
         mock_settings.semantic_cache_enabled = True
         result = await service.get("cache-key-123")
@@ -277,7 +277,7 @@ async def test_semantic_cache_get_handles_string_response():
     mock_redis = AsyncMock()
     mock_redis.get = AsyncMock(return_value='{"lesson": "data"}')
     service = SemanticCacheService(mock_redis)
-    
+
     with patch("app.services.quota_service.settings") as mock_settings:
         mock_settings.semantic_cache_enabled = True
         result = await service.get("cache-key-123")
@@ -290,7 +290,7 @@ async def test_semantic_cache_set_with_custom_ttl():
     mock_redis = AsyncMock()
     mock_redis.setex = AsyncMock()
     service = SemanticCacheService(mock_redis)
-    
+
     with patch("app.services.quota_service.settings") as mock_settings:
         mock_settings.semantic_cache_enabled = True
         mock_settings.redis_cache_ttl_seconds = 7200
@@ -303,10 +303,10 @@ async def test_get_usage_with_only_tokens():
     """Verify get_usage handles case with tokens but no request count."""
     mock_redis = AsyncMock()
     mock_redis.get = AsyncMock(side_effect=["5000", None])
-    
+
     service = QuotaService(mock_redis)
     tokens, reqs = await service.get_usage("guardian-123")
-    
+
     assert tokens == 5000
     assert reqs == 0
 
@@ -316,10 +316,10 @@ async def test_get_usage_with_only_requests():
     """Verify get_usage handles case with requests but no token count."""
     mock_redis = AsyncMock()
     mock_redis.get = AsyncMock(side_effect=[None, "10"])
-    
+
     service = QuotaService(mock_redis)
     tokens, reqs = await service.get_usage("guardian-123")
-    
+
     assert tokens == 0
     assert reqs == 10
 
@@ -364,9 +364,9 @@ async def test_check_and_reserve_does_not_set_expiry_on_subsequent_increment():
     mock_redis = AsyncMock()
     mock_redis.incrby = AsyncMock(return_value=10000)  # Not first increment
     mock_redis.expire = AsyncMock()
-    
+
     service = QuotaService(mock_redis)
-    
+
     with patch("app.services.quota_service.settings") as mock_settings:
         mock_settings.daily_token_quota_free = 15000
         await service.check_and_reserve("guardian-123", 5000, "free")
@@ -379,10 +379,10 @@ async def test_increment_requests_sets_expiry():
     mock_redis = AsyncMock()
     mock_redis.incr = AsyncMock()
     mock_redis.expire = AsyncMock()
-    
+
     service = QuotaService(mock_redis)
     await service.increment_requests("guardian-123")
-    
+
     mock_redis.expire.assert_called_once()
 
 
@@ -392,9 +392,9 @@ async def test_check_and_reserve_raises_with_correct_error_details():
     mock_redis = AsyncMock()
     mock_redis.incrby = AsyncMock(return_value=15000)
     mock_redis.decrby = AsyncMock()
-    
+
     service = QuotaService(mock_redis)
-    
+
     with patch("app.services.quota_service.settings") as mock_settings:
         mock_settings.daily_token_quota_free = 10000
         from fastapi import HTTPException

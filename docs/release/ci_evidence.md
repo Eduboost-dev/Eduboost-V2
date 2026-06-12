@@ -1,27 +1,35 @@
-# CI Evidence
+# CI Authority Evidence
+
+**Item:** CI-001
 
 Status: pending remote CI verification
 
-**Status:** pending remote CI verification
+**Status:** external-blocked
 
-| Field | Value |
-|---|---|
-| GitHub Actions run URL | PENDING |
-| Commit SHA | PENDING |
-| Branch | PENDING |
-| Result | PENDING |
-| Test summary | PENDING |
-| Captured at | 2026-06-05T20:19:19Z |
+This file must be updated with an actual GitHub Actions run URL before CI-001 can move beyond `external-blocked`.
 
-## Usage
+## Required evidence
 
-```bash
-GITHUB_ACTIONS_RUN_URL=https://github.com/<owner>/<repo>/actions/runs/<id> \
-CI_RESULT=success \
-CI_COMMIT_SHA=<sha> \
-CI_BRANCH=codex/production_readiness \
-make remote-ci-evidence-capture
-```
+**Repository:** NkgoloL/Eduboost-V2
 
-## Checklists
-- Route alias policy: pending verification
+**Branch:** codex/production_readiness
+
+**Commit SHA:** pending
+
+**GitHub Actions run URL:** pending
+
+**Result:** pending
+
+**Workflow:** pending
+
+**Verified by:** pending
+
+**Date verified:** pending
+
+**Route alias policy:** pending
+
+**Notes:** pending
+
+## No false closure rule
+
+Local command success is not remote CI authority. CI-001 remains `external-blocked` until an actual GitHub Actions run URL and passing result metadata are attached.

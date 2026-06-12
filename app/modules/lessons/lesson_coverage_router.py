@@ -6,7 +6,7 @@ from typing import Any
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel, Field
 
-from app.domain.content_coverage import ContentLayer, coverage_status
+from app.domain.content_coverage import ContentLayer
 from app.modules.diagnostics.item_bank_service import DEFAULT_CONTENT_SCOPE_ID
 from app.modules.lessons.caps_topic_map_service import CAPSTopicMapService, get_caps_topic_map_service
 from app.repositories.lesson_repository import LessonRepository, get_lesson_repository

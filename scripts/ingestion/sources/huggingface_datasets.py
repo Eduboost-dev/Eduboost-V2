@@ -22,7 +22,7 @@ import json
 import logging
 from typing import Any, AsyncIterator
 
-from scripts.ingestion.config import SOURCES, HF_DATASETS
+from scripts.ingestion.config import HF_DATASETS
 from scripts.ingestion.models import RawContent
 from scripts.ingestion.sources.base import BaseScraper
 

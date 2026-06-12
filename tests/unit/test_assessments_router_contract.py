@@ -92,7 +92,7 @@ def test_submit_attempt_delegates_with_authz_and_consent(monkeypatch: pytest.Mon
     client = TestClient(app, raise_server_exceptions=True)
 
     response = client.post(
-        f"/api/v2/assessments/quiz-1/attempt",
+        "/api/v2/assessments/quiz-1/attempt",
         json={
             "learner_id": LEARNER_ID,
             "responses": [{"item_id": "q1", "selected_option": "A"}],

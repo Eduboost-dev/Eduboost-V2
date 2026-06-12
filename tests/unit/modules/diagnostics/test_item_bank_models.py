@@ -7,13 +7,11 @@ Adapted for Phase 2 schema changes.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
 from typing import Any
 
 import pytest
 from pydantic import ValidationError
 from sqlalchemy import inspect as sa_inspect
-from sqlalchemy.orm import RelationshipProperty
 
 from app.domain.item_schema import (
     ItemCreate,
