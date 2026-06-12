@@ -38,6 +38,8 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: '20'
+          cache: 'pnpm'
+          cache-dependency-path: app/frontend/pnpm-lock.yaml
 
       - name: Install Python dependencies
         run: |
@@ -46,7 +48,10 @@ jobs:
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
 
-      - name: Install Node dependencies (pnpm)
+      - name: Install root dependencies (Playwright, Supabase)
+        run: pnpm install
+
+      - name: Install frontend dependencies
         working-directory: app/frontend
         run: pnpm install --frozen-lockfile
 

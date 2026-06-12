@@ -169,7 +169,19 @@ Complete frontend and product-related tasks: E2E suite fix, content roadmap, loa
 | E2E CI used `npm` instead of `pnpm` | Fixed workflow to use `pnpm/action-setup@v4` |
 | E2E CI ran from wrong directory | Fixed: pnpm install from `app/frontend/`, Playwright from root |
 | E2E CI hid failures with `\|\| true` | Removed; workflow now fails on test failures |
+| E2E CI: missing pnpm cache config | Added `cache: pnpm` + `cache-dependency-path: app/frontend/pnpm-lock.yaml` |
+| E2E CI: root deps not installed (Playwright) | Added explicit root `pnpm install` step |
 | `.env.example` referenced old ADR | Updated to point to `docs/adr/ADR-029-supabase-auth-strategy.md` |
+
+### Cross-Phase Fixes (Phase 12 workflows on `master`)
+
+| Issue | Fix Applied |
+|-------|-------------|
+| `secrets-scan.yml` used `jq` (not installed) | Replaced with `python3 -m json.tool` |
+| `dependency-scan.yml` used `npm ci` (frontend uses pnpm) | Converted to `pnpm/action-setup@v4` + `pnpm install --frozen-lockfile` |
+| `dependency-scan.yml` typo: `requireants` | Fixed to `requirements` |
+| `dependency-scan.yml` used `jq` | Replaced with `python3 -m json.tool` |
+| `dependency-scan.yml` missing frontend lockfile trigger | Added `app/frontend/pnpm-lock.yaml` to path triggers |
 
 ### Deferred to Future Phases
 
