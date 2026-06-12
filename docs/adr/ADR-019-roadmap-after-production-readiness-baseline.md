@@ -1,26 +1,65 @@
-# ADR-019: Roadmap After Production-Readiness Baseline
+# ADR-019 — Roadmap After Production Readiness Baseline
 
-## Status
+**Status**: Accepted  
+**Date**: 2026-06-12  
+**Decision Owner**: Engineering Lead  
+**Phase**: 10
 
-Accepted for repository-side production-readiness evidence.
+---
+
+## Context
+
+The production-readiness baseline has been achieved. This ADR defines the strategic direction for post-baseline roadmap development, ensuring we maintain velocity while managing technical debt.
+
+---
 
 ## Decision
 
-EduBoost V2 will separate the production-readiness baseline from post-baseline roadmap work using explicit baseline boundaries, deferred scope registers, roadmap owner assignment, dependency mapping, graduation criteria, post-baseline risk tracking, and recurring roadmap review.
+### Post-Baseline Principles
 
-## Required Controls
+1. **Stabilization First**: New features wait 2 weeks after release while monitoring for regressions
+2. **Batched Releases**: Fortnightly release cycles with explicit changelog
+3. **Technical Debt Quota**: 20% of engineering capacity reserved for debt reduction
+4. **ADRs Required**: All architectural decisions >P1 require ADRs before implementation
 
-- roadmap owner is required
-- deferred scope register is required
-- dependency mapping is required
-- prioritization is required
-- graduation criteria are required
-- baseline boundary is required
-- post-baseline risk tracking is required
-- roadmap review cadence is required
-- uncontrolled scope expansion is blocked
-- external/manual dependencies must be explicit
+### Roadmap Priorities
 
-## Boundary
+| Priority | Focus Area | Timeline |
+|----------|-----------|----------|
+| P0 | Stability & monitoring | Ongoing |
+| P1 | Content expansion (more subjects) | Q3 2026 |
+| P1 | Mobile experience improvements | Q3 2026 |
+| P2 | Offline mode | Q4 2026 |
+| P2 | Voice input for accessibility | Q4 2026 |
 
-This ADR records post-baseline roadmap governance evidence. It does not create GitHub issues, approve future scope, complete deferred work, or authorize production launch.
+### Feature Gates
+
+- All P1+ features require:
+  - [ ] ADR written and approved
+  - [ ] Technical design document
+  - [ ] Test coverage plan
+  - [ ] Security review (for data-handling features)
+
+---
+
+## Consequences
+
+### Positive
+
+- Clear boundaries on feature development
+- Explicit time allocation for technical debt
+- Structured decision process via ADRs
+- Predictable release cadence
+
+### Negative
+
+- Slightly slower feature velocity
+- Requires discipline to enforce ADR process
+
+---
+
+## References
+
+- Production Readiness Baseline: `docs/backlog/production_readiness/20_final_release-blocker_checklist.md`
+- Post-Baseline Roadmap: `docs/backlog/production_readiness/19_roadmap_after_production-readiness_baseline.md`
+- Architecture Contract: `docs/roadmap/post_baseline_roadmap_architecture_contract.md`
