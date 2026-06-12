@@ -193,7 +193,7 @@ def test_module_exports_all_public_symbols():
 async def test_request_correction_with_allowed_fields():
     """Verify request_correction updates allowed fields."""
     db = AsyncMock()
-    service = POPIADataRightsService(db)
+    POPIADataRightsService(db)
     learner = SimpleNamespace(id="learner-123", display_name="Old Name", grade=4, language="en")
 
     class FakeService(POPIADataRightsService):
@@ -225,7 +225,7 @@ async def test_request_correction_with_allowed_fields():
 async def test_request_correction_rejects_unsupported_fields():
     """Verify request_correction raises on unsupported fields."""
     db = AsyncMock()
-    service = POPIADataRightsService(db)
+    POPIADataRightsService(db)
     learner = SimpleNamespace(id="learner-123")
 
     class FakeService(POPIADataRightsService):
@@ -252,7 +252,7 @@ async def test_request_correction_rejects_unsupported_fields():
 async def test_restrict_processing_calls_consent_revoke():
     """Verify restrict_processing calls consent.revoke."""
     db = AsyncMock()
-    service = POPIADataRightsService(db)
+    POPIADataRightsService(db)
     learner = SimpleNamespace(id="learner-123", pseudonym_id="pseudo-123")
     consent_mock = AsyncMock()
     audit_mock = AsyncMock()

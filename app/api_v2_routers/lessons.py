@@ -46,7 +46,6 @@ async def generate_lesson(
 ):
     require_learner_write_for_current_user(auth, str(body.learner_id))
     await require_active_consent_for_current_user(db, auth, str(body.learner_id))
-    user_id = UUID(str(auth.user_id))
 
     job_id = await enqueue_durable(
         "generate_lesson_job",

@@ -182,7 +182,7 @@ class ConsentRepository:
             update(ParentalConsent)
             .where(
                 ParentalConsent.learner_id == learner_id,
-                ParentalConsent.revoked_at == None,
+                ParentalConsent.revoked_at == None,  # noqa: E711 — SQLAlchemy IS NULL
             )
             .values(status="withdrawn", revoked_at=datetime.now(timezone.utc))
         )

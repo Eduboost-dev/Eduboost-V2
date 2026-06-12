@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-05-22T14:26:07.995810+00:00`
-- branch: `codex/production_readiness`
-- commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
+- generated_at_utc: `2026-06-12T17:41:08.639930+00:00`
+- branch: `phase-11/technical-debt-burn-down`
+- commit: `a70b57616bb29572fcb57961b91a3f68f0c66329`
 - target_environment: `test`
 
 ## Required Smoke Checks

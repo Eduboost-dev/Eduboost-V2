@@ -62,7 +62,7 @@ class TestGuardianConsentWithdrawal:
         db = _mock_db()
         guardian_id = str(uuid.uuid4())
         learner = _mock_learner(guardian_id)
-        current_user = _mock_current_user(guardian_id)
+        _mock_current_user(guardian_id)
 
         consent_service = ConsentService(db)
         consent_service._repo.get_active = AsyncMock(return_value=MagicMock(id=str(uuid.uuid4())))
@@ -86,7 +86,7 @@ class TestGuardianConsentWithdrawal:
         db = _mock_db()
         guardian_id = str(uuid.uuid4())
         learner = _mock_learner(str(uuid.uuid4()))  # Different guardian
-        current_user = _mock_current_user(guardian_id)
+        _mock_current_user(guardian_id)
 
         consent_service = ConsentService(db)
         consent_service._repo.get_active = AsyncMock(return_value=MagicMock(id=str(uuid.uuid4())))
@@ -239,14 +239,14 @@ class TestGuardianWithdrawalAuthorization:
         """Learner not found returns 404."""
         db = _mock_db()
         learner_id = str(uuid.uuid4())
-        current_user = _mock_current_user()
+        _mock_current_user()
 
         learner_repo = LearnerRepository(db)
         learner_repo.get_by_id = AsyncMock(return_value=None)
 
         from app.api_v2_routers.consent import ConsentRevokeRequest
 
-        body = ConsentRevokeRequest(learner_id=uuid.UUID(learner_id), reason="test")
+        ConsentRevokeRequest(learner_id=uuid.UUID(learner_id), reason="test")
 
         # The router checks learner existence before proceeding
         # This would be tested at integration level
@@ -262,10 +262,10 @@ class TestOptionalExportErasureRequests:
     @pytest.mark.asyncio
     async def test_export_request_created_when_flag_set(self):
         """Export request is created when request_export flag is set."""
-        db = _mock_db()
+        _mock_db()
         guardian_id = str(uuid.uuid4())
         learner = _mock_learner(guardian_id)
-        current_user = _mock_current_user(guardian_id)
+        _mock_current_user(guardian_id)
 
         from app.api_v2_routers.consent import ConsentRevokeRequest
 
@@ -283,10 +283,10 @@ class TestOptionalExportErasureRequests:
     @pytest.mark.asyncio
     async def test_erasure_request_created_when_flag_set(self):
         """Erasure request is created when request_erasure flag is set."""
-        db = _mock_db()
+        _mock_db()
         guardian_id = str(uuid.uuid4())
         learner = _mock_learner(guardian_id)
-        current_user = _mock_current_user(guardian_id)
+        _mock_current_user(guardian_id)
 
         from app.api_v2_routers.consent import ConsentRevokeRequest
 

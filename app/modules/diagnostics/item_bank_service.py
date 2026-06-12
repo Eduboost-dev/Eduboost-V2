@@ -172,11 +172,10 @@ class ItemBankService:
             new_status, reviewer_id = reviewer_id, new_status
 
         # Enforce audit trail requirement
-        if new_status in {"human_reviewed", "approved"}:
-            if reviewer_id is None:
-                raise ValueError(
-                    f"reviewer_id is required to transition an item to '{new_status}'"
-                )
+        if new_status in {"human_reviewed", "approved"} and reviewer_id is None:
+            raise ValueError(
+                f"reviewer_id is required to transition an item to '{new_status}'"
+            )
 
         return await self.repo.update_review_status(
             item_id=item_id,

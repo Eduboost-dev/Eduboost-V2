@@ -1,6 +1,5 @@
 import textwrap
 
-from pathlib import Path
 
 
 from app.services.etl.etl_pipeline import (
@@ -19,117 +18,6 @@ from app.services.etl.etl_pipeline import (
     ProcessingStatus,
     _now,
 )
-
-
-def make_sample_text():
-    return textwrap.dedent("""
-    # Grade 5 Sample Lesson
-
-    ## Week 1: Intro
-
-    **Learning Objective:** LO1 — Understand basic place value.
-
-    This is an example lesson plan used by unit tests. """)
-
-
-def test_extractor_txt_html_csv(tmp_path: Path):
-    ext = Extractor()
-
-    txt = tmp_path / "sample.md"
-    txt.write_text(make_sample_text())
-    r = ext.extract(str(txt))
-    assert r.extraction_ok
-    assert r.page_count == 1
-
-
-def test_normalizer_and_infer_metadata():
-    norm = Normalizer()
-    text = "Grade 5\nThis mathematics text mentions algebra and numeracy. CAPS-1.2.3"
-    out = norm.normalize(text, DocumentType.lesson_plan)
-    assert "normalized_text" in out
-    assert out["language"] in ("en", "af")
-
-
-def test_chunker_generic_and_split():
-    chunker = Chunker()
-    words = ["word"] * (Chunker.MAX_TOKENS * 10)
-    long_text = " ".join(words)
-    chunks = chunker.chunk(long_text, DocumentType.unknown, "doc-x")
-    assert len(chunks) >= 1
-
-
-def test_quality_validator_valid_and_failed():
-    validator = QualityValidator()
-    now = _now()
-    doc = Document(
-        document_id="d2",
-        source_id="s2",
-        title="Good Document",
-        description="",
-        document_type=DocumentType.textbook,
-        subject="mathematics",
-        grade=5,
-        phase="Intermediate",
-        curriculum="CAPS",
-        country="ZA",
-        province=None,
-        language="en",
-        publisher=None,
-        author=None,
-        publication_year=2020,
-        version="1.0",
-        license_status=LicenseStatus.open_license,
-        source_url=None,
-        checksum="c1",
-        file_path_raw="/tmp/f2",
-        file_size_bytes=0,
-        page_count=12,
-        mime_type="text/plain",
-        processing_status=ProcessingStatus.extracted,
-        quality_score=0.0,
-        training_readiness=False,
-        created_at=now,
-        updated_at=now,
-    )
-
-    large_text = "x" * 6000
-    extraction = ExtractionResult(raw_text=large_text, pages=[{"page_num": 1}], tables=[], headings=["H1"], page_count=12, mime_type="text/plain", ocr_confidence=None, extraction_ok=True)
-
-    chunks = [DocumentChunk(chunk_id="", document_id="d2", chunk_type="paragraph", chunk_index=0, parent_chunk_id=None, heading="h", content=f"para {i}", token_count=0, page_start=None, page_end=None, section_path="", curriculum_code=None, created_at="") for i in range(10)]
-
-    res = validator.validate(doc, chunks, extraction)
-    assert res.quality_score >= 0.0
-
-
-def test_etl_end_to_end(tmp_path: Path):
-    sample = tmp_path / "lesson.md"
-    sample.write_text(make_sample_text() * 50)
-
-    db = tmp_path / "etl.db"
-    storage = tmp_path / "data"
-    etl = EduboostETL(db_url=f"sqlite:///{db}", storage_root=str(storage))
-    etl.init_db()
-
-    req = IngestRequest(
-        file_path=str(sample),
-        source_type=SourceType.manual_upload,
-        uploaded_by="tester",
-        document_type=DocumentType.lesson_plan,
-        grade=5,
-        subject="mathematics",
-        license_status=LicenseStatus.government_open,
-        title="Test Lesson",
-    )
-    doc = etl.ingest(req)
-
-    result = etl.run_full_pipeline(doc.document_id)
-    assert result.quality_score >= 0.0
-    chunks = etl._load_chunks(doc.document_id)
-    assert len(chunks) > 0
-
-    etl.close()
-
-
 
 
 def make_sample_text():

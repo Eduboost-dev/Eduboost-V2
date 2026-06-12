@@ -36,7 +36,7 @@ from pathlib import Path
 import datetime
 
 try:
-    import httpx
+    import httpx  # noqa: F401 — probed for availability via HAS_HTTPX
     HAS_HTTPX = True
 except ImportError:
     HAS_HTTPX = False

@@ -116,13 +116,7 @@ def main():
 
                 # Phase/Grade matching
                 match = False
-                if phase_hint in pdf_text or phase_hint in pdf_url:
-                    match = True
-                elif f"grade {grade_num}" in pdf_text or f"grade {grade_num}" in pdf_url:
-                    match = True
-                elif f"gr {grade_num}" in pdf_text or f"gr {grade_num}" in pdf_url:
-                    match = True
-                elif f"gr{grade_num}" in pdf_text or f"gr{grade_num}" in pdf_url:
+                if phase_hint in pdf_text or phase_hint in pdf_url or (f"grade {grade_num}" in pdf_text or f"grade {grade_num}" in pdf_url) or (f"gr {grade_num}" in pdf_text or f"gr {grade_num}" in pdf_url or (f"gr{grade_num}" in pdf_text or f"gr{grade_num}" in pdf_url)):
                     match = True
 
                 if match:

@@ -30,7 +30,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any
 
-from scripts.ingestion.models import (
+from scripts.ingestion.models import (  # noqa: F401  (re-export for pipeline consumers)
     IngestionJob,
     JobStatus,
     NormalisedContent,

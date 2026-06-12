@@ -45,10 +45,7 @@ async def test_audit_events_are_immutable():
         )
         payload = result.scalar()
 
-        if isinstance(payload, str):
-            payload_data = json.loads(payload)
-        else:
-            payload_data = payload
+        payload_data = json.loads(payload) if isinstance(payload, str) else payload
 
         # The rule 'audit_events_no_update' should make this a no-op
         assert payload_data["key"] == "original", f"Audit event was tampered with! Found: {payload_data}"

@@ -1,7 +1,7 @@
 # Diagnostic Item-Bank Policy Status
 
-Generated at: `2026-06-04T11:18:03Z`
-Commit: `1faa5ed5f7e4961d9d8cc7f666684057494eb8fb`
+Generated at: `2026-06-12T17:38:20Z`
+Commit: `a70b57616bb29572fcb57961b91a3f68f0c66329`
 
 **Status:** `diagnostic-item-bank-policy-accepted`
 **Policy:** `docs/architecture/diagnostic_item_bank_canonicality.yml`
@@ -27,13 +27,13 @@ Commit: `1faa5ed5f7e4961d9d8cc7f666684057494eb8fb`
 
 | Path | Line | Excerpt |
 |---|---:|---|
-| `app/api_v2_routers/content_factory.py` | 1091 | `diagnostic_items = await service.get_diagnostic_items(session, scope_id=scope_id, caps_ref=caps_ref)` |
-| `app/api_v2_routers/content_factory.py` | 1093 | `return {"diagnostic_items": diagnostic_items, "lessons": lessons}` |
-| `app/api_v2_routers/content_factory.py` | 1114 | `run_metadata={"layers": ["diagnostic_items", "lessons", "assessment_blueprints", "study_plan_templates"]},` |
+| `app/api_v2_routers/content_factory.py` | 1088 | `diagnostic_items = await service.get_diagnostic_items(session, scope_id=scope_id, caps_ref=caps_ref)` |
+| `app/api_v2_routers/content_factory.py` | 1090 | `return {"diagnostic_items": diagnostic_items, "lessons": lessons}` |
+| `app/api_v2_routers/content_factory.py` | 1111 | `run_metadata={"layers": ["diagnostic_items", "lessons", "assessment_blueprints", "study_plan_templates"]},` |
 | `app/domain/content_coverage.py` | 11 | `DIAGNOSTIC_ITEMS = "diagnostic_items"` |
 | `app/models/content_factory.py` | 56 | `DIAGNOSTIC_ITEMS = "diagnostic_items"` |
-| `app/models/diagnostic_item.py` | 111 | `ORM representation of the diagnostic_items table.` |
-| `app/models/diagnostic_item.py` | 117 | `__tablename__ = "diagnostic_items"` |
+| `app/models/diagnostic_item.py` | 110 | `ORM representation of the diagnostic_items table.` |
+| `app/models/diagnostic_item.py` | 116 | `__tablename__ = "diagnostic_items"` |
 | `app/models/item_exposure.py` | 58 | `ForeignKey("diagnostic_items.item_id", ondelete="RESTRICT"),` |
 | `app/services/content_file_artifact_import.py` | 29 | `"diagnostic_items": (ContentLayer.DIAGNOSTIC_ITEMS, ContentArtifactType.DIAGNOSTIC_ITEM, "items"),` |
 | `app/services/content_file_promotion_readiness.py` | 22 | `"diagnostic_items": "diagnostic_items",` |

@@ -113,10 +113,10 @@ def deduplicate(
     for target, occurrences in duplicates.items():
         # Decide which occurrence to keep
         if keep == "last":
-            keep_idx = occurrences[-1]
+            occurrences[-1]
             remove_occurrences = occurrences[:-1]
         else:
-            keep_idx = occurrences[0]
+            occurrences[0]
             remove_occurrences = occurrences[1:]
 
         for header_line in remove_occurrences:

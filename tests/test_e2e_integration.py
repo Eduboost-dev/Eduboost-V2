@@ -36,7 +36,7 @@ async def test_scraper_registry():
 
     print(f"\nRegistered scrapers: {len(SCRAPER_REGISTRY)}")
     for source_id, scraper_class in SCRAPER_REGISTRY.items():
-        scraper = get_scraper(source_id)
+        get_scraper(source_id)
         # Get config if it exists
         config = SOURCES.get(source_id)
         config_name = config.name if config else f"{source_id} (no config)"

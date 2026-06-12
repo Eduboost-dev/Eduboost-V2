@@ -232,8 +232,10 @@ def require(check: bool, detail: str = "Access denied") -> None:
 def assert_can_access_learner(actor: dict | CurrentUser, learner: Any) -> None:
     """Compatibility helper for existing routes (§3.6 P0).
 
-    Raises HTTPException 403 if access is denied. Handles both legacy dict payloads
-    and the new CurrentUser dataclass.
+    DEPRECATED: This earlier definition is overridden by the simpler, canonical
+    implementation lower in this module (which delegates to ``can_access_learner``).
+    Kept here only because it documents the original policy mapping; it is
+    immediately rebound by the later definition and is therefore unreachable.
     """
     # 1. Resolve actor attributes
     if isinstance(actor, dict):
@@ -317,7 +319,7 @@ def can_access_learner(actor: object, learner: object) -> bool:
     return False
 
 
-def assert_can_access_learner(actor: object, learner: object) -> None:
+def assert_can_access_learner(actor: object, learner: object) -> None:  # noqa: F811 — later def shadows this; kept for backward compat
     """Raise HTTP 403 unless the actor may access the learner."""
     if not can_access_learner(actor, learner):
         from fastapi import HTTPException  # noqa: PLC0415

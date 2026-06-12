@@ -2,9 +2,9 @@
 
 ## Metadata
 
-- generated_at_utc: `2026-06-12T17:35:55.850386+00:00`
+- generated_at_utc: `2026-06-12T17:37:43.479715+00:00`
 - branch: `phase-11/technical-debt-burn-down`
-- commit: `b33e49720860a084e7a7c42ead1b620cb859e64f`
+- commit: `a70b57616bb29572fcb57961b91a3f68f0c66329`
 - release_candidate: `unset`
 
 ## Required Sign-Off Areas

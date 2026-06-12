@@ -147,7 +147,7 @@ def render_current_state(
     ahead: int,
     behind: int,
 ) -> str:
-    date_str = assessed_at.strftime("%Y-%m-%d")
+    assessed_at.strftime("%Y-%m-%d")
     time_str = assessed_at.strftime("%Y-%m-%d %H:%M UTC")
 
     required_results = [r for r in results if r.required]

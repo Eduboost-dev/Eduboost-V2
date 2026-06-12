@@ -441,9 +441,7 @@ class POPIADataRightsService:
         verification["audit_records_preserved"] = audit_events is not None or method == ERASURE_METHOD_PHYSICAL
 
         # PII retrievability check
-        if learner is None:
-            verification["pii_not_retrievable"] = True
-        elif learner.is_deleted and learner.display_name == "[erased]":
+        if learner is None or learner.is_deleted and learner.display_name == "[erased]":
             verification["pii_not_retrievable"] = True
 
         verification["all_checks_passed"] = verification["learner_record_deleted"] and verification["pii_not_retrievable"]

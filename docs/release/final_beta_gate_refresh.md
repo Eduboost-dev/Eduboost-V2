@@ -1,7 +1,7 @@
 # Final Beta Gate Refresh
 
-Generated at: `2026-06-12T17:35:54Z`
-Commit: `b33e49720860a084e7a7c42ead1b620cb859e64f`
+Generated at: `2026-06-12T17:40:00Z`
+Commit: `a70b57616bb29572fcb57961b91a3f68f0c66329`
 
 **Beta decision:** `NO-GO`
 
@@ -30,9 +30,9 @@ Commit: `b33e49720860a084e7a7c42ead1b620cb859e64f`
 | `ARQ-001` | `runtime-passing` | False | `docs/release/arq_dependency_worker_import_repair_report.md` | False | True | live Redis worker enqueue/dequeue staging evidence |
 | `POPIA-001` | `not-proven` | False | `docs/release/popia_response_contract_no_skip_status.md` | False | True | skipped tests are not proof; POPIA-001 remains beta-blocking and is repaired separately by POPIA-001R |
 | `CI-001` | `external-blocked` | True | `docs/release/ci_evidence.md` | False | True | valid GitHub Actions run URL and passing result metadata required |
-| `LEGAL-001` | `external-blocked` | True | `docs/release/external_approvals/legal_approval.md` | False | True | approval metadata and evidence URL required |
-| `SEC-001` | `external-blocked` | True | `docs/release/external_approvals/security_approval.md` | False | True | approval metadata and evidence URL required |
-| `CONTENT-001` | `external-blocked` | True | `docs/release/external_approvals/content_approval.md` | False | True | approval metadata and evidence URL required |
+| `LEGAL-001` | `external-blocked` | True | `docs/release/external_approvals/legal_approval.md` | False | True | external approval sign-off metadata required |
+| `SEC-001` | `external-blocked` | True | `docs/release/external_approvals/security_approval.md` | False | True | external approval sign-off metadata required |
+| `CONTENT-001` | `external-blocked` | True | `docs/release/external_approvals/content_approval.md` | False | True | external approval sign-off metadata required |
 | `LESSON-AUTH-001` | `runtime-passing` | False | `docs/release/lesson_authorization_hardening_report.md` | False | True | full HTTP and staging proof for all lesson routes remains pending |
 | `STAGING-001` | `external-blocked` | True | `docs/release/external_approvals/staging_acceptance.md` | False | True | external approval sign-off metadata required |
 | `EXT-GATE-001` | `runtime-passing` | True | `docs/release/external_approval_status.md` | False | True | required external approval items remain external-blocked until signed off |

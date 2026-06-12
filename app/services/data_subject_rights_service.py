@@ -97,10 +97,10 @@ class DataSubjectRightsService:
         data = await self._collect_learner_data(req.learner_id)
 
         if req.format == "csv":
-            artifact = self._to_csv(data)
+            artifact = self._to_csv(data)  # noqa: F841 — kept for upload-to-storage step (see TODO below)
             artifact_path = f"/exports/{request_id}.csv"
         else:
-            artifact = json.dumps(data, default=str, indent=2)
+            artifact = json.dumps(data, default=str, indent=2)  # noqa: F841
             artifact_path = f"/exports/{request_id}.json"
 
         # In production: upload artifact to secure object storage,
@@ -206,50 +206,49 @@ class DataSubjectRightsService:
             )
 
         learner_id = req.learner_id
-        async with self._pool.acquire() as conn:
-            async with conn.transaction():
-                # 1. Anonymise audit records (retain chain, scrub PII payload)
-                await conn.execute(
-                    """
+        async with self._pool.acquire() as conn, conn.transaction():
+            # 1. Anonymise audit records (retain chain, scrub PII payload)
+            await conn.execute(
+                """
                     UPDATE audit_events
                     SET payload = jsonb_set(payload, '{erased}', 'true'::jsonb)
                     WHERE learner_id = $1
                     """,
-                    learner_id,
-                )
-                # 2. Delete learner PII from operational tables
-                await conn.execute(
-                    "DELETE FROM learner_profiles WHERE id = $1", learner_id
-                )
-                await conn.execute(
-                    "DELETE FROM diagnostic_sessions WHERE learner_id = $1", learner_id
-                )
-                await conn.execute(
-                    "DELETE FROM lesson_records WHERE learner_id = $1", learner_id
-                )
-                await conn.execute(
-                    "DELETE FROM study_plans WHERE learner_id = $1", learner_id
-                )
-                await conn.execute(
-                    "DELETE FROM consent_records WHERE learner_id = $1", learner_id
-                )
-                # 3. Mark erasure complete
-                now = datetime.now(timezone.utc)
-                await conn.execute(
-                    "UPDATE erasure_requests SET status=$2, executed_at=$3 WHERE id=$1",
-                    request_id, RequestStatus.COMPLETED.value, now,
-                )
-                # 4. Audit the execution
-                await self._audit.record(
-                    AuditEventType.ERASURE_EXECUTION,
-                    actor_id=executor_id,
-                    learner_id=None,   # learner row is gone; store None
-                    payload={
-                        "request_id": str(request_id),
-                        "learner_id": str(learner_id),
-                    },
-                    conn=conn,
-                )
+                learner_id,
+            )
+            # 2. Delete learner PII from operational tables
+            await conn.execute(
+                "DELETE FROM learner_profiles WHERE id = $1", learner_id
+            )
+            await conn.execute(
+                "DELETE FROM diagnostic_sessions WHERE learner_id = $1", learner_id
+            )
+            await conn.execute(
+                "DELETE FROM lesson_records WHERE learner_id = $1", learner_id
+            )
+            await conn.execute(
+                "DELETE FROM study_plans WHERE learner_id = $1", learner_id
+            )
+            await conn.execute(
+                "DELETE FROM consent_records WHERE learner_id = $1", learner_id
+            )
+            # 3. Mark erasure complete
+            now = datetime.now(timezone.utc)
+            await conn.execute(
+                "UPDATE erasure_requests SET status=$2, executed_at=$3 WHERE id=$1",
+                request_id, RequestStatus.COMPLETED.value, now,
+            )
+            # 4. Audit the execution
+            await self._audit.record(
+                AuditEventType.ERASURE_EXECUTION,
+                actor_id=executor_id,
+                learner_id=None,   # learner row is gone; store None
+                payload={
+                    "request_id": str(request_id),
+                    "learner_id": str(learner_id),
+                },
+                conn=conn,
+            )
         return req.model_copy(update={
             "status": RequestStatus.COMPLETED,
             "executed_at": datetime.now(timezone.utc),

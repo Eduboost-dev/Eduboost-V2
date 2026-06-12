@@ -47,7 +47,7 @@ def main():
 
                 resource_section = "\n## Curriculum Resources\n"
                 # Filter out generic errata/guidelines unless no specific one found
-                specific_pdfs = [p for p in matched_pdfs if any(s in p.name.lower() for s in synonyms)]
+                [p for p in matched_pdfs if any(s in p.name.lower() for s in synonyms)]
 
                 # Sort to put most relevant first (e.g. ones containing "grade X")
                 matched_pdfs.sort(key=lambda p: (f"grade-{grade_num}" in p.name.lower() or f"gr-{grade_num}" in p.name.lower()), reverse=True)

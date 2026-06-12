@@ -52,7 +52,7 @@ class TestContentFactoryAdminAPISmoke:
         assert response.status_code == 200
         openapi = response.json()
         paths = openapi.get("paths", {})
-        admin_cf_paths = [p for p in paths.keys() if "/admin/content-factory" in p]
+        admin_cf_paths = [p for p in paths if "/admin/content-factory" in p]
         assert len(admin_cf_paths) > 0
 
     def test_no_public_content_factory_in_openapi(self, client):
@@ -61,7 +61,7 @@ class TestContentFactoryAdminAPISmoke:
         openapi = response.json()
         paths = openapi.get("paths",{})
         public_cf_paths = [
-            p for p in paths.keys()
+            p for p in paths
             if "/api/v2/content-factory" in p and "/admin" not in p
         ]
         assert len(public_cf_paths) == 0

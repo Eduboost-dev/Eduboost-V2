@@ -177,7 +177,7 @@ async def test_list_by_learner_returns_active_sessions_only(async_db_session):
     await async_db_session.commit()
 
     # Create expired session (0h TTL)
-    expired = await repo.create(
+    await repo.create(
         learner_id=learner_id,
         owner_subject="user1",
         items=[str(uuid4())],

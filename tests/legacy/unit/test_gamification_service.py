@@ -312,7 +312,7 @@ class TestGamificationStreakLogic:
         from app.api.services.gamification_service import STREAK_THRESHOLDS
 
         # Should be in ascending order
-        assert STREAK_THRESHOLDS == sorted(STREAK_THRESHOLDS)
+        assert sorted(STREAK_THRESHOLDS) == STREAK_THRESHOLDS
         # Should have multiple levels
         assert len(STREAK_THRESHOLDS) >= 3
 

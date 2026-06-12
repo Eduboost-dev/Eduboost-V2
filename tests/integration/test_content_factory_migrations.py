@@ -143,7 +143,7 @@ async def test_all_orm_tables_exist_in_db(db_session):
         inspector = inspect(conn)
         existing = set(inspector.get_table_names())
         missing = [t for t in REQUIRED_TABLES if t not in existing]
-        extra_in_list = [t for t in REQUIRED_TABLES if t not in existing]
+        [t for t in REQUIRED_TABLES if t not in existing]
         return missing
 
     async with db_session.bind.connect() as conn:

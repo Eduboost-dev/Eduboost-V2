@@ -345,7 +345,7 @@ class EduboostETLv2(EduboostETL):
     def create_version(self, document_id: str, change_summary: str = "",
                        created_by: str = "system") -> DocumentVersion:
         """Snapshot the current normalized output as a new version."""
-        doc = self._load_document(document_id)
+        self._load_document(document_id)
         # Bump version
         existing = self._list_versions(document_id)
         if existing:

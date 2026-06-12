@@ -15,6 +15,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin
+import contextlib
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -124,10 +125,8 @@ def _request(
     except urllib.error.HTTPError as exc:
         status = exc.code
         response_headers = {key.lower(): value for key, value in exc.headers.items()}
-        try:
+        with contextlib.suppress(Exception):
             exc.read(4096)
-        except Exception:
-            pass
     except Exception as exc:  # network failure is a smoke failure
         error = f"{type(exc).__name__}: {exc}"
 

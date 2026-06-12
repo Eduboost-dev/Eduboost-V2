@@ -1,8 +1,8 @@
 # Staging Smoke Evidence Status
 
-Generated at: `2026-05-22T14:29:01Z`
-Commit: `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec`
-Branch: `codex/production_readiness`
+Generated at: `2026-06-12T17:41:01Z`
+Commit: `a70b57616bb29572fcb57961b91a3f68f0c66329`
+Branch: `phase-11/technical-debt-burn-down`
 
 **Status:** `staging-smoke-evidence-not-accepted`
 <!-- Status: pending runtime execution -->
@@ -19,7 +19,7 @@ Branch: `codex/production_readiness`
 **API result:** ``
 **Frontend result:** `not-recorded`
 **Verified by:** `unverified`
-**Date verified:** `2026-05-22`
+**Date verified:** `2026-06-12`
 
 ## Required Runtime Smoke Coverage
 
@@ -38,7 +38,7 @@ TODO before acceptance:
 - run ID is missing or non-numeric
 - GitHub Actions run status is missing, expected completed
 - GitHub Actions run conclusion is missing, expected success
-- GitHub Actions run SHA missing does not match current commit ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec
+- GitHub Actions run SHA missing does not match current commit a70b57616bb29572fcb57961b91a3f68f0c66329
 - workflow name is missing
 - staging base URL is missing, non-HTTPS, localhost/example, or placeholder
 - staging smoke test command is missing or placeholder

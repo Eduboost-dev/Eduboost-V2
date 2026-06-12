@@ -374,7 +374,7 @@ class ItemValidator:
             if str(o.get("label", "")).upper() != answer_key
         }
 
-        rationale_labels = {str(k).upper() for k in rationale.keys()}
+        rationale_labels = {str(k).upper() for k in rationale}
         missing = wrong_labels - rationale_labels
 
         if missing:

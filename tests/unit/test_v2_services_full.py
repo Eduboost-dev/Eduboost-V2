@@ -351,7 +351,7 @@ class TestAssessmentServiceV2:
         svc = AssessmentServiceV2(repository=repo)
         with patch("app.services.assessment_service_v2.AuditService") as a:
             a.return_value.log_event = AsyncMock()
-            r = await svc.submit_attempt(ASSESSMENT_ID, LEARNER_ID,
+            await svc.submit_attempt(ASSESSMENT_ID, LEARNER_ID,
                 responses=[{"question_id": "q1", "learner_answer": "4"}],
                 time_taken_seconds=120)
         repo.create_attempt.assert_called_once()
@@ -366,7 +366,7 @@ class TestAssessmentServiceV2:
         svc = AssessmentServiceV2(repository=repo)
         with patch("app.services.assessment_service_v2.AuditService") as a:
             a.return_value.log_event = AsyncMock()
-            r = await svc.list_assessments(limit=10, offset=5)
+            await svc.list_assessments(limit=10, offset=5)
         repo.list_assessments.assert_called_once_with(limit=10, offset=5)
 
 
