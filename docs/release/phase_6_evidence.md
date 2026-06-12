@@ -1,7 +1,7 @@
 # Phase 6 Evidence — Durable Background Jobs
 
 **Date**: 2026-06-11
-**Status**: CODE COMPLETE — Live Docker verification pending (see `scripts/verify_phase6_live.sh`)
+**Status**: COMPLETE — all 3 RoadMap acceptance criteria live-verified (2026-06-12)
 **Branch**: `phase-6/durable-background-jobs`
 
 ---
@@ -101,6 +101,30 @@ The `WorkerSettings` class in `app/modules/jobs.py` registers:
 
 ## Limitations
 
-- Live Docker Compose verification not performed (venv broken, no Docker in session).
-- Unit tests not executed (venv has zero-byte Python). Syntax validated via `compileall`.
-- **Verification script available**: `scripts/verify_phase6_live.sh` documents the procedure to close the remaining gaps once Docker is available.
+- Integration tests (`tests/integration/test_v2_jobs.py`, 3 tests) skip against a live PostgreSQL database due to a pre-existing FK model-schema mismatch (`content_seed_runs.run_id` — not related to Phase 6). Route-level behavior is covered by unit tests that mock `enqueue_durable`.
+
+## Live Verification (2026-06-12)
+
+All three RoadMap acceptance criteria were verified against a live Docker stack (Redis 7.4.9 + PostgreSQL 16):
+
+### Worker Startup
+
+```
+08:58:34: Starting worker for 12 functions: send_consent_reminders, ...
+08:58:34: redis_version=7.4.9 mem_usage=1.01M clients_connected=1 db_keys=0
+```
+
+### Unit Test Execution
+
+```
+$ .venv/bin/python -m pytest tests/unit/test_phase6_durable_jobs.py -v
+5 passed in 2.86s
+```
+
+### Restart-Survival
+
+1. Worker stopped
+2. Job `survival-test-001` enqueued via ARQ `create_pool`
+3. Worker restarted
+4. Job consumed: `1.72s → survival-test-001:send_consent_renewal_reminders() ● {'status': 'sent'}`
+5. Queue empty after: 0

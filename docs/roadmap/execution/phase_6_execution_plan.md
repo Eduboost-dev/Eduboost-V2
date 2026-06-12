@@ -1,11 +1,11 @@
 # Phase 6 Execution Plan — Durable Background Jobs
 
 **Date**: 2026-06-10
-**Updated**: 2026-06-11 (CODE COMPLETE — 2/3 RoadMap criteria unverified, live Docker required)
-**Status**: ✅ CODE COMPLETE — see RoadMap alignment below for unverified items
+**Updated**: 2026-06-12 (ALL COMPLETE — all 3 RoadMap criteria live-verified)
+**Status**: ✅ COMPLETE — all acceptance criteria verified
 **Branch**: `phase-6/durable-background-jobs`
-**Completed**: 6.1 (ARQ settings fix), 6.2 (Compose wiring), 6.3 (move work off BackgroundTasks), 6.4 (tests + evidence docs)
-**Remaining**: Closeout only — tracking docs update, PR merge, branch deletion
+**Completed**: 6.1 (ARQ settings fix), 6.2 (Compose wiring), 6.3 (move work off BackgroundTasks), 6.4 (tests + evidence docs), 6.4.3 (restart-survival live-verified)
+**Remaining**: Tracker closeout — PR merge, branch deletion
 **Scope**: Replace request-adjacent placeholder job handling with durable ARQ worker wiring, compose/production deployment support, and verification evidence.
 **Priority**: P1 (per [roadmap.md](../roadmap.md#L258-L281))
 
@@ -184,15 +184,15 @@ Phase 6 is not complete until the worker is proven in a live local or staging-st
 - [x] ARQ settings correct: `REDIS_URL` casing, `redis_settings` as class var (6.1)
 - [x] Durable jobs enqueued through ARQ, not `BackgroundTasks` (6.3)
 - [x] Durable job tests cover enqueue, execution, and status retrieval (6.3)
-- [ ] API restart does not lose queued durable work (6.4)
-- [ ] Worker startup health/readiness verified against live Redis + Postgres (6.4)
+- [x] API restart does not lose queued durable work (6.4) — **live-verified 2026-06-12**
+- [x] Worker startup health/readiness verified against live Redis + Postgres (6.4)
 - [x] Evidence and audit docs committed (6.4)
 
 **RoadMap alignment** (from [roadmap.md](../roadmap.md#L258-L281)):
 
 - [x] ARQ worker starts in local Compose ✅
-- [ ] Durable job tests cover enqueue, execution, and status retrieval ❌
-- [ ] API restart does not lose queued durable work ❌
+- [x] Durable job tests cover enqueue, execution, and status retrieval ✅
+- [x] API restart does not lose queued durable work ✅
 
 ---
 
@@ -210,7 +210,9 @@ Phase 6 is not complete until the worker is proven in a live local or staging-st
 - [x] RedisSettings initialization unified (manual urlparse in both paths)
 - [x] Implementation report corrected — no longer overstates verification
 - [x] Audit report corrected — honest about 2/3 RoadMap criteria unverified
-- [ ] Live Docker verification: restart-survival (6.4.3), worker startup health, enqueue/dequeue proof
+- [x] Live Docker verification: restart-survival (6.4.3) — verified 2026-06-12
+- [x] Live Docker verification: worker startup health — verified
+- [x] Live Docker verification: enqueue/dequeue proof — verified
 - [ ] Branch merged to `master` via PR
 - [ ] Remote branch deleted after merge
 

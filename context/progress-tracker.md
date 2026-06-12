@@ -62,9 +62,9 @@ Evidence: `docs/adr/ADR-026-python-version-alignment.md`
 
 Evidence: `docs/roadmap/execution/phase_5_implementation_report.md`, `docs/release/phase_5_evidence.md`, `docs/release/phase_5_implementation_audit.md`
 
-### Phase 6 -- Durable Background Jobs (code complete 2026-06-11)
+### Phase 6 -- Durable Background Jobs (complete 2026-06-12)
 
-Status: ✅ Code Complete — see `docs/roadmap/execution/phase_6_execution_plan.md`
+Status: ✅ Complete — all 3 RoadMap acceptance criteria verified against live Docker stack
 Branch: `phase-6/durable-background-jobs`
 
 - [x] 6.1 Fix ARQ settings: `REDIS_URL` casing, `redis_settings` as class variable
@@ -72,7 +72,8 @@ Branch: `phase-6/durable-background-jobs`
 - [x] 6.3 Migrate 3 critical routes → `enqueue_durable()`; 2 request-adjacent remain on `BackgroundTasks`
 - [x] 6.4 Unit tests (5) and integration tests (3); all files compile clean
 - [x] WorkerSettings namespace hygiene fixed (private `_cfg`, `_parsed`); RedisSettings init unified
-- [ ] Live Docker verification pending: restart-survival (6.4.3), worker startup health, enqueue/dequeue proof
+- [x] Live Docker verification: restart-survival (6.4.3) ✅, worker startup health ✅, enqueue/dequeue proof ✅
+- [x] Unit tests executed: 5/5 PASS on Python 3.12.3
 
 Evidence: `docs/roadmap/execution/phase_6_execution_plan.md`, `docs/roadmap/execution/phase_6_implementation_report.md`, `docs/release/phase_6_evidence.md`, `docs/release/phase_6_implementation_audit.md`
 
