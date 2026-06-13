@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 from typing import TYPE_CHECKING
 
@@ -142,10 +143,10 @@ class ContentFileReviewWorkflowService:
             production_blockers.append("Educator approval is required for production.")
         if not legal_approved:
             production_blockers.append("Legal approval is required for production.")
-        if educator_approved and _pending(manifest.get("evidence_url")):
-            production_blockers.append("Educator approval evidence_url is pending.")
-        if legal_approved and _pending(manifest.get("legal_evidence_url")):
-            production_blockers.append("Legal approval evidence_url is pending.")
+        if educator_approved and not _valid_evidence_url(manifest.get("evidence_url")):
+            production_blockers.append("Educator approval evidence_url must be a real non-placeholder HTTPS URL.")
+        if legal_approved and not _valid_evidence_url(manifest.get("legal_evidence_url")):
+            production_blockers.append("Legal approval evidence_url must be a real non-placeholder HTTPS URL.")
 
         for layer, data in (manifest.get("layer_review") or {}).items():
             if int(data.get("record_count") or 0) <= 0:
@@ -196,6 +197,18 @@ def _legal_approved_decision(value: Any) -> bool:
 
 def _pending(value: Any) -> bool:
     return value is None or str(value).strip().lower() in {"", "pending", "none", "null"}
+
+
+def _valid_evidence_url(value: Any) -> bool:
+    if _pending(value):
+        return False
+    raw = str(value).strip()
+    parsed = urlparse(raw)
+    host = (parsed.hostname or "").lower()
+    if parsed.scheme != "https" or not host:
+        return False
+    placeholder_tokens = ("example.com", ".example", "localhost", "127.0.0.1", "0.0.0.0")
+    return not any(token in host for token in placeholder_tokens)
 
 
 def _now_utc() -> str:

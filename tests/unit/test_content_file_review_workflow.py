@@ -50,9 +50,9 @@ def test_educator_and_legal_approval_unlocks_production_review_evidence(tmp_path
         "grade5_mathematics_en",
         reviewer_id="educator-1",
         decision="approved",
-        evidence_url="https://review.example/grade5-maths",
+        evidence_url="https://evidence.eduboost.co.za/grade5-maths",
         legal_decision="approved",
-        legal_evidence_url="https://legal.example/grade5-maths",
+        legal_evidence_url="https://legal.eduboost.co.za/grade5-maths",
     )
     status = service.review_status("grade5_mathematics_en")
 
@@ -60,6 +60,26 @@ def test_educator_and_legal_approval_unlocks_production_review_evidence(tmp_path
     assert status.stage_unlocked is True
     assert status.production_unlocked is True
     assert status.blockers == []
+
+
+def test_placeholder_approval_urls_do_not_unlock_production(tmp_path: Path) -> None:
+    service = ContentFileReviewWorkflowService(project_root=REPO_ROOT, manifest_dir=tmp_path)
+
+    service.build_review_packet(
+        "grade5_mathematics_en",
+        reviewer_id="educator-1",
+        decision="approved",
+        evidence_url="https://eduboost.example.com/evidence/educator-signoff-grade5-math.pdf",
+        legal_decision="approved",
+        legal_evidence_url="https://eduboost.example.com/evidence/legal-clearance-grade5-math.pdf",
+    )
+    status = service.review_status("grade5_mathematics_en")
+
+    assert status.approved is True
+    assert status.stage_unlocked is True
+    assert status.production_unlocked is False
+    assert "Educator approval evidence_url must be a real non-placeholder HTTPS URL." in status.production_blockers
+    assert "Legal approval evidence_url must be a real non-placeholder HTTPS URL." in status.production_blockers
 
 
 def test_import_plan_uses_pending_review_until_educator_approval(tmp_path: Path) -> None:
@@ -139,7 +159,8 @@ def test_promotion_readiness_reports_pilot_review_evidence() -> None:
 
     assert readiness.staging_eligible is True
     assert readiness.production_eligible is False
-    assert readiness.manifest["review_evidence"]["status"] in {"pending", "dev_approved"}
+    assert readiness.manifest["review_evidence"]["status"] in {"pending", "dev_approved", "educator_approved"}
+    assert any("non-placeholder HTTPS URL" in blocker for blocker in readiness.manifest["review_evidence"]["production_blockers"])
     assert readiness.manifest["review_evidence"]["manifest_path"] == "data/generated/review_manifests/grade5_mathematics_en_educator_review.json"
 
 

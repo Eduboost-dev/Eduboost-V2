@@ -48,12 +48,11 @@ app/frontend/out/
 # Cloudflare Wrangler Cache
 .wrangler/
 
-# Data directories (stored on WSL external storage)
+# Data directories
 data/content_factory/*
 !data/content_factory/scopes.json
 !data/content_factory/coverage_targets.json
 data/exports/
-data/generated/
 data/synthetic/
 data/temp/
 logs/seed_run_*.json

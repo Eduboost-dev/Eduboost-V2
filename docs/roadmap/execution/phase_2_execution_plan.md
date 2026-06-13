@@ -1,6 +1,6 @@
 # Phase 2: Content Generation & Topic Map Approval
 
-**Status**: Starting  
+**Status**: Local content-generation evidence restored; external approval and live import/smoke remain blocked
 **Phase**: Content Generation & Database Seeding  
 **Target Completion**: Production readiness for learner beta
 
@@ -91,10 +91,10 @@ Phase 2 transforms validated CAPS curriculum maps into learner-ready educational
 
 **Tasks**:
 - [ ] Configure LLM providers (Anthropic Claude / Groq) in .env
-- [ ] Implement quality validators for lesson content
-- [ ] Set up batch generation parameters (concurrency, rate limits)
-- [ ] Create content template specifications
-- [ ] Set up logging and monitoring for generation
+- [x] Implement quality validators for lesson content
+- [x] Set up batch generation parameters (scope-driven batch scripts and import planning)
+- [x] Create content template specifications
+- [x] Set up logging and monitoring for generation through run manifests and evidence checks
 
 **Quality Validators Required**:
 ```python
@@ -118,6 +118,12 @@ Phase 2 transforms validated CAPS curriculum maps into learner-ready educational
 - Extension challenges
 
 **Deliverable**: Configured generation environment and validators
+
+**Current evidence refresh (2026-06-13)**:
+- `scripts/curriculum/check_phase2_content_generation.py` verifies restored generated artifacts, lesson quality, review-scope import planning, and production approval gating.
+- `app/services/content_generation/generated_lesson_contract.py` and `app/services/content_file_lesson_quality.py` enforce the lesson-quality rules from `docs/todos/data_generator_todo.md`.
+- `app/services/content_file_review_workflow.py` now rejects placeholder approval evidence URLs such as `example.com` for production unlock.
+- LLM provider credentials remain an environment/external dependency; the current restored artifact set is validated repository content rather than a live provider run.
 
 ---
 
@@ -145,6 +151,11 @@ Phase 2 transforms validated CAPS curriculum maps into learner-ready educational
 
 **Deliverable**: Generated lessons in data/generated/lessons/
 
+**Current evidence refresh (2026-06-13)**:
+- `data/generated/` was restored into the main local WSL working directory from the last tracked generated-artifact snapshot.
+- `scripts/curriculum/check_phase2_content_generation.py` reports 487 generated files, 51 lesson files, and 6,440 generated lessons.
+- This exceeds the original approximate 150-lesson target.
+
 ---
 
 ### STEP 5: Content Quality Assurance
@@ -168,6 +179,10 @@ Phase 2 transforms validated CAPS curriculum maps into learner-ready educational
 **Pass Rate Target**: ≥98% (max 3 lessons rejected)
 
 **Deliverable**: QA report with pass/fail metrics
+
+**Current evidence refresh (2026-06-13)**:
+- `.venv/bin/python scripts/curriculum/check_phase2_content_generation.py` reports 51/51 lesson files passing quality, 0 quarantined lesson layers, and 0 failed lessons.
+- This proves automated QA at 100 percent for the restored generated lesson set. It does not replace external educator/content approval.
 
 ---
 
@@ -204,6 +219,11 @@ INSERT INTO lessons (scope_id, title, body, variant, ...)
 
 **Deliverable**: Lessons imported and verified in database
 
+**Current evidence refresh (2026-06-13)**:
+- The review-scope file artifact import plan is clean: 50 review scopes, 50 staging-unlocked scopes, 42,556 planned records, and 0 scope errors.
+- Review-scope production unlock is now 0 because production approval requires real non-placeholder educator/legal evidence URLs.
+- A live database import transaction and post-import row verification remain pending.
+
 ---
 
 ### STEP 7: Smoke Testing & Beta Preparation
@@ -236,13 +256,13 @@ INSERT INTO lessons (scope_id, title, body, variant, ...)
 | Phase | Task | Duration | Owner | Status |
 |-------|------|----------|-------|--------|
 | 2.1 | Review framework setup | 0.5 days | Curriculum Lead | ✅ Done with executable evidence |
-| 2.2 | Manual topic map review | 2-3 days | Subject Experts | ⏳ TODO |
-| 2.3 | Generation config | 0.5 days | DevOps | ⏳ TODO |
-| 2.4 | Content generation | 1-2 days | LLM Pipeline | ⏳ TODO |
-| 2.5 | Quality assurance | 1 day | QA Team | ⏳ TODO |
-| 2.6 | Database import | 0.5 days | DBA | ⏳ TODO |
-| 2.7 | Smoke testing | 0.5 days | QA Team | ⏳ TODO |
-| **Total** | **Phase 2 Duration** | **6-8 days** | **Cross-functional** | **Starting** |
+| 2.2 | Manual topic map review | 2-3 days | Subject Experts | ⏳ External educator signatures pending |
+| 2.3 | Generation config | 0.5 days | DevOps | ⚠️ Local validators/gates done; live LLM credentials pending |
+| 2.4 | Content generation | 1-2 days | LLM Pipeline | ✅ Restored and verified locally |
+| 2.5 | Quality assurance | 1 day | QA Team | ⚠️ Automated QA passed; manual educator QA pending |
+| 2.6 | Database import | 0.5 days | DBA | ⚠️ Import plan clean; live DB import pending |
+| 2.7 | Smoke testing | 0.5 days | QA Team | ⏳ Live learner smoke pending |
+| **Total** | **Phase 2 Duration** | **6-8 days** | **Cross-functional** | **Local content restored; external gates remain** |
 
 ---
 
@@ -250,13 +270,13 @@ INSERT INTO lessons (scope_id, title, body, variant, ...)
 
 Phase 2 is complete when:
 
-- ✅ All 50 topic maps approved by curriculum leadership
+- ⏳ All 50 topic maps approved by curriculum leadership
 - ✅ 150 lessons generated with quality validation
-- ✅ ≥98% of generated content passes QA
-- ✅ All lessons imported into database
-- ✅ Smoke tests passing (frontend, API, learner interface)
-- ✅ Documentation complete (generation logs, QA reports)
-- ✅ Beta readiness confirmed
+- ✅ ≥98% of generated content passes automated QA
+- ⏳ All lessons imported into database
+- ⏳ Smoke tests passing (frontend, API, learner interface)
+- ✅ Documentation complete for local generation logs, QA reports, and import planning
+- ⏳ Beta readiness confirmed
 
 ---
 
@@ -274,24 +294,27 @@ Phase 2 is complete when:
 
 ## Blocking Issues & Dependencies
 
-**Blocking Issues**: None identified
+**Blocking Issues**:
+- External educator/content approval remains pending.
+- Live LLM provider credential proof remains pending if a fresh provider-backed generation run is required.
+- Live database import and learner-facing smoke evidence remain pending.
 
 **Dependencies**:
 - ✅ CAPS sources acquired (Phase 1 complete)
 - ✅ Topic maps validated (Phase 1 complete)
 - ✅ System infrastructure running (Phase 1 complete)
 - ⏳ Curriculum expert availability (external dependency)
-- ⏳ LLM API credentials configured (needs setup)
+- ⏳ LLM API credentials configured (needed only for fresh provider-backed generation)
 
 ---
 
 ## Next Actions (Immediate)
 
-1. **TODAY**: Create ../../curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md
-2. **TODAY**: Schedule curriculum review kickoff meeting
-3. **TOMORROW**: Start manual topic map reviews (parallel by subject)
-4. **THIS WEEK**: Configure LLM providers and implement validators
-5. **NEXT WEEK**: Execute content generation and QA
+1. Attach real educator/content approval evidence for review-scope production unlock.
+2. Attach real legal approval evidence if production promotion is intended.
+3. Run live DB import in an approved staging database and capture row-count/post-import evidence.
+4. Run learner-facing smoke against the imported content.
+5. Configure LLM providers only if a fresh provider-backed generation run is required.
 
 ---
 
@@ -323,10 +346,10 @@ Phase 2 is complete when:
 
 ---
 
-**Phase 2 Status**: 🚀 **READY TO START**
+**Phase 2 Status**: ⚠️ **LOCAL CONTENT EVIDENCE RESTORED; EXTERNAL GATES PENDING**
 
-Current blockers: None  
-Dependencies met: ✅ All Phase 1 prerequisites complete  
-Team readiness: Awaiting stakeholder handoff  
+Current blockers: educator/content approval, legal approval if production promotion is intended, live DB import, learner smoke
+Dependencies met: ✅ Phase 1 prerequisites and local generated-content QA
+Team readiness: Awaiting external approval and staging evidence
 
-**Next milestone**: Curriculum expert review kickoff
+**Next milestone**: Real approval evidence attachment and staging import proof

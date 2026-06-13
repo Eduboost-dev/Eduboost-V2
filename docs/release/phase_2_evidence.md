@@ -271,3 +271,50 @@ Phase 2.1 review-framework setup is closed with executable evidence. The remaini
 - at least 98 percent QA pass rate
 - database import verification
 - learner-facing smoke and beta-readiness sign-off
+
+---
+
+# Phase 2.3-2.6 — Generated Content Evidence Refresh
+
+**Audit date**: 2026-06-13
+
+**Scope**: Local generated artifact restoration, generated lesson QA, review-scope import planning, and production approval gating.
+
+## Evidence Commands
+
+```bash
+.venv/bin/python scripts/curriculum/check_phase2_content_generation.py
+```
+
+```text
+Phase 2 generated-content evidence check
+- INFO generated_file_count: 487
+- INFO lesson_quality: {'scope_count': 51, 'lesson_files_present': 51, 'lesson_quality_passed': 51, 'lesson_layers_quarantined': 0, 'total_lessons': 6440, 'failed_lessons': 0}
+- INFO review_scope_import_plan: {'scope_count': 50, 'stage_unlocked': 50, 'production_unlocked': 0, 'total_records': 42556, 'scopes_with_errors': 0}
+- INFO promotion_readiness: {'scope_count': 51, 'staging_eligible': 51, 'production_eligible': 1, 'review_blocked': 50, 'lesson_quarantined': 0, 'learner_visible': 1}
+- PASS generated artifact set is present in the main WSL working directory
+- PASS generated lessons satisfy the current quality contract
+- PASS review-scope import planning is clean and production remains approval-gated
+```
+
+```bash
+.venv/bin/python -m pytest -q tests/unit/test_content_file_review_workflow.py tests/unit/test_content_file_promotion_readiness.py tests/unit/test_phase2_content_generation_check.py --no-cov
+```
+
+```text
+14 passed
+```
+
+```bash
+.venv/bin/ruff check app/services/content_file_review_workflow.py scripts/curriculum/check_phase2_content_generation.py tests/unit/test_content_file_review_workflow.py tests/unit/test_content_file_promotion_readiness.py tests/unit/test_phase2_content_generation_check.py --select E9,F63,F7,F82,F821
+```
+
+```text
+All checks passed!
+```
+
+## Closure Decision
+
+The local generated-content portion of Phase 2 is now supported by executable evidence: the generated artifact set is present in the main WSL checkout, generated lesson QA passes at 100 percent, and the review-scope import plan has no scope errors.
+
+Phase 2 remains externally blocked for final closure because educator/content approval, legal approval where production promotion is intended, live database import, and learner-facing smoke evidence are not present.
