@@ -217,3 +217,57 @@ All objectives met. Practice sessions are now durable, multi-worker-safe, and pr
 **Last Updated**: 2026-06-09  
 **Branch**: `phase-2/practice-session-security`  
 **Test Command**: `pytest tests/unit/test_practice_session_authorization.py tests/integration/test_practice_session_durability.py -v`
+
+---
+
+# Phase 2.1 — Topic Map Review Framework Evidence Refresh
+
+**Audit date**: 2026-06-13
+
+**Scope**: Phase 2 execution-plan Step 1 only: review checklist, approval workflow, review roles, and review tracking.
+
+This section reconciles the Phase 2 content-generation execution plan with current repository evidence. It does not replace the durable practice-session evidence above; that evidence belongs to a separate Phase 2.2 scope.
+
+## Evidence Commands
+
+```bash
+.venv/bin/python scripts/curriculum/check_topic_map_review_framework.py
+```
+
+```text
+Topic-map review framework check
+- INFO topic_map_file_count: 51
+- INFO scope_count: 51
+- INFO scope_status_counts: {'active': 1, 'review': 50}
+- INFO source_manifest_passed: True
+- INFO generation_ready_scope_count: 51
+- PASS review framework document contains required workflow, roles, and tracking markers
+- PASS topic-map and source-manifest inventory satisfies Phase 2 Step 1 readiness
+```
+
+```bash
+.venv/bin/python -m pytest -q tests/unit/test_topic_map_review_framework.py --no-cov
+```
+
+```text
+1 passed
+```
+
+```bash
+.venv/bin/ruff check scripts/curriculum/check_topic_map_review_framework.py tests/unit/test_topic_map_review_framework.py --select E9,F63,F7,F82,F821
+```
+
+```text
+All checks passed!
+```
+
+## Closure Decision
+
+Phase 2.1 review-framework setup is closed with executable evidence. The remaining Phase 2 execution-plan items are not closed by this evidence:
+
+- manual human review and signatures for all 50 topic maps
+- generation configuration and LLM provider readiness
+- approximately 150 generated lessons
+- at least 98 percent QA pass rate
+- database import verification
+- learner-facing smoke and beta-readiness sign-off

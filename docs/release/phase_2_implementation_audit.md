@@ -43,6 +43,10 @@ Current repository evidence found during the 2026-06-13 audit:
 
 - topic maps exist under `data/caps/topic_maps/`
 - Content Factory registry files exist under `data/content_factory/`
+- `docs/curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md` contains the review checklist, status workflow, reviewer roles, tracking template, revision request template, and approval standards
+- `scripts/curriculum/check_topic_map_review_framework.py` passed with 51 topic-map files, 50 review scopes, 1 active launch scope, and 51 generation-ready scopes
+- `tests/unit/test_topic_map_review_framework.py --no-cov` passed
+- the new review-framework script and unit test pass Ruff syntax/name checks
 - `tests/unit/test_phase2_router_import_smoke.py tests/unit/test_assessment_attempt_model_contract.py --no-cov` passed
 - `tests/unit/test_content_scope_registry.py tests/unit/test_content_staging_seed_executor.py --no-cov` failed in `test_content_staging_seed_executor.py::test_valid_approved_artifact_creates_seed_item`
 
@@ -50,6 +54,7 @@ Current repository evidence found during the 2026-06-13 audit:
 
 | Criterion from execution plan | Evidence | Verdict |
 |---|---|---|
+| Topic-map review framework exists | Checklist document plus executable review-framework gate prove workflow, roles, tracking, inventory, and source-manifest readiness | Pass |
 | All 50 topic maps approved | Topic maps exist, but approval evidence was not found in this audit | Not proven |
 | 150 lessons generated | No current evidence proving this count | Not proven |
 | At least 98 percent generated content passes QA | No current QA output proving the threshold | Not proven |
@@ -65,4 +70,4 @@ Current repository evidence found during the 2026-06-13 audit:
 
 ## Result
 
-Phase 2 has valuable implementation evidence, but it is not fully complete against its execution plan. The phase should remain partial until the content-generation acceptance criteria are either proven or the phase scope is explicitly split and reconciled.
+Phase 2.1 review-framework setup is complete with current executable evidence. Phase 2 as a whole remains partial until the content-generation acceptance criteria are either proven or the phase scope is explicitly split and reconciled.

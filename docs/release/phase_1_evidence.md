@@ -120,3 +120,50 @@ Remaining ~1,000 non-blocking Ruff findings have been inventoried for Phase 11 (
 - TODO.md § NS-06 through NS-11
 - CI configuration: `.github/workflows/ci-cd.yml`
 - Ruff debt inventory: `docs/backlog/ruff_debt.md`
+
+---
+
+## Current Evidence Refresh - 2026-06-13
+
+This refresh was captured after the phase artifact backfill to prove Phase 1 against the current local WSL checkout.
+
+### Compile Gate
+
+```bash
+$ .venv/bin/python -m compileall -q app scripts
+$ echo $?
+0
+```
+
+Captured command output:
+
+```text
+COMPILE_EXIT=0
+```
+
+### Release-Blocking Ruff Gate
+
+```bash
+$ .venv/bin/ruff check app tests scripts --select E9,F63,F7,F82,F821
+All checks passed!
+```
+
+### CI Gate Inspection
+
+```text
+.github/workflows/ci-cd.yml:35: run: ruff check app/ tests/ scripts/ --output-format=github --select E9,F63,F7,F82,F821
+.github/workflows/ci-cd.yml:38: run: python -m compileall -q app scripts
+```
+
+### Current Non-Blocking Ruff Debt Checkpoint
+
+```text
+396 E402 [ ] Module level import not at top of file
+137 E701 [ ] Multiple statements on one line (colon)
+ 94 E702 [ ] Multiple statements on one line (semicolon)
+ 10 E741 [ ] Ambiguous variable name: `l`
+  7 E712 [*] Avoid equality comparisons to `False`; use `if not ContentSeedRun.dry_run:` for false checks
+  1 F601 [ ] Dictionary key literal `"test"` repeated
+```
+
+The current release-blocking gate remains clean. Non-blocking debt is tracked in `docs/backlog/ruff_debt.md` and Phase 11.

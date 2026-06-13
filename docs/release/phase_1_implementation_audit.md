@@ -21,10 +21,10 @@ This audit verifies the Phase 1 release-blocking correctness claims against the 
 
 | Criterion | Evidence | Verdict |
 |---|---|---|
-| Python source and scripts compile | `.venv/bin/python -m compileall -q app scripts` passed on 2026-06-13 | Pass |
-| Release-blocking Ruff rules pass | `.venv/bin/ruff check app tests scripts --select E9,F63,F7,F82,F821` passed on 2026-06-13 | Pass |
-| CI exposes equivalent checks | `docs/release/phase_1_evidence.md` cites `.github/workflows/ci-cd.yml` gate | Pass |
-| Non-blocking Ruff debt is tracked separately | Phase 11 report and Ruff statistics track remaining debt | Pass |
+| Python source and scripts compile | `.venv/bin/python -m compileall -q app scripts` returned `COMPILE_EXIT=0` on 2026-06-13 | Pass |
+| Release-blocking Ruff rules pass | `.venv/bin/ruff check app tests scripts --select E9,F63,F7,F82,F821` returned `All checks passed!` on 2026-06-13 | Pass |
+| CI exposes equivalent checks | `.github/workflows/ci-cd.yml` contains the matching Ruff and compile gates | Pass |
+| Non-blocking Ruff debt is tracked separately | `docs/backlog/ruff_debt.md` and current Ruff statistics track remaining debt | Pass |
 
 ## Discrepancies
 
@@ -34,3 +34,7 @@ This audit verifies the Phase 1 release-blocking correctness claims against the 
 ## Result
 
 Phase 1 is technically supported for release-blocking correctness. Process compliance is now document-complete but was repaired retrospectively.
+
+## Closure Decision
+
+Phase 1 is closed for implementation purposes as of the 2026-06-13 evidence refresh. The remaining Ruff findings are explicitly non-blocking for Phase 1 and belong to Phase 11 technical debt tracking.

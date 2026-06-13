@@ -36,10 +36,11 @@ Phase 2 transforms validated CAPS curriculum maps into learner-ready educational
 **Objective**: Establish structured review process for 50 draft topic maps
 
 **Tasks**:
-- [ ] Create ../../curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md with evaluation criteria
-- [ ] Define approval workflow (draft → review → approved → generation_ready)
-- [ ] Establish review roles (curriculum expert, content developer, QA)
-- [ ] Set up review tracking in Git
+- [x] Create ../../curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md with evaluation criteria
+- [x] Define approval workflow (draft → review → approved → generation_ready)
+- [x] Establish review roles (curriculum expert, content developer, QA)
+- [x] Set up review tracking in Git
+- [x] Add executable framework gate: `scripts/curriculum/check_topic_map_review_framework.py`
 
 **Criteria for Approval**:
 - Completeness: All CAPS topics from source document included
@@ -49,6 +50,12 @@ Phase 2 transforms validated CAPS curriculum maps into learner-ready educational
 - Coverage: No gaps in curriculum map
 
 **Deliverable**: Review checklist and workflow documentation
+
+**Current evidence refresh (2026-06-13)**:
+- `docs/curriculum/TOPIC_MAP_REVIEW_CHECKLIST.md` contains the required checklist, status workflow, reviewer roles, tracking template, revision request template, and approval quality standards.
+- `scripts/curriculum/check_topic_map_review_framework.py` verifies the review framework, topic-map inventory, registry status split, and source-manifest generation readiness.
+- `.venv/bin/python scripts/curriculum/check_topic_map_review_framework.py` passed with 51 topic-map files, 50 review scopes, 1 active launch scope, and 51 generation-ready scopes.
+- `.venv/bin/python -m pytest -q tests/unit/test_topic_map_review_framework.py --no-cov` passed.
 
 ---
 
@@ -228,7 +235,7 @@ INSERT INTO lessons (scope_id, title, body, variant, ...)
 
 | Phase | Task | Duration | Owner | Status |
 |-------|------|----------|-------|--------|
-| 2.1 | Review framework setup | 0.5 days | Curriculum Lead | ⏳ TODO |
+| 2.1 | Review framework setup | 0.5 days | Curriculum Lead | ✅ Done with executable evidence |
 | 2.2 | Manual topic map review | 2-3 days | Subject Experts | ⏳ TODO |
 | 2.3 | Generation config | 0.5 days | DevOps | ⏳ TODO |
 | 2.4 | Content generation | 1-2 days | LLM Pipeline | ⏳ TODO |
