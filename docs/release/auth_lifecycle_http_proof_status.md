@@ -1,7 +1,7 @@
 # Auth Lifecycle HTTP Route Proof Status
 
-Generated at: `2026-06-12T17:31:40Z`
-Commit: `b33e49720860a084e7a7c42ead1b620cb859e64f`
+Generated at: `2026-06-13T13:48:42Z`
+Commit: `0c9d99b0734c4c731b3fa0fba53a9f503acc5685`
 
 **Status:** `auth-lifecycle-http-route-proof-passing`
 **Router import OK:** `True`

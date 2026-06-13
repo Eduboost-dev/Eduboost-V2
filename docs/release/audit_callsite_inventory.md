@@ -1099,8 +1099,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/data_subject_rights_service.py` | 120 | audit_record_call | `await self._audit.record(` |
 | `app/services/data_subject_rights_service.py` | 152 | audit_record_call | `await self._audit.record(` |
 | `app/services/data_subject_rights_service.py` | 194 | audit_events_table | `Deletes learner PII but PRESERVES audit_events rows (anonymised).` |
-| `app/services/data_subject_rights_service.py` | 214 | audit_events_table | `UPDATE audit_events` |
-| `app/services/data_subject_rights_service.py` | 243 | audit_record_call | `await self._audit.record(` |
+| `app/services/data_subject_rights_service.py` | 213 | audit_events_table | `UPDATE audit_events` |
+| `app/services/data_subject_rights_service.py` | 242 | audit_record_call | `await self._audit.record(` |
 | `app/services/deep_readiness_runtime.py` | 30 | audit_append_call | `checks.append(DeepReadinessCheckResult("database_connectivity","pass","read-only connectivity check completed"))` |
 | `app/services/deep_readiness_runtime.py` | 32 | audit_append_call | `checks.append(DeepReadinessCheckResult("database_connectivity","fail",f"{type(exc).__name__}: {exc}"))` |
 | `app/services/deep_readiness_runtime.py` | 35 | audit_append_call | `checks.append(DeepReadinessCheckResult("alembic_revision","pass","read-only Alembic revision query completed"))` |
@@ -1201,10 +1201,10 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `app/services/popia_service.py` | 390 | audit_append_call | `await self.audit.append(` |
 | `app/services/popia_service.py` | 438 | audit_events_table | `audit_events = await self.db.scalar(` |
 | `app/services/popia_service.py` | 441 | audit_events_table | `verification["audit_records_preserved"] = audit_events is not None or method == ERASURE_METHOD_PHYSICAL` |
-| `app/services/popia_service.py` | 465 | audit_events_table | `audit_events = list((await self.db.scalars(select(AuditEvent).where(AuditEvent.resource_id == learner_id))).all())` |
-| `app/services/popia_service.py` | 635 | audit_events_table | `"audit_events": [` |
-| `app/services/popia_service.py` | 646 | audit_events_table | `for row in audit_events` |
-| `app/services/popia_service.py` | 666 | audit_events_table | `"audit_events",` |
+| `app/services/popia_service.py` | 463 | audit_events_table | `audit_events = list((await self.db.scalars(select(AuditEvent).where(AuditEvent.resource_id == learner_id))).all())` |
+| `app/services/popia_service.py` | 633 | audit_events_table | `"audit_events": [` |
+| `app/services/popia_service.py` | 644 | audit_events_table | `for row in audit_events` |
+| `app/services/popia_service.py` | 664 | audit_events_table | `"audit_events",` |
 | `app/services/popia_transactional_lifecycle.py` | 60 | audit_append_call | `missing.append(method_name)` |
 | `app/services/runtime_audit_facade.py` | 25 | audit_record_call | `await AuditRepositoryCompatAdapter(repository).record(` |
 | `app/services/study_plan_service_v2.py` | 106 | audit_append_call | `days.setdefault(slot["day"], []).append({` |
@@ -2580,7 +2580,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/ingestion/pipeline/training_formatter.py` | 337 | audit_append_call | `tags.append(f"lang-{c.language}")` |
 | `scripts/ingestion/pipeline/training_formatter.py` | 338 | audit_append_call | `tags.append(f"source-{c.source_id}")` |
 | `scripts/ingestion/pipeline/training_formatter.py` | 339 | audit_append_call | `tags.append(f"type-{c.content_type.value}")` |
-| `scripts/ingestion/queue_manager.py` | 284 | audit_append_call | `jobs.append(json.loads(payload))` |
+| `scripts/ingestion/queue_manager.py` | 285 | audit_append_call | `jobs.append(json.loads(payload))` |
 | `scripts/ingestion/run_pipeline.py` | 57 | audit_append_call | `errors.append(f"{doc_id}: page_count={pages}")` |
 | `scripts/ingestion/run_pipeline.py` | 59 | audit_append_call | `errors.append(f"{doc_id}: char_count={chars}")` |
 | `scripts/ingestion/run_pipeline.py` | 62 | audit_append_call | `errors.append(f"{doc_id}: missing text file {text_path}")` |
@@ -2667,7 +2667,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/live_db_tx_evidence.py` | 193 | audit_append_call | `blockers.append("date verified is pending")` |
 | `scripts/live_db_tx_evidence.py` | 328 | audit_append_call | `lines.append(` |
 | `scripts/live_db_tx_evidence.py` | 337 | audit_append_call | `lines.append("- None")` |
-| `scripts/maintenance/audit_todo_backlog.py` | 18 | audit_append_call | `paths.append(str(rel))` |
+| `scripts/maintenance/audit_todo_backlog.py` | 19 | audit_append_call | `paths.append(str(rel))` |
 | `scripts/maintenance/audit_todo_backlog.py` | 35 | audit_append_call | `hits.append(rel)` |
 | `scripts/maintenance/audit_todo_backlog.py` | 53 | audit_append_call | `tasks.append({'id':f'TODO-{idx:03d}','line':lineno,'section':section,'subsection':subsection,'todo_checked':'x' if m.group(1)=='x' else '', 'priority':m.group(2),'task':m.group(3).strip()})` |
 | `scripts/maintenance/audit_todo_backlog.py` | 71 | audit_append_call | `RULES.append((marker.lower(),paths,status,note))` |
@@ -2894,7 +2894,7 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `scripts/run_disposable_schema_drift_proof.py` | 95 | audit_append_call | `commands.append(("schema_drift_db", drift_cmd))` |
 | `scripts/run_disposable_schema_drift_proof.py` | 113 | audit_append_call | `lines.append(f"\| {result['name']} \| {result['return_code']} \| {result['passed']} \|")` |
 | `scripts/run_live_ingestion.py` | 77 | audit_append_call | `self.metrics["confidence_scores"].append(data["confidence"])` |
-| `scripts/run_staging_smoke.py` | 187 | audit_append_call | `rows.append(` |
+| `scripts/run_staging_smoke.py` | 186 | audit_append_call | `rows.append(` |
 | `scripts/scrape_caps.py` | 168 | audit_append_call | `docs.append(doc)` |
 | `scripts/scrape_caps.py` | 205 | audit_append_call | `self._anchor_text.append(data)` |
 | `scripts/scrape_caps.py` | 207 | audit_append_call | `self._cell_text.append(data)` |
@@ -3006,8 +3006,8 @@ This inventory supports audit repository consolidation. It is diagnostic only.
 | `tests/integration/test_audit_immutability.py` | 12 | audit_events_table | `Verify that audit_events cannot be updated or deleted due to DB rules.` |
 | `tests/integration/test_audit_immutability.py` | 34 | audit_events_table | `"UPDATE audit_events SET payload = '{\"key\": \"tampered\"}' "` |
 | `tests/integration/test_audit_immutability.py` | 43 | audit_events_table | `text("SELECT payload FROM audit_events WHERE id = :id"),` |
-| `tests/integration/test_audit_immutability.py` | 58 | audit_events_table | `text("DELETE FROM audit_events WHERE id = :id"),` |
-| `tests/integration/test_audit_immutability.py` | 65 | audit_events_table | `text("SELECT COUNT(*) FROM audit_events WHERE id = :id"),` |
+| `tests/integration/test_audit_immutability.py` | 55 | audit_events_table | `text("DELETE FROM audit_events WHERE id = :id"),` |
+| `tests/integration/test_audit_immutability.py` | 62 | audit_events_table | `text("SELECT COUNT(*) FROM audit_events WHERE id = :id"),` |
 | `tests/integration/test_auth_lifecycle_http_success_scope.py` | 174 | audit_append_call | `routes.append((combined, route))` |
 | `tests/integration/test_auth_lifecycle_http_success_scope.py` | 204 | audit_append_call | `self.calls.append(("register", kwargs))` |
 | `tests/integration/test_auth_lifecycle_http_success_scope.py` | 212 | audit_append_call | `self.calls.append(("login", kwargs))` |

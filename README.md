@@ -13,6 +13,11 @@ imports and controlled migration behavior.
 ## Current State
 
 - `app/api_v2.py` is the active backend entrypoint for new work.
+- The local WSL checkout at `/home/nkgolol/Dev/Development/Eduboost-V2`
+  is the main working directory and current source-of-truth workspace. The
+  previously referenced remote VM is not accessible and must not be treated as
+  canonical until access and environment identity are re-established. See
+  [`docs/operations/workspace_source_of_truth.md`](docs/operations/workspace_source_of_truth.md).
 - `docker compose up --build` is the default local stack and points at the V2
   runtime.
 - The merged PR-002R and production-readiness evidence work establishes the V2

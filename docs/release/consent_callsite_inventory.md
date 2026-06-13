@@ -189,7 +189,7 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `app/repositories/repositories.py` | 180 | consent_revoke | `async def revoke(self, learner_id: str, reason: str = "revoked") -> int:` |
 | `app/repositories/repositories.py` | 182 | parental_consent_model | `update(ParentalConsent)` |
 | `app/repositories/repositories.py` | 184 | parental_consent_model | `ParentalConsent.learner_id == learner_id,` |
-| `app/repositories/repositories.py` | 185 | parental_consent_model | `ParentalConsent.revoked_at == None,` |
+| `app/repositories/repositories.py` | 185 | parental_consent_model | `ParentalConsent.revoked_at == None,  # noqa: E711 — SQLAlchemy IS NULL` |
 | `app/repositories/repositories.py` | 191 | parental_consent_model | `async def renew(self, learner_id: str, guardian_id: str, consent_version: str) -> tuple[ParentalConsent \| None, ParentalConsent]:` |
 | `app/repositories/repositories.py` | 194 | consent_revoke | `await self.revoke(learner_id, reason="renewed")` |
 | `app/repositories/repositories.py` | 195 | consent_grant | `renewed = await self.grant(` |
@@ -236,8 +236,8 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `app/services/consent_service.py` | 41 | consent_grant | `async def grant(` |
 | `app/services/consent_service.py` | 55 | consent_grant | `updated = existing.grant(privacy_notice_version)` |
 | `app/services/consent_service.py` | 63 | consent_grant | `).grant(privacy_notice_version)` |
-| `app/services/data_subject_rights_service.py` | 234 | consent_records_table | `"DELETE FROM consent_records WHERE learner_id = $1", learner_id` |
-| `app/services/data_subject_rights_service.py` | 393 | consent_records_table | `"FROM consent_records WHERE learner_id=$1",` |
+| `app/services/data_subject_rights_service.py` | 233 | consent_records_table | `"DELETE FROM consent_records WHERE learner_id = $1", learner_id` |
+| `app/services/data_subject_rights_service.py` | 392 | consent_records_table | `"FROM consent_records WHERE learner_id=$1",` |
 | `app/services/job_dependency_factory.py` | 54 | consent_service | `service_cls = _import_symbol("app.modules.consent.service.ConsentService")` |
 | `app/services/job_dependency_factory.py` | 55 | consent_repository | `consent_repo_cls = _import_symbol("app.repositories.consent_repository.ConsentRepository")` |
 | `app/services/job_dependency_factory.py` | 58 | consent_service | `raise RuntimeError("Canonical ConsentService not found")` |
@@ -253,9 +253,9 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `app/services/popia_service.py` | 83 | consent_service | `self.consent = ConsentService(db)` |
 | `app/services/popia_service.py` | 108 | require_active_consent | `await self.consent.require_active_consent(learner_id, actor_id=requester_id)` |
 | `app/services/popia_service.py` | 299 | consent_revoke | `await self.consent.revoke(learner_id, guardian_id=requester_id, reason="processing_restricted")` |
-| `app/services/popia_service.py` | 458 | parental_consent_model | `consents = list((await self.db.scalars(select(ParentalConsent).where(ParentalConsent.learner_id == learner_id))).all())` |
-| `app/services/popia_service.py` | 550 | parental_consents_table | `"parental_consents": [` |
-| `app/services/popia_service.py` | 660 | parental_consents_table | `"parental_consents",` |
+| `app/services/popia_service.py` | 456 | parental_consent_model | `consents = list((await self.db.scalars(select(ParentalConsent).where(ParentalConsent.learner_id == learner_id))).all())` |
+| `app/services/popia_service.py` | 548 | parental_consents_table | `"parental_consents": [` |
+| `app/services/popia_service.py` | 658 | parental_consents_table | `"parental_consents",` |
 | `app/services/popia_transactional_lifecycle.py` | 101 | consent_grant | `async def grant(self, **kwargs: Any) -> Any:` |
 | `scripts/check_active_consent_route_sources.py` | 63 | consent_service | `"ConsentService(db).require_active_consent" not in source,` |
 | `scripts/check_active_consent_route_sources.py` | 63 | require_active_consent | `"ConsentService(db).require_active_consent" not in source,` |
@@ -557,7 +557,7 @@ This inventory supports consent service/table consolidation. It is diagnostic on
 | `tests/unit/test_popia_export_completeness.py` | 255 | parental_consents_table | `assert "parental_consents" in payload` |
 | `tests/unit/test_popia_export_completeness.py` | 256 | parental_consents_table | `assert isinstance(payload["parental_consents"], list)` |
 | `tests/unit/test_popia_export_completeness.py` | 323 | parental_consents_table | `"parental_consents",` |
-| `tests/unit/test_popia_transactional_lifecycle_contracts.py` | 268 | consent_grant | `result = await service.grant(learner_id="learner-123", guardian_id="guardian-456")` |
+| `tests/unit/test_popia_transactional_lifecycle_contracts.py` | 268 | consent_grant | `await service.grant(learner_id="learner-123", guardian_id="guardian-456")` |
 | `tests/unit/test_runtime_blockers_after_followup_audit.py` | 15 | consent_grant | `async def grant(self, guardian_id, learner_id, consent_version, actor_id=None):` |
 | `tests/unit/test_runtime_blockers_after_followup_audit.py` | 19 | consent_revoke | `async def revoke(self, guardian_id=None, learner_id=None, actor_id=None, reason=None):` |
 | `tests/unit/test_runtime_blockers_after_followup_audit.py` | 28 | consent_grant | `await adapter.grant(guardian_id="guardian-1", learner_id="learner-1", privacy_notice_version="v1", actor_id="actor-1")` |

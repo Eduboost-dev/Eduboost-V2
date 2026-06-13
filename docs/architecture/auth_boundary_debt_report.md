@@ -1,6 +1,6 @@
 # Auth Boundary Debt Report
 
-Generated at: `2026-06-12T17:31:45Z`
+Generated at: `2026-06-13T13:48:05Z`
 
 | Item | Value |
 |---|---|

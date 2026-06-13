@@ -1,8 +1,8 @@
 # Audit Baseline Refresh Status
 
-Generated at: `2026-06-12T17:31:23Z`
-Commit: `b33e49720860a084e7a7c42ead1b620cb859e64f`
-Branch: `phase-11/technical-debt-burn-down`
+Generated at: `2026-06-13T13:48:41Z`
+Commit: `0c9d99b0734c4c731b3fa0fba53a9f503acc5685`
+Branch: `master`
 
 **Status:** `audit-baseline-refresh-current`
 **Beta decision:** `NO-GO`
@@ -20,20 +20,20 @@ Branch: `phase-11/technical-debt-burn-down`
 
 | Surface | Exists | Status | Decision | Commit | Stale |
 |---|---:|---|---|---|---:|
-| `final_beta_gate_refresh` | True | `NO-GO` | `NO-GO` | `b33e49720860a084e7a7c42ead1b620cb859e64f` | False |
-| `release_go_no_go_status` | True | `NO-GO` | `NO-GO` | `b33e49720860a084e7a7c42ead1b620cb859e64f` | False |
-| `ci_evidence` | True | `ci-evidence-accepted` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
-| `ci_run_evidence` | True | `external-blocked` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
-| `external_approval` | True | `external-blocked` | `` | `1faa5ed5f7e4961d9d8cc7f666684057494eb8fb` | True |
-| `approval_evidence` | True | `external-blocked` | `` | `b33e49720860a084e7a7c42ead1b620cb859e64f` | False |
-| `staging_smoke_evidence` | True | `staging-smoke-evidence-not-accepted` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
-| `staging_acceptance` | True | `external-blocked` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
-| `auth_refresh_db_evidence` | True | `auth-refresh-db-evidence-accepted` | `` | `549b25c96fac85546a45fa4337722425d928a0fe` | True |
-| `popia_response_contract_no_skip` | True | `popia-response-contract-no-skip-passing` | `` | `1faa5ed5f7e4961d9d8cc7f666684057494eb8fb` | True |
-| `diag_deep_health_runtime` | True | `diag-deep-health-runtime-not-accepted` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
-| `live_db_transaction_evidence` | True | `external-blocked` | `` | `ec48d99ff48d4ad08572fa300cd0d50b25fbc0ec` | True |
-| `beta_blocker_burndown` | True | `` | `` | `0de0d192ba93b2e7a75a6bde112d30c0dae4db51` | True |
-| `docs_inventory` | True | `` | `` | `b33e49720860a084e7a7c42ead1b620cb859e64f` | False |
+| `final_beta_gate_refresh` | True | `NO-GO` | `NO-GO` | `0c9d99b0734c4c731b3fa0fba53a9f503acc5685` | False |
+| `release_go_no_go_status` | True | `NO-GO` | `NO-GO` | `0c9d99b0734c4c731b3fa0fba53a9f503acc5685` | False |
+| `ci_evidence` | True | `ci-evidence-not-accepted` | `` | `b33e49720860a084e7a7c42ead1b620cb859e64f` | True |
+| `ci_run_evidence` | True | `external-blocked` | `` | `b33e49720860a084e7a7c42ead1b620cb859e64f` | True |
+| `external_approval` | True | `external-blocked` | `` | `a70b57616bb29572fcb57961b91a3f68f0c66329` | True |
+| `approval_evidence` | True | `external-blocked` | `` | `b33e49720860a084e7a7c42ead1b620cb859e64f` | True |
+| `staging_smoke_evidence` | True | `staging-smoke-evidence-not-accepted` | `` | `a70b57616bb29572fcb57961b91a3f68f0c66329` | True |
+| `staging_acceptance` | True | `external-blocked` | `` | `a70b57616bb29572fcb57961b91a3f68f0c66329` | True |
+| `auth_refresh_db_evidence` | True | `auth-refresh-db-evidence-accepted` | `` | `b33e49720860a084e7a7c42ead1b620cb859e64f` | True |
+| `popia_response_contract_no_skip` | True | `popia-response-contract-no-skip-passing` | `` | `a70b57616bb29572fcb57961b91a3f68f0c66329` | True |
+| `diag_deep_health_runtime` | True | `diag-deep-health-runtime-not-accepted` | `` | `a70b57616bb29572fcb57961b91a3f68f0c66329` | True |
+| `live_db_transaction_evidence` | True | `external-blocked` | `` | `a70b57616bb29572fcb57961b91a3f68f0c66329` | True |
+| `beta_blocker_burndown` | True | `` | `` | `b33e49720860a084e7a7c42ead1b620cb859e64f` | True |
+| `docs_inventory` | True | `` | `` | `0c9d99b0734c4c731b3fa0fba53a9f503acc5685` | False |
 
 ## Accepted evidence marker preservation
 
@@ -41,8 +41,8 @@ Branch: `phase-11/technical-debt-burn-down`
 |---|---|---|---:|---:|
 | `AUTH-REFRESH-DB-EVIDENCE-001` | `docs/release/auth_refresh_db_evidence_status.json` | `auth-refresh-db-evidence-accepted` | True | True |
 | `POPIA-001` | `docs/release/popia_response_contract_no_skip_status.json` | `popia-response-contract-no-skip-passing` | True | True |
-| `CI-001` | `docs/release/ci_evidence_status.json` | `ci-evidence-accepted` | True | True |
-| `EVID-001` | `docs/release/ci_evidence_status.json` | `ci-evidence-accepted` | True | True |
+| `CI-001` | `docs/release/ci_evidence_status.json` | `ci-evidence-accepted` | True | False |
+| `EVID-001` | `docs/release/ci_evidence_status.json` | `ci-evidence-accepted` | True | False |
 | `STAGING-001` | `docs/release/staging_smoke_evidence_status.json` | `staging-smoke-evidence-accepted` | True | False |
 | `DIAG-001` | `docs/release/diag_deep_health_runtime_status.json` | `diag-deep-health-runtime-accepted` | True | False |
 

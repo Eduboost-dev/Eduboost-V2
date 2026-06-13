@@ -1,14 +1,14 @@
 {
   "categories": {
-    "adr": 50,
+    "adr": 51,
     "api": 6,
     "architecture": 40,
-    "general": 641,
+    "general": 650,
     "release": 470,
-    "security": 101
+    "security": 102
   },
-  "commit": "a70b57616bb29572fcb57961b91a3f68f0c66329",
-  "document_count": 1308,
+  "commit": "0c9d99b0734c4c731b3fa0fba53a9f503acc5685",
+  "document_count": 1319,
   "documents": [
     {
       "category": "general",
@@ -7466,6 +7466,62 @@
     },
     {
       "category": "adr",
+      "dates": [
+        "2026-06-12"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "ADR-029: Supabase Auth Strategy"
+        },
+        {
+          "level": 2,
+          "line": 7,
+          "text": "Context"
+        },
+        {
+          "level": 2,
+          "line": 15,
+          "text": "Decision"
+        },
+        {
+          "level": 2,
+          "line": 30,
+          "text": "Consequences"
+        },
+        {
+          "level": 3,
+          "line": 32,
+          "text": "Positive"
+        },
+        {
+          "level": 3,
+          "line": 37,
+          "text": "Negative"
+        },
+        {
+          "level": 2,
+          "line": 41,
+          "text": "Migration Path"
+        },
+        {
+          "level": 2,
+          "line": 48,
+          "text": "References"
+        }
+      ],
+      "links": [],
+      "path": "docs/adr/ADR-029-supabase-auth-strategy.md",
+      "sha256": "eb27d9a76f269ba8871749c851149f9975da795cbbb4b044868c33412500e720",
+      "size_bytes": 1833,
+      "statuses": [],
+      "title": "ADR-029: Supabase Auth Strategy"
+    },
+    {
+      "category": "adr",
       "dates": [],
       "evidence_references": [],
       "generated": false,
@@ -10128,7 +10184,7 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/auth_boundary_debt_report.json",
-      "sha256": "df1afcad0e1ebf7e035e9af17b0b6ec6fabbffab399d426347e161c1cedf9e13",
+      "sha256": "20aeff98daf8e67762a5cba5b4fb2546fb951e21e86e80cc84108549b32d551e",
       "size_bytes": 453,
       "statuses": [],
       "title": "Auth Boundary Debt Report"
@@ -10152,7 +10208,7 @@
       ],
       "links": [],
       "path": "docs/architecture/auth_boundary_debt_report.md",
-      "sha256": "b9d15b2a0d4cca1e1b3f26fc128cbd47aeb1c5138778948fc9792db637d84ef5",
+      "sha256": "4e861111218a5aff64a9d00b4e99890fa4c53227efe2a511eafb43f2b52d0c3f",
       "size_bytes": 433,
       "statuses": [],
       "title": "Auth Boundary Debt Report"
@@ -10249,7 +10305,7 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/auth_service_extraction_report.json",
-      "sha256": "b9bd4ec36cfb8d2789bdd56f9c59bd6fdc47b18ee0448b65dbfe1b7c1a9d7570",
+      "sha256": "eb58d946391033e1fed28bc2e4558ae8e49c48e69015b113e4ce2491bfb1bc66",
       "size_bytes": 1417,
       "statuses": [],
       "title": "Auth Service Extraction Report"
@@ -10278,7 +10334,7 @@
       ],
       "links": [],
       "path": "docs/architecture/auth_service_extraction_report.md",
-      "sha256": "53f8fe026f8b7888b1d3c6d0330182757a88662b3b2bd0d979ac92ddcd1a5500",
+      "sha256": "0124ef051586f4db9abfffe1ac2480aa0af01e1db6099ca8daeb763743565d58",
       "size_bytes": 538,
       "statuses": [],
       "title": "Auth Service Extraction Report"
@@ -10798,8 +10854,8 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/transaction_boundary_inventory.json",
-      "sha256": "73a9ae317e2a505761d8f46a2214216cc6d538d19d9258ced12e91b8acfe7741",
-      "size_bytes": 32947,
+      "sha256": "036ca9436e06065d1e8b6bd0fb23d196c2483ed25b9ce13014d03e9f650c03d9",
+      "size_bytes": 92507,
       "statuses": [
         "not-proven"
       ],
@@ -10819,8 +10875,8 @@
       ],
       "links": [],
       "path": "docs/architecture/transaction_boundary_inventory.md",
-      "sha256": "ec1e911f9e27ab99cc36079d47004fe935f9ac86059d2ca7001344f0ff3d1b70",
-      "size_bytes": 14023,
+      "sha256": "365bcfa87bd8dce757eedd501d74b590ffae45eed8fb639bad2688bc61d71a47",
+      "size_bytes": 41219,
       "statuses": [
         "not-proven"
       ],
@@ -10834,8 +10890,8 @@
       "headings": [],
       "links": [],
       "path": "docs/architecture/tx_route_wiring_inventory.json",
-      "sha256": "87d9d8d05ecfe8b50274de99410e9a96355ac7b37fb1581e3cb950f3de722005",
-      "size_bytes": 10068,
+      "sha256": "57d3ea0608d203e139150065b4804af008cd4af5af700f24964e7cb15d4dd733",
+      "size_bytes": 9748,
       "statuses": [
         "not-proven"
       ],
@@ -10865,8 +10921,8 @@
       ],
       "links": [],
       "path": "docs/architecture/tx_route_wiring_inventory.md",
-      "sha256": "410f4ccbb2e810a152a7577da04b8517fa27d42b202319a875599bdcbc68182a",
-      "size_bytes": 4523,
+      "sha256": "aa601a2b1b5205be7b41fca614d6f58162cf074b55fd2093c46718148ab7ef9e",
+      "size_bytes": 4524,
       "statuses": [
         "not-proven"
       ],
@@ -15591,6 +15647,125 @@
     },
     {
       "category": "general",
+      "dates": [
+        "2026-06-12"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "CAPS Content Expansion Roadmap"
+        },
+        {
+          "level": 2,
+          "line": 9,
+          "text": "Executive Summary"
+        },
+        {
+          "level": 2,
+          "line": 15,
+          "text": "Current State (as of 2026-06-12)"
+        },
+        {
+          "level": 2,
+          "line": 28,
+          "text": "Phase 1: Foundation Phase (Grades R\u20133)"
+        },
+        {
+          "level": 3,
+          "line": 30,
+          "text": "Target: End of Q3 2026"
+        },
+        {
+          "level": 3,
+          "line": 43,
+          "text": "Subjects Not in Phase 1"
+        },
+        {
+          "level": 2,
+          "line": 52,
+          "text": "Phase 2: Intermediate Phase Expansion (Grades 4\u20136)"
+        },
+        {
+          "level": 3,
+          "line": 54,
+          "text": "Target: End of Q4 2026"
+        },
+        {
+          "level": 2,
+          "line": 68,
+          "text": "Phase 3: Senior Phase (Grade 7) + Languages"
+        },
+        {
+          "level": 3,
+          "line": 70,
+          "text": "Target: End of Q1 2027"
+        },
+        {
+          "level": 2,
+          "line": 85,
+          "text": "Content Generation Strategy"
+        },
+        {
+          "level": 3,
+          "line": 87,
+          "text": "Tier 1: AI-Assisted (Primary)"
+        },
+        {
+          "level": 3,
+          "line": 92,
+          "text": "Tier 2: OER Acquisition"
+        },
+        {
+          "level": 3,
+          "line": 97,
+          "text": "Tier 3: Manual Development"
+        },
+        {
+          "level": 2,
+          "line": 103,
+          "text": "Quality Gates"
+        },
+        {
+          "level": 2,
+          "line": 114,
+          "text": "Dependencies"
+        },
+        {
+          "level": 2,
+          "line": 122,
+          "text": "Risks & Mitigations"
+        },
+        {
+          "level": 2,
+          "line": 132,
+          "text": "Success Metrics"
+        },
+        {
+          "level": 2,
+          "line": 140,
+          "text": "References"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://www.education.gov.za/CAPS.aspx",
+          "text": "https://www.education.gov.za/CAPS.aspx"
+        }
+      ],
+      "path": "docs/caps/content_expansion_roadmap.md",
+      "sha256": "e1b7c92243da684f8991098c24a04bcbc24572417eec8bd69e5400877a620b3d",
+      "size_bytes": 4409,
+      "statuses": [
+        "pending"
+      ],
+      "title": "CAPS Content Expansion Roadmap"
+    },
+    {
+      "category": "general",
       "dates": [],
       "evidence_references": [
         "docs/release/runtime_launch_content_evidence_status.md"
@@ -15730,6 +15905,103 @@
         "pass"
       ],
       "title": "Grade 4 Mathematics - Lesson Coverage Matrix"
+    },
+    {
+      "category": "general",
+      "dates": [
+        "2026-06-12"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Multilingual Lesson Generation Status"
+        },
+        {
+          "level": 2,
+          "line": 9,
+          "text": "Supported Languages"
+        },
+        {
+          "level": 2,
+          "line": 20,
+          "text": "Verification Results"
+        },
+        {
+          "level": 3,
+          "line": 22,
+          "text": "English (en) \u2705"
+        },
+        {
+          "level": 3,
+          "line": 29,
+          "text": "isiZulu (zu) \u2705"
+        },
+        {
+          "level": 3,
+          "line": 39,
+          "text": "Afrikaans (af) \u26a0\ufe0f"
+        },
+        {
+          "level": 3,
+          "line": 48,
+          "text": "isiXhosa (xh) \u26a0\ufe0f"
+        },
+        {
+          "level": 2,
+          "line": 59,
+          "text": "Language Detection & Routing"
+        },
+        {
+          "level": 3,
+          "line": 67,
+          "text": "Request Flow"
+        },
+        {
+          "level": 1,
+          "line": 70,
+          "text": "In app/api_v2_routers/lessons.py"
+        },
+        {
+          "level": 2,
+          "line": 77,
+          "text": "Prompt Templates"
+        },
+        {
+          "level": 2,
+          "line": 90,
+          "text": "Known Issues"
+        },
+        {
+          "level": 2,
+          "line": 98,
+          "text": "Recommendations"
+        },
+        {
+          "level": 2,
+          "line": 106,
+          "text": "CI Smoke Test"
+        },
+        {
+          "level": 2,
+          "line": 122,
+          "text": "References"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "http://localhost:8000/api/v2/lessons/generate",
+          "text": "http://localhost:8000/api/v2/lessons/generate"
+        }
+      ],
+      "path": "docs/caps/multilingual_status.md",
+      "sha256": "6ac115b8c684576a37ad04aba23672d7039f9944155206123c6dfadb0a542d06",
+      "size_bytes": 3568,
+      "statuses": [],
+      "title": "Multilingual Lesson Generation Status"
     },
     {
       "category": "general",
@@ -21391,6 +21663,357 @@
       "size_bytes": 883,
       "statuses": [],
       "title": "Production Deployment Architecture Contract"
+    },
+    {
+      "category": "general",
+      "dates": [
+        "2026-06-12"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "E2E Testing Guide"
+        },
+        {
+          "level": 2,
+          "line": 8,
+          "text": "Prerequisites"
+        },
+        {
+          "level": 2,
+          "line": 16,
+          "text": "Quick Start"
+        },
+        {
+          "level": 3,
+          "line": 18,
+          "text": "1. Install Dependencies"
+        },
+        {
+          "level": 1,
+          "line": 21,
+          "text": "Install Node dependencies"
+        },
+        {
+          "level": 1,
+          "line": 26,
+          "text": "Install Playwright browsers"
+        },
+        {
+          "level": 1,
+          "line": 29,
+          "text": "Activate Python venv"
+        },
+        {
+          "level": 3,
+          "line": 33,
+          "text": "2. Start Backend Services"
+        },
+        {
+          "level": 1,
+          "line": 36,
+          "text": "Start the full stack"
+        },
+        {
+          "level": 1,
+          "line": 39,
+          "text": "Wait for services to be ready"
+        },
+        {
+          "level": 3,
+          "line": 43,
+          "text": "3. Run Tests"
+        },
+        {
+          "level": 1,
+          "line": 46,
+          "text": "Run all E2E tests"
+        },
+        {
+          "level": 1,
+          "line": 49,
+          "text": "Run specific suite"
+        },
+        {
+          "level": 1,
+          "line": 52,
+          "text": "Run with UI (interactive mode)"
+        },
+        {
+          "level": 1,
+          "line": 55,
+          "text": "Run specific browser only"
+        },
+        {
+          "level": 2,
+          "line": 61,
+          "text": "Test Suites"
+        },
+        {
+          "level": 2,
+          "line": 76,
+          "text": "Configuration"
+        },
+        {
+          "level": 3,
+          "line": 78,
+          "text": "Environment Variables"
+        },
+        {
+          "level": 1,
+          "line": 81,
+          "text": "Frontend URL (default: http://127.0.0.1:3050)"
+        },
+        {
+          "level": 1,
+          "line": 84,
+          "text": "Backend URL (for API checks)"
+        },
+        {
+          "level": 3,
+          "line": 88,
+          "text": "playwright.config.ts"
+        },
+        {
+          "level": 2,
+          "line": 98,
+          "text": "CI Integration"
+        },
+        {
+          "level": 3,
+          "line": 100,
+          "text": "GitHub Actions Workflow"
+        },
+        {
+          "level": 3,
+          "line": 108,
+          "text": "Local CI Simulation"
+        },
+        {
+          "level": 1,
+          "line": 111,
+          "text": "Run with CI-like settings"
+        },
+        {
+          "level": 2,
+          "line": 117,
+          "text": "Debugging Failed Tests"
+        },
+        {
+          "level": 3,
+          "line": 119,
+          "text": "View Screenshots"
+        },
+        {
+          "level": 3,
+          "line": 127,
+          "text": "View Traces"
+        },
+        {
+          "level": 1,
+          "line": 130,
+          "text": "Open trace in Playwright UI"
+        },
+        {
+          "level": 3,
+          "line": 134,
+          "text": "Verbose Logging"
+        },
+        {
+          "level": 1,
+          "line": 137,
+          "text": "Run with debug output"
+        },
+        {
+          "level": 2,
+          "line": 143,
+          "text": "Writing New Tests"
+        },
+        {
+          "level": 3,
+          "line": 145,
+          "text": "Basic Structure"
+        },
+        {
+          "level": 3,
+          "line": 158,
+          "text": "Authentication Helpers"
+        },
+        {
+          "level": 3,
+          "line": 166,
+          "text": "Accessibility Testing"
+        },
+        {
+          "level": 2,
+          "line": 182,
+          "text": "Common Issues"
+        },
+        {
+          "level": 2,
+          "line": 193,
+          "text": "Maintenance"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "http://127.0.0.1:3050",
+          "text": "http://127.0.0.1:3050"
+        },
+        {
+          "kind": "external",
+          "target": "http://localhost:3000",
+          "text": "http://localhost:3000"
+        },
+        {
+          "kind": "external",
+          "target": "http://localhost:8000",
+          "text": "http://localhost:8000"
+        }
+      ],
+      "path": "docs/development/e2e_testing.md",
+      "sha256": "e5a84a309fffd542e4fece74533841abc3dc5d003b09f121ca2b565b0bee5e3f",
+      "size_bytes": 3828,
+      "statuses": [
+        "failed"
+      ],
+      "title": "E2E Testing Guide"
+    },
+    {
+      "category": "general",
+      "dates": [
+        "2026-06-12"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "PWA Offline Behavior Plan"
+        },
+        {
+          "level": 2,
+          "line": 9,
+          "text": "Current State"
+        },
+        {
+          "level": 2,
+          "line": 19,
+          "text": "Verification Checklist"
+        },
+        {
+          "level": 3,
+          "line": 21,
+          "text": "Service Worker"
+        },
+        {
+          "level": 3,
+          "line": 27,
+          "text": "Cache Strategy"
+        },
+        {
+          "level": 3,
+          "line": 33,
+          "text": "Offline Lesson Access"
+        },
+        {
+          "level": 2,
+          "line": 41,
+          "text": "Recommended Cache Strategy"
+        },
+        {
+          "level": 3,
+          "line": 43,
+          "text": "Tier 1: Static Assets (Always Cache)"
+        },
+        {
+          "level": 3,
+          "line": 56,
+          "text": "Tier 2: API Responses (Network First)"
+        },
+        {
+          "level": 3,
+          "line": 70,
+          "text": "Tier 3: Lessons (Stale While Revalidate)"
+        },
+        {
+          "level": 2,
+          "line": 85,
+          "text": "Offline Testing"
+        },
+        {
+          "level": 3,
+          "line": 87,
+          "text": "Manual Test"
+        },
+        {
+          "level": 3,
+          "line": 94,
+          "text": "Automated Test (Playwright)"
+        },
+        {
+          "level": 2,
+          "line": 112,
+          "text": "Known Gaps"
+        },
+        {
+          "level": 2,
+          "line": 122,
+          "text": "Implementation Plan"
+        },
+        {
+          "level": 3,
+          "line": 124,
+          "text": "Phase 1: Verification (Priority)"
+        },
+        {
+          "level": 3,
+          "line": 130,
+          "text": "Phase 2: Enhancement (Next Sprint)"
+        },
+        {
+          "level": 3,
+          "line": 136,
+          "text": "Phase 3: Production (Q4 2026)"
+        },
+        {
+          "level": 2,
+          "line": 144,
+          "text": "Success Metrics"
+        },
+        {
+          "level": 2,
+          "line": 152,
+          "text": "References"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://next-pwa-docs.vercel.app/",
+          "text": "https://next-pwa-docs.vercel.app/"
+        },
+        {
+          "kind": "external",
+          "target": "https://developer.chrome.com/docs/workbox/",
+          "text": "https://developer.chrome.com/docs/workbox/"
+        },
+        {
+          "kind": "external",
+          "target": "https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API",
+          "text": "https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API"
+        }
+      ],
+      "path": "docs/development/pwa_offline_plan.md",
+      "sha256": "d84ee15dc1c228ddd53fe687127d3678dca5d5e7c48ca1c921b609b94cde2ff4",
+      "size_bytes": 3340,
+      "statuses": [],
+      "title": "PWA Offline Behavior Plan"
     },
     {
       "category": "general",
@@ -38403,7 +39026,7 @@
       ],
       "links": [],
       "path": "docs/operations/database_backup_manifest.md",
-      "sha256": "550b0a8af923eead41f92b778e99da2523e581269a941288061e14d8f4893f5d",
+      "sha256": "8c9d3329616cf347c1391bb3f583e7154b6f667a99f7371346ba2bd874d21c90",
       "size_bytes": 699,
       "statuses": [
         "pending"
@@ -38617,7 +39240,7 @@
       ],
       "links": [],
       "path": "docs/operations/database_restore_evidence.md",
-      "sha256": "5d19b6684132c9469d72baede7b655071e1d09a563cf26ba945caceb2b0d13d5",
+      "sha256": "065ff46e4520b213fa9ea328bc209e00c50f445b5c03b47c55598da4382805e0",
       "size_bytes": 752,
       "statuses": [
         "pending",
@@ -38835,6 +39458,46 @@
         {
           "level": 2,
           "line": 160,
+          "text": "Dependabot Workflow"
+        },
+        {
+          "level": 3,
+          "line": 162,
+          "text": "Overview"
+        },
+        {
+          "level": 3,
+          "line": 166,
+          "text": "Supported Ecosystems"
+        },
+        {
+          "level": 3,
+          "line": 175,
+          "text": "Review Process"
+        },
+        {
+          "level": 3,
+          "line": 185,
+          "text": "Critical CVE Response"
+        },
+        {
+          "level": 3,
+          "line": 194,
+          "text": "Disabling Dependabot for a Dependency"
+        },
+        {
+          "level": 1,
+          "line": 199,
+          "text": "In dependabot.yml"
+        },
+        {
+          "level": 3,
+          "line": 207,
+          "text": "Monitoring"
+        },
+        {
+          "level": 2,
+          "line": 215,
           "text": "References"
         }
       ],
@@ -38853,12 +39516,19 @@
           "kind": "external",
           "target": "https://packaging.python.org/guides/",
           "text": "PyPA best practices"
+        },
+        {
+          "kind": "external",
+          "target": "https://github.com/NkgoloL/eduboost-v2/network/updates`",
+          "text": "https://github.com/NkgoloL/eduboost-v2/network/updates`"
         }
       ],
       "path": "docs/operations/dependency_management.md",
-      "sha256": "a72e1ba476ef6406c8f80df4344d6d200bc3f06612974b7f39691a8ca94bb246",
-      "size_bytes": 3611,
-      "statuses": [],
+      "sha256": "eb55d5fa320ffeecec7d712897598d38b00630d38951e321f543054bf94b4850",
+      "size_bytes": 5301,
+      "statuses": [
+        "pass"
+      ],
       "title": "Dependency Management \u2014 EduBoost"
     },
     {
@@ -42137,7 +42807,7 @@
       ],
       "links": [],
       "path": "docs/operations/release_candidate_tag_manifest.md",
-      "sha256": "7139bf61c11a403874f75f94f9cb79b25e46dec299e65761ae17d0278be62f81",
+      "sha256": "05c4ccf0b0153812016fd063366013d9097147ce4c918d75c08da9d37ab2f08f",
       "size_bytes": 1196,
       "statuses": [
         "pass"
@@ -42658,73 +43328,8 @@
       "evidence_references": [
         "docs/operations/beta_release_evidence_bundle.md",
         "docs/operations/database_restore_evidence.md",
-        "docs/operations/release_evidence_manifest.md",
         "docs/operations/staging_smoke_evidence_manifest.md",
-        "docs/release/alertmanager_drill_evidence.json",
-        "docs/release/approval_evidence_status.json",
-        "docs/release/approval_evidence_status.md",
-        "docs/release/audit_baseline_refresh_status.json",
-        "docs/release/audit_baseline_refresh_status.md",
-        "docs/release/audit_callsite_inventory.md",
-        "docs/release/auth_db_lifecycle_proof_report.json",
-        "docs/release/auth_db_lifecycle_proof_report.md",
-        "docs/release/auth_http_success_scope_report.json",
-        "docs/release/auth_http_success_scope_report.md",
-        "docs/release/auth_lifecycle_http_proof_status.json",
-        "docs/release/auth_lifecycle_http_proof_status.md",
-        "docs/release/auth_lifecycle_semantic_proof_status.json",
-        "docs/release/auth_lifecycle_semantic_proof_status.md",
-        "docs/release/auth_refresh_db_evidence_status.json",
-        "docs/release/auth_refresh_db_evidence_status.md",
-        "docs/release/auth_route_logout_delegate_status.json",
-        "docs/release/auth_route_logout_delegate_status.md",
-        "docs/release/auth_route_service_dependency_repair_status.json",
-        "docs/release/auth_route_service_dependency_repair_status.md",
-        "docs/release/auth_route_transaction_slice_report.json",
-        "docs/release/auth_route_transaction_slice_report.md",
-        "docs/release/auth_router_boundary_introspection.json",
-        "docs/release/auth_router_boundary_introspection.md",
-        "docs/release/auth_service_cleanup_status.json",
-        "docs/release/auth_service_cleanup_status.md",
-        "docs/release/auth_service_extraction_repair_report.md",
-        "docs/release/backend_consolidation_diagnostic_report.md",
-        "docs/release/backend_consolidation_evidence_manifest.md",
-        "docs/release/backend_consolidation_execution_report.md",
-        "docs/release/backend_consolidation_implementation_foundation_report.md",
         "docs/release/backend_consolidation_progress_report.md",
-        "docs/release/backend_consolidation_readiness_report.md",
-        "docs/release/backend_consolidation_terminal_report.md",
-        "docs/release/backend_deletion_candidate_inventory.md",
-        "docs/release/backend_first_wiring_candidates_report.md",
-        "docs/release/backend_implementation_371_375_report.md",
-        "docs/release/backend_runtime_compatibility_report.md",
-        "docs/release/backend_runtime_enablement_report.md",
-        "docs/release/backend_runtime_integration_readiness_report.md",
-        "docs/release/backend_runtime_probe_report.md",
-        "docs/release/backend_runtime_wiring_cases_report.md",
-        "docs/release/backend_runtime_wiring_preflight_report.md",
-        "docs/release/backup_drill_evidence.json",
-        "docs/release/backup_drill_evidence.md",
-        "docs/release/beta_blocker_burndown_plan.json",
-        "docs/release/beta_blocker_burndown_plan.md",
-        "docs/release/beta_evidence_integrity_repair_report.json",
-        "docs/release/beta_evidence_integrity_repair_report.md",
-        "docs/release/beta_no_go_handoff_packet.json",
-        "docs/release/beta_no_go_handoff_packet.md",
-        "docs/release/beta_readiness_status.json",
-        "docs/release/branch_protection_evidence.json",
-        "docs/release/branch_protection_evidence.md",
-        "docs/release/ci_auth_refresh_db_proof_workflow_status.json",
-        "docs/release/ci_auth_refresh_db_proof_workflow_status.md",
-        "docs/release/ci_authority_status.json",
-        "docs/release/ci_authority_status.md",
-        "docs/release/ci_evidence.json",
-        "docs/release/ci_evidence.md",
-        "docs/release/ci_evidence_status.json",
-        "docs/release/ci_evidence_status.md",
-        "docs/release/ci_run_evidence_status.json",
-        "docs/release/ci_run_evidence_status.md",
-        "docs/release/consent_callsite_inventory.md",
         "docs/release/db_live_only_table_ownership_status.json",
         "docs/release/db_live_only_table_ownership_status.md",
         "docs/release/db_migration_seed_repeatability_status.json",
@@ -42733,14 +43338,6 @@
         "docs/release/diag_deep_health_runtime_status.md",
         "docs/release/diagnostic_item_bank_canonicality_status.json",
         "docs/release/diagnostic_item_bank_canonicality_status.md",
-        "docs/release/diagnostic_score_live_audit_status.json",
-        "docs/release/diagnostic_score_live_audit_status.md",
-        "docs/release/diagnostics_db_integrity_proof.json",
-        "docs/release/diagnostics_db_integrity_proof.md",
-        "docs/release/diagnostics_route_transaction_gap_plan.json",
-        "docs/release/diagnostics_route_transaction_gap_plan.md",
-        "docs/release/diagnostics_route_transaction_slice_report.json",
-        "docs/release/diagnostics_route_transaction_slice_report.md",
         "docs/release/disposable_db_schema_proof_execution_report.md",
         "docs/release/evidence_attachment_runbook.md",
         "docs/release/evidence_attachment_runbook_manifest.json",
@@ -42752,42 +43349,17 @@
         "docs/release/first_audit_runtime_wiring_report.md",
         "docs/release/live_db_transaction_evidence_status.json",
         "docs/release/live_db_transaction_evidence_status.md",
-        "docs/release/popia_lifecycle_runtime_proof.json",
-        "docs/release/popia_lifecycle_runtime_proof.md",
         "docs/release/popia_response_contract_no_skip_status.json",
         "docs/release/popia_response_contract_no_skip_status.md",
         "docs/release/popia_route_transaction_gap_plan.json",
         "docs/release/popia_route_transaction_gap_plan.md",
-        "docs/release/popia_route_transaction_slice_report.json",
-        "docs/release/popia_route_transaction_slice_report.md",
         "docs/release/production_frontend_deployment_status.json",
         "docs/release/production_frontend_deployment_status.md",
         "docs/release/production_frontend_runtime_status.json",
         "docs/release/production_frontend_runtime_status.md",
         "docs/release/release_go_no_go_status.json",
         "docs/release/release_go_no_go_status.md",
-        "docs/release/release_owner_beta_go_no_go_memo.md",
-        "docs/release/restore_drill_evidence.json",
-        "docs/release/rollback_drill_evidence.json",
-        "docs/release/route_transaction_implementation_plan.json",
-        "docs/release/route_transaction_implementation_plan.md",
-        "docs/release/route_transaction_slice_rollup.json",
-        "docs/release/route_transaction_slice_rollup.md",
-        "docs/release/runtime_wiring_431_450_report.md",
-        "docs/release/schema_drift_disposable_latest.json",
-        "docs/release/schema_drift_disposable_latest.md",
-        "docs/release/staging_acceptance_status.json",
-        "docs/release/staging_acceptance_status.md",
-        "docs/release/staging_smoke_evidence.md",
-        "docs/release/staging_smoke_evidence_status.json",
-        "docs/release/staging_smoke_evidence_status.md",
-        "docs/release/staging_smoke_final_evidence.json",
-        "docs/release/staging_smoke_final_evidence.md",
-        "docs/release/staging_smoke_workflow_status.json",
-        "docs/release/staging_smoke_workflow_status.md",
-        "docs/release/transaction_rollback_rollup_report.json",
-        "docs/release/transaction_rollback_rollup_report.md",
-        "scripts/evidence_registry.py"
+        "docs/release/runtime_wiring_431_450_report.md"
       ],
       "generated": false,
       "headings": [
@@ -42808,24 +43380,24 @@
         },
         {
           "level": 2,
-          "line": 197,
+          "line": 100,
           "text": "State Artifacts"
         },
         {
           "level": 2,
-          "line": 212,
+          "line": 115,
           "text": "Snapshot Boundary"
         },
         {
           "level": 2,
-          "line": 217,
+          "line": 120,
           "text": "Command"
         }
       ],
       "links": [],
       "path": "docs/operations/release_state_snapshot.md",
-      "sha256": "64fd3d8a55c3586fb9034b61f59e0a922f6b7ec0c2af94bf37362b416611c7c5",
-      "size_bytes": 10287,
+      "sha256": "d9a2abe1ed1f5ef94f6790f01440b273328ff5bc234a67a5762f67baefce90d4",
+      "size_bytes": 5100,
       "statuses": [],
       "title": "Release State Snapshot"
     },
@@ -43847,7 +44419,7 @@
       ],
       "links": [],
       "path": "docs/operations/staging_smoke_evidence_manifest.md",
-      "sha256": "a73c01e52e52f3fa178906de4d1ab691cc34585421b8c0420f0b523f4d39f13c",
+      "sha256": "d3b965032ad652ad743a793af717b5c7f92a7558d73a9e4ca239a0d6bf731626",
       "size_bytes": 1049,
       "statuses": [],
       "title": "Staging Smoke Evidence Manifest"
@@ -52961,7 +53533,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/auth_db_lifecycle_proof_report.json",
-      "sha256": "600000df8f51e802798a9ef0459e55bb631dbf5d6b53a351a696c2fb204d729f",
+      "sha256": "41b8905f880e913781b9eb941c866124eb04f213b32dd087c2fa3255bc3f4b60",
       "size_bytes": 706,
       "statuses": [],
       "title": "Auth Db Lifecycle Proof Report"
@@ -52990,7 +53562,7 @@
       ],
       "links": [],
       "path": "docs/release/auth_db_lifecycle_proof_report.md",
-      "sha256": "0e67eadd90e3f408de55e89415cac0043decc554032e6d4f00bdc0ddca9acee6",
+      "sha256": "3b2ae56ba4b8d5f5d92a08097288892d80ed814101316b46ca15a94df4b11761",
       "size_bytes": 842,
       "statuses": [],
       "title": "Auth DB Lifecycle Proof Report"
@@ -53460,7 +54032,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/auth_route_logout_delegate_status.json",
-      "sha256": "91c1e5ed57acaa4fe06858fc6cf1f452660a93b6fd72327f166bebe9dca87d32",
+      "sha256": "6d38cd11bcc6eb053bc1997f7ba60c97b6a0fc50120214ff4b5d4aff70457705",
       "size_bytes": 602,
       "statuses": [
         "passed"
@@ -53491,7 +54063,7 @@
       ],
       "links": [],
       "path": "docs/release/auth_route_logout_delegate_status.md",
-      "sha256": "71b2a91aed04fcb6768464713ac3db16619aaeda9b217b82418f5bf2debe93cd",
+      "sha256": "8ef83b1bb36590c05c8ce123843b54ba5ed6a94b51adefb1a4b738cf24789718",
       "size_bytes": 606,
       "statuses": [
         "passed"
@@ -53506,7 +54078,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/auth_route_service_dependency_repair_status.json",
-      "sha256": "27a577f0cd34e8016b3c721917a5fe038779ee797a34e014299354eee8b2ce72",
+      "sha256": "32dc9675d85940914257b8d5cf4c21e3bfeb381c7dc56bdb31f2a7d4c3e752c0",
       "size_bytes": 1496,
       "statuses": [
         "passed"
@@ -53537,7 +54109,7 @@
       ],
       "links": [],
       "path": "docs/release/auth_route_service_dependency_repair_status.md",
-      "sha256": "d2fe9c30b76c4c9509186c154f0043f1b8693baca193a8bdb3247f3152956ec6",
+      "sha256": "5e6e82822ab56e34c569e94b67069f042ade8fcf5e5a5ddb4e3a3b0a2095caad",
       "size_bytes": 845,
       "statuses": [
         "passed"
@@ -53584,8 +54156,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/auth_route_transaction_slice_report.json",
-      "sha256": "75b5adb92863aa78a2b8cd5048a2c5962a1e6daa518e2f0a545f807ee05964ef",
-      "size_bytes": 1994,
+      "sha256": "70cf5b9654d522d1d8235b65e9c765c76de427e2243dc556d291fc4650c784b9",
+      "size_bytes": 1944,
       "statuses": [
         "external-blocked",
         "pending",
@@ -53633,7 +54205,7 @@
       ],
       "links": [],
       "path": "docs/release/auth_route_transaction_slice_report.md",
-      "sha256": "4e64d9ab5239e118d20cd272a004d3ba88cfe1412ff09f3f742e31009b146e3e",
+      "sha256": "1feb7eaae57817b887b175073f75a534b7de65d3e78664cb8281268f7b666b4f",
       "size_bytes": 1572,
       "statuses": [
         "external-blocked",
@@ -53651,7 +54223,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/auth_router_boundary_introspection.json",
-      "sha256": "8c3d88f52307774737708d2ede726e07644a51bd1c9d0a1b594239a9f771a24b",
+      "sha256": "526c38e7eb3fb4f39f140823ad5ec508a2356e9823740a6f7fe59a02e1c72abb",
       "size_bytes": 2713,
       "statuses": [],
       "title": "Auth Router Boundary Introspection"
@@ -53675,7 +54247,7 @@
       ],
       "links": [],
       "path": "docs/release/auth_router_boundary_introspection.md",
-      "sha256": "869a5cd6655b8e2e736d654d1cf278a42034868d06a238d7fa92cf9cd2f5f40c",
+      "sha256": "1281cdf576665c214bc6e11273ff6c724b6d6469bc11e5d3321df69f5ddcd612",
       "size_bytes": 1176,
       "statuses": [],
       "title": "Auth Router Boundary Introspection"
@@ -53712,7 +54284,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/auth_service_cleanup_status.json",
-      "sha256": "a0ede846c65e59e102b1fd37102d7831874c8c464bcc5f1a43b4cfb8848e78b5",
+      "sha256": "78c5bdb047663c55dcc90c9db222431ccb85e050f169f217d27a7f92a581c6ff",
       "size_bytes": 449,
       "statuses": [],
       "title": "Auth Service Cleanup Status"
@@ -53756,7 +54328,7 @@
       ],
       "links": [],
       "path": "docs/release/auth_service_cleanup_status.md",
-      "sha256": "e014c362bdf39ef165fc07cd732827a80fb0e134ff920cf88bb2e0cfe68beee7",
+      "sha256": "47d5dcc3ea936f755221457c414e5aa815625ebbd620c1e14a6d4351063900e8",
       "size_bytes": 699,
       "statuses": [],
       "title": "Auth Service Cleanup Status"
@@ -53790,7 +54362,7 @@
       ],
       "links": [],
       "path": "docs/release/auth_service_extraction_repair_report.md",
-      "sha256": "fbc5312ecd57fbf6a38f18e65f1531d103164f24ee796b1c6145206870770ef4",
+      "sha256": "468ff00f94341938a66fa7452befeedcbcb5654e6d822eee7ee777b6652b2a66",
       "size_bytes": 724,
       "statuses": [],
       "title": "Auth Service Extraction Repair Report"
@@ -56570,7 +57142,7 @@
       ],
       "links": [],
       "path": "docs/release/backend_runtime_enablement_report.md",
-      "sha256": "3f873d19eaf7634af984c4682d459793538259f031ee2ecc851d0cb80d6cf01a",
+      "sha256": "12e9d6c73f4f1233a774e552ab2b68a99d4dec2c4b21e5f5255fa125bbcfc7e4",
       "size_bytes": 6881,
       "statuses": [
         "pass",
@@ -56719,7 +57291,7 @@
       ],
       "links": [],
       "path": "docs/release/backend_runtime_integration_readiness_report.md",
-      "sha256": "4d578f11874f4cc75a892c410755a3414a031eb9fb6be82b6fd3c8164311753b",
+      "sha256": "6dbd4d7a02b3e918f445bd49f39bf5174a831a71d90130c14db20d14b8503fa5",
       "size_bytes": 5760,
       "statuses": [
         "pass",
@@ -56841,7 +57413,7 @@
       ],
       "links": [],
       "path": "docs/release/backend_runtime_probe_report.md",
-      "sha256": "91b210c6ec5cb8268dd2b6147909d742ac490999ba55bbee3be3a8c0301202c2",
+      "sha256": "74169d8f471169b5b5a6e55af4a84508c577da911026c477929adf21b22979e0",
       "size_bytes": 6524,
       "statuses": [
         "pass",
@@ -57523,7 +58095,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/ci_auth_refresh_db_proof_workflow_status.json",
-      "sha256": "84c0e89d1a0f7dc027e4b4fd2f361ee65e2d774e0efc21acdfd4f2935d5fe539",
+      "sha256": "6ab6a26c3b3284e1d347b2b89a8da90ba13a1e01e707f97bd700a40a580403b0",
       "size_bytes": 1699,
       "statuses": [
         "not-proven",
@@ -57555,7 +58127,7 @@
       ],
       "links": [],
       "path": "docs/release/ci_auth_refresh_db_proof_workflow_status.md",
-      "sha256": "4bd6f7811648ee19aba9b5fdb923d8e040bd3f6b2bb9b2c8b05d7b2d90b063a4",
+      "sha256": "badb7d5ebcde2a9acfe24e04fd7e9e399be0379c6ea3dc58944a0b1d7dc6842c",
       "size_bytes": 1284,
       "statuses": [
         "not-proven",
@@ -58188,7 +58760,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/db_live_only_table_ownership_status.json",
-      "sha256": "91b11a80846805b135a4cdd471db68d8114e5baae8fe0ec70e8e68c8a3dbfb5e",
+      "sha256": "234ea8bf23f1a12c9e5cc0c956f61302b91dd5f5315d79ba0c7b2718fb4789dd",
       "size_bytes": 2689,
       "statuses": [],
       "title": "Db Live Only Table Ownership Status"
@@ -58222,7 +58794,7 @@
       ],
       "links": [],
       "path": "docs/release/db_live_only_table_ownership_status.md",
-      "sha256": "2282aa4b689e68eb7027ca928bbfeb36e4c894976c562dc5f76b219aa314d91f",
+      "sha256": "e34da323b33fbc007c8c4446da229d0c7470603939b2d19d694a06c50b6f7d37",
       "size_bytes": 1468,
       "statuses": [],
       "title": "DB Live-Only Table Ownership Status"
@@ -58235,7 +58807,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/db_migration_seed_repeatability_status.json",
-      "sha256": "3637409fce7f1984203e3f013de805b3fcaf559de1c02703d99a493a855eaf95",
+      "sha256": "864f98bec368e1d170ffe73789b4e3ce06bc59c6977c2c030a6f068da97353a6",
       "size_bytes": 1317,
       "statuses": [
         "not-proven",
@@ -58292,7 +58864,7 @@
       ],
       "links": [],
       "path": "docs/release/db_migration_seed_repeatability_status.md",
-      "sha256": "9bc2ee0df1333ca9e33d5a98bbc464d94bf28f3f4d8075a73e1aefcff0aae999",
+      "sha256": "7c6da411a4bffe2d9b449e91ee21ccdd3ad57bbb13afe5b9ce83ca5c5dcc8db6",
       "size_bytes": 2114,
       "statuses": [
         "not-proven",
@@ -58540,7 +59112,7 @@
       "headings": [],
       "links": [],
       "path": "docs/release/diagnostic_item_bank_canonicality_status.json",
-      "sha256": "f42cf15584712fc3d3ebe363391daf0134f34a669a3a7114a6cd92f860f81882",
+      "sha256": "d270bb25e9bec2b8b350ab0f7ff086e51d180baacdf355196bf64f98549e4bf2",
       "size_bytes": 59656,
       "statuses": [
         "todo"
@@ -58581,7 +59153,7 @@
       ],
       "links": [],
       "path": "docs/release/diagnostic_item_bank_canonicality_status.md",
-      "sha256": "9ef5a54d50f2b05952271108e404f8546cbde44eb138f3dfa11cdc439747386b",
+      "sha256": "8b0f2585730cbd34e43d7360e2cea8f625efae2d4c307614c9ba4b44e3e9db4d",
       "size_bytes": 3348,
       "statuses": [],
       "title": "Diagnostic Item-Bank Policy Status"
@@ -58693,8 +59265,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/diagnostics_db_integrity_proof.json",
-      "sha256": "9a630055d0c45e61d24f4e8bf7495b9896b5819997af160af089711ba58c21c9",
-      "size_bytes": 393,
+      "sha256": "d2b4d744f3acfb5cf0b6bdd9c45cb11ff21d497ff2f0c734394fcf1251595415",
+      "size_bytes": 377,
       "statuses": [],
       "title": "Diagnostics Db Integrity Proof"
     },
@@ -58717,7 +59289,7 @@
       ],
       "links": [],
       "path": "docs/release/diagnostics_db_integrity_proof.md",
-      "sha256": "1786bb135bd55c4d185b76fc7796365bc2745d4c4845c2bd56638511d4a9a22f",
+      "sha256": "ae304fda33ee83c7ed72522032aeddbd30802ed17b2806cbf8934db36e63b724",
       "size_bytes": 206,
       "statuses": [],
       "title": "Diagnostics DB Integrity Proof"
@@ -58822,8 +59394,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/diagnostics_route_transaction_gap_plan.json",
-      "sha256": "23387a72840a35f8f8af89792a035a7e0df5e3f03ad6cd2b1a23d825840886e4",
-      "size_bytes": 1247,
+      "sha256": "a15d31bba2fbf9f676d8f6e9bdcaddd82f6997ec2ede130857aaf20a21947205",
+      "size_bytes": 1224,
       "statuses": [
         "not-proven",
         "external-blocked",
@@ -58862,8 +59434,8 @@
       ],
       "links": [],
       "path": "docs/release/diagnostics_route_transaction_gap_plan.md",
-      "sha256": "d666e18c62895ece2b648ba4b961eb82306ac9a26da62914762503ef863dbaf0",
-      "size_bytes": 948,
+      "sha256": "bbbfed48efa2aab7eabb04a624d3ae9c0fff053a44605c5b121e9ef39931d6c1",
+      "size_bytes": 949,
       "statuses": [
         "not-proven",
         "external-blocked",
@@ -58911,8 +59483,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/diagnostics_route_transaction_slice_report.json",
-      "sha256": "4b89319ed05d62e443d2c7d1c5e2680dcc50cbd96e38621a06d2f7b33012c7f7",
-      "size_bytes": 2518,
+      "sha256": "7a0954d81eaa33d921571ec7716dc77049affdf78637c7c8a957842020109d9a",
+      "size_bytes": 2454,
       "statuses": [
         "not-proven",
         "external-blocked",
@@ -58961,8 +59533,8 @@
       ],
       "links": [],
       "path": "docs/release/diagnostics_route_transaction_slice_report.md",
-      "sha256": "281850ff1e0160da1f9bf52763725b61012fb9674c0dd50d7c8093d5ac88e892",
-      "size_bytes": 1826,
+      "sha256": "b3df4c2163936f5772b5ec3e2b01af2e3e8ed92dd4663968f2b1bf94cdfcb51e",
+      "size_bytes": 1827,
       "statuses": [
         "not-proven",
         "external-blocked",
@@ -59247,7 +59819,7 @@
         }
       ],
       "path": "docs/release/evidence_attachment_runbook.md",
-      "sha256": "a723d4ad48762f917d4c7775967d4b2f96c5026c199f4c804be7308b069e56c7",
+      "sha256": "e9f4027dc352742a41173856ab4ac68dcf320b06cd002be80dd897d3004643b9",
       "size_bytes": 5177,
       "statuses": [
         "passed",
@@ -59302,8 +59874,8 @@
         }
       ],
       "path": "docs/release/evidence_attachment_runbook_manifest.json",
-      "sha256": "fd7f7a28e6d172986258dfbabbb456059ec789f5bde5787f39ea56691c1069a3",
-      "size_bytes": 5065,
+      "sha256": "fc84976b290b9f0db4caa27cca55bc8a7e08d180435c4ed5dde55b960eaa8b18",
+      "size_bytes": 4984,
       "statuses": [
         "passed",
         "pass"
@@ -59336,7 +59908,7 @@
         "docs/release/no_false_closure_status_after_1551_1590.md",
         "docs/release/diagnostic_score_live_audit_status.md",
         "docs/release/route_transaction_slice_rollup.md",
-        "docs/release/external_approvals/staging_acceptance.md",
+        "docs/release/staging_smoke_evidence.md",
         "docs/release/external_approval_status.md",
         "docs/release/release_go_no_go_status.md",
         "docs/release/beta_blocker_burndown_plan.md",
@@ -59509,8 +60081,8 @@
         }
       ],
       "path": "docs/release/evidence_status_registry.yml",
-      "sha256": "8512e313b6e613bc969ac3dbfeca058b9394183b8a314a47f4f3e528c61ed460",
-      "size_bytes": 34228,
+      "sha256": "57815b84ca4ac3734082b97951692b8ea9d858d456b946be1148ee9b616800ea",
+      "size_bytes": 34308,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -59533,8 +60105,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/external_approval_status.json",
-      "sha256": "13487218b3e193a4695af7654ac5508c051fcb60feef02f14b0c783c5d916468",
-      "size_bytes": 3126,
+      "sha256": "8b8da73750287f7337ae4f6a79d8c5b9932c003a9b948a9860bca33b2bd60861",
+      "size_bytes": 3030,
       "statuses": [
         "external-blocked",
         "pending"
@@ -59565,7 +60137,7 @@
       ],
       "links": [],
       "path": "docs/release/external_approval_status.md",
-      "sha256": "c025a297682094a0f9715b9818a8a9a0ec84c1fee108004223adba27b7677710",
+      "sha256": "6e40db9c0d1ee7d698c89d9c22a9e69bdc1fe80fee6748b31a57a9ce17a80bea",
       "size_bytes": 1584,
       "statuses": [
         "external-blocked",
@@ -59709,7 +60281,7 @@
         "docs/release/external_approvals/security_approval.md",
         "docs/release/external_approvals/content_approval.md",
         "docs/release/lesson_authorization_hardening_report.md",
-        "docs/release/external_approvals/staging_acceptance.md",
+        "docs/release/staging_smoke_evidence.md",
         "docs/release/external_approval_status.md",
         "docs/release/auth_refresh_db_evidence_status.md"
       ],
@@ -59717,8 +60289,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.json",
-      "sha256": "4233f3bda6f282498d21ba7ed0e11f5c997c9dbc7d23901c78d4d09b3bf9c535",
-      "size_bytes": 13183,
+      "sha256": "1fb4f4068dfe839251df15b8b1a267c6d7b0877bd4baa5a5e449ea3da01e8e4c",
+      "size_bytes": 13197,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -59738,7 +60310,7 @@
         "docs/release/external_approvals/security_approval.md",
         "docs/release/external_approvals/content_approval.md",
         "docs/release/lesson_authorization_hardening_report.md",
-        "docs/release/external_approvals/staging_acceptance.md",
+        "docs/release/staging_smoke_evidence.md",
         "docs/release/external_approval_status.md"
       ],
       "generated": false,
@@ -59781,8 +60353,8 @@
       ],
       "links": [],
       "path": "docs/release/final_beta_gate_refresh.md",
-      "sha256": "9764ae8997ef2c97d485bb72a4425b5c922927eaca798f02a8ecc5ba11e2d088",
-      "size_bytes": 4235,
+      "sha256": "f3b38d83d26cca2c00944f59744147ae42abf4b69c917dbe27065ec386fc979d",
+      "size_bytes": 4242,
       "statuses": [
         "external-blocked",
         "not-proven",
@@ -59991,8 +60563,8 @@
       ],
       "links": [],
       "path": "docs/release/first_audit_runtime_wiring_report.md",
-      "sha256": "5d2e587db103ca9d0b592399352a87bbae618d7fa027b67bb4e14d8a2060d044",
-      "size_bytes": 4681,
+      "sha256": "f3e436ce617bd9712ffa15f59e2760614cf9e99ce99fa7d77abe472bb13a30f8",
+      "size_bytes": 4729,
       "statuses": [
         "pass",
         "blocked"
@@ -60554,8 +61126,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/live_db_transaction_evidence_status.json",
-      "sha256": "6fe9b742938f5d40393f06c8f2886d125119aefb743bb3bd8de253867251c849",
-      "size_bytes": 3625,
+      "sha256": "bc46720f12452ff8d5abb511bf2044980b3b3f966c7b7f92e9859277b57ea5ad",
+      "size_bytes": 3527,
       "statuses": [
         "external-blocked",
         "pending",
@@ -60588,7 +61160,7 @@
       ],
       "links": [],
       "path": "docs/release/live_db_transaction_evidence_status.md",
-      "sha256": "eacf30660e1a40f5edf6c269d704163fb7e6e71e8507e61d7b14338605a334c5",
+      "sha256": "0f7741a6611abbed5dfe1823d97e74b3b0876b7e4a02bd17afd1c0d223a9d295",
       "size_bytes": 1534,
       "statuses": [
         "external-blocked",
@@ -66380,8 +66952,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/popia_lifecycle_runtime_proof.json",
-      "sha256": "13a3e35ce723d9e9628e1bd7987770db8f73c7969e1bf948ae94f8b131c7efd6",
-      "size_bytes": 394,
+      "sha256": "9b80d72fa7c4afb7a5b01d5b6c2ee1a89f473a36dfead7bfa51d03aa20d8eba0",
+      "size_bytes": 379,
       "statuses": [],
       "title": "Popia Lifecycle Runtime Proof"
     },
@@ -66404,7 +66976,7 @@
       ],
       "links": [],
       "path": "docs/release/popia_lifecycle_runtime_proof.md",
-      "sha256": "63d71beaed2be154bf4bb796ad1c8658417f10a4369d8df142605cdc8807c0a4",
+      "sha256": "6a81f3092faecb8d1d7516fb014a753412dd171629919befb5e1d03cb108ba67",
       "size_bytes": 405,
       "statuses": [],
       "title": "POPIA Lifecycle Runtime Proof"
@@ -66417,8 +66989,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/popia_response_contract_no_skip_status.json",
-      "sha256": "beefb058017755f8e1fa0a6746aa37d6c51cac4c388375c07e344af1f53704a4",
-      "size_bytes": 1212,
+      "sha256": "f19e6a236670477e5d482e62999703c93e810b8ba439c194d86fbe30c98e9c27",
+      "size_bytes": 1167,
       "statuses": [
         "passed"
       ],
@@ -66463,7 +67035,7 @@
       ],
       "links": [],
       "path": "docs/release/popia_response_contract_no_skip_status.md",
-      "sha256": "027fd5a3b3a8057ea4d910680f08a4294364686000a2b0ec44cd0aae2002b114",
+      "sha256": "2e142b36a4462b048ed31e0cadfa1f19a7ddd259d90a3dec5345af16594b3e9f",
       "size_bytes": 1154,
       "statuses": [
         "passed"
@@ -66480,8 +67052,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/popia_route_transaction_gap_plan.json",
-      "sha256": "a565520a4795deb009a8f35b1fedbfe78908543988dd970859051af66913c828",
-      "size_bytes": 756,
+      "sha256": "8eeb73fc24bc2feb86585ef644060e8625bc7d074f8295452660e34ffcc98c91",
+      "size_bytes": 741,
       "statuses": [
         "external-blocked",
         "not-proven"
@@ -66524,7 +67096,7 @@
       ],
       "links": [],
       "path": "docs/release/popia_route_transaction_gap_plan.md",
-      "sha256": "d9346633c188888d759f89f256f498649974826d58a5dae91edb1f11ef2dce47",
+      "sha256": "92da39f078d1616247a2143ad42b0da1da4beb0743003d208246341b37fcb85a",
       "size_bytes": 1105,
       "statuses": [
         "external-blocked",
@@ -66572,8 +67144,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/popia_route_transaction_slice_report.json",
-      "sha256": "1988e943ec999e6c86fe1db32b797c54248494289db189bf8dc73f4563fd0e7e",
-      "size_bytes": 3165,
+      "sha256": "fa440d81b16a14f8d29cbfef3ae8a8417b8180ab5480a39f1d47ae833ae1a8cc",
+      "size_bytes": 3079,
       "statuses": [
         "external-blocked",
         "pending",
@@ -66621,7 +67193,7 @@
       ],
       "links": [],
       "path": "docs/release/popia_route_transaction_slice_report.md",
-      "sha256": "ef6dce5558092db050cdcec82b13fc9ec6205a6c649dca20b6488194829496fe",
+      "sha256": "f2725e445e895abb67c9cf88f8740a666b81fbb7bbfe55a78b4acb4c1abd7e1d",
       "size_bytes": 1821,
       "statuses": [
         "external-blocked",
@@ -66735,8 +67307,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/production_frontend_deployment_status.json",
-      "sha256": "71b0f591b5cf561cabe3086b12c8bd5b78b7a1c7e949e25a8b7df97ae110d314",
-      "size_bytes": 1296,
+      "sha256": "5c713f39c8dfe97c6ef4b8de2224f40e75367fc389f50f7de81ae13d834745c6",
+      "size_bytes": 1249,
       "statuses": [
         "passed"
       ],
@@ -66766,7 +67338,7 @@
       ],
       "links": [],
       "path": "docs/release/production_frontend_deployment_status.md",
-      "sha256": "1841a3af70424d07e818c6ab4a6c8ed1cca4ccc050e1ae690be7ca3bb3659aac",
+      "sha256": "430824a629ca66cea3c7f47114344e6181f51b32108a197ea6e2ae50af2368fc",
       "size_bytes": 999,
       "statuses": [
         "passed"
@@ -66813,8 +67385,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/production_frontend_runtime_status.json",
-      "sha256": "09ffe05d7b6ebafc044537f4496274ebdbc056b037af187f5116a22fb201de3e",
-      "size_bytes": 4063,
+      "sha256": "d5fcff00566e90cf7cf45c35aae0a697edef9c772c3d31f297e05c502b42b9e3",
+      "size_bytes": 3914,
       "statuses": [
         "passed",
         "pending",
@@ -66866,7 +67438,7 @@
       ],
       "links": [],
       "path": "docs/release/production_frontend_runtime_status.md",
-      "sha256": "b9dddad9b4930f707b05534032bdee4b45b6d25c9aa882976c4f1714cc975b12",
+      "sha256": "99bf72e64c1405523c8728ac9e72e8fcf494efeb07432ad8ffd0b24025f2d6b2",
       "size_bytes": 2779,
       "statuses": [
         "passed",
@@ -67010,86 +67582,21 @@
       "category": "release",
       "dates": [],
       "evidence_references": [
-        "docs/release/arq_dependency_worker_import_repair_report.md",
-        "docs/release/jwt_production_guard_repair_report.md",
-        "docs/release/ci_evidence.md",
-        "docs/release/lesson_authorization_hardening_report.md",
-        "docs/release/popia_response_contract_no_skip_status.md",
-        "docs/release/external_approvals/content_approval.md",
-        "docs/release/external_approval_status.md",
-        "docs/release/external_approvals/legal_approval.md",
-        "docs/release/external_approvals/security_approval.md",
-        "docs/release/external_approvals/staging_acceptance.md",
-        "docs/release/audit_baseline_refresh_status.md",
-        "docs/release/ci_run_evidence_status.md",
-        "docs/release/db_live_only_table_ownership_status.md",
-        "docs/release/db_migration_seed_repeatability_status.md",
-        "docs/release/auth_lifecycle_http_proof_status.md",
-        "docs/release/auth_lifecycle_semantic_proof_status.md",
-        "docs/release/auth_refresh_db_evidence_status.md",
-        "docs/release/auth_route_logout_delegate_status.md",
-        "docs/release/auth_service_cleanup_status.md",
-        "docs/release/ci_auth_refresh_db_proof_workflow_status.md",
-        "docs/release/diagnostics_dynamic_repository_boundary_repair_report.md",
-        "docs/release/auth_repository_fixture_proof_report.md",
-        "docs/release/live_db_transaction_evidence_status.md",
-        "docs/release/auth_route_transaction_slice_report.md",
-        "docs/release/diagnostics_route_transaction_slice_report.md",
-        "docs/release/route_transaction_implementation_plan.md",
-        "docs/release/popia_route_transaction_slice_report.md",
-        "docs/release/popia_route_transaction_gap_plan.md",
-        "docs/release/route_transaction_slice_rollup.md",
-        "docs/release/no_false_closure_status_after_1471_1510.md",
-        "docs/release/no_false_closure_status_after_1511_1550.md",
-        "docs/release/no_false_closure_status_after_1551_1590.md",
-        "docs/release/no_false_closure_status_after_1431_1470.md",
-        "docs/release/approval_evidence_status.md",
-        "docs/release/production_frontend_deployment_status.md",
-        "docs/release/production_frontend_runtime_status.md",
-        "docs/release/diag_deep_health_runtime_status.md",
-        "docs/release/diagnostic_item_bank_canonicality_status.md",
-        "docs/release/diagnostic_score_live_audit_status.md",
-        "docs/release/staging_acceptance_status.md",
-        "docs/release/audit_write_runtime_evidence_status.md",
-        "docs/release/beta_no_go_handoff_packet.md",
-        "docs/release/beta_blocker_burndown_plan.md",
-        "docs/release/ci_evidence_status.md",
-        "docs/release/evidence_attachment_runbook.md",
-        "docs/release/final_beta_gate_refresh.md",
-        "docs/release/release_go_no_go_status.md",
-        "docs/release/staging_smoke_evidence_status.md",
-        "docs/release/staging_smoke_workflow_status.md"
+        "docs/release/final_beta_gate_refresh.json"
       ],
       "generated": false,
       "headings": [],
       "links": [],
       "path": "docs/release/release_go_no_go_status.json",
-      "sha256": "27476591263307fe788c4676af435ac87ebcf7c0eac457ae5b851d6cd8fbdb43",
-      "size_bytes": 29051,
-      "statuses": [
-        "external-blocked",
-        "pending",
-        "not-proven",
-        "blocked",
-        "pass"
-      ],
+      "sha256": "e3273013ebd041d05108688a11fa5b1fcbea07f92f89c639cdbe1b356e1c4b2c",
+      "size_bytes": 683,
+      "statuses": [],
       "title": "Release Go No Go Status"
     },
     {
       "category": "release",
       "dates": [],
-      "evidence_references": [
-        "docs/release/arq_dependency_worker_import_repair_report.md",
-        "docs/release/jwt_production_guard_repair_report.md",
-        "docs/release/ci_evidence.md",
-        "docs/release/lesson_authorization_hardening_report.md",
-        "docs/release/popia_response_contract_no_skip_status.md",
-        "docs/release/external_approvals/content_approval.md",
-        "docs/release/external_approval_status.md",
-        "docs/release/external_approvals/legal_approval.md",
-        "docs/release/external_approvals/security_approval.md",
-        "docs/release/external_approvals/staging_acceptance.md"
-      ],
+      "evidence_references": [],
       "generated": false,
       "headings": [
         {
@@ -67099,33 +67606,20 @@
         },
         {
           "level": 2,
-          "line": 15,
-          "text": "Beta-blocking findings"
+          "line": 9,
+          "text": "Remaining beta blockers"
         },
         {
           "level": 2,
-          "line": 30,
-          "text": "Blockers"
-        },
-        {
-          "level": 2,
-          "line": 40,
-          "text": "Required next actions"
-        },
-        {
-          "level": 2,
-          "line": 46,
-          "text": "Interpretation"
+          "line": 22,
+          "text": "No false-closure rules"
         }
       ],
       "links": [],
       "path": "docs/release/release_go_no_go_status.md",
-      "sha256": "5902362128359efec952144d6a63de8370edf0adbc332851bf1a8e642f2d9dc3",
-      "size_bytes": 2480,
-      "statuses": [
-        "external-blocked",
-        "not-proven"
-      ],
+      "sha256": "81c19c1aa9047ba4959862daa3b389c53e01115ed4a361adea19dbe47d9328ea",
+      "size_bytes": 564,
+      "statuses": [],
       "title": "Release Go/No-Go Status"
     },
     {
@@ -67535,8 +68029,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/route_transaction_implementation_plan.json",
-      "sha256": "8df7dfd0cf6786370487ae8107cd3cd138b7ed6b3a913ac9119c0e1a1e9735ad",
-      "size_bytes": 13281,
+      "sha256": "adf8fd031be52d4a31c17db7f158e9f386d4fab61052b5008bf23ca7a83a1a68",
+      "size_bytes": 13056,
       "statuses": [
         "not-proven",
         "blocked",
@@ -67653,7 +68147,7 @@
       ],
       "links": [],
       "path": "docs/release/route_transaction_implementation_plan.md",
-      "sha256": "ff34353385d79370d82ea47d0ed8c7a35b16fc949a94fe24eaced0ada7a18c9d",
+      "sha256": "ca029673f5ea85f097b6affdaf4bf96ba2d6bb1e1cdca65c3b788a0593af8bbf",
       "size_bytes": 10909,
       "statuses": [
         "not-proven",
@@ -67674,8 +68168,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/route_transaction_slice_rollup.json",
-      "sha256": "10a044651af785e3c96aae36546db8e364ad510e1ad3338b68deebd2ac98797c",
-      "size_bytes": 3723,
+      "sha256": "d2df83d4b0cbfb758465bdfab44df918f082e9a943edd4368ad1768fb8a36739",
+      "size_bytes": 3628,
       "statuses": [
         "blocked",
         "external-blocked",
@@ -67720,7 +68214,7 @@
       ],
       "links": [],
       "path": "docs/release/route_transaction_slice_rollup.md",
-      "sha256": "2424ec85afb3d699e904429e28fe74cc06784a86be74b52ca15731eb9a7b5ebc",
+      "sha256": "78a68b3eee4c9d4af504cfe396382b2ee5523e2e01a2621c9fac08af0b17866d",
       "size_bytes": 1403,
       "statuses": [
         "blocked",
@@ -68012,7 +68506,7 @@
       ],
       "links": [],
       "path": "docs/release/runtime_wiring_431_450_report.md",
-      "sha256": "734c819e860cc8c426707dccb69eaef859f687016fc545300926b3b1f5d3464e",
+      "sha256": "07eb02abd45cade25a1a06918f12efd87eee6e649f8bb5117140eb6effa78c27",
       "size_bytes": 5699,
       "statuses": [
         "pass",
@@ -68383,8 +68877,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/staging_acceptance_status.json",
-      "sha256": "5d204b2f0f0cff1b0641bb199f9ff8512d13dd030ef56a16e960e12d3c733007",
-      "size_bytes": 1999,
+      "sha256": "fbbf0e91e33efd61aeaac823ac4c80d6d7e12def8979c970c74fa7fcd3dbe499",
+      "size_bytes": 1913,
       "statuses": [
         "external-blocked",
         "pending"
@@ -68415,7 +68909,7 @@
       ],
       "links": [],
       "path": "docs/release/staging_acceptance_status.md",
-      "sha256": "f3324a2ed00afa8f37f312339d295c328671525a027138baa8be4d9de05ee1d3",
+      "sha256": "f4102bba4d2f4bf3013bd6a2634fe6d81c9ffe9656e70a1bb706373cf77b04f9",
       "size_bytes": 1227,
       "statuses": [
         "external-blocked",
@@ -68426,7 +68920,7 @@
     {
       "category": "release",
       "dates": [
-        "2026-05-22"
+        "2026-06-12"
       ],
       "evidence_references": [],
       "generated": false,
@@ -68454,8 +68948,8 @@
       ],
       "links": [],
       "path": "docs/release/staging_smoke_evidence.md",
-      "sha256": "99fbdd4d64896909571ebe5f1f1d74eae48ed77b9129648de774fd0ceafa23c5",
-      "size_bytes": 1969,
+      "sha256": "6237583ad7b8015f23df7da99486ad0521791aae8833bfc524ff4c885b19d50c",
+      "size_bytes": 1976,
       "statuses": [
         "pending",
         "todo",
@@ -68466,15 +68960,15 @@
     {
       "category": "release",
       "dates": [
-        "2026-05-22"
+        "2026-06-12"
       ],
       "evidence_references": [],
       "generated": false,
       "headings": [],
       "links": [],
       "path": "docs/release/staging_smoke_evidence_status.json",
-      "sha256": "937113f79504cbbb5a43b6ebc6a2e0932e7347fbb76da28cb5ca049992254e0f",
-      "size_bytes": 1297,
+      "sha256": "2570bcc990c54567bdcb991d39a802a48198101590f39f77f55c4df25d34ed8a",
+      "size_bytes": 1272,
       "statuses": [
         "passed"
       ],
@@ -68483,7 +68977,7 @@
     {
       "category": "release",
       "dates": [
-        "2026-05-22"
+        "2026-06-12"
       ],
       "evidence_references": [],
       "generated": false,
@@ -68511,8 +69005,8 @@
       ],
       "links": [],
       "path": "docs/release/staging_smoke_evidence_status.md",
-      "sha256": "99fbdd4d64896909571ebe5f1f1d74eae48ed77b9129648de774fd0ceafa23c5",
-      "size_bytes": 1969,
+      "sha256": "6237583ad7b8015f23df7da99486ad0521791aae8833bfc524ff4c885b19d50c",
+      "size_bytes": 1976,
       "statuses": [
         "pending",
         "todo",
@@ -68704,8 +69198,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/staging_smoke_workflow_status.json",
-      "sha256": "840d41008fbc6477113258bbe371c576279c6da0630ed9575037ed049cd8ff06",
-      "size_bytes": 366,
+      "sha256": "10a2418ee1653c69259d3eedd3f33802f0a11b7f8ace3e32d8796f940b0c9139",
+      "size_bytes": 393,
       "statuses": [],
       "title": "Staging Smoke Workflow Status"
     },
@@ -68733,8 +69227,8 @@
       ],
       "links": [],
       "path": "docs/release/staging_smoke_workflow_status.md",
-      "sha256": "6a4cedaae841639206b0b77027e2ffadc9253b6ad19a8ca3605a655c421ee1e8",
-      "size_bytes": 646,
+      "sha256": "00682a1f7d24bdbbeb7f271e10328978433b3e3f60a7c36b968b45541c37b0bf",
+      "size_bytes": 670,
       "statuses": [
         "passed",
         "external-blocked"
@@ -68815,8 +69309,8 @@
       "headings": [],
       "links": [],
       "path": "docs/release/transaction_rollback_rollup_report.json",
-      "sha256": "2569bf1c0758bfcf449f6d808afa3a653b4146d9a90595a355673afd861ebbc1",
-      "size_bytes": 1565,
+      "sha256": "4adb41edd1468c342d2f46c2ca365baf4ecab7f455056ab8be100dbf5eac36b3",
+      "size_bytes": 1522,
       "statuses": [
         "not-proven"
       ],
@@ -68856,7 +69350,7 @@
       ],
       "links": [],
       "path": "docs/release/transaction_rollback_rollup_report.md",
-      "sha256": "63d06d182ecdd27e3a1ab94805ec140037cbe0392d8657fff52a76b906045b21",
+      "sha256": "5f9d3a04655c1bc8f4a4c99146de3cf8f955d82817689d99a2a9cce03b5d454f",
       "size_bytes": 1291,
       "statuses": [
         "not-proven"
@@ -70236,6 +70730,474 @@
       "size_bytes": 6824,
       "statuses": [],
       "title": "Phase 11 Execution Plan \u2014 Technical Debt Burn-Down"
+    },
+    {
+      "category": "general",
+      "dates": [
+        "2026-06-12"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Phase 11 Implementation Report \u2014 Technical Debt Burn-Down"
+        },
+        {
+          "level": 2,
+          "line": 10,
+          "text": "1. Objective"
+        },
+        {
+          "level": 2,
+          "line": 21,
+          "text": "2. Delivery Summary"
+        },
+        {
+          "level": 2,
+          "line": 34,
+          "text": "3. Detailed Deliverables"
+        },
+        {
+          "level": 3,
+          "line": 36,
+          "text": "I.1 \u2014 Ruff Findings Burn-Down \u2705"
+        },
+        {
+          "level": 1,
+          "line": 60,
+          "text": "Pass 1: Safe fixes"
+        },
+        {
+          "level": 1,
+          "line": 63,
+          "text": "Pass 2: SIM rules"
+        },
+        {
+          "level": 1,
+          "line": 66,
+          "text": "Pass 3: Unsafe fixes (test files only)"
+        },
+        {
+          "level": 1,
+          "line": 69,
+          "text": "Pass 4: E701/E702 + more SIM"
+        },
+        {
+          "level": 3,
+          "line": 80,
+          "text": "I.2 \u2014 Import-Linter Compliance \u2705"
+        },
+        {
+          "level": 3,
+          "line": 96,
+          "text": "I.3 \u2014 Route Comment Hygiene \u23f3 DEFERRED"
+        },
+        {
+          "level": 3,
+          "line": 104,
+          "text": "I.4 \u2014 Migration Audit \u23f3 DEFERRED"
+        },
+        {
+          "level": 3,
+          "line": 115,
+          "text": "I.5 \u2014 Dormant Router Cleanup \u2705"
+        },
+        {
+          "level": 3,
+          "line": 131,
+          "text": "Additional Fixes"
+        },
+        {
+          "level": 2,
+          "line": 138,
+          "text": "4. Work Group Status"
+        },
+        {
+          "level": 2,
+          "line": 150,
+          "text": "5. Testing"
+        },
+        {
+          "level": 2,
+          "line": 164,
+          "text": "6. Recommendations for Next Phase"
+        },
+        {
+          "level": 3,
+          "line": 166,
+          "text": "High Priority (Next Sprint)"
+        },
+        {
+          "level": 3,
+          "line": 170,
+          "text": "Medium Priority (This Quarter)"
+        },
+        {
+          "level": 3,
+          "line": 174,
+          "text": "Lower Priority"
+        },
+        {
+          "level": 2,
+          "line": 180,
+          "text": "7. Files Created/Modified"
+        },
+        {
+          "level": 2,
+          "line": 197,
+          "text": "8. Definition of Done"
+        }
+      ],
+      "links": [],
+      "path": "docs/roadmap/execution/phase_11_implementation_report.md",
+      "sha256": "c1c3f4b2d7dd2de4c9ff68fc4fe7283f2e888316d2da058c5b1c04fcf2254002",
+      "size_bytes": 7064,
+      "statuses": [
+        "pass",
+        "passed"
+      ],
+      "title": "Phase 11 Implementation Report \u2014 Technical Debt Burn-Down"
+    },
+    {
+      "category": "general",
+      "dates": [
+        "2026-06-12"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Phase 12 Execution Plan \u2014 Security Posture Deepening"
+        },
+        {
+          "level": 2,
+          "line": 13,
+          "text": "Pre-Conditions"
+        },
+        {
+          "level": 2,
+          "line": 22,
+          "text": "Inventory of Gaps"
+        },
+        {
+          "level": 2,
+          "line": 37,
+          "text": "Work Groups"
+        },
+        {
+          "level": 3,
+          "line": 39,
+          "text": "J.1 \u2014 V2 Threat Model [P1]"
+        },
+        {
+          "level": 3,
+          "line": 54,
+          "text": "J.2 \u2014 Pen-Test Checklist Refresh [P1]"
+        },
+        {
+          "level": 3,
+          "line": 69,
+          "text": "J.3 \u2014 Secrets Scanning CI [P1]"
+        },
+        {
+          "level": 3,
+          "line": 84,
+          "text": "J.4 \u2014 Dependency Vulnerability Scanning CI [P1]"
+        },
+        {
+          "level": 3,
+          "line": 97,
+          "text": "J.5 \u2014 Dependabot Gating Enhancement [P1]"
+        },
+        {
+          "level": 2,
+          "line": 114,
+          "text": "Execution Order"
+        },
+        {
+          "level": 2,
+          "line": 126,
+          "text": "Definition of Done"
+        }
+      ],
+      "links": [],
+      "path": "docs/roadmap/execution/phase_12_execution_plan.md",
+      "sha256": "86523c463565e33ae80c329ce721b0d1b24bc98d184a8c2ad813131445b30157",
+      "size_bytes": 5986,
+      "statuses": [
+        "fail"
+      ],
+      "title": "Phase 12 Execution Plan \u2014 Security Posture Deepening"
+    },
+    {
+      "category": "general",
+      "dates": [
+        "2026-06-12"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Phase 12 Implementation Report \u2014 Security Posture Deepening"
+        },
+        {
+          "level": 2,
+          "line": 10,
+          "text": "1. Objective"
+        },
+        {
+          "level": 2,
+          "line": 21,
+          "text": "2. Delivery Summary"
+        },
+        {
+          "level": 2,
+          "line": 34,
+          "text": "3. Detailed Deliverables"
+        },
+        {
+          "level": 3,
+          "line": 36,
+          "text": "J.1 \u2014 V2 Threat Model \u2705"
+        },
+        {
+          "level": 3,
+          "line": 57,
+          "text": "J.2 \u2014 Pen-Test Checklist Refresh \u2705"
+        },
+        {
+          "level": 3,
+          "line": 73,
+          "text": "J.3 \u2014 Secrets Scanning CI \u2705"
+        },
+        {
+          "level": 3,
+          "line": 94,
+          "text": "J.4 \u2014 Dependency Vulnerability Scanning CI \u2705"
+        },
+        {
+          "level": 3,
+          "line": 114,
+          "text": "J.5 \u2014 Dependabot Gating Enhancement \u2705"
+        },
+        {
+          "level": 2,
+          "line": 141,
+          "text": "4. Work Group Status"
+        },
+        {
+          "level": 2,
+          "line": 153,
+          "text": "5. Security Posture Summary"
+        },
+        {
+          "level": 2,
+          "line": 167,
+          "text": "6. Testing"
+        },
+        {
+          "level": 2,
+          "line": 177,
+          "text": "7. Files Created/Modified"
+        },
+        {
+          "level": 2,
+          "line": 193,
+          "text": "8. Definition of Done"
+        }
+      ],
+      "links": [],
+      "path": "docs/roadmap/execution/phase_12_implementation_report.md",
+      "sha256": "bbd1304e5e7625af5995d42f94d733bb6e00311dbef83b5a496869e3591dd9bd",
+      "size_bytes": 6208,
+      "statuses": [
+        "fail",
+        "passed"
+      ],
+      "title": "Phase 12 Implementation Report \u2014 Security Posture Deepening"
+    },
+    {
+      "category": "general",
+      "dates": [
+        "2026-06-12"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Phase 13 Execution Plan \u2014 Frontend and Product Completeness"
+        },
+        {
+          "level": 2,
+          "line": 13,
+          "text": "Pre-Conditions"
+        },
+        {
+          "level": 2,
+          "line": 28,
+          "text": "Inventory of Gaps"
+        },
+        {
+          "level": 2,
+          "line": 42,
+          "text": "Work Groups"
+        },
+        {
+          "level": 3,
+          "line": 44,
+          "text": "K.1 \u2014 Playwright E2E Suite Fix & CI Integration [P1]"
+        },
+        {
+          "level": 3,
+          "line": 65,
+          "text": "K.2 \u2014 Content Expansion Roadmap [P2]"
+        },
+        {
+          "level": 3,
+          "line": 78,
+          "text": "K.3 \u2014 Load Testing Scenario [P2]"
+        },
+        {
+          "level": 3,
+          "line": 92,
+          "text": "K.4 \u2014 Accessibility & PWA Verification [P2]"
+        },
+        {
+          "level": 3,
+          "line": 107,
+          "text": "K.5 \u2014 Multilingual Lesson Generation Verification [P2]"
+        },
+        {
+          "level": 3,
+          "line": 121,
+          "text": "K.6 \u2014 Supabase Decision ADR [P2]"
+        },
+        {
+          "level": 2,
+          "line": 135,
+          "text": "Execution Order"
+        },
+        {
+          "level": 2,
+          "line": 152,
+          "text": "Definition of Done"
+        }
+      ],
+      "links": [],
+      "path": "docs/roadmap/execution/phase_13_execution_plan.md",
+      "sha256": "c61637ff3266bef64d17f0e0379607d0dd7287fc4f4a124151ddf66cc002eb0e",
+      "size_bytes": 8192,
+      "statuses": [],
+      "title": "Phase 13 Execution Plan \u2014 Frontend and Product Completeness"
+    },
+    {
+      "category": "general",
+      "dates": [
+        "2026-06-12"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "Phase 13 Implementation Report \u2014 Frontend and Product Completeness"
+        },
+        {
+          "level": 2,
+          "line": 10,
+          "text": "1. Objective"
+        },
+        {
+          "level": 2,
+          "line": 16,
+          "text": "2. Delivery Summary"
+        },
+        {
+          "level": 2,
+          "line": 30,
+          "text": "3. Detailed Deliverables"
+        },
+        {
+          "level": 3,
+          "line": 32,
+          "text": "K.1 \u2014 Playwright E2E Suite Fix & CI Integration \u2705"
+        },
+        {
+          "level": 3,
+          "line": 48,
+          "text": "K.2 \u2014 Content Expansion Roadmap \u2705"
+        },
+        {
+          "level": 3,
+          "line": 65,
+          "text": "K.3 \u2014 Load Testing Scenario \u2705"
+        },
+        {
+          "level": 3,
+          "line": 85,
+          "text": "K.4 \u2014 Accessibility & PWA Verification \u2705"
+        },
+        {
+          "level": 3,
+          "line": 99,
+          "text": "K.5 \u2014 Multilingual Lesson Generation Verification \u2705"
+        },
+        {
+          "level": 3,
+          "line": 113,
+          "text": "K.6 \u2014 Supabase Decision ADR \u2705"
+        },
+        {
+          "level": 2,
+          "line": 123,
+          "text": "4. Work Group Status"
+        },
+        {
+          "level": 2,
+          "line": 136,
+          "text": "5. Files Created/Modified"
+        },
+        {
+          "level": 2,
+          "line": 150,
+          "text": "6. Definition of Done"
+        },
+        {
+          "level": 2,
+          "line": 165,
+          "text": "7. Audit Findings & Remediation"
+        },
+        {
+          "level": 3,
+          "line": 176,
+          "text": "Cross-Phase Fixes (Phase 12 workflows on `master`)"
+        },
+        {
+          "level": 3,
+          "line": 186,
+          "text": "Deferred to Future Phases"
+        },
+        {
+          "level": 2,
+          "line": 196,
+          "text": "8. Notes"
+        }
+      ],
+      "links": [],
+      "path": "docs/roadmap/execution/phase_13_implementation_report.md",
+      "sha256": "ae79e020d4c49ccb0da0c7d024a7e58285d5c0926937e6589167095e61bbde21",
+      "size_bytes": 6653,
+      "statuses": [],
+      "title": "Phase 13 Implementation Report \u2014 Frontend and Product Completeness"
     },
     {
       "category": "general",
@@ -74052,8 +75014,8 @@
       ],
       "links": [],
       "path": "docs/security/PHASE2_AUTHORIZATION_CLOSURE.md",
-      "sha256": "4c683bfe0b0525a714e4c77d15c55b98877da2c3a0ea7422edfbbd3f4be954e8",
-      "size_bytes": 2134,
+      "sha256": "cc0c3b3b7a5df3225e8ce68d8937bfd8ef622b50e7eebcb3935baa068c12aa31",
+      "size_bytes": 2133,
       "statuses": [],
       "title": "Phase 2 Authorization Closure Report"
     },
@@ -75388,8 +76350,8 @@
       "headings": [],
       "links": [],
       "path": "docs/security/dependency_pin_report.json",
-      "sha256": "9b575eecc1d914fd5ec6fec80adc41f0e8e3e53238c1178ce3977ca1a109761a",
-      "size_bytes": 130616,
+      "sha256": "52c8f23c4fe06b6f32694fecff2f0de2b730f459d2da43708b7ccc7cdc64e2e1",
+      "size_bytes": 125705,
       "statuses": [],
       "title": "Dependency Pin Report"
     },
@@ -75412,8 +76374,8 @@
       ],
       "links": [],
       "path": "docs/security/dependency_pin_report.md",
-      "sha256": "690e9478045ceac3f436ce9458c93b8722721f4330186b40dd5a6aa8baaa66a8",
-      "size_bytes": 198,
+      "sha256": "14ad62cb22c0965a15e12d91e7590ae71403cb1e65773ac79b873182558dbded",
+      "size_bytes": 155,
       "statuses": [],
       "title": "Dependency Pin Report"
     },
@@ -75937,8 +76899,8 @@
       "headings": [],
       "links": [],
       "path": "docs/security/jwt_rotation_introspection.json",
-      "sha256": "28c0b1a7d20580c3f0ee50b55be3043ea42953538ba48e12a67760cb052b7dc9",
-      "size_bytes": 663,
+      "sha256": "dabc7947d172dfe0d6808332569e90d0d031e1be07aafb755f8f67cdd9a422ce",
+      "size_bytes": 638,
       "statuses": [],
       "title": "Jwt Rotation Introspection"
     },
@@ -75956,7 +76918,7 @@
       ],
       "links": [],
       "path": "docs/security/jwt_rotation_introspection.md",
-      "sha256": "025755a72a0c0df43845f7b42136d524cacc193ea3654913ed8229104bb2d705",
+      "sha256": "1feb9efca543aa4d9ef133b856bde20e718ac8937814382f0f19247a1823e70f",
       "size_bytes": 343,
       "statuses": [],
       "title": "JWT Rotation Introspection"
@@ -76011,7 +76973,7 @@
       ],
       "links": [],
       "path": "docs/security/jwt_rotation_repair_report.md",
-      "sha256": "f07eb72028eb719213debe3639f044345402c995042f1792acffdbd8ab597591",
+      "sha256": "9042ac94e33b05281fbf651a221f3c24772de207ca3cdd7b606af0c7d55903b7",
       "size_bytes": 255,
       "statuses": [],
       "title": "JWT Rotation Repair Report"
@@ -77261,8 +78223,8 @@
       ],
       "links": [],
       "path": "docs/security/popia_consent_boundary_matrix.md",
-      "sha256": "b0b43cb862997e6be6016782efb9f6f8c85acbe2a618b2732de0d2b2f2e8437f",
-      "size_bytes": 20062,
+      "sha256": "b2176e381d7767472820c7475e7defabb61de9552fe1b4ff19e08e33145a1878",
+      "size_bytes": 19633,
       "statuses": [
         "failed"
       ],
@@ -78286,6 +79248,140 @@
       "size_bytes": 494,
       "statuses": [],
       "title": "Threat Model Register"
+    },
+    {
+      "category": "security",
+      "dates": [
+        "2026-06-12"
+      ],
+      "evidence_references": [],
+      "generated": false,
+      "headings": [
+        {
+          "level": 1,
+          "line": 1,
+          "text": "EduBoost V2 Threat Model"
+        },
+        {
+          "level": 2,
+          "line": 10,
+          "text": "1. Executive Summary"
+        },
+        {
+          "level": 2,
+          "line": 16,
+          "text": "2. System Overview"
+        },
+        {
+          "level": 3,
+          "line": 18,
+          "text": "2.1 Architecture"
+        },
+        {
+          "level": 3,
+          "line": 46,
+          "text": "2.2 Key Components"
+        },
+        {
+          "level": 2,
+          "line": 59,
+          "text": "3. Trust Boundaries"
+        },
+        {
+          "level": 2,
+          "line": 72,
+          "text": "4. Threat Surface Analysis (STRIDE)"
+        },
+        {
+          "level": 3,
+          "line": 74,
+          "text": "4.1 Authentication Surfaces"
+        },
+        {
+          "level": 3,
+          "line": 87,
+          "text": "4.2 Session Surfaces"
+        },
+        {
+          "level": 3,
+          "line": 100,
+          "text": "4.3 API Surfaces"
+        },
+        {
+          "level": 3,
+          "line": 118,
+          "text": "4.4 Data Surfaces"
+        },
+        {
+          "level": 3,
+          "line": 132,
+          "text": "4.5 Infrastructure Surfaces"
+        },
+        {
+          "level": 3,
+          "line": 146,
+          "text": "4.6 LLM Surfaces"
+        },
+        {
+          "level": 2,
+          "line": 166,
+          "text": "5. Threat Matrix"
+        },
+        {
+          "level": 2,
+          "line": 183,
+          "text": "6. Recommended Security Controls"
+        },
+        {
+          "level": 3,
+          "line": 185,
+          "text": "High Priority"
+        },
+        {
+          "level": 3,
+          "line": 195,
+          "text": "Medium Priority"
+        },
+        {
+          "level": 2,
+          "line": 207,
+          "text": "7. Security Testing Checklist"
+        },
+        {
+          "level": 2,
+          "line": 220,
+          "text": "8. References"
+        }
+      ],
+      "links": [
+        {
+          "kind": "external",
+          "target": "https://owasp.org/www-project-top-ten/",
+          "text": "OWASP Top 10"
+        },
+        {
+          "kind": "external",
+          "target": "https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-stride",
+          "text": "STRIDE Methodology"
+        },
+        {
+          "kind": "external",
+          "target": "https://popia.co.za/",
+          "text": "POPIA Act"
+        },
+        {
+          "kind": "external",
+          "target": "https://api.eduboost.co.za",
+          "text": "https://api.eduboost.co.za"
+        }
+      ],
+      "path": "docs/security/threat_model_v2.md",
+      "sha256": "5b1b6a541e9edf736635a0adb4be868e9438455f318f5b8415e97204909a9362",
+      "size_bytes": 10164,
+      "statuses": [
+        "fail"
+      ],
+      "title": "EduBoost V2 Threat Model"
     },
     {
       "category": "security",
@@ -79415,8 +80511,8 @@
       "title": "V2 Migration Guide"
     }
   ],
-  "files_scanned": 1308,
-  "generated_at": "2026-06-12T17:39:39Z",
+  "files_scanned": 1319,
+  "generated_at": "2026-06-13T13:48:41Z",
   "generated_count": 4,
   "missing_important_docs": []
 }

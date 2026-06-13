@@ -1,6 +1,6 @@
 # Schema Drift Disposable DB Latest Proof
 
-- Captured at: `2026-06-12T17:35:52Z`
+- Captured at: `2026-06-13T13:49:13Z`
 - Database URL: `postgresql+asyncpg://real_user:***@localhost:5432/eduboost_test`
 - Passed: `True`
 
