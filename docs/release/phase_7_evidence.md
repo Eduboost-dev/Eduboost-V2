@@ -1,6 +1,7 @@
 # Phase 7 Evidence — Deployment and Security Hardening
 
 **Date:** 2026-06-12  
+**Refresh:** 2026-06-14
 **Phase:** 7  
 **Branch:** `phase-7/deployment-security-hardening`
 
@@ -113,6 +114,7 @@ grep -rn "api/v1" app/ --include="*.py" | grep -v "legacy_lesson_generate_gone\|
 
 - `app/api_v2.py` — `/metrics` handler updated with RFC-1918 IP allowlist check in production.
   Returns 403 for non-private IPs when `APP_ENV == production`.
+- 2026-06-14 refresh: IP allowlist now uses exact `ipaddress` CIDR membership instead of string-prefix checks.
 - `/__dev/slow_query` — was already gated behind `settings.is_production()` returning 404.
   No change required.
 - ADR-027 written: `docs/adr/ADR-027-observability-endpoint-access-control.md`
@@ -171,3 +173,30 @@ from app.core.config import settings
 assert "localhost" in settings.PUBLIC_FRONTEND_URL  # dev default
 assert "CHANGE_ME" not in settings.PUBLIC_FRONTEND_URL
 ```
+
+## 2026-06-14 Verification Refresh
+
+```text
+python3 scripts/check_environment_security_contract.py
+# PASS app/core/config.py security and Key Vault markers
+
+python3 -m py_compile app/core/config.py app/core/stripe_client.py app/middleware/security_headers.py app/api_v2.py app/legacy/api/main.py tests/unit/test_phase7_metrics_access_control.py
+# passed
+
+python3 -m pytest --no-cov -q tests/unit/test_phase7_metrics_access_control.py tests/unit/test_billing_router_contract.py tests/integration/test_stripe_webhooks.py tests/integration/test_security_headers.py -rs
+# 4 passed, 10 skipped because the local test database was unavailable
+
+security_headers_direct_check
+# production HSTS present, dev HSTS absent, production CSP nonce-based and without unsafe-inline
+
+docker run --rm --add-host api:127.0.0.1 --add-host frontend:127.0.0.1 ... nginx:alpine nginx -t
+# syntax is ok; configuration file test is successful
+
+az bicep build --file bicep/container_apps.bicep
+# passed
+```
+
+New regression coverage:
+
+- `tests/unit/test_phase7_metrics_access_control.py` verifies loopback/RFC-1918 metrics clients are allowed.
+- The same test verifies public and invalid addresses, including `172.32.0.1`, are rejected.

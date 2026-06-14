@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import asyncio
 from contextlib import asynccontextmanager
+from ipaddress import ip_address, ip_network
 
 from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from fastapi import FastAPI, Request
@@ -30,6 +31,24 @@ validate_jwt_keyring_environment()
 
 configure_logging()
 log = get_logger(__name__)
+
+
+_METRICS_ALLOWED_NETWORKS = (
+    ip_network("10.0.0.0/8"),
+    ip_network("172.16.0.0/12"),
+    ip_network("192.168.0.0/16"),
+    ip_network("127.0.0.0/8"),
+    ip_network("::1/128"),
+)
+
+
+def _is_private_metrics_client(client_ip: str) -> bool:
+    """Return True when a metrics request comes from loopback or RFC-1918 space."""
+    try:
+        parsed_ip = ip_address(client_ip)
+    except ValueError:
+        return False
+    return any(parsed_ip in network for network in _METRICS_ALLOWED_NETWORKS)
 
 
 @asynccontextmanager
@@ -190,9 +209,7 @@ async def metrics(request: Request):
     if settings.is_production():
         client_ip = request.client.host if request.client else ""
         # Allow: loopback, RFC-1918 private ranges, and ACA internal probes.
-        _private_prefixes = ("127.", "10.", "172.16.", "172.17.", "172.18.",
-                             "172.19.", "172.2", "172.3", "192.168.", "::1")
-        if not any(client_ip.startswith(p) for p in _private_prefixes):
+        if not _is_private_metrics_client(client_ip):
             return Response(status_code=403, content=b"Forbidden")
     return Response(generate_latest(REGISTRY), media_type=CONTENT_TYPE_LATEST)
 

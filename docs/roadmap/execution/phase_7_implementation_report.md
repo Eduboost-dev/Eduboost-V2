@@ -1,6 +1,7 @@
 # Phase 7 Implementation Report — Deployment and Security Hardening
 
 **Date:** 2026-06-12  
+**Refresh:** 2026-06-14
 **Status:** ✅ Complete  
 **Branch:** `phase-7/deployment-security-hardening`
 
@@ -10,6 +11,8 @@
 
 All 9 substantive sub-phases of Phase 7 have been implemented. This report
 documents what was changed, why, and the files affected.
+
+The 2026-06-14 refresh tightened the `/metrics` production IP guard from string-prefix checks to exact `ipaddress` CIDR membership, preventing accidental allowance of public `172.32.0.0/12+` addresses.
 
 ---
 
@@ -87,6 +90,7 @@ visible in observability tooling.
 
 - **`/metrics`:** Production requests from non-RFC-1918/non-loopback IPs receive 403.
   Infra-layer Nginx/ACA blocking is the primary control; IP check is defence-in-depth.
+- The IP check now uses exact CIDR membership for `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `127.0.0.0/8`, and `::1/128`.
 - **`/__dev/slow_query`:** Already gated. No change needed.
 - **ADR-027** written documenting the chosen approach.
 
@@ -140,6 +144,7 @@ python -m py_compile \
 | `app/core/stripe_client.py` | 7.1 |
 | `app/middleware/security_headers.py` | 7.3, 7.4 |
 | `app/api_v2.py` | 7.7 |
+| `tests/unit/test_phase7_metrics_access_control.py` | 7.7 |
 | `app/legacy/api/main.py` | 7.6 |
 | `nginx/nginx.conf` | 7.5 |
 | `bicep/container_apps.bicep` | 7.2 |
@@ -166,6 +171,28 @@ python -m py_compile \
 
 - **ACA `corsAllowedOrigins` staging override** — `container_apps.parameters.json`
   should be updated with staging-specific origins before the next ACA deployment.
+
+## 2026-06-14 Verification Refresh
+
+```text
+python3 scripts/check_environment_security_contract.py
+# PASS
+
+python3 -m py_compile app/core/config.py app/core/stripe_client.py app/middleware/security_headers.py app/api_v2.py app/legacy/api/main.py tests/unit/test_phase7_metrics_access_control.py
+# passed
+
+python3 -m pytest --no-cov -q tests/unit/test_phase7_metrics_access_control.py tests/unit/test_billing_router_contract.py tests/integration/test_stripe_webhooks.py tests/integration/test_security_headers.py -rs
+# 4 passed, 10 skipped due unavailable local test database
+
+security_headers_direct_check
+# production HSTS present, dev HSTS absent, production CSP has nonce and no unsafe-inline
+
+docker run ... nginx:alpine nginx -t
+# syntax is ok; configuration file test is successful
+
+az bicep build --file bicep/container_apps.bicep
+# passed
+```
 
 ---
 
