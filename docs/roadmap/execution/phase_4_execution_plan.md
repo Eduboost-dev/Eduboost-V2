@@ -2,7 +2,8 @@
 
 **Date:** 2026-06-10  
 **Traceability update:** 2026-06-13  
-**Status:** Retrospective plan artifact  
+**Gate repair:** 2026-06-14
+**Status:** Complete
 **Branch:** `phase-4/python-version-alignment`
 
 ## Pre-Execution Baseline
@@ -37,7 +38,7 @@ CI and documentation must not point developers toward incompatible Python versio
 ### Acceptance Criteria
 
 - [x] CI primarily uses Python 3.12.3.
-- [ ] No workflow labels or selectors imply Python 3.11 or loose versions without rationale.
+- [x] No workflow labels or selectors imply Python 3.11 or loose versions without rationale.
 - [x] Documentation records the decision.
 
 ## Phase 4.3 - Verification
@@ -50,7 +51,7 @@ The repository needs a repeatable way to prove runtime alignment.
 
 - [x] `docs/adr/ADR-026-python-version-alignment.md` exists.
 - [x] Dockerfiles use `python:3.12.3-slim`.
-- [ ] All CI workflow references are strictly aligned to `3.12.3`.
+- [x] All CI workflow references are strictly aligned to `3.12.3`.
 
 ## Evidence Output
 

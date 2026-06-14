@@ -2,12 +2,13 @@
 
 **Date:** 2026-06-10  
 **Traceability update:** 2026-06-13  
+**Gate repair:** 2026-06-14
 **Branch:** `phase-4/python-version-alignment`  
-**Status:** Complete with minor drift
+**Status:** Complete
 
 ## Summary
 
-Phase 4 standardized the project around Python 3.12.3 and recorded the decision in ADR-026. Current evidence supports the main alignment claim for `.python-version` and Dockerfiles, but later workflows introduced a few loose `3.12` selectors and one stale step label.
+Phase 4 standardized the project around Python 3.12.3 and recorded the decision in ADR-026. The 2026-06-14 repair closed the remaining workflow drift by converting loose `3.12` selectors to `3.12.3` and correcting the stale migration workflow setup label.
 
 ## Before/After Comparison
 
@@ -15,7 +16,7 @@ Phase 4 standardized the project around Python 3.12.3 and recorded the decision 
 |---|---|---|
 | Docker Python base | Mixed, including 3.11 | `python:3.12.3-slim` in active Dockerfiles |
 | Local version marker | Expected 3.12.3 | `.python-version` is `3.12.3` |
-| CI Python selectors | Mixed | Mostly 3.12.3, with some loose `3.12` selectors |
+| CI Python selectors | Mixed | All inspected `actions/setup-python` selectors now resolve to `3.12.3` directly or via `PYTHON_VERSION=3.12.3` |
 | Decision record | Missing | `docs/adr/ADR-026-python-version-alignment.md` |
 
 ## Acceptance Criteria Checklist
@@ -25,24 +26,25 @@ Phase 4 standardized the project around Python 3.12.3 and recorded the decision 
 | Runtime decision documented | Pass | `docs/adr/ADR-026-python-version-alignment.md` |
 | `.python-version` uses 3.12.3 | Pass | `.python-version` |
 | Dockerfiles use 3.12.3 | Pass | `docker/Dockerfile.api`, `docker/Dockerfile.v2`, `docker/Dockerfile.inference` |
-| CI strictly uses 3.12.3 everywhere | Partial | Most workflows do; dependency/e2e/secrets/db evidence use loose `3.12`; migration workflow has stale "Set up Python 3.11" label |
+| CI strictly uses 3.12.3 everywhere | Pass | Remaining loose selectors in dependency/e2e/secrets/db/JWT evidence workflows were pinned; migration workflow label corrected |
 
 ## Technical Debt Created
 
 | Item | Severity | Owner | Resolution Plan |
 |---|---|---|---|
-| Loose CI Python selectors | Low | CI/platform | Convert remaining `3.12` selectors to `3.12.3` or document why patch-floating is intentional. |
-| Stale workflow label | Low | CI/platform | Rename the migration workflow step to match Python 3.12.3. |
+| Python patch-version drift | Low | CI/platform | Keep future workflows pinned to `.python-version` / `PYTHON_VERSION=3.12.3`; no open drift in current inspection. |
 
 ## Verification
 
-Current 2026-06-13 inspection:
+Current 2026-06-14 inspection:
 
 ```text
 .python-version: 3.12.3
 docker/Dockerfile.api: FROM python:3.12.3-slim
 docker/Dockerfile.v2: FROM python:3.12.3-slim
 docker/Dockerfile.inference: FROM python:3.12.3-slim
+.github/workflows/*: no loose python-version: 3.12 selectors remain
+.github/workflows/migration_check.yml: Set up Python 3.12.3
 ```
 
 ## Evidence Files
@@ -56,4 +58,4 @@ docker/Dockerfile.inference: FROM python:3.12.3-slim
 
 - [x] Primary runtime alignment is implemented.
 - [x] Decision record exists.
-- [ ] Minor CI/documentation drift remains.
+- [x] Minor CI/documentation drift repaired.

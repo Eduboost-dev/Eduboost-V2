@@ -1,7 +1,8 @@
 # Phase 4 Evidence - Runtime and Environment Alignment
 
 **Evidence date:** 2026-06-13  
-**Status:** Primary runtime alignment supported; minor workflow drift remains
+**Refresh date:** 2026-06-14
+**Status:** Runtime alignment complete
 
 ## Evidence Sources
 
@@ -23,13 +24,24 @@ docker/Dockerfile.inference: FROM python:3.12.3-slim AS builder/runtime
 
 ADR-026 records Python 3.12.3 as the chosen runtime for local, Docker, and CI environments.
 
-## Current Drift
+## Current Workflow Alignment
 
-The 2026-06-13 audit found these minor alignment issues:
+The 2026-06-13 audit found minor alignment issues:
 
 - some GitHub workflows use `python-version: '3.12'` instead of `3.12.3`
 - `.github/workflows/migration_check.yml` contains a stale step label saying "Set up Python 3.11" while configuring `3.12.3`
 
+The 2026-06-14 refresh repaired those issues:
+
+```text
+.github/workflows/dependency-scan.yml: python-version: '3.12.3'
+.github/workflows/e2e.yml: python-version: '3.12.3'
+.github/workflows/db-backup-restore-rollback-evidence.yml: python-version: "3.12.3"
+.github/workflows/secrets-scan.yml: python-version: '3.12.3'
+.github/workflows/jwt-secret-rotation-evidence.yml: python-version: "3.12.3"
+.github/workflows/migration_check.yml: Set up Python 3.12.3
+```
+
 ## Verdict
 
-The central Phase 4 implementation is supported, but strict "3.12.3 everywhere" should not be claimed until the remaining workflow selectors/labels are reconciled.
+The central Phase 4 implementation is supported and the remaining workflow selectors/labels have been reconciled.
