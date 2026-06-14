@@ -45,7 +45,7 @@
 |---|---|---|---|
 | NS-01 | Apply Alembic migration graph repair. | Migration graph test passes. | [x] |
 | NS-02 | Rerun full unit suite. | `pytest -c pytest.ini tests/unit -q --no-cov` shows `2051 passed, 1 skipped`. | [x] |
-| NS-03 | Commit migration graph repair and related POPIA/AuthService repairs. | Git commit containing repair files. | [ ] |
+| NS-03 | Commit migration graph repair and related POPIA/AuthService repairs. | Merged in `d25f6feb` / PR #223; refreshed local evidence in Phase 5 docs. | [x] |
 | NS-04 | Record local test evidence. | `docs/release/unit_test_evidence.md` contains full output. | [x] |
 | NS-05 | Triage non-failing warnings. | Warnings documented as accepted, fixed, or tracked. | [x] |
 | NS-05A | Keep operating-model and project-assistance controls current. | Make checks pass. | [x] |

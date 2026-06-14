@@ -1,6 +1,7 @@
 # Phase 5 Implementation Audit
 
 Date: 2026-06-10
+Refresh: 2026-06-14
 
 ## Scope
 
@@ -31,7 +32,15 @@ Phase 5 focuses on migrations and schema management:
 - Live PostgreSQL smoke test: passed
 - `alembic current --verbose`: reported a single head revision
 
+Fresh 2026-06-14 verification:
+
+- `python3 scripts/verify_migration_graph.py`: passed, 34 revisions, head `20260609_0800_practice_sessions`
+- `python3 scripts/validate_schema_integrity.py`: passed
+- `python3 -m compileall -q alembic app scripts`: passed
+- `DATABASE_URL=... make migration-smoke`: passed against a temporary Postgres 16 container on localhost port 55433
+- `rg` inspection of `app/api_v2.py`: no `run_startup_migrations()` or startup schema-repair DDL remains
+
 ## Residual Risk
 
-- CI workflow changes have been validated locally, but the GitHub Actions run still needs to be observed in the remote PR or branch pipeline.
-
+- CI workflow changes have been validated locally, but the GitHub Actions run still needs to be observed in the remote branch pipeline.
+- `make migration-smoke` depends on an explicit disposable `DATABASE_URL`; this is intentional, but the command fails fast without one.
