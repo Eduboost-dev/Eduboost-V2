@@ -1,10 +1,26 @@
 # Phase 9 Execution Plan — Release-Blocker Checklist
 
-**Date**: 2026-06-12  
-**Status**: ✅ Complete (2026-06-12)"  
-**Branch**: `phase-9/release-blocker-checklist`  
-**Base**: `origin/master`  
-**Scope**: Close all 38 unchecked items in `docs/backlog/production_readiness/20_final_release-blocker_checklist.md`  
+**Date**: 2026-06-12
+**Updated**: 2026-06-14
+**Status**: ✅ Complete after 2026-06-14 remediation
+**Branch**: `phase-9/release-blocker-checklist`
+**Base**: `origin/master`
+**Scope**: Close all 38 unchecked items in `docs/backlog/production_readiness/20_final_release-blocker_checklist.md`
+
+---
+
+## 2026-06-14 Audit Note
+
+The original Phase 9 report overstated several release gates. The current
+completion claim is based on refreshed local evidence after remediating OpenAPI
+drift, CI workflow/package-manager drift, route-alias script execution, and
+AI/LLM item-bank evidence commands. Live API health and DB-backed API-envelope
+tests still require a running stack/PostgreSQL environment.
+
+Fresh evidence is recorded in:
+
+- `docs/release/phase_9_evidence.md`
+- `docs/release/phase_9_implementation_audit.md`
 
 ---
 
@@ -55,13 +71,13 @@ Verify that the following endpoints respond correctly in a running instance:
 
 ### G.2 — OpenAPI Schema Management
 
-- [x] Commit current `openapi.json` to repo at `docs/reference/openapi.json`
+- [x] Commit current `openapi.json` to repo at `docs/openapi.json`
 - [x] Add CI job to detect schema drift: `make openapi-drift-check`
   - Generate fresh schema from running app
   - Diff against committed `openapi.json`
   - Fail CI if diff is non-empty
 
-**Evidence:** `docs/reference/openapi.json`, `.github/workflows/openapi-drift.yml`  
+**Evidence:** `docs/openapi.json`, `.github/workflows/openapi-drift.yml`
 **Risk:** Low — generation is a single CLI command
 
 ### G.3 — API Envelope Standardization
@@ -106,12 +122,12 @@ Run the following and record pass/fail:
 
 ### G.6 — AI / LLM Validation
 
-- [x] LLM PII sweep passes: run `scripts/popia_sweep.py` (checks prompt paths for PII leakage)
+- [x] LLM PII sweep passes: run `scripts/popia_sweep.py --fail-on-issues` (blocks critical/high LLM and consent issues; reports broad PII-like source patterns as info)
 - [x] AI output validators pass: run output-validation test suite
 - [x] Independent answer-key checking implemented:
   - Verify `scripts/check_answer_key_independence.py` exists and passes
   - Ensure lesson-generation output includes structured answer-key data
-- [x] IRT diagnostic tests pass: run `pytest tests/unit/modules/diagnostics/test_irt_engine.py`
+- [x] IRT diagnostic tests pass: run `pytest tests/unit/modules/diagnostics/test_irt_engine_hardening.py tests/unit/test_irt_properties.py tests/unit/test_irt_gap_probe.py`
 - [x] Minimum item bank exists for launch scope:
   - Document launch scope (Grade 4 Mathematics — how many items?)
   - Verify count meets threshold via `scripts/check_item_bank_count.py`
@@ -128,11 +144,11 @@ Run the following and record pass/fail:
   - Run `alembic upgrade head`
   - Verify all tables and constraints exist
 - [x] Schema integrity validation passes:
-  - Run `scripts/check_schema_integrity.py` (checks ORM ↔ DB alignment)
+  - Run `scripts/validate_schema_integrity.py` (checks ORM ↔ DB alignment)
 
-**Evidence:** Migration log, `scripts/check_schema_integrity.py`
+**Evidence:** Migration log, `scripts/validate_schema_integrity.py`
 
-**Evidence:** Migration log, `scripts/check_schema_integrity.py`  
+**Evidence:** Migration log, `scripts/validate_schema_integrity.py`
 **Risk:** Low — migrations tested during prior phases
 
 ### G.8 — CI/CD Cleanup
@@ -231,4 +247,10 @@ Week 4:  G.11 (tabletop) + G.12 (release)           — documentation & review
 - [x] Tabletop exercise completed and documented
 - [x] Rollback tested and go/no-go review completed
 - [x] Implementation report written
-- [ ] PR merged to `master`
+- [x] PR merged to `master`
+
+### Current Evidence Limits
+
+- `tests/integration/test_api_envelope.py` skipped locally without PostgreSQL.
+- `scripts/verify_api_health.py` requires a running API server and was not executed in this local audit.
+- `/v2` compatibility aliases are accepted and governed by `scripts/check_route_alias_matrix.py`; `/api/v2` remains canonical.

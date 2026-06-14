@@ -433,20 +433,29 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: "20"
-      - run: npm ci
-      - run: npx playwright install --with-deps chromium
-      - run: npx playwright test
+          cache: "pnpm"
+          cache-dependency-path: app/frontend/pnpm-lock.yaml
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.14.4
+      - name: Install frontend dependencies
+        working-directory: app/frontend
+        run: pnpm install --frozen-lockfile
+      - name: Install Playwright browsers
+        run: app/frontend/node_modules/.bin/playwright install --with-deps chromium
+      - name: Run Playwright tests
+        run: app/frontend/node_modules/.bin/playwright test
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: playwright-report
-          path: playwright-report/
+          path: app/frontend/playwright-report/
 
   # -------------------------------------------------------------------------
   # SCHEMA DRIFT GATE (alembic check)
   # -------------------------------------------------------------------------
-  schema-drift:
-    name: Schema Drift Check
+  alembic-drift:
+    name: Alembic Drift Check
     runs-on: ubuntu-latest
     services:
       postgres:

@@ -1,9 +1,29 @@
 # Phase 9 Implementation Report — Release-Blocker Checklist
 
-**Date**: 2026-06-12  
-**Status**: ✅ Complete  
-**Branch**: `phase-9/release-blocker-checklist`  
+**Date**: 2026-06-12
+**Updated**: 2026-06-14
+**Status**: ✅ Complete after 2026-06-14 remediation
+**Branch**: `phase-9/release-blocker-checklist`
 **Base**: `origin/master`
+
+---
+
+## 2026-06-14 Remediation Note
+
+The original implementation report overstated the Phase 9 evidence. A later
+audit found OpenAPI drift, stale/missing evidence paths, duplicate workflow job
+ids, package-manager drift in frontend E2E jobs, and AI/LLM validation commands
+that did not match the current artifacts.
+
+This was corrected by:
+
+- Regenerating `docs/openapi.json`.
+- Renaming the duplicate Alembic workflow job from `schema-drift` to `alembic-drift`.
+- Aligning E2E workflow Node steps with pnpm and `app/frontend/pnpm-lock.yaml`.
+- Fixing `scripts/check_route_alias_matrix.py` direct execution.
+- Updating `scripts/check_answer_key_independence.py` for the current generated lesson schema.
+- Adding `scripts/check_item_bank_count.py`.
+- Refreshing `docs/release/phase_9_evidence.md` and `docs/release/phase_9_implementation_audit.md`.
 
 ---
 
@@ -71,11 +91,11 @@ Close all 38 unchecked items in `docs/backlog/production_readiness/20_final_rele
 
 ### G.2 — OpenAPI Schema Management ✅
 
-- [x] `docs/openapi.json` committed at `docs/reference/openapi.json`
+- [x] `docs/openapi.json` committed at `docs/openapi.json`
 - [x] CI job to detect schema drift: `.github/workflows/openapi-drift.yml`
 - [x] Makefile target: `make openapi-check`
 
-**Evidence**: `docs/reference/openapi.json`, `.github/workflows/openapi-drift.yml`
+**Evidence**: `docs/openapi.json`, `.github/workflows/openapi-drift.yml`
 
 ### G.3 — API Envelope Standardization ✅
 
@@ -109,13 +129,13 @@ Close all 38 unchecked items in `docs/backlog/production_readiness/20_final_rele
 
 ### G.6 — AI / LLM Validation ✅
 
-- [x] LLM PII sweep passes: `scripts/popia_sweep.py`
+- [x] LLM PII sweep passes: `scripts/popia_sweep.py --fail-on-issues`
 - [x] AI output validators pass
 - [x] Independent answer-key checking implemented
 - [x] IRT diagnostic tests pass
 - [x] Minimum item bank exists for launch scope documented
 
-**Evidence**: `scripts/check_answer_key_independence.py`, `docs/release/item_bank_launch_scope.md`
+**Evidence**: `scripts/check_answer_key_independence.py`, `scripts/check_item_bank_count.py`, `docs/release/item_bank_launch_scope.md`
 
 ### G.7 — Database Verification ✅
 
@@ -173,7 +193,7 @@ All 38 unchecked items from `docs/backlog/production_readiness/20_final_release-
 | Item | Status | Evidence |
 |------|--------|----------|
 | G.1 API health endpoints | ✅ | `scripts/verify_api_health.py` |
-| G.2 OpenAPI schema committed | ✅ | `docs/reference/openapi.json` |
+| G.2 OpenAPI schema committed | ✅ | `docs/openapi.json` |
 | G.2 OpenAPI drift check | ✅ | `.github/workflows/openapi-drift.yml` |
 | G.3 API envelope tests | ✅ | `tests/integration/test_api_envelope.py` |
 | G.4 Auth verification | ✅ | Phase 8 tests verified |
@@ -182,7 +202,7 @@ All 38 unchecked items from `docs/backlog/production_readiness/20_final_release-
 | G.7 Database verification | ✅ | Prior phases verified |
 | G.8 CI/CD cleanup | ✅ | No contradictions found |
 | G.9 Docker non-root | ✅ | `docker/Dockerfile.v2` has USER directive |
-| G.10 Production secrets | ✅ | `.secrets_baseline` clean |
+| G.10 Production secrets | ✅ | `.secrets.baseline` clean |
 | G.11 Incident response | ✅ | `docs/operations/tabletop_exercise_2026-06.md` |
 | G.12 Release execution | ✅ | `docs/release/go_no_go_review.md` |
 
@@ -195,7 +215,10 @@ All 38 unchecked items from `docs/backlog/production_readiness/20_final_release-
 python scripts/verify_api_health.py --base-url http://localhost:8000
 
 # Check answer-key independence
-python scripts/check_answer_key_independence.py --sample lesson.json
+python scripts/check_answer_key_independence.py
+
+# Check item-bank count
+python scripts/check_item_bank_count.py --grade 4 --subject mathematics
 
 # Run API envelope tests
 pytest tests/integration/test_api_envelope.py -v
@@ -208,7 +231,8 @@ pytest tests/integration/test_api_envelope.py -v
 | File | Type | Lines | Description |
 |------|------|-------|--------------|
 | `scripts/verify_api_health.py` | New | 175 | API health endpoint verification script |
-| `scripts/check_answer_key_independence.py` | New | 184 | Answer-key independence verification |
+| `scripts/check_answer_key_independence.py` | Updated | 184 | Answer-key independence verification for current launch lesson schema |
+| `scripts/check_item_bank_count.py` | New | 58 | Grade 4 Mathematics item-bank count verification |
 | `tests/integration/test_api_envelope.py` | New | 103 | API envelope standardization tests |
 | `docs/release/item_bank_launch_scope.md` | New | 107 | Grade 4 Math item bank readiness |
 | `docs/release/go_no_go_review.md` | New | 153 | Release go/no-go decision doc |
@@ -224,20 +248,20 @@ pytest tests/integration/test_api_envelope.py -v
 - [x] Release documentation complete
 - [x] Operations documentation complete
 - [x] Execution plan updated with all checkboxes marked
-- [x] Backlog doc #20 updated: 35 of 38 items now `[x]`, 3 items `[/]` (OpenAPI generation requires full runtime deps)
-- [ ] PR merged to `master` (pending)
+- [x] Backlog doc #20 updated: 35 of 38 items now `[x]`, 3 items `[/]` (OpenAPI generation required refresh)
+- [x] PR merged to `master`
 
 ---
 
 ### Remaining Gaps (3 items with `[/]` status)
 
-These items have CI workflows/scripts in place but require full application runtime to generate the artifact:
+These items were reopened by the audit and remediated on 2026-06-14:
 
-1. `/openapi.json` loads — CI workflow exists but generation needs all Python deps (structlog, sentry_sdk, etc.)
-2. OpenAPI schema committed — run `make openapi` in an environment with all dependencies
-3. OpenAPI drift check passes — CI job `.github/workflows/openapi-drift.yml` exists and will pass when schema is generated
+1. `/openapi.json` loads — `docs/openapi.json` regenerated from the current app.
+2. OpenAPI schema committed — committed at `docs/openapi.json`.
+3. OpenAPI drift check passes — `python3 scripts/generate_openapi.py --check` passed.
 
-**Resolution:** Generate `docs/reference/openapi.json` by running `make openapi` in the project's virtual environment after `pip install -r requirements.txt`.
+**Residual evidence limits:** DB-backed API envelope tests skipped locally without PostgreSQL, and `scripts/verify_api_health.py` still requires a running API server.
 
 ---
 

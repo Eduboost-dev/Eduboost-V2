@@ -281,17 +281,23 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
+          cache: pnpm
+          cache-dependency-path: app/frontend/pnpm-lock.yaml
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.14.4
 
       - uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install Node dependencies
-        run: npm ci
+        working-directory: app/frontend
+        run: pnpm install --frozen-lockfile
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: app/frontend/node_modules/.bin/playwright install --with-deps chromium
 
       - name: Start full docker-compose stack
         env:
@@ -311,7 +317,7 @@ jobs:
           LEARNER_EMAIL: "learner@test.eduboost.sa"
           LEARNER_PASSWORD: ${{ secrets.TEST_LEARNER_PASSWORD }}
         run: |
-          npx playwright test \
+          app/frontend/node_modules/.bin/playwright test \
             tests/e2e/lesson_generation_flow.spec.ts \
             tests/e2e/lesson_provider_fallback.spec.ts \
             --project=chromium \

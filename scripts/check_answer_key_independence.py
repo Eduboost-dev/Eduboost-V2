@@ -13,6 +13,9 @@ import json
 import sys
 from pathlib import Path
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_LESSON_PATH = REPO_ROOT / "data" / "generated" / "lessons" / "grade4_maths_launch_lessons.json"
+
 
 def check_answer_key_structure(lesson_data: dict) -> tuple[bool, str]:
     """
@@ -79,6 +82,62 @@ def check_answer_key_structure(lesson_data: dict) -> tuple[bool, str]:
     return True, f"OK: {len(items)} items with answer keys and integrity mechanism"
 
 
+def check_generated_lesson_structure(lesson_data: dict) -> tuple[bool, str]:
+    """Verify the current generated-lesson answer-key contract."""
+    lesson_id = lesson_data.get("lesson_id") or "<unknown>"
+    answer_key = lesson_data.get("answer_key")
+    if not isinstance(answer_key, list) or not answer_key:
+        return False, f"Lesson {lesson_id} missing non-empty 'answer_key' array"
+
+    for index, answer in enumerate(answer_key):
+        if not isinstance(answer, dict):
+            return False, f"Lesson {lesson_id} answer_key[{index}] is not an object"
+        if not (answer.get("correct_option") or answer.get("correct_answer_text")):
+            return False, f"Lesson {lesson_id} answer_key[{index}] has no correct answer"
+
+    if lesson_data.get("answer_key_verified") is not True:
+        return False, f"Lesson {lesson_id} does not mark answer_key_verified=true"
+
+    if not lesson_data.get("source_context_hash"):
+        return False, f"Lesson {lesson_id} missing source_context_hash integrity marker"
+
+    if not (lesson_data.get("provider") and lesson_data.get("model_version")):
+        return False, f"Lesson {lesson_id} missing provider/model_version independence metadata"
+
+    return True, f"OK: lesson {lesson_id} has {len(answer_key)} verified answer-key entries"
+
+
+def check_payload(data: object) -> tuple[int, int, list[str]]:
+    """Check supported lesson/item payload shapes."""
+    if isinstance(data, dict) and isinstance(data.get("lessons"), list):
+        passed = failed = 0
+        errors: list[str] = []
+        for lesson in data["lessons"]:
+            ok, msg = check_generated_lesson_structure(lesson)
+            if ok:
+                passed += 1
+            else:
+                failed += 1
+                errors.append(msg)
+        return passed, failed, errors
+
+    lessons = data if isinstance(data, list) else [data]
+    passed = failed = 0
+    errors: list[str] = []
+    for lesson in lessons:
+        if not isinstance(lesson, dict):
+            failed += 1
+            errors.append("Payload entry is not an object")
+            continue
+        ok, msg = check_answer_key_structure(lesson)
+        if ok:
+            passed += 1
+        else:
+            failed += 1
+            errors.append(msg)
+    return passed, failed, errors
+
+
 def check_lesson_files(directory: Path) -> tuple[int, int, list[str]]:
     """
     Check all lesson JSON files in a directory.
@@ -89,21 +148,17 @@ def check_lesson_files(directory: Path) -> tuple[int, int, list[str]]:
     failed = 0
     errors = []
 
-    for json_file in directory.rglob("*.json"):
+    for json_file in directory.rglob("*lesson*.json"):
+        if any(part in {".git", ".next", "node_modules", "__pycache__"} for part in json_file.parts):
+            continue
         try:
             with open(json_file, "r") as f:
                 data = json.load(f)
 
-            # Try both direct array and wrapped format
-            lessons = data if isinstance(data, list) else data.get("lessons", [data])
-
-            for lesson in lessons:
-                ok, msg = check_answer_key_structure(lesson)
-                if ok:
-                    passed += 1
-                else:
-                    failed += 1
-                    errors.append(f"{json_file.name}: {msg}")
+            current_passed, current_failed, current_errors = check_payload(data)
+            passed += current_passed
+            failed += current_failed
+            errors.extend(f"{json_file.name}: {error}" for error in current_errors)
 
         except json.JSONDecodeError as e:
             failed += 1
@@ -122,7 +177,7 @@ def main():
     parser.add_argument(
         "--path",
         type=Path,
-        default=Path("."),
+        default=DEFAULT_LESSON_PATH,
         help="Path to lesson JSON files or directory"
     )
     parser.add_argument(
@@ -138,24 +193,24 @@ def main():
         # Check single file
         with open(args.sample) as f:
             data = json.load(f)
-        ok, msg = check_answer_key_structure(data)
-        if ok:
-            print(f"  ✅ {args.sample}: {msg}")
+        passed, failed, errors = check_payload(data)
+        if failed == 0 and passed > 0:
+            print(f"  ✅ {args.sample}: {passed} payload(s) passed")
             return 0
         else:
-            print(f"  ❌ {args.sample}: {msg}")
+            print(f"  ❌ {args.sample}: {errors[0] if errors else 'No supported lesson payloads found'}")
             return 1
 
     # Check directory
     if args.path.is_file():
         with open(args.path) as f:
             data = json.load(f)
-        ok, msg = check_answer_key_structure(data)
-        if ok:
-            print(f"  ✅ {args.path.name}: {msg}")
+        passed, failed, errors = check_payload(data)
+        if failed == 0 and passed > 0:
+            print(f"  ✅ {args.path.name}: {passed} payload(s) passed")
             return 0
         else:
-            print(f"  ❌ {args.path.name}: {msg}")
+            print(f"  ❌ {args.path.name}: {errors[0] if errors else 'No supported lesson payloads found'}")
             return 1
 
     print(f"\n📁 Scanning: {args.path}")

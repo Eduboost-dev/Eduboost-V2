@@ -7,6 +7,12 @@ from dataclasses import dataclass
 from pathlib import Path
 import sys
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = Path(__file__).resolve().parents[1]
+for candidate in (REPO_ROOT, SCRIPT_DIR):
+    if str(candidate) not in sys.path:
+        sys.path.insert(0, str(candidate))
+
 from scripts.generate_route_alias_matrix import RouteRow, collect_rows, render_markdown
 
 
@@ -120,12 +126,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
-from pathlib import Path
-
-SCRIPT_DIR = Path(__file__).resolve().parent
-REPO_ROOT = Path(__file__).resolve().parents[1]
-for candidate in (REPO_ROOT, SCRIPT_DIR):
-    if str(candidate) not in sys.path:
-        sys.path.insert(0, str(candidate))
-

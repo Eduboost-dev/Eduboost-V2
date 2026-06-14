@@ -678,6 +678,16 @@
             "default": "guardian_request",
             "title": "Reason",
             "type": "string"
+          },
+          "request_erasure": {
+            "default": false,
+            "title": "Request Erasure",
+            "type": "boolean"
+          },
+          "request_export": {
+            "default": false,
+            "title": "Request Export",
+            "type": "boolean"
           }
         },
         "required": [
@@ -1476,6 +1486,13 @@
       "ContentScope": {
         "additionalProperties": false,
         "properties": {
+          "artifact_paths": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Artifact Paths",
+            "type": "object"
+          },
           "caps_refs": {
             "items": {
               "type": "string"
@@ -1483,10 +1500,32 @@
             "title": "Caps Refs",
             "type": "array"
           },
+          "coverage_policy_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coverage Policy Id"
+          },
           "curriculum": {
             "minLength": 1,
             "title": "Curriculum",
             "type": "string"
+          },
+          "curriculum_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Curriculum Version"
           },
           "grade": {
             "maximum": 12.0,
@@ -1500,10 +1539,39 @@
             "title": "Language",
             "type": "string"
           },
+          "phase": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phase"
+          },
+          "review_policy_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Review Policy Id"
+          },
           "scope_id": {
             "minLength": 1,
             "title": "Scope Id",
             "type": "string"
+          },
+          "source_documents": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Source Documents",
+            "type": "array"
           },
           "status": {
             "$ref": "#/components/schemas/ContentScopeStatus"
@@ -1519,9 +1587,15 @@
             "type": "string"
           },
           "topic_map_path": {
-            "minLength": 1,
-            "title": "Topic Map Path",
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Topic Map Path"
           }
         },
         "required": [
@@ -1531,16 +1605,20 @@
           "subject",
           "language",
           "curriculum",
-          "status",
-          "topic_map_path"
+          "status"
         ],
         "title": "ContentScope",
         "type": "object"
       },
       "ContentScopeStatus": {
         "enum": [
-          "draft",
+          "planned",
+          "source_loaded",
+          "generating",
+          "review",
           "active",
+          "retired",
+          "draft",
           "deprecated",
           "archived"
         ],
@@ -3396,6 +3474,7 @@
       "ProductionPromotionRequest": {
         "properties": {
           "confirmation": {
+            "minLength": 1,
             "title": "Confirmation",
             "type": "string"
           },
@@ -5082,7 +5161,7 @@
     },
     "/api/v2/admin/consent/trigger-renewal-reminders": {
       "post": {
-        "description": "Queues the consent renewal reminder job as a FastAPI BackgroundTask.\nReturns 202 immediately; emails are dispatched asynchronously.\n\nAccess: Admin role required (RBAC enforced via ``require_role(\"Admin\")``\ndependency — wire once Task #15 RBAC is complete).",
+        "description": "Queues the consent renewal reminder job on the durable ARQ worker.\nReturns 202 immediately; emails are dispatched asynchronously.\n\nAccess: Admin role required (RBAC enforced via ``require_role(\"Admin\")``\ndependency — wire once Task #15 RBAC is complete).",
         "operationId": "trigger_renewal_reminders_api_v2_admin_consent_trigger_renewal_reminders_post",
         "responses": {
           "202": {
@@ -7857,11 +7936,18 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductionPromotionRequest"
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ProductionPromotionRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Request"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -13131,6 +13217,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "summary": "Next Practice Item",
         "tags": [
           "practice"
@@ -13181,6 +13272,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "summary": "Respond Practice",
         "tags": [
           "practice"
@@ -13396,25 +13492,6 @@
         ]
       }
     },
-    "/metrics": {
-      "get": {
-        "operationId": "metrics_metrics_get",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            },
-            "description": "Successful Response"
-          }
-        },
-        "summary": "Metrics",
-        "tags": [
-          "ops"
-        ]
-      }
-    },
     "/ready": {
       "get": {
         "operationId": "ready_ready_get",
@@ -13436,7 +13513,7 @@
     },
     "/v2/admin/consent/trigger-renewal-reminders": {
       "post": {
-        "description": "Queues the consent renewal reminder job as a FastAPI BackgroundTask.\nReturns 202 immediately; emails are dispatched asynchronously.\n\nAccess: Admin role required (RBAC enforced via ``require_role(\"Admin\")``\ndependency — wire once Task #15 RBAC is complete).",
+        "description": "Queues the consent renewal reminder job on the durable ARQ worker.\nReturns 202 immediately; emails are dispatched asynchronously.\n\nAccess: Admin role required (RBAC enforced via ``require_role(\"Admin\")``\ndependency — wire once Task #15 RBAC is complete).",
         "operationId": "trigger_renewal_reminders_v2_admin_consent_trigger_renewal_reminders_post",
         "responses": {
           "202": {
@@ -16211,11 +16288,18 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductionPromotionRequest"
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ProductionPromotionRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Request"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -21485,6 +21569,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "summary": "Next Practice Item",
         "tags": [
           "practice"
@@ -21535,6 +21624,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "summary": "Respond Practice",
         "tags": [
           "practice"

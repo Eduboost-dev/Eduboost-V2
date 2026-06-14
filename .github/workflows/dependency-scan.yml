@@ -8,13 +8,11 @@ on:
     paths:
       - 'requirements/**'
       - 'package.json'
-      - 'package-lock.json'
       - 'app/frontend/pnpm-lock.yaml'
   pull_request:
     paths:
       - 'requirements/**'
       - 'package.json'
-      - 'package-lock.json'
       - 'app/frontend/pnpm-lock.yaml'
   schedule:
     - cron: '0 3 * * *'  # Daily at 3 AM
