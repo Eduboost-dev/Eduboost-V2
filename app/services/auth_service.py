@@ -40,6 +40,7 @@ from app.core.token_config import (
     TokenPair,
     create_access_token,
     create_refresh_token,
+    emergency_revoke_all,
     is_family_revoked,
     revoke_jti,
     revoke_token_family,
@@ -385,7 +386,6 @@ class AuthService:
 
     async def emergency_revoke_all_tokens(self, initiated_by: str) -> datetime:
         """Revoke all access tokens globally by setting an epoch (§3.3 P1)."""
-        from app.core.token_config import emergency_revoke_all  # noqa: PLC0415
         epoch = await emergency_revoke_all()
         logger.warning(
             "emergency_revoke_all",
@@ -512,4 +512,3 @@ AuthService.rotate_refresh_token = _compat_rotate_refresh_token
 AuthService.decode_token = _compat_decode_token
 AuthService.hash_password = _compat_hash_password
 AuthService.verify_password = _compat_verify_password
-

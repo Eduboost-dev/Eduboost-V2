@@ -52,19 +52,19 @@ def test_consent_renewal_is_covered_by_admin_marker_not_allowlist() -> None:
 
 
 @pytest.mark.unit
-def test_ether_questions_is_covered_by_auth_marker_not_allowlist() -> None:
+def test_onboarding_questions_catalog_boundary_is_allowlisted_and_authenticated() -> None:
     from scripts.generate_learner_authz_matrix import collect_rows
 
     rows = collect_rows()
     matches = [
         row
         for row in rows
-        if row.router == "ether.py"
+        if row.router == "onboarding.py"
         and row.method == "GET"
-        and row.path == "/onboarding/questions"
+        and row.path == "/questions"
     ]
 
     assert matches
     assert matches[0].status == "covered"
     assert matches[0].authz_marker == "require_auth_context"
-    assert ("ether.py", "GET", "/onboarding/questions") not in ALLOWLIST
+    assert ("onboarding.py", "GET", "/questions") in ALLOWLIST

@@ -1,41 +1,87 @@
 # Phase 8 Implementation Audit - Privacy and Authorization Completion
 
-**Audit date:** 2026-06-13  
+**Audit date:** 2026-06-14
 **Auditor:** Codex  
-**Status:** Overstated; do not treat as fully complete
+**Status:** Supported after remediation; original completion claim was overstated
 
 ## Artifact Check
 
 | Artifact | Status |
 |---|---|
 | `docs/roadmap/execution/phase_8_execution_plan.md` | Present |
-| `docs/roadmap/execution/phase_8_implementation_report.md` | Present |
-| `docs/release/phase_8_evidence.md` | Present after 2026-06-13 backfill |
+| `docs/roadmap/execution/phase_8_implementation_report.md` | Present; updated with remediation note |
+| `docs/release/phase_8_evidence.md` | Present; refreshed 2026-06-14 |
 | `docs/release/phase_8_implementation_audit.md` | Present |
 
 ## Acceptance Criteria Audit
 
 | Criterion | Evidence | Verdict |
 |---|---|---|
-| Auth abuse, token, cookie, and role tests added | Several claimed test files exist; some named files from the report are absent | Partial |
-| Privacy boundary evidence exists | `scripts/check_privacy_boundary_evidence.py` passed | Pass for document inventory |
-| POPIA data-rights runtime paths work with current auth dependency | Direct `AuthContext` runtime probe fails | Fail |
-| Legal/privacy docs exist | Implementation report lists docs; current privacy-boundary check sees required docs | Partial pass |
-| CI/evidence gates prove closure | No phase 8 release evidence existed before this backfill; no current CI URL | Not proven |
+| Auth abuse, token, cookie, role, and emergency revocation tests pass | `65 passed, 12 skipped` across focused auth suite; skips were DB-backed rate-limit tests | Pass with DB skip noted |
+| Privacy boundary evidence exists | `scripts/check_privacy_boundary_evidence.py` passed | Pass |
+| POPIA data-rights runtime paths work with current auth dependency | `test_phase8_popia_auth_context.py` covers `AuthContext` actor extraction and export flow | Pass |
+| Legal/privacy docs exist | `docs/legal/privacy_impact_assessment.md` plus security docs are present | Pass for implemented docs |
+| CI/evidence gates prove closure | Local evidence is current; no fresh external CI URL was captured in this audit | Partial |
 
-## Discrepancies
+## Discrepancies Found and Corrected
 
-- The implementation report says no production code changed and marks the phase complete, but the original plan required closure of privacy/data-rights behavior, not only tests/docs.
-- POPIA service methods use dict-style access against a typed `AuthContext`.
-- Static or wiring tests did not cover this runtime mismatch.
+- The original implementation report claimed no production code changed. The audit found a production runtime defect and corrected `app/services/popia_service.py` and `app/services/auth_service.py`.
+- POPIA service methods used dict-style `.get(...)` against the active `AuthContext` dependency.
+- `scripts/check_phase2_authorization_evidence.py` still referenced retired `app/api_v2_routers/ether.py`; it now checks the active `app/api_v2_routers/onboarding.py` route.
+- Several tests still used Ether-era names and expectations. They now assert the active onboarding authorization and consent boundaries.
 
-## Required Remediation
+## Verification Run
 
-1. Convert POPIA services and routers to an `AuthContext`-aware actor helper or normalize current user claims before service calls.
-2. Add route/service tests that exercise `require_auth_context` returning `AuthContext`.
-3. Rerun POPIA data-rights tests and capture output in this evidence file.
-4. Only then update roadmap/TODO claims.
+```text
+python3 -m py_compile app/services/auth_service.py app/services/popia_service.py \
+  scripts/check_phase2_authorization_evidence.py \
+  tests/unit/test_phase8_popia_auth_context.py \
+  tests/unit/test_ether_onboarding_questions_auth_boundary.py \
+  tests/unit/test_check_learner_authz_coverage.py \
+  tests/unit/test_ether_onboarding_consent_gate_wiring.py
+# passed
+```
+
+```text
+python3 scripts/check_phase2_authorization_evidence.py
+# passed
+```
+
+```text
+python3 -m pytest --no-cov -q \
+  tests/unit/test_emergency_revocation.py \
+  tests/unit/test_ether_onboarding_questions_auth_boundary.py \
+  tests/unit/test_check_learner_authz_coverage.py \
+  tests/unit/test_ether_onboarding_consent_gate_wiring.py \
+  tests/unit/test_phase8_popia_auth_context.py \
+  tests/unit/test_sprint3_popia_router_data_rights.py
+# 18 passed
+```
+
+```text
+python3 -m pytest --no-cov -q \
+  tests/unit/test_popia_data_rights_consent_boundary.py \
+  tests/unit/test_popia_correction_request_authorization_wiring.py \
+  tests/unit/test_popia_restriction_request_authorization_wiring.py \
+  tests/unit/test_popia_deletion_request_authorization_wiring.py \
+  tests/unit/test_popia_deletion_cancel_authorization_wiring.py \
+  tests/unit/test_popia_data_export_authorization_wiring.py \
+  tests/unit/test_phase8_popia_auth_context.py \
+  tests/unit/test_sprint3_popia_router_data_rights.py -rs
+# 11 passed
+```
+
+```text
+python3 -m pytest --no-cov -q \
+  tests/unit/test_auth_abuse_paths.py \
+  tests/unit/test_token_rotation.py \
+  tests/unit/test_emergency_revocation.py \
+  tests/unit/test_cookie_policy.py \
+  tests/unit/test_role_authorization.py \
+  tests/integration/test_auth_rate_limits.py -rs
+# 65 passed, 12 skipped
+```
 
 ## Result
 
-Phase 8 should remain reopened. The document set is now complete, but the work is not fully verified.
+Phase 8 is now supported for the implemented privacy/authorization scope after the 2026-06-14 remediation. The wider original execution plan still contains unchecked aspirational PR-004 items, so future reporting should distinguish those backlog items from the narrower PR #228 delivery and this remediation checkpoint.

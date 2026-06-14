@@ -112,8 +112,8 @@ REQUIRED_FILES = (
 )
 
 CONTENT_REQUIREMENTS = {
-    "app/api_v2_routers/ether.py": (
-        "async def get_questions(user: AuthContext = Depends(require_auth_context))",
+    "app/api_v2_routers/onboarding.py": (
+        "async def get_onboarding_questions(current_user: AuthContext = Depends(require_auth_context))",
     ),
     "scripts/generate_learner_authz_matrix.py": (
         "require_admin",

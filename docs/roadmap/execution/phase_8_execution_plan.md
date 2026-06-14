@@ -1,14 +1,28 @@
 # Phase 8 Execution Plan — Privacy and Authorization Completion
 
 **Date**: 2026-06-12
-**Updated**: 2026-06-12
-**Status**: Planning
+**Updated**: 2026-06-14
+**Status**: Implemented with 2026-06-14 remediation evidence
 **Branch**: `phase-8/privacy-and-authorization-completion`
 **Base**: `origin/master`
 **Priority**: P1 (per [roadmap.md](../roadmap.md#L328-L355))
 **Scope**: Close all remaining P0 and P1 gaps in the authentication/authorization (PR-003) and POPIA/privacy/audit (PR-004) production-readiness domains.
 
 ---
+
+## 2026-06-14 Audit Note
+
+The original execution plan is broader than the work that was merged in PR #228.
+The current completion claim is limited to the implemented Phase 8
+authorization/privacy evidence set plus the 2026-06-14 remediation of the POPIA
+`AuthContext` runtime mismatch. Unchecked aspirational PR-004 items in this plan
+remain backlog candidates unless separately proven by code and tests.
+
+Fresh local evidence is recorded in:
+
+- `docs/release/phase_8_evidence.md`
+- `docs/release/phase_8_implementation_audit.md`
+- `docs/roadmap/execution/phase_8_implementation_report.md`
 
 ## Pre-Conditions
 
@@ -306,11 +320,11 @@ The work splits into three tracks that can proceed partly in parallel:
 | Artifact | Path | Status |
 |----------|------|--------|
 | Phase 8 execution plan | `docs/roadmap/execution/phase_8_execution_plan.md` | ✅ (this file) |
-| Phase 8 implementation report | `docs/roadmap/execution/phase_8_implementation_report.md` | ❌ Pending |
-| Phase 8 evidence | `docs/release/phase_8_evidence.md` | ❌ Pending |
-| Phase 8 implementation audit | `docs/release/phase_8_implementation_audit.md` | ❌ Pending |
-| Route policy matrix | `docs/security/route_policy_matrix.md` | ❌ Pending |
-| Frontend token-storage audit | `docs/security/frontend_token_storage_audit.md` | ❌ Pending |
+| Phase 8 implementation report | `docs/roadmap/execution/phase_8_implementation_report.md` | ✅ Present; refreshed 2026-06-14 |
+| Phase 8 evidence | `docs/release/phase_8_evidence.md` | ✅ Present; refreshed 2026-06-14 |
+| Phase 8 implementation audit | `docs/release/phase_8_implementation_audit.md` | ✅ Present; refreshed 2026-06-14 |
+| Route policy matrix | `docs/security/route_policy_matrix.md` | ✅ Present |
+| Frontend token-storage audit | `docs/security/frontend_token_storage_audit.md` | ✅ Present |
 | Data inventory | `docs/data_inventory.md` | ❌ Pending |
 | Data retention policy | `docs/data_retention_policy.md` | ❌ Pending |
 | Subprocessor register | `docs/subprocessor_register.md` | ❌ Pending |
@@ -367,15 +381,15 @@ The work splits into three tracks that can proceed partly in parallel:
 
 ## Close Checklist
 
-- [ ] Execution plan exists: `docs/roadmap/execution/phase_8_execution_plan.md` (this file)
-- [ ] Implementation report exists: `docs/roadmap/execution/phase_8_implementation_report.md`
-- [ ] Audit report exists: `docs/release/phase_8_implementation_audit.md`
-- [ ] Evidence files committed and accurate
+- [x] Execution plan exists: `docs/roadmap/execution/phase_8_execution_plan.md` (this file)
+- [x] Implementation report exists: `docs/roadmap/execution/phase_8_implementation_report.md`
+- [x] Audit report exists: `docs/release/phase_8_implementation_audit.md`
+- [x] Evidence files committed and accurate for implemented scope
 - [ ] `roadmap.md` Phase 8 status updated to "Complete (YYYY-MM-DD)"
 - [ ] `context/build-plan.md` Phase 8 status updated
 - [ ] `context/progress-tracker.md` updated
 - [ ] `docs/todos/todo.md` updated
-- [ ] Branch merged to `master` via PR
+- [x] Branch merged to `master` via PR
 - [ ] Remote branch deleted after merge
 
 ---

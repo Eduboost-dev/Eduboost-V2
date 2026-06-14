@@ -1,12 +1,29 @@
 # Phase 8 Implementation Report — Privacy and Authorization Completion
 
 **Date**: 2026-06-12  
-**Status**: ✅ Complete — merged  
+**Status**: ✅ Complete after 2026-06-14 remediation
 **Branch**: `phase-8/privacy-and-authorization-completion`  
 **PR**: [#228](https://github.com/NkgoloL/Eduboost-V2/pull/228)  
 **Base**: `origin/master` → merged into `master` via `91217e8f`
 
 ---
+
+## 2026-06-14 Remediation Note
+
+The original merge report overstated the evidence by saying the phase was
+additive-only and that no production code changed. A later audit found a real
+runtime mismatch: active POPIA routes inject `AuthContext`, while POPIA service
+methods still expected dict-style `.get(...)` claims.
+
+This was corrected after merge by:
+
+- Making `app/services/popia_service.py` normalize actor and role values from both `AuthContext` and legacy dict claims.
+- Adding `tests/unit/test_phase8_popia_auth_context.py` to exercise the POPIA data-rights path with `AuthContext`.
+- Updating `app/services/auth_service.py` so emergency revoke-all tests patch the production revocation call reliably.
+- Updating stale Ether-era authorization evidence to the active `app/api_v2_routers/onboarding.py` router.
+
+Fresh evidence is captured in `docs/release/phase_8_evidence.md` and
+`docs/release/phase_8_implementation_audit.md`.
 
 ## 1. Objective
 
@@ -107,9 +124,9 @@ The following items remain `[ ]` in the backlog docs and are **either P2/P3 hard
 | New test lines | 1,334 (6 unit + 1 integration) |
 | New documentation lines | 456 (3 files) |
 | All new tests follow existing pytest patterns | ✅ |
-| No modifications to production code | ✅ — only new test/doc files |
-| Existing tests unaffected | ✅ — no existing files changed |
-| Backward compatible | ✅ — all changes additive |
+| No modifications to production code | Corrected: production remediation was required after audit |
+| Existing tests unaffected | Corrected: stale Ether-era tests were updated for active onboarding routes |
+| Backward compatible | ✅ — POPIA user-claim handling now accepts both `AuthContext` and legacy dict claims |
 
 ---
 
@@ -134,6 +151,42 @@ pytest tests/unit/test_auth_abuse_paths.py \
 - `docs/security/route_policy_matrix.md` — complete route-authorization mapping
 - `docs/legal/privacy_impact_assessment.md` — DPIA-style assessment
 
+**2026-06-14 remediation evidence:**
+
+```bash
+python3 -m pytest --no-cov -q \
+  tests/unit/test_emergency_revocation.py \
+  tests/unit/test_ether_onboarding_questions_auth_boundary.py \
+  tests/unit/test_check_learner_authz_coverage.py \
+  tests/unit/test_ether_onboarding_consent_gate_wiring.py \
+  tests/unit/test_phase8_popia_auth_context.py \
+  tests/unit/test_sprint3_popia_router_data_rights.py
+# 18 passed
+
+python3 -m pytest --no-cov -q \
+  tests/unit/test_auth_abuse_paths.py \
+  tests/unit/test_token_rotation.py \
+  tests/unit/test_emergency_revocation.py \
+  tests/unit/test_cookie_policy.py \
+  tests/unit/test_role_authorization.py \
+  tests/integration/test_auth_rate_limits.py -rs
+# 65 passed, 12 skipped
+
+python3 -m pytest --no-cov -q \
+  tests/unit/test_popia_data_rights_consent_boundary.py \
+  tests/unit/test_popia_correction_request_authorization_wiring.py \
+  tests/unit/test_popia_restriction_request_authorization_wiring.py \
+  tests/unit/test_popia_deletion_request_authorization_wiring.py \
+  tests/unit/test_popia_deletion_cancel_authorization_wiring.py \
+  tests/unit/test_popia_data_export_authorization_wiring.py \
+  tests/unit/test_phase8_popia_auth_context.py \
+  tests/unit/test_sprint3_popia_router_data_rights.py -rs
+# 11 passed
+
+python3 scripts/check_phase2_authorization_evidence.py
+# passed
+```
+
 ---
 
 ## 7. Commit History
@@ -152,6 +205,6 @@ pytest tests/unit/test_auth_abuse_paths.py \
 - [x] All planned tests written and passing
 - [x] Security documentation complete
 - [x] Privacy documentation complete
-- [x] No production code modified (additive only)
+- [x] Production remediation completed and documented after audit
 - [x] Execution plan and audit documented
 - [x] Branch merged to `master` via PR #228

@@ -17,7 +17,12 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.security.dependencies import require_learner_read_for_current_user, require_learner_write_for_current_user
+from app.api_v2_deps.auth import AuthContext
+from app.security.dependencies import (
+    actor_id_from_current_user,
+    require_learner_read_for_current_user,
+    require_learner_write_for_current_user,
+)
 from app.models import (
     AuditEvent,
     DiagnosticSession,
@@ -75,6 +80,24 @@ def _iso(value: datetime | None) -> str | None:
     return value.isoformat() if value else None
 
 
+def _role_value(raw_role: Any) -> str:
+    value = getattr(raw_role, "value", raw_role)
+    return str(value or "").lower()
+
+
+def _current_user_actor_id(current_user: dict[str, Any] | AuthContext) -> str:
+    actor_id = actor_id_from_current_user(current_user)
+    return str(actor_id or "")
+
+
+def _current_user_role(current_user: dict[str, Any] | AuthContext) -> str:
+    if isinstance(current_user, AuthContext):
+        if current_user.roles:
+            return _role_value(current_user.roles[0])
+        return _role_value(current_user.raw_claims.get("role"))
+    return _role_value(current_user.get("role"))
+
+
 class POPIADataRightsService:
     def __init__(self, db: AsyncSession) -> None:
         self.db = db
@@ -82,14 +105,14 @@ class POPIADataRightsService:
         self.audit = AuditRepository(db)
         self.consent = ConsentService(db)
 
-    async def load_learner_for_read(self, learner_id: str, current_user: dict[str, Any]) -> LearnerProfile:
+    async def load_learner_for_read(self, learner_id: str, current_user: dict[str, Any] | AuthContext) -> LearnerProfile:
         learner = await self.learners.get_by_id(learner_id)
         if learner is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
         require_learner_read_for_current_user(current_user, learner)
         return learner
 
-    async def load_learner_for_write(self, learner_id: str, current_user: dict[str, Any]) -> LearnerProfile:
+    async def load_learner_for_write(self, learner_id: str, current_user: dict[str, Any] | AuthContext) -> LearnerProfile:
         learner = await self.learners.get_by_id(learner_id)
         if learner is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Learner not found")
@@ -99,11 +122,11 @@ class POPIADataRightsService:
     async def build_learner_export(
         self,
         learner_id: str,
-        current_user: dict[str, Any],
+        current_user: dict[str, Any] | AuthContext,
         *,
         export_format: Literal["json", "csv"] = "json",
     ) -> dict[str, Any]:
-        requester_id = str(current_user.get("sub") or "")
+        requester_id = _current_user_actor_id(current_user)
         learner = await self.load_learner_for_read(learner_id, current_user)
         await self.consent.require_active_consent(learner_id, actor_id=requester_id)
 
@@ -134,10 +157,10 @@ class POPIADataRightsService:
             "status": asdict(self._status("export", "completed", learner_id, POPIA_EXPORT_SLA_DAYS, "data_export.requested")),
         }
 
-    async def request_erasure(self, learner_id: str, current_user: dict[str, Any], *, reason: str = "guardian_request") -> dict[str, Any]:
+    async def request_erasure(self, learner_id: str, current_user: dict[str, Any] | AuthContext, *, reason: str = "guardian_request") -> dict[str, Any]:
         """Request POPIA Right to Erasure with state machine and safety checks."""
-        requester_id = str(current_user.get("sub") or "")
-        requester_role = str(current_user.get("role", "")).lower()
+        requester_id = _current_user_actor_id(current_user)
+        requester_role = _current_user_role(current_user)
         learner = await self.load_learner_for_write(learner_id, current_user)
 
         # Authorization check
@@ -210,10 +233,10 @@ class POPIADataRightsService:
             "preflight_result": preflight_result,
         }
 
-    async def cancel_erasure(self, learner_id: str, current_user: dict[str, Any]) -> dict[str, Any]:
+    async def cancel_erasure(self, learner_id: str, current_user: dict[str, Any] | AuthContext) -> dict[str, Any]:
         """Cancel an active erasure request."""
-        requester_id = str(current_user.get("sub") or "")
-        requester_role = str(current_user.get("role", "")).lower()
+        requester_id = _current_user_actor_id(current_user)
+        requester_role = _current_user_role(current_user)
         learner = await self.load_learner_for_write(learner_id, current_user)
 
         # Find active erasure request
@@ -263,12 +286,12 @@ class POPIADataRightsService:
     async def request_correction(
         self,
         learner_id: str,
-        current_user: dict[str, Any],
+        current_user: dict[str, Any] | AuthContext,
         fields: dict[str, Any],
         *,
         reason: str,
     ) -> dict[str, Any]:
-        requester_id = str(current_user.get("sub") or "")
+        requester_id = _current_user_actor_id(current_user)
         learner = await self.load_learner_for_write(learner_id, current_user)
         allowed = {"display_name", "grade", "language"}
         rejected = sorted(set(fields) - allowed)
@@ -290,11 +313,11 @@ class POPIADataRightsService:
     async def restrict_processing(
         self,
         learner_id: str,
-        current_user: dict[str, Any],
+        current_user: dict[str, Any] | AuthContext,
         *,
         reason: str,
     ) -> dict[str, Any]:
-        requester_id = str(current_user.get("sub") or "")
+        requester_id = _current_user_actor_id(current_user)
         learner = await self.load_learner_for_write(learner_id, current_user)
         await self.consent.revoke(learner_id, guardian_id=requester_id, reason="processing_restricted")
         await self.audit.append(
@@ -326,10 +349,10 @@ class POPIADataRightsService:
         checks["all_checks_passed"] = all(checks.values())
         return checks
 
-    async def execute_erasure(self, request_id: str, current_user: dict[str, Any], *, method: str = ERASURE_METHOD_PHYSICAL) -> dict[str, Any]:
+    async def execute_erasure(self, request_id: str, current_user: dict[str, Any] | AuthContext, *, method: str = ERASURE_METHOD_PHYSICAL) -> dict[str, Any]:
         """Execute erasure after grace period with safety checks."""
-        requester_id = str(current_user.get("sub") or "")
-        requester_role = str(current_user.get("role", "")).lower()
+        requester_id = _current_user_actor_id(current_user)
+        requester_role = _current_user_role(current_user)
 
         # Find erasure request
         erasure_request = await self.db.scalar(
