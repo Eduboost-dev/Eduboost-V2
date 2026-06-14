@@ -389,17 +389,22 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: "20"
-          cache: "npm"
-          cache-dependency-path: app/frontend/package-lock.json
+          cache: "pnpm"
+          cache-dependency-path: app/frontend/pnpm-lock.yaml
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.14.4
 
       - name: Install frontend dependencies
-        run: npm ci --include=optional --legacy-peer-deps
+        run: pnpm install --frozen-lockfile
 
-      - name: Audit npm dependencies
-        run: npm audit --audit-level=high
+      - name: Audit pnpm dependencies
+        run: pnpm audit --audit-level=high
 
       - name: Run frontend coverage gate
-        run: npm run test:coverage
+        run: pnpm run test:coverage
 
       - name: Upload frontend coverage artifact
         uses: actions/upload-artifact@v7
@@ -408,13 +413,13 @@ jobs:
           path: app/frontend/coverage/
 
       - name: Run frontend lint
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Run frontend type check
-        run: npm run type-check
+        run: pnpm run type-check
 
       - name: Build frontend
-        run: npm run build
+        run: pnpm run build
 
   # -------------------------------------------------------------------------
   # E2E TESTS (Playwright)

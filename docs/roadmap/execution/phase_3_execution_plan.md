@@ -1,7 +1,7 @@
 # Phase 3 Execution Plan — Frontend Build and Test Health
 
 **Date**: 2026-06-09 (updated after review)  
-**Status**: ✅ **COMPLETE** (2026-06-10)  
+**Status**: ✅ **COMPLETE** (2026-06-10; gate refresh 2026-06-14)
 **Branch**: `phase-3/frontend-build-and-test-health`  
 **Reviewed:** `docs/release/phase_3_plan_review.md` (6 gaps addressed)  
 **Scope**: 3 interconnected frontend health checks (dependencies, TypeScript, Vitest)  
@@ -12,8 +12,9 @@
 ## Summary of Completion
 
 - ✅ **3.1 (Dependencies)**: `pnpm install --frozen-lockfile` succeeded; dexie@4.4.3 installed
-- ✅ **3.2 (TypeScript)**: 0 errors in runtime code; known 2 dexie type errors documented as Phase 4 debt
-- ✅ **3.3 (Vitest)**: **147/147 tests passing** across 43 files (26.55s)
+- ✅ **3.2 (TypeScript)**: `corepack pnpm run type-check` passes with 0 errors
+- ✅ **3.3 (Vitest)**: **147/147 tests passing** across 43 files
+- ✅ **3.4 (Current frontend gates)**: lint, env-check, type-check, test, and build pass locally
 - ✅ **Evidence**: Complete `docs/release/phase_3_evidence.md` with before/after artifacts
 
 ---
@@ -95,8 +96,8 @@ cd app/frontend && npx vitest run --reporter=verbose 2>&1 | tee /tmp/phase3_vite
 - [x] Run `npx tsc --noEmit` and collect error list (baseline: 4 errors captured above)
 - [x] Fix error 1-2: Add null guard or non-null assertion for `accent` in `LessonRoadmap.tsx` (lines 426, 458) → ✅ Fixed with `as any` cast
 - [x] Errors 3-4 (dexie module + types) resolved by using `require('dexie')` and removing conflicting type augmentation
-- [x] Verify `tsconfig.json` JSX settings (`jsx: preserve` is correct for Next.js)
-- [x] Re-run `npx tsc --noEmit` -- 0 errors in application code (2 known dexie type errors documented as Phase 4 debt)
+- [x] Verify `tsconfig.json` JSX settings (Next 16 updated this project to `jsx: react-jsx` during the verified build)
+- [x] Re-run `corepack pnpm run type-check` -- 0 errors
 - [x] Add `npx tsc --noEmit` to CI frontend job
 
 ---
@@ -132,21 +133,34 @@ cd app/frontend && npx vitest run --reporter=verbose 2>&1 | tee /tmp/phase3_vite
 ✅ **Ready for CI** — All three components pass. Frontend CI job should run:
 
 ```yaml
-- name: Frontend Dependencies
-  run: cd app/frontend && pnpm install --frozen-lockfile
+- name: Setup pnpm
+  uses: pnpm/action-setup@v4
+  with:
+    version: 9.14.4
 
-- name: Frontend TypeScript
-  run: cd app/frontend && npx tsc --noEmit --pretty false
-  continue-on-error: true  # Known Phase 4 dexie type debt
+- name: Install frontend dependencies
+  run: pnpm install --frozen-lockfile
 
-- name: Frontend Tests
-  run: cd app/frontend && npx vitest run --reporter=dot
+- name: Run frontend coverage gate
+  run: pnpm run test:coverage
+
+- name: Run frontend lint
+  run: pnpm run lint
+
+- name: Run frontend type check
+  run: pnpm run type-check
+
+- name: Build frontend
+  run: pnpm run build
 ```
 
 **CI Status:**
-- ✅ Dependencies: `pnpm install --frozen-lockfile` succeeds (651 packages installed)
-- ✅ TypeScript: Application code has 0 errors; 2 known dexie type errors (non-blocking)
-- ✅ Tests: All 147 tests passing (26.55s runtime)
+- ✅ Dependencies: CI uses pnpm with `app/frontend/pnpm-lock.yaml`
+- ✅ Lint: `corepack pnpm run lint` passes with warnings only
+- ✅ Env-check: `corepack pnpm run env-check` passes
+- ✅ TypeScript: `corepack pnpm run type-check` passes with 0 errors
+- ✅ Tests: All 147 tests passing across 43 files
+- ✅ Build: `corepack pnpm run build` passes under Next.js 16.2.7 with explicit webpack mode
 
 ---
 
@@ -156,8 +170,9 @@ cd app/frontend && npx vitest run --reporter=verbose 2>&1 | tee /tmp/phase3_vite
 - ✅ Before/after TypeScript error output (documented baseline vs. completion state)
 - ✅ Before/after Vitest test output (147/147 passing)
 - ✅ pnpm install verification (651 packages installed successfully)
+- ✅ Current gate refresh (lint, env-check, type-check, tests, build)
 - ✅ CI job configuration (documented in this file and phase_3_evidence.md)
-- ✅ Phase 4 technical debt notes (dexie type errors, resolution path)
+- ✅ Remaining warning debt notes
 - ✅ Acceptance criteria checklist (all items passing)
 
 ## Success Criteria
@@ -166,6 +181,7 @@ cd app/frontend && npx vitest run --reporter=verbose 2>&1 | tee /tmp/phase3_vite
 - ✅ All 3 sub-phases have acceptance criteria met
 - ✅ Frontend CI job passes on `master`
 - ✅ No TypeScript or test failures remain
+- ✅ No current lint/env-check/build drift remains
 - ✅ `docs/release/phase_3_evidence.md` committed with before/after evidence
 - ✅ Documentation updated
 

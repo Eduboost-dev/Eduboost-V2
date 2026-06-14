@@ -1,8 +1,9 @@
 # Phase 3 Implementation Audit - Frontend Build and Test Health
 
 **Audit date:** 2026-06-13  
+**Refresh date:** 2026-06-14
 **Auditor:** Codex  
-**Status:** Partial; current frontend gate drift exists
+**Status:** Pass; current frontend gate drift repaired
 
 ## Artifact Check
 
@@ -17,20 +18,28 @@
 
 | Command | Result |
 |---|---|
-| `cd app/frontend && npm run type-check` | Pass |
-| `cd app/frontend && npm run test -- --run` | Pass, 147 tests across 43 files |
-| `cd app/frontend && npm run lint` | Fail, `next lint --no-cache` rejected |
-| `cd app/frontend && npm run env-check` | Fail, `python` not found |
+| `cd app/frontend && corepack pnpm run lint` | Pass, 75 `@typescript-eslint/no-explicit-any` warnings and 0 errors |
+| `cd app/frontend && corepack pnpm run env-check` | Pass, `Frontend environment exposure OK` |
+| `cd app/frontend && corepack pnpm run type-check` | Pass |
+| `cd app/frontend && corepack pnpm run test -- --run --reporter=dot` | Pass, 147 tests across 43 files |
+| `cd app/frontend && corepack pnpm run build` | Pass, Next.js 16.2.7 webpack build generated 24 static pages and refreshed Serwist output |
 
 ## Acceptance Criteria Audit
 
 | Criterion | Verdict | Notes |
 |---|---|---|
-| Frontend dependencies reconciled | Partial pass | Historical evidence exists; current CI still shows npm/pnpm mismatch in some workflows. |
+| Frontend dependencies reconciled | Pass | Frontend CI now uses pnpm with `app/frontend/pnpm-lock.yaml`; local gates use `corepack pnpm`. |
 | TypeScript check passes | Pass | Current audit run passed. |
 | Vitest suite passes | Pass | Current audit run passed. |
-| Frontend lint/type/unit checks are CI-ready | Fail | Lint and env-check scripts fail locally. |
+| Frontend lint/type/unit checks are CI-ready | Pass | Lint, env-check, type-check, tests, and build pass locally with the same package manager used in CI. |
 
 ## Result
 
-Phase 3 has real type/test recovery evidence, but current frontend gate health is partial. The phase artifact set is now complete, but the phase should remain reopened for lint/env-check and CI package-manager drift.
+Phase 3 is closed with current evidence. The repaired drift was:
+
+- `next lint --no-cache` replaced with direct ESLint invocation.
+- Frontend env validation now calls `python3`.
+- Frontend CI now installs, audits, tests, lints, type-checks, and builds with pnpm.
+- Next 16 build is pinned to webpack because the project carries webpack configuration.
+
+Residual debt is non-blocking: 75 explicit-`any` lint warnings remain, and the Vitest run still emits React `act(...)` warnings while passing all tests.

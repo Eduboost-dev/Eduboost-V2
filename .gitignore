@@ -11,6 +11,7 @@ __pycache__/
 coverage_html/
 node_modules/
 .next/
+app/frontend/.eslintcache
 *.tsbuildinfo
 *.db
 *.sqlite
