@@ -1,6 +1,7 @@
 # Phase 6 Evidence — Durable Background Jobs
 
 **Date**: 2026-06-11
+**Refresh**: 2026-06-14
 **Status**: COMPLETE — all 3 RoadMap acceptance criteria live-verified (2026-06-12)
 **Branch**: `phase-6/durable-background-jobs`
 
@@ -82,6 +83,24 @@ Two request-adjacent routes correctly remain on `BackgroundTasks`:
 | `test_consent_renewal_job_ignores_runtime_objects_in_ctx` | runtime objects in ctx don't break job execution |
 
 Integration tests in `tests/integration/test_v2_jobs.py` cover route-level behavior with mocked `enqueue_durable`.
+
+### 2026-06-14 Local Refresh
+
+```text
+python3 scripts/check_arq_worker_import.py
+# PASS ARQ dependency and worker import check
+# PASS ARQ worker import contract tests
+# PASS focused ruff ARQ worker check
+
+python3 -m compileall -q app/modules/jobs.py app/core/jobs.py app/jobs/consent_renewal_job.py app/jobs/practice_session_cleanup_job.py app/api_v2_routers/lessons.py app/api_v2_routers/study_plans.py app/api_v2_routers/consent_renewal.py
+# passed
+
+python3 -m pytest --no-cov -q tests/unit/test_phase6_durable_jobs.py tests/unit/test_arq_worker_import_contract.py
+# 10 passed in 3.34s
+
+python3 -m pytest --no-cov -q tests/integration/test_v2_jobs.py
+# 3 skipped in 5.33s
+```
 
 ---
 

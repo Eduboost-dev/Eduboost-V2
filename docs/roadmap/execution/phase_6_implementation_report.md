@@ -1,6 +1,7 @@
 # Phase 6 Implementation Report — Durable Background Jobs
 
 **Date**: 2026-06-11
+**Refresh**: 2026-06-14
 **Status**: COMPLETE
 **Branch**: `phase-6/durable-background-jobs`
 **Scope**: Replaced request-adjacent placeholder job handling with durable ARQ worker wiring, compose/production deployment, and verification evidence.
@@ -10,6 +11,8 @@
 ## Summary
 
 All four sub-phases of Phase 6 are complete. The ARQ worker is wired into dev and production Compose deployments, ARQ settings have been corrected, durable job enqueuing has replaced FastAPI `BackgroundTasks` for all critical paths, and unit tests cover enqueue, execution, and status retrieval.
+
+The 2026-06-14 refresh reran static/import/unit verification in the local WSL checkout. The 2026-06-12 live Docker restart-survival evidence remains the live-environment proof.
 
 ---
 
@@ -133,3 +136,19 @@ tests/unit/test_phase6_durable_jobs.py::test_consent_renewal_job_ignores_runtime
 ### Integration Tests
 
 Integration tests (`tests/integration/test_v2_jobs.py`, 3 tests) are skipped against a live PostgreSQL database due to a pre-existing FK model-schema mismatch (`content_seed_runs.run_id` — not related to Phase 6). The route-level behavior is covered by unit tests that mock `enqueue_durable`.
+
+### 2026-06-14 Refresh
+
+```text
+python3 scripts/check_arq_worker_import.py
+# PASS; includes 5 ARQ worker import contract tests and focused ruff check
+
+python3 -m compileall -q app/modules/jobs.py app/core/jobs.py app/jobs/consent_renewal_job.py app/jobs/practice_session_cleanup_job.py app/api_v2_routers/lessons.py app/api_v2_routers/study_plans.py app/api_v2_routers/consent_renewal.py
+# passed
+
+python3 -m pytest --no-cov -q tests/unit/test_phase6_durable_jobs.py tests/unit/test_arq_worker_import_contract.py
+# 10 passed in 3.34s
+
+python3 -m pytest --no-cov -q tests/integration/test_v2_jobs.py
+# 3 skipped in 5.33s
+```

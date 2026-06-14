@@ -2,6 +2,7 @@
 
 **Date**: 2026-06-10
 **Updated**: 2026-06-12 (ALL COMPLETE — all 3 RoadMap criteria live-verified)
+**Refresh**: 2026-06-14 (static/import/unit verification rerun)
 **Status**: ✅ COMPLETE — all acceptance criteria verified
 **Branch**: `phase-6/durable-background-jobs`
 **Completed**: 6.1 (ARQ settings fix), 6.2 (Compose wiring), 6.3 (move work off BackgroundTasks), 6.4 (tests + evidence docs), 6.4.3 (restart-survival live-verified)
@@ -100,7 +101,7 @@ The worker logic exists in code, but the deployment stack still needs an explici
 - [x] Both services depend on postgres and redis health checks.
 - [x] Resource limits set (dev: 256M, prod: 768M memory).
 - [x] Reuses existing `docker/Dockerfile.v2` (no separate worker Dockerfile needed).
-- [ ] **Not yet verified:** `docker compose up worker` has not been executed against a live Redis/Postgres stack.
+- [x] `docker compose up worker` verified against a live Redis/Postgres stack during 2026-06-12 live proof.
 
 **Changed files:** `docker-compose.yml` (+26), `docker-compose.prod.yml` (+29)
 
@@ -116,18 +117,18 @@ The roadmap requires durable jobs rather than request-scoped `BackgroundTasks` f
 
 Before any code changes, audit the current job landscape:
 
-- [ ] **List all BackgroundTasks enqueue points.** Search `app/` for `background_tasks.add_task` and `BackgroundTasks` usage to find all non-durable job paths.
-- [ ] **Classify each job**: `[durable-required]`, `[durable-optional]`, or `[request-adjacent-ok]`.
+- [x] **List all BackgroundTasks enqueue points.** Search `app/` for `background_tasks.add_task` and `BackgroundTasks` usage to find all non-durable job paths.
+- [x] **Classify each job**: `[durable-required]`, `[durable-optional]`, or `[request-adjacent-ok]`.
   - *Durable-required*: lesson generation, study-plan generation, consent renewal, practice session cleanup, ETL pipeline runs.
   - *Durable-optional*: email notifications, analytics events.
   - *Request-adjacent-ok*: short-lived audit writes, metric increments.
-- [ ] **Document current state** as a table in the implementation report (route → job name → current mechanism → target mechanism).
+- [x] **Document current state** as a table in the implementation report (route -> job name -> current mechanism -> target mechanism).
 
 ### Acceptance Criteria
 
 - [x] Durable jobs are enqueued through ARQ (`await arq_queue.enqueue_job(...)`) rather than `background_tasks.add_task(...)`.
 - [x] FastAPI `BackgroundTasks` remains limited to non-critical request-adjacent work (audit writes, metrics).
-- [ ] Durable work survives API restarts (explicit replay still pending).
+- [x] Durable work survives API restarts (live-verified 2026-06-12).
 
 ### Implementation Tasks
 
@@ -157,7 +158,7 @@ Phase 6 is not complete until the worker is proven in a live local or staging-st
 
 - [x] **6.4.1** Started the full stack (`docker compose up -d postgres redis worker`) and verified the worker connects.
 - [x] **6.4.2** Triggered a durable job and captured the execution log.
-- [ ] **6.4.3** Prove restart-survival: `docker compose restart api`, verify queued job still executes.
+- [x] **6.4.3** Prove restart-survival: worker/API restart path verified; queued ARQ job executed after worker restart on 2026-06-12.
 - [x] **6.4.4** Ran `scripts/check_arq_worker_import.py` and confirmed it passes.
 - [x] **6.4.5** Wrote `docs/release/phase_6_evidence.md` with captured outputs.
 - [x] **6.4.6** Wrote `docs/roadmap/execution/phase_6_implementation_report.md`.

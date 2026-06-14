@@ -1,8 +1,9 @@
 # Phase 6 Implementation Audit — Durable Background Jobs
 
 **Date**: 2026-06-11
+**Refresh**: 2026-06-14
 **Auditor**: Automated audit (Kun agent)
-**Verdict**: ⚠️ PASS WITH NOTES — All code changes verified correct and structurally complete. Two RoadMap acceptance criteria remain unverified due to missing live Docker environment.
+**Verdict**: PASS — All code changes verified correct and structurally complete. All three RoadMap acceptance criteria have live Docker evidence from 2026-06-12 and focused local re-verification from 2026-06-14.
 
 ---
 
@@ -49,6 +50,16 @@
 | Test: ctx with runtime objects | Line 142: `test_consent_renewal_job_ignores_runtime_objects_in_ctx` | PASS |
 | Integration tests exist | `tests/integration/test_v2_jobs.py`: 3 route-level tests with mocked enqueue_durable | PASS |
 | Compilation passes | `python -m compileall -q` exits 0 for all changed files | PASS |
+
+### 2026-06-14 Re-Verification
+
+| Check | Result |
+|-------|--------|
+| `python3 scripts/check_arq_worker_import.py` | PASS; includes 5 ARQ worker import contract tests and focused ruff check |
+| `python3 -m compileall -q ...Phase 6 files...` | PASS |
+| `python3 -m pytest --no-cov -q tests/unit/test_phase6_durable_jobs.py tests/unit/test_arq_worker_import_contract.py` | PASS, 10 tests |
+| `python3 -m pytest --no-cov -q tests/integration/test_v2_jobs.py` | 3 skipped, matching documented live-DB limitation |
+| Repo scan | Critical routes use `enqueue_durable`; remaining `BackgroundTasks` call sites are purge/audit request-adjacent paths |
 
 ---
 
